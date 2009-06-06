@@ -1,0 +1,96 @@
+<div>
+  <strong>{datum}</strong>
+  <hr style="height: 0px; border: dotted #000000 0px; border-top-width: 1px; " />
+</div>
+<div style="float:left; width:20%; text-align:center; ">{kate}</div>
+<div style="float:left; width:80%; padding-top:25px; ">
+  <table width="100%" border="0" align="center" cellpadding="1" cellspacing="0" class="cbg1">
+    <tr>
+      <td><strong><a href="index.php?news-{id}">{title}</a></strong></td>
+    </tr>
+    <tr>
+      <td class="smalfont">{_lang_from} {username}</td>
+    </tr>
+  </table>
+</div><br style="clear:both; " />
+<div>
+  <table width="100%"  border="0" cellspacing="0" cellpadding="2">
+    <tr>
+	  <td colspan="2">{text}</td>
+	</tr>
+    <tr>
+      <td width="50%"><a href="index.php?news-{id}">{kom} {_if_{kom}=='1'}{_lang_comment}{_else_}{_lang_comments}{/_endif} </a></td>
+      <td width="50%">
+        <div align="right">{readwholenews}</div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<br />
+<br />
+{EXPLODE}
+<br />
+<br /><center>{SITELINK}</center>
+
+{EXPLODE}
+<!-- News Kommentare und Mehr lesen -->
+<table class="border" width="100%" cellpadding="5" cellspacing="1" border="0">
+  <tr class="Chead">
+    <th height="25"><b>{NAME}</b></th>
+  </tr>
+  <tr>
+    <td height="25" class="Cdark">{_lang_message}</td>
+  </tr>
+  <tr>
+    <td class="Cnorm">
+      <div style="float:left; ">{KATE}</div>
+	    <div style="float:left; padding-left:10px; ">{TEXT}</div><br style="clear:both; " />
+      <p></p>
+      <a href="index.php?news"><b>&laquo;</b> {_lang_back}</a> </td>
+  </tr>
+
+  <tr>
+    <td height="25" class="Cmite">{_lang_commentsfor} {NAME}</td>
+  </tr>
+  <tr>
+    <td class="Cnorm">
+
+	    {EXPLODE}
+	    <form action="index.php?news-{NID}" method="POST">
+        <fieldset>
+          <legend>{_lang_writecomment}</legend>
+          <input type="text" name="name" value="{uname}" /> &nbsp; {ANTISPAM} &nbsp; <input type="submit" value="{_lang_enter}"><br />
+          <textarea style="width: 98%" cols="50" rows="2" name="txt"></textarea><br />
+        </fieldset>
+      </form>
+      <br />
+      {EXPLODE}
+
+      <span class="Cmite"># <b>{ZAHL}</b> von {NAME}</span>
+      <br />{TEXT}<br /><br />
+
+      {EXPLODE}
+      <br />
+      <a href="index.php?news"><b>&laquo;</b> {_lang_back}</a>
+
+    </td>
+  </tr>
+</table>
+
+{EXPLODE}
+
+<table width="100%" border="0" cellspacing="0" cellpadding="5" class="rand">
+  <tr class="mite">
+    <td width="65%"><b>{NAME}</b></td>
+    <td width="15%">{FUER}</td>
+    <td width="20%" align="right">{DATE}</td>
+  </tr><tr class="norm">
+    <td valign="top" colspan="2">{TEXT}{MEHR}</td>
+    <td valign="top" rowspan="2" align="center">{KATE}</td>
+  </tr><tr class="norm">
+    <td valign="bottom" height="20" colspan="2" align="center">
+      <b>{_lang_from} {UNAME}</b> &nbsp; &nbsp; &nbsp; [ {KOM} <a href="index.php?news-1&amp;nid={ID}">{_lang_comments}</a> ]
+    </td>
+  </tr>
+</table>

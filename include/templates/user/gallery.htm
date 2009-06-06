@@ -1,0 +1,33 @@
+<table width="100%" class="border" border="0" cellspacing="1" cellpadding="3">
+  <tr class="Chead">
+		<td colspan="{imgperline}" align="center"><b>{uname}</b></td>
+	</tr>
+  <tr>
+  {EXPLODE}
+     <td class="{class}" width="{width}%" valign="top" align="center">
+       <table class="border" border="0" cellspacing="1" cellpadding="0">
+         <tr>
+           <td><a target="_blank" href="include/images/usergallery/img_{id}.{endung}"><img src="include/images/usergallery/img_thumb_{id}.{endung}" border="0" alt="{name}" title="{name}" /></a></td>           
+         </tr>
+       </table>
+       {besch}
+     </td>
+   {EXPLODE}
+  </tr>
+</table>
+<center>{MPL}</center>
+{EXPLODE}
+
+<br /><br />
+<form action="index.php?user-usergallery-{uid}" method="POST" enctype="multipart/form-data">
+  <input type="hidden" name="gesendet" value="yes" />
+  <fieldset>
+    <legend><b>{_lang_pictureupload}</b></legend>
+	    <input type="file" size="40" name="file" style="margin-top:5px;" />
+      <input size="60" name="text" maxlength="255" style="margin-top:5px;" /><br />
+      <input type="submit" value="{_lang_formsub}" style="margin-top:5px;" />
+  </fieldset>
+</form>
+
+{EXPLODE}
+{x}

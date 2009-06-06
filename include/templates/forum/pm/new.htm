@@ -1,0 +1,58 @@
+<script language="JavaScript" type="text/javascript">
+<!--
+  function finduser () {
+    var Fenster = window.open ('index.php?search-finduser', 'finduser', 'status=no,scrollbars=yes,height=200,width=350');
+    Fenster.focus();
+    
+    return (false);
+  }
+//-->
+</script>
+
+<script type="text/javascript" src="include/includes/js/bbcode.js"></script>
+<form action="index.php?forum-privmsg-new" method="POST" name="form">
+<br />
+<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td width="50%">
+<b>[</b> <a href="index.php?forum-privmsg">{_lang_inbox}</a> <b>|</b> <a href="index.php?forum-privmsg-showsend">{_lang_outbox}</a> <b>]</b></td><td width="50%" align="right">
+<b>[</b> <a href="index.php?forum-privmsg-new">{_lang_writemessage}</a> <b>]</b></td></tr></table>
+ 
+<table width="100%" border="0" cellspacing="1" class="border" cellpadding="5">
+  <tr class="Chead">
+	  <th colspan="2" height="20">{_lang_writenewmessage}</th>
+	</tr><tr>
+	  <td class="Cmite">{_lang_receiver}</td>
+		<td class="Cnorm"><input name="name" value="{name}" /> <a href="index.php?search-finduser" target="_blank" onClick="return finduser();">finden</a></td>
+	</tr><tr>
+	  <td class="Cmite">{_lang_reference}</td>
+		<td class="Cnorm"><input type="text" tabindex="2" maxlength="50" size="40" name="bet" value="{BET}"></td>
+	</tr><tr>
+	  <td colspan="2" height="20" class="Cmite">
+		  <b>{_lang_writeyourpost}</b></td>
+		</td>
+	</tr><tr>
+	  <td class="Cmite" rowspan="2" valign="top">{SMILIES}</td>
+	  <td class="Cnorm" valign="top">
+      <!-- BB Code START -->
+	  
+    <a href="javascript:simple('b')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.bold.gif" alt="b" title="{_lang_bold}" border="0"></a>
+    <a href="javascript:simple('i')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.italic.gif" alt="i" title="{_lang_italic}" border="0"></a>
+	<a href="javascript:simple('u')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.underline.gif" alt="u" title="{_lang_underlined}" border="0"></a>
+    <a href="javascript:simple('code')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.code.gif" alt="Code" title="{_lang_code}" border="0"></a>
+	<a href="javascript:simple_liste()"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.insertunorderedlist.gif" alt="{_lang_list}" title="{_lang_list}" border="0"></a>
+    <a href="javascript:simple('url')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.link.gif" alt="Url" title="{_lang_link}" border="0"></a>
+    <a href="javascript:simple('img')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.image.gif" alt="{_lang_picture}" title="{_lang_picture}" border="0"></a>
+
+		 
+		 
+		 <!-- BB Code ENDE -->
+		</td>
+	</tr><tr>
+    <td width="80%" class="Cnorm"> 
+      <textarea style="width: 98%" name="txt" rows="15" cols="65" tabindex="3">{TXT}</textarea>
+    </td>
+  </tr><tr>
+    <td class="Cmite"></td>
+    <td class="Cnorm"><input type="submit" tabindex="4" accesskey="s" value="{_lang_send}" name="sub"></td>
+	</tr>
+</table>
+</form>

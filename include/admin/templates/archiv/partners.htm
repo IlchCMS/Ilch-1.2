@@ -1,0 +1,68 @@
+<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/partners.png" /></td><td width="30"></td><td valign="bottom"><h1>Partner</h1></td></tr></table>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+  function del ( id1 ) {
+	
+    var x = confirm ( "do you really want to delete?" );
+		if ( x ) {
+		  document.location.href="?archiv-partners-d"+id1;
+		}
+	}
+//-->
+</script>
+
+<table width="100%">
+  <tr>
+	  <td valign="top" width="60%">
+		
+<form action="admin.php?archiv-partners" method="POST">
+	<input type="hidden" name="pkey" value="{pkey}">
+	
+	<table class="border" cellpadding="3" cellspacing="1" border="0">
+    <tr class="Chead">
+		  <td colspan="2"><b>Partners</b></td>
+		</tr>
+		<tr>
+      <td class="Cmite">Name</td>
+			<td class="Cnorm"><input type="text" name="name" value="{name}" /></td>
+    </tr><tr>
+      <td class="Cmite">Banner</td>
+			<td class="Cnorm"><input type="text" size="50" name="banner" value="{banner}" /></td>
+    </tr>
+		<tr>
+      <td class="Cmite">Link</td>
+			<td class="Cnorm"><input type="text" size="50" name="link" value="{link}" /></td>
+    </tr>
+		<tr class="Cdark">
+		  <td></td>
+			<td><input type="submit" value="Absenden" name="sub" /></td>
+		</tr>
+  </table>
+</form>
+
+</td><td valign="top" width="40%">
+
+<table class="border" cellpadding="3" cellspacing="1" border="0">
+  <tr class="Chead">
+		<td><b>Name</b></td>
+		
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+{EXPLODE}
+  <tr class="{class}">
+		<td>{name}</td>
+		<td><a href="?archiv-partners-e{id}"><img src="include/images/icons/edit.gif" alt=""></a></td>
+		<td><a href="javascript:del('{id}')"><img src="include/images/icons/del.gif" alt=""></a></td>
+    <td><a href="?archiv-partners-o{id}-{pos}"><img src="include/images/icons/pfeilo.gif" border="0" title="oben" alt="oben"></a></td>
+    <td><a href="?archiv-partners-u{id}-{pos}"><img src="include/images/icons/pfeilu.gif" border="0" title="unten" alt="unten"></a></td>
+	</tr>
+{EXPLODE}
+</table>
+{MPL}
+
+
+</td></tr></table>

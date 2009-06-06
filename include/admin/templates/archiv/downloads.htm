@@ -1,0 +1,147 @@
+<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/downloads.png" /></td><td width="30"></td><td valign="bottom"><h1>Downloads</h1></td></tr></table>
+
+<table width="100%">
+  <tr>
+	  <td valign="top" width="60%">
+
+<table cellpadding="3" border="0" cellspacing="1" class="border">
+  <tr class="Chead">
+		<td><b>Name</b></td>
+
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+{EXPLODE}
+  <tr class="{class}">
+	  <td>{name} {version}</td>
+		<td><a href="?archiv-downloads-e{id}#edit"><img src="include/images/icons/edit.gif" border="0" title="&auml;ndern" alt="&auml;ndern"></a></td>
+		<td><a href="javascript:del('{id}')"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" alt="l&ouml;schen"></a></td>
+    <td><a href="?archiv-downloads-S{cat}-o{id}-{pos}"><img src="include/images/icons/pfeilo.gif" border="0" title="oben" alt="oben"></a></td>
+    <td><a href="?archiv-downloads-S{cat}-u{id}-{pos}"><img src="include/images/icons/pfeilu.gif" border="0" title="unten" alt="unten"></a></td>
+	</tr>
+{EXPLODE}
+</table>
+<br />
+
+</td><td valign="top" width="40%">
+
+<table cellpadding="3" border="0" cellspacing="1" class="border">
+  <tr class="Chead">
+		<td colspan="5"><b>Kategorien</b></td>
+  </tr>{frei}<tr class="Cmite">
+    <td><a href="?archiv-downloads-S0">Keine</a></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>{EXPLODE}
+</table>
+<br />
+</td></tr><tr><td><a href="#" name="edit"></a>
+
+<form action="admin.php?archiv-downloads" method="POST" name="form">
+	<input type="hidden" name="pkey" value="{pkey}">
+
+	<table class="border" cellpadding="3" cellspacing="1" border="0">
+    <tr class="Chead">
+		  <td colspan="2"><b>Downloads</b></td>
+		</tr><tr>
+      <td class="Cmite">Name</td>
+			<td class="Cnorm"><input type="text" name="name" value="{name}" /></td>
+    </tr><tr>
+      <td class="Cmite">Version</td>
+			<td class="Cnorm"><input type="text" name="version" value="{version}" /></td>
+    </tr><tr>
+      <td class="Cmite">Kategorie</td>
+			<td class="Cnorm"><select name="cat">{cat}</select></td>
+    </tr><tr>
+      <td class="Cmite">Autor</td>
+			<td class="Cnorm"><input type="text" name="creater" value="{creater}" /></td>
+    </tr><tr>
+      <td class="Cmite">Url</td>
+			<td class="Cnorm"><input type="text" size="35" name="newurl" value="{newurl}" />&nbsp;
+      <input type="button" value="Verwalten" title="Files verwalten" onClick="javascript:openFiles()" />
+      </td>
+    </tr><tr>
+      <td class="Cmite">Screenshot Url</td>
+			<td class="Cnorm"><input type="text" size="50" name="surl" value="{surl}" /></td>
+    </tr><tr>
+      <td class="Cmite">Vorschau Url</td>
+			<td class="Cnorm"><input type="text" size="50" name="ssurl" value="{ssurl}" /></td>
+    </tr><tr>
+      <td class="Cmite">Vorschau Text</td>
+			<td class="Cnorm"><input type="text" size="50" name="desc" value="{desc}" /></td>
+    </tr><tr>
+      <td class="Cmite">Text lang</td>
+			<td class="Cnorm"><textarea cols="47" rows="3" name="descl">{descl}</textarea></td>
+    </tr>
+		<tr class="Cdark">
+		  <td></td>
+			<td><input type="submit" value="Absenden" name="sub" />{datum}</td>
+		</tr>
+  </table>
+</form>
+
+</td><td valign="top">
+
+<form action="admin.php?archiv-downloads" method="POST">
+	<input type="hidden" name="Cpkey" value="{Cpkey}">
+
+	<table class="border" cellpadding="3" cellspacing="1" border="0">
+    <tr class="Chead">
+		  <td colspan="2"><b>Download Kategorien</b></td>
+		</tr>
+      <td class="Cmite">Kategorie</td>
+			<td class="Cnorm"><select name="Ccat">{Ccat}</select></td>
+    </tr></tr>
+      <td class="Cmite">Sichtbar ab</td>
+			<td class="Cnorm"><select name="Crecht">{Crecht}</select></td>
+    </tr><tr>
+      <td class="Cmite">Name</td>
+			<td class="Cnorm"><input type="text" name="Cname" value="{Cname}" /></td>
+    </tr><tr>
+      <td class="Cmite">Text</td>
+			<td class="Cnorm"><textarea cols="35" rows="3" name="Cdesc">{Cdesc}</textarea></td>
+    </tr>
+		<tr class="Cdark">
+		  <td></td>
+			<td><input type="submit" value="Absenden" name="Csub" /></td>
+		</tr>
+  </table>
+</form>
+
+</td></td></table>
+<script language="JavaScript" type="text/javascript">
+<!--
+  function openFiles () {
+    var val     = document.form.newurl.value;
+    var furl    = 'admin.php?archiv-downloads-upload=0&f=' + val;
+    var fname   = 'openfiles';
+    var foption = 'scrollbars=yes,resizable=yes,height=400,width=550,left=300,top=50';
+    var Fenster = window.open (furl, fname, foption);
+    Fenster.focus();
+  }
+  
+  function Kdel ( id1 ) {
+	
+    var x = confirm ( "do you really want to delete?" );
+		if ( x ) {
+		  document.location.href="?archiv-downloads-D"+id1;
+		}
+	}
+  function del ( id1 ) {
+    var x = confirm ( "do you really want to delete?" );
+		if ( x ) {
+		  document.location.href="?archiv-downloads-d"+id1;
+		}
+	}
+  
+//-->
+</script>
+<p></p>
+<div class="info_box">
+<p>Hier k&ouml;nnen Sie Dateien eintragen und Verwalten. Ausserdem k&ouml;nnen Sie hier die Kategorien der Dateien verwalten.</p>
+<p>Es werden alle Dateien einer Kategorie angezeigt, um Dateien einer Kategorie an zu zeigen bitte einfach Links auf den Namen der Kategorie klicken.</p>
+</div>

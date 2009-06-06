@@ -1,0 +1,81 @@
+{EXPLODE}
+<table width="100%" class="border" border="0" cellspacing="1" cellpadding="3">
+  <tr class="Chead">
+		<td width="80%" align="center"><b>{_lang_category}</b></td>
+    <td width="20%" align="center">{_lang_pictures}</td>
+	</tr>
+	{EXPLODE}
+	<tr class="{class}">
+	  <td><a href="index.php?gallery-{id}">{name}</a><br /><span class="smalfont">&raquo;&nbsp;{besch}</span></td>
+		<td align="center">{gallery}</td>
+	</tr>
+	{EXPLODE}
+</table>
+<br /><br />
+{EXPLODE}
+<table width="100%" class="border" border="0" cellspacing="1" cellpadding="3">
+  <tr class="Chead">
+		<td colspan="{imgperline}" align="center"><b>{cname}</b></td>
+	</tr>
+  {EXPLODE}
+     <td class="{class}" width="{width}%" valign="top" align="center">
+ 
+<div onmouseover="hiddpos('infodiv{id}')" class="layer" id="infodiv{id}" style="position:absolute; top:50px; left:50px; display:none; width:200px; height:200px;">
+<table width="100%" class="border" border="0" cellspacing="1" cellpadding="4">
+  <tr>
+    <td class="{class}" align="left">
+      <strong>{_lang_filename}:</strong> {datei_name}
+<br /><strong>{_lang_seen}:</strong> {klicks}
+<br /><strong>{_lang_voting}:</strong> {vote_wertung}
+<br /><strong>{_lang_comments}:</strong> {anz_koms}
+<br /><strong>{_lang_desc}:</strong> {besch}
+    </td>
+  </tr>
+</table>
+</div>
+       <table class="border" border="0" cellspacing="1" cellpadding="0">
+         <tr>
+           <td onmouseout="hiddpos('infodiv{id}')" onmouseover="alertpos('infodiv{id}')"><a href="index.php?gallery-show-{cat}-p{bildr}" onClick="return oeffneFenster({bildr},{cat});" target="_blank"><img src="include/images/gallery/img_thumb_{id}.{endung}" border="0" alt="{datei_name}" title="&nbsp;" /></a></td>           
+         </tr>
+       </table>
+     </td>
+   {EXPLODE}
+  </tr>
+</table>
+<center>{MPL}</center>
+<script language="JavaScript" type="text/javascript">
+<!--
+  function oeffneFenster (bildr, cat) {
+    var fenster = window.open ('index.php?gallery-show-'+cat+'-p'+bildr,'showBild','scrollbars=yes,height=600,width={breite},left=200,status=yes');
+    fenster.focus();
+    return (false);
+  }
+  
+  // manage div ...
+  document.onmousemove = checkPosition;
+  function checkPosition(e) {
+    if(document.all) {
+      mausX = event.clientX + document.body.scrollLeft;
+      mausY = event.clientY + document.body.scrollTop;
+    } else {
+      mausX = e.pageX;
+      mausY = e.pageY;
+    }
+    
+  }
+  
+  function alertpos(dname) {
+  if (document.layers) {
+    document.layers[0].left = mausX;
+    document.layers[0].top = mausY;
+  } else if (document.getElementById) {
+    document.getElementById(dname).style.left = mausX + "px";
+    document.getElementById(dname).style.top = mausY + "px";
+  }
+  document.getElementById(dname).style.display = "inline";
+  }
+  function hiddpos(dname) {
+    document.getElementById(dname).style.display = "none";
+  }
+//-->
+</script>

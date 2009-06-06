@@ -1,0 +1,135 @@
+body   
+{ 
+	background-color: #003366;
+  margin: 0;
+  padding: 0;
+}
+
+.abg
+{
+  background-color: #003366;
+}
+
+td, center, div, span, font, tr, table, body 
+{
+  font-family: Verdana; 
+  font-size: 12px;
+}
+
+a 
+{ 
+  color: #003366; 
+	font-family: Verdana; 
+	font-size: 11px; 
+	text-decoration: underline; 
+}
+
+a:hover 
+{   
+  text-decoration: none;  
+}
+
+a.box 
+{ 
+  color: #003366; 
+	font-family: Verdana; 
+	font-size: 11px; 
+	text-decoration: underline; 
+}
+
+a.box:hover 
+{   
+  text-decoration: none;  
+}
+
+.Chead
+{
+  background-color: #4E7AA5;
+  color: #FFA800;
+}
+
+.Chead td, .Chead td strong, .Chead h4, .Chead td b
+{
+  color: #FFA800;
+}
+
+.Callg
+{
+  background-color: #EFEFEF;
+	color: #000000;
+}
+
+.Callg td
+{
+  color: #000000;
+}
+
+.Cnorm 
+{
+  background-color: #DDDDDD;
+}
+.Cmite
+{
+  background-color: #B4C6D8;
+}
+.Cdark
+{
+  background-color: #9AB1C8;
+}
+
+#Ballg
+{
+	color: #000000;
+}
+#Ballg td
+{
+	color: #000000;
+}
+
+.Bhead
+
+{
+  background-color: #4E7AA5;
+	color: #FFFFFF;
+}
+.Bbody
+{
+  background-color: #B4C6D8;
+	color: #000000;
+}
+
+.rand
+{
+  border: solid #003366 1px;
+}
+
+.smalfont 
+{ 
+    font-size: 10px;
+		text-decoration: none; 
+}
+
+.border 
+{ 
+   background-color: #003366; 
+}
+hr 
+{ 
+    height: 0px; 
+		border: solid #003366 0px; 
+		border-top-width: 1px; 
+}
+
+input, textarea, select
+{ 
+    color: #000000;  
+    font: 12px Verdana;  
+    border-color: #003366;
+  	border-width: 1px;
+    border-style: solid;  
+    font-weight: none;  
+    text-decoration: none;  
+    background-color: #EFEFEF;  
+}
+
+img { border: 0; }

@@ -1,0 +1,88 @@
+<form action="admin.php?user-2" method="POST" enctype="multipart/form-data">
+	<input type="hidden" name="uID" value="{id}">
+	
+  <table border="0" cellspacing="1" cellpadding="3" class="border">
+	  <tr class="Chead"><td colspan="2"><b>Details von {name} - ID: {id}</b></td></tr>
+     <tr>
+      <td width="20%" class="Cmite">Recht</td>
+      <td width="80%" class="Cnorm"><select name="urecht">{_list_recht@<option%1 value="%2">%3</option>}</select></td>
+    </tr><tr>
+      <td class="Cmite">Name</td>
+      <td class="Cnorm"><input name='usaName1' maxlength="100" value='{name}' onfocus="document.getElementById('fnc').style.display='';"><span id="fnc" style="display:none;"><input type="checkbox" name="forumname" /> Name im Forum &auml;ndern</span></td>
+    </tr><tr>
+      <td class="Cmite">eMail</td>
+      <td class="Cnorm"><input name='email' maxlength="100" value='{email}'></td>
+    </tr><tr>
+		  <td class="Cmite">Homepage</td>
+			<td class="Cnorm"><input name="homepage" value="{homepage}" /></td>
+		</tr><tr>
+		  <td class="Cmite">Wohnort</td>
+			<td class="Cnorm"><input name="wohnort" value="{wohnort}" /></td>
+		</tr><tr>
+		  <td class="Cmite">ICQ</td>
+			<td class="Cnorm"><input name="icq" value="{icq}" /></td>
+		</tr><tr>
+		  <td class="Cmite">MSN</td>
+			<td class="Cnorm"><input name="msn" value="{msn}" /></td>
+		</tr><tr>
+		  <td class="Cmite">Yahoo</td>
+			<td class="Cnorm"><input name="yahoo" value="{yahoo}" /></td>
+		</tr><tr>
+		  <td class="Cmite">AIM</td>
+			<td class="Cnorm"><input name="aim" value="{aim}" /></td>
+		</tr><tr>
+		  <td class="Cmite">Gebdatum</td>
+			<td class="Cnorm"><input name="gebdatum" value="{gebdatum}" /></td>
+		</tr><tr>
+      <td class="Cmite">Staat</td>
+      <td class="Cnorm"><select name="staat">{_list_staat@<option%1 value="%2">%3</option>}</select></td>
+    </tr><tr>
+      <td class="Cmite">Rank</td>
+      <td class="Cnorm"><select name="spezrank">{_list_spezrank@<option%1 value="%2">%3</option>}</select></td>
+    </tr><tr>
+      <td class="Cmite">Geschlecht</td>
+      <td class="Cnorm"><input type="radio" value="1" name="geschlecht" {geschlecht1} /> m&auml;nnlich, <input type="radio" value="2" name="geschlecht" {geschlecht2} /> weiblich, <input type="radio" value="0" name="geschlecht" {geschlecht0} /> wurstegal</td>
+    </tr><tr>
+      <td class="Cmite">Status</td>
+      <td class="Cnorm"><input type="radio" value="1" name="status" {status1} /> aktiv, <input type="radio" value="0" name="status" {status0} /> inaktiv</td>
+    </tr><tr>
+      <td class="Cmite">eMails</td>
+      <td class="Cnorm"><input type="radio" value="1" name="opt_mail" {opt_mail1} /> ja, <input type="radio" value="0" name="opt_mail" {opt_mail0} /> nein &nbsp; ||Erkl&auml;rung: eMails von anderen Usern?</td>
+    </tr><tr>
+      <td class="Cmite">PrivMsgs</td>
+      <td class="Cnorm"><input type="radio" value="1" name="opt_pm" {opt_pm1} /> ja, <input type="radio" value="0" name="opt_pm" {opt_pm0} /> nein &nbsp; ||Erkl&auml;rung: PrivMsgs von anderen Usern?</td>
+    </tr><tr>
+      <td class="Cmite">PrivMsgs Popup</td>
+      <td class="Cnorm"><input type="radio" value="1" name="opt_pm_popup" {opt_pm_popup1} /> ja, <input type="radio" value="0" name="opt_pm_popup" {opt_pm_popup0} /> nein &nbsp; ||Erkl&auml;rung: Popup bei einer neuen PrivMsgs?</td>
+    </tr><tr>
+		  <td class="Cmite">Avatar</td>
+			<td class="Cnorm"><input type="checkbox" name="avatardel" value="1">L&ouml;schen ?<br />
+      {avatar}<input type="file" name="avatarfile" /></td>
+		</tr><tr> 
+      <td class="Cmite">Password</td>
+      <td class="Cnorm"><input type="checkbox" name="passw" value="1">neues generieren ?</td>
+    </tr><tr>
+      <td class="Cmite">User</td>
+      <td class="Cnorm"><input type="checkbox" name="userdel" value="1">L&ouml;schen ? <font color="#FF0000">Achtung der User wird <strong>ohne R&uuml;ckfrage</strong> gel&ouml;scht</font></td>
+    </tr><tr>
+		  <td class="Cmite">Signature</td>
+			<td class="Cnorm"><textarea cols="60" rows="2" name="sig">{sig}</textarea></td>
+		</tr><tr>
+      <td colspan="2" class="Cnorm">
+
+  
+  <fieldset><legend>Profilefields </legend>
+    
+    {EXPLODE}
+ 
+ </fieldset>
+    </td></tr>
+		<tr>
+      <td class="Cdark"></td>
+      <td class="Cdark"> 
+        <input type="submit" value="&Auml;ndern" name="submit"> &nbsp; <input type="button" value="zur&uuml;ck" onclick="javscript:history.back();" />
+      </td>
+    </tr>
+		
+  </table>
+</form>

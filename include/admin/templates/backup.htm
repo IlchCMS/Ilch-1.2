@@ -1,0 +1,39 @@
+<table cellpadding="0" cellspacing="0" border="0">
+<tr><td><img src="include/images/icons/admin/backup.png" /></td><td width="30"></td><td valign="bottom"><h1>Backup</h1></td></tr>
+<tr><td><a href="include/backup/bigdump.php">Backup mit BigDump importieren</a></td></tr>
+</table>
+
+<form action="admin.php?backup" method="POST">
+<input type="hidden" name="sendBackup" value="yes" />
+
+  <table cellpadding="0" cellspacing="1" border="0" >
+  <tr>
+  <td>
+
+    <div class="warning_box">
+    <p>
+    <b>Beachten:</b> es kann keine Garantie daf&uuml;r &uuml;bernommen werden,
+      dass dieses Script immer einwandfrei funktioniert und alle Daten aus der Datenbank
+      korrekt gespeichert werden!
+      </p>
+      <p>Vor dem Wiedereinspielen dieses Backups m&uuml;ssen alle bestehenden Tabellen gel&ouml;scht werden damit sie vom Backup angelegt werden. (Option beachten)</p>
+      <p>Beim Einspielen mit phpmyadmin ist es wichtig, welche Kodierung gew&auml;hlt wird, damit Umlaute/Sonderzeichen erhalten bleiben.
+      Standard bei phpmyadmin ist UTF-8. F&uuml;r BigDump ANSI benutzen.</p>
+      <p>Nur ein "Name" pro Tag, vorherige Backups vom gleichen Tag gehen also verloren.</p>
+      </div>
+</td>
+</tr><tr>
+    <td class="Cnorm"><label for="prefix">Nur Tabellen mit aktiven Pr&auml;fix ins Backup aufnehmen</label> <input type="checkbox" name="prefix" checked="checked"></td>
+</tr><tr>
+    <td class="Cnorm"><label for="drop">Vorhandene Tabellen beim Import l&ouml;schen</label> <input type="checkbox" name="drop" checked="checked"> (ben&ouml;tigt um mit ilch wieder einzuspielen)</td>
+</tr><tr>
+    <td class="Cnorm">Ausgabecodierung: <input type="radio" name="cod" value="ansi" checked="checked"> ANSI / <input type="radio" name="cod" value="utf8"> UTF-8</td>
+</tr><tr>
+    <td class="Cnorm">Backup herunterladen <input type="radio" name="backuptype" value="download" checked="checked"> | Backup im Backupverzeichnis erstellen <input type="radio" name="backuptype" value="backupdir" /> | beides <input type="radio" name="backuptype" value="both" /></td>
+</tr><tr>
+    <td class="Cnorm"><input type="checkbox" name="gelesen" value="yes" id="gelesen" /><label style="cursor: pointer;" for="gelesen">
+                        Ich habe den Text gelesen und verstanden!</label></td>
+</tr><tr>
+    <td class="Cdark"><input type="submit" value="Backup erstellen" /></td>
+</tr></table>
+</form>

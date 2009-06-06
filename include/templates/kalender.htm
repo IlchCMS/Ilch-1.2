@@ -1,0 +1,35 @@
+<!-- Kalender Script © by Nickel -->
+<table width="100%" cellpadding="0" border="0" cellspacing="0">
+<tr>
+	<td width="100%" valign="top">
+		<table width="100%" cellpadding="3" border="0" cellspacing="1" class="border">
+		<tr class="Chead">
+			<td {TITLE_ALIGN} colspan="3"><b>{TITLE}</b></td>
+		</tr>
+		{EXPLODE}
+		<tr class="{LIST_CLASS}">
+			<td align="center" valign="top" width="25" nowrap="nowrap">{LIST_I}</td>
+			<td align="center" valign="top" width="25" nowrap="nowrap">{LIST_D}</td>
+			<td width="100%">{LIST_T}</td>
+		</tr>
+		{EXPLODE}
+		<tr class="Cmite">
+			<td colspan="3"><font style="font-size: 10px">{DEATIL_DATE} - {DEATIL_TIME} Uhr</font></td>
+		</tr>
+		<tr class="Cnorm">
+			<td colspan="3">{DEATIL_TEXT}</td>
+		</tr>
+		<tr class="Cnorm">
+			<td colspan="3" align="center"><a href="javascript:history.back()">{_lang_back}</a></td>
+		</tr>
+		{EXPLODE}
+		</table>
+	</td>
+	<td width="10" nowrap="nowrap">&nbsp;</td>
+	<td width="175" valign="top" nowrap="nowrap">
+{calender}
+<center><a href="index.php?kalender-v1">{_lang_listview}</a> | <a href="index.php?kalender-v0">{_lang_monthsview}</a></center>
+	</td>
+</tr>
+</table>
+<!-- Kalender Script © by Nickel -->

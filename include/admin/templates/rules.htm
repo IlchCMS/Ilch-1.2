@@ -1,0 +1,57 @@
+<script language="JavaScript" type="text/javascript">
+<!--
+  function del ( id1 ) {
+	
+    var x = confirm ( "wirklich loeschen?" );
+		if ( x ) {
+		  document.location.href="admin.php?rules&delete="+id1;
+		}
+	}
+//-->
+</script>
+
+<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/rules.png" /></td><td width="30"></td><td valign="bottom"><h1>Rules</h1></td></tr></table>
+
+<table width="100%">
+  <tr>
+	  <td valign="top" width="60%">
+<form action="admin.php?rules" method="POST">
+<input type="hidden" name="sid" value="{sid}">
+
+  <table cellspacing="1" cellpadding="2" broder="0" class="border">
+    <tr>
+	    <td class="Cmite">Paragraf</td>
+			<td class="Cnorm"><input type="text" name="zahl" value="{zahl}" size="5"></td>
+		</tr><tr>
+	    <td class="Cmite">Titel</td>
+		  <td class="Cnorm"><input size="30" type="text" name="titel" value="{titel}"></td>
+	  </tr><tr>
+	    <td class="Cmite">Text</td>
+		  <td class="Cnorm"><textarea cols="40" rows="3" name="text">{text}</textarea></td>
+	  </tr><tr>
+		  <td class="Cdark"></td>
+			<td class="Cdark"><input type="submit" value="{sub}" name="sub"></td>
+	  </tr>
+  </table>
+
+</form>
+
+</td><td valign="top" width="40%">
+
+<table cellspacing="1" cellpadding="2" broder="0" align="center" class="border">
+  <tr class="Chead">
+		<td>Paragraf</td>
+		<td>Titel</td>
+		<td></td>
+		<td></td>
+	</tr>
+	{EXPLODE}
+	<tr class="{class}">
+		<td align="center">{zahl}</td>
+		<td align="center">{titel}</td>
+		<td><a href="?rules&sid={id}">Bearbeiten</a></td>
+		<td><a href="javascript:del('{id}')">L&ouml;schen</a></td>
+	</tr>
+
+{EXPLODE}
+</table></td></tr></table>

@@ -1,0 +1,149 @@
+body   
+{ 
+	background-color: #204A87;
+  margin: 0;
+  padding: 0;
+}
+
+.abg
+{
+  background-color: #204A87;
+}
+
+td, center, div, span, font, tr, table, body 
+{
+  font-family: Verdana; 
+  font-size: 12px;
+}
+
+a 
+{ 
+  color: #003366; 
+	font-family: Verdana; 
+	font-size: 11px; 
+	text-decoration: underline; 
+}
+
+a:hover 
+{   
+  text-decoration: none;  
+}
+
+a.box 
+{ 
+  color: #003366; 
+	font-family: Verdana; 
+	font-size: 11px; 
+	text-decoration: underline; 
+}
+
+a.box:hover 
+{   
+  text-decoration: none;  
+}
+
+.Chead
+{
+  background-color: #5584bb;
+  color: #FFF;
+}
+
+.Chead td, .Chead td strong, .Chead h4, .Chead td b
+{
+  color: #FFF;
+}
+
+.Callg
+{
+  background-color: #EFEFEF;
+	color: #000000;
+}
+
+.Callg td
+{
+  color: #000000;
+}
+
+.Cnorm 
+{
+  background-color: #DDDDDD;
+}
+.Cmite
+{
+  background-color: #eeeeec;/*#B4C6D8;*/
+}
+.Cdark
+{
+  background-color: #729FCF;
+}
+
+#Ballg
+{
+	color: #000000;
+}
+#Ballg td
+{
+	color: #000000;
+}
+
+.Bhead
+
+{
+  background-color: #4E7AA5;
+	color: #FFFFFF;
+}
+.Bbody
+{
+  background-color: #B4C6D8;
+	color: #000000;
+}
+
+.rand
+{
+  border: solid #003366 1px;
+}
+
+.smalfont 
+{ 
+    font-size: 10px;
+		text-decoration: none; 
+}
+
+.border 
+{ 
+   background-color: #003366; 
+}
+hr 
+{ 
+    height: 0px; 
+		border: solid #003366 0px; 
+		border-top-width: 1px; 
+}
+
+input, textarea, select
+{ 
+    color: #000000;  
+    font: 12px Verdana;  
+    border-color: #003366;
+  	border-width: 1px;
+    border-style: solid;  
+    font-weight: none;  
+    text-decoration: none;  
+    background-color: #EFEFEF;  
+}
+
+img { border: 0; }
+
+div.info_box {
+width: 400px; border: 1px solid #204a87; padding: 8px 16px 8px 68px; 
+background: #eeeeec url(../../images/icons/admin/info.png) no-repeat 8px 8px;
+margin: 5px 5px 5px 5px;
+/* margin: 5px auto 5px auto; */
+}
+
+div.warning_box {
+width: 400px; border: 1px solid #a40000; padding: 8px 16px 8px 68px; 
+background: #eeeeec url(../../images/icons/admin/warning.png) no-repeat 8px 8px;
+margin: 5px auto 5px auto;
+}
+

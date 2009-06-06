@@ -1,0 +1,104 @@
+<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/navigation.png" /></td><td width="30"></td><td valign="bottom"><h1>Navigation</h1></td></tr></table>
+
+<table cellpadding="0" cellspacing="0" border="0">
+  <tr>
+    <td valign="top">
+<table border="0" cellpadding="5" cellspacing="1" class="border">
+  <tr class="Cdark">
+    <td><a href="admin.php?menu-1">Men&uuml;&nbsp;01</a></td>
+    <td><a href="admin.php?menu-2">Men&uuml;&nbsp;02</a></td>
+    <td><a href="admin.php?menu-3">Men&uuml;&nbsp;03</a></td>
+    <td><a href="admin.php?menu-4">Men&uuml;&nbsp;04</a></td>
+    <td><a href="admin.php?menu-5">Men&uuml;&nbsp;05</a></td>
+  </tr>
+</table>
+
+<br />
+<br />
+
+{EXPLODE}
+
+    </td>
+    <td width="90">&nbsp;</td>
+    <td valign="top">
+      <form action="admin.php?menu--an" method="POST" name="form">
+			  <input type="hidden" name="awo"  value="{awo}"  />
+        <input type="hidden" name="apos" value="{apos}" />
+				<table cellpadding="3" cellspacing="1" border="0" class="border">
+          <tr class="Chead"><th colspan="2">Box, Men&uuml; oder Men&uuml;punkt</th></tr>
+          <tr><td class="Cmite">Name</td><td class="Cnorm"><input type="text" value="{bname}" name="name"></td></tr>					
+					<tr><td class="Cmite">Typ</td><td class="Cnorm"><select name="was" onchange="bmsicht()">{_list_cwwas@<option%1 value="%2">%3</option>}/select></td></tr>
+					<tr><td class="Cmite"></td><td class="Cnorm">
+            <select name="link">{_list_allboxes@<option%1 value="%2">%3</option>}</select>
+            <select name="link1" style="display: none"><option value="null">w&auml;hlen</option>{_list_alllinkss@<option%1 value="%2">%3</option>}</select>
+            <input  name="link2" style="display: none" size="40" maxlength="100" value="{link2}">
+            <select name="menutyp" style="display: none">{_list_menutyp@<option%1 value="%2">%3</option>}</select>
+          </td></tr>
+          <tr><td class="Cmite">Ebene</td><td class="Cnorm"><select name="cwebene">{_list_cwebene@<option%1 value="%2">%3</option>}</select></td></tr>
+					<tr><td class="Cmite">Men&uuml;</td><td class="Cnorm"><select name="cwmenu">{_list_cwmenu@<option%1 value="%2">%3</option>}</select></td></tr>
+          <tr><td class="Cmite">Position</td><td class="Cnorm"><input name="posi" value="{posi}" /></td></tr>
+					<tr><td class="Cmite">sichtbar&nbsp;ab</td><td class="Cnorm"><select name="grecht">{_list_getfuerB@<option%1 value="%2">%3</option>}</select></td></tr>
+          <tr class="Cdark"><td></td><td><input type="submit" value="Absenden"></td></tr>
+        </table>
+      </form>
+      
+      
+      <br /><br />
+<table cellpadding="5" cellspacing="1" border="0" class="border">
+  <tr class="Chead">
+    <th>Hilfe</th>
+  </tr><tr>
+    <td class="Cmite">Typ erkl&auml;rt:
+    <ul>
+      <li>Box, dort k&ouml;nnen Inhalte wie eine Umfrage etc. angezeigt werden.</li>
+      <li>Men&uuml;, in ein Men&uuml; kann man Men&uuml;punkte anlegen.</li>
+      <li>Men&uuml;punkt wahl, hier kann eine Datei als Men&uuml;punkt gew&auml;hlt werden.</li>
+      <li>Men&uuml;punkt extern, es kann eine Link angegeben werden der in einem neuen Fenster ge&ouml;ffnet wird.</li>
+      <li>Men&uuml;punkt intern, es kann eine Link angegeben werden der in selben Fenster ge&ouml;ffnet wird.</li>
+    </ul>
+    </td>
+  </tr>
+</table>
+
+    </td><td width="90">&nbsp;<td>
+		<td valign="top"><a href="admin.php?menu-reparieren">Men&uuml;s reparieren</a></td>
+  </tr>
+</table>   
+<br /><br />
+<a href="#" name="bot"></a>
+<script language="JavaScript" type="text/javascript">
+  <!--
+	  function delcheck(l1,l2) {
+	    var x = confirm ( 'Wirklich löschen?' );
+	    if ( x ) {
+		    document.location.href="admin.php?menu-"+l2+"-delete-"+l1;
+		  }
+	  }
+    function set_bmsicht ( v1, v2, v3, v4 ) {
+      document.form.link.style.display  = v1;;
+      document.form.link1.style.display = v2;
+      document.form.link2.style.display = v3;
+      document.form.menutyp.style.display = v4;
+    }
+    
+    function bmsicht ( ) {
+      var VAL = document.form.was.value;
+      if ( VAL == 1 || VAL == 2 ) {
+        document.form.cwebene.style.display = "none";
+      } else {
+        document.form.cwebene.style.display = "inline";
+      }
+      if ( VAL == 1 ) {
+        set_bmsicht ( "inline", "none", "none", "none" );
+      } else if ( VAL == 2 ) {
+        set_bmsicht ( "none", "none", "none", "inline" );
+      } else if ( VAL == 7 ) {
+        set_bmsicht ( "none", "inline", "none", "none" );
+      } else if ( VAL == 8 || VAL == 9) {
+        set_bmsicht ( "none", "none", "inline", "none" );
+      }
+    }
+    
+    bmsicht();
+  //-->
+</script>

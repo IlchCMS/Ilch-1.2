@@ -1,0 +1,28 @@
+<form action="admin.php?forum-repair" method="post">
+<table cellpadding="5" cellspacing="1" border="0" class="border">
+  <tr class="Chead">
+    <td colspan="9"><b>Foren und Kategorien reparieren</b></td>
+  </tr>
+  <tr  class="Cmite">
+    <td>Kategorieren reparieren</td>
+    <td><input type="checkbox" name="cb_repc" /></td>
+  </tr>
+  <tr class="Cmite">
+    <td>Foren reparieren</td>
+    <td><input type="checkbox" name="cb_repf" /></td>
+  </tr>
+  <tr  class="Cdark">
+    <td colspan="2" align="center">
+      <input type="submit" name="sub" value="starten" /> &nbsp;
+      <input type="button" value="zur&uuml;ck" onclick="javascript:history.back();"/>
+    </td>
+  </tr>
+</table>
+</form>
+<div class="info_box">
+<p>Achtung, dadurch k&ouml;nnen (sollten aber nicht) die vorhandenen Positionen verloren gehen, also nur durchführen, wenn das Sortieren nicht mehr richtig funktioniert.</p>
+</div>
+
+{EXPLODE}
+{FK} wurden repariert.<br>
+<a href="admin.php?forum">Zur&uuml;ck zur Forenadministration</a>

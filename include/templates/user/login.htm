@@ -1,0 +1,22 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="10">
+  <tr>
+    <td>
+      <form action="index.php?user-login" method="POST">
+			  <fieldset>
+				  <legend><b>{_lang_LOGIN}</b></legend>
+					  <label style="float:left; width:60px;">{_lang_nickname}</label><b style="float:left; text-align:left; width:20px;">:</b><input type="text" style="margin-bottom:2px;" tabindex="1" name="name" maxlength="15" /><br />
+            <label style="float:left; width:60px;">{_lang_password}</label><b style="float:left; text-align:left; width:20px;">:</b><input type="password" style="margin-bottom:2px;" tabindex="2" maxlength="20" name="pass" /><br />
+						<label style="float:left; width:80px;">&nbsp;</label><input type="hidden" name="wdlink" value="{WDLINK}" /><input type="submit" style="margin-bottom:2px;" tabindex="3" value="{_lang_login}" name="user_login_sub" /><br /><br />
+						<label style="padding-left:80px;"><a href="index.php?user-regist">{_lang_registernow}</a></label><br />
+						<label style="padding-left:80px;"><a href="index.php?user-remind">{_lang_forgottenpassword}?</a></label>
+      </form>
+    </td>
+  </tr>
+</table>
+
+
+{EXPLODE}
+{_lang_yourareloged}!
+{EXPLODE}
+
+{_lang_login3failure}

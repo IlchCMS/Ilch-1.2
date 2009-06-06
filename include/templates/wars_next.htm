@@ -1,0 +1,66 @@
+<table border="0" cellspacing="1" cellpadding="5" class="border">
+<tr class="Chead">
+	<td colspan="2"><b>{_lang_war} {_lang_against}: {tag}</b></td>
+</tr><tr>
+	<td class="Cdark" colspan="2" align="left"><b>&nbsp;{_lang_opponent} {_lang_info}</b></td>
+</tr><tr>
+	<td class="Cmite">{_lang_clancountry}:</td>
+	<td class="Cnorm"><img src="include/images/flags/{land}" alt="" border="0"></td>
+</tr><tr>
+	<td class="Cmite">{_lang_name}:</td>
+	<td class="Cnorm">{gegner}</td>
+</tr><tr>
+	<td class="Cmite">{_lang_homepage}</td>
+	<td class="Cnorm"><a href="{page}" target="_blank">{page}</a></td>
+</tr><tr>
+	<td class="Cmite">{_lang_mail}</td>
+	<td class="Cnorm">{mail}</td>
+</tr><tr>
+	<td class="Cmite">{_lang_icq}</td>
+	<td class="Cnorm">{icq}</td>
+</tr><tr>
+	<td class="Cdark" colspan="2" align="left"><b>&nbsp;{_lang_match} {_lang_info}</b></td>
+</tr><tr>
+	<td class="Cmite">{_lang_date}</td>
+	<td class="Cnorm"><strong>{_lang_On} {datum} {_lang_at} {zeit} {_lang_oclock}</strong></td>
+</tr><tr>
+	<td class="Cmite">{_lang_meetingplace}</td>
+	<td class="Cnorm">{wo}</td>
+</tr><tr>
+	<td class="Cmite">{_lang_squad}</td>
+	<td class="Cnorm"><u><i><b>{team}</b></i></u></td>
+</tr><tr>
+	<td class="Cmite">{_lang_xonx}</td>
+	<td class="Cnorm">{mod}</td>
+</tr><tr>
+	<td class="Cmite">{_lang_matchtype}:</td>
+	<td class="Cnorm">{mtyp}</td>
+</tr><tr>
+	<td class="Cmite">{_lang_game}:</td>
+	<td class="Cnorm">{game}</td>
+</tr><tr>
+	<td class="Cmite">{_lang_remark}:</td>
+	<td class="Cnorm">{txt}</td>
+</tr>
+</table>
+<br/>
+<table width="100%" border="0" cellspacing="1" cellpadding="5" class="border">
+{EXPLODE}
+<tr class="Cdark">
+	<td>{_lang_present} / {_lang_away} &nbsp; - &nbsp; ( {_lang_promise}: {available} {_lang_from} {_lang_needed}: {needed} )</td>
+</tr>
+{EXPLODE}
+<tr class="Cnorm">
+	<td>
+	<form action="index.php?wars-more-{id}" method="POST"><table><tr><td colspan="3"><input name="kom" size="65" /></td></tr>
+  <tr><td><input type="radio" id="zusage" value="zusagen" name="sub" checked /><label for="zusage"  style="cursor: pointer;"> {_lang_promise}</label></td>
+  <td><input type="radio" id="absage" value="absagen" name="sub"  /><label for="absage"  style="cursor: pointer;"> {_lang_cancellation}</label></td>
+  <td align="right"><input type="submit" value="{_lang_formsub}"  /></td></tr></table></form>
+	</td>
+</tr>
+{EXPLODE}
+<tr class="{class}">
+	<td><b>{name}</b> {_lang_had} {aktion} <u>{_lang_comment}:</u> {kom}</td>
+</tr>
+{EXPLODE}
+</table>

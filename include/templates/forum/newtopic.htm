@@ -1,0 +1,67 @@
+<table width="100%" border="0" cellspacing="1" class="border" cellpadding="5">
+  <tr>
+	  <th colspan="2" height="20" class="Chead">
+		  <b>{_lang_preview}</b>
+		</th>
+	</tr><tr>
+    <td class="Cmite">{txt}</td>
+  </tr>
+</table>
+<br /><br />
+{EXPLODE}
+<script language="JavaScript" type="text/javascript">
+<!--
+  function form_check() {
+	  document.form.submit.disabled = true;
+ 	  document.form.submit.style.background = '#FF0000';
+    document.form.submit.value = '{_lang_send}...';
+    return true;
+	}
+//-->
+</script>
+
+<form action="index.php?forum-newtopic-{fid}" method="POST" name="form" onSubmit="return form_check()">
+
+<script type='text/javascript' src='include/includes/js/bbcode.js'></script>
+
+<table width="100%" border="0" cellspacing="1" class="border" cellpadding="5">
+  <tr>
+	  <th colspan="2" height="20" class="Chead">
+		  <b>{_lang_writeanewtopic}</b>
+		</th>
+	</tr><tr>
+	  <td class="Cmite"><b>Thema</b></td>
+		<td class="Cnorm"><input type="text" size="40" value="{topic}" maxlength="40" tabindex="1" name="topic"></TD>
+	</tr>{name}<tr>
+	  <td colspan="2" height="20" class="Cmite">
+		  <b>{_lang_writeyourpost}</td>
+		</td>
+	</tr><tr>
+	  <td class="Cmite" rowspan="2" valign="top">{SMILIES}</td>
+	  <td class="Cnorm">
+      <!-- BB Code START -->
+
+    <a href="javascript:simple('b')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.bold.gif" alt="b" title="{_lang_bold}" border="0"></a>
+    <a href="javascript:simple('i')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.italic.gif" alt="i" title="{_lang_italic}" border="0"></a>
+	<a href="javascript:simple('u')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.underline.gif" alt="u" title="{_lang_underlined}" border="0"></a>
+    <a href="javascript:simple('code')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.code.gif" alt="Code" title="{_lang_code}" border="0"></a>
+	<a href="javascript:simple_liste()"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.insertunorderedlist.gif" alt="{_lang_list}" title="{_lang_list}" border="0"></a>
+    <a href="javascript:simple('url')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.link.gif" alt="Url" title="{_lang_link}" border="0"></a>
+    <a href="javascript:simple('img')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.image.gif" alt="{_lang_picture}" title="{_lang_picture}" border="0"></a>
+
+
+		 <!-- BB Code START -->
+		</td>
+	</tr><tr>
+    <td width="80%" class="Cnorm">
+		  <textarea style="width: 98%" cols="75" rows="15" name="txt" tabindex="3">{txt}</textarea>
+    </td>
+  </tr><tr>
+    <td class="Cmite">{_lang_options}</td>
+    <td class="Cnorm"><input id="topic_alert" type="checkbox" value="yes" name="topic_alert" /><label for="topic_alert"> {_lang_mailonreply}</a></td>
+	</tr>{antispam}<tr class="Cmite">
+    <td></td>
+    <td><input type="submit" name="priview" value="{_lang_preview}" accesskey='v' />&nbsp;<input type="submit" name="submit" value="{_lang_formsub}" accesskey='s' /></td>
+	</tr>
+</table>
+</form>

@@ -1,0 +1,66 @@
+<script language="JavaScript" type="text/javascript">
+<!--
+  function delete_user ( gid , uid ) {
+		var x = confirm ( "Wollen Sie diesen User löschen?", "" );
+		if ( x ) {
+		  document.location.href="?groups-addusers-"+gid+"-user_delete-"+uid;
+		}
+	}
+  function userfuncs () {
+    var Fenster = window.open ('admin.php?groups-funcs', 'groupfuncs', 'status=no,scrollbars=yes,height=400,width=300');
+    Fenster.focus();
+  }
+  function finduser () {
+    var Fenster = window.open ('index.php?search-finduser', 'finduser', 'status=no,scrollbars=yes,height=200,width=350');
+    Fenster.focus();
+  }
+  function change_user ( gid, uid, fid , ofid, selname) {
+    var x = confirm ( "Wollen Sie die Funktion des Users wirklich ändern?", "" );
+		if ( x ) {
+		  document.location.href="admin.php?groups-addusers-"+gid+"-userchange-"+uid+"-"+fid;
+		} else {
+      document.getElementById(selname).value = ofid;
+    }  
+  }
+//-->
+</script>
+
+<form action="admin.php?groups-adduser-{gid}" method="POST" name="form">
+
+<table cellpadding="3" cellspacing="1" border="0" class="border">
+<tr class="Chead">
+<td colspan="3"><b>User zur Gruppe "{gruppe}" hinzuf&uuml;gen</b></td>
+</tr>
+{fehler}
+<tr class="Cmite">
+<td valign="top"><input name="name" /><br /><a href="javascript:finduser();">User finden</a></td>
+<td valign="top"><select name="fid">{_list_funcs@<option%1 value="%2">%3</option>}</select><br /><a href="javascript:userfuncs()">Funktion hinzuf&uuml;gen</a></td>
+<td valign="top"><input type="submit" value="Eintragen" name="ins_user" /></td>
+</tr>
+</table>
+
+</form>
+<br />
+
+<table cellpadding="3" cellspacing="1" border="0" class="border">
+  <tr class="Chead">
+    <td colspan="4"><b>Gruppen Users &Uuml;bersicht</b></td>
+  </tr>
+  <tr class="Cdark">
+    <td>Name</td>
+    <td>Funktion</td>
+		<td>L&ouml;schen</td>
+  </tr>
+{EXPLODE}
+  <tr class="{class}">
+	  <td>{username}</td>
+		<td>{funcname}</td>
+	  <td><a href="javascript:delete_user('{gid}','{uid}')">L&ouml;schen</a></td>
+	</tr>
+{EXPLODE}
+</table>
+
+<br /><br />
+<div class="info_box">
+<p>Die Funktion eines Users ist seine Stellung in der Gruppe. Dies ist haupts&auml;chlich dann wichtig wenn die Gruppe unter Teams auf der Seite angezeigt wird. Damit hier Funktionen zur Auswahl stehen m&uuml;ssen diese erst eingetragen werden. Die User in einem Team werden beim Anzeigen nach ihrer Funktion sortiert, dass heisst wenn die Funktion "Leader" nach ganz oben geschoben wurde ist der User mit der Funktion "Leader" sp&auml;ter auch ganz oben... Ansonsten einfach mal testen ;-)</p>
+</div>

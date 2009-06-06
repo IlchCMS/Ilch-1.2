@@ -1,0 +1,278 @@
+/*
+  css Datei copyright by ilch.de
+  erstellt von scaRFhogg
+  seite: www.daiwai.de
+
+  --
+
+  Design copyright by ilch.de
+  erstellt von fanguro
+  seite: www.zurro.de
+
+  --
+
+  Support auf www.ilch.de
+*/
+
+body {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background-color: #4A4849;
+  font-size: 12px;
+  font-family: Verdana, sans-serif;
+}
+#wrap {
+  position: relative;
+  width: 967px;
+  text-align: left;
+  margin: 0 auto 0 auto;
+}
+#top {
+  background: url(img/top.gif);
+  height: 67px;
+}
+#header {
+  background: url(img/logo.gif);
+  height: 153px;
+  text-align: center;
+  vertical-align:middle;
+}
+#header h1 {
+  display: inline;
+  position: absolute;
+  top: 110px; left: 100px;
+  color: #fff;
+  font-family: 'Trebuchet MS';
+  font-weight: normal;
+  font-size: 24px;
+}
+#top2 {
+  background: url(img/top2.gif);
+  height: 31px;
+}
+#top2 font {
+  display: inline;
+  position: absolute;
+  left: 172px;
+  margin-top: 2px;
+  font-size: 10px;
+	text-decoration: none;
+}
+#content {
+  background: url(img/contentbg.gif);
+  background-repeat: repeat;
+  width: 964px;
+}
+#footer {
+  background: url(img/footer.gif);
+  height: 33px;
+  text-align: center;
+  vertical-align: middle;
+}
+#left_col {
+  width: 158px;
+  float: left;
+  padding-top: 0px;
+  padding-left: 9px;
+  padding-right: 18px;
+  padding-bottom: 0px;
+  color: #fff;
+  overflow: hidden;
+}
+
+#left_col .Cmite, #left_col .Cnorm, #left_col .Cdark {
+  color: #000000;
+}
+
+#left_col a {
+  color: #CCCCCC;
+}
+
+#left_col .menu_heading
+{
+  color: #000;
+  display:block;
+  letter-spacing: 1px;
+  font-size: 11px;
+  padding: 0  0 3px 5px;
+}
+
+#main_col {
+  width: 440px;
+  float: left;
+  padding-top: 0px;
+  padding-left: 5px;
+  padding-right: 20px;
+  padding-bottom: 0px;
+  clear: none;
+  min-height: 100px;
+  overflow: auto;
+}
+#right_col1 {
+  width: 141px;
+  float: left;
+  padding-top: 0px;
+  padding-left: 7px;
+  padding-right: 10px;
+  padding-bottom: 0px;
+  overflow: hidden;
+}
+#right_col2 {
+  width: 141px;
+  float: right;
+  padding-top: 0px;
+  padding-left: 0px;
+  padding-right: 14px;
+  padding-bottom: 0px;
+  overflow: hidden;
+}
+
+#right_col1 .menu_heading,
+#right_col2 .menu_heading
+{
+  color:#fff;
+  font-size:11px;
+  letter-spacing: 1px;
+}
+
+#left_col ul
+{
+  padding: 0;
+  margin: 0;
+  list-style: inside url(img/box_menu_pfeil.gif);
+  width: 149px;
+}
+
+#left_col li
+{
+  margin:0;
+  padding: 5px 0 0 2px;
+  background: url(img/box_menu_trennlinie.gif) no-repeat bottom;
+}
+
+#left_col li ul
+{
+  width: 146px;
+  background: url(img/box_menu_trennlinie.gif) no-repeat top;
+}
+
+#left_col li li
+{
+    padding-left: 16px;
+}
+#left_col li a
+{
+  color: #fff;
+  padding-left: 8px;
+  font-size: 11px;
+  font-weight: normal;
+  text-decoration: none;
+}
+
+td
+{
+  font-family: Verdana;
+  font-size: 12px;
+}
+
+a, #left_col .Cmite a, #left_col .Cnorm a, #left_col .Cdark a
+{
+  color: #003366;
+	font-family: Verdana;
+	font-size: 11px;
+	text-decoration: underline;
+}
+
+a:hover
+{
+  text-decoration: none;
+}
+
+a.box
+{
+  color: #003366;
+	font-family: Verdana;
+	font-size: 11px;
+	text-decoration: underline;
+}
+
+a.box:hover
+{
+  text-decoration: none;
+}
+
+.Chead
+{
+  background: #16639b;
+  color: #9dbdd4;
+}
+
+.Chead a
+{
+  color: #9dbdd4;
+}
+
+.Chead td, .Chead td strong, .Chead h4, .Chead td b
+{
+  background: #16639b;
+  color: #9dbdd4;
+}
+
+.Callg
+{
+  background-color: #EFEFEF;
+	color: #000000;
+}
+
+.Callg td
+{
+  color: #000000;
+}
+
+.Cnorm
+{
+  background-color: #e5e5e5;
+}
+.Cmite
+{
+  background-color: #B4C6D8;
+}
+.Cdark
+{
+  background-color: #9AB1C8;
+}
+
+.rand
+{
+  border: solid #185685 1px;
+}
+
+.smalfont
+{
+    font-size: 10px;
+		text-decoration: none;
+}
+
+.border
+{
+   background-color: #185685;
+}
+hr
+{
+    height: 0px;
+		border: solid #003366 0px;
+		border-top-width: 1px;
+}
+
+input, textarea, select
+{
+    color: #000000;
+    font: 12px Verdana;
+    border-color: #185685;
+  	border-width: 1px;
+    border-style: solid;
+    font-weight: none;
+    text-decoration: none;
+    background-color: #EFEFEF;
+}

@@ -1,0 +1,130 @@
+<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/wars_next.png" /></td><td width="30"></td><td valign="bottom"><h1>Nextwars</h1></td></tr></table>
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr>
+	<td width="60%" valign="top">
+		<form action="admin.php?wars-next" method="POST" name="form">
+		<input type="hidden" name="pkey" value="{pkey}" />
+		<input type="hidden" name="status" value="2" />
+		<table class="border" cellpadding="3" cellspacing="1" border="0">
+		{msg}
+    <tr class="Cdark">
+			<td colspan="2"><b>Basis Informationen</b></td>
+		</tr><tr>
+			<td class="Cmite">Gegner Nation</td>
+			<td class="Cnorm"><select name="land">{land}</select></td>
+		</tr><tr>
+			<td class="Cmite">Gegner Name</td>
+			<td class="Cnorm"><input size="46" type="text" name="gegner" value="{gegner}"></td>
+		</tr><tr>
+			<td class="Cmite">Gegner Tag</td>
+			<td class="Cnorm"><input size="46" type="text" name="tag" value="{tag}"></td>
+		</tr><tr>
+			<td class="Cmite">Gegner Page</td>
+			<td class="Cnorm"><input size="40" type="text" name="page" value="{page}"> <a href="javascript:visitpage()">Visit</a></td>
+		</tr><tr class="Cdark">
+			<td colspan="2"><b>Ansprechpartner</b></td>
+		</tr><tr>
+			<td class="Cmite">Gegner Email</td>
+			<td class="Cnorm"><input size="47" type="text" name="email" value="{mail}"></td>
+		</tr><tr>
+			<td class="Cmite">Gegner ICQ</td>
+			<td class="Cnorm"><input size="47" type="text" name="icq" value="{icq}"></td>
+		</tr><tr class="Cdark">
+			<td colspan="2"><b>Matchinfo</b></td>
+		</tr><tr>
+			<td class="Cmite">Datum | Zeit</td>
+			<td class="Cnorm"><table cellpadding="0" cellspacing="0" border="0"><tr><td><input type="text" name="day" value="{day}" size="2"><b>.</b><input type="text" name="mon" value="{mon}" size="2"><b>.</b><input type="text" name="jahr" value="{jahr}" size="4">&nbsp;<b>-</b>&nbsp;<input type="text" name="stu" value="{stu}" size="2"><b>:</b><input type="text" name="min" value="{min}" size="2"><b>:</b><input type="text" name="sek" value="{sek}" size="2">&nbsp;&nbsp;</td><td><input type="checkbox"{kalck} id="kalender" value="yes" name="kalender" /></td><td><label for="kalender" style="cursor: pointer"><span class="smalfont">Kalender eintragen / &auml;ndern.</span></label></td></tr></table></td>
+		</tr><tr>
+			<td class="Cmite">Treffpunkt</td>
+			<td class="Cnorm"><input type="Text" name="wo" value="{wo}" size="46" ></td>
+		</tr><tr>
+			<td class="Cmite">Team</td>
+			<td class="Cnorm"><select name="tid">{tid}</select></td>
+		</tr><tr>
+			<td class="Cmite">XonX</td>
+			<td class="Cnorm"><select onchange="sichtbarA()" name="mod">{mod}<option value="neu">Neu:</option></select>&nbsp;<input type="text" name="newmod" /></td>
+		</tr><tr>
+			<td class="Cmite">Game</td>
+			<td class="Cnorm"><select onchange="sichtbarB()" name="game">{game}<option value="neu">Neu:</option></select>&nbsp;<input type="text" name="newgame" /></td>
+		</tr><tr>
+			<td class="Cmite">Matchtyp</td>
+			<td class="Cnorm"><select onchange="sichtbarC()" name="mtyp">{mtyp}<option value="neu">Neu:</option></select>&nbsp;<input type="text" name="newmtyp" /></td>
+		</tr><tr>
+			<td class="Cmite">Nachricht</td>
+			<td class="Cnorm"><textarea cols="47" rows="2" name="txt">{txt}</textarea></td>
+		</tr><tr class="Cdark">
+			<td></td>
+			<td><input type="submit" value="Absenden" name="sub" /></td>
+		</tr>
+		</table>
+		</form>
+	</td>
+	<td width="40%" valign="top">
+		<table class="border" cellpadding="3" cellspacing="1" border="0">
+		<tr class="Chead">
+			<td colspan="5">&Uuml;bersicht</td>
+		</tr>
+{EXPLODE}
+  <tr class="{class}">
+		<td>{game} {gegner}</td><td><a class="smalfont" href="admin.php?wars-info-{id}"><img src="include/images/icons/plus.gif" title="Informationen &uuml;ber die Anfrage" alt="Informationen &uuml;ber die Anfrage"></a></td>
+		
+			<td align="center"><a href="javascript:del('{id}')"><img src="include/images/icons/del.gif" alt="{_lang_delete}" title="{_lang_delete}" /></a></td>
+		<td colspan="2"><a href="admin.php?wars-next&amp;pkey={id}">-> Fightus Anfrage &uuml;bernehmen</a></td>
+	</tr>
+{EXPLODE}
+		<tr class="{class}">
+			<td colspan="2">{game} {gegner}</td>
+			<td align="center"><a href="javascript:del('{id}')"><img src="include/images/icons/del.gif" alt="{_lang_delete}" title="{_lang_delete}" /></a></td>
+			<td align="center"><a href="admin.php?wars-next&amp;pkey={id}"><img src="include/images/icons/edit.gif" alt="{_lang_change}" title="{_lang_change}" /></a></td>
+			<td><a href="admin.php?wars-last&amp;pkey={id}">-> als Lastwar &uuml;bernehmen</a></td>
+		</tr>
+{EXPLODE}
+		</table>
+		{MPL}
+	</td>
+</tr>
+</table>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+  function del ( id1 ) {
+    var x = confirm ( "{_lang_realydelete}" );
+		if ( x ) {
+		  document.location.href="admin.php?wars-next&delete="+id1;
+		}
+	}
+
+	function sichtbarA(){
+	  if(document.form.mod.value=="neu"){
+		  document.form.newmod.style.visibility="visible";
+		} else {
+		  document.form.newmod.style.visibility="hidden";
+		}
+	}
+  function sichtbarB() {
+	  if(document.form.game.value=="neu"){
+		  document.form.newgame.style.visibility="visible";
+		} else {
+		  document.form.newgame.style.visibility="hidden";
+		}
+  }
+	function sichtbarC() {
+	  if(document.form.mtyp.value=="neu"){
+		  document.form.newmtyp.style.visibility="visible";
+		} else {
+		  document.form.newmtyp.style.visibility="hidden";
+		}
+  }
+  function visitpage () {
+    var page = document.form.page.value;
+    var n = 'page';
+    var o = '';
+    var f = window.open (page, n, o);
+    f.focus();
+  }
+	sichtbarB();
+	sichtbarC();
+	sichtbarA();
+//-->
+</script>

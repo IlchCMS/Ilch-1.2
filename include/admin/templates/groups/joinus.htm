@@ -1,0 +1,57 @@
+<script language="JavaScript" type="text/javascript">
+<!--
+  function change_group ( gid ) {
+		var x = prompt ( "Bitte den neuen Namen der Gruppe eingeben", "" );
+		if ( x ) {
+		  document.location.href="?groups&group_change="+gid+"&group_name="+x;
+		}
+	}
+  function delete_group ( gid ) {
+		var x = confirm ( "Wollen Sie diese Gruppe löschen?", "" );
+		if ( x ) {
+		  document.location.href="admin.php?groups&group_delete="+gid;
+		}
+	}
+  function manageUser (GID) {
+    var Fenster = window.open ('admin.php?groups-addusers-'+ GID, 'adduser', 'status=no,scrollbars=yes,height=400,width=500');
+    Fenster.focus();
+  }
+//-->
+</script>
+
+
+{msg}
+
+<h2>Joinus Anfragen bearbeiten</h2>
+
+<a href="admin.php?groups">zur Gruppen&uuml;bersicht</a>
+
+<br /><br />
+<table cellpadding="2" cellspacing="1" border="0" class="border">
+  <tr class="Chead">
+			<td colspan="7"><b>Anfragen &Uuml;bersicht</b></td>
+  </tr>
+  <tr class="Cdark">
+			<td>Name</td>
+			<td>E-Mail</td>
+			<td>Team</td>
+      <td>Status</td>
+			<td>als Trial aufnehmen</td>
+			<td>als Trial aber nicht ins Team aufnehmen</td>
+			<td>nicht aufnehmen</td>
+		</tr>
+{EXPLODE}
+		<tr class="{class}">
+			<td>{name}</td>
+			<td>{email}</td>
+			<td>{groupname}</td>
+			<td>{status}</td>
+			<td><a href="admin.php?groups-joinus-a{id}-{check}-addtoteam">als Trial aufnehmen</a></td>
+			<td><a href="admin.php?groups-joinus-a{id}-{check}">als Trial aber nicht ins Team aufnehmen</a></td>
+			<td><a href="admin.php?groups-joinus-d{id}-{check}">nicht aufnehmen</a></td>
+		</tr>
+{EXPLODE}
+		</table>
+	</td>
+</tr>
+</table>

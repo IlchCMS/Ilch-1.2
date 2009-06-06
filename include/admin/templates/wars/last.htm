@@ -1,0 +1,203 @@
+<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/wars_last.png" /></td><td width="30"></td><td valign="bottom"><h1>Lastwars</h1></td></tr></table>
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr>
+	<td width="60%" valign="top">
+		<form action="admin.php?wars-last" method="POST" name="form">
+		<input type="hidden" name="pkey" value="{pkey}" />
+		<input type="hidden" name="status" value="3" />
+		<table class="border" cellpadding="3" cellspacing="1" border="0">
+		{msg}
+    <tr class="Cdark">
+			<td colspan="2"><b>Basis Informationen</b></td>
+		</tr><tr>
+			<td class="Cmite">Gegner Nation</td>
+			<td class="Cnorm"><select name="land">{land}</select></td>
+		</tr><tr>
+			<td class="Cmite">Gegner Name</td>
+			<td class="Cnorm"><input size="46" type="text" name="gegner" value="{gegner}"></td>
+		</tr><tr>
+			<td class="Cmite">Gegner Tag</td>
+			<td class="Cnorm"><input size="46" type="text" name="tag" value="{tag}"></td>
+		</tr><tr>
+			<td class="Cmite">Gegner Page</td>
+			<td class="Cnorm"><input size="40" type="text" name="page" value="{page}"> <a href="javascript:visitpage()">Visit</a></td>
+		</tr><tr class="Cdark">
+			<td colspan="2"><b>Ansprechpartner</b></td>
+		</tr><tr>
+			<td class="Cmite">Gegner Email</td>
+			<td class="Cnorm"><input size="47" type="text" name="email" value="{mail}"></td>
+		</tr><tr>
+			<td class="Cmite">Gegner ICQ</td>
+			<td class="Cnorm"><input size="47" type="text" name="icq" value="{icq}"></td>
+		</tr><tr class="Cdark">
+			<td colspan="2"><b>Matchinfo</b></td>
+		</tr><tr>
+			<td class="Cmite">Datum | Zeit</td>
+			<td class="Cnorm"><table cellpadding="0" cellspacing="0" border="0"><tr><td><input type="text" name="day" value="{day}" size="2"><b>.</b><input type="text" name="mon" value="{mon}" size="2"><b>.</b><input type="text" name="jahr" value="{jahr}" size="4">&nbsp;<b>-</b>&nbsp;<input type="text" name="stu" value="{stu}" size="2"><b>:</b><input type="text" name="min" value="{min}" size="2"><b>:</b><input type="text" name="sek" value="{sek}" size="2">&nbsp;&nbsp;</td><td><input type="checkbox" id="kalender"{kalck} value="yes" name="kalender" /></td><td><label for="kalender" style="cursor: pointer"><span class="smalfont">Kalender eintragen / &auml;ndern.</span></label></td></tr></table></td>
+		</tr><tr>
+			<td class="Cmite">Treffpunkt</td>
+			<td class="Cnorm"><input type="Text" name="wo" value="{wo}" size="46" ></td>
+		</tr><tr>
+			<td class="Cmite">Team</td>
+			<td class="Cnorm"><select name="tid">{tid}</select></td>
+		</tr><tr>
+			<td class="Cmite">XonX</td>
+			<td class="Cnorm"><select onchange="sichtbarA()" name="mod">{mod}<option value="neu">Neu:</option></select>&nbsp;<input type="text" name="newmod" /></td>
+		</tr><tr>
+			<td class="Cmite">Game</td>
+			<td class="Cnorm"><select onchange="sichtbarB()" name="game">{game}<option value="neu">Neu:</option></select>&nbsp;<input type="text" name="newgame" /></td>
+		</tr><tr>
+			<td class="Cmite">Matchtyp</td>
+			<td class="Cnorm"><select onchange="sichtbarC()" name="mtyp">{mtyp}<option value="neu">Neu:</option></select>&nbsp;<input type="text" name="newmtyp" /></td>
+		</tr><tr>
+			<td class="Cmite">Member</td>
+			<td class="Cnorm"><a href="javascript:manageMember()">Member die gespielt haben verwalten.</a></td>
+		</tr><tr>
+			<td class="Cmite">Ergebnis</td>
+			<td class="Cnorm"><select name="wlp">{wlp}</select></td>
+		</tr><tr>
+			<td class="Cmite"></td>
+			<td class="Cnorm">
+			<table cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td>Map/Runde</td>
+				<td>Gegner&nbsp;&nbsp;</td>
+				<td>Eigene</td>
+			</tr><tr>
+				<td><input type="text" name="map[1]" value="{map1}" />&nbsp;&nbsp;</td>
+				<td><input type="text" size="3" onKeyUp="setOPPsum()" name="opp[1]" value="{opp1}" /></td>
+				<td><input type="text" size="3" onKeyUp="setOWPsum()" name="owp[1]" value="{owp1}" /></td>
+				<td><a href="javascript:manageMap({pkey},1)">Bild</a></td>
+			</tr><tr>
+				<td><input type="text" name="map[2]" value="{map2}" /></td>
+				<td><input type="text" size="3" onKeyUp="setOPPsum()" name="opp[2]" value="{opp2}" /></td>
+				<td><input type="text" size="3" onKeyUp="setOWPsum()" name="owp[2]" value="{owp2}" /></td>
+				<td><a href="javascript:manageMap({pkey},2)">Bild</a></td>
+			</tr><tr>
+				<td><input type="text" name="map[3]" value="{map3}" /></td>
+				<td><input type="text" size="3" onKeyUp="setOPPsum()" name="opp[3]" value="{opp3}" /></td>
+				<td><input type="text" size="3" onKeyUp="setOWPsum()" name="owp[3]" value="{owp3}" /></td>
+				<td><a href="javascript:manageMap({pkey},3)">Bild</a></td>
+			</tr><tr>
+				<td><input type="text" name="map[4]" value="{map4}" /></td>
+				<td><input type="text" size="3" onKeyUp="setOPPsum()" name="opp[4]" value="{opp4}" /></td>
+				<td><input type="text" size="3" onKeyUp="setOWPsum()" name="owp[4]" value="{owp4}" /></td>
+				<td><a href="javascript:manageMap({pkey},4)">Bild</a></td>
+			</tr><tr>
+				<td><input type="text" name="map[5]" value="{map5}" /></td>
+				<td><input type="text" size="3" onKeyUp="setOPPsum()" name="opp[5]" value="{opp5}" /></td>
+				<td><input type="text" size="3" onKeyUp="setOWPsum()" name="owp[5]" value="{owp5}" /></td>
+				<td><a href="javascript:manageMap({pkey},5)">Bild</a></td>
+			</tr><tr>
+				<td align="right">Summe:&nbsp;&nbsp;</td>
+				<td><input type="text" size="3" name="sumopp" value="{opp}" /></td>
+				<td><input type="text" size="3" name="sumowp" value="{owp}" /></td>
+			</tr>
+			</table>
+			</td>
+		</tr><tr>
+			<td class="Cmite">Nachricht</td>
+			<td class="Cnorm"><textarea cols="47" rows="2" name="txt">{txt}</textarea></td>
+		</tr><tr class="Cdark">
+			<td></td>
+			<td><input type="submit" value="Absenden" name="sub" /></td>
+		</tr>
+		</table>
+		</form>
+	</td>
+	<td width="40%" valign="top">
+		<table class="border" cellpadding="3" cellspacing="1" border="0">
+		<tr class="Chead">
+			<td colspan="3">&Uuml;bersicht</td>
+		</tr>
+{EXPLODE}
+		<tr class="{class}">
+			<td>{game} {gegner}</td>
+			<td align="center"><a href="javascript:del('{id}')"><img src="include/images/icons/del.gif" alt="{_lang_delete}" title="{_lang_delete}" /></a></td>
+			<td align="center"><a href="admin.php?wars-last&amp;pkey={id}"><img src="include/images/icons/edit.gif" alt="{_lang_change}" title="{_lang_change}" /></a></td>
+		</tr>
+{EXPLODE}
+		</table>
+{MPL}
+	</td>
+</tr>
+</table>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+  function del ( id1 ) {
+    var x = confirm ( "do you really want to delete?" );
+		if ( x ) {
+		  document.location.href="admin.php?wars-last&delete="+id1;
+		}
+	}
+  function manageMap ( wid, mid ) {
+    if ( wid == 0 ) {
+      alert ( 'Bitte den Lastwar erst speichern und dann hier das Bild einfuegen!...' );
+    } else if (document.getElementsByName('opp['+mid+']')[0].value == '' || document.getElementsByName('owp['+mid+']')[0].value == '' || document.getElementsByName('map['+mid+']')[0].value == '') {
+      alert ( 'Bitte erstmal den Namen und die Ergebnisse dieser Runde/Map eintragen!..' );
+    } else {
+      var Fenster = window.open ('admin.php?wars-last-upload=0&wid=' + wid + '&mid=' + mid, 'managemap', 'scrollbars=yes,height=150,width=325,left=300,top=50');
+      Fenster.focus();
+    }
+  }
+  function manageMember () {
+    if ( document.form.pkey.value == 0 ) {
+      alert ( 'Bitte den Lastwar erst speichern und dann hier die Member bearbeiten!...' );
+    } else {
+      var Fenster = window.open ('admin.php?wars-last-members&wid={pkey}', 'manageMember', 'scrollbars=yes,height=300,width=250,left=300,top=50');
+      Fenster.focus();
+    }
+  }
+  function setOPPsum () {
+    var summe = 0;
+    summe = summe + ( document.getElementsByName('opp[1]')[0].value * 1);
+    summe = summe + ( document.getElementsByName('opp[2]')[0].value * 1);
+    summe = summe + ( document.getElementsByName('opp[3]')[0].value * 1);
+    summe = summe + ( document.getElementsByName('opp[4]')[0].value * 1);
+    summe = summe + ( document.getElementsByName('opp[5]')[0].value * 1);
+    document.form.sumopp.value = summe;
+  }
+  function setOWPsum () {
+    var summe = 0;
+    summe = summe + ( document.getElementsByName('owp[1]')[0].value * 1);
+    summe = summe + ( document.getElementsByName('owp[2]')[0].value * 1);
+    summe = summe + ( document.getElementsByName('owp[3]')[0].value * 1);
+    summe = summe + ( document.getElementsByName('owp[4]')[0].value * 1);
+    summe = summe + ( document.getElementsByName('owp[5]')[0].value * 1);
+    document.form.sumowp.value = summe;
+  }
+	function sichtbarA(){
+	  if(document.form.mod.value=="neu"){
+		  document.form.newmod.style.visibility="visible";
+		} else {
+		  document.form.newmod.style.visibility="hidden";
+		}
+	}
+  function sichtbarB() {
+	  if(document.form.game.value=="neu"){
+		  document.form.newgame.style.visibility="visible";
+		} else {
+		  document.form.newgame.style.visibility="hidden";
+		}
+  }
+	function sichtbarC() {
+	  if(document.form.mtyp.value=="neu"){
+		  document.form.newmtyp.style.visibility="visible";
+		} else {
+		  document.form.newmtyp.style.visibility="hidden";
+		}
+  }
+  function visitpage () {
+    var page = document.form.page.value;
+    var n = 'page';
+    var o = '';
+    var f = window.open (page, n, o);
+    f.focus();
+  }
+	sichtbarB();
+	sichtbarC();
+	sichtbarA();
+//-->
+</script>

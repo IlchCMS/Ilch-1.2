@@ -1,0 +1,27 @@
+{EXPLODE}
+<table width="100%" class="border" border="0" cellspacing="1" cellpadding="3">
+  <tr class="Chead">
+		<td width="80%" align="center"><b>{_lang_category}</b></td>
+    <td width="20%" align="center">{_lang_links}</td>
+	</tr>
+	{EXPLODE}
+	<tr class="{class}">
+	  <td><a href="index.php?links-{id}">{name}</a><br /><span class="smalfont">&raquo;&nbsp;{desc}</span></td>
+		<td align="center">{links}</td>
+	</tr>
+	{EXPLODE}
+</table>
+<br /><br />
+{EXPLODE}
+<table width="100%" class="border" border="0" cellspacing="1" cellpadding="3">
+  <tr class="Chead">
+		<td width="90%" align="center"><b>{_lang_links}{catname}</b></td>
+		<td width="10%" align="center">{_lang_hits}</td>
+	</tr>
+  {EXPLODE}
+   <tr class="{class}">
+	   <td><a target="_blank" href="index.php?links-s{id}">{name}</a>{desc}</td>
+		 <td align="center">{hits}</td>
+	 </tr>
+   {EXPLODE}
+</table>

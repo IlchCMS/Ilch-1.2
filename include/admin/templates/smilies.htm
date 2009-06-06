@@ -1,0 +1,117 @@
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+function CheckAll(){
+	if(document.form.ALL){
+		var c = document.form.ALL.checked;
+	}
+	for (var i=0;i<document.form.elements.length;i++){
+		var e = document.form.elements[i];
+		if(e.name != 'ALL') {
+			if((e.checked!=c)&&(e.type=="checkbox")){
+			 e.click();
+			 e.checked = c;
+			}
+		}
+	}
+}
+
+function update_smiley(newimage) {
+	document.smiley_image.src = 'include/images/smiles/' +newimage;
+}
+
+function more_upload() {
+  document.getElementById("moreUpload").innerHTML += '<br /><input type="file" size="40" name="ar[]" />';
+}
+
+//-->
+</SCRIPT>
+
+<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/smilies.png" /></td><td width="30"></td><td valign="bottom"><h1>Smilies</h1></td></tr></table>
+
+<table border="0" cellspacing="0" cellpadding="0"><tr><td valign="top" width="400">
+<form action="admin.php?smilies" method="POST">
+
+<input type="hidden" name="sid" value="{id}">
+
+  <table width="100%" cellspacing="1" cellpadding="2" broder="0" class="border">
+    <tr class="Chead">
+	    <td colspan="2"><b>Smilies hinzuf&uuml;gen, &auml;ndern</b></td>
+		</tr><tr>
+	    <td class="Cmite">Smilie Url</td>
+			<td class="Cnorm"><select name="url" onkeyup="update_smiley(this.options[selectedIndex].value);" onchange="update_smiley(this.options[selectedIndex].value);">{url}</select> &nbsp; <img name="smiley_image" src="include/images/smiles/{surl}" border="0" alt="" /> &nbsp;</td>
+		</tr><tr>
+	    <td class="Cmite">Smilie Code</td>
+		  <td class="Cnorm"><input type="text" name="ent" value="{ent}" maxlength="50"></td>
+	  </tr><tr>
+	    <td class="Cmite">Beschreibung</td>
+		  <td class="Cnorm"><input type="text" name="emo" value="{emo}" maxlength="75"></td>
+	  </tr><tr>
+		  <td class="Cdark"></td>
+			<td class="Cdark"><input type="submit" value="{_lang_formsub}" name="sub"></td>
+	  </tr>
+  </table>
+
+</form>
+<br />
+<form action="admin.php?smilies" method="POST" enctype="multipart/form-data">
+  <table width="100%" cellspacing="1" cellpadding="2" broder="0" class="border">
+    <tr class="Chead">
+	    <td><b>neue Smilies hochladen</b></td>
+		</tr><tr class="Cmite">
+      <td><div id="moreUpload"><input type="file" size="40" name="ar[]" /></div></td>
+    </tr><tr class="Cdark">
+      <td><input type="button" onClick="more_upload();" value="+" />&nbsp;<input type="submit" value="{_lang_formsub}" name="u" /></td>
+    </tr>
+  </table>  
+</form>
+<br />
+<form action="admin.php?smilies" method="POST"">
+  <table width="100%" cellspacing="1" cellpadding="2" broder="0" class="border">
+    <tr class="Chead">
+	    <td colspan="3"><b>Smilie Pakete verwalten</b>&nbsp;&nbsp;(<a href="admin.php?smilies-createpak">Paket erstellen</a>)</td>
+		</tr><tr class="Cdark">
+      <td>Paket importieren</td><td class="Cmite"><select name="pak"><option value="0">Bitte pak Datei w&auml;hlen</option>{pakfile}</select></td><td><input type="submit" name="i" value="{_lang_formsub}" /></td>
+    </tr>
+  </table>  
+</form>
+<br />
+<form action="admin.php?smilies" method="POST" name="form">
+  <table width="100%" cellspacing="1" cellpadding="2" broder="0" class="border">
+    <tr class="Chead">
+	    <td colspan="4"><b>neue Smilies einf&uuml;gen</b></td>
+		</tr><tr class="Cdark">
+      <td colspan="4">alle Smilies im Ordner "include/images/smiles/" die noch nicht in der Datenbank stehen, koennen hier geloescht oder in die Datenbank eingetragen werden.</td>
+    </tr>{EXPLODE}<tr class="{class}">
+      <td><input type="checkbox" name="chk[{url}]]" value="yes"></td>
+      <td><img src="include/images/smiles/{url}" /></td>
+      <td><input name="ent[{url}]" value="{ent}"></td>
+      <td><input name="emo[{url}]" value="{emo}"></td>
+    </tr>{EXPLODE}<tr class="Cdark">
+      <td><input name="ALL" type="checkbox" value="CHECK ALL" onClick="CheckAll();" /></td>
+      <td colspan="3"><select name="ak"><option value="1">eintragen</option><option value="2">l&ouml;schen</option></select>&nbsp;<input type="submit" value="{_lang_formsub}" name="s" /></td>
+    </tr>
+  </table>
+</form>
+
+</td><td width="100"><td valign="top">
+<table cellspacing="1" cellpadding="5" broder="0" class="border">
+  <tr class="Chead">
+		<td>Smilie</td>
+		<td>Smilie Code</td>
+    <td>Beschreibung</td>
+		<td></td>
+		<td></td>
+	</tr>
+	{EXPLODE}
+	<tr class="{class}">
+		<td align="center"><img src="include/images/smiles/{url}" alt=""></td>
+		<td align="center">{ent}</td>
+		<td align="center">{emo}</td>
+    <td><a href="admin.php?smilies-e{id}"><img src="include/images/icons/edit.gif" alt="Bearbeiten" title="Bearbeiten" /></a></td>
+		<td><a href="admin.php?smilies-d{id}"><img src="include/images/icons/del.gif" alt="L&ouml;schen" title="L&ouml;schen" /></a></td>
+	</tr>
+
+{EXPLODE}
+</table>
+
+</td></tr></table>

@@ -1,0 +1,123 @@
+Changelog:
+==========
++ neue Funktionen       * Änderungen/Bugfixes
+
+Version 1.1 M
+* Security Issue in getip fuction in file include/includes/func/statistic.php
+
+Version 1.1 L
+-------------
+* Teams/Groups Adminbereich Freischaltung von Joinusanfragen auch mit Modulrecht bei gegebener Konfiguration
+
+Version 1.1 K
+-------------
++ Toggle WYSIWYG beim SelfpageEditor im Adminbereich hinzugefügt
+
+* Fehler beim Ändern der Modulrechte in der Userverwaltung behoben + Löschen von Usern
+* Fehler beim Antispam behoben, wenn 2 Seiten gleichzeitig geöffnet wurden
+* Fehler beim Backup mit "speziellen" Datenbanknamen behoben (z.B. kilu.de)
+* Fehler im Adminbereich Navigation behoben, die beim Ändern eines Eintrages auftreten konnten
+* Fehler beim Selfpageeditor im Zusammenhang mit Datien die neu.php heißen behoben
+* Fehler in der Shoutbox behoben, wo es möglich war ohne Rechte zu einzutragen
+* Fehler bei PMs mit der Sortierung behoben (Dank an boehserdavid ;))
+* Fehler im Kalender, wo Termine am 1. des Monats um 0:00Uhr nicht angezeigt wurden (Dank an boehserdavid ;))
+* Im Kontankformular längere E-Mailadressen erlaubt
+* Gallerykategorien im Adminbereich von PicOfX werden ordentlich sortiert angezeigt
+
+Version 1.1 J
+-------------
++ design-Klasse etwas erweitert
+
+* Filtern in der Memberliste (Multipages)
+* Löschen von Usern im Adminbereich - Teams
+* Inkompatibilität mit alten MySQL Versionen beim Kalender
+* Design- und Shoutbox leiten beim Aufruf nun auch wieder auf die Seite, auf der man war (menu Klasse erweitert)
+* mysql.php angepasst, damit keine Fehler bei alten Installationsdateien von Modulen kommen
+* Fehler bei Windowsservern und der Onlineanzeige behoben
+* Fehler beim Ausloggen behoben, wenn user.php nicht verlinkt war
+* Einige Fehler im Zusammenhang mit Selfpages/-boxes behoben
+* Sicherheitslücke geschlossen
+* cipher-Klasse durch AzDGCrypt-Klasse ersetzt (damit auch PHP4 unterstützt wird) -> !!SMTP-Passwort muss neu gespeichert werden!!
+* Antispam etwas überarbeitet
+
+Version 1.1 I
+-------------
++ teams.php kann individuelle teams Kombinationen anzeigen (Bsp.: ?teams-show-1-4-2)
++ Auswahl beim Löschen einer Gallerykategorie
++ Bilder können in andere Kategorien verschoben werden
++ Backupsystem überarbeitet
++ Überarbeitung der Klassen tpl,menu und design (für Entwickler in die Doku schauen) - update von xajax auf 0.5b4
++ ausführliche Fehleranzeige bei Datenbankfehlern für (Co-)Admins
++ Mails können über SMTP versendet werden
++ Seite mit Serverinformationen im Adminbereich
++ Profil Länderauswahl alphabetisch sortiert
++ Antispam im Forum
++ User kann sich selbst löschen und Löschung eines Users sauberer (Gallery, Avatar, DB Einträge)
++ Suche nach Beiträgen oder Autor
++ Eigene Beiträge von jedem zu betrachten, Link zum ersten neuen Beitrag bei neue Themen, nun forum-aeit/aubt/augt statt search-*
++ In Memberliste Namen filtern
+
+* Beachtung von Teamrechten bei Suche
+* Fehleranzeige fest in index.php/admin.php verankert
+* Gallerykategorien werden nur noch bei ausreichenden Rechten angezeigt
+* RSS/ATOM korrigiert/verbessert + Ein-/Mehrzahl Kommentare
+* Beim Ändern eines Namens werden auch Themen berücksichtig
+* PM-Ansicht überarbeitet (Sortierung + Zeit)
+* Admins(ab Siteadmin) und Moderatoren können in geschlossenen Themen antworten
+* Fehler für Modulrechtler beim Freischalten von Joinus-Freigaben behoben
+* neuer Wysiwyg-Editor im Selfpage und Box Bereich (der Editor ist wesentlich besser und hat viel mehr Möglichkeiten)
+* Team Name/Bild wird auch bei Einzelansicht angezeigt
+* Moderatoren können nur noch in von ihnen verwaltete Foren verschieben
+(* Alle kurzen SQL Inserts wurden verbessert)
+
+Version 1.1 H
+-------------
++ >>ganzen Artikel lesen<< nur wenn auch ein [PREVIEWENDE] in der News ist
+
+* User Uploads freischalten funktioniert wieder
+* ilchClan-Design wird nun auch beim IE ordentlich angezeigt
+* fehlerhafte Anzeige des Uploadformular im Content Bereich ausgebessert
+
+
+Version 1.1 G
+-------------
++ Avatare kann man nun auch im Adminbereich hochladen, das Avatar wird dort nicht auf Größe geprüft
++ Antispam für Kontaktformular
++ Team wird beim Joinus nun gespeichert, damit ist es möglich den User direkt ins Team aufzunehmen
++ Teamfunktion ohne Löschen des Users änderbar
++ Joinus, man kann wählen ob die Regeln komplett angezeigt werden
++ Beim Ändern eines Downloads kann Datum nun aktualisiert werden
++ Beim Ändern des Namens eines Users, kann auch der Name bei allen Forenposts geändert werden
++ Option, dass Modulrecht Gruppen, nur für eigene Gruppe(n) gilt
+
+* Konfigurationspunkt: Standard Avatar anzeigen? funktioniert nun
+* Falsches Escapen beim Ändern einer News behoben (kein \" und \' mehr)
+* Adminbereich fürs Forum überarbeitet und Fehler behoben
+* Fehler im HMENU und TITLE beim Erstellen und Ändern von Themen und Posts behoben
+* Avatar löschen im Adminmenü funktionierte nicht, korrigiert
+* Vorauswahl der Kategorie im Download/Links-Adminmenü korrigiert, nicht mehr keine sondern ausgewählte Kategorie
+* Linkkategorie wird bei Links mit im Tabellenkopf angezeigt
+
+Version 1.1 F
+-------------
++ Verwaltung von noch nicht registrierten Users
++ Dateirechte werden nun beim Upload gesetzt
++ Posts werden beim User nun heruntergezählt, wenn ein Post gelöscht wird
++ Shoutbox überarbeitet mit Einstellungen unter Konfiguration
++ Antispam konfigurierbar
++ Kasse Ändern hinzugefügt
++ Awards Ändern hinzugefügt und auch Awards für User bzw. irgendwen :P
++ mehrere (Unter-)Kategorien für das Forum
++ Module werden im Adminbereich nun auch in der Übersicht angezeigt
++ Erstellen von Thumbnails im  GIF Format, wenn der Webspace es unterstützt
+
+* Selfpage verbessert: kein .php als Endung mehr nötig, View Source muss vorm Speichern nicht mehr entfernt werden
+* Fehlerkorrektur im PM-System
+* Downloads nur noch mit ausreichenden Rechten herunterladbar
+* Links werden nun sortiert dargestellt
+* Avatarupload nur noch wenn erlaubt
+* Escapen im Forum korrigiert (kein \" und \' mehr)
+* Betreff bei E-Mails jetzt mit Leerzeichen
+* Änderungen in der Sprachdatei
+* Gästebuchbug (wahrscheinlich) behoben
+* Beim Upload werden nun auch Großgeschriebene Dateiendungen akzeptiert

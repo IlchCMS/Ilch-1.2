@@ -1,0 +1,19 @@
+<form action="index.php?joinus" method="POST">
+<fieldset>
+	<legend><b>{_lang_yourdata}:</b></legend>
+	<label style="float:left; width:100px; ">{_lang_joininfo}</label>{_lang_plsfilloutallfields}<br />
+  <label style="float:left; width:100px; ">{_lang_name}</label><input name="name"{readonly} maxlength="15" value="{name}" /><br />
+	<label style="float:left; width:100px; ">{_lang_skill}?</label><select name="skill">{skill}</select><br />
+	<label style="float:left; width:100px; ">{_lang_icqnumber}</label><input type="text" name="icqnumber" value="{icqnumber}" /><br />
+	<label style="float:left; width:100px; ">{_lang_favmap}</label><input type="text" name="favmap" value="{favmap}" /><br />
+	<label style="float:left; width:100px; ">{_lang_mail}</label><input type="text" name="mail" value="{mail}" /><br />
+	<label style="float:left; width:100px; ">{_lang_age}</label><input type="text" name="age" value="{age}" /><br />
+	<label style="float:left; width:100px; ">{_lang_hometown}</label><input type="text" name="hometown" value="{hometown}" /><br />
+	<label style="float:left; width:100px; ">{_lang_squad}</label><select name="squad">{squad}</select /><br />
+	<label style="float:left; width:100px; ">{_lang_ground}</label><textarea name="ground" cols="40" rows="5">{ground}</textarea><br />
+	{EXPLODE}<label style="float:left; width:100px; ">{_lang_rules}</label><input type="checkbox" name="rules" value="{_lang_yes}" />{_lang_rulzreaded}<br />
+  {EXPLODE}{RULES}{EXPLODE}<br />
+	{ANTISPAM}
+	<label style="float:left; width:100px; ">&nbsp;</label><input type="submit" name="sub" value="{_lang_formsub}" /><br />
+</fieldset>
+</form>

@@ -1,0 +1,33 @@
+<form action="index.php?awaycal" method="POST">
+<input type="hidden" name="ch" value="{id}" />
+<table cellpadding="2" cellspacing="1" border="0" class="border">
+<tr class="Chead"><td colspan="2"><b>{_lang_dateform}</b></td>
+</tr><tr>
+  <td class="Cmite">{_lang_from}</td>
+  <td class="Cnorm"><input name="von" value="{von}"></td>
+</tr><tr>
+  <td class="Cmite">{_lang_to}</td>
+  <td class="Cnorm"><input name="bis" value="{bis}"></td>
+</tr><tr>
+  <td class="Cmite">{_lang_ground}</td>
+  <td class="Cnorm"><textarea name="betreff" cols="50" rows="10">{betreff}</textarea></td>
+</tr><tr class="Cdark">
+  <td></td>
+  <td><input type="submit" value="Absenden"></td>
+</tr>
+</table>
+</form>
+{EXPLODE}
+<table width="100%" border="0" cellpadding="2" cellspacing="1" class="border">
+<tr class="Chead">
+<td><strong>{_lang_datemanage}</strong></td></tr>
+{EXPLODE}
+<tr class="{class}">
+<td><span style="float: right;">{_lang_from}: {von} - {bis},&nbsp; <u>{status}</u></span>
+<b>{name}</b><hr style="width: 200px;" align="left">
+{betreff}
+</td>
+</tr>
+{EXPLODE}
+</table>
+<br />

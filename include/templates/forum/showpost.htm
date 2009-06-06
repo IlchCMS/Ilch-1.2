@@ -1,0 +1,63 @@
+<br />
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td width="60%">{SITELINK}</td>
+    <td width="40%" align="right">{ANTWORTEN}</td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="1" cellpadding="2" class="border">
+  <tr class="Chead"> 
+    <th colspan="2" height="30"><b>{TOPICNAME}</b></td>
+  </tr>
+	{EXPLODE}
+  <tr class="{class}"> 
+    <td width="20%" valign="top"><a name="{id}"></a>{erst}<br /><font class="smalfont">{rang}{avatar}{posts}</font></td>
+    <td width="80%" valign="top">
+		  <div style="float: left; width:50%;" class="smalfont"><a class="smallfont" href="index.php?forum-showposts-{TID}#{id}" title="{i}. Post in diesem Thema">#</a>&nbsp;{date}</div>
+      <div style="float: right; width: 50%; text-align:right;">{delete} &nbsp; {change} &nbsp; <a href="index.php?forum-newpost-{TID}-z{id}">{_lang_quote}</a></div>
+      <br />
+      <hr />      
+			<br />
+									
+									{txt}
+					        {sig}
+
+		</td>
+  </tr>
+  <tr> 
+    <td colspan="2" class="Cdark" height="10"></td>
+  </tr>
+	{EXPLODE}
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td width="60%">{SITELINK}</td>
+    <td width="40%" align="right">{ANTWORTEN}</td>
+  </tr>
+</table>
+{EXPLODE}
+<br />
+<strong>{_lang_administrattopic}</strong><br />
+<a href="javascript:renametopic()">{_lang_rename}</a>
+&nbsp;,&nbsp;
+<a href="index.php?forum-edittopic-{tid}-2">{_lang_delete}</a>
+&nbsp;,&nbsp;
+<a href="index.php?forum-edittopic-{tid}-3">{_lang_shift}</a>
+&nbsp;,&nbsp;
+<a href="index.php?forum-edittopic-{tid}-4-2">{status}</a>
+&nbsp;,&nbsp;
+<a href="index.php?forum-edittopic-{tid}-5">{festnorm}</a>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+  function renametopic () {
+	  var x = prompt ( "Bitte den neuen Namen vom Thema eintragen" , "" );
+		if ( x ) {
+		  document.location.href="index.php?forum-edittopic-{tid}-1=0&newTopic="+x;
+		}
+	}
+	
+//-->
+</script>

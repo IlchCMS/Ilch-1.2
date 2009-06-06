@@ -1,0 +1,42 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="include/admin/templates/style.css">
+<script language="JavaScript" type="text/javascript">
+<!--
+function closeThisWindow() {
+  opener.location.reload();
+  opener.focus();
+  window.close();
+}
+//-->
+</script>
+</head>
+<body>
+<table border="0" cellpadding="5" cellspacing="1" class="border" width="100%">
+  <tr>
+    <td class="Callg">
+<form action="admin.php?user-modulrecht-{userid}" method="POST">
+
+	<input type="hidden" name="usermodule" value="sub">
+  <table cellpadding="3" cellspacing="1" border="0" class="border">
+    <tr class="Chead">
+      <td colspan="2"><b>Modulrechte f&uuml;r {username}</b></td>
+    </tr>
+    {EXPLODE}
+    <tr class="{class}">
+	    <td><label for="{module}ID">{module}</label></td>
+		  <td align="center"><input id="{module}ID" type="checkbox" name="modrhave[{module}][{uid}]" {ck} value="t"></td>
+	  </tr>
+    {EXPLODE}
+    <tr>
+	    <td colspan="2" class="Cdark"><input type="submit" name="chuserr" value="Speichern"> <input type="button" value="Schliesen" onClick="closeThisWindow()" /></td>
+		</tr>
+  </table>
+</form>
+
+
+    </td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<script language="JavaScript" type="text/javascript">
+<!--
+  function del ( id1 ) {
+	
+    var x = confirm ( "do you really want to delete?" );
+		if ( x ) {
+		  document.location.href="admin.php?history&delete="+id1;
+		}
+	}
+//-->
+</script>
+
+<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/history.png" /></td><td width="30"></td><td valign="bottom"><h1>History</h1></td></tr></table>
+
+
+
+<table width="100%">
+  <tr>
+	  <td valign="top" width="60%">
+		
+<form action="admin.php?history" method="POST">
+	<input type="hidden" name="pkey" value="{pkey}">
+	
+	<table class="border" cellpadding="3" cellspacing="1" border="0">
+		<tr>
+      <td class="Cmite">Date</td>
+			<td class="Cnorm"><input type="text" name="date" value="{date}" /></td>
+    </tr>
+		<tr>
+      <td class="Cmite">Title</td>
+			<td class="Cnorm"><input type="text" name="title" value="{title}" /></td>
+    </tr>
+		<tr>
+      <td class="Cmite">Text</td>
+			<td class="Cnorm"><textarea cols="40" rows="3" name="txt">{txt}</textarea></td>
+    </tr>
+		<tr class="Cdark">
+		  <td></td>
+			<td><input type="submit" value="Absenden" name="sub" /></td>
+		</tr>
+  </table>
+</form>
+
+</td><td valign="top" width="40%">
+
+<table cellpadding="3" border="0" cellspacing="1" class="border">
+  <tr class="Chead">
+		<td>Date</td>
+		<td>Title</td>
+		
+		<td></td>
+		<td></td>
+	</tr>
+{EXPLODE}
+  <tr class="{class}">
+	  
+		<td>{date}</td>
+		<td>{title}</td>
+		<td><a href="?history&pkey={id}">change</a></td>
+		<td><a href="javascript:del('{id}')">delete</a></td>
+	</tr>
+{EXPLODE}
+</table>
+{MPL}
+</td></tr></table>

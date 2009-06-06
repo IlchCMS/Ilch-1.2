@@ -1,0 +1,48 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="include/admin/templates/style.css">
+<script language="JavaScript" type="text/javascript">
+<!--
+function closeThisWindow() {
+  opener.focus();
+  window.close();
+}
+//-->
+</script>
+</head>
+<body>
+<table border="0" cellpadding="5" cellspacing="1" class="border" width="100%">
+  <tr>
+    <td class="Callg">{msg}
+<form action="admin.php?user-createNewUser" method="POST" name="form">
+  <table cellpadding="3" cellspacing="1" border="0" class="border">
+    <tr class="Chead">
+      <td colspan="2"><b>Benutzer anlegen</b></td>
+    </tr><tr>
+		  <td class="Cmite">Name</td>
+			<td class="Cnorm"><input  name="name" value="" /></td>
+		</tr><tr>
+		  <td class="Cmite">Pass</td>
+			<td class="Cnorm"><input  name="pass" value="{pass}" /></td>
+		</tr><tr>
+		  <td class="Cmite">Recht</td>
+			<td class="Cnorm"><select name="recht">{recht}</select></td>
+		</tr><tr>
+		  <td class="Cmite">eMail</td>
+			<td class="Cnorm"><input  name="email" value="{email}" /></td>
+		</tr><tr>
+		  <td class="Cmite">Senden?</td>
+			<td class="Cnorm"><input id="sja" type="checkbox" name="info" value="ja" /><label for="sja"> Dem User seine Daten zusenden?</label></td>
+		</tr><tr class="Cdark">
+		  <td></td>
+			<td><input type="submit" name="sub" value="Absenden" /> <input type="button" value="Schlie&szlig;en" onClick="closeThisWindow()" /></td>
+		</tr>
+  </table>
+</form>
+
+
+    </td>
+  </tr>
+</table>
+</body>
+</html>

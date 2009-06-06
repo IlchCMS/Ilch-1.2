@@ -1,0 +1,75 @@
+<script language="JavaScript" type="text/javascript">
+    <!--
+      
+			function delcheck ( DELID ) {
+			  var frage = confirm ( "Willst du diesen Eintrag wirklich löschen?" );
+				if ( frage == true ) {
+				  document.location.href="?awards-d"+DELID;
+				}
+			}
+		//-->
+</script>
+
+<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/awards.png" /></td><td width="30"></td><td valign="bottom"><h1>Awards</h1></td></tr></table>
+
+<table width="100%" border="0" cellpadding="2" cellspacing="1" class="border">
+   <tr>
+	  <td width="60%" valign="top" class="Cnorm">
+		  <form action="admin.php?awards{id}" method="post" name="form">
+			
+			<table width="100%" border="0" cellpadding="2" cellspacing="1" class="border">
+			  <tr>
+				  <td class="Cmite" width="100">Datum</td>
+					<td class="Cnorm"><input type="text" name="datum" value="{datum}" /></td>
+				</tr><tr>
+				  <td class="Cmite">Platz</td>
+					<td class="Cnorm"><input type="text" name="platz" value="{platz}" /></td>
+				</tr><tr>
+				  {EXPLODE}
+				  <td class="Cmite"><input type="radio" name="atype" value="team" checked="checked" />Team</td>
+					<td class="Cnorm"><select name="team"><option>ges. Clan</option>{teams}</select></td>
+				</tr><tr>
+				  <td class="Cmite"><input type="radio" name="atype" value="user" />User</td>
+				  <td class="Cnorm"><input type="text" name="name" /> &nbsp; <a href="index.php?search-finduser" target="_blank" onClick="return finduser();">User finden</a></td>
+				  {EXPLODE}
+          <td class="Cmite">Awardträger</td>
+				  <td class="Cnorm"><input name="team" value="{team}" /></td>
+				  {EXPLODE}
+        </tr><tr>
+				  <td class="Cmite">Wof&uuml;r</td>
+					<td class="Cnorm"><input name="wofur" size="40" value="{wofur}" /></td>
+				</tr><tr>
+				  <td class="Cmite">Bild zum Award</td>
+					<td class="Cnorm"><input name="bild" size="40" value="{bild}" /></td>
+				</tr><tr>
+				  <td class="Cmite">Beschreibung</td>
+					<td class="Cnorm"><textarea cols="30" rows="3" name="text">{text}</textarea></td>
+				</tr><tr>
+				  <td class="Cmite"></td>
+					<td class="Cnorm"><input type="submit" value="Eintragen" name="ins" /></td>
+				</tr>
+			</table>
+			
+			</form>
+    </td>
+		<td width="40%" valign="top" class="Cmite">
+      <table width="100%" border="0" cellpadding="5" cellspacing="0">
+        <tr class="Chead">
+		      <td>Datum</td>
+		      <td>Platz</td>
+		      <td>Awardtr&auml;ger</td>
+		      <td>Aktion</td>
+	      </tr>
+{EXPLODE}
+<tr class="Cnorm">
+<td>{datum}</td><td>{platz}</td><td>{team}</td>
+<td>
+  <a href="admin.php?awards-e{id}"><img src="include/images/icons/edit.gif" border="0" alt="{_lang_change}" title="{_lang_change}" /></a>
+  <a href="#" onclick="delcheck({id})"><img src="include/images/icons/del.gif" border="0" alt="{_lang_delete}" title="{_lang_delete}" /></a>
+</td>
+</tr>
+{EXPLODE}
+      </table>
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,114 @@
+<script language="JavaScript" type="text/javascript"><!--
+function delcheck ( DELID ) {
+	var frage = confirm ( "Willst du diesen Eintrag wirklich l�schen?" );
+	if ( frage == true ) {
+	  document.location.href="?news-del-"+DELID;
+	}
+}
+
+function delKcheck ( DELID , NID) {
+	var frage = confirm ( "Willst du dieses Kommentar wirklich l�schen?" );
+	if ( frage == true ) {
+	  document.location.href="?news-sKoms-"+NID+"-Kdel-"+DELID+"#"+NID;
+	}
+}
+
+function sichtbar(){
+	if( document.form.katLis.value=="neu"){
+	  document.form.kat.style.visibility="visible";
+	} else {
+	  document.form.kat.style.visibility="hidden";
+  }
+}
+//--></script>
+
+<script type='text/javascript' src='include/includes/js/bbcode.js'></script>
+
+<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/news.png" /></td><td width="30"></td><td valign="bottom"><h1>News</h1></td></tr></table>
+<hr style="width: 400px; margin: 0px;" >
+<br /><br />
+
+<table border="0" cellspacing="0" cellpadding="0"><tr><td valign="top">
+
+<form method="POST" name="form" action="?news">
+  <input type="hidden" name="um"     value="{AKTION}">
+  <input type="hidden" name="newsID" value="{NEWSID}">
+	<table cellpadding="2" cellspacing="1" border="0" class="border">
+    <tr> 
+      <td class="Cmite" align="right"><strong>Titel : </strong></td>
+      <td class="Cnorm"><input size="50" type="text" name="titel" value="{UEBER}"></td>
+    </tr><tr> 
+      <td class="Cmite" align="right"><strong>News : </strong></td>
+      <td rowspan="2" class="Cnorm">
+      
+      <!-- BB Code START -->
+	    <a href="javascript:simple('b')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.bold.gif" alt="b" title="{_lang_bold}" border="0"></a>
+      <a href="javascript:simple('i')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.italic.gif" alt="i" title="{_lang_italic}" border="0"></a>
+      <a href="javascript:simple('u')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.underline.gif" alt="u" title="{_lang_underlined}" border="0"></a>
+      <a href="javascript:simple('code')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.code.gif" alt="Code" title="{_lang_code}" border="0"></a>
+	    <a href="javascript:simple_liste()"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.insertunorderedlist.gif" alt="{_lang_list}" title="{_lang_list}" border="0"></a>
+      <a href="javascript:simple('url')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.link.gif" alt="Url" title="{_lang_link}" border="0"></a>
+      <a href="javascript:simple('img')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.image.gif" alt="{_lang_picture}" title="{_lang_picture}" border="0"></a>
+      <!-- BB Code ENDE -->
+
+      </td>
+    </tr><tr>
+      <td rowspan="2" valign="top" class="Cmite">{SMILIS}</td>
+    </tr><tr>
+      <td class="Cnorm"><textarea name="txt" rows="15" cols="65" tabindex="2">{txt}</textarea></td>
+    </tr><tr> 
+      <td class="Cmite" align="right"><strong>Sichtbar ab : </strong></td>
+      <td class="Cnorm"><select name="grecht">{_list_grecht@<option%1 value="%2">%3</option>}</select></td>
+    </tr><tr> 
+      <td class="Cmite" align="right"><strong>Kategorie : </strong></td>
+      <td class="Cnorm"><select onChange="sichtbar()" name="katLis">{KATS}<option value="neu">Neu:</option></select>&nbsp;&nbsp;<input type="text" name="kat" size="40"></td>
+    </tr><tr class="Cdark"> 
+      <td></td>
+      <td><input type="submit" value="{FSUB}" name="submit"></td>
+    </tr>
+  </table>
+</form>
+<br /><br />
+
+<div class="info_box">
+			<b>Merke (Kategorie Bild)</b>
+			<br />
+			<span class="smalfont">
+			Das Kategorie Bild muss in den Ordner include/images/news/
+			<br />
+			Das Bild muss genau wie die Kategorie heissen z.B. wenn die Kategorie
+			Allgemein heisst dann muss das Bild Allgemein heissen;)...
+			<br />
+			Die Endung muss entweder .jpg oder .gif sein bei uns also z.B. Allgemein.jpg
+			</span>
+</div>
+
+<div class="info_box">
+				<b>Merke (Vorschau Funktion)</b>
+				<br />
+				<span class="smalfont">
+				Soll nur ein kleinerer Vorschautext angezeigt werden, einfach erst die Vorschau
+				eingeben und nach der Vorschau dann <b>[PREVIEWENDE]</b> schreiben. Dann den langen
+				Text eintragen.
+				</span>
+</div>
+
+</td><td width="75">&nbsp;</td><td valign="top">
+
+{MPL}
+<table cellpadding="3" cellspacing="1" border="0" class="border">
+  {EXPLODE}<tr class="{class}">
+	  <td><a href="#" name="{ID}"></a><a href="javascript:delcheck({ID})"><img src="include/images/icons/del.gif" alt="L&ouml;schen" title="L&ouml;schen" border="0"></a></td>
+    <td><a href="?news-edit-{ID}"><img src="include/images/icons/edit.gif" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
+		<td>{TITEL}</td>
+ </tr>{EXPLODE}
+</table>
+{MPL}
+
+</td></tr></table>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+  sichtbar();
+//-->
+</script>

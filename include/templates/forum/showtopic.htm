@@ -1,0 +1,38 @@
+<br>
+<div align="right">
+
+{NEWTOPIC}
+
+<br><br>
+
+</div>
+<table width="100%" border="0" cellspacing="1" cellpadding="5" class="border">
+	  <tr class="Chead">
+		  <th></td>
+		  <th width="56%"><b>{_lang_topic}</b></td>
+			<th width="7%" align="center"><b>{_lang_answers}</b></td>
+			<th width="7%" align="center"><b>{_lang_hits}</b></td>
+      <th width="30%"><div align="center"><b>{_lang_update}</b></td>
+    </tr>
+{EXPLODE}
+  <tr>
+	  <td class="Cnorm"><img src="include/images/forum/{ORD}.gif" width="15" height="15" border="0"></td>
+    <td class="Cnorm">{VORT} <a href="index.php?forum-showposts-{id}">{name}</a><br />
+    <span class="smalfont">{_lang_author}: {erst}</span></td>
+	  <td align="center" class="Cmite">{rep}</td>
+		<td align="center" class="Cmite">{hit}</td>
+		<td align="center" class="Cdark">
+		  <span class="smalfont">
+			{date}
+				<br />
+				<a class="smalfont" href="index.php?forum-showposts-{id}-p{page}#{pid}">{_lang_lastfrom}: {last}</a>
+	  </td>
+  </tr>
+{EXPLODE}
+</table>
+<br />
+
+{MPL}
+
+{EXPLODE}
+<a href="index.php?forum-editforum-{id}">{_lang_editforum}</a>	

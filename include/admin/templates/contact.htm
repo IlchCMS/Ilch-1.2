@@ -1,0 +1,44 @@
+<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/contact.png" /></td><td width="30"></td><td valign="bottom"><h1>Kontakt</h1></td></tr></table>
+
+<table width="500" class="border" cellpadding="5" cellspacing="1" border="0">
+  <tr class="Cdark">
+    <td colspan="2"><b>Verwalten</b></td>
+	</tr><tr>
+	  <td colspan="2" class="Cnorm">
+    {EXPLODE}
+			
+	
+		<form action="?contact-1&wo={WO}" method="POST">
+			<input type="text" name="mail" value="{MAIL}"> &nbsp; 
+			<input type="text" name="name" value="{NAME}"> &nbsp; 
+			<input type="submit" value="&Auml;ndern"> &nbsp; 
+			<input type="button" value="L&ouml;schen" onclick="document.location.href ='admin.php?contact-2&del={WO}'">
+		</form>
+			
+    {EXPLODE}
+	
+	  </td>	
+  <tr>
+	  <td colspan="2" height="20" class="Cnorm"></td>
+	</tr><tr>
+	  <td colspan="2" height="10" class="Cnorm"></td>
+	</tr><tr class="Cdark">
+	  <td colspan="2"><b>Eintragen</b></td>
+  </tr>
+
+<form action="?contact-3" method="POST">
+	
+  <tr class="Cnorm">
+    <td>eMail</td>
+		<td><input type="text" name="mail"></td>
+	</tr><tr class="Cnorm">
+	  <td>Name</td>
+		<td><input type="text" name="name"></td>
+	</tr><tr class="Cnorm">
+	  <td></td>
+		<td><input type="submit" value="Eintragen"></td>
+	</tr>
+	
+</form>
+</table>
+

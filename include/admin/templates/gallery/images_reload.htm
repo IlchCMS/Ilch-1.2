@@ -1,0 +1,54 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="include/admin/templates/style.css">
+<script language="JavaScript" type="text/javascript">
+<!--
+function closeThisWindow() {
+  opener.focus();
+  window.close();
+}
+function openImgWindow(v,hoehe,breite) {
+  var fenster = window.open('include/images/wars/{wid}_{mid}.'+v,'bild','height='+hoehe+',width='+breite);
+  fenster.focus();
+}
+function deleteMap(v) {
+  var x = confirm ( "Bild wirklich loeschen?" );
+  if ( x ) {
+    document.location.href="admin.php?wars-last-upload=0&d=include/images/wars/{wid}_{mid}."+v+"&wid={wid}&mid={mid}";
+  }
+}
+//-->
+</script>
+</head>
+<body>
+<table border="0" cellpadding="5" cellspacing="1" class="border" width="100%">
+  <tr>
+    <td class="Callg">{msg}
+      <form action="admin.php?gallery-reloadImages-{cat}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="do_aktion" value="yes" />
+      <table border="0" cellpadding="5" cellspacing="1" class="border" width="100%">
+        <tr class="Chead"><td><b>Kategorie: {cname}</b></td></tr>
+        <tr class="Cmite">
+          <td>
+            <input type="radio" name="aktion" value="ins" id="ins" /><label for="ins"> Bilder aus Ordner einf&uuml;gen</label>
+            <br /><input name="dir" size="40" value="" />
+          </td>
+        </tr>
+        <tr class="Cnorm">
+          <td><input type="radio" name="aktion" value="alle" id="alle" /><label for="alle"> Alle Bilder erneuern</label>
+           <br /><input type="radio" name="aktion" value="alle_no" id="alle_no" /><label for="alle_no"> Alle Bilder erneuern nicht &uuml;berschreiben</label>
+          </td>
+        </tr>  
+        <tr>
+          <td class="Cdark">
+            <input type="submit" value="Absenden" /> &nbsp;
+            <input type="button" value="Schliessen" onClick="closeThisWindow()" />
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table>
+</body>
+</html>

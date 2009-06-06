@@ -1,0 +1,15 @@
+<br />
+<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td width="50%">
+<b>[</b> <a href="index.php?forum-privmsg">{_lang_inbox}</a> <b>|</b> <a href="index.php?forum-privmsg-showsend">{_lang_outbox}</a> <b>]</b></td><td width="50%" align="right">
+<b>[</b> <a href="index.php?forum-privmsg-new">{_lang_writemessage}</a> <b>]</b></td></tr></table>
+ 
+<table width="100%" cellpadding="3" cellspacing="1" border="0" class="border">
+    <tr class="Chead">
+		  <td><b>{titel}</b></td>
+		</tr><tr class="Cdark">
+      <td>{_lang_sentto} <b>{name}</b> {_lang_on} {time}</td>
+    </tr><tr class="Cnorm">
+		  <td>{txt}</td>
+	  </tr><tr class="Cmite">
+		  <td><input type="button" value="{_lang_delete}" onclick="document.location.href ='?forum-privmsg-delete-{id}-s'"></td>
+</table>

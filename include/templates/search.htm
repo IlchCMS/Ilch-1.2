@@ -1,0 +1,33 @@
+<form action="index.php?search" method="GET">
+<table>
+<tr><td>Beitrag:<br /><input type="text" value="{search}" name="search" size="{size}" /></td></tr>
+<tr><td>Autor:<br /><input type="text" value="{autor}" name="autor" size="{size}" /></td></tr>
+<tr><td height="5"></td></tr>
+<tr><td>
+	<input type="radio" name="in" value="1" {checked1} /> Forum<br />
+	<input type="radio" name="in" value="2" {checked2} /> News<br />
+	<input type="radio" name="in" value="3" {checked3} /> Downloads<br />
+</td></tr>
+<tr><td>
+Zeitlich eingrenzen: <select name="days">{days}</select>
+</td></tr>
+<tr height="14"><td></td></tr>
+<tr><td><input type="submit" value="{_lang_search}" /></td></tr>
+</table>
+</form>
+<hr>
+
+{EXPLODE}
+<br /><br />
+<div style="float: left">{MPL}</div>
+<div style="float: right; text-align: right">Gesamt: {gAnz}</div><br /><br />
+
+<table width="100%" cellpadding="2" cellspacing="1" border="0" class="border">
+
+  {EXPLODE}<tr class="{class}">
+    <td class="erstezeile" width="15"><img src="include/images/forum/{ord}.gif" width="15" height="15" border="0"></td>
+    <td class="erstezeile"><a href="?{link}">{titel} von {autor}</a></td>
+  </tr>{EXPLODE}
+</table>
+
+{MPL}

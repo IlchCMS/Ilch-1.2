@@ -1,0 +1,103 @@
+<table width="500" class="border" cellpadding="5" cellspacing="0" border="0">
+  <tr class="dark">
+    <td colspan="5"><h2><b>Umfrage</b></h2></td>
+	</tr><tr class="mite">
+    <td colspan="5"><h3><b>Eintragen</b></h3></td>
+	</tr>
+					
+<form action="?vote-1" method="POST">
+
+	<tr>
+	  <td colspan="2" width="100">Frage</td>
+		<td colspan="3" width="400"><input type="text" name="frage"></td>
+	</tr><tr>
+	  <td colspan="2">Antworten *</td>
+		<td colspan="3"><input type="text" size="50" name="ant"></td>
+  </tr>
+	<!--
+	<tr>
+	  <td colspan="2">Sichtbar f&uuml;r</td>
+		<td colspan="3"><select name="grecht">
+				  <option value="-4">Alle</option>
+					<option value="-3">User</option>
+					<option value="-2">Member</option>
+					<option value="-1">Admin</option>
+		</select></td>
+	</tr>
+	-->
+	<tr>
+	  <td colspan="2"></td>
+		<td colspan="3"><input type="submit" value="Eintragen"></form>
+	</tr><tr>
+	  <td colspan="5">* = ( durch Kommatas <b>,</b> getrennt )</td>
+	</tr>
+	
+</form>
+	
+	<tr>
+	  <td colspan="5" height="20"></td>
+	</tr><tr>
+	  <td colspan="5" height="10" class="dark"></td>
+	</tr><tr class="mite">
+	  <td colspan="5"><h3><b>L&ouml;schen / &Auml;ndern</b></h3></td>
+  </tr>
+	{EXPLODE}
+  <tr>
+	  <td width="40"><a href="?vote-del&id={ID}">L&ouml;schen</a></td>
+		<td width="40"><a href="?vote-3&id={ID}">&Auml;ndern</a></td>
+		<td width="40"><a href="?vote-5&id={ID}&ak={AK}">{OOC}</a></td>
+		<td width="40"><a href="?vote-6&id={ID}">Anzeigen</a></td>
+		<td>{NAME}</td>
+	</tr>
+	
+	{EXPLODE}
+</table>	
+
+
+{EXPLODE}
+
+<!-- delete -->
+
+<h2><b>L&ouml;schen</b></h2>
+<form action="?vote-2" method="POST">
+M&ouml;chtest du diese Umfrage wirklich l&ouml;schen ?<br><br>
+<input type="hidden" value="{DELID}" name="id">
+<input type="hidden" value="1" name="delete">
+<input type="submit" value="Ja"> &nbsp; &nbsp; <input type="button" value="Nein" onclick="document.location.href ='admin.php?vote'">
+</form>
+
+{EXPLODE}
+
+<!-- edit -->
+
+<table width="500" class="border" cellpadding="5" cellspacing="0" border="0">
+  <tr class="dark">
+    <td colspan="2"><h3><b>Umfrage &Auml;ndern</b></h3></td>
+	</tr>
+	
+<form action="?vote-4" method="POST">
+  <tr>
+	  <td width="100">Frage</td>
+		<td width="400"><input type="text" size="50" name="frage" value="{ASK}"></td>
+	</tr><tr>
+	  <td>Antworten *</td>
+		<td><input type="text" size="50" value="{ANTS}" name="ant"></td>
+	</tr>
+	<!--
+	<tr>
+	  <td>Sichtbar f&uuml;r</td>
+		<td><select name="grecht">
+	    {RECHT}
+		</select></td>
+	</tr>
+	-->
+	<tr>
+	  <td><input type="hidden" name="eid" value="{EID}"></td>
+		<td><input type="submit" value="&Auml;ndern"></td>
+	</tr><tr>
+	  <td colspan="2">* = ( durch Kommatas getrennt )</td>
+	</tr>
+	
+</form>
+
+</table>

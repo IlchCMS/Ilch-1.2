@@ -1,0 +1,27 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="10">
+   <tr>
+    <td>
+	  Hallo &nbsp;<b>{NAME}</b>
+		<br />
+		<br />
+		{NACHRICHTEN}
+	  <a class="box" href="index.php?user-3">{_lang_logout}</a> | <a class="box" href="index.php?user-8">{_lang_profil}</a>
+		<br>
+		{ADMIN}
+
+		</td>
+  </tr>
+</table>
+{EXPLODE}
+<table width="100%" border="0" cellspacing="0" cellpadding="10">
+  <tr>
+    <td>
+	  <form method="POST">
+		<input type="text" name="name" size="13" value="{NAME}" onFocus="if (value == '{NAME}') {value = ''}" onBlur="if (value == '') {value = '{NAME}'}" maxlength="15" style="margin-top:5px; " /><br />
+        <input type="password" size="13" value="{PASS}" onFocus="if (value == '{PASS}') {value = ''}" onBlur="if (value == '') {value = '{PASS}'}" maxlength="20" name="pass" style="margin-top:5px; " /><br />
+        <input type="hidden" name="wdlink" value="{wdlink}" />
+        <input type="submit" name="user_login_sub" value="Login" style="margin-top:5px; " />{regist}
+	  </form>
+    </td>
+  </tr>
+</table>

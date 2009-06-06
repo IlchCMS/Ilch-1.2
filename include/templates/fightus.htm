@@ -1,0 +1,35 @@
+<form action="index.php?fightus" method="POST">
+<fieldset>
+	<legend>{_lang_basicinfo}</legend>
+	<label style="float:left; width:120px;">{_lang_joininfo}</label>{_lang_plsfilloutallfields}<br />
+	<label style="float:left; width:120px;">{_lang_clanname}</label><input type="text" name="clanname" value="{clanname}"><br />
+	<label style="float:left; width:120px;">{_lang_clantag}</label><input type="text" name="clantag" value="{clantag}"><br />
+	<label style="float:left; width:120px;">{_lang_clanpage}</label><input type="text" name="clanpage" value="{clanpage}"><br />
+	<label style="float:left; width:120px;">{_lang_clancountry}</label><select name="clancountry">{clancountry}</select><br />
+	<label style="float:left; width:120px;">{_lang_mailaddy}</label><input type="text" name="mailaddy" value="{mailaddy}"><br />
+	<label style="float:left; width:120px;">{_lang_icqnumber}</label><input type="text" name="icqnumber" value="{icqnumber}"><br />
+
+  
+  <br />
+  
+  {_lang_matchinfo}
+  
+  <br />
+  
+	<label style="float:left; width:120px;">{_lang_meetingplace}</label><input type="text" name="meetingplace" value="{meetingplace}"><br />
+	<label style="float:left; width:120px;">{_lang_meetingtime}</label><input type="text" name="meetingtime" value="{meetingtime}"><br />
+	<label style="float:left; width:120px;">{_lang_squad}</label><select name="squad">{squad}</select><br />
+	<label style="float:left; width:120px;">{_lang_xonx}</label><input type="text" name="xonx" value="{xonx}"><br />
+	<label style="float:left; width:120px;">{_lang_game}</label><input type="text" name="game" value="{game}"><br />
+	<label style="float:left; width:120px;">{_lang_matchtype}</label><input type="text" name="matchtype" value="{matchtype}"><br />
+  <br />
+  
+  {_lang_otherinfo}
+  
+  <br />
+	<label style="float:left; width:120px;">{_lang_message}</label><textarea cols="40" rows="5" name="message">{message}</textarea><br />
+
+  {ANTISPAM}
+	<label style="float:left; width:120px;">&nbsp;</label><input type="submit" value="{_lang_send2}"><br />
+</fieldset>
+</form>
