@@ -72,6 +72,7 @@ $result = db_query("SELECT
 while ($r = db_fetch_assoc($result)) {
     list($y, $m, $d) = explode('-', $r['gebdatum']);
     $date = mktime(0, 0, 0, $m, $d);
+    $date2 = mktime(0, 0, 0, $m, $d, $year);
     $jetzt = time();
     $alter = date('Y') - $y;
     if ($date > $jetzt) {
@@ -84,7 +85,7 @@ while ($r = db_fetch_assoc($result)) {
         'id' => '999' . $r['id'],
         );
     $data_id['999' . $r['id']] = $row;
-    $data[$date][] = $row;
+    $data[$date2][] = $row;
 }
 
 if ($view == 0) {
@@ -101,7 +102,7 @@ $aus['TITLE'] = ($eid) ? $data_id[$eid]['title'] : $title_liste;
 $aus['TITLE_ALIGN'] = ($eid) ? '' : ' align="center"';
 $tpl->set_ar_out($aus, 0);
 unset($aus);
-// Deatilansicht
+// Detailansicht
 if ($eid) {
     $aus['DEATIL_DATE'] = date('d.m.Y', $data_id[$eid]['time']);
     $aus['DEATIL_TIME'] = date('H:i', $data_id[$eid]['time']);
