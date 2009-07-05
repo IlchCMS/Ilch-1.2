@@ -2,7 +2,7 @@
 #   Copyright by: Manuel
 #   Support: www.ilch.de
 
-if(file_exists('install.php') || file_exists('install.sql')) die('Installationsdateien noch vorhanden! Bitte erst l&ouml;schen!');
+#if(file_exists('install.php') || file_exists('install.sql')) die('Installationsdateien noch vorhanden! Bitte erst l&ouml;schen!');
 
 define ( 'main' , TRUE );
 
