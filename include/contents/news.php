@@ -166,7 +166,7 @@ if (!is_numeric($menu->get(1))) {
             'KATE' => $kategorie,
             'NID' => $nid,
             'uname' => $_SESSION['authname'],
-            'ANTISPAM' => (loggedin()?'':get_antispam ('newskom', 0)),
+            'ANTISPAM' => (loggedin()?'':get_antispam ('newskom', 100)),
             'NAME' => $row->news_title
             );
         $tpl->set_ar_out($ar, 2);

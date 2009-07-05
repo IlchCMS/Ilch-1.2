@@ -85,7 +85,7 @@ switch ($menu->get(1)) {
             }
 
             $tpl = new tpl ('gbook.htm');
-            $r['ANTISPAM'] = get_antispam('gbookkom', 0);
+            $r['ANTISPAM'] = get_antispam('gbookkom', 100);
             $r['uname'] = $_SESSION['authname'];
             $r['text'] = bbcode($r['text']);
             $tpl->set_ar_out($r, 4);

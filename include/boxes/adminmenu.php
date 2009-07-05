@@ -24,6 +24,7 @@ if (is_coadmin()) { ?>
     [null, 'Admin', 'admin.php?admin', null, null,
       <?php if (is_admin()) { ?>
       ['<img src="include/images/icons/admin/konfiguration.png" width="16" height="16">', 'Konfiguration', 'admin.php?allg', null, null],
+	  ['<img src="include/images/icons/admin/captcha.png" width="16" height="16">', 'AntiSpam', 'admin.php?captcha', null, null],
       <?php } ?>
       ['<img src="include/images/icons/admin/navigation.png" width="16" height="16">', 'Navigation', 'admin.php?menu', null, null],
       <?php if (is_admin()) { ?>

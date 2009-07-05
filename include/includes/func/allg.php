@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // Copyright by Manuel
 // Support www.ilch.de
 defined ('main') or die ('no direct access');
@@ -283,78 +283,44 @@ function iurlencode ($s) {
   return ($r);
   */
 }
-// antispam
-function chk_antispam ($m, $nopictures = false) {
-    global $allgAr;
+##
+###
+####
+##### antispam
+function chk_antispam ($m) {
+  global $allgAr;
 
-    if ($nopictures) {
-        return (bool) (isset($_POST['antispam_id']) and isset($_SESSION['antispam'][$_POST['antispam_id']]));
+  if (is_numeric($allgAr['antispam']) AND has_right($allgAr['antispam'])) { return (true); }
+    $captcha = TRUE;
+    if ($captcha) {
+    include_once 'include/includes/func/captcha/captcha.php';
+    $controller = new Captcha();
     }
-
-    if (is_numeric($allgAr['antispam']) AND has_right($allgAr['antispam'])) {
-        return true;
-    }
-
-    if (isset($_POST['antispam']) AND isset($_POST['antispam_id']) AND isset($_SESSION['antispam'][$_POST['antispam_id']]) AND $_POST['antispam'] == $_SESSION['antispam'][$_POST['antispam_id']][$m][3]) {
-        unset ($_SESSION['antispam'][$_POST['antispam_id']]);
-        return (true);
-    }
-
-    return (false);
+	if($captcha && !($controller->isValid(htmlentities($_POST['number'])))){
+	  return (false);
+	}
+	return (true);
 }
 
-function get_antispam ($m, $t, $nopictures = false) {
-    global $allgAr, $antispamId;
+function get_antispam ($m, $t) {
+  global $allgAr;
 
-    mt_srand((double)microtime() * 1000000);
-    $i1 = mt_rand (1, 9);
-    $i2 = mt_rand (1, 9);
-    $i3 = mt_rand (1, 9);
+  if (is_numeric($allgAr['antispam']) AND has_right($allgAr['antispam'])) { return (''); }
 
-    if (isset($antispamId)) {
-        $id = $antispamId;
-    } else {
-        $id = $antispamId = uniqid(mt_rand(), true);
-    }
-
-    $rs = '<input type="hidden" name="antispam_id" value="' . $id . '" />';
-
-    if (is_numeric($allgAr['antispam']) AND has_right($allgAr['antispam'])) {
-        if ($nopictures) {
-            return $rs;
-        } else {
-            return '';
-        }
-    }
-
-    if (!is_array($_SESSION['antispam'])) {
-        $_SESSION['antispam'] = array();
-    }
-
-    $_SESSION['antispam'][$m] = array();
-    $i1 = mt_rand (1, 9);
-    $i2 = mt_rand (1, 9);
-    $i3 = mt_rand (1, 9);
-
-    $_SESSION['antispam'][$id][$m] = array($i1, $i2, $i3, $i1 . $i2 . $i3);
-
-    $rs .= '<span style="display: inline; width: 100px; vertical-align: middle; text-align: center; background-color: #000000; border: 0px; padding: 2px; margin: 0px;">' .
-    '<img src="include/images/spam/z.php?m=' . $m . '&amp;w=0&amp;' . session_name() . '=' . session_id() . '&amp;id=' . $id . '" alt="">' .
-    '<img src="include/images/spam/z.php?m=' . $m . '&amp;w=1&amp;' . session_name() . '=' . session_id() . '&amp;id=' . $id . '" alt="">' .
-    '<img src="include/images/spam/z.php?m=' . $m . '&amp;w=2&amp;' . session_name() . '=' . session_id() . '&amp;id=' . $id . '" alt="">' .
-    '<input name="antispam" size="3" maxlength="3" style="background-color: #FFFFFF; border: 0px; margin: 0px; padding: 0px;" /></span>';
-    if ($t == 0) {
-        return ($rs);
-    } elseif ($t == 1) {
-        return ('<tr><td class="Cmite">Antispam</td><td class="Cnorm">' . $rs . '</td></tr>');
-    } elseif ($t > 10) {
-        return ('<label style="float:left; width: ' . $t . 'px; ">Antispam</label>' . $rs . '<br />');
-    } else {
-        return ('');
-    }
+  $rs = '<img class="Custom" src="include/includes/func/captcha/captchaimg.php" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt darunter stehende Feld ein.">&nbsp;<input name="number" type="text" maxlength="5" size="8">';
+  if ($t == 0) {
+	  return ('<img class="Custom" src="include/includes/func/captcha/captchaimg.php" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt darunter stehende Feld ein."><br><input name="number" type="text" maxlength="5" size="8">');
+	} elseif ($t == 1) {
+	  return ('<tr><td class="Cmite" valign="top"><b>Antispam</b></td><td class="Cnorm">'.$rs.'</td></tr>');
+  } elseif ($t > 10) {
+	  return ('<label style="float:left; width: '.$t.'px; ">Antispam</label>'.$rs.'<br>');
+	} else {
+	  return ('');
+	}
 }
-// antispam
-// Funktion scandir für PHP 4
+###
+##
+#// Funktion scandir für PHP 4
 if (version_compare(phpversion(), '5.0.0') == - 1) {
     function scandir($dir) {
         $dh = opendir($dir);
