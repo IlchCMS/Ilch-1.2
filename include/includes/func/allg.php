@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // Copyright by Manuel
 // Support www.ilch.de
 defined ('main') or die ('no direct access');
@@ -353,5 +353,4 @@ function nicebytes($bytes) {
         return round($bytes / (1024 * 1024), 2) . ' MB';
     }
 }
-
 ?>
