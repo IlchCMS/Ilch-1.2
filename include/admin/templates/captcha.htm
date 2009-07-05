@@ -1,0 +1,73 @@
+<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/captcha.png" /></td><td width="30"></td><td valign="bottom"><h1>Captcha - Einstellungen</h1></td></tr></table>
+<br><br>
+
+<form name="form" action="admin.php?captcha" method="POST" enctype="multipart/form-data">
+ <table border="0" cellspacing="1" cellpadding="3" class="border">
+    <tr>
+      <td class="Cmite">Captcha - Bildbreite:</td>
+			<td class="Cnorm"><input type="text" name="ximagewidth" size="12" value="{imagewidth}"></td>
+		</tr>
+    <tr>
+      <td class="Cmite">Captcha - Bildh&ouml;he:</td>
+			<td class="Cnorm"><input type="text" name="ximageheight" size="12" value="{imageheight}"></td>
+		</tr>
+    <tr>
+      <td class="Cmite">Captcha - Fontgr&ouml;sse (Vordergrund):</td>
+			<td class="Cnorm"><input type="text" name="xfontsize" size="12" value="{fontsize}"></td>
+		</tr>
+    <tr>
+      <td class="Cmite">Captcha - Hintergrundintensit&auml;t:</td>
+			<td class="Cnorm"><input type="text" name="xbgintensity" size="12" value="{bgintensity}"></td>
+		</tr>
+    <tr>
+      <td class="Cmite">Captcha - Fonttype (Hintergrund):</td>
+			<td class="Cnorm"><input type="text" name="xbgfonttype" size="12" value="{bgfonttype}"></td>
+		</tr>
+    <tr>
+      <td class="Cmite">Captcha - Scratches Anzahl:</td>
+			<td class="Cnorm"><input type="text" name="xscratchamount" size="12" value="{scratchamount}"></td>
+		</tr>
+    <tr>
+      <td class="Cmite">Captcha - Textl&auml;nge:</td>
+			<td class="Cnorm"><input type="text" name="xpassphraselenght" size="12" value="{passphraselenght}"></td>
+		</tr>
+    <tr>
+      <td class="Cmite">Lagewinkel der Schriften (30-45):</td>
+			<td class="Cnorm"><input type="text" name="xangle" size="12" value="{angle}"></td>
+		</tr>    
+    <tr>
+      <td class="Cmite">Mindestabstand der Raster f&uuml;r Gitter (10-20):</td>
+			<td class="Cnorm"><input type="text" name="xminsize" size="12" value="{minsize}"></td>
+		</tr>
+    <tr>
+      <td class="Cmite">Maximalabstand der Raster f&uuml;r Gitter (20-30 aber min. Mindestabstand + 10):</td>
+			<td class="Cnorm"><input type="text" name="xmaxsize" size="12" value="{maxsize}"></td>
+		</tr>
+    <tr>
+      <td class="Cmite">Zufallsfarben verwenden:</td>
+			<td class="Cnorm"><input id="useRandomColorsja" type="radio" {useRandomColorsja} name="xuseRandomColors" value="1" /><label for="useRandomColorsja"> ja</label>, <input id="useRandomColorsno" type="radio" {useRandomColorsno} name="xuseRandomColors" value="0" /><label for="useRandomColorsno"> nein</label></td>
+		</tr>
+    <tr>
+      <td class="Cmite">Gitter hinzuf&uuml;gen:</td>
+			<td class="Cnorm"><input id="addagridja" type="radio" {addagridja} name="xaddagrid" value="1" /><label for="addagridja"> ja</label>, <input id="addagridno" type="radio" {addagridno} name="xaddagrid" value="0" /><label for="addagridno"> nein</label></td>
+		</tr>    
+    <tr>
+      <td class="Cmite">Farbige Linien hinzuf&uuml;gen:</td>
+			<td class="Cnorm"><input id="addhorizontallinesja" type="radio" {addhorizontallinesja} name="xaddhorizontallines" value="1" /><label for="addhorizontallinesja"> ja</label>, <input id="addhorizontallinesno" type="radio" {addhorizontallinesno} name="xaddhorizontallines" value="0" /><label for="addhorizontallinesno"> nein</label></td>
+		</tr>
+    <tr>
+      <td class="Cmite">Captcha - Scratches verwenden:</td>
+			<td class="Cnorm"><input id="scratchesja" type="radio" {scratchesja} name="xscratches" value="1" /><label for="scratchesja"> ja</label>, <input id="scratchesno" type="radio" {scratchesno} name="xscratches" value="0" /><label for="scratchesno"> nein</label></td>
+		</tr>    
+    <tr height="50">
+      <td class="Cnorm" colspan="2" align="center" valign="middle"><img id="captchaimage" src="include/includes/func/captcha/captchaimg.php?" /></td>
+    </tr>
+		<tr>
+
+      <td class="Cdark" colspan="2" align="center"> 
+        <input type="submit" value="Captcha - Einstellungen speichern" name="sub"> 
+      </td>
+    </tr>
+		
+  </table>
+</form>
