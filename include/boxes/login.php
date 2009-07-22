@@ -25,8 +25,8 @@ if (loggedin()) {
     $tpl->set ('NAME', $_SESSION['authname']);
     $tpl->out (0);
 } else {
-    if (empty($_POST['login_name'])) {
-        $_POST['login_name'] = 'Nickname';
+    if (empty($_POST['login_email'])) {
+        $_POST['login_email'] = 'E-Mail';
     }
     if (empty($_POST['login_pw'])) {
         $_POST['login_pw'] = 'הההההההה';
@@ -35,7 +35,7 @@ if (loggedin()) {
     if ($allgAr['forum_regist'] == 1) {
         $regist = ' &nbsp; &nbsp; <a href="index.php?user-regist">Regist</a>';
     }
-    $tpl->set_ar_out (array ('regist' => $regist, 'wdlink' => '?' . $allgAr['smodul'], 'PASS' => $_POST['login_pw'], 'NAME' => $_POST['login_name']) , 1);
+    $tpl->set_ar_out (array ('regist' => $regist, 'wdlink' => '?' . $allgAr['smodul'], 'PASS' => $_POST['login_pw'], 'EMAIL' => $_POST['login_email']) , 1);
 }
 unset($tpl);
 

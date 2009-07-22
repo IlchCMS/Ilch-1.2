@@ -130,10 +130,9 @@ function markword($text, $such) {
 // #
 // ##
 // ###
-// #### gibt die smiley lilste zurueck
-function getsmilies () {
+// #### gibt die smiley liste zurueck
+function getsmilies ( $zeilen = 3 ) {
     global $lang;
-    $zeilen = 3;
     $i = 0;
     $b = '<script language="JavaScript" type="text/javascript">function moreSmilies () { var x = window.open("about:blank", "moreSmilies", "width=250,height=200,status=no,scrollbars=yes,resizable=yes"); ';
     $a = '';
@@ -352,5 +351,16 @@ function nicebytes($bytes) {
     } else {
         return round($bytes / (1024 * 1024), 2) . ' MB';
     }
+}
+// Alle Buchstaben in kleine Buchstaben umwandeln
+function get_lower($value){
+	if(is_array($value)){
+		foreach($value as $key => $wert) {
+			$array[$key] = get_lower($wert);
+		}
+		return $array;
+	}else{
+		return strtolower($value);
+	} 
 }
 ?>

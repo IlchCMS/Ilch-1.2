@@ -18,9 +18,10 @@ if (db_num_rows($erg) == 1) {
     switch ($row['ak']) {
         // confirm regist
         case 1 :
-            if (0 == db_count_query("SELECT COUNT(*) FROM prefix_user WHERE name = BINARY '" . $row['name'] . "'")) {
-                db_query("INSERT INTO prefix_user (name,pass,recht,regist,llogin,email,status,opt_mail,opt_pm)
-			  VALUES('" . $row['name'] . "','" . $row['pass'] . "',-1,'" . time() . "','" . time() . "','" . $row['email'] . "',1,1,1)");
+			$lower = get_lower ($row);
+            if (0 == db_count_query("SELECT COUNT(*) FROM prefix_user WHERE name_clean = BINARY '" . $lower['name'] . "'")) {
+                db_query("INSERT INTO prefix_user (name,name_clean,pass,recht,regist,llogin,email,status,opt_mail,opt_pm)
+			  VALUES('" . $row['name'] . "','" . $lower['name'] . "','" . $row['pass'] . "',-1,'" . time() . "','" . time() . "','" . $lower['email'] . "',1,1,1)");
 
                 echo $lang['confirmregist'];
             } else {
@@ -35,7 +36,7 @@ if (db_num_rows($erg) == 1) {
         // confirm new email
         case 3 :
             list ($id, $muell) = explode('||', $row['check']);
-            db_query("UPDATE prefix_user SET email = '" . $row['email'] . "' WHERE id = " . escape($id, 'integer'));
+            db_query("UPDATE prefix_user SET email = '" . get_lower ($row['email']) . "' WHERE id = " . escape($id, 'integer'));
             echo $lang['confirmemail'];
             break;
         // ak 4 wurde besetzt fuer joinus anfragen...

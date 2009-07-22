@@ -70,13 +70,24 @@ function session_und_cookie_name () {
 }
 
 function user_login_check () {
-    if (isset ($_POST['user_login_sub']) AND isset ($_POST['name']) AND isset ($_POST['pass'])) {
+    if (isset( $_POST['user_login_sub'] ) AND ( isset( $_POST['email'] ) OR isset( $_POST['name'] ) ) AND isset( $_POST['pass'] )) {
         debug ('posts vorhanden');
-        $name = escape_nickname($_POST['name']);
-        if ($name != $_POST['name'] OR strlen($_POST['name']) > 15) {
-            return false;
-        }
-        $erg = db_query("SELECT name,id,recht,pass,llogin FROM prefix_user WHERE name = BINARY '" . $name . "'");
+		
+		if (isset( $_POST['email'] )){
+			$lower = get_lower ($_POST['email']);
+			$value = escape_for_email ($lower);
+			$term = "email = BINARY '" . $value . "'";
+		} else if (isset( $_POST['name'] )){
+			$lower = get_lower ($_POST['name']);
+			$value = escape_nickname ($lower);
+			$term = "name_clean = BINARY '" . $value . "'";
+		}
+		
+		if( $lower != $value ){
+			return false;
+		}
+		
+        $erg = db_query("SELECT name,id,recht,pass,llogin FROM prefix_user WHERE ".$term);
         if (db_num_rows($erg) == 1) {
             debug ('user gefunden');
             $row = db_fetch_assoc($erg);
@@ -283,8 +294,15 @@ function user_has_admin_right (&$menu, $sl = true) {
 
 function user_regist ($name, $mail, $pass) {
     global $allgAr, $lang;
+	
+	$name_clean = get_lower( $name );
+    $erg = db_query("SELECT id FROM prefix_user WHERE name_clean = BINARY '" . $name_clean . "'");
+    if (db_num_rows($erg) > 0) {
+        return (false);
+    }
 
-    $erg = db_query("SELECT id FROM prefix_user WHERE name = BINARY '" . $name . "'");
+	$mail = get_lower( $mail );
+    $erg = db_query("SELECT id FROM prefix_user WHERE email = BINARY '" . $mail . "'");
     if (db_num_rows($erg) > 0) {
         return (false);
     }
@@ -306,11 +324,11 @@ function user_regist ($name, $mail, $pass) {
         db_query("INSERT INTO prefix_usercheck (`check`,name,email,pass,datime,ak)
 		VALUES ('" . $id . "','" . $name . "','" . $mail . "','" . $md5_pass . "',NOW(),1)");
     } else {
-        db_query("INSERT INTO prefix_user (name,pass,recht,regist,llogin,email,status,opt_mail,opt_pm)
-		VALUES('" . $name . "','" . $md5_pass . "',-1,'" . time() . "','" . time() . "','" . $mail . "',1,1,1)");
+        db_query("INSERT INTO prefix_user (name,name_clean,pass,recht,regist,llogin,email,status,opt_mail,opt_pm)
+		VALUES('" . $name . "','" . $name_clean . "','" . $md5_pass . "',-1,'" . time() . "','" . time() . "','" . $mail . "',1,1,1)");
         $userid = db_last_id();
     }
-    $regmail = sprintf($lang['registemail'], $name, $confirmlinktext, $name, $new_pass);
+    $regmail = sprintf($lang['registemail'], $name, $confirmlinktext, $mail, $new_pass);
 
     icmail($mail, 'Anmeldung', $regmail); # email an user
 

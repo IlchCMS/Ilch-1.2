@@ -578,6 +578,7 @@ CREATE TABLE `prefix_topics` (
 CREATE TABLE `prefix_user` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(50) NOT NULL default '',
+  `name_clean` varchar(50) NOT NULL default '',
   `pass` varchar(32) NOT NULL default '',
   `recht` int(1) NOT NULL default '0',
   `posts` int(5) NOT NULL default '0',

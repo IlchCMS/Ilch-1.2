@@ -43,11 +43,17 @@ switch ($menu->get(2)) {
 
         $ch_name = false;
         $xname = escape_nickname($name);
-        if (!empty($name) AND $xname == $name AND 0 == db_result(db_query("SELECT COUNT(*) FROM prefix_user WHERE name = BINARY '" . $name . "'"), 0)) {
+        if (!empty($name) AND $xname == $name AND 0 == db_result(db_query("SELECT COUNT(*) FROM prefix_user WHERE name_clean = BINARY '" . get_lower ($name) . "'"), 0)) {
             $ch_name = true;
         }
+		
+		$ch_email = false;
+        $xemail = escape_for_email($email);
+        if (!empty($email) AND $xemail == $email AND 0 == db_result(db_query("SELECT COUNT(*) FROM prefix_user WHERE email = BINARY '" . get_lower ($email) . "'"), 0)) {
+            $ch_email = true;
+        }
 
-        if (empty($name) OR empty($email) OR $name != $xname OR $ch_name == false) {
+        if (empty($name) OR empty($email) OR $name != $xname OR $ch_name == false OR $email != $xemail OR $ch_email == false) {
             $title = $allgAr['title'] . ' :: Users :: Registrieren :: Step 2 von 3';
             $hmenu = $extented_forum_menu . '<a class="smalfont" href="?user">User</a><b> &raquo; </b><a class="smalfont" href="?user-regist">Registrieren</a><b> &raquo; </b>Step 2 von 3' . $extented_forum_menu_sufix;
             $design = new design ($title , $hmenu, 1);
@@ -58,6 +64,10 @@ switch ($menu->get(2)) {
                 $fehler = $lang['wrongnickname'];
             } elseif ($ch_name == false) {
                 $fehler = $lang['namealreadyinuse'];
+            } elseif ($email != $xemail) {
+                $fehler = $lang['wrongemail'];
+            } elseif ($ch_email == false) {
+                $fehler = $lang['emailalreadyinuse'];
             }
             $tpl = new tpl ('user/regist');
             $tpl->set('name', $name);
