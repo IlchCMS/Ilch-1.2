@@ -24,7 +24,7 @@ function news_find_kat ($kat) {
     }
 
     if (!empty($pfadzumBild)) {
-        $kategorie = '<img style="" src="' . $pfadzumBild . '" alt="' . $kat . '">';
+        $kategorie = '<img style="" src="' . $pfadzumBild . '" alt="' . $kat . '" />';
     } else {
         $kategorie = '<b>' . $kat . '</b><br /><br />';
     }

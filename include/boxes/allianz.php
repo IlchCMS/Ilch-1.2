@@ -8,7 +8,7 @@ $tpl_alianz = <<< tpl
 {EXPLODE}
 <a class="box" href="{link}" target="_blank">{title}</a><br />
 {EXPLODE}
-<img src="{banner}" alt="{name}" border="0">
+<img src="{banner}" alt="{name}" border="0" />
 tpl;
 
 defined ('main') or die ('no direct access');
