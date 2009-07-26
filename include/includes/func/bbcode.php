@@ -4,8 +4,7 @@
 
 defined ('main') or die ( 'no direct access' );
 //Klasse laden
-require_once('include/includes/class/bbcode.php');
-require_once('include/includes/bbcode_config.php');
+
 $ILCH_HEADER_ADDITIONS .= "<script type=\"text/javascript\" src=\"include/includes/js/BBCodeGlobal.js\"></script>\n<script type=\"text/javascript\">\nvar bbcodemaximagewidth = {$info['ImgMaxBreite']};\nvar bbcodemaximageheight = {$info['ImgMaxHoehe']};\n</script>";
 
 //Farbliste erstellen

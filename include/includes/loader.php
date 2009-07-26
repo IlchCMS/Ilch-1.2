@@ -8,6 +8,7 @@ defined ('main') or die ( 'no direct access' );
 require_once('include/includes/class/tpl.php');
 require_once('include/includes/class/design.php');
 require_once('include/includes/class/menu.php');
+require_once('include/includes/class/bbcode.php');
 
 # fremde classes laden
 require_once('include/includes/class/xajax.inc.php');
@@ -15,6 +16,7 @@ require_once('include/includes/class/xajax.inc.php');
 # load all needed func
 require_once('include/includes/func/db/mysql.php');
 
+require_once('include/includes/func/bbcode_config.php');
 require_once('include/includes/func/calender.php');
 require_once('include/includes/func/user.php');
 require_once('include/includes/func/escape.php');
