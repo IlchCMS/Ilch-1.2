@@ -5,7 +5,7 @@
 ?>
 <html>
 
-<head><title>... ::: [ I n s t a l l a t i o n &nbsp; f &uuml; r &nbsp; C l a n s c r i p t &nbsp; v o n &nbsp; i l c h ] ::: ...</title>
+<head><title>... ::: [ I n s t a l l a t i o n &nbsp; v o n &nbsp; i l c h &nbsp; v o n &nbsp; 1 . 2 ] ::: ...</title>
 <link rel="stylesheet" href="include/designs/ilchClan/style.css" type="text/css">
 
 </head>
@@ -491,6 +491,9 @@ POSSIBILITY OF SUCH DAMAGES.
     		<td class="Cmite"><br>"include/contents/selfbp/selfb" Schreibrechte (CHMOD 777)<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/contents/selfbp/selfb' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
   		</tr><tr>
+    		<td class="Cmite"><br>"include/includes/func/captcha/txt" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/includes/func/captcha/txt' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+  		</tr><tr>
     		<td class="Cmite"><br>"include/images/smiles" Schreibrechte (CHMOD 777)<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/smiles' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
   		</tr><tr class="Cdark">
@@ -527,12 +530,8 @@ POSSIBILITY OF SUCH DAMAGES.
     		<td class="Cnorm"><input type="text" name="mysql_datenbank"></td>
 				<td class="Cnorm">Die Datenbank in der die Tabellen f&uuml;r das Clanscript angelegt werden sollen.</td>
   		</tr><tr>
-    		<td class="Cmite">Installation Nr.</td>
-    		<td class="Cnorm"><select name="mysql_prefix"><?php
-           for($i=1;$i<=10;$i++) {
-             echo '<option value="ic'.$i.'_">'.$i.'</option>';
-           }
-        ?></select></td>
+    		<td class="Cmite">Prefix</td>
+    		<td class="Cnorm"><input type="text" name="mysql_prefix" value="ic1_"></td>
 				<td class="Cnorm">Kann i.d.R. unver&auml;ndert bleiben, ausser das Script wird mehr als einmal in die selbe Datenbank installiert.</td>
   		</tr><tr class="Cdark">
     		<td colspan="3"><b>Admin anlegen</b></td>
@@ -566,7 +565,7 @@ POSSIBILITY OF SUCH DAMAGES.
 	    empty($_POST['mysql_prefix'])
     )
   {
-    echo '<table width="50%" class="border" border="0" cellspacing="1" cellpadding="3" align="center"><tr><td class="Cnorm">Folgende Angaben sind unbedingt erforderlich:<br />&nbsp;&nbsp;- Hostname<br />&nbsp;&nbsp;- Username<br />&nbsp;&nbsp;- Installations Nr.<br />&nbsp;&nbsp;- Datenbank<br />&nbsp;&nbsp;- AdminPassword<br />&nbsp;&nbsp;- AdminE-Mail<br />&nbsp;&nbsp;- AdminName<br />&nbsp;<a href="javascript:history.back(-1)">zur&uuml;ck</a></td></tr></table>';
+    echo '<table width="50%" class="border" border="0" cellspacing="1" cellpadding="3" align="center"><tr><td class="Cnorm">Folgende Angaben sind unbedingt erforderlich:<br />&nbsp;&nbsp;- Hostname<br />&nbsp;&nbsp;- Username<br />&nbsp;&nbsp;- Prefix<br />&nbsp;&nbsp;- Datenbank<br />&nbsp;&nbsp;- AdminPassword<br />&nbsp;&nbsp;- AdminE-Mail<br />&nbsp;&nbsp;- AdminName<br />&nbsp;<a href="javascript:history.back(-1)">zur&uuml;ck</a></td></tr></table>';
   } else {
     $config = <<< config
 <?php
@@ -604,7 +603,7 @@ db_connect();
 if (DBPREF.'allg' == @db_result(@db_query("SHOW TABLES LIKE 'prefix_allg'"),0)) {
   ?>
 	  <html>
-		<head><title>... ::: [ I n s t a l l a t i o n &nbsp; f  r &nbsp; C l a n s c r i p t &nbsp; v o n &nbsp; i l c h ] ::: ...</title>
+		<head><title>... ::: [ I n s t a l l a t i o n &nbsp; v o n &nbsp; i l c h &nbsp; v o n &nbsp; 1 . 2 ] ::: ...</title>
 		<link rel="stylesheet" href="include/designs/ilchClan/style.css" type="text/css"></head>
 		<body>
 		<table width="70%" class="border" border="0" cellspacing="0" cellpadding="25" align="center">
@@ -614,8 +613,8 @@ if (DBPREF.'allg' == @db_result(@db_query("SHOW TABLES LIKE 'prefix_allg'"),0)) 
           Die Installation wurde vermutlich schon ausgef&uuml;hrt.
           <br />Auf jeden Fall ist die allgemeine Tabelle schon vorhanden...
           <br />Bitte ersteinmal den Status der <a href="index.php">Seite</a> checken.
-          <br />- Wenn es die Version 1.0.5 ist, dann bitte das update ausf&uuml;hren.
-          <br />- Ansonsten wurde die Version 1.1 offenbar schon installiert.
+          <br />- Wenn es die Version 1.0.5 oder 1.1 ist, dann bitte das update ausf&uuml;hren.
+          <br />- Ansonsten wurde die Version 1.2 offenbar schon installiert.
           <br /><br />Bei Fragen bitte auf <a href="http://www.ilch.de/">ilch.de</a> nachfragen.
         </td>
       </tr>
@@ -643,7 +642,7 @@ db_query ("UPDATE prefix_config SET wert = '".$_POST['admin_amail']."' WHERE sch
 ?>
 
 	  <html>
-		<head><title>... ::: [ I n s t a l l a t i o n &nbsp; f  r &nbsp; C l a n s c r i p t &nbsp; v o n &nbsp; i l c h ] ::: ...</title>
+		<head><title>... ::: [ I n s t a l l a t i o n &nbsp; v o n &nbsp; i l c h &nbsp; v o n &nbsp; 1 . 2 ] ::: ...</title>
 		<link rel="stylesheet" href="include/designs/ilchClan/style.css" type="text/css"></head>
 		<body>
 		<table width="70%" class="border" border="0" cellspacing="0" cellpadding="25" align="center">

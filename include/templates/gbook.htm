@@ -86,7 +86,7 @@ function RestlicheZeichenErmitteln(d)
 //-->
 </script>
 
-<script type='text/javascript' src='include/includes/js/bbcode.js'></script>
+<script type="text/javascript" src="include/includes/js/bbcode.js"></script>
 <form action="index.php?gbook-2" onsubmit="return checkg()" method="POST" name="form">
 
 <table width="100%" class="border" cellspacing="1" border="0" cellpadding="5">
@@ -107,18 +107,7 @@ function RestlicheZeichenErmitteln(d)
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
       <tr>
         <td width="100%">
-      <!-- BB Code START -->
-	   
-    <a href="javascript:simple('b')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.bold.gif" alt="b" title="{_lang_bold}" border="0"></a>
-    <a href="javascript:simple('i')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.italic.gif" alt="i" title="{_lang_italic}" border="0"></a>
-	<a href="javascript:simple('u')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.underline.gif" alt="u" title="{_lang_underlined}" border="0"></a>
-    <a href="javascript:simple('code')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.code.gif" alt="Code" title="{_lang_code}" border="0"></a>
-	<a href="javascript:simple_liste()"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.insertunorderedlist.gif" alt="{_lang_list}" title="{_lang_list}" border="0"></a>
-    <a href="javascript:simple('url')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.link.gif" alt="Url" title="{_lang_link}" border="0"></a>
-    <a href="javascript:simple('img')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.image.gif" alt="{_lang_picture}" title="{_lang_picture}" border="0"></a>
-
-		 
-		 <!-- BB Code START -->
+      <!-- BB Code START -->{__BBCodeButtons__}<!-- BB Code START -->
 				</td>
       </tr><tr class="Cnorm">
         <td width="100%"><textarea style="width: 98%" onblur="RestlicheZeichenErmitteln(this);" onchange="RestlicheZeichenErmitteln(this);" onfocus="RestlicheZeichenErmitteln(this);" onkeydown="RestlicheZeichenErmitteln(this);" onkeyup="RestlicheZeichenErmitteln(this);" cols="50" rows="10" tabindex="4" name="txt"></textarea><br />Noch <input size="3" name="Laenge" value="{TXTL}"> {_lang_signs}</td>
@@ -146,10 +135,8 @@ function RestlicheZeichenErmitteln(d)
 	    <form action="index.php?gbook-show-{id}" method="POST">
         <fieldset>
           <legend>{_lang_writecomment}</legend>
-          <label style="float:left; width:100px;">{_lang_name}</label><input type="text" name="name" value="{uname}" /><br />
-<label style="float:left; width:100px; ">{_lang_comment}</label><textarea cols="40" rows="5" name="text"></textarea><br />
-{ANTISPAM}
- <label style="float:left; width:100px;">&nbsp;</label><input type="submit" value="{_lang_enter}"><br />
+          <input type="text" name="name" value="{uname}" /> &nbsp; {ANTISPAM} &nbsp; <input type="submit" value="{_lang_enter}"><br />
+          <textarea style="width: 98%" cols="50" rows="2" name="text"></textarea><br />
         </fieldset>
       </form>
       <br />

@@ -1,282 +1,224 @@
 <?php
-// Copyright by Manuel
-// Support www.ilch.de
-defined ('main') or die ('no direct access');
-function BBcode($s, $maxLength = 40) {
-    // $s = unescape($s);
-    $coTime = str_replace(' ', '', microtime());
-    preg_match_all('/\[code\](.+)\[\/code\]/Uis', $s, $result);
+#   Copyright by Manuel Staechele
+#   Support www.ilch.de
 
-    $s = bbcode_code_start ($s, $coTime, $result);
-    // bbcode einheitlicher machen zum bessern pruefen.
-    $s = bbcode_simple_prev ($s);
-    // $s = preg_replace ("/(\015\012|\015|\012)/", " \\1", $s);
-    // autoumbruch nach x zeichen
-    // $s = bbcode_autonewline($s, $coTime, $maxLength);
-    $s = htmlentities($s);
-    // speziell bilder
-    $s = bbcode_images ($s);
-    // speziell zitate ersetzten.
-    $s = bbcode_quote ($s);
-    // replace simple
-    $s = bbcode_simple ($s);
-    // smilies umwandeln
-    $s = bbcode_smiles ($s);
+defined ('main') or die ( 'no direct access' );
+//Klasse laden
+require_once('include/includes/class/bbcode.php');
+require_once('include/includes/bbcode_config.php');
+$ILCH_HEADER_ADDITIONS .= "<script type=\"text/javascript\" src=\"include/includes/js/BBCodeGlobal.js\"></script>\n<script type=\"text/javascript\">\nvar bbcodemaximagewidth = {$info['ImgMaxBreite']};\nvar bbcodemaximageheight = {$info['ImgMaxHoehe']};\n</script>";
 
-    $s = preg_replace ("/\015\012|\015|\012/", "\n<br />", $s);
-    // code zurueck ersetzten
-    $s = bbcode_code_end ($s, $coTime, $result);
-
-    return ($s);
+//Farbliste erstellen
+function colorliste ( $ar ) {
+  $l = '';
+  foreach($ar as $k => $v) {
+   $l .= '<td width="10" style="background-color: '.$k.';"><a href="#" onClick="javascript:bbcode_code_insert(\'color\',\''.$k.'\'); hide_color();"><img src="include/images/icons/bbcode/transparent.gif" border="0" height="10" width="10" alt="'.$v.'" title="'.$v.'"></td>';
+  }
+  return ($l);
 }
-// diese funktion ist etwas komplizierter. und zwar wird hier versucht
-// dem problem beizukommen das immer irgendwelche spassvoegel sehr lange
-// texte schreiben die dann das design verzerren. dagegen hilft nur der
-// automatische umbruch. ich habe mir dafuer ausgedacht es gibt
-// bestimmte zeichen ab dennen die kontrolle total aus ist (url, img)
-// und es gibt zeichen ab dennen die kontrolle wieder eingeschaltet wird
-// ausserdem gibt es zeichen ab dennen wieder von vorn angefangen wird
-// zu zahlen, wird der counter erreicht wird ein leerzeichen eingefueght.
-function bbcode_autonewline ($s, $coTime, $maxLength) {
-    $neu_s = '';
 
-    $ar_start = array (
-        '[url=http://',
-        '[img]'
-        );
+function getBBCodeButtons(){
+		//> Buttons Informationen.
+		$ButtonSql = db_query("SELECT *	FROM prefix_bbcode_buttons WHERE fnButtonNr='1'");
+		$boolButton = db_fetch_assoc($ButtonSql);
 
-    $ar_ende = array (
-        ']',
-        '[/img]'
-        );
+		$cfgBBCsql = db_query("SELECT * FROM prefix_bbcode_config WHERE fnConfigNr='1'");
+		$cfgInfo = db_fetch_assoc($cfgBBCsql);
+		
+        $BBCodeButtons = '<script type="text/javascript" src="include/includes/js/interface.js"></script>';
 
-    $ar_neu = array (
-        ' ',
-        );
+		//> Fett Button!
+		if($boolButton['fnFormatB'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_insert('b','Gib hier den Text an der formatiert werden soll.')\"><img src=\"include/images/icons/bbcode/bbcode_bold.png\" alt=\"Fett formatieren\" title=\"Fett formatieren\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
 
-    $ar_next = array (' ', "\n", "\r", '[/url]', '[b]', '[/b]', '[i]', '[/i]', '[u]', '[/u]', $coTime, '[list]', '[/list]', '[*]');
 
-    $count = true;
-    $countgr = null;
-    $counter = - 1;
+		//> Kursiv Button!
+		if($boolButton['fnFormatI'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_insert('i','Gib hier den Text an der formatiert werden soll.')\"><img src=\"include/images/icons/bbcode/bbcode_italic.png\" alt=\"Kursiv formatieren\" title=\"Kursiv formatieren\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
 
-    $a = strlen ($s);
-    for ($i = 0;$i < $a;$i++) {
-        // counter raus / rein
-        if ($count == true) {
-            foreach ($ar_start as $sk => $sv) {
-                if ($s {
-                        $i} == substr($sv, 0, 1) AND preg_match("/^" . preg_quote($sv, '/') . "/", substr($s, $i))) {
-                    $count = false;
-                    $countgr = $sk;
-                    $counter = 0;
-                    // echo '<h1>ON</h1>';
-                    break;
-                }
-            }
-        } elseif ($count == false AND $s {
-                $i} == substr($ar_ende[$countgr], 0, 1) AND preg_match("/^" . preg_quote($ar_ende[$countgr], '/') . "/", substr($s, $i))) {
-            // echo '<h1>||'. $s{$i} .'||<br>||'.substr($s, $i, 10).'||<br>';
-            // echo 'OFF</h1>';
-            $count = true;
-            $counter = - 2;
-            $countgr = null;
+		//> Unterschrieben Button!
+		if($boolButton['fnFormatU'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_insert('u','Gib hier den Text an der formatiert werden soll.')\"><img src=\"include/images/icons/bbcode/bbcode_underline.png\" alt=\"Unterstrichen formatieren\" title=\"Unterstrichen formatieren\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
+
+		//> Durchgestrichener Button!
+		if($boolButton['fnFormatS'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_insert('s','Gib hier den Text an der formatiert werden soll..')\"><img src=\"include/images/icons/bbcode/bbcode_strike.png\" alt=\"Durchgestrichen formatieren\" title=\"Durchgestrichen formatieren\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
+
+		//> Leerzeichen?
+		if($boolButton['fnFormatI'] == 1 || $boolButton['fnFormatU'] == 1 || $boolButton['fnFormatS'] == 1) {
+			$BBCodeButtons .= "&nbsp;";
+		}
+
+		//> Links Button!
+		if($boolButton['fnFormatLeft'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_code_insert('left','0')\"><img src=\"include/images/icons/bbcode/bbcode_left.png\" alt=\"Links ausrichten\" title=\"Links ausrichten\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
+
+		//> Zentriert Button!
+		if($boolButton['fnFormatCenter'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_code_insert('center','0')\"><img src=\"include/images/icons/bbcode/bbcode_center.png\" alt=\"Mittig ausrichten\" title=\"Mittig ausrichten\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
+
+		//> Rechts Button!
+		if($boolButton['fnFormatRight'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_code_insert('right','0')\"><img src=\"include/images/icons/bbcode/bbcode_right.png\" alt=\"Rechts ausrichten\" title=\"Rechts ausrichten\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
+
+		//> Leerzeichen?
+		if($boolButton['fnFormatLeft'] == 1 || $boolButton['fnFormatCenter'] == 1 || $boolButton['fnFormatRight'] == 1) {
+			$BBCodeButtons .= "&nbsp;";
+		}
+
+		//> Listen Button!
+		if($boolButton['fnFormatList'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_insert('list','Gib hier den Text ein der aufgelistet werden soll \\n Um die liste zu beenden einfach auf Abbrechen klicken.')\"><img src=\"include/images/icons/bbcode/bbcode_list.png\" alt=\"Liste erzeugen\" title=\"Liste erzeugen\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
+
+		//> Hervorheben Button!
+		if($boolButton['fnFormatEmph'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_code_insert('emph','0')\"><img src=\"include/images/icons/bbcode/bbcode_emph.png\" alt=\"Text hervorheben\" title=\"Text hervorheben\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
+
+		//> Schriftfarbe Button!
+        if($boolButton['fnFormatColor'] == 1) {
+          $colorar = array('#FF0000' => 'red','#FFFF00' => 'yellow','#008000' => 'green','#00FF00' => 'lime','#008080' => 'teal','#808000' => 'olive','#0000FF' => 'blue','#00FFFF' => 'aqua', '#000080' => 'navy','#800080' => 'purple','#FF00FF' => 'fuchsia','#800000' => 'maroon','#C0C0C0' => 'grey','#808080' => 'silver','#000000' => 'black','#FFFFFF' => 'white',);
+          $BBCodeButtons .= "<a href=\"javascript:hide_color();\"><img id=\"bbcode_color_button\" src=\"include/images/icons/bbcode/bbcode_color.png\" alt=\"Text f&auml;rben\" title=\"Text f&auml;rben\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+          $BBCodeButtons .= '<div style="display:none; position:absolute; top:0px; left:0px; width:200px; z-index:100;" id="colorinput">
+          <table width="100%" class="border" border="0" cellspacing="1" cellpadding="0">
+            <tr class="Chead" onclick="javascript:hide_color();"><td colspan="16"><b>Farbe wählen</b></td></tr>
+            <tr class="Cmite" height="15">'.colorliste($colorar).'</tr></table>
+          </div>';
         }
 
-        if ($count == true) {
-            $counter++;
-            // ar neu?
-            foreach ($ar_neu as $v) {
-                if ($count == true AND $s {
-                        $i} == substr($v, 0, 1) AND preg_match ("/^" . preg_quote($v) . "/", substr($s, $i))) {
-                    $counter = - 3;
-                    break;
-                }
-            }
-            // springen
-            foreach ($ar_next as $v) {
-                if ($s {
-                        $i} == substr($v, 0, 1) AND preg_match("/^" . preg_quote($v, '/') . "/", substr($s, $i))) {
-                    $i = $i + strlen ($v) - 1;
-                    $springen = true;
-                    $valSprin = $v;
-                    break;
-                }
-            }
-            if (isset($springen) AND $springen === true) {
-                $neu_s .= $valSprin;
-                $springen = false;
-                $valSprin = null;
-                continue;
-            }
+		//> Schriftgröße Button!
+		if($boolButton['fnFormatSize'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_insert_with_value('size','Gib hier den Text an der formatiert werden soll.','Gib hier die Gr&ouml;&szlig;e des textes in Pixel an. \\n Pixellimit liegt bei ".$cfgInfo['fnSizeMax']."px !!!')\"><img src=\"include/images/icons/bbcode/bbcode_size.png\" alt=\"Textgr&ouml;&szlig;e ver&auml;ndern\" title=\"Textgr&ouml;&szlig;e ver&auml;ndern\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
 
-            if ($counter >= $maxLength) {
-                $neu_s .= ' ';
-                $counter = 0;
-            }
-        }
+		//> Leerzeichen?
+		if($boolButton['fnFormatList'] == 1 || $boolButton['fnFormatEmph'] == 1 || $boolButton['fnFormatColor'] == 1 || $boolButton['fnFormatSize'] == 1) {
+			$BBCodeButtons .= "&nbsp;";
+		}
 
-        $neu_s .= $s {
-            $i} ;
+		//> Url Button!
+		if($boolButton['fnFormatUrl'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_insert_with_value('url','Gib hier den namen des links an.','Gib hier die Adresse zu welcher verlinkt werden soll.')\"><img src=\"include/images/icons/bbcode/bbcode_url.png\" alt=\"Hyperlink einf&uuml;gen\" title=\"Hyperlink einf&uuml;gen\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
+
+		//> E-Mail Button!
+		if($boolButton['fnFormatEmail'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_insert_with_value('mail','Gib hier den namen des links an.','Gib hier die eMail - Adresse an.')\"><img src=\"include/images/icons/bbcode/bbcode_email.png\" alt=\"eMail hinzuf&uuml;gen\" title=\"eMail hinzuf&uuml;gen\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
+
+		//> Leerzeichen?
+		if($boolButton['fnFormatUrl'] == 1 || $boolButton['fnFormatEmail'] == 1) {
+			$BBCodeButtons .= "&nbsp;";
+		}
+
+		//> Bild Button!
+		if($boolButton['fnFormatImg'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_insert('img','Gib hier die Adresse des Bildes an.  \\n Die Breite und H&ouml;he des Bildes ist auf ".$cfgInfo['fnImgMaxBreite']."x".$cfgInfo['fnImgMaxHoehe']." eingeschränkt und würde verkleinert dargstellt werden.')\"><img src=\"include/images/icons/bbcode/bbcode_image.png\" alt=\"Bild einf&uuml;gen\" title=\"Bild einf&uuml;gen\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
+
+		//> Screenshot Button!
+		if($boolButton['fnFormatScreen'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_insert('shot','Gib hier die Adresse des Screens an.  \\n Die Breite und H&ouml;he des Bildes ist auf ".$cfgInfo['fnScreenMaxBreite']."x".$cfgInfo['fnScreenMaxHoehe']." eingeschränkt und wird verkleinert dargstellt.')\"><img src=\"include/images/icons/bbcode/bbcode_screenshot.png\" alt=\"Bild einf&uuml;gen\" title=\"Screen einf&uuml;gen\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
+
+		//> Leerzeichen?
+		if($boolButton['fnFormatImg'] == 1 || $boolButton['fnFormatScreen'] == 1) {
+			$BBCodeButtons .= "&nbsp;";
+		}
+
+		//> Quote Button!
+		if($boolButton['fnFormatQuote'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_code_insert('quote','0')\"><img src=\"include/images/icons/bbcode/bbcode_quote.png\" alt=\"Zitat einf&uuml;gen\" title=\"Zitat einf&uuml;gen\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
+
+		//> Klapptext Button!
+		if($boolButton['fnFormatKtext'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_insert_with_value('ktext','Gib hier den zu verbergenden Text ein.','Gib hier einen Titel f&uuml;r den Klapptext an.')\"><img src=\"include/images/icons/bbcode/bbcode_ktext.png\" alt=\"Klappfunktion hinzuf&uuml;gen\" title=\"Klappfunktion hinzuf&uuml;gen\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
+
+		//> Video Button!
+		if($boolButton['fnFormatVideo'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_insert_with_value_2('video','Gib hier die Video ID vom Anbieter an.','Bitte Anbieter ausw&auml;hlen.\\nAkzeptiert werden: Google, YouTube, MyVideo und GameTrailers')\"><img src=\"include/images/icons/bbcode/bbcode_video.png\" alt=\"Video einf&uuml;gen\" title=\"Video einf&uuml;gen\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
+		
+		//> Flash Button!
+		if($boolButton['fnFormatFlash'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_insert('flash','Gib hier den Link zur Flashdatei an')\"><img src=\"include/images/icons/bbcode/bbcode_flash.png\" alt=\"Flash einf&uuml;gen\" title=\"Flash einf&uuml;gen\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
+
+		//> Countdown Button!
+		if($boolButton['fnFormatCountdown'] == 1) {
+			$BBCodeButtons .= "<a href=\"javascript:bbcode_insert_with_value('countdown','Gib hier das Datum an wann das Ereignis beginnt.\\n Format: TT.MM.JJJJ Bsp: 24.12.".date("Y")."','Gib hier eine Zeit an, wann das Ergeinis am Ereignis- Tag beginnt.\\nFormat: Std:Min:Sek Bsp: 20:15:00')\"><img src=\"include/images/icons/bbcode/bbcode_countdown.png\" alt=\"Countdown festlegen\" title=\"Countdown festlegen\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+		}
+
+		//> Leerzeichen?
+		if($boolButton['fnFormatQuote'] == 1|| $boolButton['fnFormatKtext'] == 1 || $boolButton['fnFormatVideo'] == 1) {
+			$BBCodeButtons .= "&nbsp;";
+		}
+
+		//> Code Dropdown!
+    if($boolButton['fnFormatCode'] == 1 || $boolButton['fnFormatPhp'] == 1 || $boolButton['fnFormatHtml'] == 1 || $boolButton['fnFormatCss'] == 1) {
+      $BBCodeButtons .= "<select onChange=\"javascript:bbcode_code_insert_codes(this.value); javascript:this.value='0';\" style=\"font-family:Verdana;font-size:10px; margin-bottom:6px; z-index:0;\" name=\"code\"><option value=\"0\">Code einf&uuml;gen</option>";
     }
 
-    /*
-  $s = str_replace('</a>', ' </a>', $s);
-  $lines = explode(' ',$s);
 
-	$ntxt = '';
-	foreach ($lines as $v) {
-	  if ( strpos($v,$coTime) === FALSE AND strpos ($v, 'src="') === FALSE AND strpos ($v, 'href="') === FALSE AND strpos ($v, '</table>') === FALSE) {
-		  $ntxt .= chunk_split($v, $maxLength, ' ').' ';
-    } else {
-		  $ntxt .= $v.' ';
+    if($boolButton['fnFormatPhp'] == 1) {
+      $BBCodeButtons .= "<option value=\"php\">PHP</option>";
+    }
+
+    if($boolButton['fnFormatHtml'] == 1) {
+      $BBCodeButtons .= "<option value=\"html\">HTML</option>";
+    }
+
+    if($boolButton['fnFormatCss'] == 1) {
+      $BBCodeButtons .= "<option value=\"css\">CSS</option>";
+    }
+
+    if($boolButton['fnFormatCode'] == 1) {
+      $BBCodeButtons .= "<option value=\"code\">Sonstiger Code</option>";
+    }
+
+		if($boolButton['fnFormatCode'] == 1 || $boolButton['fnFormatPhp'] == 1 || $boolButton['fnFormatHtml'] == 1 || $boolButton['fnFormatCss'] == 1) {
+			$BBCodeButtons .= "</select>";
+		}
+    
+    return $BBCodeButtons;
+}
+
+function BBcode($s,$maxLength=0,$maxImgWidth=0,$maxImgHeight=0) {
+  global $permitted,$info,$global_smiles_array;
+  
+  //> Smilies in array abspeichern.
+	if(!isset($global_smiles_array)) {
+		$erg = db_query("SELECT ent, url, emo FROM `prefix_smilies`");
+		while ($row = db_fetch_object($erg) ) {
+			$global_smiles_array[$row->ent] = $row->emo.'#@#-_-_-#@#'.$row->url;
 		}
 	}
-	$s = $ntxt;
-  $s = str_replace(' </a>', '</a>', $s);
-  */
-    return($neu_s);
+
+	$bbcode = new bbcode();
+	$bbcode->smileys = $global_smiles_array;
+	$bbcode->permitted = $permitted;
+	$bbcode->info = $info;
+
+  if ($maxLength != 0) {
+    $bbcode->info['fnWortMaxLaenge'] = $maxLength;
+  }
+  if ($maxImgWidth != 0) {
+    $bbcode->info['fnImgMaxBreite'] = $maxImgWidth;
+  }
+  if ($maxImgHeight != 0) {
+    $bbcode->info['fnImgMaxBreite'] = $maxImgHeight;
+  }
+
+	return $bbcode->parse($s);
 }
-
-function bbcode_images ($s) {
-    global $allgAr;
-
-    preg_match_all('/\[img\](http|https):\/\/([^\ \?&=\#\"\n\r\t!=]+)\.(gif|jpeg|jpg|png)\[\/img\]/Ui', $s, $imgRs);
-
-    $max_breite = 0;
-    if (isset($allgAr['allg_bbcode_max_img_width'])) {
-        $max_breite = $allgAr['allg_bbcode_max_img_width'];
-    }
-    $endung = array (1 => 'gif', 2 => 'jpg', 3 => 'png');
-
-    if (isset ($imgRs[0][0])) {
-        for($i = 0;$i < count($imgRs[0]);$i++) {
-            $imgstr = $imgRs[1][$i] . '://' . $imgRs[2][$i] . '.' . $imgRs[3][$i];
-            $size = @getimagesize($imgstr);
-            $breite = $neueBreite = $size[0];
-            $hoehe = $neueHoehe = $size[1];
-            $er = '';
-            if (isset($endung[$size[2]]) OR !is_array($size)) {
-                $er = '<img style="border: none;" src="' . $imgstr . '" />';
-                if ($breite > $max_breite) {
-                    $neueHoehe = intval($hoehe * $max_breite / $breite);
-                    $neueBreite = $max_breite;
-                    $er = '<a href="' . $imgstr . '" target="_blank"><img height="' . $neueHoehe . '" width="' . $neueBreite . '" style="border: none;" src="' . $imgstr . '" /></a>';
-                }
-            }
-            $s = str_replace($imgRs[0][$i], $er, $s);
-        }
-    }
-    return($s);
-}
-
-function bbcode_quote ($s) {
-    $tpl = new tpl ('zitatreplace.htm');
-    $header1_quote = $tpl->get(0);
-    $header2_quote = $tpl->get(1);
-    $footer1_quote = $tpl->get(2);
-    unset($tpl);
-    $i = 0;
-    while (strpos($s, "[/quote]") !== false AND $i < 5) {
-        $i++;
-        $s = preg_replace("#\[quote\=([^\]]*)\](.*)\[\/quote\]#Uis", $header1_quote . "geschrieben von \\1" . $header2_quote . "\\2" . $footer1_quote, $s);
-        $s = preg_replace("/\[quote\](.*)\[\/quote\]/Usi", $header1_quote . $header2_quote . "\\1" . $footer1_quote, $s);
-    }
-    return ($s);
-}
-
-function bbcode_simple_prev ($s) {
-    $search = array (
-        "/(^|[^=\]\>\"])http:\/\/(www\.)?([^\s\"\<\[]*)/i",
-        "/\[url\]http:\/\/(www\.)?(.*?)\[\/url\]/si",
-        );
-
-    $replace = array (
-        "\\1[url]http://\\2\\3[/url]",
-        "[url=http://\\1\\2]\\2[/url]",
-        );
-
-    $s = preg_replace($search, $replace, $s);
-    return ($s);
-}
-
-function bbcode_simple ($s) {
-    $page = preg_quote(dirname(str_replace('www.', '', $_SERVER["HTTP_HOST"]) . $_SERVER["SCRIPT_NAME"]), '/');
-    $search = array (
-        "/\[b\](.*?)\[\/b\]/si",
-        "/\[i\](.*?)\[\/i\]/si",
-        "/\[u\](.*?)\[\/u\]/si",
-        "/\[url=http:\/\/(www\.)?(" . $page . ")(.*?)](.*?)\[\/url\]/si",
-        "/\[url=http:\/\/(www\.)?(.*?)\](.*?)\[\/url\]/si",
-        "/\[list(=1)?\](.+)\[\/list\]/Usie",
-        "/(script|about|applet|activex|chrome):/is",
-        );
-
-    $replace = array (
-        "<b>\\1</b>",
-        "<i>\\1</i>",
-        "<u>\\1</u>",
-        "<a href=\"http://\\1\\2\\3\">\\4</a>",
-        "<a href=\"http://\\1\\2\" target=\"_blank\">\\3</a>",
-        "bbcode_simple_list ('\\1', '\\2')",
-        "\\1&#058;",
-        );
-
-    $s = preg_replace($search, $replace, $s);
-    return ($s);
-}
-
-function bbcode_simple_list ($w, $s) {
-    // $s = preg_replace("\015\012
-    $s = preg_replace("/\[\*\]([^\[]+)/ies", "'<li>'.trim('\\1').'</li>'", trim($s));
-    if ($w == '=1') {
-        return ('<ol>' . trim($s) . '</ol>');
-    }
-
-    return ('<ul>' . trim($s) . '</ul>');
-}
-
-function bbcode_smiles ($s) {
-    global $global_smiles_array;
-    if (!isset($global_smiles_array)) {
-        $global_smiles_array = array();
-        $erg = db_query("SELECT ent, url, emo FROM `prefix_smilies`");
-        while ($row = db_fetch_object($erg)) {
-            $global_smiles_array[$row->ent] = $row->emo . '#@#-_-_-#@#' . $row->url;
-        }
-    }
-    foreach ($global_smiles_array as $k => $v) {
-        list($emo, $url) = explode('#@#-_-_-#@#', $v);
-        $s = str_replace($k, '<img src="include/images/smiles/' . $url . '" border="0" alt="' . $emo . '" title="' . $emo . '" />', $s);
-    }
-    return ($s);
-}
-
-function bbcode_code_start ($s, $coTime, $result) {
-    for ($i = 0;$i < count($result[1]);$i++) {
-        if ($result[0][$i]) {
-            $s = str_replace ($result[0][$i], '#' . $coTime . '#' . $i . '#' . $coTime . '#', $s);
-        }
-    }
-    return ($s);
-}
-
-function bbcode_code_end ($s, $coTime, $result) {
-    $tpl = new tpl ('codereplace.htm');
-    for ($i = 0;$i < count($result[1]);$i++) {
-        if ($result[1][$i]) {
-            ob_start();
-            // $result[1][$i] = str_replace ('&lt;', '<', str_replace('&gt;', '>', $result[1][$i]));
-            // $codereplace = highlight_string(trim($result[1][$i]), 1);
-            highlight_string(trim($result[1][$i]));
-            $codereplace = ob_get_contents();
-            ob_end_clean();
-            $newstring = $tpl->set_get ('CODEREPLACE', $codereplace, 0);
-            $s = str_replace('#' . $coTime . '#' . $i . '#' . $coTime . '#', $newstring, $s);
-        }
-    }
-    unset($tpl);
-    return ($s);
-}
-
 ?>

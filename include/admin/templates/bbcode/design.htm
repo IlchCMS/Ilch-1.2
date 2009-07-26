@@ -1,0 +1,237 @@
+<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/bbcode_design.png" /></td><td width="30"></td><td valign="bottom"><h1>Design</h1></td></tr></table>
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+	<tr>
+		<td width="39%" valign="top">
+			<form action="admin.php?bbcode-design" method="POST" name="form">
+			<div style="font-size:12px;font-weight:bold;color:#0033FF;width:414px;" align="center">{Message}</div>
+			<table width="414" border="0" cellpadding="3" cellspacing="1" class="border">
+			 	<tr class="Cdark">
+					<td colspan="2"><b>Design f&uuml;r Quotes/Zitate</b></td>
+				</tr>
+
+				<tr>
+					<td width="220" class="Cmite">Rand/Border Farbe :</td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_QuoteRandFarbe" value="{BBCode_QuoteRandFarbe}" size="10"></td>
+				</tr>
+				<tr>
+					<td width="220" class="Cmite">Tabellenbreite:</td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_QuoteTabelleBreite" value="{BBCode_QuoteTabelleBreite}" size="10"></td>
+				</tr>
+				<tr>
+					<td width="220" class="Cmite">Schriftfarbe (&Uuml;berschrift) :</td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_QuoteSchriftfarbe" value="{BBCode_QuoteSchriftfarbe}" size="10"></td>
+				</tr>
+				<tr>
+					<td width="220" class="Cmite">Hintergrundfarbe (&Uuml;berschrift) :</td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_QuoteHintergrundfarbe" value="{BBCode_QuoteHintergrundfarbe}" size="10"></td>
+				</tr>
+				<tr>
+					<td width="220" class="Cmite">Hintergrundfarbe (Inhalt) : </td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_QuoteHintergrundfarbeIT" value="{BBCode_QuoteHintergrundfarbeIT}" size="10"></td>
+				</tr>
+				<tr>
+					<td width="220" class="Cmite">Schriftformat (Inhalt) : </td>
+					<td width="179" class="Cnorm"><select name="BBCode_QuoteSchriftformatIT">
+					<option value="bold" {SelectedQuoteBold}>Fett</option>
+					<option value="italic" {SelectedQuoteItalic}>Kursiv</option>
+					<option value="normal" {SelectedQuoteNormal}>Normal</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td width="220" class="Cmite">Schriftfarbe (Inhalt):</td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_QuoteSchriftfarbeIT" value="{BBCode_QuoteSchriftfarbeIT}" size="10"></td>
+				</tr>
+				<tr class="Cdark">
+					<td colspan="2"><b>Design f&uuml;r Code- Bl&ouml;cke (PHP, HTML, CSS) </b></td>
+				</tr>
+
+				<tr>
+					<td width="220" class="Cmite">Rand/Border Farbe :</td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_BlockRandFarbe" value="{BBCode_BlockRandFarbe}" size="10"></td>
+				</tr>
+				<tr>
+					<td width="220" class="Cmite">Tabellenbreite (in Pixel):</td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_BlockTabelleBreite" value="{BBCode_BlockTabelleBreite}" size="10"></td>
+				</tr>
+				<tr>
+					<td width="220" class="Cmite">Schriftfarbe (&Uuml;berschrift) :</td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_BlockSchriftfarbe" value="{BBCode_BlockSchriftfarbe}" size="10"></td>
+				</tr>
+				<tr>
+					<td width="220" class="Cmite">Hintergrundfarbe (&Uuml;berschrift) :</td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_BlockHintergrundfarbe" value="{BBCode_BlockHintergrundfarbe}" size="10"></td>
+				</tr>
+				<tr>
+					<td width="220" class="Cmite">Hintergrundfarbe (Inhalt) : </td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_BlockHintergrundfarbeIT" value="{BBCode_BlockHintergrundfarbeIT}" size="10"></td>
+				</tr>
+				<tr>
+					<td width="220" class="Cmite">Schriftfarbe nur [CODE] (Inhalt) :</td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_BlockSchriftfarbeIT" value="{BBCode_BlockSchriftfarbeIT}" size="10"></td>
+				</tr>
+				<tr class="Cdark">
+					<td colspan="2"><b>Design f&uuml;r Klapptext</b></td>
+				</tr>
+
+				<tr>
+					<td width="220" class="Cmite">Rand/Border Farbe :</td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_KtextRandFarbe" value="{BBCode_KtextRandFarbe}" size="10"></td>
+				</tr>
+				<tr>
+					<td width="220" class="Cmite">Tabellenbreite :</td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_KtextTabelleBreite" value="{BBCode_KtextTabelleBreite}" size="10"></td>
+				</tr>
+				<tr>
+					<td width="220" class="Cmite">Rand/Border Art :</td>
+					<td width="179" class="Cnorm"><select name="BBCode_KtextRandFormat">
+					  <option value="dotted" {SelectedKtextDotted}>Gepunktet</option>
+					  <option value="dashed" {SelectedKtextDashed}>Gestrichelt</option>
+					  <option value="solid" {SelectedKtextSolid}>Normal</option>
+				    </select></td>
+				</tr>
+				<tr class="Cdark">
+					<td colspan="2"><b>Design f&uuml;r &quot;<em>Text hervorheben</em>&quot; </b></td>
+				</tr>
+
+				<tr>
+					<td width="220" class="Cmite">Hintergrundfarbe :</td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_EmphHintergrundfarbe" value="{BBCode_EmphHintergrundfarbe}" size="10"></td>
+				</tr>
+				<tr>
+					<td width="220" class="Cmite">Schriftfarbe :</td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_EmphSchriftfarbe" value="{BBCode_EmphSchriftfarbe}" size="10"></td>
+				</tr>
+				<tr class="Cdark">
+					<td colspan="2"><b>Design f&uuml;r Countdown </b></td>
+				</tr>
+
+				<tr>
+					<td width="220" class="Cmite">Rand/Border Farbe :</td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_CountdownRandFarbe" value="{BBCode_CountdownRandFarbe}" size="10"></td>
+				</tr>
+				<tr>
+					<td width="220" class="Cmite">Tabellenbreite :</td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_CountdownTabelleBreite" value="{BBCode_CountdownTabelleBreite}" size="10"></td>
+				</tr>
+				<tr>
+					<td width="220" class="Cmite">Schriftfarbe  :</td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_CountdownSchriftfarbe" value="{BBCode_CountdownSchriftfarbe}" size="10"></td>
+				</tr>
+				<tr>
+					<td width="220" class="Cmite">Schriftgröße  :</td>
+					<td width="179" class="Cnorm"><input type="text" name="BBCode_CountdownSchriftsize" value="{BBCode_CountdownSchriftsize}" size="10"></td>
+				</tr>
+				<tr>
+					<td width="220" class="Cmite">Schriftformat  : </td>
+					<td width="179" class="Cnorm"><select name="BBCode_CountdownSchriftformat">
+					<option value="bold" {SelectedCountdownBold}>Fett</option>
+					<option value="italic" {SelectedCountdownItalic}>Kursiv</option>
+					<option value="normal" {SelectedCountdownNormal}>Normal</option>
+					</select></td>
+				</tr>
+				<tr class="Cdark">
+					<td></td>
+					<td><input type="submit" value="Speichern" name="BB_SubmitDesign" /></td>
+				</tr>
+		  	</table>
+			</form>
+		</td>
+		<td width="61%" valign="top">
+		{NBSP}
+		<table width="414" border="0" cellpadding="3" cellspacing="1" class="border">
+			 	<tr class="Cdark">
+					<td><b>Beispiel f&uuml;r Quotes/Zitate</b></td>
+				</tr>
+
+				<tr>
+					<td height="174" class="Cmite" align="center">
+						<table cellspacing="0" cellpadding="0" border="0" style="BORDER: 1px SOLID {BBCode_QuoteRandFarbe};" width="{BBCode_QuoteTabelleBreite}" align="center">
+					  		<tr>
+								<td style="font-family:Arial, Helvetica, sans-serif;FONT-SIZE:13px;FONT-WEIGHT:BOLD;COLOR:{BBCode_QuoteSchriftfarbe};BACKGROUND-COLOR:{BBCode_QuoteHintergrundfarbe};">&nbsp;Zitat von Mustermann</td>
+							</tr>
+							<tr bgcolor="{BBCode_QuoteHintergrundfarbeIT}">
+								<td>
+									<table align="center" cellspacing="0" cellpadding="0" border="0" width="98%">
+										<tr>
+											<td style="{BBCode_Mode}:{BBCode_QuoteSchriftformatIT};FONT-SIZE:10px;COLOR:{BBCode_QuoteSchriftfarbeIT};">
+											Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text
+			 								</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr class="Cdark">
+					<td><b>Beispiel f&uuml;r Code- Bl&ouml;cke (PHP, HTML, CSS) </b></td>
+				</tr>
+
+				<tr>
+					<td height="146" class="Cmite" align="center">
+						<table cellspacing="0" cellpadding="0" border="0" width="{BBCode_BlockTabelleBreite}" align="center">
+							<tr>
+								<td width="98%" valgin="top">
+				 					<div style="overflow: auto; height:100% width: 100%;">
+				 						<table cellspacing="0" cellpadding="0" border="0" style="BORDER: 1px SOLID {BBCode_BlockRandFarbe};" width="100%">
+				 							<tr>
+												<td colspan="3" style="font-family:Arial, Helvetica, sans-serif;FONT-SIZE:12px;FONT-WEIGHT:BOLD;COLOR:{BBCode_BlockSchriftfarbe};BACKGROUND-COLOR:{BBCode_BlockHintergrundfarbe};">&nbsp;Code</td>
+											</tr>
+				 							<tr bgcolor="{BBCode_BlockHintergrundfarbeIT}">
+												<td style="color:{BBCode_BlockSchriftfarbe};padding-left:2px;padding-right:2px;border-right:1px solid {BBCode_BlockHintergrundfarbe};font-family:Arial, Helvetica, sans-serif;" align="right" width="20" valign="top"><code>
+												1
+												2
+												3</code>
+												</td>
+												<td width="5">&nbsp;</td>
+												<td valign="top" style="BACKGROUND-COLOR:{BBCOde_BlockHintergrundfarbeIT};Color:{BBCode_BlockSchriftfarbeIT};" nowrap><code>
+												Code Code Code Code Code Code Code Code Code Code<br />
+												Code Code Code Code Code Code Code Code Code Code<br />
+												Code Code Code Code Code Code Code Code Code Code<br /></code>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr class="Cdark">
+					<td><b>Beispiel f&uuml;r Klapptext</b></td>
+				</tr>
+				<tr>
+					<td height="75" class="Cmite" align="center">
+						<table border="0" cellpadding="0" cellspacing="0" width="{BBCode_KtextTabelleBreite}" align="center">
+							<tr>
+						  		<td><a href="#"><img src="include/images/icons/minus.gif" id="__ID__" border=0 alt="Aus/Ein-klappen" title="Aus/Ein-klappen"> Klapptext Titel</a></td>
+							</tr>
+					  		<tr>
+								<td><div id="__ID__" style="display:block;border:1px {BBCode_KtextRandFormat} {BBCode_KtextRandFarbe};">
+									Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text
+									</div>
+								</td>
+							</tr>
+						</table>
+				  </td>
+				</tr>
+				<tr class="Cdark">
+					<td><b>Beispiel f&uuml;r &quot;<em>Text hervorheben</em>&quot; </b></td>
+				</tr>
+				<tr>
+					<td height="51" class="Cmite" align="center"><span style="background-color:{BBCode_EmphHintergrundfarbe};Color:{BBCode_EmphSchriftfarbe}">Text Text Text Text Text</span></td>
+				</tr>
+				<tr class="Cdark">
+					<td><b>Beispiel f&uuml;r Countdown </b></td>
+				</tr>
+				<tr>
+				  <td height="125" class="Cmite" align="center"><div style="width:{BBCode_CountdownTabelleBreite};padding:5px;font-family:Verdana;font-size:{BBCode_CountdownSchriftsize}px;{BBCode_Mode_C}:{BBCode_CountdownSchriftformat};color:{BBCode_CountdownSchriftfarbe};border:2px dotted {BBCode_CountdownRandFarbe};text-align:center">2 Tage, 10 Stunden, 50 Minuten und 45 Sekunden</div></td>
+				</tr>
+				<tr class="Cdark">
+					<td height="23">&nbsp;</td>
+				</tr>
+		  	</table>
+		</td>
+	</tr>
+</table>

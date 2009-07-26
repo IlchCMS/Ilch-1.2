@@ -22,7 +22,8 @@ function sichtbar(){
 }
 //--></script>
 
-<script type='text/javascript' src='include/includes/js/bbcode.js'></script>
+<script type="text/javascript" src="include/includes/js/bbcode.js"></script> 
+<script type="text/javascript" src="include/includes/js/interface.js"></script>
 
 <table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/news.png" /></td><td width="30"></td><td valign="bottom"><h1>News</h1></td></tr></table>
 <hr style="width: 400px; margin: 0px;" >
@@ -42,13 +43,7 @@ function sichtbar(){
       <td rowspan="2" class="Cnorm">
       
       <!-- BB Code START -->
-	    <a href="javascript:simple('b')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.bold.gif" alt="b" title="{_lang_bold}" border="0"></a>
-      <a href="javascript:simple('i')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.italic.gif" alt="i" title="{_lang_italic}" border="0"></a>
-      <a href="javascript:simple('u')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.underline.gif" alt="u" title="{_lang_underlined}" border="0"></a>
-      <a href="javascript:simple('code')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.code.gif" alt="Code" title="{_lang_code}" border="0"></a>
-	    <a href="javascript:simple_liste()"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.insertunorderedlist.gif" alt="{_lang_list}" title="{_lang_list}" border="0"></a>
-      <a href="javascript:simple('url')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.link.gif" alt="Url" title="{_lang_link}" border="0"></a>
-      <a href="javascript:simple('img')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.image.gif" alt="{_lang_picture}" title="{_lang_picture}" border="0"></a>
+	  {__BBCodeButtons__}
       <!-- BB Code ENDE -->
 
       </td>
