@@ -82,13 +82,55 @@ class design extends tpl {
         }
     }
 
-    function header () {
+    function header ($addons = '') {
         global $ILCH_HEADER_ADDITIONS;
+		$ILCH_HEADER_ADDITIONS .= $this->load_addons($addons);
         $this->addheader($ILCH_HEADER_ADDITIONS);
         echo $this->html[0];
         unset ($this->html[0]);
     }
-
+	
+	// Fuegt Dynamische und Statische *.js und *.css Dateien in den Header ein
+	// Kann jedoch nur uerber die header-Funktion aufgerufen werden
+	function load_addons($addons = '') {
+		$buffer = '';
+		if ( !is_array ($addons) ) {
+			$addons = Array( $addons );
+		}
+		
+		// Alle statischen Inhalte pruefen
+		foreach ( $addons as $addon ) {
+			$dir = explode ('.', $addon);
+			$dir = end ($dir);
+			if ( file_exists ( 'include/includes/'.$dir.'/'.$addon ) ) {
+				if ( $dir == 'js' ) {
+					$buffer .= "\n<script type=\"text/javascript\" src=\"include/includes/".$dir."/".$addon."\"></script>";
+				} else if ( $dir == 'css' ) {
+					$buffer .= "\n<link rel=\"stylesheet\" type=\"text/css\" href=\"include/includes/".$dir."/".$addon."\" />";
+				}
+			} else {
+				$buffer = "\n<script language='javascript'>"
+						 ."\nalert('Couldn\'t find the file \"include/includes/".$dir."/".$addon."\"!');"
+						 ."\n</script>";
+			}
+		}
+		
+		// Ordner nach dynamischen Dateien durchsuchen
+		$js = read_ext ('include/includes/js/global', 'js');
+		$css = read_ext ('include/includes/css/global', 'css');
+		
+		// Dynamisches Javascript laden
+		foreach ( $js as $file ){
+			$buffer .= "\n<script type=\"text/javascript\" src=\"include/includes/js/global/".$file."\"></script>";
+		}
+		
+		// Dynamisches CSS laden
+		foreach ( $css as $file ){
+			$buffer .= "\n<link rel=\"stylesheet\" type=\"text/css\" href=\"include/includes/css/global/".$file."\" />";
+		}
+		
+		return $buffer;
+	}
     function addtobodyend($text) {
         if (isset($this->html[1])) {
             $this->html[1] = str_replace('</body>', $text . "\n</body>" , $this->html[1]);

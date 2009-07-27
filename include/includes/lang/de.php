@@ -116,6 +116,7 @@ $lang = array
 'January' => 'Januar',
 'June' => 'Juni',
 'July' => 'Juli',
+'language' => 'Sprache',
 'lastactivity' => 'Letzte Aktivit&auml;t',
 'lastfrom' => 'letzter von',
 'lastpost' => 'letzter Beitrag',

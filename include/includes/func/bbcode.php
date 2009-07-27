@@ -5,7 +5,7 @@
 defined ('main') or die ( 'no direct access' );
 //Klasse laden
 
-$ILCH_HEADER_ADDITIONS .= "<script type=\"text/javascript\" src=\"include/includes/js/BBCodeGlobal.js\"></script>\n<script type=\"text/javascript\">\nvar bbcodemaximagewidth = {$info['ImgMaxBreite']};\nvar bbcodemaximageheight = {$info['ImgMaxHoehe']};\n</script>";
+$ILCH_HEADER_ADDITIONS .= "<script type=\"text/javascript\">\nvar bbcodemaximagewidth = {$info['ImgMaxBreite']};\nvar bbcodemaximageheight = {$info['ImgMaxHoehe']};\n</script>";
 
 //Farbliste erstellen
 function colorliste ( $ar ) {

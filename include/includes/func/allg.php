@@ -363,4 +363,21 @@ function get_lower($value){
 		return strtolower($value);
 	} 
 }
+
+// Liefert
+function read_ext ($dir, $ext = '') {
+    $buffer = Array( );
+	if ( !is_array( $ext ) ){
+		$ext = Array( $ext );
+	}
+    $open = opendir($dir);
+    while ($file = readdir ($open)) {
+		$file_info = pathinfo($file); 
+        if ($file != "." AND $file != ".." AND !is_dir($dir.'/'.$file) AND ( in_array ( $file_info["extension"], $ext ) OR empty( $ext ) ) ) {
+            $buffer[] = $file;
+        }
+    }
+    closedir($open);
+    return ($buffer);
+}
 ?>
