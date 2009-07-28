@@ -1,0 +1,28 @@
+/*
+* Ajax-Suche START
+*/
+ul.ajax-list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	z-index: 100;
+}
+
+ul.ajax-list li {
+	list-style-type: none;
+	margin: 0;
+	padding: 2px;
+	background-color: white;
+	border-bottom: 1px solid black;
+	border-right: 1px solid black;
+	border-left: 1px solid black;
+	cursor: pointer;
+}
+
+ul.ajax-list li.ajax-rollover {
+	background-color: #c5c5c5;
+}
+/*
+* Ajax-Suche ENDE
+*/

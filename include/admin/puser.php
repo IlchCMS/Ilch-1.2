@@ -16,9 +16,9 @@ if ($menu->get(1) == "confirm" AND isset($_GET['check'])) {
         switch ($row['ak']) {
             // confirm regist
             case 1 :
-                if (0 == db_count_query("SELECT COUNT(*) FROM prefix_user WHERE name = BINARY '" . $row['name'] . "'")) {
-                    db_query("INSERT INTO prefix_user (name,pass,recht,regist,llogin,email,status,opt_mail,opt_pm)
-  			 VALUES('" . $row['name'] . "','" . $row['pass'] . "',-1,'" . time() . "','" . time() . "','" . $row['email'] . "',1,1,1)");
+                if (0 == db_count_query("SELECT COUNT(*) FROM prefix_user WHERE name_clean = BINARY '" . $row['name_clean'] . "'")) {
+                    db_query("INSERT INTO prefix_user (name,name_clean,pass,recht,regist,llogin,email,status,opt_mail,opt_pm)
+  			 VALUES('" . $row['name'] . "','" . $row['name_clean'] . "','" . $row['pass'] . "',-1,'" . time() . "','" . time() . "','" . $row['email'] . "',1,1,1)");
                     db_query("DELETE FROM prefix_usercheck WHERE `check` = '" . escape($_GET['check'], 'string') . "'");
                 } else {
                     $tpl->set_out('error', 'Username existiert bereits', 3);
@@ -26,7 +26,7 @@ if ($menu->get(1) == "confirm" AND isset($_GET['check'])) {
                 break;
             // confirm new pass
             case 2 :
-                db_query("UPDATE prefix_user SET pass = '" . $row['pass'] . "' WHERE name = BINARY '" . $row['name'] . "'");
+                db_query("UPDATE prefix_user SET pass = '" . $row['pass'] . "' WHERE name_clean = BINARY '" . $row['name_clean'] . "'");
                 db_query("DELETE FROM prefix_usercheck WHERE `check` = '" . escape($_GET['check'], 'string') . "'");
                 break;
             // confirm new email

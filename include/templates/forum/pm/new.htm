@@ -8,6 +8,15 @@
   }
 //-->
 </script>
+<script type='text/javascript'>
+<!--
+	$(document).ready(function(){
+		$('input[name=name]').autoComplete({
+			ajax: 'index.php?user-search'
+		});
+	});
+-->
+</script>
 
 <script type="text/javascript" src="include/includes/js/bbcode.js"></script>
 <form action="index.php?forum-privmsg-new" method="POST" name="form">
@@ -34,7 +43,7 @@
 	  <td class="Cnorm" valign="top">
      <!-- BB Code START -->
 	    {__BBCodeButtons__}
-		 <!-- BB Code ENDE -->
+	 <!-- BB Code ENDE -->
 		</td>
 	</tr><tr>
     <td width="80%" class="Cnorm"> 

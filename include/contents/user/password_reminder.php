@@ -10,9 +10,9 @@ $design->header();
 
 $show = true;
 
-if (isset ($_POST['name'])) {
-    $name = escape($_POST['name'], 'string');
-    $erg = db_query("SELECT email FROM prefix_user WHERE name = BINARY '" . $name . "'");
+if (isset ($_POST['email'])) {
+    $email = get_lower( escape($_POST['email'], 'string') );
+    $erg = db_query("SELECT name FROM prefix_user WHERE email = BINARY '" . $email . "'");
     if (db_num_rows($erg) == 1) {
         $row = db_fetch_assoc($erg);
 
@@ -21,14 +21,14 @@ if (isset ($_POST['name'])) {
         $id = md5 (uniqid (rand()));
 
         db_query("INSERT INTO prefix_usercheck (`check`,name,email,pass,datime,ak)
-		VALUES ('" . $id . "','" . $name . "','" . $row['email'] . "','" . $md5_pass . "',NOW(),2)");
+		VALUES ('" . $id . "','" . $row['name'] . "','" . $email . "','" . $md5_pass . "',NOW(),2)");
 
         $page = $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"];
 
         $confirmlinktext = "\n" . $lang['registconfirm'] . "\n\n" . sprintf($lang['registconfirmlink'], $page, $id);
-        $regmail = sprintf($lang['newpasswordmail'], $name, $confirmlinktext, $new_pass);
+        $regmail = sprintf($lang['newpasswordmail'], $row['name'], $confirmlinktext, $new_pass);
 
-        icmail($row['email'], 'Password Reminder', $regmail); # email an user
+        icmail($email, 'Password Reminder', $regmail); # email an user
         echo $lang['youhavereceivedaemail'];
         $show = false;
     } else {

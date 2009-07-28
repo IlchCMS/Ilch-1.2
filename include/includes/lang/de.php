@@ -339,6 +339,7 @@ $lang = array
 'picofcat' => 'Bilder der Kategorie',
 'pleaseclickonpic' => 'Bitte auf das Bild klicken um es zu schlie&szlig;en',
 'pleasefillinyournickname' => 'Bitte gib deinen Nickname ein',
+'pleasefillinyouremail' => 'Bitte gib deine E-Mail Adresse ein',
 'wrongnickname' => 'F&uuml;r den Nickname gelten folgende Regeln: min. 3 Zeichen, max. 15 Zeichen. Folgende Zeichen sind erlaubt: []+-*=.| ausserdem Leerzeichen, alle Gro&szlig- und Kleinbuchstaben und alle Zahlen.',
 'wrongemail' => 'Deine Email-Adresse scheint nicht g&uuml;ltig zu sein!',
 'plsfilloutallfields' => 'Bitte alle Felder ausf&uuml;llen',

@@ -338,6 +338,7 @@ $lang = array
 'picofcat' => 'Pic of this category',
 'pleaseclickonpic' => 'Please click on the picture to close it.',
 'pleasefillinyournickname' => 'Please enter your nickname',
+'pleasefillinyouremail' => 'Please enter your email-adress',
 'wrongnickname' => 'The following rules apply for nicknames: It has to be at least 3 characters and max. 15 characters long. The following characters are allowed: []+-*=.| spaces, upper and lowercase letters and numbers.',
 'wrongemail' => 'Your email address does not appear to be valid!',
 'plsfilloutallfields' => 'Please fill out all fields',

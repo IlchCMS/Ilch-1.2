@@ -98,6 +98,20 @@ class design extends tpl {
 			$addons = Array( $addons );
 		}
 		
+		// Ordner nach dynamischen Dateien durchsuchen
+		$js = read_ext ('include/includes/js/global', 'js');
+		$css = read_ext ('include/includes/css/global', 'css');
+		
+		// Dynamisches Javascript laden
+		foreach ( $js as $file ){
+			$buffer .= "\n<script type=\"text/javascript\" src=\"include/includes/js/global/".$file."\"></script>";
+		}
+		
+		// Dynamisches CSS laden
+		foreach ( $css as $file ){
+			$buffer .= "\n<link rel=\"stylesheet\" type=\"text/css\" href=\"include/includes/css/global/".$file."\" />";
+		}
+		
 		// Alle statischen Inhalte pruefen
 		foreach ( $addons as $addon ) {
 			$dir = explode ('.', $addon);
@@ -113,20 +127,6 @@ class design extends tpl {
 						 ."\nalert('Couldn\'t find the file \"include/includes/".$dir."/".$addon."\"!');"
 						 ."\n</script>";
 			}
-		}
-		
-		// Ordner nach dynamischen Dateien durchsuchen
-		$js = read_ext ('include/includes/js/global', 'js');
-		$css = read_ext ('include/includes/css/global', 'css');
-		
-		// Dynamisches Javascript laden
-		foreach ( $js as $file ){
-			$buffer .= "\n<script type=\"text/javascript\" src=\"include/includes/js/global/".$file."\"></script>";
-		}
-		
-		// Dynamisches CSS laden
-		foreach ( $css as $file ){
-			$buffer .= "\n<link rel=\"stylesheet\" type=\"text/css\" href=\"include/includes/css/global/".$file."\" />";
 		}
 		
 		return $buffer;

@@ -26,6 +26,8 @@ switch ($menu->get(1)) {
         break;
     case 'remind' : case 13 : $userDatei = 'password_reminder';
         break;
+    case 'search' : $userDatei = 'search';
+        break;
 }
 
 require_once('include/contents/user/' . $userDatei . '.php');
