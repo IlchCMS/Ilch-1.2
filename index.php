@@ -23,6 +23,10 @@ $menu = new menu();
 user_identification();
 site_statistic();
 
+// Sprachdateien oeffnen
+load_global_lang();
+load_modul_lang();
+
 require_once ('include/contents/'.$menu->get_url());
 
 db_close();

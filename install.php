@@ -592,7 +592,7 @@ config;
 
 
 define ( 'main' , TRUE );
-require_once('include/includes/func/db/mysql.php');
+require_once('include/includes/loader.php');
 
 db_connect();
 
@@ -636,7 +636,7 @@ foreach ( $sql_statements as $sql_statement ) {
 	}
 }
 
-db_query ("INSERT INTO `prefix_user` ( name , pass , regist , email , recht , llogin, status, opt_mail, opt_pm ) VALUES ( '".$_POST['admin_name']."','".md5($_POST['admin_pwd'])."','".time()."','".$_POST['admin_amail']."','-9','".time()."',1,1,1)");
+db_query ("INSERT INTO `prefix_user` ( name , name_clean , pass , regist , email , recht , llogin, status, opt_mail, opt_pm ) VALUES ( '".$_POST['admin_name']."','".get_lower($_POST['admin_name'])."','".md5($_POST['admin_pwd'])."','".time()."','".get_lower($_POST['admin_amail'])."','-9','".time()."',1,1,1)");
 db_query ("UPDATE prefix_allg SET t1 = '".$_POST['admin_amail']."|Webmaster' WHERE k = 'kontakt'");
 db_query ("UPDATE prefix_config SET wert = '".$_POST['admin_amail']."' WHERE schl = 'adminMail'");
 ?>

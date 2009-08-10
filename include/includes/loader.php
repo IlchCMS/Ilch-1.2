@@ -29,7 +29,5 @@ require_once('include/includes/func/listen.php');
 require_once('include/includes/func/forum.php');
 require_once('include/includes/func/warsys.php'); 
 require_once('include/includes/func/ic_mime_type.php');
-
-# load something else
-require_once ('include/includes/lang/de.php');
+require_once ('include/includes/func/lang.php');
 ?>

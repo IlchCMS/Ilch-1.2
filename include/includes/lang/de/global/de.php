@@ -5,7 +5,7 @@
 
 defined ('main') or die ( 'no direct access' );
 
-$lang = array
+$lang = array_merge($lang, array
 (
 'active' => 'aktiv',
 'administrattopic' => 'Thema Administrieren',
@@ -413,7 +413,7 @@ $lang = array
 'correct' => 'Richtig',
 'incorrect' => 'Falsch'
 
-);
+));
 
 #$x = array();
 #foreach ($lang as $k => $v) { $x[$k] = 'NIX'; }

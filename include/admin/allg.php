@@ -90,9 +90,26 @@ function admin_allg_wars_last_komms ($ak) {
     }
     return ($l);
 }
+function admin_allg_lang ($ak) {
+    $lang = '';
+    $o = opendir('include/includes/lang');
+    while ($ver = readdir ($o)) {
+        if ($ver != "." AND $ver != ".." AND is_dir('include/includes/lang/' . $ver)) {
+            if ($ver == $ak) {
+                $sel = ' selected';
+            } else {
+                $sel = '';
+            }
+            $lang .= '<option' . $sel . '>' . $ver . '</option>';
+        }
+    }
+    closedir($o);
+    return ($lang);
+}
 
 if (empty ($_POST['submit'])) {
     $gfx = admin_allg_gfx($allgAr['gfx']);
+	$lang = admin_allg_lang($allgAr['lang']);
     $smodul = admin_allg_smodul ($allgAr['smodul']);
     $wars_last_komms = admin_allg_wars_last_komms ($allgAr['wars_last_komms']);
 

@@ -70,6 +70,8 @@ function session_und_cookie_name () {
 }
 
 function user_login_check () {
+	global $allgAr;
+	
     if (isset( $_POST['user_login_sub'] ) AND ( isset( $_POST['email'] ) OR isset( $_POST['name'] ) ) AND isset( $_POST['pass'] )) {
         debug ('posts vorhanden');
 		
@@ -96,6 +98,7 @@ function user_login_check () {
                 $_SESSION['authname'] = $row['name'];
                 $_SESSION['authid'] = $row['id'];
                 $_SESSION['authright'] = $row['recht'];
+				$_SESSION['authlang'] = $allgAr['lang'];
                 $_SESSION['lastlogin'] = $row['llogin'];
                 $_SESSION['authsess'] = session_und_cookie_name();
                 db_query("UPDATE prefix_online SET uid = " . $_SESSION['authid'] . " WHERE sid = '" . session_id() . "'");
@@ -112,6 +115,7 @@ function user_login_check () {
 }
 
 function user_auto_login_check () {
+	global $allgAr;
     $cn = session_und_cookie_name();
     $dat = explode('=', $_COOKIE[$cn]);
     $id = $pw = 0;
@@ -133,6 +137,7 @@ function user_auto_login_check () {
             $_SESSION['authname'] = $row['name'];
             $_SESSION['authid'] = $row['id'];
             $_SESSION['authright'] = $row['recht'];
+			$_SESSION['authlang'] = $allgAr['lang'];
             $_SESSION['lastlogin'] = $row['llogin'];
             $_SESSION['authsess'] = $cn;
             db_query("UPDATE prefix_online SET uid = " . $_SESSION['authid'] . " WHERE sid = '" . session_id() . "'");
@@ -146,9 +151,11 @@ function user_auto_login_check () {
 }
 
 function user_set_guest_vars() {
+	global $allgAr;
     $_SESSION['authname'] = 'Gast';
     $_SESSION['authid'] = 0;
     $_SESSION['authright'] = 0;
+	$_SESSION['authlang'] = $allgAr['lang'];
     $_SESSION['lastlogin'] = time();
     $_SESSION['authgrp'] = array();
     $_SESSION['authmod'] = array();

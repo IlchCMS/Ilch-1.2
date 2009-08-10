@@ -1,5 +1,6 @@
 -- Keine Bedingungen --
 ALTER TABLE `prefix_user` ADD `name_clean` VARCHAR( 50 )  `name` varchar(50) NOT NULL default '' AFTER `name`;
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('lang', 's', 'Allgemeine Optionen', 'Standard Sprache', 'de');
 
 
 -- Nur, wenn BB-Code 2.0 nicht installiert ist --
