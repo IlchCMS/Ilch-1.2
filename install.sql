@@ -402,6 +402,36 @@ CREATE TABLE `prefix_links` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
+CREATE TABLE IF NOT EXISTS `prefix_loader` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `pos` int(10) NOT NULL,
+  `task` varchar(200) NOT NULL,
+  `file` varchar(200) NOT NULL,
+  `description` text NOT NULL,
+  KEY `id` (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+
+INSERT INTO `prefix_loader` (`pos`, `task`, `file`, `description`) VALUES
+(1, 'class', 'tpl.php', 'Template-Class'),
+(2, 'class', 'design.php', 'Design-Class'),
+(3, 'class', 'menu.php', 'Menu-Class'),
+(4, 'class', 'bbcode.php', 'BB-Code 2.0 Class'),
+(5, 'class', 'xajax.inc.php', 'Die xAjax-Class'),
+(1, 'func', 'bbcode_config.php', 'BB-Code Einstellungen'),
+(2, 'func', 'calender.php', 'Funktionen fuer den Kalender'),
+(3, 'func', 'user.php', 'Userverwaltung Login/Logout und Rechte'),
+(4, 'func', 'escape.php', 'Sicherheitsvorkehrungen vom Ilch CMS'),
+(5, 'func', 'allg.php', 'Allgemeine Funktionen und Einstellungen'),
+(6, 'func', 'debug.php', 'Ilch-Debugger'),
+(7, 'func', 'bbcode.php', 'BB-Code Buttons und Funktionen'),
+(8, 'func', 'profilefields.php', 'Profilfelder Funktionen'),
+(9, 'func', 'statistic.php', 'Statistiken über den Besucher speichern'),
+(10, 'func', 'listen.php', 'Funktionen, zum Listen erstellen'),
+(11, 'func', 'forum.php', 'Alle Funktionen für das Forum'),
+(12, 'func', 'warsys.php', 'Funktionen für das War-System'),
+(13, 'func', 'ic_mime_type.php', 'Funktionen für den Umgang mit Dateiuploads'),
+(14, 'func', 'lang.php', 'Funktionen zum Aufrufen der Sprachdateien');
+
 CREATE TABLE `prefix_menu` (
   `wo` tinyint(1) NOT NULL default '0',
   `pos` tinyint(4) NOT NULL default '0',
