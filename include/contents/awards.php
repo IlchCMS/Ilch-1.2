@@ -11,7 +11,7 @@ $design->header();
 $tpl = new tpl ('awards.htm');
 $tpl->out(0);
 $class = 'Cnorm';
-$erg = db_query("SELECT platz, text, wofur, team, bild, DATE_FORMAT(time, '%d.%m.%Y') as time FROM `prefix_awards` ORDER BY time DESC");
+$erg = db_query("SELECT `platz`, `text`, `wofur`, `team`, `bild`, DATE_FORMAT(time, '%d.%m.%Y') as `time` FROM `prefix_awards` ORDER BY `time` DESC");
 while ($row = db_fetch_assoc($erg)) {
     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
     if ($row['bild'] != '' AND trim($row['bild']) != 'http://') {

@@ -49,12 +49,12 @@ if (($_SESSION['klicktime'] + 15) > $dppk_time OR empty($txt) OR !empty($_POST['
 
     $xtext = '';
     if ($menu->getA(3) == 'z') {
-        $row = db_fetch_object(db_query("SELECT txt,erst FROM prefix_posts WHERE id = " . $menu->getE(3)));
+        $row = db_fetch_object(db_query("SELECT `txt`,`erst` FROM `prefix_posts` WHERE `id` = " . $menu->getE(3)));
         $xtext = '[quote=' . escape_nickname($row->erst) . ']' . "\n" . $row->txt . "\n[/quote]";
     }
 
     if ($menu->getA(3) == 'f') {
-        $r = db_fetch_assoc(db_query("SELECT id,text,title FROM prefix_faqs WHERE id = " . $menu->getE(3)));
+        $r = db_fetch_assoc(db_query("SELECT `id`,`text`,`title` FROM `prefix_faqs` WHERE `id` = " . $menu->getE(3)));
         $xtext = 'FAQ Artikel: [url=index.php?faqs-s' . $r['id'] . '#FAQ' . $r['id'] . ']' . $r['title'] . '[/url]' . "\n" . unescape($r['text']);
     }
 
@@ -77,7 +77,7 @@ if (($_SESSION['klicktime'] + 15) > $dppk_time OR empty($txt) OR !empty($_POST['
 
     $tpl->set_ar_out($ar, 1);
 
-    $erg = db_query('SELECT erst, txt FROM `prefix_posts` WHERE tid = "' . $tid . '" ORDER BY time DESC LIMIT 0,5');
+    $erg = db_query('SELECT `erst`, `txt` FROM `prefix_posts` WHERE `tid` = "' . $tid . '" ORDER BY `time` DESC LIMIT 0,5');
     while ($row = db_fetch_assoc($erg)) {
         $row['txt'] = bbcode($row['txt']);
         $tpl->set_ar_out($row, 2);
@@ -93,21 +93,21 @@ if (($_SESSION['klicktime'] + 15) > $dppk_time OR empty($txt) OR !empty($_POST['
     if (loggedin()) {
         $uid = $_SESSION['authid'];
         $erst = escape($_SESSION['authname'], 'string');
-        db_query("UPDATE `prefix_user` set posts = posts+1 WHERE id = " . $uid);
+        db_query("UPDATE `prefix_user` set `posts` = `posts`+1 WHERE `id` = " . $uid);
     } else {
         $erst = $xnn;
         $uid = 0;
     }
     // topic alert ausfuehren.
     $topic_alerts_abf = "SELECT
-      prefix_topics.name as topic,
-      prefix_user.email as email,
-      prefix_user.name as user,
-      prefix_user.id as uid
-    FROM prefix_topic_alerts
-      LEFT JOIN prefix_topics ON prefix_topics.id = prefix_topic_alerts.tid
-      LEFT JOIN prefix_user   ON prefix_user.id   = prefix_topic_alerts.uid
-    WHERE prefix_topic_alerts.tid = " . $tid;
+      `prefix_topics`.`name` as `topic`,
+      `prefix_user`.`email` as `email`,
+      `prefix_user`.`name` as `user`,
+      `prefix_user`.`id` as `uid`
+    FROM `prefix_topic_alerts`
+      LEFT JOIN `prefix_topics` ON `prefix_topics`.`id` = `prefix_topic_alerts`.`tid`
+      LEFT JOIN `prefix_user`   ON `prefix_user`.`id` = `prefix_topic_alerts`.`uid`
+    WHERE `prefix_topic_alerts`.`tid` = " . $tid;
 
     $topic_alerts_erg = db_query($topic_alerts_abf);
     while ($topic_alerts_row = db_fetch_assoc($topic_alerts_erg)) {
@@ -117,19 +117,19 @@ if (($_SESSION['klicktime'] + 15) > $dppk_time OR empty($txt) OR !empty($_POST['
         icmail ($topic_alerts_row['email'], 'neue Antwort im Thema: "' . $topic_alerts_row['topic'] . '"', $text);
         debug ($topic_alerts_row['email']);
     }
-    db_query("DELETE FROM prefix_topic_alerts WHERE tid = " . $tid);
+    db_query("DELETE FROM `prefix_topic_alerts` WHERE `tid` = " . $tid);
     // topic alert insert wenn gewaehlt.
     if (!empty($_POST['topic_alert']) AND $_POST['topic_alert'] == 'yes' AND loggedin()) {
         if (0 == db_result(db_query("SELECT COUNT(*) FROM prefix_topic_alerts WHERE uid = " . $_SESSION['authid'] . " AND tid = " . $tid), 0)) {
-            db_query("INSERT INTO prefix_topic_alerts (tid,uid) VALUES (" . $tid . ", " . $_SESSION['authid'] . ")");
+            db_query("INSERT INTO `prefix_topic_alerts` (`tid`,`uid`) VALUES (" . $tid . ", " . $_SESSION['authid'] . ")");
         }
     }
     // topic alert ende
-    db_query ("INSERT INTO `prefix_posts` (tid,fid,erst,erstid,time,txt) VALUES ( " . $tid . ", " . $fid . ", '" . $erst . "', " . $uid . ", " . $time . ", '" . $txt . "')");
+    db_query ("INSERT INTO `prefix_posts` (`tid`,`fid`,`erst`,`erstid`,`time`,`txt`) VALUES ( " . $tid . ", " . $fid . ", '" . $erst . "', " . $uid . ", " . $time . ", '" . $txt . "')");
     $pid = db_last_id();
 
-    db_query("UPDATE `prefix_topics` SET last_post_id = " . $pid . ", rep = rep + 1 WHERE id = " . $tid);
-    db_query("UPDATE `prefix_forums` SET posts = posts + 1, last_post_id = " . $pid . " WHERE id = " . $fid);
+    db_query("UPDATE `prefix_topics` SET `last_post_id` = " . $pid . ", `rep` = `rep` + 1 WHERE `id` = " . $tid);
+    db_query("UPDATE `prefix_forums` SET `posts` = `posts` + 1, `last_post_id` = " . $pid . " WHERE `id` = " . $fid);
 
     $page = ceil (($aktTopicRow['rep'] + 1) / $allgAr['Fpanz']);
     // toipc als gelesen markieren

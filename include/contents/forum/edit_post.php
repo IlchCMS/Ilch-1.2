@@ -21,7 +21,7 @@ if (!loggedin()) {
     $design->footer(1);
 }
 
-$row = @db_fetch_object(@db_query("SELECT txt,erstid FROM `prefix_posts` WHERE id = " . $oid));
+$row = @db_fetch_object(@db_query("SELECT `txt`,`erstid` FROM `prefix_posts` WHERE `id` = " . $oid));
 if ($_SESSION['authid'] != $row->erstid AND $forum_rights['mods'] == false) {
     echo $lang['nopermission'];
     $design->footer(1);
@@ -57,7 +57,7 @@ if ($_SESSION['klicktime'] > ($dppk_time - 15) OR empty($txt) OR !empty($_POST['
         'SMILIES' => getsmilies()
         );
     $tpl->set_ar_out($ar, 1);
-    $erg = db_query('SELECT erst, txt FROM `prefix_posts` WHERE tid = "' . $tid . '" ORDER BY time DESC LIMIT 0,5');
+    $erg = db_query('SELECT `erst`, `txt` FROM `prefix_posts` WHERE `tid` = "' . $tid . '" ORDER BY `time` DESC LIMIT 0,5');
     while ($row = db_fetch_assoc($erg)) {
         $row['txt'] = bbcode($row['txt']);
         $tpl->set_ar_out($row, 2);
@@ -71,7 +71,7 @@ if ($_SESSION['klicktime'] > ($dppk_time - 15) OR empty($txt) OR !empty($_POST['
         $txt .= "\n\n\n" . $lang['postlastchangedby'] . ' ' . $_SESSION['authname'] . ' am ' . date("d.m.Y - H:i:s");
     }
 
-    db_query("UPDATE `prefix_posts` set txt = '" . $txt . "' WHERE id = " . $oid);
+    db_query("UPDATE `prefix_posts` SET `txt` = '" . $txt . "' WHERE `id` = " . $oid);
 
     $page = ceil (($aktTopicRow->rep + 1) / $allgAr['Fpanz']);
     wd('index.php?forum-showposts-' . $tid . '-p' . $page . '#' . $oid, $lang['changepostsuccessful']);

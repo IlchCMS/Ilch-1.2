@@ -34,24 +34,24 @@ switch ($uum) {
         } else {
             // autor benachrichtigen
             if (!empty($_POST['reason'])) {
-                $uid = db_result(db_query("SELECT erstid FROM prefix_posts WHERE tid = " . $tid . " ORDER BY id ASC LIMIT 1"), 0);
-                $top = db_result(db_query("SELECT name FROM prefix_topics WHERE id = " . $tid), 0);
+                $uid = db_result(db_query("SELECT `erstid` FROM `prefix_posts` WHERE `tid` = " . $tid . " ORDER BY `id` ASC LIMIT 1"), 0);
+                $top = db_result(db_query("SELECT `name` FROM `prefix_topics` WHERE `id` = " . $tid), 0);
                 $page = $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"];
                 $txt = "Dein Thema \"" . $top . "\" wurde gelöscht Begründung:\n\n" . escape($_POST['reason'], 'string');
                 sendpm($_SESSION['authid'], $uid, 'Theme gelöscht', $txt);
             }
             $postsMinus = $aktTopicRow['rep'] + 1;
-            db_query("DELETE FROM `prefix_topics` WHERE id = '" . $tid . "' LIMIT 1");
-            $erg = db_query("SELECT erstid FROM prefix_posts WHERE tid = " . $tid . " AND erstid > 0");
+            db_query("DELETE FROM `prefix_topics` WHERE `id` = '" . $tid . "' LIMIT 1");
+            $erg = db_query("SELECT `erstid` FROM `prefix_posts` WHERE `tid` = " . $tid . " AND `erstid` > 0");
             while ($row = db_fetch_object($erg)) {
-                db_query("UPDATE prefix_user SET posts = posts - 1 WHERE id = " . $row->erstid);
+                db_query("UPDATE `prefix_user` SET `posts` = `posts` - 1 WHERE `id` = " . $row->erstid);
             }
-            db_query("DELETE FROM `prefix_posts` WHERE tid = '" . $tid . "'");
-            $pid = db_result(db_query("SELECT MAX(id) FROM prefix_posts WHERE fid = " . $fid), 0);
+            db_query("DELETE FROM `prefix_posts` WHERE `tid` = '" . $tid . "'");
+            $pid = db_result(db_query("SELECT MAX(`id`) FROM `prefix_posts` WHERE `fid` = " . $fid), 0);
             if (empty($pid)) {
                 $pid = 0;
             }
-            db_query("UPDATE `prefix_forums` SET last_post_id = " . $pid . ", `posts` = `posts` - " . $postsMinus . ", `topics` = `topics` - 1 WHERE id = " . $fid);
+            db_query("UPDATE `prefix_forums` SET `last_post_id` = " . $pid . ", `posts` = `posts` - " . $postsMinus . ", `topics` = `topics` - 1 WHERE `id` = " . $fid);
             wd ('index.php?forum-showtopics-' . $fid, 'Das Thema wurde gel&ouml;scht' , 2);
         }
         break;
@@ -70,7 +70,7 @@ switch ($uum) {
             }
 
             function forum_admin_selectcats ($id, $stufe, $sel) {
-                $q = "SELECT * FROM prefix_forumcats WHERE cid = " . $id . " ORDER BY pos";
+                $q = "SELECT * FROM `prefix_forumcats` WHERE `cid` = " . $id . " ORDER BY `pos`";
                 $erg = db_query($q);
                 if (db_num_rows($erg) > 0) {
                     while ($row = db_fetch_object($erg)) {
@@ -91,21 +91,21 @@ switch ($uum) {
             echo '</select><br /><input type="checkbox" name="alertautor" value="yes" /> Den Autor &uuml;ber das verschieben informieren?<br /><input type="submit" value="Verschieben" name="sub"></form>';
         } else {
             $postsMinus = $aktTopicRow['rep'] + 1;
-            db_query("UPDATE `prefix_topics` SET `fid` = " . $_POST['nfid'] . " WHERE id = " . $tid);
-            db_query("UPDATE prefix_posts SET `fid` = " . $_POST['nfid'] . " WHERE tid = " . $tid);
-            $apid = db_result(db_query("SELECT MAX(id) FROM prefix_posts WHERE fid = " . $_POST['afid']), 0);
-            $npid = db_result(db_query("SELECT MAX(id) FROM prefix_posts WHERE fid = " . $_POST['nfid']), 0);
+            db_query("UPDATE `prefix_topics` SET `fid` = " . $_POST['nfid'] . " WHERE `id` = " . $tid);
+            db_query("UPDATE `prefix_posts` SET `fid` = " . $_POST['nfid'] . " WHERE `tid` = " . $tid);
+            $apid = db_result(db_query("SELECT MAX(`id`) FROM `prefix_posts` WHERE `fid` = " . $_POST['afid']), 0);
+            $npid = db_result(db_query("SELECT MAX(`id`) FROM `prefix_posts` WHERE `fid` = " . $_POST['nfid']), 0);
             if (empty($apid)) {
                 $apid = 0;
             }
-            db_query("UPDATE `prefix_forums` SET last_post_id = " . $apid . ", `posts` = `posts` - " . $postsMinus . ", `topics` = `topics` - 1 WHERE id = " . $_POST['afid']);
-            db_query("UPDATE `prefix_forums` SET last_post_id = " . $npid . ", `posts` = `posts` + " . $postsMinus . ", `topics` = `topics` + 1 WHERE id = " . $_POST['nfid']);
+            db_query("UPDATE `prefix_forums` SET `last_post_id` = " . $apid . ", `posts` = `posts` - " . $postsMinus . ", `topics` = `topics` - 1 WHERE `id` = " . $_POST['afid']);
+            db_query("UPDATE `prefix_forums` SET `last_post_id` = " . $npid . ", `posts` = `posts` + " . $postsMinus . ", `topics` = `topics` + 1 WHERE `id` = " . $_POST['nfid']);
             // autor benachrichtigen
             if (isset($_POST['alertautor']) AND $_POST['alertautor'] == 'yes') {
-                $uid = db_result(db_query("SELECT erstid FROM prefix_posts WHERE tid = " . $tid . " ORDER BY id ASC LIMIT 1"), 0);
-                $fal = db_result(db_query("SELECT name FROM prefix_forums WHERE id = " . $_POST['afid']), 0);
-                $fne = db_result(db_query("SELECT name FROM prefix_forums WHERE id = " . $_POST['nfid']), 0);
-                $top = db_result(db_query("SELECT name FROM prefix_topics WHERE id = " . $tid), 0);
+                $uid = db_result(db_query("SELECT `erstid` FROM `prefix_posts` WHERE `tid` = " . $tid . " ORDER BY `id` ASC LIMIT 1"), 0);
+                $fal = db_result(db_query("SELECT `name` FROM `prefix_forums` WHERE `id` = " . $_POST['afid']), 0);
+                $fne = db_result(db_query("SELECT `name` FROM `prefix_forums` WHERE `id` = " . $_POST['nfid']), 0);
+                $top = db_result(db_query("SELECT `name` FROM `prefix_topics` WHERE `id` = " . $tid), 0);
                 $page = $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"];
                 $txt = 'Dein Thema "' . $top . '" wurde von dem Forum "' . $fal . '" in das neue Forum "' . $fne . '" verschoben... ';
                 $txt .= "\n\n- [url=http://" . $page . "?forum-showposts-" . $tid . "]Link zum Thema[/url]";
@@ -123,12 +123,12 @@ switch ($uum) {
         break;
     case 4 : // change topic status
         $aktion = ($aktTopicRow['stat'] == 1 ? 0 : 1);
-        db_query("UPDATE `prefix_topics` SET stat = '" . $aktion . "' WHERE id = '" . $tid . "'");
+        db_query("UPDATE `prefix_topics` SET `stat` = '" . $aktion . "' WHERE `id` = '" . $tid . "'");
         wd ('index.php?forum-showposts-' . $tid , 'ge&auml;ndert' , 0);
         break;
     case 5 : // change topic art
         $nart = ($aktTopicRow['art'] == 0 ? 1 : 0);
-        db_query("UPDATE `prefix_topics` SET art = '" . $nart . "' WHERE id = " . $tid);
+        db_query("UPDATE `prefix_topics` SET `art` = '" . $nart . "' WHERE `id` = " . $tid);
         wd (array (
                 'zur&uuml;ck zum Thema' => 'index.php?forum-showposts-' . $tid,
                 'zur Themen &Uuml;bersicht' => 'index.php?forum-showtopics-' . $fid

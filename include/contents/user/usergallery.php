@@ -22,7 +22,7 @@ if (empty($uid)) {
     if (loggedin()) {
         $x .= '<a href="index.php?user-usergallery-' . $_SESSION['authid'] . '">Meine Gallery</a><br /><br />';
     }
-    $erg = db_query("SELECT uid, prefix_user.name as uname, COUNT(*) as anz FROM prefix_usergallery LEFT JOIN prefix_user ON prefix_usergallery.uid = prefix_user.id GROUP BY uid, uname ORDER BY anz DESC");
+    $erg = db_query("SELECT `uid`, `prefix_user`.`name` as `uname`, COUNT(*) as `anz` FROM `prefix_usergallery` LEFT JOIN `prefix_user` ON `prefix_usergallery`.`uid` = `prefix_user`.`id` GROUP BY `uid`, `uname` ORDER BY `anz` DESC");
     while ($r = db_fetch_assoc($erg)) {
         $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
         $x .= '<div class="' . $class . '" style="float: left; padding: 5px;"><a href="index.php?user-usergallery-' . $r['uid'] . '">' . $r['uname'] . '</a><br /><span class="smalfont">Anzahl Bilder: ' . $r['anz'] . '</span></a></div>';
@@ -36,7 +36,7 @@ if (empty($uid)) {
     exit();
 }
 // user gallery zeigen
-$uname = db_result(db_query("SELECT name FROM prefix_user WHERE id = " . $uid), 0, 0);
+$uname = db_result(db_query("SELECT `name` FROM `prefix_user` WHERE `id` = " . $uid), 0, 0);
 
 $title = $allgAr['title'] . ' :: Users :: Gallery';
 $hmenu = $extented_forum_menu . '<a class="smalfont" href="index.php?user">Users</a><b> &raquo; </b><a class="smalfont" href="?user-usergallery">Gallery</a><b> &raquo; </b>von ' . $uname . $extented_forum_menu_sufix;
@@ -50,11 +50,11 @@ $tpl->set('uname', $uname);
 // bild loeschen...
 if ($menu->getA(4) == 'd' AND is_numeric($menu->getE(4)) AND loggedin() AND (is_siteadmin() OR $uid == $_SESSION['authid'])) {
     $delid = escape($menu->getE(4), 'integer');
-    $x = @db_result(db_query("SELECT endung FROM prefix_usergallery WHERE uid = " . $uid . " AND id = " . $delid), 0, 0);
+    $x = @db_result(db_query("SELECT `endung` FROM `prefix_usergallery` WHERE `uid` = " . $uid . " AND `id` = " . $delid), 0, 0);
     if (!empty($x)) {
         @unlink ('include/images/usergallery/img_thumb_' . $delid . '.' . $x);
         @unlink ('include/images/usergallery/img_' . $delid . '.' . $x);
-        @db_query("DELETE FROM prefix_usergallery WHERE uid = " . $uid . " AND id = " . $delid);
+        @db_query("DELETE FROM `prefix_usergallery` WHERE `uid` = " . $uid . " AND `id` = " . $delid);
     }
 }
 // bild hochladen
@@ -91,7 +91,7 @@ $limit = $img_per_site;
 $page = ($menu->getA(3) == 'p' ? $menu->getE(3) : 1);
 $MPL = db_make_sites ($page , '' , $limit , 'index.php?user-usergallery-' . $uid , "usergallery WHERE uid = " . $uid);
 $anfang = ($page - 1) * $limit;
-$erg = db_query("SELECT name, besch, endung, id FROM prefix_usergallery WHERE uid = " . $uid . " ORDER BY id DESC LIMIT " . $anfang . "," . $limit);
+$erg = db_query("SELECT `name`, `besch`, `endung`, `id` FROM `prefix_usergallery` WHERE `uid` = " . $uid . " ORDER BY `id` DESC LIMIT " . $anfang . "," . $limit);
 
 $tpl->set('imgperline', $allgAr['gallery_imgs_per_line']);
 $tpl->set('MPL', $MPL);

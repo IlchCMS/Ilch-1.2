@@ -19,14 +19,14 @@ if (empty($_POST['delete'])) {
     $tpl->set_ar(array('tid' => $tid, 'get3' => $menu->get(3)));
     $tpl->out(0);
 } else {
-    $erstid = @db_result(db_query("SELECT erstid FROM `prefix_posts` WHERE id = " . $menu->get(3) . " LIMIT 1"), 0);
-    if ($erstid > 0) db_query("UPDATE `prefix_user` SET posts = posts - 1 WHERE id = $erstid");
+    $erstid = @db_result(db_query("SELECT `erstid` FROM `prefix_posts` WHERE `id` = " . $menu->get(3) . " LIMIT 1"), 0);
+    if ($erstid > 0) db_query("UPDATE `prefix_user` SET `posts` = `posts` - 1 WHERE id = ".$erstid);
 
-    db_query("DELETE FROM `prefix_posts` WHERE id = " . $menu->get(3) . " LIMIT 1");
-    $erg = db_query("SELECT MAX(id) FROM prefix_posts WHERE tid = " . $tid);
+    db_query("DELETE FROM `prefix_posts` WHERE `id` = " . $menu->get(3) . " LIMIT 1");
+    $erg = db_query("SELECT MAX(`id`) FROM `prefix_posts` WHERE `tid` = " . $tid);
     $max = db_result($erg, 0);
-    db_query("UPDATE `prefix_topics` SET last_post_id = " . $max . ", `rep` = `rep` - 1 WHERE id = " . $tid);
-    db_query("UPDATE `prefix_forums` SET last_post_id = " . $max . ", posts = posts - 1 WHERE id = " . $fid);
+    db_query("UPDATE `prefix_topics` SET `last_post_id` = " . $max . ", `rep` = `rep` - 1 WHERE `id` = " . $tid);
+    db_query("UPDATE `prefix_forums` SET `last_post_id` = " . $max . ", `posts` = `posts` - 1 WHERE `id` = " . $fid);
 
     $tpl = new tpl ('forum/del_post');
     $tpl->set_out('tid', $tid, 1);

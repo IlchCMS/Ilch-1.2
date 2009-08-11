@@ -7,7 +7,7 @@ $design = new design ($title , $hmenu);
 $design->header();
 $tpl = new tpl ('trains');
 
-$row = db_fetch_object(db_query("SELECT t1 FROM `prefix_allg` WHERE k = 'trainzeiten'"));
+$row = db_fetch_object(db_query("SELECT `t1` FROM `prefix_allg` WHERE `k` = 'trainzeiten'"));
 $dbe = explode('#', $row->t1);
 $ar = array (
     'MON' => bbcode($dbe[0]),

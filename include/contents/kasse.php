@@ -9,7 +9,7 @@ $design = new design ($title , $hmenu);
 $design->header();
 // loeschen
 if ($menu->getA(1) == 'd' AND is_numeric($menu->getE(1)) AND has_right(- 8, 'kasse')) {
-    db_query("DELETE FROM prefix_kasse WHERE id = " . $menu->getE(1));
+    db_query("DELETE FROM `prefix_kasse` WHERE `id` = " . $menu->getE(1));
 }
 
 $m = date('m');
@@ -49,17 +49,17 @@ $tpl = new tpl ('kasse.htm');
 
 $tpl->set('kontodaten', $kontodaten);
 
-$tpl->set('minus', db_result(db_query("SELECT ROUND(SUM(betrag),2) FROM prefix_kasse WHERE betrag < 0"), 0));
-$tpl->set('plus', db_result(db_query("SELECT ROUND(SUM(betrag),2) FROM prefix_kasse WHERE betrag > 0"), 0));
-$tpl->set('saldo', db_result(db_query("SELECT ROUND(SUM(betrag),2) FROM prefix_kasse"), 0));
+$tpl->set('minus', db_result(db_query("SELECT ROUND(SUM(`betrag`),2) FROM `prefix_kasse` WHERE `betrag` < 0"), 0));
+$tpl->set('plus', db_result(db_query("SELECT ROUND(SUM(`betrag`),2) FROM `prefix_kasse` WHERE `betrag` > 0"), 0));
+$tpl->set('saldo', db_result(db_query("SELECT ROUND(SUM(`betrag`),2) FROM `prefix_kasse`"), 0));
 
-$tpl->set('Jminus', db_result(db_query("SELECT ROUND(SUM(betrag),2) FROM prefix_kasse WHERE betrag < 0 AND datum >= '" . $jaka . "' AND datum <= '" . $jake . "'"), 0));
-$tpl->set('Jplus', db_result(db_query("SELECT ROUND(SUM(betrag),2) FROM prefix_kasse WHERE betrag > 0 AND datum >= '" . $jaka . "' AND datum <= '" . $jake . "'"), 0));
-$tpl->set('Jsaldo', db_result(db_query("SELECT ROUND(SUM(betrag),2) FROM prefix_kasse WHERE datum >= '" . $jaka . "' AND datum <= '" . $jake . "'"), 0));
+$tpl->set('Jminus', db_result(db_query("SELECT ROUND(SUM(`betrag`),2) FROM `prefix_kasse` WHERE `betrag` < 0 AND `datum` >= '" . $jaka . "' AND `datum` <= '" . $jake . "'"), 0));
+$tpl->set('Jplus', db_result(db_query("SELECT ROUND(SUM(`betrag`),2) FROM `prefix_kasse` WHERE `betrag` > 0 AND datum >= '" . $jaka . "' AND `datum` <= '" . $jake . "'"), 0));
+$tpl->set('Jsaldo', db_result(db_query("SELECT ROUND(SUM(`betrag`),2) FROM `prefix_kasse` WHERE `datum` >= '" . $jaka . "' AND `datum` <= '" . $jake . "'"), 0));
 
-$tpl->set('Mminus', db_result(db_query("SELECT ROUND(SUM(betrag),2) FROM prefix_kasse WHERE betrag < 0 AND datum >= '" . $aka . "' AND datum <= '" . $ake . "'"), 0));
-$tpl->set('Mplus', db_result(db_query("SELECT ROUND(SUM(betrag),2) FROM prefix_kasse WHERE betrag > 0 AND datum >= '" . $aka . "' AND datum <= '" . $ake . "'"), 0));
-$tpl->set('Msaldo', db_result(db_query("SELECT ROUND(SUM(betrag),2) FROM prefix_kasse WHERE datum >= '" . $aka . "' AND datum <= '" . $ake . "'"), 0));
+$tpl->set('Mminus', db_result(db_query("SELECT ROUND(SUM(`betrag`),2) FROM `prefix_kasse` WHERE `betrag` < 0 AND `datum` >= '" . $aka . "' AND `datum` <= '" . $ake . "'"), 0));
+$tpl->set('Mplus', db_result(db_query("SELECT ROUND(SUM(`betrag`),2) FROM `prefix_kasse` WHERE `betrag` > 0 AND `datum` >= '" . $aka . "' AND `datum` <= '" . $ake . "'"), 0));
+$tpl->set('Msaldo', db_result(db_query("SELECT ROUND(SUM(`betrag`),2) FROM `prefix_kasse` WHERE `datum` >= '" . $aka . "' AND `datum` <= '" . $ake . "'"), 0));
 
 $tpl->set('month', $lang[date('F', $akt)]);
 $tpl->set('pm', $pm);
@@ -71,7 +71,7 @@ $tpl->set('jahr', $y);
 $tpl->out(0);
 
 $class = '';
-$erg = db_query("SELECT name, verwendung, id, ROUND(betrag,2) as betrag FROM prefix_kasse WHERE datum >= '" . $aka . "' AND datum <= '" . $ake . "' ORDER BY datum DESC");
+$erg = db_query("SELECT `name`, `verwendung`, `id`, ROUND(`betrag`,2) as `betrag` FROM `prefix_kasse` WHERE `datum` >= '" . $aka . "' AND `datum` <= '" . $ake . "' ORDER BY `datum` DESC");
 while ($r = db_fetch_assoc($erg)) {
     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
     $r['class'] = $class;

@@ -35,16 +35,16 @@ switch ($menu->get(1)) {
         $tpl->out(0);
         break;
     case 'forum' :
-        show_sitemap ("SELECT id,name FROM prefix_topics ORDER BY id ASC", '?forum-showposts-{id}', 'topics', $menu, '', 'Forum');
+        show_sitemap ("SELECT `id`,`name` FROM `prefix_topics` ORDER BY `id` ASC", '?forum-showposts-{id}', 'topics', $menu, '', 'Forum');
         break;
     case 'downloads' :
-        show_sitemap ("SELECT id, concat(name,' ',version) as x FROM prefix_downloads WHERE cat >= 0 ORDER BY id ASC", '?downloads-show-{id}', 'downloads', $menu, '', 'Downloads');
+        show_sitemap ("SELECT `id`, concat(`name`,' ',`version`) as `x` FROM `prefix_downloads` WHERE `cat` >= 0 ORDER BY `id` ASC", '?downloads-show-{id}', 'downloads', $menu, '', 'Downloads');
         break;
     case 'links' :
-        show_sitemap ("SELECT id,name FROM prefix_linkcats ORDER BY id ASC", '?links-{id}', 'links', $menu, '', 'Links');
+        show_sitemap ("SELECT `id`,`name` FROM `prefix_linkcats` ORDER BY `id` ASC", '?links-{id}', 'links', $menu, '', 'Links');
         break;
     case 'news' :
-        show_sitemap ("SELECT news_id,news_title FROM prefix_news ORDER BY news_id ASC", '?news-{id}', 'news', $menu, "WHERE news_recht >= " . $_SESSION['authright'], 'News');
+        show_sitemap ("SELECT `news_id`,`news_title` FROM `prefix_news` ORDER BY `news_id` ASC", '?news-{id}', 'news', $menu, "WHERE `news_recht` >= " . $_SESSION['authright'], 'News');
         break;
 }
 

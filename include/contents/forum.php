@@ -24,7 +24,7 @@ function aktForumCats ($catAR, $trenn = 'hmenu') {
 // variablen suchen und definieren.
 if ($menu->get(1) == 'showcat') {
     $cid = escape($menu->get(2), 'integer');
-    $fid = db_result(db_query("SELECT b.id FROM prefix_forums as b WHERE (b.view  >= " . $_SESSION['authright'] . " OR b.reply >= " . $_SESSION['authright'] . " OR b.start >= " . $_SESSION['authright'] . ") AND b.cid = " . $cid . " LIMIT 1"), 0, 0);
+    $fid = db_result(db_query("SELECT `b`.`id` FROM `prefix_forums` as `b` WHERE (`b`.`view`  >= " . $_SESSION['authright'] . " OR `b`.`reply` >= " . $_SESSION['authright'] . " OR `b`.`start` >= " . $_SESSION['authright'] . ") AND `b`.`cid` = " . $cid . " LIMIT 1"), 0, 0);
 }
 
 if ($menu->get(1) == 'showtopics'
@@ -47,7 +47,7 @@ require_once('include/contents/forum/menu.php');
 $forum_failure = array();
 $forum_rights = array();
 if (!empty ($tid)) {
-    $aktTopicAbf = "SELECT * FROM `prefix_topics` WHERE id = " . $tid;
+    $aktTopicAbf = "SELECT * FROM `prefix_topics` WHERE `id` = " . $tid;
     $aktTopicErg = db_query($aktTopicAbf);
     if (db_num_rows($aktTopicErg) == 1) {
         $aktTopicRow = db_fetch_assoc($aktTopicErg);
@@ -61,10 +61,10 @@ if (!empty ($tid)) {
 
 if (!empty ($fid)) {
     $aktForumAbf = "SELECT
-    a.id as cid, a.cid as topcid, a.name as cat,b.name,b.view,b.start,b.reply
-  FROM `prefix_forums` b
-    LEFT JOIN prefix_forumcats a ON a.id = b.cid
-  WHERE b.id = " . $fid;
+    `a`.`id` as `cid`, `a`.`cid` as `topcid`, `a`.`name` as `cat`,`b`.`name`,`b`.`view`,`b`.`start`,`b`.`reply`
+  FROM `prefix_forums` `b`
+    LEFT JOIN `prefix_forumcats` `a` ON `a`.`id` = `b`.`cid`
+  WHERE `b`.`id` = " . $fid;
     $aktForumErg = db_query($aktForumAbf);
     if (db_num_rows($aktForumErg) > 0) {
         $aktForumRow = db_fetch_assoc($aktForumErg);
@@ -73,7 +73,7 @@ if (!empty ($fid)) {
         $catsnr = 1;
         $aktForumRow['kat'] = array();
         while ($topcid != 0) {
-            $tmpsql = db_fetch_object(db_query("SELECT id,cid,name FROM `prefix_forumcats` WHERE id = " . $topcid));
+            $tmpsql = db_fetch_object(db_query("SELECT `id`,`cid`,`name` FROM `prefix_forumcats` WHERE `id` = " . $topcid));
             $topcid = $tmpsql->cid;
             $aktForumRow['kat'][$catsnr] = array();
             $aktForumRow['kat'][$catsnr]['id'] = $tmpsql->id;

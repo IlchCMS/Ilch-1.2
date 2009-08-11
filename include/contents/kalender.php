@@ -46,10 +46,10 @@ $where1 = mktime(0 , 0, 0, $month, 1, $year);
 $where2 = mktime(24, 0, 0, $month, date('t', $where1), $year);
 
 $result = db_query("SELECT *
-	FROM prefix_kalender
-	WHERE ((time >= " . $where1 . " AND time < " . $where2 . ") OR id = " . $eid . ")
-		AND " . $_SESSION['authright'] . " <= recht
-	ORDER BY time LIMIT 200");
+	FROM `prefix_kalender`
+	WHERE ((`time` >= " . $where1 . " AND `time` < " . $where2 . ") OR `id` = " . $eid . ")
+		AND " . $_SESSION['authright'] . " <= `recht`
+	ORDER BY `time` LIMIT 200");
 while ($row = db_fetch_assoc($result)) {
     $t_id = $row['id'];
     $t_d = date('j', $row['time']);
@@ -64,11 +64,11 @@ if (substr($eid, 0, 3) == 999) {
     $ueid = substr ($eid, 3);
 }
 $result = db_query("SELECT
-  name, gebdatum, id
-  FROM prefix_user
-  WHERE MONTH(gebdatum) = " . $month . "
-	  OR id = " . $ueid . "
-	ORDER BY MONTH(gebdatum), DAYOFMONTH(gebdatum) LIMIT 200");
+  `name`, `gebdatum`, `id`
+  FROM `prefix_user`
+  WHERE MONTH(`gebdatum`) = " . $month . "
+	  OR `id` = " . $ueid . "
+	ORDER BY MONTH(`gebdatum`), DAYOFMONTH(`gebdatum`) LIMIT 200");
 while ($r = db_fetch_assoc($result)) {
     list($y, $m, $d) = explode('-', $r['gebdatum']);
     $date = mktime(0, 0, 0, $m, $d);

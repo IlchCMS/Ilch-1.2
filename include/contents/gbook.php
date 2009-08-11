@@ -51,7 +51,7 @@ switch ($menu->get(1)) {
             $mail = escape($_POST['mail'], 'string');
             $page = escape($_POST['page'], 'string');
 
-            db_query("INSERT INTO prefix_gbook (`name`,`mail`,`page`,`time`,`ip`,`txt`) VALUES ('" . $name . "', '" . $mail . "', '" . $page . "', '" . time() . "', '" . getip() . "', '" . $txt . "')");
+            db_query("INSERT INTO `prefix_gbook` (`name`,`mail`,`page`,`time`,`ip`,`txt`) VALUES ('" . $name . "', '" . $mail . "', '" . $page . "', '" . time() . "', '" . getip() . "', '" . $txt . "')");
 
             $_SESSION['klicktime_gbook'] = $dppk_time;
             wd('index.php?gbook', $lang['insertsuccessful']);
@@ -67,14 +67,14 @@ switch ($menu->get(1)) {
             if (chk_antispam('gbookkom') AND isset($_POST['name']) AND isset($_POST['text'])) {
                 $name = escape($_POST['name'], 'string');
                 $text = escape($_POST['text'], 'string');
-                db_query("INSERT INTO prefix_koms (name,text,uid,cat) VALUES ('" . $name . "', '" . $text . "', " . $id . ", 'GBOOK')");
+                db_query("INSERT INTO `prefix_koms` (`name`,`text`,`uid`,`cat`) VALUES ('" . $name . "', '" . $text . "', " . $id . ", 'GBOOK')");
             }
             if ($menu->getA(3) == 'd' AND is_numeric($menu->getE(3)) AND has_right(- 7, 'gbook')) {
                 $did = escape($menu->getE(3), 'integer');
-                db_query("DELETE FROM prefix_koms WHERE uid = " . $id . " AND cat = 'GBOOK' AND id = " . $did);
+                db_query("DELETE FROM `prefix_koms` WHERE `uid` = " . $id . " AND `cat` = 'GBOOK' AND `id` = " . $did);
             }
 
-            $r = db_fetch_assoc(db_query("SELECT time, name, mail, page, txt as text, id FROM prefix_gbook WHERE id = " . $id));
+            $r = db_fetch_assoc(db_query("SELECT `time`, `name`, `mail`, `page`, `txt` as `text`, `id` FROM `prefix_gbook` WHERE `id` = " . $id));
             $r['datum'] = date('d.m.Y', $r['time']);
             if ($r['page'] != '') {
                 $r['page'] = get_homepage($r['page']);
@@ -90,7 +90,7 @@ switch ($menu->get(1)) {
             $r['text'] = bbcode($r['text']);
             $tpl->set_ar_out($r, 4);
             $i = 1;
-            $erg = db_query("SELECT id, name, text FROM prefix_koms WHERE uid = " . $id . " AND cat = 'GBOOK' ORDER BY id DESC");
+            $erg = db_query("SELECT `id`, `name`, `text` FROM `prefix_koms` WHERE `uid` = " . $id . " AND `cat` = 'GBOOK' ORDER BY `id` DESC");
             $anz = db_num_rows($erg) + 1;
             while ($r1 = db_fetch_assoc($erg)) {
                 $r1['zahl'] = $anz - $i;
@@ -113,13 +113,13 @@ switch ($menu->get(1)) {
 
         $tpl = new tpl ('gbook.htm');
 
-        $ei1 = @db_query("SELECT COUNT(ID) FROM prefix_gbook");
+        $ei1 = @db_query("SELECT COUNT(ID) FROM `prefix_gbook`");
         $ein = @db_result($ei1, 0);
 
         $ar = array ('EINTRAGE' => $ein);
         $tpl->set_ar_out($ar, 0);
 
-        $erg = db_query("SELECT * FROM prefix_gbook ORDER BY time DESC LIMIT " . $anfang . "," . $limit) or die (db_error());
+        $erg = db_query("SELECT * FROM `prefix_gbook` ORDER BY `time` DESC LIMIT " . $anfang . "," . $limit) or die (db_error());
         while ($row = db_fetch_object($erg)) {
             $page = '';
             $mail = '';
@@ -132,7 +132,7 @@ switch ($menu->get(1)) {
             }
             $koms = '';
             if ($allgAr['gbook_koms_for_inserts'] == 1) {
-                $koms = db_result(db_query("SELECT COUNT(*) FROM prefix_koms WHERE uid = " . $row->id . " AND cat = 'GBOOK'"), 0, 0);
+                $koms = db_result(db_query("SELECT COUNT(*) FROM `prefix_koms` WHERE `uid` = " . $row->id . " AND `cat` = 'GBOOK'"), 0, 0);
                 $koms = '<a href="index.php?gbook-show-' . $row->id . '">' . $koms . ' ' . $lang['comments'] . '</a>';
             }
 

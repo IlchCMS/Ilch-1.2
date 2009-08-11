@@ -5,7 +5,7 @@ defined ('main') or die ('no direct access');
 
 $uid = $menu->get(2);
 
-$abf = 'SELECT * FROM prefix_user WHERE id = "' . $uid . '"';
+$abf = 'SELECT * FROM `prefix_user` WHERE id = "' . $uid . '"';
 $erg = db_query($abf);
 $row = db_fetch_assoc($erg);
 

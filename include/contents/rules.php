@@ -8,7 +8,7 @@ $hmenu = 'Regeln';
 $design = new design ($title , $hmenu);
 $design->header();
 // -----------------------------------------------------------|
-$erg = db_query('SELECT zahl,titel,text FROM `prefix_rules` ORDER BY zahl');
+$erg = db_query('SELECT `zahl`,`titel`,`text` FROM `prefix_rules` ORDER BY `zahl`');
 while ($row = db_fetch_row($erg)) {
     echo '<table width="100%" border="0" cellpadding="5" cellspacing="1" class="border">';
     echo '<tr class="Cmite"><td><b>&sect;' . $row[0] . '. &nbsp; ' . $row[1] . '</b></td></tr>';

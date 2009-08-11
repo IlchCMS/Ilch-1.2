@@ -12,7 +12,7 @@ $show = true;
 
 if (isset ($_POST['email'])) {
     $email = get_lower( escape($_POST['email'], 'string') );
-    $erg = db_query("SELECT name FROM prefix_user WHERE email = BINARY '" . $email . "'");
+    $erg = db_query("SELECT `name` FROM `prefix_user` WHERE `email` = BINARY '" . $email . "'");
     if (db_num_rows($erg) == 1) {
         $row = db_fetch_assoc($erg);
 
@@ -20,7 +20,7 @@ if (isset ($_POST['email'])) {
         $md5_pass = md5($new_pass);
         $id = md5 (uniqid (rand()));
 
-        db_query("INSERT INTO prefix_usercheck (`check`,name,email,pass,datime,ak)
+        db_query("INSERT INTO `prefix_usercheck` (`check`,`name`,`email`,`pass`,`datime`,`ak`)
 		VALUES ('" . $id . "','" . $row['name'] . "','" . $email . "','" . $md5_pass . "',NOW(),2)");
 
         $page = $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"];

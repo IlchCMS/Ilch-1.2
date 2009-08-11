@@ -11,7 +11,7 @@ $design->header();
 $tpl = new tpl ('history');
 $tpl->out(0);
 $class = '';
-$abf = "SELECT id,DATE_FORMAT(date,'%d.%m.%Y') as date1,title,txt FROM prefix_history ORDER BY date";
+$abf = "SELECT `id`,DATE_FORMAT(date,'%d.%m.%Y') as `date1`,`title`,`txt` FROM `prefix_history` ORDER BY `date`";
 $erg = db_query($abf);
 while ($row = db_fetch_assoc($erg)) {
     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');

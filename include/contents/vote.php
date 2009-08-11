@@ -12,7 +12,7 @@ if ($menu->getA(1) == 'W') {
     $poll_id = escape ($menu->getE(1), 'integer');
     $radio = escape ($_POST['radio'], 'integer');
 
-    $fraRow = db_fetch_object(db_query("SELECT * FROM prefix_poll WHERE poll_id = '" . $poll_id . "'"));
+    $fraRow = db_fetch_object(db_query("SELECT * FROM `prefix_poll` WHERE `poll_id` = '" . $poll_id . "'"));
     $textAr = explode('#', $fraRow->text);
     if ($fraRow->recht == 2) {
         $inTextAr = $_SESSION['authid'];
@@ -22,8 +22,8 @@ if ($menu->getA(1) == 'W') {
     if (!in_array ($inTextAr , $textAr)) {
         $textAr[] = $inTextAr;
         $textArString = implode('#', $textAr);
-        db_query('UPDATE `prefix_poll` SET text = "' . $textArString . '" WHERE poll_id = "' . $poll_id . '"');
-        db_query('UPDATE `prefix_poll_res` SET res = res + 1 WHERE poll_id = "' . $poll_id . '" AND sort = "' . $radio . '" LIMIT 1') or die (db_error());
+        db_query('UPDATE `prefix_poll` SET `text` = "' . $textArString . '" WHERE `poll_id` = "' . $poll_id . '"');
+        db_query('UPDATE `prefix_poll_res` SET `res` = `res` + 1 WHERE `poll_id` = "' . $poll_id . '" AND `sort` = "' . $radio . '" LIMIT 1') or die (db_error());
     }
 }
 // #
@@ -51,13 +51,13 @@ if ($_SESSION['authright'] <= - 1) {
 }
 $limit = 3; // Limit
 $page = ($menu->getA(1) == 'p' ? $menu->getE(1) : 1);
-$MPL = db_make_sites ($page , 'WHERE recht ' . $woR , $limit , "?vote" , 'poll');
+$MPL = db_make_sites ($page , 'WHERE `recht` ' . $woR , $limit , "?vote" , 'poll');
 $anfang = ($page - 1) * $limit;
 $class = '';
-$erg = db_query('SELECT * FROM `prefix_poll` WHERE recht ' . $woR . ' ORDER BY poll_id DESC LIMIT ' . $anfang . ',' . $limit);
+$erg = db_query('SELECT * FROM `prefix_poll` WHERE `recht` ' . $woR . ' ORDER BY `poll_id` DESC LIMIT ' . $anfang . ',' . $limit);
 while ($fraRow = db_fetch_object($erg)) {
-    $maxRow = db_fetch_object(db_query('SELECT MAX(res) as res FROM `prefix_poll_res` WHERE poll_id = "' . $fraRow->poll_id . '"'));
-    $gesRow = db_fetch_object(db_query('SELECT SUM(res) as res FROM `prefix_poll_res` WHERE poll_id = "' . $fraRow->poll_id . '"'));
+    $maxRow = db_fetch_object(db_query('SELECT MAX(`res`) as `res` FROM `prefix_poll_res` WHERE `poll_id` = "' . $fraRow->poll_id . '"'));
+    $gesRow = db_fetch_object(db_query('SELECT SUM(`res`) as `res` FROM `prefix_poll_res` WHERE `poll_id` = "' . $fraRow->poll_id . '"'));
     $max = $maxRow->res;
     $ges = $gesRow->res;
     $textAr = explode('#', $fraRow->text);
@@ -82,7 +82,7 @@ while ($fraRow = db_fetch_object($erg)) {
         $imPollArrayDrin = false;
     }
     $i = 0;
-    $pollErg = db_query('SELECT antw, res, sort FROM `prefix_poll_res` WHERE poll_id = "' . $fraRow->poll_id . '" ORDER BY sort');
+    $pollErg = db_query('SELECT `antw`, `res`, `sort` FROM `prefix_poll_res` WHERE `poll_id` = "' . $fraRow->poll_id . '" ORDER BY `sort`');
     while ($pollRow = db_fetch_object($pollErg)) {
         if ($imPollArrayDrin) {
             if (!empty($pollRow->res)) {

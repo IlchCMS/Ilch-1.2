@@ -18,7 +18,7 @@ if (is_siteadmin()) {
         if (is_numeric($menu->get(2))) {
             $anz = db_result(db_query("SELECT COUNT(*) FROM `prefix_shoutbox`"), 0) - $menu->get(2);
             if ($anz > 0) {
-                db_query("DELETE FROM `prefix_shoutbox` ORDER BY id LIMIT $anz");
+                db_query("DELETE FROM `prefix_shoutbox` ORDER BY `id` LIMIT ".$anz);
             }
         }else {
             db_query("DELETE FROM `prefix_shoutbox`");
@@ -28,7 +28,7 @@ if (is_siteadmin()) {
 
 echo '<script type="text/javascript">
   function del() {
-    if (anz = prompt("Wieviele Einträge sollen erhalten bleiben?\n(Es werden die zuletzt geschriebenen erhalten)", "0")) {
+    if (anz = prompt("Wie viele Einträge sollen erhalten bleiben?\n(Es werden die zuletzt geschriebenen erhalten)", "0")) {
       if (anz >= 0) { window.location.href = "index.php?shoutbox-delall-"+anz; }
       else alert("Du musst eine Zahl größer gleich 0 eingeben");
     }

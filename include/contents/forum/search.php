@@ -8,7 +8,7 @@ $such = $menu->get(1);
 if ($such == 'aeit') {
     if (isset($_POST['name'])) {
         $name = escape($_POST['name'], 'string');
-        $uid = @db_result(db_query("SELECT id FROM prefix_user WHERE name = BINARY '" . $name . "'"));
+        $uid = @db_result(db_query("SELECT `id` FROM `prefix_user` WHERE `name` = BINARY '" . $name . "'"));
         if ($uid > 0) {
             $menu->set_url(2, $uid);
         }
@@ -37,15 +37,15 @@ $limit = 25; // Limit
 $page = ($menu->getE('p') > 0 ? $menu->getE('p') : 1);
 $anfang = ($page - 1) * $limit;
 
-$s = "DISTINCT b.id as fid, a.name as titel, a.id as id, d.name as author";
+$s = "DISTINCT `b`.`id` as `fid`, `a`.`name` as `titel`, `a`.`id` as `id`, `d`.`name` as `author`";
 $q = "SELECT {SELECT}
-  FROM prefix_topics a
-    LEFT JOIN prefix_forums b ON b.id = a.fid
-    LEFT JOIN prefix_posts c ON c.tid = a.id
-    LEFT JOIN prefix_user d ON c.erstid = d.id
-    LEFT JOIN prefix_groupusers vg ON vg.uid = " . $_SESSION['authid'] . " AND vg.gid = b.view
-    LEFT JOIN prefix_groupusers rg ON rg.uid = " . $_SESSION['authid'] . " AND rg.gid = b.reply
-    LEFT JOIN prefix_groupusers sg ON sg.uid = " . $_SESSION['authid'] . " AND sg.gid = b.start
+  FROM `prefix_topics` `a`
+    LEFT JOIN `prefix_forums` `b` ON `b`.`id` = `a`.`fid`
+    LEFT JOIN `prefix_posts` `c` ON `c`.`tid` = `a`.`id`
+    LEFT JOIN `prefix_user` `d` ON `c`.`erstid` = `d`.`id`
+    LEFT JOIN `prefix_groupusers` `vg` ON `vg`.`uid` = " . $_SESSION['authid'] . " AND `vg`.`gid` = `b`.`view`
+    LEFT JOIN `prefix_groupusers` `rg` ON `rg`.`uid` = " . $_SESSION['authid'] . " AND `rg`.`gid` = `b`.`reply`
+    LEFT JOIN `prefix_groupusers` `sg` ON `sg`.`uid` = " . $_SESSION['authid'] . " AND `sg`.`gid` = `b`.`start`
   WHERE (((b.view >= " . $_SESSION['authright'] . " AND b.view <= 0) OR
             (b.reply >= " . $_SESSION['authright'] . " AND b.reply <= 0) OR
             (b.start >= " . $_SESSION['authright'] . " AND b.start <= 0)) OR

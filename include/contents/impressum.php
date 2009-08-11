@@ -8,7 +8,7 @@ $hmenu = 'Impressum';
 $design = new design ($title , $hmenu);
 $design->header();
 
-$erg = db_query("SELECT * FROM prefix_allg WHERE k = 'impressum' LIMIT 1");
+$erg = db_query("SELECT * FROM `prefix_allg` WHERE `k` = 'impressum' LIMIT 1");
 $row = db_fetch_assoc($erg);
 
 echo $row['v1']; # eigentuemer oder sowas

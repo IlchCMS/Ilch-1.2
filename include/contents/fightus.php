@@ -8,7 +8,7 @@ $hmenu = 'Fightus';
 $design = new design ($title , $hmenu);
 $design->header();
 
-if (0 == db_count_query("SELECT COUNT(*) FROM prefix_groups WHERE show_fightus = 1")) {
+if (0 == db_count_query("SELECT COUNT(*) FROM `prefix_groups` WHERE `show_fightus` = 1")) {
     echo $lang['noteamthere'];
     $design->footer();
     exit ();
@@ -40,7 +40,7 @@ foreach ($far as $v) {
 }
 if (count($far) == $x AND chk_antispam('fightus')) {
     $squad = escape($squad, 'integer');
-    $abf = "SELECT `mod1`,`mod2`, `mod3`,name FROM prefix_groups WHERE id = " . $squad;
+    $abf = "SELECT `mod1`,`mod2`, `mod3`,`name` FROM `prefix_groups` WHERE `id` = " . $squad;
     $erg = db_query($abf);
     $row = db_fetch_assoc($erg);
     $txt = $lang['fightusrequest'];
@@ -49,7 +49,7 @@ if (count($far) == $x AND chk_antispam('fightus')) {
     $datum = $datum . " " . $zeit;
     $clanpage = get_homepage ($clanpage);
     // als upcoming war vormerken (kategorie 1)
-    db_query("INSERT INTO prefix_wars (datime,`status`,gegner,tag,page,mail,icq,wo,tid,`mod`,game,mtyp,land,txt) VALUES ('" . $datum . "','1','" . $clanname . "','" . $clantag . "','" . $clanpage . "','" . $mailaddy . "','" . $icqnumber . "','" . $meetingplace . "','" . $squad . "','" . $xonx . "','" . $game . "','" . $matchtype . "','" . $clancountry . "','" . $message . "')");
+    db_query("INSERT INTO `prefix_wars` (`datime`,`status`,`gegner`,`tag`,`page`,`mail`,`icq`,`wo`,`tid`,`mod`,`game`,`mtyp`,`land`,`txt`) VALUES ('" . $datum . "','1','" . $clanname . "','" . $clantag . "','" . $clanpage . "','" . $mailaddy . "','" . $icqnumber . "','" . $meetingplace . "','" . $squad . "','" . $xonx . "','" . $game . "','" . $matchtype . "','" . $clancountry . "','" . $message . "')");
     // pm an den leader
     sendpm($_SESSION['authid'], $row['mod1'], 'Fightus Anfrage', $txt, - 1);
     // Wenn Co Leader != Leader
@@ -64,7 +64,7 @@ if (count($far) == $x AND chk_antispam('fightus')) {
 } else {
     $clancountry = arlistee ($clancountry, get_nationality_array());
     $squad = '<option value="0">choose</option>';
-    $squad .= dblistee ($squad, "SELECT id,name FROM prefix_groups WHERE show_fightus = 1 ORDER BY pos");
+    $squad .= dblistee ($squad, "SELECT `id`,`name` FROM `prefix_groups` WHERE `show_fightus` = 1 ORDER BY pos");
     if (empty($meetingtime)) {
         $meetingtime = date ('d.m.Y - H:i:s');
     }

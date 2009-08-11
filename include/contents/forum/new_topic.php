@@ -66,26 +66,26 @@ if (($_SESSION['klicktime'] + 15) > $dppk_time OR empty($topic) OR empty($txt) O
     if (loggedin()) {
         $uid = $_SESSION['authid'];
         $erst = escape($_SESSION['authname'], 'string');
-        db_query("UPDATE `prefix_user` set posts = posts+1 WHERE id = " . $uid);
+        db_query("UPDATE `prefix_user` SET `posts` = `posts`+1 WHERE `id` = " . $uid);
     } else {
         $erst = $xnn;
         $uid = 0;
     }
 
-    db_query("INSERT INTO `prefix_topics` (fid, name, erst, stat) VALUES ( " . $fid . ", '" . $topic . "', '" . $erst . "', 1 )");
+    db_query("INSERT INTO `prefix_topics` (`fid`, `name`, `erst`, `stat`) VALUES ( " . $fid . ", '" . $topic . "', '" . $erst . "', 1 )");
     $tid = db_last_id();
     // topic alert
     if (!empty($_POST['topic_alert']) AND $_POST['topic_alert'] == 'yes' AND loggedin()) {
-        if (0 == db_result(db_query("SELECT COUNT(*) FROM prefix_topic_alerts WHERE uid = " . $_SESSION['authid'] . " AND tid = " . $tid), 0)) {
-            db_query("INSERT INTO prefix_topic_alerts (tid,uid) VALUES (" . $tid . ", " . $_SESSION['authid'] . ")");
+        if (0 == db_result(db_query("SELECT COUNT(*) FROM `prefix_topic_alerts` WHERE `uid` = " . $_SESSION['authid'] . " AND `tid` = " . $tid), 0)) {
+            db_query("INSERT INTO `prefix_topic_alerts` (`tid`,`uid`) VALUES (" . $tid . ", " . $_SESSION['authid'] . ")");
         }
     }
 
-    db_query ("INSERT INTO `prefix_posts` (tid,fid,erst,erstid,time,txt) VALUES ( " . $tid . ", " . $fid . ", '" . $erst . "', " . $uid . ", " . $time . ", '" . $txt . "')");
+    db_query ("INSERT INTO `prefix_posts` (`tid`,`fid`,`erst`,`erstid`,`time`,`txt`) VALUES ( " . $tid . ", " . $fid . ", '" . $erst . "', " . $uid . ", " . $time . ", '" . $txt . "')");
     $pid = db_last_id();
 
-    db_query("UPDATE `prefix_topics` SET last_post_id = " . $pid . " WHERE id = " . $tid);
-    db_query("UPDATE `prefix_forums` SET posts = posts + 1, last_post_id = " . $pid . ", topics = topics + 1 WHERE id = " . $fid);
+    db_query("UPDATE `prefix_topics` SET `last_post_id` = " . $pid . " WHERE `id` = " . $tid);
+    db_query("UPDATE `prefix_forums` SET `posts` = `posts` + 1, `last_post_id` = " . $pid . ", `topics` = `topics` + 1 WHERE `id` = " . $fid);
     // toipc als gelesen markieren
     $_SESSION['forumSEE'][$fid][$tid] = time();
 

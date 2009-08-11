@@ -49,13 +49,13 @@ function get_download_size($file) {
 
 function count_files ($cid) {
     $zges = 0;
-    $e = db_query("SELECT id FROM prefix_downcats WHERE cat = " . $cid);
+    $e = db_query("SELECT `id` FROM `prefix_downcats` WHERE `cat` = " . $cid);
     if (db_num_rows($e) > 0) {
         while ($r = db_fetch_assoc($e)) {
             $zges = $zges + count_files ($r['id']);
         }
     }
-    $zges = $zges + db_count_query("SELECT COUNT(*) FROM prefix_downloads WHERE cat = " . $cid);
+    $zges = $zges + db_count_query("SELECT COUNT(*) FROM `prefix_downloads` WHERE `cat` = " . $cid);
     return ($zges);
 }
 
@@ -120,7 +120,7 @@ function icUpload () {
         return ('Keine Datei oder Link angegeben');
     }
 
-    db_query("INSERT INTO prefix_downloads (`time`,`cat`,`creater`,`version`,`url`,surl,`ssurl`,`name`,`desc`,`descl`,pos) VALUES (NOW(),-1,'" . $autor . "','" . $version . "','" . $url . "','" . $surl . "','" . $ssurl . "','" . $name . "','" . $desc . "','" . $descl . "','0')");
+    db_query("INSERT INTO `prefix_downloads` (`time`,`cat`,`creater`,`version`,`url`,surl,`ssurl`,`name`,`desc`,`descl`,`pos`) VALUES (NOW(),-1,'" . $autor . "','" . $version . "','" . $url . "','" . $surl . "','" . $ssurl . "','" . $name . "','" . $desc . "','" . $descl . "','0')");
 
     return (true);
 }
@@ -151,7 +151,7 @@ switch ($menu->get(1)) {
         $design->header();
         $tpl = new tpl ('downloads');
         $tpl->set('cid', $cid);
-        $erg = db_query("SELECT id,name,`desc` FROM prefix_downcats WHERE cat = " . $cid . " AND recht >= " . $_SESSION['authright'] . " ORDER BY pos");
+        $erg = db_query("SELECT `id`,`name`,`desc` FROM `prefix_downcats` WHERE `cat` = " . $cid . " AND `recht` >= " . $_SESSION['authright'] . " ORDER BY `pos`");
         if (db_num_rows($erg) > 0) {
             $tpl->out(1);
             $class = 'Cnorm';
@@ -164,25 +164,25 @@ switch ($menu->get(1)) {
             $tpl->out(3);
         }
         // sortierung festlegen
-        $sortierung = 'pos ASC';
+        $sortierung = '`pos` ASC';
         $DOM = 'ASC';
         $POM = 'ASC';
         $DAM = 'ASC';
 
         switch ($menu->get(2)) {
-            case 'positionDESC' : $sortierung = 'pos DESC';
+            case 'positionDESC' : $sortierung = '`pos` DESC';
                 break;
-            case 'positionASC' : $sortierung = 'pos ASC';
+            case 'positionASC' : $sortierung = '`pos` ASC';
                 $POM = 'DESC';
                 break;
-            case 'downsDESC' : $sortierung = 'downs DESC';
+            case 'downsDESC' : $sortierung = '`downs` DESC';
                 break;
-            case 'downsASC' : $sortierung = 'downs ASC';
+            case 'downsASC' : $sortierung = '`downs` ASC';
                 $DOM = 'DESC';
                 break;
-            case 'dateDESC' : $sortierung = 'time DESC';
+            case 'dateDESC' : $sortierung = '`time` DESC';
                 break;
-            case 'dateASC' : $sortierung = 'time ASC';
+            case 'dateASC' : $sortierung = '`time` ASC';
                 $DAM = 'DESC';
                 break;
         }
@@ -191,7 +191,7 @@ switch ($menu->get(1)) {
         $tpl->set ('DOM', $DOM);
         $tpl->set ('DAM', $DAM);
 
-        $erg = db_query("select id,name,version,ssurl,`desc`,downs,DATE_FORMAT(time,'%d.%m.%Y') as datum from prefix_downloads WHERE cat = " . $cid . " ORDER BY " . $sortierung);
+        $erg = db_query("SELECT `id`,`name`,`version`,`ssurl`,`desc`,`downs`,DATE_FORMAT(time,'%d.%m.%Y') as `datum` FROM `prefix_downloads` WHERE `cat` = " . $cid . " ORDER BY " . $sortierung);
         if (db_num_rows($erg) > 0) {
             $tpl->out(4);
             $class = 'Cnorm';
@@ -214,7 +214,7 @@ switch ($menu->get(1)) {
     case 'show' :
 
         $fid = escape($menu->get(2), 'integer');
-        $erg = db_query("SELECT prefix_downloads.cat,ssurl,surl,url,hits,vote_klicks,vote_wertung,prefix_downloads.name,version,creater,downs,descl,prefix_downloads.id,DATE_FORMAT(time,'%d.%m.%Y') as datum FROM prefix_downloads LEFT JOIN prefix_downcats ON prefix_downcats.id = prefix_downloads.cat WHERE prefix_downloads.id = " . $fid . " AND (" . $_SESSION['authright'] . " <= prefix_downcats.recht OR (prefix_downloads.cat = 0 AND prefix_downcats.recht IS NULL))");
+        $erg = db_query("SELECT `prefix_downloads`.`cat`,`ssurl`,`surl`,`url`,`hits`,`vote_klicks`,`vote_wertung`,`prefix_downloads`.`name`,`version`,`creater`,`downs`,`descl,prefix_downloads`.`id`,DATE_FORMAT(time,'%d.%m.%Y') as `datum` FROM `prefix_downloads` LEFT JOIN `prefix_downcats` ON `prefix_downcats`.`id` = `prefix_downloads`.`cat` WHERE `prefix_downloads`.`id` = " . $fid . " AND (" . $_SESSION['authright'] . " <= `prefix_downcats`.`recht` OR (`prefix_downloads`.`cat` = 0 AND `prefix_downcats`.`recht` IS NULL))");
         if (@db_num_rows($erg) != 1) {
             $title = $allgAr['title'] . ' :: Downloads ';
             $hmenu = '<a class="smalfont" href="?downloads">Downloads</a>';
@@ -230,15 +230,15 @@ switch ($menu->get(1)) {
             $_SESSION['downDoVote'][$row['id']] = 'o';
             $row['vote_wertung'] = round ((($row['vote_wertung'] * $row['vote_klicks']) + $menu->getE(3)) / ($row['vote_klicks'] + 1) , 3);
             $row['vote_klicks']++;
-            db_query("UPDATE prefix_downloads SET vote_wertung = " . $row['vote_wertung'] . ", vote_klicks = " . $row['vote_klicks'] . " WHERE id = " . $row['id']);
+            db_query("UPDATE `prefix_downloads` SET `vote_wertung` = " . $row['vote_wertung'] . ", `vote_klicks` = " . $row['vote_klicks'] . " WHERE `id` = " . $row['id']);
         }
         if (!isset ($_SESSION['downDoKlick'][$row['id']])) {
             $_SESSION['downDoKlick'][$row['id']] = 'o';
-            db_query("UPDATE prefix_downloads SET hits = hits +1 WHERE id = " . $fid);
+            db_query("UPDATE `prefix_downloads` SET `hits` = `hits` +1 WHERE `id` = " . $fid);
         }
 
         $cid = $row['cat'];
-        $erg1 = db_query("SELECT id,cat,name FROM prefix_downcats WHERE id = " . $cid);
+        $erg1 = db_query("SELECT `id`,`cat`,`name` FROM `prefix_downcats` WHERE `id` = " . $cid);
         if (db_num_rows($erg1) > 0) {
             $row1 = db_fetch_assoc($erg1);
             $array = get_cats_array($row1['cat'], '');
@@ -273,12 +273,12 @@ switch ($menu->get(1)) {
         $recht = @db_result(db_query("SELECT `recht` FROM `prefix_downcats` LEFT JOIN `prefix_downloads` ON `prefix_downcats`.`id` = `prefix_downloads`.`cat` WHERE `prefix_downloads`.`id` = $fid"), 0);
         $recht = (is_int($recht)?$recht:0);
         if (has_right($recht)) {
-            $row = db_fetch_assoc(db_query("SELECT url FROM prefix_downloads WHERE id = " . $fid));
+            $row = db_fetch_assoc(db_query("SELECT `url` FROM `prefix_downloads` WHERE `id` = " . $fid));
             $url = iurlencode($row['url']);
         } else {
             $url = 'http://' . $_SERVER["HTTP_HOST"] . dirname($_SERVER["SCRIPT_NAME"]) . '/index.php?downloads';
         }
-        db_query("UPDATE prefix_downloads SET downs = downs +1 WHERE id = " . $fid);
+        db_query("UPDATE `prefix_downloads` SET `downs` = `downs` +1 WHERE `id` = " . $fid);
         header('location: ' . $url);
         break;
     case 'upload' :

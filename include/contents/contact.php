@@ -8,7 +8,7 @@ $hmenu = 'Kontakt';
 $design = new design ($title , $hmenu);
 $design->header();
 
-$erg = db_query("SELECT v2,t1,v1 FROM prefix_allg WHERE k = 'kontakt'");
+$erg = db_query("SELECT `v2`,`t1`,`v1` FROM `prefix_allg` WHERE `k` = 'kontakt'");
 $row = db_fetch_assoc($erg);
 $k = explode('#', $row['t1']);
 

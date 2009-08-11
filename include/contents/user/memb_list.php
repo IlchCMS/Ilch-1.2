@@ -28,7 +28,7 @@ if (isset($_GET['filtername']) AND !empty($_GET['filtername'])) {
 }
 
 if (!empty($filtername)) {
-    $sql_search = " WHERE prefix_user.name LIKE '%" . $filtername . "%'";
+    $sql_search = " WHERE `prefix_user`.`name` LIKE '%" . $filtername . "%'";
     $MPL = db_make_sites ($page , $sql_search , $limit , '?user-filtername-' . $filtername , 'user');
 } else {
     $sql_search = "";
@@ -39,15 +39,15 @@ $tpl->set_out ('SITELINK', $MPL, 0);
 
 $class = '';
 $erg = db_query("SELECT
-  posts,
-  prefix_user.id,
-  prefix_grundrechte.name as recht_name,
-  regist,
-  prefix_user.name
-FROM prefix_user
- LEFT JOIN prefix_grundrechte ON prefix_user.recht = prefix_grundrechte.id
- $sql_search
-ORDER by recht,prefix_user.posts DESC LIMIT " . $anfang . "," . $limit);
+  `posts`,
+  `prefix_user`.`id`,
+  `prefix_grundrechte`.`name` as `recht_name`,
+  `regist`,
+  `prefix_user`.`name`
+FROM `prefix_user`
+ LEFT JOIN `prefix_grundrechte` ON `prefix_user`.`recht` = `prefix_grundrechte`.`id`
+ ".$sql_search."
+ORDER BY `recht`,`prefix_user`.`posts` DESC LIMIT " . $anfang . "," . $limit);
 while ($row = db_fetch_object($erg)) {
     if ($class == 'Cmite') {
         $class = 'Cnorm';

@@ -18,7 +18,7 @@ if ($allgAr['Fpmf'] != 1) {
     $tpl = new tpl ('user/login');
     $tpl->set_out('WDLINK', 'index.php', 0);
     $design->footer(1);
-} elseif (db_result(db_query("SELECT opt_pm FROM prefix_user WHERE id = " . $_SESSION['authid']), 0) == 0) {
+} elseif (db_result(db_query("SELECT `opt_pm` FROM `prefix_user` WHERE `id` = " . $_SESSION['authid']), 0) == 0) {
     echo 'Im <a href="index.php?user-profil">Profil</a> einstellen das du die PrivMsg Funktion nutzen m&ouml;chtest';
     $design->footer(1);
 }
@@ -35,7 +35,7 @@ switch ($uum) {
             $txt = escape($_POST['txt'], 'textarea');
             $bet = escape($_POST['bet'], 'string');
             $name = escape($_POST['name'], 'string');
-            if (1 == db_result(db_query("SELECT count(*) FROM prefix_user WHERE name = BINARY '" . $name . "'"), 0)) {
+            if (1 == db_result(db_query("SELECT count(*) FROM `prefix_user` WHERE `name` = BINARY '" . $name . "'"), 0)) {
                 $show_formular = false;
             } else {
                 echo 'Dieser Empf&auml;nger konnte nicht gefunden werden';
@@ -50,7 +50,7 @@ switch ($uum) {
             }
             $empfid = escape($empfid, 'integer');
             if ($empfid > 0) {
-                $name = db_result(db_query("SELECT name FROM prefix_user WHERE id = " . $empfid), 0);
+                $name = db_result(db_query("SELECT `name` FROM `prefix_user` WHERE `id` = " . $empfid), 0);
             }
             $ar = array (
                 'name' => $name,
@@ -89,7 +89,7 @@ switch ($uum) {
             $tpl = new tpl ('forum/pm/new');
             $tpl->set_ar_out($ar, 0);
         } else {
-            $eid = db_result(db_query("SELECT id FROM prefix_user WHERE name = BINARY '" . $name . "'"), 0);
+            $eid = db_result(db_query("SELECT `id` FROM `prefix_user` WHERE `name` = BINARY '" . $name . "'"), 0);
             sendpm($_SESSION['authid'], $eid, $bet, $txt);
             wd('index.php?forum-privmsg', 'Die Nachricht wurde erfolgreich gesendet');
         }
@@ -98,14 +98,14 @@ switch ($uum) {
         // message anzeigen lassen
         $pid = escape($menu->get(3), 'integer');
         $soeid = ($menu->get(4) == 's' ? 'eid' : 'sid');
-        $erg = db_query("SELECT a.gelesen, a.eid, a.sid, a.id, b.name, a.titel, a.time, a.txt FROM `prefix_pm` a LEFT JOIN prefix_user b ON a." . $soeid . " = b.id WHERE a.id = " . $pid);
+        $erg = db_query("SELECT `a`.`gelesen`, `a`.`eid`, `a`.`sid`, `a`.`id`, `b`.`name`, `a`.`titel`, `a`.`time`, `a`.`txt` FROM `prefix_pm` `a` LEFT JOIN `prefix_user` `b` ON `a`.`" . $soeid . "` = `b`.`id` WHERE `a`.`id` = " . $pid);
         $row = db_fetch_assoc($erg);
         if (($row['sid'] != $_SESSION['authid'] AND $menu->get(4) == 's')
                 OR ($row['eid'] != $_SESSION['authid'] AND $menu->get(4) != 's')) {
             $design->footer(1);
         }
         if ($row['gelesen'] == 0 AND $menu->get(4) != 's') {
-            db_query("UPDATE `prefix_pm` SET gelesen = 1 WHERE id = " . $pid);
+            db_query("UPDATE `prefix_pm` SET `gelesen` = 1 WHERE `id` = " . $pid);
         }
         $row['time'] = date('d M. Y - H:i', $row['time']);
         $row['anhang'] = urlencode($row['txt']);
@@ -155,8 +155,8 @@ switch ($uum) {
                 }
                 foreach ($delids as $a) {
                     if (is_numeric($a) AND $a != 0) {
-                        db_query("DELETE FROM `prefix_pm` WHERE id = " . $a . " AND " . $soeid . " = " . $_SESSION['authid'] . " AND status = " . $stat1);
-                        db_query("UPDATE prefix_pm SET status = " . $stat2 . " WHERE id = " . $a . " AND " . $soeid . " = " . $_SESSION['authid']);
+                        db_query("DELETE FROM `prefix_pm` WHERE `id` = " . $a . " AND " . $soeid . " = " . $_SESSION['authid'] . " AND `status` = " . $stat1);
+                        db_query("UPDATE prefix_pm SET `status` = " . $stat2 . " WHERE `id` = " . $a . " AND " . $soeid . " = " . $_SESSION['authid']);
                         $i++;
                     }
                 }
@@ -172,14 +172,14 @@ switch ($uum) {
         $tpl->set_out('ad', $ad == 'ASC'?'d':'a', 0);
         $class = 'Cmite';
         switch ($menu->getE(3)) {
-            default: case '3': $order = "a.time $ad";
+            default: case '3': $order = "`a`.`time` ".$ad;
                 break;
-            case '2': $order = "b.name $ad, a.time DESC";
+            case '2': $order = "`b`.`name` ".$ad.", `a`.`time` DESC";
                 break;
-            case '1': $order = "a.titel $ad, a.time DESC";
+            case '1': $order = "`a`.`titel` ".$ad.", `a`.`time` DESC";
                 break;
         }
-        $abf = "SELECT a.titel, b.name as empf, a.id, a.`time` FROM `prefix_pm` a left join prefix_user b ON a.eid = b.id WHERE a.sid = " . $_SESSION['authid'] . " AND a.status >= 0 ORDER BY $order";
+        $abf = "SELECT `a`.`titel`, `b`.`name` as `empf`, `a`.`id`, `a`.`time` FROM `prefix_pm` `a` LEFT JOIN `prefix_user` `b` ON `a`.`eid` = `b`.`id` WHERE `a`.`sid` = " . $_SESSION['authid'] . " AND `a`.`status` >= 0 ORDER BY ".$order;
         $erg = db_query($abf);
         while ($row = db_fetch_assoc($erg)) {
             $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
@@ -198,14 +198,14 @@ switch ($uum) {
         $tpl->set_out('ad', $ad == 'ASC'?'d':'a', 0);
         $class = 'Cmite';
         switch ($menu->getE(2)) {
-            default: case '3': $order = "a.time $ad";
+            default: case '3': $order = "`a`.`time` ".$ad;
                 break;
-            case '2': $order = "b.name $ad, a.time DESC";
+            case '2': $order = "`b`.`name` ".$ad.", `a`.`time` DESC";
                 break;
-            case '1': $order = "a.titel $ad, a.time DESC";
+            case '1': $order = "`a`.`titel` ".$ad.", `a`.`time` DESC";
                 break;
         }
-        $abf = "SELECT a.titel as BET, a.gelesen as NEW, b.name as ABS, a.id as ID, a.`time` FROM `prefix_pm` a left join prefix_user b ON a.sid = b.id WHERE a.eid = " . $_SESSION['authid'] . " AND a.status <= 0 ORDER BY $order";
+        $abf = "SELECT `a`.`titel` as `BET`, `a`.`gelesen` as `NEW`, `b`.`name` as `ABS`, `a`.`id` as `ID`, `a`.`time` FROM `prefix_pm` `a` LEFT JOIN `prefix_user` `b` ON `a`.`sid` = `b`.`id` WHERE `a`.`eid` = " . $_SESSION['authid'] . " AND `a`.`status` <= 0 ORDER BY ".$order;
         $erg = db_query($abf);
         while ($row = db_fetch_assoc($erg)) {
             $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');

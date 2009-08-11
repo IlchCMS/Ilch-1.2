@@ -37,23 +37,23 @@ if (!is_numeric($menu->get(1))) {
         // ob_clean();
         $feed_type = $menu->get(1);
 
-        $abf = "SELECT MAX(news_time) AS last_update FROM prefix_news";
+        $abf = "SELECT MAX(`news_time`) AS `last_update` FROM `prefix_news`";
         $erg = db_query($abf);
         $row = db_fetch_assoc($erg);
         $last_update = str_replace(' ', 'T', $row['last_update']) . 'Z';
 
         $abf = "SELECT
-      a.news_title as title,
-      a.news_id as id,";
-        $abf .= ($feed_type == 'atom') ? 'a.news_time as datum,' : "DATE_FORMAT(a.news_time,'%a, %e %b %y %H:%i:%s') as datum,";
+      `a`.`news_title` as `title`,
+      `a`.`news_id` as `id`,";
+        $abf .= ($feed_type == 'atom') ? '`a`.`news_time` as `datum`,' : "DATE_FORMAT(`a`.`news_time`,'%a, %e %b %y %H:%i:%s') as `datum`,";
         $abf .=
-        "a.news_kat as kate,
-      a.news_text as text,
-      b.name as username
-    FROM prefix_news as a
-    LEFT JOIN prefix_user as b ON a.user_id = b.id
-    WHERE a.news_recht = 0
-    ORDER BY news_time DESC LIMIT 15";
+        "`a`.`news_kat` as `kate`,
+      `a`.`news_text` as `text`,
+      `b`.`name` as `username`
+    FROM `prefix_news` as `a`
+    LEFT JOIN `prefix_user` as `b` ON `a`.`user_id` = `b`.`id`
+    WHERE `a`.`news_recht` = 0
+    ORDER BY `news_time` DESC LIMIT 15";
         $erg = db_query($abf);
         $tpl = new tpl('news_' . $menu->get(1) . '.htm');
 
@@ -88,23 +88,23 @@ if (!is_numeric($menu->get(1))) {
         $tpl = new tpl ('news.htm');
 
         $abf = "SELECT
-      a.news_title as title,
-      a.news_id as id,
-      DATE_FORMAT(a.news_time,'%d. %m. %Y') as datum,
-      DATE_FORMAT(a.news_time,'%W') as dayofweek,
-      a.news_kat as kate,
-      a.news_text as text,
-      b.name as username
-    FROM prefix_news as a
-    LEFT JOIN prefix_user as b ON a.user_id = b.id
-    WHERE " . $_SESSION['authright'] . " <= a.news_recht
-       OR a.news_recht = 0
-    ORDER BY news_time DESC
+      `a`.`news_title` as `title`,
+      `a`.`news_id` as `id`,
+      DATE_FORMAT(`a`.`news_time`,'%d. %m. %Y') as `datum`,
+      DATE_FORMAT(`a`.`news_time`,'%W') as `dayofweek`,
+      `a`.`news_kat` as `kate`,
+      `a`.`news_text` as `text`,
+      `b`.`name` as `username`
+    FROM `prefix_news` as `a`
+    LEFT JOIN `prefix_user` as `b` ON `a`.`user_id` = `b`.`id`
+    WHERE " . $_SESSION['authright'] . " <= `a`.`news_recht`
+       OR `a`.`news_recht` = 0
+    ORDER BY `news_time` DESC
     LIMIT " . $anfang . "," . $limit;
         // echo '<pre>'.$abf.'</pre>';
         $erg = db_query($abf);
         while ($row = db_fetch_assoc($erg)) {
-            $k0m = db_query("SELECT COUNT(ID) FROM `prefix_koms` WHERE uid = " . $row['id'] . " AND cat = 'NEWS'");
+            $k0m = db_query("SELECT COUNT(ID) FROM `prefix_koms` WHERE `uid` = " . $row['id'] . " AND `cat` = 'NEWS'");
             $row['kom'] = db_result($k0m, 0);
 
             $row['kate'] = news_find_kat($row['kate']);
@@ -125,7 +125,7 @@ if (!is_numeric($menu->get(1))) {
 } else {
     $design->header();
     $nid = escape($menu->get(1), 'integer');
-    $row = db_fetch_object(db_query("SELECT * FROM `prefix_news` WHERE news_id = '" . $nid . "'"));
+    $row = db_fetch_object(db_query("SELECT * FROM `prefix_news` WHERE `news_id` = '" . $nid . "'"));
 
     if (has_right(array($row->news_recht))) {
         $komsOK = true;
@@ -149,7 +149,7 @@ if (!is_numeric($menu->get(1))) {
         // kommentar loeschen
         if ($menu->getA(2) == 'd' AND is_numeric($menu->getE(2)) AND has_right(- 7, 'news')) {
             $kommentar_id = escape($menu->getE(2), 'integer');
-            db_query("DELETE FROM prefix_koms WHERE uid = " . $nid . " AND cat = 'NEWS' AND id = " . $kommentar_id);
+            db_query("DELETE FROM `prefix_koms` WHERE `uid` = " . $nid . " AND `cat` = 'NEWS' AND `id` = " . $kommentar_id);
         }
         // kommentar loeschen
         $kategorie = news_find_kat($row->news_kat);
@@ -174,7 +174,7 @@ if (!is_numeric($menu->get(1))) {
         if ($komsOK) {
             $tpl->set_ar_out (array ('NAME' => $row->news_title , 'NID' => $nid), 3);
         }
-        $erg1 = db_query("SELECT text, name, id FROM `prefix_koms` WHERE uid = " . $nid . " AND cat = 'NEWS' ORDER BY id DESC");
+        $erg1 = db_query("SELECT `text`, `name`, `id` FROM `prefix_koms` WHERE `uid` = " . $nid . " AND `cat` = 'NEWS' ORDER BY `id` DESC");
         $ergAnz1 = db_num_rows($erg1);
         if ($ergAnz1 == 0) {
             echo '<b>' . $lang['nocomments'] . '</b>';

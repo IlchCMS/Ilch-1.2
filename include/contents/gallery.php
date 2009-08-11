@@ -28,13 +28,13 @@ function get_cats_urls ($catsar) {
 
 function count_files ($cid) {
     $zges = 0;
-    $e = db_query("SELECT id FROM prefix_gallery_cats WHERE cat = " . $cid);
+    $e = db_query("SELECT `id` FROM `prefix_gallery_cats` WHERE `cat` = " . $cid);
     if (db_num_rows($e) > 0) {
         while ($r = db_fetch_assoc($e)) {
             $zges = $zges + count_files ($r['id']);
         }
     }
-    $zges = $zges + db_count_query("SELECT COUNT(*) FROM prefix_gallery_imgs WHERE cat = " . $cid);
+    $zges = $zges + db_count_query("SELECT COUNT(*) FROM `prefix_gallery_imgs` WHERE `cat` = " . $cid);
     return ($zges);
 }
 
@@ -42,7 +42,7 @@ function get_cats_array ($cid , $ar) {
     if (empty($cid)) {
         return ($ar);
     } else {
-        $erg = db_query("SELECT cat,id,name FROM prefix_gallery_cats WHERE id = " . $cid);
+        $erg = db_query("SELECT `cat`,`id`,`name` FROM `prefix_gallery_cats` WHERE `id` = " . $cid);
         $row = db_fetch_assoc($erg);
         $ar[$row['id']] = $row['name'];
         return (get_cats_array($row['cat'], $ar));
@@ -61,8 +61,8 @@ if ($menu->get(1) == 'showOrig') {
 } elseif ($menu->get(1) == 'show') {
     $page = ($menu->getA(3) == 'p' ? escape($menu->getE(3), 'integer') : 1);
     $cid = escape($menu->get(2), 'integer');
-    $anz = db_result(db_query("SELECT COUNT(*) FROM prefix_gallery_imgs WHERE prefix_gallery_imgs.cat = " . $cid), 0);
-    $erg = db_query("SELECT prefix_gallery_imgs.id,prefix_gallery_imgs.cat,datei_name,endung,prefix_gallery_imgs.`besch`,klicks,vote_wertung,vote_klicks FROM prefix_gallery_imgs LEFT JOIN prefix_gallery_cats ON prefix_gallery_imgs.cat = prefix_gallery_cats.id WHERE prefix_gallery_imgs.cat = " . $cid . " AND (recht >= " . $_SESSION['authright'] . " OR recht IS NULL) ORDER BY id ASC LIMIT " . $page . ",1");
+    $anz = db_result(db_query("SELECT COUNT(*) FROM `prefix_gallery_imgs` WHERE `prefix_gallery_imgs`.`cat` = " . $cid), 0);
+    $erg = db_query("SELECT `prefix_gallery_imgs`.`id`,`prefix_gallery_imgs`.`cat`,`datei_name`,`endung`,`prefix_gallery_imgs`.`besch`,`klicks`,`vote_wertung`,`vote_klicks` FROM `prefix_gallery_imgs` LEFT JOIN `prefix_gallery_cats` ON `prefix_gallery_imgs`.`cat` = `prefix_gallery_cats`.`id` WHERE `prefix_gallery_imgs`.`cat` = " . $cid . " AND (`recht` >= " . $_SESSION['authright'] . " OR `recht` IS NULL) ORDER BY `id` ASC LIMIT " . $page . ",1");
     $row = db_fetch_assoc($erg);
     $size = getimagesize('include/images/gallery/img_' . $row['id'] . '.' . $row['endung']);
     $breite = $size[0] + 5;
@@ -72,12 +72,12 @@ if ($menu->get(1) == 'showOrig') {
         $_SESSION['galleryDoVote'][$row['id']] = 'o';
         $row['vote_wertung'] = round ((($row['vote_wertung'] * $row['vote_klicks']) + $_GET['doVote']) / ($row['vote_klicks'] + 1) , 3);
         $row['vote_klicks']++;
-        db_query("UPDATE prefix_gallery_imgs SET vote_wertung = " . $row['vote_wertung'] . ", vote_klicks = " . $row['vote_klicks'] . " WHERE id = " . $row['id']);
+        db_query("UPDATE `prefix_gallery_imgs` SET `vote_wertung` = " . $row['vote_wertung'] . ", `vote_klicks` = " . $row['vote_klicks'] . " WHERE `id` = " . $row['id']);
     }
     // klicks zaehlen
     if (!isset($_SESSION['galleryDoKlick'][$row['id']])) {
         $_SESSION['galleryDoKlick'][$row['id']] = 'o';
-        db_query("UPDATE prefix_gallery_imgs SET klicks = klicks + 1 WHERE id = " . $row['id']);
+        db_query("UPDATE `prefix_gallery_imgs` SET `klicks` = `klicks` + 1 WHERE `id` = " . $row['id']);
     }
     // page vor und ruck dev
     $next = $page + 1;
@@ -123,17 +123,17 @@ if ($menu->get(1) == 'showOrig') {
         if (isset($_POST['name'])) {
             $name = escape($_POST['name'], 'string');
             $text = escape($_POST['text'], 'string');
-            db_query("INSERT INTO prefix_koms (name,text,uid,cat) VALUES ('" . $name . "','" . $text . "'," . $row['id'] . ",'GALLERYIMG')");
+            db_query("INSERT INTO `prefix_koms` (`name`,`text`,`uid`,`cat`) VALUES ('" . $name . "','" . $text . "'," . $row['id'] . ",'GALLERYIMG')");
         }
         // loeschen
         if (isset($_GET['delete']) AND is_admin()) {
-            db_query("DELETE FROM prefix_koms WHERE id = " . $_GET['delete']);
+            db_query("DELETE FROM `prefix_koms` WHERE `id` = " . $_GET['delete']);
         }
         // zeigen
         $tpl->set('uname', $_SESSION['authname']);
         $tpl->out(1);
         $class = 'Cnorm';
-        $erg = db_query("SELECT id, name, text FROM prefix_koms WHERE uid = " . $row['id'] . " AND cat = 'GALLERYIMG' ORDER BY id DESC");
+        $erg = db_query("SELECT `id`, `name`, `text` FROM `prefix_koms` WHERE `uid` = " . $row['id'] . " AND `cat` = 'GALLERYIMG' ORDER BY `id` DESC");
         while ($r = db_fetch_assoc($erg)) {
             $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
             $r['class'] = $class;
@@ -147,7 +147,7 @@ if ($menu->get(1) == 'showOrig') {
     }
 } else {
     $cid = ($menu->get(1) ? escape($menu->get(1), 'integer') : 0);
-    $erg = db_query("SELECT cat,name FROM prefix_gallery_cats WHERE recht >= {$_SESSION['authright']} AND id = " . $cid);
+    $erg = db_query("SELECT `cat`,`name` FROM `prefix_gallery_cats` WHERE `recht` >= {$_SESSION['authright']} AND `id` = " . $cid);
     $cname = 'Gallery';
     if (db_num_rows($erg) > 0) {
         $row = db_fetch_assoc($erg);
@@ -171,7 +171,7 @@ if ($menu->get(1) == 'showOrig') {
     $design = new design ($title , $hmenu);
     $design->header();
     $tpl = new tpl ('gallery');
-    $erg = db_query("SELECT id,name,`besch` FROM prefix_gallery_cats WHERE recht >= {$_SESSION['authright']} AND cat = " . $cid . " ORDER BY pos");
+    $erg = db_query("SELECT `id`,`name`,`besch` FROM `prefix_gallery_cats` WHERE `recht` >= {$_SESSION['authright']} AND `cat` = " . $cid . " ORDER BY `pos`");
     if (db_num_rows($erg) > 0) {
         $tpl->out(1);
         $class = 'Cnorm';
@@ -186,9 +186,9 @@ if ($menu->get(1) == 'showOrig') {
 
     $limit = $img_per_site;
     $page = ($menu->getA(2) == 'p' ? escape($menu->getE(2), 'integer') : 1);
-    $MPL = db_make_sites ($page , '' , $limit , '?gallery-' . $cid , "gallery_imgs LEFT JOIN prefix_gallery_cats ON prefix_gallery_imgs.cat = prefix_gallery_cats.id WHERE prefix_gallery_imgs.cat = " . $cid . " AND (recht >= " . $_SESSION['authright'] . " OR recht IS NULL)");
+    $MPL = db_make_sites ($page , '' , $limit , '?gallery-' . $cid , "gallery_imgs LEFT JOIN `prefix_gallery_cats` ON `prefix_gallery_imgs`.`cat` = `prefix_gallery_cats`.`id` WHERE `prefix_gallery_imgs`.`cat` = " . $cid . " AND (`recht` >= " . $_SESSION['authright'] . " OR `recht` IS NULL)");
     $anfang = ($page - 1) * $limit;
-    $erg = db_query("SELECT prefix_gallery_imgs.id,prefix_gallery_imgs.cat,datei_name,endung,prefix_gallery_imgs.`besch`,klicks,vote_wertung,vote_klicks FROM prefix_gallery_imgs LEFT JOIN prefix_gallery_cats ON prefix_gallery_imgs.cat = prefix_gallery_cats.id WHERE prefix_gallery_imgs.cat = " . $cid . " AND (recht >= " . $_SESSION['authright'] . " OR recht IS NULL) ORDER BY id ASC LIMIT " . $anfang . "," . $limit);
+    $erg = db_query("SELECT `prefix_gallery_imgs`.`id`,`prefix_gallery_imgs`.`cat`,`datei_name`,`endung`,`prefix_gallery_imgs`.`besch`,`klicks`,`vote_wertung`,`vote_klicks` FROM `prefix_gallery_imgs` LEFT JOIN `prefix_gallery_cats` ON `prefix_gallery_imgs`.`cat` = `prefix_gallery_cats`.`id` WHERE `prefix_gallery_imgs`.`cat` = " . $cid . " AND (`recht` >= " . $_SESSION['authright'] . " OR `recht` IS NULL) ORDER BY `id` ASC LIMIT " . $anfang . "," . $limit);
     if (db_num_rows($erg) > 0) {
         $tpl->set('imgperline', $allgAr['gallery_imgs_per_line']);
         $tpl->set('cname', $cname);
@@ -200,7 +200,7 @@ if ($menu->get(1) == 'showOrig') {
         while ($row = db_fetch_assoc($erg)) {
             $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
             $row['class'] = $class;
-            $row['anz_koms'] = db_result(db_query("SELECT COUNT(*) FROM prefix_koms WHERE uid = " . $row['id'] . " AND cat = 'GALLERYIMG'"), 0);
+            $row['anz_koms'] = db_result(db_query("SELECT COUNT(*) FROM `prefix_koms` WHERE `uid` = " . $row['id'] . " AND `cat` = 'GALLERYIMG'"), 0);
             $row['besch'] = unescape($row['besch']);
             $row['width'] = round(100 / $img_per_line);
             $row['bildr'] = $i + (($page - 1) * $img_per_site);

@@ -3,7 +3,7 @@
 // Support: www.ilch.de
 defined ('main') or die ('no direct access');
 
-$abf = "SELECT * FROM prefix_user WHERE id = " . $menu->get(2);
+$abf = "SELECT * FROM `prefix_user` WHERE `id` = " . $menu->get(2);
 $erg = db_query($abf);
 $DA_IS_WAS_FAUL = false;
 if (@db_num_rows($erg) != 1) {

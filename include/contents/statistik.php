@@ -19,10 +19,10 @@ $ges = 0;
 $dat = array();
 $max_width = 200;
 
-$maxErg = db_query('SELECT MAX(count) FROM `prefix_counter`');
+$maxErg = db_query('SELECT MAX(`count`) FROM `prefix_counter`');
 $max_in = db_result($maxErg, 0);
 
-$erg = db_query ("SELECT count, DATE_FORMAT(date,'%a der %d. %b') as datum FROM `prefix_counter` ORDER BY date DESC LIMIT " . $anzahlShownTage);
+$erg = db_query ("SELECT `count`, DATE_FORMAT(`date`,'%a der %d. %b') as `datum` FROM `prefix_counter` ORDER BY `date` DESC LIMIT " . $anzahlShownTage);
 while ($row = db_fetch_row($erg)) {
     $value = $row[0];
 
@@ -42,7 +42,7 @@ while ($row = db_fetch_row($erg)) {
     $ges += $value;
 }
 
-$gesBesucher = db_query('SELECT SUM(count) FROM prefix_counter');
+$gesBesucher = db_query('SELECT SUM(`count`) FROM `prefix_counter`');
 $gesBesucher = @db_result($gesBesucher, 0);
 
 echo '<tr class="Cmite"><td colspan="3"><div align="right">';

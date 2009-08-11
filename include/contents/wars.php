@@ -34,7 +34,7 @@ function get_erg_liste($wid) {
 }
 function lastwars_get_memberlist ($id) {
     $l = '';
-    $erg = db_query("SELECT prefix_user.id,prefix_user.name FROM prefix_user LEFT JOIN prefix_warmember ON prefix_warmember.uid = prefix_user.id AND prefix_warmember.wid = " . $id . " WHERE wid = " . $id . " ORDER BY prefix_user.name ASC");
+    $erg = db_query("SELECT `prefix_user`.`id`,`prefix_user`.`name` FROM `prefix_user` LEFT JOIN `prefix_warmember` ON `prefix_warmember`.`uid` = `prefix_user`.`id` AND `prefix_warmember`.`wid` = " . $id . " WHERE `wid` = " . $id . " ORDER BY `prefix_user`.`name` ASC");
     while ($r = db_fetch_assoc($erg)) {
         $l .= '<a href="index.php?user-details-' . $r['id'] . '">' . $r['name'] . '</a>, ';
     }
@@ -46,19 +46,19 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
     $design = new design ($title , $hmenu);
     $design->header();
 
-    $ergWin = db_query('SELECT COUNT(id) FROM `prefix_wars` WHERE wlp = "1"');
+    $ergWin = db_query('SELECT COUNT(`id`) FROM `prefix_wars` WHERE `wlp` = "1"');
     $anzWin = db_result($ergWin, 0);
-    $ergLos = db_query('SELECT COUNT(id) FROM `prefix_wars` WHERE wlp = "2"');
+    $ergLos = db_query('SELECT COUNT(`id`) FROM `prefix_wars` WHERE `wlp` = "2"');
     $anzLos = db_result($ergLos, 0);
-    $ergPat = db_query('SELECT COUNT(id) FROM `prefix_wars` WHERE wlp = "3"');
+    $ergPat = db_query('SELECT COUNT(`id`) FROM `prefix_wars` WHERE `wlp` = "3"');
     $anzPat = db_result($ergPat, 0);
-    $ergGes = db_query('SELECT COUNT(id) FROM `prefix_wars` WHERE status= "3"');
+    $ergGes = db_query('SELECT COUNT(`id`) FROM `prefix_wars` WHERE `status`= "3"');
     $anzGes = db_result($ergGes, 0);
     $tpl = new tpl ('wars.htm');
     $tpl->set_ar_out (array('PAT' => $anzPat, 'WIN' => $anzWin, 'LOS' => $anzLos, 'GES' => $anzGes, 'TITLE' => $allgAr['title']) , 0);
     $akttime = date('Y-m-d');
     $class = '';
-    $erg = db_query("SELECT a.id,a.gegner,a.page,a.game,b.name as team,DATE_FORMAT(datime,'%d.%m.%Y - %H:%i:%s') as time FROM prefix_wars a left join prefix_groups b ON a.tid = b.id WHERE status = 2 AND a.datime >= '" . $akttime . "' ORDER BY a.datime");
+    $erg = db_query("SELECT `a`.`id`,`a`.`gegner`,`a`.`page`,`a`.`game`,`b`.`name` as `team`,DATE_FORMAT(`datime`,'%d.%m.%Y - %H:%i:%s') as `time` FROM `prefix_wars` `a` LEFT JOIN `prefix_groups` `b` ON `a`.`tid` = `b`.`id` WHERE `status` = 2 AND `a`.`datime` >= '" . $akttime . "' ORDER BY `a`.`datime`");
     if (db_num_rows ($erg) == 0) {
         echo '<tr class="Cmite"><td colspan="4"><strong>kein Next War vorhanden</strong></td></tr>';
     } else {
@@ -77,9 +77,9 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
     $tpl->out(2);
     $class = '';
     if ($menu->get(1) == '') {
-        $teams = dblistee ('', "SELECT id,name FROM prefix_groups ORDER BY name");
-        $game = dblistee ('', "SELECT DISTINCT `game`,`game` FROM prefix_wars ORDER BY `game`");
-        $mtype = dblistee ('', "SELECT DISTINCT `mtyp`,`mtyp` FROM prefix_wars ORDER BY `mtyp`");
+        $teams = dblistee ('', "SELECT `id`,`name` FROM `prefix_groups` ORDER BY `name`");
+        $game = dblistee ('', "SELECT DISTINCT `game`,`game` FROM `prefix_wars` ORDER BY `game`");
+        $mtype = dblistee ('', "SELECT DISTINCT `mtyp`,`mtyp` FROM `prefix_wars` ORDER BY `mtyp`");
         $tpl->set_ar_out (array('tid' => $teams, 'game' => $game, 'typ' => $mtype) , 3);
     } elseif ($menu->get(1) == 'last') {
         $tpl->out(4);
@@ -99,12 +99,12 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
         // seiten funktion
         $limit = $allgAr['wars_last_limit']; // Limit
         $page = ($menu->getA(2) == 'p' ? $menu->getE(2) : 1);
-        $MPL = db_make_sites ($page , "WHERE status = 3" , $limit , "?wars-last" , 'wars');
+        $MPL = db_make_sites ($page , "WHERE `status` = 3" , $limit , "?wars-last" , 'wars');
         $anfang = ($page - 1) * $limit;
         // seiten funktion
         $farbe1wlpar = array(1 => 'C8E1B8', 2 => 'D8B9B9', 3 => 'FDFBB7');
         $farbe2wlpar = array(1 => '00FF00', 2 => 'FF0000', 3 => 'FFFF00');
-        $erg = db_query("SELECT a.owp,a.opp,a.wlp,a.land,a.mtyp,a.game,a.id,a.gegner,a.page,b.name as team,DATE_FORMAT(datime,'%d.%m.%Y') as time FROM prefix_wars a left join prefix_groups b ON a.tid = b.id " . $sqla . " ORDER BY a.datime DESC, id DESC LIMIT " . $anfang . "," . $limit);
+        $erg = db_query("SELECT `a`.`owp`,`a`.`opp`,`a`.`wlp`,`a`.`land`,`a`.`mtyp`,`a`.`game`,`a`.`id`,`a`.`gegner`,`a`.`page`,`b`.`name` as `team`,DATE_FORMAT(`datime`,'%d.%m.%Y') as `time` FROM `prefix_wars` `a` LEFT JOIN `prefix_groups` `b` ON `a`.`tid` = `b`.`id` " . $sqla . " ORDER BY `a`.`datime` DESC, `id` DESC LIMIT " . $anfang . "," . $limit);
         while ($row = db_fetch_assoc($erg)) {
             $row['erg'] = $row['opp'] . ':' . $row['owp'];
             $row['farbe'] = $farbe1wlpar[$row['wlp']];
@@ -127,15 +127,15 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
     $_GET['mehr'] = escape($menu->get(2), 'integer');
 
     $erg = @db_query("SELECT
-	DATE_FORMAT(datime,'%d.%m.%Y') as datum,
-	tid, status, owp, opp, wlp,
-	DATE_FORMAT(datime,'%H:%i:%s') as zeit,
-	gegner, tag, page, mail, icq, wo, prefix_wars.`mod`, mtyp,
-	game, land, txt, prefix_wars.id,
-	name as team
-	FROM prefix_wars
-	left join prefix_groups ON prefix_wars.tid = prefix_groups.id
-	WHERE prefix_wars.id = " . $_GET['mehr']);
+	DATE_FORMAT(`datime`,'%d.%m.%Y') as `datum`,
+	`tid`, `status`, `owp`, `opp`, `wlp`,
+	DATE_FORMAT(`datime`,'%H:%i:%s') as `zeit`,
+	`gegner`, `tag`, `page`, `mail`, `icq`, `wo`, `prefix_wars`.`mod`, `mtyp`,
+	`game`, `land`, `txt`, `prefix_wars`.`id`,
+	`name` as `team`
+	FROM `prefix_wars`
+	LEFT JOIN `prefix_groups` ON `prefix_wars`.`tid` = `prefix_groups`.`id`
+	WHERE `prefix_wars`.`id` = " . $_GET['mehr']);
 
     db_check_erg ($erg);
 
@@ -180,14 +180,14 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
             if ($menu->get(3) == 'delete') {
                 $uid = $menu->get(4);
             }
-            $ck = db_count_query("SELECT COUNT(wid) FROM prefix_warmember WHERE wid = " . $_GET['mehr'] . " AND uid = " . $uid);
+            $ck = db_count_query("SELECT COUNT(`wid`) FROM `prefix_warmember` WHERE `wid` = " . $_GET['mehr'] . " AND `uid` = " . $uid);
             // eine zu bzw. absage loeschen
             if ($menu->get(3) == 'delete' AND ((has_right(array($row['tid'])) === true AND $uid == $_SESSION['authid']) OR is_siteadmin('wars')) AND $ck == 1) {
-                db_query("DELETE FROM prefix_warmember WHERE wid = " . $_GET['mehr'] . " AND uid = " . $uid);
+                db_query("DELETE FROM `prefix_warmember` WHERE `wid` = " . $_GET['mehr'] . " AND `uid` = " . $uid);
                 $ck = 0;
             }
 
-            $available = db_count_query("SELECT COUNT(uid) FROM prefix_warmember WHERE wid = " . $_GET['mehr'] . " AND aktion = 1");
+            $available = db_count_query("SELECT COUNT(`uid`) FROM `prefix_warmember` WHERE `wid` = " . $_GET['mehr'] . " AND `aktion` = 1");
             $aout1 = array (
                 'needed' => $needed,
                 'available' => $available,
@@ -198,14 +198,14 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
                 if (isset ($_POST['sub'])) {
                     $aktion = ($_POST['sub'] == 'zusagen' ? 1 : 0);
                     $kom = escape($_POST['kom'], 'string');
-                    db_query("INSERT INTO prefix_warmember (uid,wid,aktion,kom) VALUES (" . $_SESSION['authid'] . "," . $_GET['mehr'] . "," . $aktion . ",'" . $kom . "')");
+                    db_query("INSERT INTO `prefix_warmember` (`uid`,`wid`,`aktion`,`kom`) VALUES (" . $_SESSION['authid'] . "," . $_GET['mehr'] . "," . $aktion . ",'" . $kom . "')");
                 } else {
                     $tpl->out(2);
                 }
             }
             $class = '';
             $aktionar = array ('<font style="color:#FF0000; background:#666666; font-weight:bold;">abgesagt</font>', '<font style="font-weight:bold; color:#00FF00; background:#666666;">zugesagt</font>');
-            $erg1 = db_query("SELECT b.id as uid, b.name, a.aktion, a.kom FROM prefix_warmember a left join prefix_user b ON b.id = a.uid WHERE a.wid = " . $_GET['mehr']);
+            $erg1 = db_query("SELECT `b`.`id` as `uid`, `b`.`name`, `a`.`aktion`, `a`.`kom` FROM `prefix_warmember` `a` LEFT JOIN `prefix_user` `b` ON `b`.`id` = `a`.`uid` WHERE `a`.`wid` = " . $_GET['mehr']);
             while ($row1 = db_fetch_assoc($erg1)) {
                 if ($class == 'Cmite') {
                     $class = 'Cnorm';
@@ -241,15 +241,15 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
             if (isset ($_POST['kommentar_fuer_last_wars'])) {
                 $name = $_SESSION['authname'];
                 $text = escape($_POST['text'], 'textarea');
-                db_query("INSERT INTO prefix_koms (name,cat,text,uid) VALUES ('" . $name . "','WARSLAST', '" . $text . "', " . $_GET['mehr'] . " )");
+                db_query("INSERT INTO `prefix_koms` (`name`,`cat`,`text`,`uid`) VALUES ('" . $name . "','WARSLAST', '" . $text . "', " . $_GET['mehr'] . " )");
             }
             if (isset ($_GET['kommentar_fuer_last_wars_loeschen']) AND is_siteadmin('wars')) {
-                db_query("DELETE FROM prefix_koms WHERE cat = 'WARSLAST' AND uid = " . $_GET['mehr'] . " AND id = " . $_GET['kommentar_fuer_last_wars_loeschen']);
+                db_query("DELETE FROM `prefix_koms` WHERE `cat` = 'WARSLAST' AND `uid` = " . $_GET['mehr'] . " AND `id` = " . $_GET['kommentar_fuer_last_wars_loeschen']);
             }
             // anzeigen
             $tpl->out(1);
             $class = '';
-            $erg = db_query("SELECT name,text,id FROM prefix_koms WHERE cat = 'WARSLAST' AND uid = " . $_GET['mehr'] . " ORDER BY id DESC");
+            $erg = db_query("SELECT `name`,`text`,`id` FROM `prefix_koms` WHERE `cat` = 'WARSLAST' AND `uid` = " . $_GET['mehr'] . " ORDER BY `id` DESC");
             while ($r = db_fetch_assoc($erg)) {
                 $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
                 $r['text'] = bbcode($r['text']);

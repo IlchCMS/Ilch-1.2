@@ -8,7 +8,7 @@ function show_members ($gid, $tpl) {
     // icq team bild, hier die zahl aendern.
     $teams_show_icq_pic = 7;
 
-    $q = "SELECT b.uid, a.icq, a.avatar, a.status, a.name, c.name as posi, staat FROM prefix_groupusers b LEFT JOIN prefix_user a ON a.id = b.uid LEFT JOIN prefix_groupfuncs c ON b.fid = c.id WHERE b.gid = " . $gid . " ORDER BY c.pos ASC, a.name ASC";
+    $q = "SELECT `b`.`uid`, `a`.`icq`, `a`.`avatar`, `a`.`status`, `a`.`name`, `c`.`name` as `posi`, `staat` FROM `prefix_groupusers` `b` LEFT JOIN `prefix_user` `a` ON `a`.`id` = `b`.`uid` LEFT JOIN `prefix_groupfuncs` `c` ON `b`.`fid` = `c`.`id` WHERE `b`.`gid` = " . $gid . " ORDER BY `c`.`pos` ASC, a.name ASC";
     $erg = db_query($q);
     if (db_num_rows($erg) < 1) {
         return false;
@@ -53,8 +53,8 @@ if ($menu->get(1) == 'show') {
     // $gid = escape($menu->get(2), 'integer');
     if (count($groups) == 1) { // only 1 group to show
         $gid = $groups[0];
-        $name = @db_result (db_query("SELECT name FROM prefix_groups WHERE id =" . $gid));
-        $bild = @db_result (db_query("SELECT img FROM prefix_groups WHERE id =" . $gid));
+        $name = @db_result (db_query("SELECT `name` FROM `prefix_groups` WHERE `id` = " . $gid));
+        $bild = @db_result (db_query("SELECT `img` FROM `prefix_groups` WHERE `id` = " . $gid));
         $title = $allgAr['title'] . ' :: Teams :: ' . $name;
         $hmenu = '<a class="smalfont" href="?teams">Teams</a> &raquo; ' . $name;
         $design = new design ($title , $hmenu);
@@ -75,7 +75,7 @@ if ($menu->get(1) == 'show') {
         $tpl = new tpl ('teams');
 
         foreach($groups as $gid) {
-            $sql = db_query("SELECT name, img FROM prefix_groups WHERE id =" . $gid);
+            $sql = db_query("SELECT `name`, `img` FROM `prefix_groups` WHERE `id` =" . $gid);
             if (db_num_rows($sql) < 1) {
                 continue;
             }
@@ -95,7 +95,7 @@ if ($menu->get(1) == 'show') {
     $design = new design ($title , $hmenu);
     $design->header();
     $tpl = new tpl ('teams');
-    $erg1 = db_query("SELECT name,img,id as gid FROM prefix_groups WHERE zeigen = 1 ORDER BY pos");
+    $erg1 = db_query("SELECT `name`,`img`,`id` as `gid` FROM `prefix_groups` WHERE `zeigen` = 1 ORDER BY `pos`");
     while ($row = db_fetch_assoc($erg1)) {
         if (!empty($row['img'])) {
             $row['show'] = '<a href="index.php?teams-show-' . $row['gid'] . '"><img src="' . $row['img'] . '" title="' . $row['name'] . '" alt="' . $row['name'] . '" border="0"></a>';

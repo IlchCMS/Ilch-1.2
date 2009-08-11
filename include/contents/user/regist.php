@@ -43,13 +43,13 @@ switch ($menu->get(2)) {
 
         $ch_name = false;
         $xname = escape_nickname($name);
-        if (!empty($name) AND $xname == $name AND 0 == db_result(db_query("SELECT COUNT(*) FROM prefix_user WHERE name_clean = BINARY '" . get_lower ($name) . "'"), 0)) {
+        if (!empty($name) AND $xname == $name AND 0 == db_result(db_query("SELECT COUNT(*) FROM `prefix_user` WHERE `name_clean` = BINARY '" . get_lower ($name) . "'"), 0)) {
             $ch_name = true;
         }
 		
 		$ch_email = false;
         $xemail = escape_for_email($email);
-        if (!empty($email) AND $xemail == $email AND 0 == db_result(db_query("SELECT COUNT(*) FROM prefix_user WHERE email = BINARY '" . get_lower ($email) . "'"), 0)) {
+        if (!empty($email) AND $xemail == $email AND 0 == db_result(db_query("SELECT COUNT(*) FROM `prefix_user` WHERE `email` = BINARY '" . get_lower ($email) . "'"), 0)) {
             $ch_email = true;
         }
 

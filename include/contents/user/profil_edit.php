@@ -11,7 +11,7 @@ $design = new design ($title , $hmenu, 1);
 if ($_SESSION['authright'] <= - 1) {
     if (empty ($_POST['submit'])) {
         $design->header( $header );
-        $abf = 'SELECT email,wohnort,homepage,aim,msn,icq,yahoo,avatar,status,staat,gebdatum,sig,opt_pm_popup,opt_pm,opt_mail,geschlecht,spezrank FROM `prefix_user` WHERE id = "' . $_SESSION['authid'] . '"';
+        $abf = 'SELECT `email`,`wohnort`,`homepage`,`aim`,`msn`,`icq`,`yahoo`,`avatar`,`status`,`staat`,`gebdatum`,`sig`,`opt_pm_popup`,`opt_pm`,`opt_mail`,`geschlecht`,`spezrank` FROM `prefix_user` WHERE `id` = "' . $_SESSION['authid'] . '"';
         $erg = db_query($abf);
         if (db_num_rows($erg) > 0) {
             $row = db_fetch_assoc($erg);
@@ -100,7 +100,7 @@ if ($_SESSION['authright'] <= - 1) {
                 $fmsg = $lang['avatarcannotupload'];
                 if ($file_size <= $allgAr['Fasize'] AND $breite <= $allgAr['Fabreite'] AND $hoehe <= $allgAr['Fahohe']) {
                     $neuer_name = 'include/images/avatars/' . $_SESSION['authid'] . '.' . $endung;
-                    @unlink (db_result(db_query("SELECT avatar FROM prefix_user WHERE id = " . $_SESSION['authid']), 0));
+                    @unlink (db_result(db_query("SELECT `avatar` FROM `prefix_user` WHERE `id` = " . $_SESSION['authid']), 0));
                     move_uploaded_file ($file_tmpe , $neuer_name);
                     @chmod($neuer_name, 0777);
                     $avatar_sql_update = "avatar = '" . $neuer_name . "',";
@@ -109,14 +109,14 @@ if ($_SESSION['authright'] <= - 1) {
             }
         } elseif (isset($_POST['avatarloeschen'])) {
             $fmsg = $lang['picturedelete'];
-            @unlink (db_result(db_query("SELECT avatar FROM prefix_user WHERE id = " . $_SESSION['authid']), 0));
+            @unlink (db_result(db_query("SELECT `avatar` FROM `prefix_user` WHERE `id` = " . $_SESSION['authid']), 0));
             $avatar_sql_update = "avatar = '',";
         }
         // avatar speichern ENDE
         // email aendern
         if ($_POST['email'] != $_POST['aemail']) {
             $id = $_SESSION['authid'] . '||' . md5 (uniqid (rand()));
-            db_query("INSERT INTO prefix_usercheck (`check`,email,datime,ak)
+            db_query("INSERT INTO `prefix_usercheck` (`check`,`email`,`datime`,`ak`)
     VALUES ('" . $id . "','" . escape($_POST['email'], 'string') . "',NOW(),3)");
             $page = $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"];
             $text = $lang['changedthemail'] . sprintf ($lang['registconfirmlink'], $page, $id);
@@ -127,7 +127,7 @@ if ($_SESSION['authright'] <= - 1) {
         // remove account
         if (isset($_POST['removeaccount'])) {
             $id = $_SESSION['authid'] . '-remove-' . md5 (uniqid (rand()));
-            db_query("INSERT INTO prefix_usercheck (`check`,email,datime,ak)
+            db_query("INSERT INTO `prefix_usercheck` (`check`,`email`,`datime`,`ak`)
     VALUES ('" . $id . "','" . escape($_POST['email'], 'string') . "',NOW(),5)");
             $page = $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"];
             $text = $lang['removeconfirm'] . sprintf ($lang['registconfirmlink'], $page, $id);

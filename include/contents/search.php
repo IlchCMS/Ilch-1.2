@@ -30,7 +30,7 @@ function search_finduser() {
     if (isset ($_POST['sub']) AND !empty($_POST['name'])) {
         $name = str_replace('*', "%", $_POST['name']);
         $name = escape($name, 'string');
-        $q = "SELECT name,name FROM prefix_user WHERE name like '" . $name . "'";
+        $q = "SELECT `name` FROM `prefix_user` WHERE `name` LIKE '" . $name . "'";
         $tpl->set ('username', dbliste('', $tpl, 'username', $q));
         $tpl->out(1);
     }
@@ -134,18 +134,18 @@ if (!empty($such) OR !empty($autor)) {
         $str = addslashes($str);
         if (!empty($str)) {
             if ($_GET['in'] == 1) {
-                $str_forum .= "txt LIKE '%" . $str . "%' AND ";
+                $str_forum .= "`txt` LIKE '%" . $str . "%' AND ";
             }elseif ($_GET['in'] == 2) {
-                $str_news .= "news_text LIKE '%" . $str . "%' AND ";
+                $str_news .= "`news_text` LIKE '%" . $str . "%' AND ";
             }elseif ($_GET['in'] == 3) {
                 $str_downs .= "`descl` LIKE '%" . $str . "%' AND ";
-                $str_downs_ .= "name LIKE '%" . $str . "%' AND ";
+                $str_downs_ .= "`name` LIKE '%" . $str . "%' AND ";
             }
         }
     }
     if (isset($_GET['autor'])) {
         if ($_GET['in'] == 1) {
-            $str_forum_a .= "c.erst LIKE '%" . $autor . "%' AND ";
+            $str_forum_a .= "`c`.`erst` LIKE '%" . $autor . "%' AND ";
         }elseif ($_GET['in'] == 2) {
             $str_news_a .= "`name` LIKE '%" . $autor . "%' AND ";
         }elseif ($_GET['in'] == 3) {
@@ -155,53 +155,53 @@ if (!empty($such) OR !empty($autor)) {
     // 1 = forum, ist immer standart
     $q = "
 	  SELECT DISTINCT
-        a.fid as fid,
-        a.name as titel,
-        'foru' as typ,
-        a.id as id,
+        `a`.`fid` as `fid`,
+        `a`.`name` as `titel`,
+        'foru' as `typ`,
+        `a`.`id` as `id`,
         `time`,
-		c.erst as autor
-      FROM prefix_posts c
-        LEFT JOIN prefix_topics a ON a.id = c.tid
-        LEFT JOIN prefix_forums b ON b.id = a.fid
-        LEFT JOIN prefix_groupusers vg ON vg.uid = " . $_SESSION['authid'] . " AND vg.gid = b.view
-        LEFT JOIN prefix_groupusers rg ON rg.uid = " . $_SESSION['authid'] . " AND rg.gid = b.reply
-        LEFT JOIN prefix_groupusers sg ON sg.uid = " . $_SESSION['authid'] . " AND sg.gid = b.start
-      WHERE (((b.view >= " . $_SESSION['authright'] . " AND b.view <= 0) OR
-            (b.reply >= " . $_SESSION['authright'] . " AND b.reply <= 0) OR
-            (b.start >= " . $_SESSION['authright'] . " AND b.start <= 0)) OR
-            (vg.fid IS NOT NULL OR rg.fid IS NOT NULL OR sg.fid IS NOT NULL OR " . $_SESSION['authright'] . " = -9))
+		`c`.`erst` as `autor`
+      FROM `prefix_posts` `c`
+        LEFT JOIN `prefix_topics` `a` ON `a`.`id` = `c`.`tid`
+        LEFT JOIN `prefix_forums` `b` ON `b`.id = `a`.`fid`
+        LEFT JOIN `prefix_groupusers` `vg` ON `vg`.`uid` = " . $_SESSION['authid'] . " AND `vg`.`gid` = `b`.`view`
+        LEFT JOIN `prefix_groupusers` `rg` ON `rg`.`uid` = " . $_SESSION['authid'] . " AND `rg`.`gid` = `b`.`reply`
+        LEFT JOIN `prefix_groupusers` `sg` ON `sg`.`uid` = " . $_SESSION['authid'] . " AND `sg`.`gid` = `b`.`start`
+      WHERE (((`b`.`view` >= " . $_SESSION['authright'] . " AND `b`.`view` <= 0) OR
+            (`b`.`reply` >= " . $_SESSION['authright'] . " AND `b`.`reply` <= 0) OR
+            (`b`.`start` >= " . $_SESSION['authright'] . " AND `b`.`start` <= 0)) OR
+            (`vg`.`fid` IS NOT NULL OR `rg`.`fid` IS NOT NULL OR `sg`.`fid` IS NOT NULL OR " . $_SESSION['authright'] . " = -9))
         AND (" . $str_forum . " 1 = 1)
 		AND (" . $str_forum_a . " 1 = 1)
         AND (time >= " . $x . ")
-      GROUP BY a.id
-	  ORDER BY time DESC";
+      GROUP BY `a`.`id`
+	  ORDER BY `time` DESC";
     if (isset($_GET['in'])) {
         if ($_GET['in'] == 2) {
             $q = "
 	  SELECT DISTINCT
-        0 as fid,
-        news_title as titel,
-        'news' as typ,
-        news_id as id,
-        news_time as `time`,
-		prefix_user.name as autor
-      FROM prefix_news
-	  	LEFT JOIN prefix_user ON prefix_news.user_id = prefix_user.id
+        '0' as `fid`,
+        `news_title` as `titel`,
+        'news' as `typ`,
+        `news_id` as `id`,
+        `news_time` as `time`,
+		`prefix_user`.`name` as `autor`
+      FROM `prefix_news`
+	  	LEFT JOIN `prefix_user` ON `prefix_news`.`user_id` = `prefix_user`.`id`
       WHERE (" . $str_news . " 1 = 1)
 	  	AND (" . $str_news_a . " 1 = 1)
-        AND (news_time >= " . $x . ")
+        AND (`news_time` >= " . $x . ")
 	  ORDER BY `time` DESC";
         } elseif ($_GET['in'] == 3) {
             $q = "
 	  SELECT DISTINCT
-        0 as fid,
-        CONCAT( name, ' ', version ) AS titel,
-        'down' as typ,
-        id,
+        '0' as `fid`,
+        CONCAT( `name`, ' ', `version` ) AS `titel`,
+        'down' as `typ`,
+        `id`,
         UNIX_TIMESTAMP(`time`) as `time`,
-		creater as autor
-      FROM prefix_downloads
+		`creater` as `autor`
+      FROM `prefix_downloads`
       WHERE ((" . $str_downs . " 1 = 1)
 	  	OR (" . $str_downs_ . " 1 = 1))
 		AND (" . $str_downs_a . " 1 = 1)
@@ -223,7 +223,7 @@ if (!empty($such) OR !empty($autor)) {
         $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
         $r['class'] = $class;
         if ($r['typ'] == 'foru') {
-            $r['ctime'] = db_result(db_query("SELECT MAX(time) FROM prefix_posts WHERE tid = " . $r['id']), 0, 0);
+            $r['ctime'] = db_result(db_query("SELECT MAX(`time`) FROM `prefix_posts` WHERE `tid` = " . $r['id']), 0, 0);
             $r['ord'] = forum_get_ordner($r['ctime'], $r['id'], $r['fid']);
             $r['link'] = 'forum-showposts-' . $r['id'];
         } elseif ($r['typ'] == 'news') {
