@@ -40,8 +40,9 @@ $uname = db_result(db_query("SELECT name FROM prefix_user WHERE id = " . $uid), 
 
 $title = $allgAr['title'] . ' :: Users :: Gallery';
 $hmenu = $extented_forum_menu . '<a class="smalfont" href="index.php?user">Users</a><b> &raquo; </b><a class="smalfont" href="?user-usergallery">Gallery</a><b> &raquo; </b>von ' . $uname . $extented_forum_menu_sufix;
+$header = Array ('jquery/lightbox.js','jquery/lightbox.css');
 $design = new design ($title , $hmenu, 1);
-$design->header();
+$design->header( $header );
 
 $tpl = new tpl ('user/gallery');
 $tpl->set('uid', $uid);
@@ -101,9 +102,9 @@ if (db_num_rows($erg) > 0) {
     while ($row = db_fetch_assoc($erg)) {
         $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
         $row['class'] = $class;
-        $row['besch'] = unescape($row['besch']);
+		$row['besch'] = unescape($row['besch']);
         if (loggedin() AND (is_siteadmin() OR $uid == $_SESSION['authid'])) {
-            $row['besch'] .= '<a href="index.php?user-usergallery-' . $uid . '-p' . $page . '-d' . $row['id'] . '"><img src="include/images/icons/del.gif" border="0" alt="l&ouml;schen" title="l&ouml;schen" /></a>';
+            $row['besch'] = '<a href=\'index.php?user-usergallery-' . $uid . '-p' . $page . '-d' . $row['id'] . '\'><img src=\'include/images/icons/del.gif\' border=\'0\' alt=\'l&ouml;schen\' title=\'l&ouml;schen\' /></a> '.$row['besch'];
         }
         $row['width'] = round(100 / $img_per_line);
         if ($i != 0 AND ($i % $img_per_line) == 0) {

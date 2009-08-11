@@ -56,8 +56,9 @@ switch ($menu->get(2)) {
         if (empty($name) OR empty($email) OR $name != $xname OR $ch_name == false OR $email != $xemail OR $ch_email == false) {
             $title = $allgAr['title'] . ' :: Users :: Registrieren :: Step 2 von 3';
             $hmenu = $extented_forum_menu . '<a class="smalfont" href="?user">User</a><b> &raquo; </b><a class="smalfont" href="?user-regist">Registrieren</a><b> &raquo; </b>Step 2 von 3' . $extented_forum_menu_sufix;
+			$header = Array( 'jquery/pstrength-min.1.2.js', 'jquery/pstrength.css' );
             $design = new design ($title , $hmenu, 1);
-            $design->header();
+            $design->header( $header );
             if (empty($name) OR empty($email)) {
                 $fehler = $lang['yourdata'];
             } elseif ($name != $xname) {

@@ -1,3 +1,8 @@
+<script type="text/javascript">
+$(function() {
+$('.password').pstrength();
+});
+</script>
 <form action="index.php?user-profil" method="POST" enctype="multipart/form-data">
 	<fieldset>
 	  <legend>Persönliche Daten ändern</legend>
@@ -39,9 +44,32 @@
 			<fieldset>
 			  <legend>{_lang_editpassword}</legend>
 			    <br />
-			    <label style="float:left; width:35%;">{_lang_current}</label><input style="margin-bottom:2px;" type="password" name="op" maxlength="20"><br />
-			    <label style="float:left; width:35%;">{_lang_new}</label><input style="margin-bottom:2px;" type="password" name="np1" maxlength="20"><br />
-			    <label style="float:left; width:35%;">{_lang_repeat}</label><input style="margin-bottom:2px;" type="password" name="np2" maxlength="20"><br />
+				<table border="0" cellpadding="0" cellspacing="2">
+					<tr>
+						<td width="140px">
+							{_lang_current}
+						</td>
+						<td>
+							<input style="margin-bottom:2px;" type="password" name="op" maxlength="20">
+						</td>
+					</tr>
+					<tr>
+						<td width="140px">
+							{_lang_new}
+						</td>
+						<td>
+							<input class="password "style="margin-bottom:2px;" type="password" name="np1" maxlength="20">
+						</td>
+					</tr>
+					<tr>
+						<td width="140px">
+							{_lang_repeat}
+						</td>
+						<td>
+							<input style="margin-bottom:2px;" type="password" name="np2" maxlength="20">
+						</td>
+					</tr>
+				</table>
 			</fieldset>
       <br />
       <fieldset>
