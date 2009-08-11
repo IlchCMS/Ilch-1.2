@@ -21,13 +21,13 @@ if (empty($_POST['NEWSLETTER'])) {?>
 
 } else {
     $email = escape ($_POST['NEWSLETTER'] , 'string');
-    $erg = db_query ("SELECT COUNT(*) FROM prefix_newsletter WHERE email = '" . $email . "'");
+    $erg = db_query ("SELECT COUNT(*) FROM `prefix_newsletter` WHERE `email` = '" . $email . "'");
     $anz = db_result($erg, 0);
     if ($anz == 1) {
-        db_query("DELETE FROM prefix_newsletter WHERE email = '" . $email . "'");
+        db_query("DELETE FROM `prefix_newsletter` WHERE `email` = '" . $email . "'");
         echo $lang['deletesuccessful'];
     } else {
-        db_query("INSERT INTO prefix_newsletter (`email`) VALUES ('" . $email . "')");
+        db_query("INSERT INTO `prefix_newsletter` (`email`) VALUES ('" . $email . "')");
         echo $lang['insertsuccessful'];
     }
 }

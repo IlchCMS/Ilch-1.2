@@ -4,9 +4,9 @@
 defined ('main') or die ('no direct access');
 
 $abf = 'SELECT *
-	        FROM prefix_news
-					WHERE news_recht >= ' . $_SESSION['authright'] . '
-					ORDER BY news_time DESC
+	        FROM `prefix_news`
+					WHERE `news_recht` >= ' . $_SESSION['authright'] . '
+					ORDER BY `news_time` DESC
 					LIMIT 0,5';
 $erg = db_query($abf);
 echo '<table>';

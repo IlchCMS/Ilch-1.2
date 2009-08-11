@@ -7,7 +7,7 @@ $farbe = '';
 $farb2 = '';
 
 echo '<table width="100%" border="0" cellpadding="2" cellspacing="0">';
-$erg = db_query('SELECT * FROM prefix_wars WHERE status = "3" ORDER BY datime DESC LIMIT 3');
+$erg = db_query('SELECT * FROM `prefix_wars` WHERE `status` = "3" ORDER BY `datime` DESC LIMIT 3');
 while ($row = db_fetch_object($erg)) {
     $row->tag = (empty($row->tag) ? $row->gegner : $row->tag);
 

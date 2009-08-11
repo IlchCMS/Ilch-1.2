@@ -22,10 +22,10 @@ $design->header();
 $i = 0;
 if (! empty ($such)) {
     if (!empty ($jforum)) {
-        $abf = 'SELECT DISTINCT a.tid, b.name
-					  FROM `prefix_posts` a
-		        INNER JOIN `prefix_topic` b ON a.tid = b.id
-						WHERE txt LIKE "%' . $such . '%"';
+        $abf = 'SELECT DISTINCT `a`.`tid`, `b`.`name`
+					  FROM `prefix_posts` `a`
+		        INNER JOIN `prefix_topic` `b` ON `a`.`tid` = `b`.`id`
+						WHERE `txt` LIKE "%' . $such . '%"';
 
         $such_string = '<b>Forum</b><br><br>';
 

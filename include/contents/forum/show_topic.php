@@ -12,7 +12,7 @@ $design->header();
 
 $limit = $allgAr['Ftanz']; // Limit
 $page = ($menu->getA(3) == 'p' ? $menu->getE(3) : 1);
-$MPL = db_make_sites ($page , "WHERE fid = '$fid'" , $limit , '?forum-showtopics-' . $fid , 'topics');
+$MPL = db_make_sites ($page , "WHERE fid = '".$fid."'" , $limit , '?forum-showtopics-' . $fid , 'topics');
 $anfang = ($page - 1) * $limit;
 
 $tpl = new tpl ('forum/showtopic');
@@ -25,11 +25,11 @@ if ($forum_rights['start'] == true) {
 $tpl->set('MPL', $MPL);
 $tpl->set_out('FID', $fid, 0);
 
-$q = "SELECT a.id, a.name, a.rep, a.erst, a.hit, a.art, a.stat, b.time, b.erst as last, b.id as pid
-	FROM prefix_topics a
-	LEFT JOIN prefix_posts b ON a.last_post_id = b.id
-	WHERE a.fid = {$fid}
-	ORDER BY a.art DESC, b.time DESC
+$q = "SELECT `a`.`id`, `a`.`name`, `a`.`rep`, `a`.`erst`, `a`.`hit`, `a`.`art`, `a`.`stat`, `b`.`time`, `b`.`erst` as `last`, `b`.`id` as `pid`
+	FROM `prefix_topics` `a`
+	LEFT JOIN `prefix_posts` `b` ON `a`.`last_post_id` = `b`.`id`
+	WHERE `a`.`fid` = {$fid}
+	ORDER BY `a`.`art` DESC, `b`.`time` DESC
 	LIMIT " . $anfang . "," . $limit;
 $erg = db_query($q);
 if (db_num_rows($erg) > 0) {

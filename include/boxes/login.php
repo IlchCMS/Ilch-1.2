@@ -13,7 +13,7 @@ if (loggedin()) {
     }
 
     if ($allgAr['Fpmf'] == 1) {
-        $erg = db_query("SELECT COUNT(id) FROM `prefix_pm` WHERE gelesen = 0 AND status < 1 AND eid = " . $_SESSION['authid']);
+        $erg = db_query("SELECT COUNT(id) FROM `prefix_pm` WHERE `gelesen` = 0 AND `status` < 1 AND `eid` = " . $_SESSION['authid']);
         $check_pm = db_result($erg, 0);
         $nachrichten_link = '<a class="box" href="index.php?forum-privmsg">' . $lang['messages'] . '</a>&nbsp;(' . $check_pm . ')<br />';
     } else {

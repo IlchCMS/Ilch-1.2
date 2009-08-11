@@ -6,9 +6,9 @@ defined ('main') or die ('no direct access');
 if (empty($_GET['sum'])) {
     $heute = date ('Y-m-d');
 
-    $ges_visits = db_result(db_query("SELECT SUM(count) FROM prefix_counter"), 0);
-    $ges_heute = @db_result(db_query("SELECT count FROM prefix_counter WHERE date = '" . $heute . "'"), 0);
-    $ges_gestern = @db_result(db_query('SELECT count FROM prefix_counter WHERE date < "' . $heute . '" ORDER BY date DESC LIMIT 1'), 0);
+    $ges_visits = db_result(db_query("SELECT SUM(`count`) FROM `prefix_counter`"), 0);
+    $ges_heute = @db_result(db_query("SELECT `count` FROM `prefix_counter` WHERE `date` = '" . $heute . "'"), 0);
+    $ges_gestern = @db_result(db_query('SELECT `count` FROM `prefix_counter` WHERE `date` < "' . $heute . '" ORDER BY `date` DESC LIMIT 1'), 0);
 
     echo $lang['whole'] . ': ' . $ges_visits . '<br />';
     echo $lang['today'] . ': ' . $ges_heute . '<br />';
@@ -35,7 +35,7 @@ if (empty($_GET['sum'])) {
     $maxErg = db_query('SELECT MAX(count) FROM `prefix_counter`');
     $max_in = db_result($maxErg, 0);
 
-    $erg = db_query ("SELECT count, DATE_FORMAT(date,'%a der %d. %b') as datum FROM `prefix_counter` ORDER BY date DESC LIMIT " . $anzahlShownTage);
+    $erg = db_query ("SELECT `count`, DATE_FORMAT(`date`,'%a der %d. %b') as `datum` FROM `prefix_counter` ORDER BY `date` DESC LIMIT " . $anzahlShownTage);
     while ($row = db_fetch_row($erg)) {
         $value = $row[0];
 

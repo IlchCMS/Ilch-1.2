@@ -13,7 +13,7 @@ $content = '';
 
 while ($row = db_fetch_object($resultID)) {
     if ($row->uid != 0 AND $brk != $row->uid) {
-        $name = @db_result(db_query('SELECT name FROM prefix_user WHERE id=' . $row->uid), 0);
+        $name = @db_result(db_query('SELECT `name` FROM `prefix_user` WHERE `id`= ' . $row->uid), 0);
         $content .= '<tr><td><img src="include/images/icons/online.gif" border="0" alt="online" /></td>';
         $content .= '<td><a href="index.php?user-details-' . $row->uid . '">' . $name . '</a></td></tr>' . "\n";
         $uid[] = $row->uid;
@@ -31,8 +31,8 @@ if (empty($content)) {
 }
 
 $content .= '<tr><td colspan="2"><hr style="height: 0px; border: dashed #9AB1C8 0px; border-top-width: 1px;" /></td></tr>' . "\n";
-$where = (count($uid) > 0) ? 'WHERE id NOT IN (' . implode(', ', $uid) . ')' : '';
-$abf2 = 'SELECT * FROM prefix_user ' . $where . ' ORDER BY llogin DESC LIMIT 0,5';
+$where = (count($uid) > 0) ? 'WHERE `id` NOT IN (' . implode(', ', $uid) . ')' : '';
+$abf2 = 'SELECT * FROM `prefix_user` ' . $where . ' ORDER BY `llogin` DESC LIMIT 0,5';
 $erg2 = db_query($abf2);
 
 while ($row2 = db_fetch_object($erg2)) {

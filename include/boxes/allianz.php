@@ -15,7 +15,7 @@ defined ('main') or die ('no direct access');
 
 $allyAnzahl = $allgAr['Aanz'];
 if ($allgAr['Aart'] == 1) {
-    $sqlORDER = 'pos';
+    $sqlORDER = '`pos`';
 } else {
     $sqlORDER = 'RAND()';
 }

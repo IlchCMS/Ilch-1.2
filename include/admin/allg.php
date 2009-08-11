@@ -120,7 +120,7 @@ if (empty ($_POST['submit'])) {
     // echo '<tr class="Chead"><td colspan="2"><b>Konfiguration</b></td></tr>';
     $ch = '';
 
-    $abf = 'SELECT * FROM `prefix_config` ORDER BY kat,pos,typ ASC';
+    $abf = 'SELECT * FROM `prefix_config` ORDER BY `kat`,`pos`,`typ` ASC';
     $erg = db_query($abf);
     while ($row = db_fetch_assoc($erg)) {
         if ($ch != $row['kat']) {
@@ -167,7 +167,7 @@ if (empty ($_POST['submit'])) {
 
     echo '</form>';
 } else {
-    $abf = 'SELECT * FROM `prefix_config` ORDER BY kat';
+    $abf = 'SELECT * FROM `prefix_config` ORDER BY `katv';
     $erg = db_query($abf);
     while ($row = db_fetch_assoc($erg)) {
         if ($row['typ'] == 'password' AND $_POST[$row['schl']] == '***') {

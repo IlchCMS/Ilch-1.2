@@ -4,7 +4,7 @@
 defined ('main') or die ('no direct access');
 echo '<table width="100%" border="0" cellpadding="2" cellspacing="0">';
 $akttime = date('Y-m-d');
-$erg = @db_query("SELECT DATE_FORMAT(datime,'%d.%m.%y - %H:%i') as time,tag,gegner, id, game FROM prefix_wars WHERE status = 2 AND datime > '" . $akttime . "' ORDER BY datime");
+$erg = @db_query("SELECT DATE_FORMAT(`datime`,'%d.%m.%y - %H:%i') as `time`,`tag`,`gegner`, `id`, `game` FROM `prefix_wars` WHERE `status` = 2 AND `datime` > '" . $akttime . "' ORDER BY `datime`");
 if (@db_num_rows($erg) == 0) {
     echo '<tr><td>kein War geplant</td></tr>';
 } else {

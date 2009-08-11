@@ -11,7 +11,7 @@ if (!empty($_REQUEST['f']) and substr($_REQUEST['f'], 0, 23) != 'include/downs/d
 function get_upload_linked ($v) {
     $l = '';
     $i = 1;
-    $erg = db_query("SELECT id, name FROM prefix_downloads WHERE url = '" . $v . "'");
+    $erg = db_query("SELECT `id`, `name` FROM `prefix_downloads` WHERE `url` = '" . $v . "'");
     if (@db_num_rows($erg) > 0) {
         while ($r = db_fetch_assoc($erg)) {
             $l .= '[<a href="javascript:showDDetails(' . $r['id'] . ')" title="' . $r['name'] . '">' . $i . '</a>], ';
@@ -70,7 +70,7 @@ function get_downloads_ar ($ar = null, $f = null) {
 }
 
 function archiv_downs_admin_showcats ($id , $stufe) {
-    $q = "SELECT id,name,pos,cat FROM prefix_downcats WHERE cat = " . $id . " ORDER BY pos";
+    $q = "SELECT `id`,`name`,`pos`,`cat` FROM `prefix_downcats` WHERE `ca`t = " . $id . " ORDER BY `pos`";
     $erg = db_query($q);
     if (db_num_rows($erg) > 0) {
         while ($row = db_fetch_object($erg)) {
@@ -85,7 +85,7 @@ function archiv_downs_admin_showcats ($id , $stufe) {
 }
 
 function archiv_downs_admin_selectcats ($id, $stufe, &$output, $sel = 0) {
-    $q = "SELECT id,name,pos,cat FROM prefix_downcats WHERE cat = " . $id . " ORDER BY pos";
+    $q = "SELECT `id`,`name`,`pos`,`cat` FROM `prefix_downcats` WHERE `cat` = " . $id . " ORDER BY `pos`";
     $erg = db_query($q);
     if (db_num_rows($erg) > 0) {
         while ($row = db_fetch_object($erg)) {
@@ -96,7 +96,7 @@ function archiv_downs_admin_selectcats ($id, $stufe, &$output, $sel = 0) {
 }
 
 function archiv_links_admin_showcats ($id , $stufe) {
-    $q = "SELECT * FROM prefix_linkcats WHERE cat = " . $id . " ORDER BY pos";
+    $q = "SELECT * FROM `prefix_linkcats` WHERE `cat` = " . $id . " ORDER BY `pos`";
     $erg = db_query($q);
     if (db_num_rows($erg) > 0) {
         while ($row = db_fetch_object($erg)) {
@@ -111,7 +111,7 @@ function archiv_links_admin_showcats ($id , $stufe) {
 }
 
 function archiv_links_admin_selectcats ($id, $stufe, &$output, $sel = 0) {
-    $q = "SELECT * FROM prefix_linkcats WHERE cat = " . $id . " ORDER BY pos";
+    $q = "SELECT * FROM `prefix_linkcats` WHERE `cat` = " . $id . " ORDER BY `pos`";
     $erg = db_query($q);
     if (db_num_rows($erg) > 0) {
         while ($row = db_fetch_object($erg)) {
@@ -270,14 +270,14 @@ switch ($um) {
         $tpl = new tpl ('archiv/downloads', 1);
         // kategorie und download eintraege loeschen
         if ($menu->getA(2) == 'D') {
-            $azk = db_result(db_query("SELECT cat FROM prefix_downcats WHERE id = '" . $menu->getE(2) . "'"), 0);
-            $pos = db_result(db_query("SELECT pos FROM prefix_downcats WHERE id = '" . $menu->getE(2) . "'"), 0);
-            db_query("DELETE FROM prefix_downcats WHERE id = '" . $menu->getE(2) . "'");
-            db_query("UPDATE prefix_downcats SET pos = pos - 1 WHERE pos > " . $pos . " AND cat = " . $azk);
+            $azk = db_result(db_query("SELECT `cat` FROM `prefix_downcats` WHERE `id` = '" . $menu->getE(2) . "'"), 0);
+            $pos = db_result(db_query("SELECT `pos` FROM `prefix_downcats` WHERE `id` = '" . $menu->getE(2) . "'"), 0);
+            db_query("DELETE FROM `prefix_downcats` WHERE `id` = '" . $menu->getE(2) . "'");
+            db_query("UPDATE `prefix_downcats` SET `pos` = `pos` - 1 WHERE `pos` > " . $pos . " AND `cat` = " . $azk);
         }
 
-        if ($menu->getA(2) == 'd' AND 1 == db_result(db_query("SELECT COUNT(*) FROM prefix_downloads WHERE id = " . intval($menu->getE(2))), 0)) {
-            $r = db_fetch_assoc(db_query("SELECT cat, pos, url, surl, ssurl FROM prefix_downloads WHERE id = " . $menu->getE(2)));
+        if ($menu->getA(2) == 'd' AND 1 == db_result(db_query("SELECT COUNT(*) FROM `prefix_downloads` WHERE `id` = " . intval($menu->getE(2))), 0)) {
+            $r = db_fetch_assoc(db_query("SELECT `cat`, `pos`, `url`, `surl`, `ssurl` FROM `prefix_downloads` WHERE `id` = " . $menu->getE(2)));
             $azk = $r['cat'];
             $pos = $r['pos'];
 
@@ -285,14 +285,14 @@ switch ($um) {
             unset ($r['pos']);
             // wenn url nur noch in diesem download vorhanden dann loeschen
             foreach ($r as $k => $v) {
-                $qc = "SELECT COUNT(*) FROM prefix_downloads WHERE " . $k . " = '" . $v . "'";
+                $qc = "SELECT COUNT(*) FROM `prefix_downloads` WHERE " . $k . " = '" . $v . "'";
                 if (db_result(db_query($qc), 0) == 1 AND @file_exists($v)) {
                     @unlink($v);
                 }
             }
 
-            db_query("DELETE FROM prefix_downloads WHERE id = '" . $menu->getE(2) . "'");
-            db_query("UPDATE prefix_downloads SET pos = pos - 1 WHERE pos > " . $pos . " AND cat = " . $azk);
+            db_query("DELETE FROM `prefix_downloads` WHERE `id` = '" . $menu->getE(2) . "'");
+            db_query("UPDATE `prefix_downloads` SET `pos` = `pos` - 1 WHERE `pos` > " . $pos . " AND `cat` = " . $azk);
         }
         // download eintraege speichern oder aendern.
         if (!empty($_POST['sub'])) {
@@ -309,12 +309,12 @@ switch ($um) {
             $_POST['descl'] = escape($_POST['descl'], 'string');
 
             if (empty ($_POST['pkey'])) {
-                $pos = db_result(db_query("SELECT COUNT(*) FROM prefix_downloads WHERE cat = " . $_POST['cat']), 0);
-                db_query("INSERT INTO prefix_downloads (`time`,`cat`,`creater`,`version`,`url`,surl,`ssurl`,`name`,`desc`,`descl`,pos) VALUES (NOW(),'" . $_POST['cat'] . "','" . $_POST['creater'] . "','" . $_POST['version'] . "','" . $_POST['url'] . "','" . $_POST['surl'] . "','" . $_POST['ssurl'] . "','" . $_POST['name'] . "','" . $_POST['desc'] . "','" . $_POST['descl'] . "','" . $pos . "')");
+                $pos = db_result(db_query("SELECT COUNT(*) FROM `prefix_downloads` WHERE `cat` = " . $_POST['cat']), 0);
+                db_query("INSERT INTO `prefix_downloads` (`time`,`cat`,`creater`,`version`,`url`,surl,`ssurl`,`name`,`desc`,`descl`,`pos`) VALUES (NOW(),'" . $_POST['cat'] . "','" . $_POST['creater'] . "','" . $_POST['version'] . "','" . $_POST['url'] . "','" . $_POST['surl'] . "','" . $_POST['ssurl'] . "','" . $_POST['name'] . "','" . $_POST['desc'] . "','" . $_POST['descl'] . "','" . $pos . "')");
             } else {
-                $alt_row = db_fetch_assoc(db_query("SELECT cat,pos FROM prefix_downloads WHERE id = " . $_POST['pkey']));
+                $alt_row = db_fetch_assoc(db_query("SELECT `cat`,`pos` FROM `prefix_downloads` WHERE `id` = " . $_POST['pkey']));
                 if ($alt_row['cat'] != $_POST['cat']) {
-                    $pos = db_result(db_query("SELECT COUNT(*) FROM prefix_downloads WHERE cat = " . $_POST['cat']), 0);
+                    $pos = db_result(db_query("SELECT COUNT(*) FROM `prefix_downloads` WHERE `cat` = " . $_POST['cat']), 0);
                 } else {
                     $pos = $alt_row['pos'];
                 }
@@ -323,9 +323,9 @@ switch ($um) {
                 } else {
                     $datum = '';
                 }
-                db_query("UPDATE prefix_downloads SET " . $datum . "pos = " . $pos . ", `cat` = '" . $_POST['cat'] . "',`creater` = '" . $_POST['creater'] . "',version = '" . $_POST['version'] . "',url = '" . $_POST['url'] . "',surl = '" . $_POST['surl'] . "',ssurl = '" . $_POST['ssurl'] . "',`name` = '" . $_POST['name'] . "',`desc` = '" . $_POST['desc'] . "',descl = '" . $_POST['descl'] . "' WHERE id = '" . $_POST['pkey'] . "'");
+                db_query("UPDATE `prefix_downloads` SET " . $datum . "`pos` = " . $pos . ", `cat` = '" . $_POST['cat'] . "',`creater` = '" . $_POST['creater'] . "',`version` = '" . $_POST['version'] . "',`url` = '" . $_POST['url'] . "',`surl` = '" . $_POST['surl'] . "',`ssurl` = '" . $_POST['ssurl'] . "',`name` = '" . $_POST['name'] . "',`desc` = '" . $_POST['desc'] . "',`descl` = '" . $_POST['descl'] . "' WHERE `id` = '" . $_POST['pkey'] . "'");
                 if ($alt_row['cat'] != $_POST['cat']) {
-                    db_query("UPDATE prefix_downloads SET pos = pos - 1 WHERE pos > " . $alt_row['pos'] . " AND cat = " . $alt_row['cat']);
+                    db_query("UPDATE `prefix_downloads` SET `pos` = `pos` - 1 WHERE `pos` > " . $alt_row['pos'] . " AND `cat` = " . $alt_row['cat']);
                 }
             }
             $azk = $_POST['cat'];
@@ -336,28 +336,28 @@ switch ($um) {
                 $_POST['Ccat'] = 0;
             }
             if (empty ($_POST['Cpkey'])) {
-                $pos = db_result(db_query("SELECT COUNT(*) FROM prefix_downcats WHERE cat = " . $_POST['Ccat']), 0);
-                db_query("INSERT INTO prefix_downcats (`cat`,`name`,`desc`,pos,recht) VALUES (" . $_POST['Ccat'] . ",'" . $_POST['Cname'] . "','" . $_POST['Cdesc'] . "','" . $pos . "','" . $_POST['Crecht'] . "')");
+                $pos = db_result(db_query("SELECT COUNT(*) FROM `prefix_downcats` WHERE `cat` = " . $_POST['Ccat']), 0);
+                db_query("INSERT INTO `prefix_downcats` (`cat`,`name`,`desc`,`pos`,`recht`) VALUES (" . $_POST['Ccat'] . ",'" . $_POST['Cname'] . "','" . $_POST['Cdesc'] . "','" . $pos . "','" . $_POST['Crecht'] . "')");
             } else {
-                $alt_row = db_fetch_assoc(db_query("SELECT cat,pos FROM prefix_downcats WHERE id = " . $_POST['Cpkey']));
+                $alt_row = db_fetch_assoc(db_query("SELECT `cat`,`pos` FROM `prefix_downcats` WHERE `id` = " . $_POST['Cpkey']));
                 $bool = true;
                 $tc = $_POST['Ccat'];
                 while ($tc > 0) {
                     if ($tc == $_POST['Cpkey']) {
                         $bool = false;
                     }
-                    $tc = @db_result(db_query("SELECT cat FROM prefix_downcats WHERE id = $tc"));
+                    $tc = @db_result(db_query("SELECT `cat` FROM `prefix_downcats` WHERE `id` = ".$tc));
                 }
                 if ($bool) {
                     if ($alt_row['cat'] != $_POST['Ccat']) {
-                        $pos = db_result(db_query("SELECT COUNT(*) FROM prefix_downcats WHERE cat = " . $_POST['Ccat']), 0);
+                        $pos = db_result(db_query("SELECT COUNT(*) FROM `prefix_downcats` WHERE `cat` = " . $_POST['Ccat']), 0);
                     } else {
                         $pos = $alt_row['pos'];
                     }
 
-                    db_query("UPDATE prefix_downcats SET `cat` = '" . $_POST['Ccat'] . "',`name` = '" . $_POST['Cname'] . "',pos = '" . $pos . "',`desc` = '" . $_POST['Cdesc'] . "', recht = '" . $_POST['Crecht'] . "' WHERE `id` = '" . $_POST['Cpkey'] . "'");
+                    db_query("UPDATE prefix_downcats SET `cat` = '" . $_POST['Ccat'] . "',`name` = '" . $_POST['Cname'] . "',`pos` = '" . $pos . "',`desc` = '" . $_POST['Cdesc'] . "', `recht` = '" . $_POST['Crecht'] . "' WHERE `id` = '" . $_POST['Cpkey'] . "'");
                     if ($alt_row['cat'] != $_POST['Ccat']) {
-                        db_query("UPDATE prefix_downcats SET pos = pos - 1 WHERE pos > " . $alt_row['pos'] . " AND cat = " . $alt_row['cat']);
+                        db_query("UPDATE `prefix_downcats` SET `pos` = `pos` - 1 WHERE `pos` > " . $alt_row['pos'] . " AND `cat` = " . $alt_row['cat']);
                     }
                 }
             }
@@ -368,47 +368,47 @@ switch ($um) {
             $pos = $menu->get(4);
             $id = $menu->getE(3);
             $nps = ($menu->getA(3) == 'u' ? $pos + 1 : $pos - 1);
-            $anz = db_result(db_query("SELECT COUNT(*) FROM prefix_downloads WHERE cat = " . $menu->getE(2)), 0);
+            $anz = db_result(db_query("SELECT COUNT(*) FROM `prefix_downloads` WHERE `cat` = " . $menu->getE(2)), 0);
 
             if ($nps < 0) {
-                db_query("UPDATE prefix_downloads SET pos = " . $anz . " WHERE id = " . $id);
-                db_query("UPDATE prefix_downloads SET pos = pos -1 WHERE cat = " . $menu->getE(2));
+                db_query("UPDATE `prefix_downloads` SET `pos` = " . $anz . " WHERE `id` = " . $id);
+                db_query("UPDATE `prefix_downloads` SET `pos` = `pos` -1 WHERE `cat` = " . $menu->getE(2));
             }
             if ($nps >= $anz) {
-                db_query("UPDATE prefix_downloads SET pos = -1 WHERE id = " . $id);
-                db_query("UPDATE prefix_downloads SET pos = pos +1 WHERE cat = " . $menu->getE(2));
+                db_query("UPDATE `prefix_downloads` SET `pos` = -1 WHERE `id` = " . $id);
+                db_query("UPDATE `prefix_downloads` SET `pos` = `pos` +1 WHERE `cat` = " . $menu->getE(2));
             }
 
             if ($nps < $anz AND $nps >= 0) {
-                db_query("UPDATE prefix_downloads SET pos = " . $pos . " WHERE pos = " . $nps . " AND cat = " . $menu->getE(2));
-                db_query("UPDATE prefix_downloads SET pos = " . $nps . " WHERE id = " . $id);
+                db_query("UPDATE `prefix_downloads` SET `pos` = " . $pos . " WHERE `pos` = " . $nps . " AND `cat` = " . $menu->getE(2));
+                db_query("UPDATE `prefix_downloads` SET `pos` = " . $nps . " WHERE `id` = " . $id);
             }
         }
         // download kategorien verschieben
         if ($menu->getA(3) == 'U' OR $menu->getA(3) == 'O') {
             $pos = $menu->get(4);
             $id = $menu->getE(3);
-            $cat = db_result(db_query("SELECT cat FROM prefix_downcats WHERE id = " . $id), 0);
+            $cat = db_result(db_query("SELECT `cat` FROM `prefix_downcats` WHERE `id` = " . $id), 0);
             $nps = ($menu->getA(3) == 'U' ? $pos + 1 : $pos - 1);
-            $anz = db_result(db_query("SELECT COUNT(*) FROM prefix_downcats WHERE cat = " . $cat), 0);
+            $anz = db_result(db_query("SELECT COUNT(*) FROM `prefix_downcats` WHERE `cat` = " . $cat), 0);
 
             if ($nps < 0) {
-                db_query("UPDATE prefix_downcats SET pos = " . $anz . " WHERE id = " . $id);
-                db_query("UPDATE prefix_downcats SET pos = pos -1 WHERE cat = " . $cat);
+                db_query("UPDATE `prefix_downcats` SET `pos` = " . $anz . " WHERE `id` = " . $id);
+                db_query("UPDATE `prefix_downcats` SET `pos` = `pos` -1 WHERE `cat` = " . $cat);
             }
             if ($nps >= $anz) {
-                db_query("UPDATE prefix_downcats SET pos = -1 WHERE id = " . $id);
-                db_query("UPDATE prefix_downcats SET pos = pos +1 WHERE cat = " . $cat);
+                db_query("UPDATE `prefix_downcats` SET `pos` = -1 WHERE `id` = " . $id);
+                db_query("UPDATE `prefix_downcats` SET `pos` = `pos` +1 WHERE `cat` = " . $cat);
             }
 
             if ($nps < $anz AND $nps >= 0) {
-                db_query("UPDATE prefix_downcats SET pos = " . $pos . " WHERE pos = " . $nps . " AND cat = " . $cat);
-                db_query("UPDATE prefix_downcats SET pos = " . $nps . " WHERE id = " . $id);
+                db_query("UPDATE `prefix_downcats` SET `pos` = " . $pos . " WHERE `pos` = " . $nps . " AND `cat` = " . $cat);
+                db_query("UPDATE `prefix_downcats` SET `pos` = " . $nps . " WHERE `id` = " . $id);
             }
         }
         // downs
         if ($menu->getA(2) == 'e') {
-            $erg = db_query("SELECT id,`cat`,creater,surl,ssurl,pos,version,url,`name`,`desc`,descl FROM prefix_downloads WHERE id = '" . $menu->getE(2) . "'");
+            $erg = db_query("SELECT `id`,`cat`,`creater`,`surl`,`ssurl`,`pos`,`version`,`url`,`name`,`desc`,`descl` FROM `prefix_downloads` WHERE `id` = '" . $menu->getE(2) . "'");
             $_ilch = db_fetch_assoc($erg);
             $_ilch['pkey'] = $menu->getE(2);
             $azk = $_ilch['cat'];
@@ -471,7 +471,7 @@ switch ($um) {
 
         $tpl->out(0);
         $class = 0;
-        $abf = "SELECT id,`cat`,`version`,`name`,pos FROM prefix_downloads WHERE cat = " . $azk . " ORDER BY pos";
+        $abf = "SELECT `id`,`cat`,`version`,`name`,`pos` FROM `prefix_downloads` WHERE `cat` = " . $azk . " ORDER BY `pos`";
         $erg = db_query($abf);
         while ($row = db_fetch_assoc($erg)) {
             $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
@@ -483,7 +483,7 @@ switch ($um) {
         $tpl->set_out('frei', $frei, 2);
         // cat
         if ($menu->getA(2) == 'E') {
-            $erg = db_query("SELECT id,cat as Ccat, recht as Crecht, name as Cname,pos as Cpos,`desc` as Cdesc FROM prefix_downcats WHERE id = '" . $menu->getE(2) . "'");
+            $erg = db_query("SELECT `id`,`cat` as `Ccat`, `recht` as `Crecht`, `name` as `Cname`,`pos` as `Cpos`,`desc` as `Cdesc` FROM `prefix_downcats` WHERE `id` = '" . $menu->getE(2) . "'");
             $_Cilch = db_fetch_assoc($erg);
             $_Cilch['Cpkey'] = $menu->getE(2);
         } else {
@@ -496,7 +496,7 @@ switch ($um) {
                 'Cdesc' => ''
                 );
         }
-        $_Cilch['Crecht'] = dblistee($_Cilch['Crecht'], "SELECT id,name FROM prefix_grundrechte ORDER BY id DESC");
+        $_Cilch['Crecht'] = dblistee($_Cilch['Crecht'], "SELECT `id`,`name` FROM `prefix_grundrechte` ORDER BY `id` DESC");
         archiv_downs_admin_selectcats('0', '', $_Cilch['Ccat'], $_Cilch['Ccat']);
         $_Cilch['Ccat'] = '<option value="0">Keine</option>' . $_Cilch['Ccat'];
 
@@ -517,17 +517,17 @@ switch ($um) {
         $tpl = new tpl ('archiv/links', 1);
         // kategorie und link eintraege loeschen
         if ($menu->getA(2) == 'D') {
-            $azk = db_result(db_query("SELECT cat FROM prefix_linkcats WHERE id = '" . $menu->getE(2) . "'"), 0);
-            $pos = db_result(db_query("SELECT pos FROM prefix_linkcats WHERE id = '" . $menu->getE(2) . "'"), 0);
-            db_query("DELETE FROM prefix_linkcats WHERE id = '" . $menu->getE(2) . "'");
-            db_query("UPDATE prefix_linkcats SET pos = pos - 1 WHERE pos > " . $pos . " AND cat = " . $azk);
+            $azk = db_result(db_query("SELECT `cat` FROM `prefix_linkcats` WHERE `id` = '" . $menu->getE(2) . "'"), 0);
+            $pos = db_result(db_query("SELECT `pos` FROM `prefix_linkcats` WHERE `id` = '" . $menu->getE(2) . "'"), 0);
+            db_query("DELETE FROM `prefix_linkcats` WHERE `id` = '" . $menu->getE(2) . "'");
+            db_query("UPDATE `prefix_linkcats` SET `pos` = `pos` - 1 WHERE `pos` > " . $pos . " AND `cat` = " . $azk);
         }
 
         if ($menu->getA(2) == 'd') {
-            $azk = db_result(db_query("SELECT cat FROM prefix_links WHERE id = '" . $menu->getE(2) . "'"), 0);
-            $pos = db_result(db_query("SELECT pos FROM prefix_links WHERE id = '" . $menu->getE(2) . "'"), 0);
-            db_query("DELETE FROM prefix_links WHERE id = " . $menu->getE(2));
-            db_query("UPDATE prefix_links SET pos = pos - 1 WHERE pos > " . $pos . " AND cat = " . $azk);
+            $azk = db_result(db_query("SELECT `cat` FROM `prefix_links` WHERE `id` = '" . $menu->getE(2) . "'"), 0);
+            $pos = db_result(db_query("SELECT `pos` FROM `prefix_links` WHERE `id` = '" . $menu->getE(2) . "'"), 0);
+            db_query("DELETE FROM `prefix_links` WHERE `id` = " . $menu->getE(2));
+            db_query("UPDATE `prefix_links` SET `pos` = `pos` - 1 WHERE `pos` > " . $pos . " AND `cat` = " . $azk);
         }
         // link eintraege speichern oder aendern.
         if (!empty($_POST['sub'])) {

@@ -27,7 +27,7 @@ if (has_right($allgAr['sb_recht'])) {
     echo '</form>';
 }
 echo '<table width="90%" class="border" cellpadding="2" cellspacing="1" border="0">';
-$erg = db_query('SELECT * FROM `prefix_shoutbox` ORDER BY id DESC LIMIT ' . (is_numeric($allgAr['sb_limit'])?$allgAr['sb_limit']:5));
+$erg = db_query('SELECT * FROM `prefix_shoutbox` ORDER BY `id` DESC LIMIT ' . (is_numeric($allgAr['sb_limit'])?$allgAr['sb_limit']:5));
 $class = 'Cnorm';
 while ($row = db_fetch_object($erg)) {
     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');

@@ -19,14 +19,14 @@ function get_gebtage ($datum) {
     return ($d . '.' . $m . '.' . $y);
 }
 // DIE krasse Abfrage :-)...   von Manue
-$q = "SELECT name, id, avatar,
-CASE WHEN ( MONTH(gebdatum) < MONTH(NOW()) ) OR ( MONTH(gebdatum) <= MONTH(NOW()) AND DAYOFMONTH(gebdatum) < DAYOFMONTH(NOW()) ) THEN
-gebdatum + INTERVAL (YEAR(NOW()) - YEAR(gebdatum) + 1) YEAR
+$q = "SELECT `name`, `id`, `avatar`,
+CASE WHEN ( MONTH(`gebdatum`) < MONTH(NOW()) ) OR ( MONTH(`gebdatum`) <= MONTH(NOW()) AND DAYOFMONTH(`gebdatum`) < DAYOFMONTH(NOW()) ) THEN
+gebdatum + INTERVAL (YEAR(NOW()) - YEAR(`gebdatum`) + 1) YEAR
 ELSE
-gebdatum + INTERVAL (YEAR(NOW()) - YEAR(gebdatum)) YEAR
+`gebdatum` + INTERVAL (YEAR(NOW()) - YEAR(`gebdatum`)) YEAR
 END
-AS gebtage
-FROM prefix_user WHERE gebdatum > 0000-00-00 AND recht <= " . $recht . " ORDER BY gebtage LIMIT " . $limit;
+AS `gebtage`
+FROM `prefix_user` WHERE `gebdatum` > 0000-00-00 AND `recht` <= " . $recht . " ORDER BY `gebtage` LIMIT " . $limit;
 
 $erg = db_query($q);
 

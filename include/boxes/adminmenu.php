@@ -83,7 +83,7 @@ if (is_coadmin()) { ?>
 
     [null, 'Module', null, null, null,
 		<?php
-    $erg = db_query("SELECT url, name FROM prefix_modules WHERE ashow = 1");
+    $erg = db_query("SELECT `url`, `name` FROM `prefix_modules` WHERE `ashow` = 1");
     while ($row = db_fetch_assoc($erg)) {
         echo '[null, \'' . $row['name'] . '\', \'admin.php?' . $row['url'] . '\', null, null],' . "\n";
     }
@@ -94,10 +94,10 @@ if (is_coadmin()) { ?>
 	<?php
 } elseif (count($_SESSION['authmod']) > 0) {
     echo "[null, 'Module', null, null, null,";
-    $q = "SELECT DISTINCT url, name
-	FROM prefix_modulerights a
-	LEFT JOIN prefix_modules b ON b.id = a.mid
-	WHERE b.gshow = 1 AND uid = " . $_SESSION['authid'];
+    $q = "SELECT DISTINCT `url`, `name`
+	FROM `prefix_modulerights` `a`
+	LEFT JOIN `prefix_modules` `b` ON `b`.`id` = `a`.`mid`
+	WHERE `b`.`gshow` = 1 AND `uid` = " . $_SESSION['authid'];
     $erg = db_query($q);
     while ($row = db_fetch_assoc($erg)) {
         echo '[null, \'' . $row['name'] . '\', \'admin.php?' . $row['url'] . '\', null, null],' . "\n";

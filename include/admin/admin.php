@@ -19,8 +19,8 @@ if ($lastmon <= 0) {
     $lastjahr = $jahr - 1;
 }
 
-db_query("DELETE FROM prefix_stats WHERE NOT ((mon = $mon OR mon = $lastmon) AND (yar = $jahr OR yar = $lastjahr))");
-db_query("OPTIMIZE TABLE prefix_stats");
+db_query("DELETE FROM `prefix_stats` WHERE NOT ((`mon` = ".$mon." OR `mon` = ".$lastmon.") AND (`yar` = ".$jahr." OR `yar` = ".$lastjahr."))");
+db_query("OPTIMIZE TABLE `prefix_stats`");
 
 $um = $menu->get(1);
 switch ($um) {
@@ -141,7 +141,7 @@ switch ($um) {
              </li>
              <li class="admix_box">Module
              <?php
-            $modabf = db_query("SELECT * FROM `prefix_modules` WHERE ashow = 1");
+            $modabf = db_query("SELECT * FROM `prefix_modules` WHERE `ashow` = 1");
             if (db_num_rows($modabf) > 0) {
                 echo '<br /><ul>';
                 while ($modrow = db_fetch_object($modabf)) {
@@ -182,8 +182,8 @@ switch ($um) {
         // ####################################
     case 'besucherStatistik' : {
             function echo_admin_site_statistik ($title, $col, $smon, $ges, $orderQuery) {
-                $sql = db_query("SELECT COUNT(*) AS wert, $col as schl FROM  `prefix_stats` WHERE mon = " . $smon . " GROUP BY schl ORDER BY " . $orderQuery);
-                $max = @db_result(db_query("SELECT COUNT(*) as wert, $col as schl FROM prefix_stats WHERE mon = " . $smon . " GROUP BY schl ORDER BY wert DESC LIMIT 1"), 0, 0);
+                $sql = db_query("SELECT COUNT(*) AS `wert`, ".$col." as `schl` FROM  `prefix_stats` WHERE `mon` = " . $smon . " GROUP BY `schl` ORDER BY " . $orderQuery);
+                $max = @db_result(db_query("SELECT COUNT(*) as `wert`, ".$col." as `schl` FROM `prefix_stats` WHERE `mon` = " . $smon . " GROUP BY `schl` ORDER BY `wert` DESC LIMIT 1"), 0, 0);
                 if (empty($max)) {
                     $max = 1;
                 }
@@ -215,16 +215,16 @@ switch ($um) {
                 $smon = $mon;
             }
 
-            $ges = db_result(db_query("SELECT COUNT(*) FROM prefix_stats WHERE mon = " . $smon), 0, 0);
+            $ges = db_result(db_query("SELECT COUNT(*) FROM `prefix_stats` WHERE `mon` = " . $smon), 0, 0);
             echo '<br /><br /><b>Gesamt diesen Monat: ' . $ges . '</b>';
             echo '<table cellpadding="2" border="0" cellspacing="0">';
 
-            echo_admin_site_statistik ('Besucher nach Tagen', 'day', $smon, $ges, "schl DESC LIMIT 50");
-            echo_admin_site_statistik ('Besucher nach Wochentagen', 'DAYNAME(FROM_UNIXTIME((wtag+3)*86400))', $smon, $ges, "wtag DESC LIMIT 50");
-            echo_admin_site_statistik ('Besucher nach Uhrzeit', 'stunde', $smon, $ges, "schl ASC LIMIT 50");
-            echo_admin_site_statistik ('Besucher nach Browsern', 'browser', $smon, $ges, "schl DESC LIMIT 50");
-            echo_admin_site_statistik ('Besucher nach Betriebssytemen', 'os', $smon, $ges, "schl DESC LIMIT 50");
-            echo_admin_site_statistik ('Besucher nach Herkunft', 'ref', $smon, $ges, "wert DESC LIMIT 50");
+            echo_admin_site_statistik ('Besucher nach Tagen', 'day', $smon, $ges, "`schl` DESC LIMIT 50");
+            echo_admin_site_statistik ('Besucher nach Wochentagen', 'DAYNAME(FROM_UNIXTIME((wtag+3)*86400))', $smon, $ges, "`wtag` DESC LIMIT 50");
+            echo_admin_site_statistik ('Besucher nach Uhrzeit', 'stunde', $smon, $ges, "`schl` ASC LIMIT 50");
+            echo_admin_site_statistik ('Besucher nach Browsern', 'browser', $smon, $ges, "`schl` DESC LIMIT 50");
+            echo_admin_site_statistik ('Besucher nach Betriebssytemen', 'os', $smon, $ges, "`schl` DESC LIMIT 50");
+            echo_admin_site_statistik ('Besucher nach Herkunft', 'ref', $smon, $ges, "`wert` DESC LIMIT 50");
 
             echo '</table>';
 
@@ -284,9 +284,9 @@ switch ($um) {
             echo '<tr><td valign="top" width="33%"><b>Nach Tagen (letzten 5 Monate):</b><br />';
 
             echo '<table cellpadding="0" border="0" cellspacing="0" width="90%">';
-            $max = db_result(db_query("SELECT MAX(`count`) FROM prefix_counter"), 0);
-            $ges = db_result(db_query("SELECT SUM(`count`) FROM prefix_counter"), 0);
-            $erg = db_query("SELECT `count` as sum, DATE_FORMAT(`date`, '%d.%m.%Y') as datum FROM prefix_counter ORDER BY `date` DESC");
+            $max = db_result(db_query("SELECT MAX(`count`) FROM `prefix_counter`"), 0);
+            $ges = db_result(db_query("SELECT SUM(`count`) FROM `prefix_counter`"), 0);
+            $erg = db_query("SELECT `count` as `sum`, DATE_FORMAT(`date`, '%d.%m.%Y') as `datum` FROM `prefix_counter` ORDER BY `date` DESC");
             while ($r = db_fetch_assoc($erg)) {
                 echo_admin_site_uebersicht ($r['datum'], $r['sum'], $max, $ges);
             }
@@ -295,8 +295,8 @@ switch ($um) {
             echo '</td><td valign="top" width="33%"><b>Nach Monaten:</b><br />';
 
             echo '<table cellpadding="0" border="0" cellspacing="0" width="90%">';
-            $max = get_max_from_x("SELECT SUM(`count`) FROM prefix_counter GROUP BY MONTH(`date`), YEAR(`date`)");
-            $erg = db_query("SELECT SUM(`count`) as sum, MONTH(`date`) as monat, YEAR(`date`) as jahr FROM prefix_counter GROUP BY monat, jahr ORDER BY jahr DESC, monat DESC");
+            $max = get_max_from_x("SELECT SUM(`count`) FROM `prefix_counter` GROUP BY MONTH(`date`), YEAR(`date`)");
+            $erg = db_query("SELECT SUM(`count`) as `sum`, MONTH(`date`) as `monat`, YEAR(`date`) as `jahr` FROM `prefix_counter` GROUP BY `monat`, `jahr` ORDER BY `jahr` DESC, `monat` DESC");
             while ($r = db_fetch_assoc($erg)) {
                 echo_admin_site_uebersicht ((strlen($r['monat']) == 1?'0':'') . $r['monat'] . '.' . $r['jahr'], $r['sum'], $max, $ges);
             }
@@ -305,8 +305,8 @@ switch ($um) {
             echo '</td><td valign="top" width="33%"><b>Nach Jahren:</b><br />';
 
             echo '<table cellpadding="0" border="0" cellspacing="0" width="90%">';
-            $max = get_max_from_x("SELECT SUM(`count`) FROM prefix_counter GROUP BY YEAR(`date`)");
-            $erg = db_query("SELECT SUM(`count`) as sum, YEAR(`date`) as jahr FROM prefix_counter GROUP BY jahr ORDER BY jahr DESC");
+            $max = get_max_from_x("SELECT SUM(`count`) FROM `prefix_counter` GROUP BY YEAR(`date`)");
+            $erg = db_query("SELECT SUM(`count`) as `sum`, YEAR(`date`) as `jahr` FROM `prefix_counter` GROUP BY `jahr` ORDER BY `jahr` DESC");
             while ($r = db_fetch_assoc($erg)) {
                 echo_admin_site_uebersicht ($r['jahr'], $r['sum'], $max, $ges);
             }
@@ -331,45 +331,45 @@ switch ($um) {
 
             echo '<table><tr><td valign="top">';
             $heute = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
-            $anzheute = db_result(db_query("SELECT COUNT(*) FROM prefix_posts WHERE time >= " . $heute), 0, 0);
+            $anzheute = db_result(db_query("SELECT COUNT(*) FROM `prefix_posts` WHERE `time` >= " . $heute), 0, 0);
             echo 'Gesamt Posts heute: ' . $anzheute . '<br /><hr>';
             // aktivsten user
-            $sql = "SELECT COUNT(*) as kk , erst as vv FROM prefix_posts WHERE time >= " . $heute . " GROUP BY vv ORDER BY kk DESC LIMIT 10";
+            $sql = "SELECT COUNT(*) as `kk` , `erst` as `vv` FROM `prefix_posts` WHERE `time` >= " . $heute . " GROUP BY `vv` ORDER BY `kk` DESC LIMIT 10";
             echo '<b>Aktivsten User heute</b><br />';
             forum_statistic_show($sql, $anzheute);
             // aktivsten themen
-            $sql = "SELECT COUNT(*) as kk , name as vv FROM prefix_topics LEFT JOIN prefix_posts ON prefix_posts.tid = prefix_topics.id WHERE time >= " . $heute . " GROUP BY vv ORDER BY kk DESC LIMIT 10";
+            $sql = "SELECT COUNT(*) as `kk` , `name` as `vv` FROM `prefix_topics` LEFT JOIN `prefix_posts` ON `prefix_posts`.`tid` = `prefix_topics`.`id` WHERE `time` >= " . $heute . " GROUP BY `vv` ORDER BY `kk` DESC LIMIT 10";
             echo '<hr><b>Aktivsten Themen heute</b><br />';
             forum_statistic_show($sql, $anzheute);
             // aktivsten foren
-            $sql = "SELECT COUNT(*) as kk , prefix_forums.name as vv FROM prefix_topics LEFT JOIN prefix_forums ON prefix_forums.id = prefix_topics.fid LEFT JOIN prefix_posts ON prefix_posts.tid = prefix_topics.id WHERE time >= " . $heute . " GROUP BY vv ORDER BY kk DESC LIMIT 10";
+            $sql = "SELECT COUNT(*) as `kk` , `prefix_forums`.`name` as `vv` FROM `prefix_topics` LEFT JOIN `prefix_forums` ON `prefix_forums`.`id` = `prefix_topics`.`fid` LEFT JOIN `prefix_posts` ON `prefix_posts`.`tid` = `prefix_topics`.`id` WHERE `time` >= " . $heute . " GROUP BY `vv` ORDER BY `kk` DESC LIMIT 10";
             echo '<hr><b>Aktivsten Foren heute</b><br />';
             forum_statistic_show($sql, $anzheute);
             // neue user heute
-            $gsh = db_result(db_query("SELECT COUNT(*) FROM prefix_user WHERE regist >= " . $heute), 0, 0);
-            $sql = "SELECT COUNT(*) as kk , name as vv FROM prefix_user WHERE regist >= " . $heute . " GROUP BY vv ORDER BY kk DESC LIMIT 10";
+            $gsh = db_result(db_query("SELECT COUNT(*) FROM `prefix_user` WHERE `regist` >= " . $heute), 0, 0);
+            $sql = "SELECT COUNT(*) as `kk` , `name` as `vv` FROM `prefix_user` WHERE `regist` >= " . $heute . " GROUP BY `vv` ORDER BY `kk` DESC LIMIT 10";
             echo '<hr><b>Neue User heute</b><br />';
             forum_statistic_show($sql, $gsh);
 
             echo '</td><td valign="top">';
             $heute1 = mktime(0, 0, 0, date('m'), date('d') - 1, date('Y'));
-            $anzheute = db_result(db_query("SELECT COUNT(*) FROM prefix_posts WHERE time >= " . $heute1 . " AND time <= " . $heute), 0, 0);
+            $anzheute = db_result(db_query("SELECT COUNT(*) FROM `prefix_posts` WHERE `time` >= " . $heute1 . " AND `time` <= " . $heute), 0, 0);
             echo 'Gesamt Posts gestern: ' . $anzheute . '<br /><hr>';
             // aktivsten user
-            $sql = "SELECT COUNT(*) as kk , erst as vv FROM prefix_posts WHERE time >= " . $heute1 . " AND time <= " . $heute . " GROUP BY vv ORDER BY kk DESC LIMIT 10";
+            $sql = "SELECT COUNT(*) as `kk` , `erst` as `vv` FROM `prefix_posts` WHERE `time` >= " . $heute1 . " AND `time` <= " . $heute . " GROUP BY `vv` ORDER BY `kk` DESC LIMIT 10";
             echo '<b>Aktivsten User gestern</b><br />';
             forum_statistic_show($sql, $anzheute);
             // aktivsten themen
-            $sql = "SELECT COUNT(*) as kk , name as vv FROM prefix_topics LEFT JOIN prefix_posts ON prefix_posts.tid = prefix_topics.id WHERE time >= " . $heute1 . " AND time <= " . $heute . " GROUP BY vv ORDER BY kk DESC LIMIT 10";
+            $sql = "SELECT COUNT(*) as `kk` , `name` as `vv` FROM `prefix_topics` LEFT JOIN `prefix_posts` ON `prefix_posts`.`tid` = `prefix_topics`.`id` WHERE `time` >= " . $heute1 . " AND `time` <= " . $heute . " GROUP BY `vv` ORDER BY `kk` DESC LIMIT 10";
             echo '<hr><b>Aktivsten Themen gestern</b><br />';
             forum_statistic_show($sql, $anzheute);
             // aktivsten foren
-            $sql = "SELECT COUNT(*) as kk , prefix_forums.name as vv FROM prefix_topics LEFT JOIN prefix_forums ON prefix_forums.id = prefix_topics.fid LEFT JOIN prefix_posts ON prefix_posts.tid = prefix_topics.id WHERE time >= " . $heute1 . " AND time <= " . $heute . " GROUP BY vv ORDER BY kk DESC LIMIT 10";
+            $sql = "SELECT COUNT(*) as `kk` , `prefix_forums`.`name` as `vv` FROM `prefix_topics` LEFT JOIN `prefix_forums` ON `prefix_forums`.`id` = `prefix_topics`.`fid` LEFT JOIN `prefix_posts` ON `prefix_posts`.`tid` = `prefix_topics`.`id` WHERE `time` >= " . $heute1 . " AND `time` <= " . $heute . " GROUP BY `vv` ORDER BY `kk` DESC LIMIT 10";
             echo '<hr><b>Aktivsten Foren gestern</b><br />';
             forum_statistic_show($sql, $anzheute);
             // neue user heute
-            $gsh = db_result(db_query("SELECT COUNT(*) FROM prefix_user WHERE regist >= " . $heute1 . " AND regist <= " . $heute), 0, 0);
-            $sql = "SELECT COUNT(*) as kk , name as vv FROM prefix_user WHERE regist >= " . $heute1 . " AND regist <= " . $heute . " GROUP BY vv ORDER BY kk DESC LIMIT 10";
+            $gsh = db_result(db_query("SELECT COUNT(*) FROM `prefix_user` WHERE `regist` >= " . $heute1 . " AND `regist` <= " . $heute), 0, 0);
+            $sql = "SELECT COUNT(*) as `kk` , `name` as `vv` FROM `prefix_user` WHERE `regist` >= " . $heute1 . " AND `regist` <= " . $heute . " GROUP BY `vv` ORDER BY `kk` DESC LIMIT 10";
             echo '<hr><b>Neue User gestern</b><br />';
             forum_statistic_show($sql, $gsh);
             echo '</td></tr></table>';

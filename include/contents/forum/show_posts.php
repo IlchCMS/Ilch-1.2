@@ -13,7 +13,7 @@ $hmenu .= $aktTopicRow['name'] . $extented_forum_menu_sufix;
 $design = new design ($title , $hmenu, 1);
 $design->header();
 // Topic Hits werden eins hochgesetzt.
-db_query('UPDATE `prefix_topics` SET hit = hit + 1 WHERE id = "' . $tid . '"');
+db_query('UPDATE `prefix_topics` SET `hit` = `hit` + 1 WHERE `id` = "' . $tid . '"');
 // mehrere seiten fals gefordert
 $limit = $allgAr['Fpanz']; // Limit
 $page = ($menu->getA(3) == 'p' ? $menu->getE(3) : 1);
@@ -37,7 +37,7 @@ $ar = array (
 $tpl->set_ar_out($ar, 0);
 $i = $anfang + 1;
 $ges_ar = array ('wurstegal', 'maennlich', 'weiblich');
-$erg = db_query("SELECT geschlecht, prefix_posts.id,txt,time,erstid,erst,sig,avatar,posts FROM `prefix_posts` LEFT JOIN prefix_user ON prefix_posts.erstid = prefix_user.id WHERE tid = " . $tid . " ORDER BY time LIMIT " . $anfang . "," . $limit);
+$erg = db_query("SELECT `geschlecht`, `prefix_posts`.`id`,`txt`,`time`,`erstid`,`erst`,`sig`,`avatar`,`posts` FROM `prefix_posts` LEFT JOIN `prefix_user` ON `prefix_posts`.`erstid` = `prefix_user`.`id` WHERE `tid` = " . $tid . " ORDER BY `time` LIMIT " . $anfang . "," . $limit);
 while ($row = db_fetch_assoc($erg)) {
     $class = ($class == 'Cnorm' ? 'Cmite' : 'Cnorm');
     // define some vars.
@@ -84,15 +84,15 @@ $tpl->set_ar_out(array ('SITELINK' => $MPL, 'ANTWORTEN' => $antworten) , 2);
 
 if (loggedin()) {
     if ($menu->get(3) == 'topicalert') {
-        if (1 == db_result(db_query("SELECT COUNT(*) FROM prefix_topic_alerts WHERE uid = " . $_SESSION['authid'] . " AND tid = " . $tid), 0)) {
-            db_query("DELETE FROM prefix_topic_alerts WHERE uid = " . $_SESSION['authid'] . " AND tid = " . $tid);
+        if (1 == db_result(db_query("SELECT COUNT(*) FROM `prefix_topic_alerts` WHERE `uid` = " . $_SESSION['authid'] . " AND `tid` = " . $tid), 0)) {
+            db_query("DELETE FROM `prefix_topic_alerts` WHERE `uid` = " . $_SESSION['authid'] . " AND `tid` = " . $tid);
         } else {
-            db_query("INSERT INTO prefix_topic_alerts (tid,uid) VALUES (" . $tid . ", " . $_SESSION['authid'] . ")");
+            db_query("INSERT INTO `prefix_topic_alerts` (`tid`,`uid`) VALUES (" . $tid . ", " . $_SESSION['authid'] . ")");
         }
     }
 
     echo 'Optionen:';
-    if (1 == db_result(db_query("SELECT COUNT(*) FROM prefix_topic_alerts WHERE uid = " . $_SESSION['authid'] . " AND tid = " . $tid), 0)) {
+    if (1 == db_result(db_query("SELECT COUNT(*) FROM `prefix_topic_alerts` WHERE `uid` = " . $_SESSION['authid'] . " AND `tid` = " . $tid), 0)) {
         echo '<br />- <a href="index.php?forum-showposts-' . $tid . '-topicalert">' . $lang['nomailonreply'] . '</a><br />';
     } else {
         echo '<br />- <a href="index.php?forum-showposts-' . $tid . '-topicalert">' . $lang['mailonreply'] . '</a><br />';
