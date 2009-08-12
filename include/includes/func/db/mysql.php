@@ -3,6 +3,10 @@
 // Support www.ilch.de
 defined ('main') or die ('no direct access');
 
+/**
+ * @todo bei UPDATE/INSERT/DELETE true oder false zurückgeben um einen fehler im script sachgemäß dem user präsentieren zu können
+ */
+ 
 $count_query_xyzXYZ = 0;
 
 function db_connect () {
@@ -96,7 +100,7 @@ function db_make_sites ($page , $where , $limit , $link , $table, $anzahl = null
         $MPL = '';
     }
     if (is_null ($anzahl)) {
-        $resultID = db_query ("SELECT COUNT(*) FROM prefix_" . $table . " " . $where);
+        $resultID = db_query ("SELECT COUNT(*) FROM `prefix_" . $table . "` " . $where);
         $total = db_result($resultID, 0);
     } else {
         $total = $anzahl;

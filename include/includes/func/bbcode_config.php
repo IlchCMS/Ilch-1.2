@@ -7,15 +7,15 @@
 //> Verbindung mit der Datenbank herstellen.
 	db_connect ();
 	//> Buttons Informationen.
-	$ButtonSql = db_query("SELECT * FROM prefix_bbcode_buttons WHERE fnButtonNr='1'");
+	$ButtonSql = db_query("SELECT * FROM `prefix_bbcode_buttons` WHERE `fnButtonNr` = '1'");
 	$boolButton = db_fetch_assoc($ButtonSql);
 	
 	//> Design Informationen.
-	$DesignSql = db_query("SELECT * FROM prefix_bbcode_design WHERE fnDesignNr='1'");
+	$DesignSql = db_query("SELECT * FROM `prefix_bbcode_design` WHERE `fnDesignNr` = '1'");
 	$strDesign = db_fetch_assoc($DesignSql);
 	
 	//> Config Informationen.
-	$ConfigSql = db_query("SELECT * FROM prefix_bbcode_config WHERE fnConfigNr='1'");
+	$ConfigSql = db_query("SELECT * FROM `prefix_bbcode_config` WHERE `fnConfigNr` = '1'");
 	$objConfig = db_fetch_assoc($ConfigSql);
 #-------------------------------------------------------------------------------------------------------------
 //> Konfiguration für Zitat- Funktion (Quote)

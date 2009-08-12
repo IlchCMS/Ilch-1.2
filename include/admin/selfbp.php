@@ -164,7 +164,7 @@ if ($menu->get(1) == 'imagebrowser') {
         $cat = escape($menu->get(2), 'integer');
     }
 
-    $abf = "SELECT id,besch,datei_name,endung FROM prefix_gallery_imgs WHERE cat = " . $cat;
+    $abf = "SELECT `id`,`besch`,`datei_name`,`endung` FROM `prefix_gallery_imgs` WHERE `cat` = " . $cat;
     $erg = db_query($abf);
     $i = 0;
     $design = new design ('Admins Area', 'Admins Area', 0);

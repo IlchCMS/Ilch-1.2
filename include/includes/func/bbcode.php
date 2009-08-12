@@ -18,10 +18,10 @@ function colorliste ( $ar ) {
 
 function getBBCodeButtons(){
 		//> Buttons Informationen.
-		$ButtonSql = db_query("SELECT *	FROM prefix_bbcode_buttons WHERE fnButtonNr='1'");
+		$ButtonSql = db_query("SELECT *	FROM `prefix_bbcode_buttons` WHERE `fnButtonNr` = '1'");
 		$boolButton = db_fetch_assoc($ButtonSql);
 
-		$cfgBBCsql = db_query("SELECT * FROM prefix_bbcode_config WHERE fnConfigNr='1'");
+		$cfgBBCsql = db_query("SELECT * FROM `prefix_bbcode_config` WHERE `fnConfigNr` = '1'");
 		$cfgInfo = db_fetch_assoc($cfgBBCsql);
 		
         $BBCodeButtons = '<script type="text/javascript" src="include/includes/js/interface.js"></script>';
@@ -197,7 +197,7 @@ function BBcode($s,$maxLength=0,$maxImgWidth=0,$maxImgHeight=0) {
   
   //> Smilies in array abspeichern.
 	if(!isset($global_smiles_array)) {
-		$erg = db_query("SELECT ent, url, emo FROM `prefix_smilies`");
+		$erg = db_query("SELECT `ent`, `url`, `emo` FROM `prefix_smilies`");
 		while ($row = db_fetch_object($erg) ) {
 			$global_smiles_array[$row->ent] = $row->emo.'#@#-_-_-#@#'.$row->url;
 		}

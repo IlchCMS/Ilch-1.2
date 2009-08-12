@@ -21,7 +21,7 @@ $q = "SELECT
 FROM `prefix_forums` `a`
   LEFT JOIN `prefix_forumcats` `k` ON `k`.`id` = `a`.`cid`
   LEFT JOIN `prefix_posts` `c` ON `a`.`last_post_id` = `c`.`id`
-  LEFT JOIN vprefix_topics` `b` ON `c`.`tid` = `b`.`id`
+  LEFT JOIN `prefix_topics` `b` ON `c`.`tid` = `b`.`id`
 
   LEFT JOIN `prefix_groupusers` `vg` ON `vg`.`uid` = " . $_SESSION['authid'] . " AND `vg`.`gid` = `a`.`view`
   LEFT JOIN `prefix_groupusers` `rg` ON `rg`.`uid` = " . $_SESSION['authid'] . " AND `rg`.`gid` = `a`.`reply`

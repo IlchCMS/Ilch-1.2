@@ -13,7 +13,7 @@ if (empty ($um) AND empty ($_GET['um']) AND empty ($_POST['um'])) {
     $tpl->out(0);
 
     $clas = 'cbg2';
-    $erg = db_query('SELECT * FROM `prefix_ranks` ORDER BY spez DESC, min');
+    $erg = db_query('SELECT * FROM `prefix_ranks` ORDER BY `spez` DESC, `min`');
     while ($row = db_fetch_object($erg)) {
         if ($clas == 'Cmite') {
             $clas = 'Cnorm';
@@ -37,8 +37,8 @@ if (empty ($um) AND empty ($_GET['um']) AND empty ($_POST['um'])) {
     }
     $tpl->out(2);
 } elseif ($um == 1) {
-    db_query('DELETE FROM `prefix_ranks` WHERE id = "' . $menu->get(2) . '" LIMIT 1');
-    db_query('UPDATE `prefix_user` SET spezrank = 0 WHERE spezrank = "' . $menu->get(2) . '"');
+    db_query('DELETE FROM `prefix_ranks` WHERE `id` = "' . $menu->get(2) . '" LIMIT 1');
+    db_query('UPDATE `prefix_user` SET `spezrank` = 0 WHERE `spezrank` = "' . $menu->get(2) . '"');
     wd ('admin.php?range' , 'Erfolgreich gel&ouml;scht' , 1);
 } elseif ($um == 2) {
     if (empty ($_POST['sub'])) {
@@ -52,7 +52,7 @@ if (empty ($um) AND empty ($_GET['um']) AND empty ($_POST['um'])) {
             $Frid = '';
             $Fakt = 'insert';
         } else {
-            $abf = 'SELECT * FROM `prefix_ranks` WHERE id = "' . $rid . '"';
+            $abf = 'SELECT * FROM `prefix_ranks` WHERE `id` = "' . $rid . '"';
             $erg = db_query($abf);
             $row = db_fetch_object($erg);
             $Fsub = '&Auml;ndern';
@@ -95,7 +95,7 @@ if (empty ($um) AND empty ($_GET['um']) AND empty ($_POST['um'])) {
             if ($_POST['spez'] == 1) {
                 $_POST['min'] = '0';
             }
-            db_query('UPDATE `prefix_ranks` SET bez = "' . $_POST['bez'] . '", min = "' . $_POST['min'] . '", spez = "' . $_POST['spez'] . '" WHERE id = "' . $_POST['rid'] . '"');
+            db_query('UPDATE `prefix_ranks` SET `bez` = "' . $_POST['bez'] . '", `min` = "' . $_POST['min'] . '", `spez` = "' . $_POST['spez'] . '" WHERE `id` = "' . $_POST['rid'] . '"');
             wd ('admin.php?range' , 'Erfolgreich ge&auml;ndert' , 1);
         }
     }

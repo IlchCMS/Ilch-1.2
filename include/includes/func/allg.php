@@ -54,7 +54,7 @@ function getrecht ($RECHT, $USERRECHT) {
 // ###
 // #### g e t   U s e r   N a m e
 function get_n($uid) {
-    $row = db_fetch_object(db_query("SELECT name FROM prefix_user WHERE id = '" . $uid . "'"));
+    $row = db_fetch_object(db_query("SELECT `name` FROM `prefix_user` WHERE `id` = '" . $uid . "'"));
     return $row->name;
 }
 // #
@@ -83,7 +83,7 @@ function getAllgAr () {
     // v3 = feldtyp
     // v4 = kurze beschreibung wenn n�tig
     $ar = array();
-    $abf = "SELECT schl, wert FROM `prefix_config`";
+    $abf = "SELECT `schl`, `wert` FROM `prefix_config`";
     $erg = db_query($abf);
     while ($row = db_fetch_assoc($erg)) {
         $ar[$row['schl']] = $row['wert'];
@@ -104,11 +104,11 @@ function userrang ($post, $uid) {
         if (empty($uid)) {
             $rRang = 'Gast';
         } else {
-            $rRang = @db_result(db_query("SELECT bez FROM prefix_user LEFT JOIN prefix_ranks ON prefix_ranks.id = prefix_user.spezrank WHERE prefix_user.id = " . $uid), 0);
+            $rRang = @db_result(db_query("SELECT `bez` FROM `prefix_user` LEFT JOIN `prefix_ranks` ON `prefix_ranks`.`id` = `prefix_user`.`spezrank` WHERE `prefix_user`.`id` = " . $uid), 0);
         }
         if (empty($rRang)) {
             $post = ($post == 0 ? 1 : $post);
-            $rRang = @db_result(db_query("SELECT bez FROM `prefix_ranks` WHERE spez = 0 AND min <= " . $post . " ORDER BY min DESC LIMIT 1"), 0);
+            $rRang = @db_result(db_query("SELECT `bez` FROM `prefix_ranks` WHERE `spez` = 0 AND `min` <= " . $post . " ORDER BY `min` DESC LIMIT 1"), 0);
         } elseif ($rRang != 'Gast') {
             $rRang = '<i><b>' . $rRang . '</b></i>';
         }
@@ -136,7 +136,7 @@ function getsmilies ( $zeilen = 3 ) {
     $i = 0;
     $b = '<script language="JavaScript" type="text/javascript">function moreSmilies () { var x = window.open("about:blank", "moreSmilies", "width=250,height=200,status=no,scrollbars=yes,resizable=yes"); ';
     $a = '';
-    $erg = db_query('SELECT emo, ent, url FROM `prefix_smilies`');
+    $erg = db_query('SELECT `emo`, `ent`, `url` FROM `prefix_smilies`');
     while ($row = db_fetch_object($erg)) {
         $b .= 'x.document.write ("<a href=\"javascript:opener.put(\'' . addslashes(addslashes($row->ent)) . '\')\">");';
         $b .= 'x.document.write ("<img style=\"border: 0px; padding: 5px;\" src=\"include/images/smiles/' . $row->url . '\" title=\"' . $row->emo . '\"></a>");';

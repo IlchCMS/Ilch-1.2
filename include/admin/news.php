@@ -14,7 +14,7 @@ $design->header();
 function getKats ($akt) {
     $katAR = array();
     $kats = '';
-    $erg = db_query("SELECT DISTINCT news_kat FROM `prefix_news`");
+    $erg = db_query("SELECT DISTINCT `news_kat` FROM `prefix_news`");
     while ($row = db_fetch_object($erg)) {
         $katAr[] = $row->news_kat;
     }
@@ -51,7 +51,7 @@ if (!empty($_REQUEST['um'])) {
         if ($_POST['katLis'] == 'neu') {
             $_POST['katLis'] = $_POST['kat'];
         }
-        db_query("INSERT INTO `prefix_news` (news_title,user_id,news_time,news_recht,news_kat,news_text)
+        db_query("INSERT INTO `prefix_news` (`news_title`,`user_id`,`news_time`,`news_recht`,`news_kat`,`news_text`)
 		VALUES ('" . $_POST['titel'] . "'," . $_SESSION['authid'] . ",NOW()," . $_POST['grecht'] . ",'" . $_POST['katLis'] . "','" . $text . "')");
         // insert
     } elseif ($um == 'change') {
@@ -62,18 +62,18 @@ if (!empty($_REQUEST['um'])) {
             $_POST['katLis'] = $_POST['kat'];
         }
         db_query('UPDATE `prefix_news` SET
-				news_title = "' . $_POST['titel'] . '",
-				user_id  = "' . $_SESSION['authid'] . '",
-				news_recht = "' . $_POST['grecht'] . '",
-				news_kat   = "' . $_POST['katLis'] . '",
-				news_text  = "' . $text . '" WHERE news_id = "' . $_POST['newsID'] . '" LIMIT 1');
+				`news_title` = "' . $_POST['titel'] . '",
+				`user_id`  = "' . $_SESSION['authid'] . '",
+				`news_recht` = "' . $_POST['grecht'] . '",
+				`news_kat`   = "' . $_POST['katLis'] . '",
+				`news_text`  = "' . $text . '" WHERE `news_id` = "' . $_POST['newsID'] . '" LIMIT 1');
         $edit = $_POST['newsID'];
     }
 }
 // edit
 // del
 if ($menu->get(1) == 'del') {
-    db_query('DELETE FROM `prefix_news` WHERE news_id = "' . $menu->get(2) . '" LIMIT 1');
+    db_query('DELETE FROM `prefix_news` WHERE `news_id` = "' . $menu->get(2) . '" LIMIT 1');
 }
 // del
 // #### A k t i o n e n
@@ -99,7 +99,7 @@ if (empty ($doNoIn)) {
         $FkatLis = '';
         $Fsub = 'Eintragen';
     } else {
-        $row = db_fetch_object(db_query("SELECT * FROM `prefix_news` WHERE news_id = " . $menu->get(2)));
+        $row = db_fetch_object(db_query("SELECT * FROM `prefix_news` WHERE `news_id` = " . $menu->get(2)));
         $FnewsID = $row->news_id;
         $Faktion = 'change';
         $Fueber = $row->news_title;
@@ -118,7 +118,7 @@ if (empty ($doNoIn)) {
         'UEBER' => $Fueber,
         'txt' => $Ftxt,
         'SMILIS' => getsmilies(),
-        'grecht' => dbliste($Fgrecht, $tpl, 'grecht', "SELECT id,name FROM prefix_grundrechte ORDER BY id DESC"),
+        'grecht' => dbliste($Fgrecht, $tpl, 'grecht', "SELECT `id`,`name` FROM `prefix_grundrechte` ORDER BY `id` DESC"),
         'KATS' => getKats($FkatLis),
         'FSUB' => $Fsub
 
@@ -126,9 +126,9 @@ if (empty ($doNoIn)) {
 
     $tpl->set_ar_out($ar, 0);
     // e d i t , d e l e t e
-    $abf = 'SELECT news_id,news_title
+    $abf = 'SELECT `news_id`,`news_title`
 	        FROM `prefix_news`
-					ORDER BY news_time DESC
+					ORDER BY `news_time` DESC
 					LIMIT ' . $anfang . ',' . $limit;
 
     $erg = db_query($abf);

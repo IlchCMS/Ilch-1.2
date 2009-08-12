@@ -15,10 +15,10 @@ if (!empty($_POST['send'])) {
     $sam = str_replace('#', '', escape($_POST['sam'], 'textarea'));
     $son = str_replace('#', '', escape($_POST['son'], 'textarea'));
     $new = $mon . '#' . $die . '#' . $mit . '#' . $don . '#' . $fre . '#' . $sam . '#' . $son;
-    db_query("UPDATE `prefix_allg` SET t1 = '" . $new . "' WHERE k = 'trainzeiten'");
+    db_query("UPDATE `prefix_allg` SET `t1` = '" . $new . "' WHERE `k` = 'trainzeiten'");
     wd('?trains', 'Daten erfolgreich geändert', 2);
 } else {
-    $row = db_fetch_object(db_query("SELECT t1 FROM `prefix_allg` WHERE k = 'trainzeiten'"));
+    $row = db_fetch_object(db_query("SELECT `t1` FROM `prefix_allg` WHERE `k` = 'trainzeiten'"));
     $dbe = explode('#', $row->t1);
     $ar = array (
         'MON' => $dbe[0],

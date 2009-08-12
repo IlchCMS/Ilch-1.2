@@ -4,7 +4,7 @@
 defined ('main') or die ('no direct access');
 
 function getmods ($fid) {
-    $erg = db_query("SELECT b.id,b.name FROM prefix_forummods a LEFT JOIN prefix_user b ON b.id = a.uid WHERE a.fid = " . $fid);
+    $erg = db_query("SELECT `b`.`id`,`b`.`name` FROM `prefix_forummods` `a` LEFT JOIN `prefix_user` `b` ON `b`.`id` = `a`.`uid` WHERE `a`.`fid` = " . $fid);
     if (db_num_rows($erg) > 0) {
         $mods = '<br /><u>Moderators:</u> ';
         while ($row = db_fetch_assoc($erg)) {
@@ -22,7 +22,7 @@ function getmods ($fid) {
 function forum_get_ordner ($ftime, $id, $fid = 0) {
     if ($ftime >= $_SESSION['lastlogin']) {
         if ($fid == 0) {
-            $anzOpenTopics = db_result(db_query("SELECT COUNT(*) FROM prefix_topics LEFT JOIN prefix_posts ON prefix_posts.id = prefix_topics.last_post_id WHERE prefix_topics.fid = " . $id . " AND prefix_posts.time >= " . $_SESSION['lastlogin']), 0);
+            $anzOpenTopics = db_result(db_query("SELECT COUNT(*) FROM `prefix_topics` LEFT JOIN `prefix_posts` ON `prefix_posts`.`id` = `prefix_topics`.`last_post_id` WHERE `prefix_topics`.`fid` = " . $id . " AND `prefix_posts`.`time` >= " . $_SESSION['lastlogin']), 0);
             if ((($anzOpenTopics > 0) AND !isset($_SESSION['forumSEE'][$id]))
                     OR $anzOpenTopics > count($_SESSION['forumSEE'][$id])
                     OR max ($_SESSION['forumSEE'][$id]) <= ($ftime - 4)
@@ -45,7 +45,7 @@ function forum_get_ordner ($ftime, $id, $fid = 0) {
 
 function check_for_pm_popup () {
     // opt_pm_popup
-    if (1 == db_result(db_query("SELECT COUNT(*) FROM prefix_user where id = " . $_SESSION['authid'] . " AND opt_pm_popup = 1"), 0, 0) AND 1 <= db_result(db_query("SELECT COUNT(*) FROM prefix_pm WHERE gelesen = 0 AND status < 1 AND eid = " . $_SESSION['authid']), 0)) {
+    if (1 == db_result(db_query("SELECT COUNT(*) FROM `prefix_user` WHERE `id` = " . $_SESSION['authid'] . " AND `opt_pm_popup` = 1"), 0, 0) AND 1 <= db_result(db_query("SELECT COUNT(*) FROM `prefix_pm` WHERE `gelesen` = 0 AND `status` < 1 AND `eid` = " . $_SESSION['authid']), 0)) {
         $x = <<< html
     <script language="JavaScript" type="text/javascript"><!--
     function closeNewPMdivID () { document.getElementById("newPMdivID").style.display = "none"; }
@@ -73,7 +73,7 @@ function forum_user_is_mod ($fid) {
         return (true);
     }
 
-    if (1 == db_result(db_query("SELECT COUNT(*) FROM prefix_forummods WHERE uid = " . $_SESSION['authid'] . " AND fid = " . $fid), 0)) {
+    if (1 == db_result(db_query("SELECT COUNT(*) FROM `prefix_forummods` WHERE `uid` = " . $_SESSION['authid'] . " AND `fid` = " . $fid), 0)) {
         return (true);
     }
     return (false);

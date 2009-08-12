@@ -12,11 +12,11 @@ $_GET['ak'] = escape($_GET['ak'], 'integer');
 $_GET['id'] = escape($_GET['id'], 'integer');
 
 function showVote ($id) {
-    $maxRow = db_fetch_object(db_query('SELECT MAX(res) as res FROM `prefix_poll_res` WHERE poll_id = "' . $id . '"'));
-    $gesRow = db_fetch_object(db_query('SELECT SUM(res) as res FROM `prefix_poll_res` WHERE poll_id = "' . $id . '"'));
+    $maxRow = db_fetch_object(db_query('SELECT MAX(`res`) as `res` FROM `prefix_poll_res` WHERE `poll_id` = "' . $id . '"'));
+    $gesRow = db_fetch_object(db_query('SELECT SUM(`res`) as `res` FROM `prefix_poll_res` WHERE `poll_id` = "' . $id . '"'));
     $max = $maxRow->res;
     $ges = $gesRow->res;
-    $erg = db_query('SELECT antw, res FROM `prefix_poll_res` WHERE poll_id = "' . $id . '" ORDER BY sort');
+    $erg = db_query('SELECT `antw`, `res` FROM `prefix_poll_res` WHERE `poll_id` = "' . $id . '" ORDER BY `sort`');
     while ($row = db_fetch_object($erg)) {
         if (!empty($row->res)) {
             $weite = ($row->res / $max) * 200;
@@ -50,11 +50,11 @@ function getPollRecht ($akt) {
 
 $um = $menu->get(1);
 if ($menu->get(1) == 'del') {
-    db_query('DELETE FROM `prefix_poll` WHERE poll_id = "' . $_GET['del'] . '"');
-    db_query('DELETE FROM `prefix_poll_res` WHERE poll_id = "' . $_GET['del'] . '"');
+    db_query('DELETE FROM `prefix_poll` WHERE `poll_id` = "' . $_GET['del'] . '"');
+    db_query('DELETE FROM `prefix_poll_res` WHERE `poll_id` = "' . $_GET['del'] . '"');
 }
 if ($menu->get(1) == 5) {
-    db_query('UPDATE `prefix_poll` SET stat = "' . $_GET['ak'] . '" WHERE poll_id = "' . $_GET['id'] . '"');
+    db_query('UPDATE `prefix_poll` SET `stat` = "' . $_GET['ak'] . '" WHERE `poll_id` = "' . $_GET['id'] . '"');
 }
 // A L L E   V O T E S   W E R D E N   A N G E Z E I G T
 if (isset($_POST['sub'])) {
@@ -76,15 +76,15 @@ if (isset($_POST['sub'])) {
         db_query('UPDATE `prefix_poll` SET frage = "' . $_POST['frage'] . '", recht = "' . $_POST['poll_recht'] . '" WHERE poll_id = "' . $_POST['vid'] . '"');
         $i = 1;
         foreach ($_POST['antw'] as $k => $v) {
-            $a = db_count_query("SELECT COUNT(*) FROM prefix_poll_res WHERE poll_id = " . $_POST['vid'] . " AND sort = " . $k);
+            $a = db_count_query("SELECT COUNT(*) FROM `prefix_poll_res` WHERE `poll_id` = " . $_POST['vid'] . " AND `sort` = " . $k);
             $v = escape($v, 'string');
             if ($a == 0 AND $v != '') {
                 db_query ("INSERT INTO `prefix_poll_res` (`sort`,`poll_id`,`antw`,`res`) VALUES ( '" . $i . "' , '" . $_POST['vid'] . "' , '" . $v . "' , '' )");
                 $i++;
             } elseif ($a == 1 AND $v == '') {
-                db_query ("DELETE FROM `prefix_poll_res` WHERE poll_id = " . $_POST['vid'] . " AND sort = " . $k);
+                db_query ("DELETE FROM `prefix_poll_res` WHERE `poll_id` = " . $_POST['vid'] . " AND `sort` = " . $k);
             } elseif ($a == 1 AND $v != '') {
-                db_query ("UPDATE `prefix_poll_res` SET antw = '" . $v . "', sort = " . $i . " WHERE poll_id = " . $_POST['vid'] . " AND sort = " . $k);
+                db_query ("UPDATE `prefix_poll_res` SET `antw` = '" . $v . "', `sort` = " . $i . " WHERE `poll_id` = " . $_POST['vid'] . " AND `sort` = " . $k);
                 $i++;
             }
         }
@@ -92,11 +92,11 @@ if (isset($_POST['sub'])) {
 }
 if (empty($_POST['add'])) {
     if (isset($_GET['vid'])) {
-        $row1 = db_fetch_object(db_query('SELECT frage, recht FROM `prefix_poll` WHERE poll_id = "' . $_GET['vid'] . '"'));
+        $row1 = db_fetch_object(db_query('SELECT `frage`, `recht` FROM `prefix_poll` WHERE `poll_id` = "' . $_GET['vid'] . '"'));
         $_POST['frage'] = $row1->frage;
         $_POST['poll_recht'] = $row1->recht;
         $_POST['antw'] = array();
-        $erg2 = db_query('SELECT sort,antw FROM `prefix_poll_res` WHERE poll_id = "' . $_GET['vid'] . '" ORDER BY sort');
+        $erg2 = db_query('SELECT `sort`,`antw` FROM `prefix_poll_res` WHERE `poll_id` = "' . $_GET['vid'] . '" ORDER BY `sort`');
         while ($row2 = db_fetch_object($erg2)) {
             $_POST['antw'][$row2->sort] = $row2->antw;
         }
@@ -150,7 +150,7 @@ echo '<tr class="Chead"><td colspan="5"><b>Vote verwalten</b></td></tr>';
 </script>
 			<?php
 
-$abf = 'SELECT * FROM `prefix_poll` ORDER BY poll_id DESC';
+$abf = 'SELECT * FROM `prefix_poll` ORDER BY `poll_id` DESC';
 $erg = db_query($abf);
 $class = '';
 while ($row = db_fetch_object($erg)) {

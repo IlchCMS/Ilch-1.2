@@ -42,23 +42,23 @@ function user_check_url_rewrite() {
 
 function user_update_database () {
     $dif = date('Y-m-d H:i:s', time() - 7200);
-    db_query("UPDATE prefix_online SET uptime = now() WHERE sid = '" . session_id() . "'");
-    db_query("DELETE FROM prefix_online WHERE uptime < '" . $dif . "'");
+    db_query("UPDATE `prefix_online` SET `uptime` = now() WHERE `sid` = '" . session_id() . "'");
+    db_query("DELETE FROM `prefix_online` WHERE `uptime` < '" . $dif . "'");
     if (loggedin()) {
-        db_query("UPDATE prefix_user SET llogin = '" . time() . "' WHERE id = '" . $_SESSION['authid'] . "'");
+        db_query("UPDATE `prefix_user` SET `llogin` = '" . time() . "' WHERE `id` = '" . $_SESSION['authid'] . "'");
     }
 }
 
 function user_set_user_online () {
     global $allgAr;
-    if (0 == db_result(db_query("SELECT COUNT(*) FROM prefix_online WHERE sid = '" . session_id() . "'"), 0)) {
-        db_query("INSERT INTO prefix_online (sid,uptime,ipa) VALUES ('" . session_id() . "',now(),'" . getip() . "')");
+    if (0 == db_result(db_query("SELECT COUNT(*) FROM `prefix_online` WHERE `sid` = '" . session_id() . "'"), 0)) {
+        db_query("INSERT INTO `prefix_online` (`sid`,`uptime`,`ipa`) VALUES ('" . session_id() . "',now(),'" . getip() . "')");
     }
     $_SESSION['authgfx'] = $allgAr['gfx'];
 }
 
 function user_key_in_db() {
-    if (1 == db_result(db_query("SELECT COUNT(*) FROM prefix_online WHERE sid = '" . session_id() . "'"), 0)) {
+    if (1 == db_result(db_query("SELECT COUNT(*) FROM `prefix_online` WHERE `sid` = '" . session_id() . "'"), 0)) {
         return (true);
     } else {
         return (false);
@@ -89,7 +89,7 @@ function user_login_check () {
 			return false;
 		}
 		
-        $erg = db_query("SELECT name,id,recht,pass,llogin FROM prefix_user WHERE ".$term);
+        $erg = db_query("SELECT `name`,`id`,`recht`,`pass`,`llogin` FROM `prefix_user` WHERE ".$term);
         if (db_num_rows($erg) == 1) {
             debug ('user gefunden');
             $row = db_fetch_assoc($erg);
@@ -101,7 +101,7 @@ function user_login_check () {
 				$_SESSION['authlang'] = $allgAr['lang'];
                 $_SESSION['lastlogin'] = $row['llogin'];
                 $_SESSION['authsess'] = session_und_cookie_name();
-                db_query("UPDATE prefix_online SET uid = " . $_SESSION['authid'] . " WHERE sid = '" . session_id() . "'");
+                db_query("UPDATE `prefix_online` SET `uid` = " . $_SESSION['authid'] . " WHERE `sid` = '" . session_id() . "'");
                 setcookie($_SESSION['authsess'], $row['id'] . '=' . $row['pass'] , time() + 31104000, "/");
                 user_set_grps_and_modules();
                 return (true);
@@ -127,7 +127,7 @@ function user_auto_login_check () {
     }
     debug (' pw ' . $pw);
     debug (' id ' . $id);
-    $erg = db_query("SELECT name,id,recht,pass,llogin FROM prefix_user WHERE id = " . $id);
+    $erg = db_query("SELECT `name`,`id`,`recht`,`pass`,`llogin` FROM `prefix_user` WHERE `id` = " . $id);
     if (db_num_rows($erg) == 1) {
         debug ('benutzer gefunden');
         $row = db_fetch_assoc($erg);
@@ -140,7 +140,7 @@ function user_auto_login_check () {
 			$_SESSION['authlang'] = $allgAr['lang'];
             $_SESSION['lastlogin'] = $row['llogin'];
             $_SESSION['authsess'] = $cn;
-            db_query("UPDATE prefix_online SET uid = " . $_SESSION['authid'] . " WHERE sid = '" . session_id() . "'");
+            db_query("UPDATE `prefix_online` SET `uid` = " . $_SESSION['authid'] . " WHERE `sid` = '" . session_id() . "'");
             setcookie($cn, $row['id'] . '=' . $row['pass'], time() + 31104000, "/");
             return (true);
         }
@@ -171,7 +171,7 @@ function user_logout () {
     // $_SESSION = array();
     // $_SESSION['authgfx'] = $allgAr['gfx'];
     user_set_guest_vars();
-    db_query("UPDATE prefix_online SET uid = " . $_SESSION['authid'] . " WHERE sid = '" . session_id() . "'");
+    db_query("UPDATE `prefix_online` SET `uid` = " . $_SESSION['authid'] . " WHERE `sid` = '" . session_id() . "'");
     setcookie(session_und_cookie_name(), "", time() - 999999999999, "/");
     // if (isset($_COOKIE[session_name()])) {
     // setcookie(session_name(), '', time()-99999999999931104000, '/');
@@ -184,14 +184,14 @@ function user_set_grps_and_modules () {
     $_SESSION['authgrp'] = array();
     $_SESSION['authmod'] = array();
     if (loggedin()) {
-        $erg = db_query("SELECT gid FROM prefix_groupusers WHERE uid = " . $_SESSION['authid']);
+        $erg = db_query("SELECT `gid` FROM `prefix_groupusers` WHERE `uid` = " . $_SESSION['authid']);
         while ($row = db_fetch_assoc ($erg)) {
             $_SESSION['authgrp'][$row['gid']] = true;
         }
-        $erg = db_query("SELECT DISTINCT url
-    FROM prefix_modulerights
-    left join prefix_modules on prefix_modules.id = prefix_modulerights.mid
-    WHERE uid = " . $_SESSION['authid']);
+        $erg = db_query("SELECT DISTINCT `url`
+    FROM `prefix_modulerights`
+    LEFT JOIN `prefix_modules` ON `prefix_modules`.`id` = `prefix_modulerights`.`mid`
+    WHERE `uid` = " . $_SESSION['authid']);
         while ($row = db_fetch_assoc ($erg)) {
             $_SESSION['authmod'][$row['url']] = true;
         }
@@ -303,13 +303,13 @@ function user_regist ($name, $mail, $pass) {
     global $allgAr, $lang;
 	
 	$name_clean = get_lower( $name );
-    $erg = db_query("SELECT id FROM prefix_user WHERE name_clean = BINARY '" . $name_clean . "'");
+    $erg = db_query("SELECT `id` FROM `prefix_user` WHERE `name_clean` = BINARY '" . $name_clean . "'");
     if (db_num_rows($erg) > 0) {
         return (false);
     }
 
 	$mail = get_lower( $mail );
-    $erg = db_query("SELECT id FROM prefix_user WHERE email = BINARY '" . $mail . "'");
+    $erg = db_query("SELECT `id` FROM `prefix_user` WHERE `email` = BINARY '" . $mail . "'");
     if (db_num_rows($erg) > 0) {
         return (false);
     }
@@ -328,10 +328,10 @@ function user_regist ($name, $mail, $pass) {
         $page = $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"];
         $id = md5 (uniqid (rand()));
         $confirmlinktext = "\n" . $lang['registconfirm'] . "\n\n" . sprintf($lang['registconfirmlink'], $page, $id);
-        db_query("INSERT INTO prefix_usercheck (`check`,name,email,pass,datime,ak)
+        db_query("INSERT INTO `prefix_usercheck` (`check`,`name`,`email`,`pass`,`datime`,`ak`)
 		VALUES ('" . $id . "','" . $name . "','" . $mail . "','" . $md5_pass . "',NOW(),1)");
     } else {
-        db_query("INSERT INTO prefix_user (name,name_clean,pass,recht,regist,llogin,email,status,opt_mail,opt_pm)
+        db_query("INSERT INTO `prefix_user` (`name`,`name_clean`,`pass`,`recht`,`regist`,`llogin`,`email`,`status`,`opt_mail`,`opt_pm`)
 		VALUES('" . $name . "','" . $name_clean . "','" . $md5_pass . "',-1,'" . time() . "','" . time() . "','" . $mail . "',1,1,1)");
         $userid = db_last_id();
     }
@@ -343,28 +343,28 @@ function user_regist ($name, $mail, $pass) {
 }
 
 function user_remove($uid) {
-    $row = @db_fetch_object(db_query("SELECT recht,avatar FROM prefix_user WHERE id = " . $uid));
+    $row = @db_fetch_object(db_query("SELECT `recht`,`avatar` FROM `prefix_user` WHERE `id` = " . $uid));
     if ($uid != 1 AND ($_SESSION['authid'] == $uid OR $_SESSION['authid'] == 1 OR (is_coadmin() AND $_SESSION['authright'] < $row->recht))) {
-        db_query("DELETE FROM prefix_user WHERE id = " . $uid);
-        db_query("DELETE FROM prefix_userfields WHERE uid = " . $uid);
-        db_query("DELETE FROM prefix_groupusers WHERE uid = " . $uid);
-        db_query("DELETE FROM prefix_modulerights WHERE uid = " . $uid);
-        db_query("DELETE FROM prefix_pm WHERE eid = " . $uid);
-        db_query("DELETE FROM prefix_online WHERE uid = " . $uid);
+        db_query("DELETE FROM `prefix_user` WHERE `id` = " . $uid);
+        db_query("DELETE FROM `prefix_userfields` WHERE `uid` = " . $uid);
+        db_query("DELETE FROM `prefix_groupusers` WHERE `uid` = " . $uid);
+        db_query("DELETE FROM `prefix_modulerights` WHERE `uid` = " . $uid);
+        db_query("DELETE FROM `prefix_pm` WHERE `eid` = " . $uid);
+        db_query("DELETE FROM `prefix_online` WHERE `uid` = " . $uid);
         // Usergallery entfernen
-        $sql = db_query("SELECT id,endung FROM prefix_usergallery WHERE uid = " . $uid);
+        $sql = db_query("SELECT `id`,`endung` FROM `prefix_usergallery` WHERE `uid` = " . $uid);
         while ($r = db_fetch_object($sql)) {
-            @unlink("include/images/usergallery/img_$r->id.$r->endung");
-            @unlink("include/images/usergallery/img_thumb_$r->id.$r->endung");
+            @unlink("include/images/usergallery/img_".$r->id.".".$r->endung);
+            @unlink("include/images/usergallery/img_thumb_".$r->id.".".$r->endung);
         }
-        db_query("DELETE FROM prefix_usergallery WHERE uid = " . $uid);
+        db_query("DELETE FROM `prefix_usergallery` WHERE `uid` = " . $uid);
         // Avatar
         @unlink($row->avatar);
     }
 }
 
 function sendpm ($sid, $eid, $ti, $te, $status = 0) {
-    db_query("INSERT INTO `prefix_pm` (sid,eid,time,titel,txt,status) VALUES (" . $sid . "," . $eid . ",'" . time() . "','" . $ti . "','" . $te . "'," . $status . ")");
+    db_query("INSERT INTO `prefix_pm` (`sid`,`eid`,`time`,`titel`,`txt`,`status`) VALUES (" . $sid . "," . $eid . ",'" . time() . "','" . $ti . "','" . $te . "'," . $status . ")");
 }
 
 ?>

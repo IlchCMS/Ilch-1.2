@@ -24,7 +24,7 @@ $design->header();
 $um = $menu->get(1);
 
 if (empty ($um)) {
-    $svResult = db_query('SELECT * FROM prefix_allg WHERE k = \'picofx\'');
+    $svResult = db_query('SELECT * FROM `prefix_allg` WHERE `k` = \'picofx\'');
     while ($saRow = db_fetch_assoc($svResult)) {
         $picofxOpts[$saRow['v1']] = $saRow['v2'];
     }
@@ -108,19 +108,19 @@ if (empty ($um)) {
         echo '<br>fehler';
     }else {
         if ($directory == 0) {
-            $picofxOpts['pic'] = @db_result(db_query("SELECT id FROM prefix_gallery_imgs ORDER BY RAND() LIMIT 1"), 0);
+            $picofxOpts['pic'] = @db_result(db_query("SELECT `id` FROM `prefix_gallery_imgs` ORDER BY RAND() LIMIT 1"), 0);
         } else {
-            $picofxOpts['pic'] = @db_result(db_query("SELECT id FROM prefix_gallery_imgs WHERE cat = " . $directory . " ORDER BY RAND() LIMIT 1"), 0);
+            $picofxOpts['pic'] = @db_result(db_query("SELECT `id` FROM `prefix_gallery_imgs` WHERE `cat` = " . $directory . " ORDER BY RAND() LIMIT 1"), 0);
         }
         if (!empty($picofxOpts['pic'])) {
-            $picofxOpts['pic'] .= '.' . @db_result(db_query("SELECT endung FROM prefix_gallery_imgs WHERE id = " . $picofxOpts['pic']), 0);
+            $picofxOpts['pic'] .= '.' . @db_result(db_query("SELECT `endung` FROM `prefix_gallery_imgs` WHERE `id` = " . $picofxOpts['pic']), 0);
         }
         // geaendertes pic in db speichern
-        db_query('UPDATE prefix_allg SET v2 = \'' . $picofxOpts['pic'] . '\' WHERE k = \'picofx\' AND v1 =\'pic\' LIMIT 1');
-        db_query('UPDATE prefix_allg SET v2 = \'' . $directory . '\' WHERE k = \'picofx\' AND v1 =\'directory\' LIMIT 1');
-        db_query('UPDATE prefix_allg SET v2 = \'' . $change . '\' WHERE k = \'picofx\' AND v1 =\'interval\' LIMIT 1');
-        db_query('UPDATE prefix_allg SET v2 = \'' . $picofxNextChange . '\' WHERE k = \'picofx\' AND v1 =\'nextchange\' LIMIT 1');
-        db_query('UPDATE prefix_allg SET v2 = \'' . $picofxPicWidth . '\' WHERE k = \'picofx\' AND v1 =\'picwidth\' LIMIT 1');
+        db_query('UPDATE `prefix_allg` SET `v2` = \'' . $picofxOpts['pic'] . '\' WHERE `k` = \'picofx\' AND `v1` =\'pic\' LIMIT 1');
+        db_query('UPDATE `prefix_allg` SET `v2` = \'' . $directory . '\' WHERE `k` = \'picofx\' AND `v1` =\'directory\' LIMIT 1');
+        db_query('UPDATE `prefix_allg` SET `v2` = \'' . $change . '\' WHERE `k` = \'picofx\' AND `v1` =\'interval\' LIMIT 1');
+        db_query('UPDATE `prefix_allg` SET `v2` = \'' . $picofxNextChange . '\' WHERE `k` = \'picofx\' AND `v1` =\'nextchange\' LIMIT 1');
+        db_query('UPDATE `prefix_allg` SET `v2` = \'' . $picofxPicWidth . '\' WHERE `k` = \'picofx\' AND `v1` =\'picwidth\' LIMIT 1');
         wd ('admin.php?picofx', 'Pic of X Einstellungen gespeichert');
     }
 }

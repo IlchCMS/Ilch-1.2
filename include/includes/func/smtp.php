@@ -12,7 +12,7 @@ function server_parse($socket, $response, $line = __LINE__) {
     }
 
     if (!(substr($server_response, 0, 3) == $response)) {
-        echo "Ran into problems sending Mail. Response: $server_response<br />";
+        echo "Ran into problems sending Mail. Response: ".$server_response."<br />";
     }
 }
 

@@ -12,7 +12,7 @@ if (empty ($_POST['SEND'])) {
         'u0' => 'an alle User',
         );
 
-    $erg = db_query("SELECT name,id FROM prefix_groups ORDER BY id");
+    $erg = db_query("SELECT `name`,`id` FROM `prefix_groups` ORDER BY `id`");
     while ($RRrow = db_fetch_object($erg)) {
         $auswahl['g' . $RRrow->id] = $RRrow->name;
     }
@@ -82,12 +82,12 @@ if (empty ($_POST['SEND'])) {
     $usrogrp = substr($_POST['auswahl'], 1, 1);
 
     if ($_POST['auswahl'] == 'Enews') {
-        $q = "SELECT email FROM prefix_newsletter";
+        $q = "SELECT `email` FROM `prefix_newsletter`";
     }elseif ($usrogrp == 'u') {
-        $q = "SELECT email, name as uname, id as uid FROM prefix_user WHERE recht <= -1";
+        $q = "SELECT `email`, `name` as `uname`, `id` as `uid` FROM `prefix_user` WHERE `recht` <= -1";
     }elseif (true == strpos($_POST['auswahl'], 'g')) {
         $gid = substr ($_POST['auswahl'], 2 , strlen ($_POST['auswahl']) - 1);
-        $q = "SELECT b.email, b.name as uname, b.id as uid FROM prefix_groupusers a LEFT JOIN prefix_user b ON a.uid = b.id WHERE a.gid = " . $gid;
+        $q = "SELECT `b`.`email`, `b`.`name` as `uname`, `b`.`id` as `uid` FROM `prefix_groupusers` `a` LEFT JOIN `prefix_user` `b` ON `a`.`uid` = `b`.`id` WHERE `a`.`gid` = " . $gid;
     }
 
     $erg = db_query ($q);

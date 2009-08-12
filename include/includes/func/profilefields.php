@@ -20,14 +20,14 @@ function profilefields_functions () {
 }
 // Felder zum aendern anzeigen.
 function profilefields_change ($uid) {
-    $q = db_query("SELECT id, `show`, val FROM prefix_profilefields LEFT JOIN prefix_userfields ON prefix_userfields.fid = prefix_profilefields.id AND prefix_userfields.uid = " . $uid . " WHERE func = 1 ORDER BY pos");
+    $q = db_query("SELECT `id`, `show`, `val` FROM `prefix_profilefields` LEFT JOIN `prefix_userfields` ON `prefix_userfields`.`fid` = `prefix_profilefields`.`id` AND `prefix_userfields`.`uid` = " . $uid . " WHERE `func` = 1 ORDER BY `pos`");
     while ($r = db_fetch_assoc($q)) {
         echo '<label style="float:left; width:35%;">' . $r['show'] . '</label><input type="text" name="profilefields[' . $r['id'] . ']" value="' . $r['val'] . '"><br />';
     }
 }
 // Felder die uebermittelt wurden speichern.
 function profilefields_change_save ($uid) {
-    $q = db_query("SELECT id, `show`, val FROM prefix_profilefields LEFT JOIN prefix_userfields ON prefix_userfields.fid = prefix_profilefields.id AND prefix_userfields.uid = " . $uid . " WHERE func = 1 ORDER BY pos");
+    $q = db_query("SELECT `id`, `show`, `val` FROM `prefix_profilefields` LEFT JOIN `prefix_userfields` ON `prefix_userfields`.`fid` = `prefix_profilefields`.`id` AND `prefix_userfields`.`uid` = " . $uid . " WHERE `func` = 1 ORDER BY `pos`");
     while ($r = db_fetch_assoc($q)) {
         if (isset($_REQUEST['profilefields'][$r['id']])) {
             $v = $_REQUEST['profilefields'][$r['id']];
@@ -35,11 +35,11 @@ function profilefields_change_save ($uid) {
             $v = '';
         }
         if ($r['val'] == '' AND $v != '') {
-            db_query("INSERT INTO prefix_userfields (fid,uid,val) VALUES (" . $r['id'] . "," . $uid . ",'" . $v . "')");
+            db_query("INSERT INTO `prefix_userfields` (`fid`,`uid`,`val`) VALUES (" . $r['id'] . "," . $uid . ",'" . $v . "')");
         } elseif ($r['val'] != '' AND $v == '') {
-            db_query("DELETE FROM prefix_userfields WHERE fid = " . $r['id'] . " AND uid = " . $uid);
+            db_query("DELETE FROM `prefix_userfields` WHERE `fid` = " . $r['id'] . " AND `uid` = " . $uid);
         } elseif ($r['val'] != '' AND $v != '' AND $r['val'] != $v) {
-            db_query("UPDATE prefix_userfields SET val = '" . $v . "' WHERE fid = " . $r['id'] . " AND uid = " . $uid);
+            db_query("UPDATE `prefix_userfields` SET `val` = '" . $v . "' WHERE `fid` = " . $r['id'] . " AND `uid` = " . $uid);
         }
     }
 }
@@ -48,22 +48,22 @@ function profilefields_change_save ($uid) {
 function profilefields_show ($uid) {
     $l = '';
     $a = array ();
-    $q = db_query("SHOW COLUMNS FROM prefix_user");
+    $q = db_query("SHOW COLUMNS FROM `prefix_user`");
     while ($r = db_fetch_assoc($q)) {
         $a[$r['Field']] = $r['Field'];
     }
 
-    $q = db_query("SELECT id, `show`, func FROM prefix_profilefields WHERE func < 4 ORDER BY pos");
+    $q = db_query("SELECT `id`, `show`, `func` FROM `prefix_profilefields` WHERE `func` < 4 ORDER BY `pos`");
     while ($r = db_fetch_assoc($q)) {
         if ($r['func'] == 1) {
-            $str = @db_result (db_query ("SELECT val FROM prefix_userfields WHERE uid = " . $uid . " AND fid = " . $r['id']) , 0);
+            $str = @db_result (db_query ("SELECT `val` FROM `prefix_userfields` WHERE `uid` = " . $uid . " AND `fid` = " . $r['id']) , 0);
             $l .= '<tr><td class="Cmite">' . $r['show'] . '</td><td class="Cnorm">' . $str . '</td></tr>';
         } elseif ($r['func'] == 2) {
             $l .= '<tr><td class="Cdark" colspan="2"><b>' . $r['show'] . '</b></td></tr>';
         } elseif ($r['func'] == 3) {
             $str = '';
             if (isset($a[$r['show']])) {
-                $str = @db_result (db_query ("SELECT `" . $r['show'] . "` FROM prefix_user WHERE id = " . $uid) , 0);
+                $str = @db_result (db_query ("SELECT `" . $r['show'] . "` FROM `prefix_user` WHERE `id` = " . $uid) , 0);
             }
             if (function_exists ('profilefields_show_spez_' . $r['show'])) {
                 $l .= call_user_func ('profilefields_show_spez_' . $r['show'], $str, $uid);

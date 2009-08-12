@@ -10,7 +10,7 @@ define ('USERUPTIME', 180);
 // #### alle online
 function ges_online() {
     $dif = date('Y-m-d H:i:s', time() - USERUPTIME);
-    $erg = db_query("SELECT COUNT(*) FROM `prefix_online` WHERE uptime > '" . $dif . "'");
+    $erg = db_query("SELECT COUNT(*) FROM `prefix_online` WHERE `uptime` > '" . $dif . "'");
     $anz = db_result($erg, 0);
     return ($anz);
 }
@@ -20,7 +20,7 @@ function ges_online() {
 // #### nur die user
 function ges_user_online() {
     $dif = date('Y-m-d H:i:s', time() - USERUPTIME);
-    $erg = db_query("SELECT COUNT(*) FROM `prefix_online` WHERE uid > 0 and uptime > '" . $dif . "'");
+    $erg = db_query("SELECT COUNT(*) FROM `prefix_online` WHERE `uid` > 0 AND `uptime` > '" . $dif . "'");
     $anz = db_result($erg, 0);
     return ($anz);
 }
@@ -30,7 +30,7 @@ function ges_user_online() {
 // #### nur die gaeste
 function ges_gast_online() {
     $dif = date('Y-m-d H:i:s', time() - USERUPTIME);
-    $erg = db_query("SELECT COUNT(*) FROM `prefix_online` WHERE uid = 0 and uptime > '" . $dif . "'");
+    $erg = db_query("SELECT COUNT(*) FROM `prefix_online` WHERE `uid` = 0 AND `uptime` > '" . $dif . "'");
     $anz = db_result($erg, 0);
     return ($anz);
 }
@@ -41,7 +41,7 @@ function ges_gast_online() {
 function user_online_liste() {
     $OnListe = '';
     $dif = date('Y-m-d H:i:s', time() - USERUPTIME);
-    $erg = db_query("SELECT DISTINCT uid, name, prefix_ranks.bez, spezrank FROM `prefix_online` left join prefix_user on prefix_user.id = prefix_online.uid left join prefix_ranks ON prefix_ranks.id = prefix_user.spezrank WHERE uid > 0 and uptime > '" . $dif . "'");
+    $erg = db_query("SELECT DISTINCT `uid`, `name`, `prefix_ranks`.`bez`, `spezrank` FROM `prefix_online` LEFT JOIN `prefix_user` ON `prefix_user`.`id` = `prefix_online`.`uid` LEFT JOIN `prefix_ranks` ON `prefix_ranks`.`id` = `prefix_user`.`spezrank` WHERE `uid` > 0 AND `uptime` > '" . $dif . "'");
     while ($row = db_fetch_object($erg)) {
         if ($row->spezrank != 0) {
             $OnListe .= '<a title="' . $row->bez . '" href="index.php?user-details-' . $row->uid . '"><b><i>' . $row->name . '</i></b></a> , ';
@@ -58,7 +58,7 @@ function user_admin_online_liste () {
     $OnListe = '';
     $class = '';
     $dif = date('Y-m-d H:i:s', time() - USERUPTIME);
-    $erg = db_query("SELECT DISTINCT uid, DATE_FORMAT(uptime, '%d.%m.%Y - %H:%i:%s') as datum, ipa, name FROM `prefix_online` left join prefix_user on prefix_user.id = prefix_online.uid WHERE uptime > '" . $dif . "' ORDER BY uid DESC");
+    $erg = db_query("SELECT DISTINCT `uid`, DATE_FORMAT(`uptime`, '%d.%m.%Y - %H:%i:%s') as `datum`, `ipa`, `name` FROM `prefix_online` LEFT JOIN `prefix_user` on `prefix_user`.`id` = `prefix_online`.`uid` WHERE `uptime` > '" . $dif . "' ORDER BY `uid` DESC");
     while ($row = db_fetch_object($erg)) {
         $name = $row->name;
         if ($row->uid == 0) {
@@ -120,7 +120,7 @@ function site_statistic () {
         $m = date('n');
         $y = date('Y');
         $ip = getip();
-        $ergResul = db_result(db_query("SELECT COUNT(ip) FROM prefix_stats WHERE ip = '" . $ip . "' AND `day` = " . $d . " AND mon = " . $m . " AND yar = " . $y), 0);
+        $ergResul = db_result(db_query("SELECT COUNT(`ip`) FROM `prefix_stats` WHERE `ip` = '" . $ip . "' AND `day` = " . $d . " AND `mon` = " . $m . " AND `yar` = " . $y), 0);
         debug ($ergResul . '#statistic res');
         if ($ergResul == 0) {
             $os = site_statistic_get_os($_SERVER['HTTP_USER_AGENT']);
@@ -128,13 +128,13 @@ function site_statistic () {
             $wt = date('w');
             $st = date('G');
             $ur = (isset ($_SERVER['HTTP_REFERER']) ? site_statistic_get_referer($_SERVER['HTTP_REFERER']) : '');
-            db_query("INSERT INTO prefix_stats (wtag,stunde,`day`,mon,yar,os,browser,ip,ref)
+            db_query("INSERT INTO `prefix_stats` (`wtag`,`stunde`,`day`,`mon`,`yar`,`os`,`browser`,`ip`,`ref`)
 			VALUES(" . $wt . "," . $st . "," . $d . "," . $m . "," . $y . ",'" . $os . "','" . $br . "','" . $ip . "','" . $ur . "')");
 
             $dc = (strlen ($d) == 1 ? '0' . $d : $d);
             $mc = (strlen ($m) == 1 ? '0' . $m : $m);
             $cdate = $y . '-' . $mc . '-' . $dc;
-            $query = "SELECT COUNT(date) FROM `prefix_counter` WHERE `date` = '" . $cdate . "'";
+            $query = "SELECT COUNT(`date`) FROM `prefix_counter` WHERE `date` = '" . $cdate . "'";
             if (db_result(db_query($query), 0) == 0) {
                 db_query('INSERT INTO `prefix_counter` (`date`,`count`) VALUES ( "' . $cdate . '" , "1" ) ');
             } else {
