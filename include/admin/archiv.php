@@ -538,18 +538,18 @@ switch ($um) {
             $_POST['link'] = get_homepage(escape($_POST['link'], 'string'));
 
             if (empty ($_POST['pkey'])) {
-                $pos = db_result(db_query("SELECT COUNT(*) FROM prefix_links WHERE cat = " . $_POST['cat']), 0);
-                db_query("INSERT INTO prefix_links (cat,name,banner,`desc`,link,pos) VALUES ('" . $_POST['cat'] . "','" . $_POST['name'] . "','" . $_POST['banner'] . "','" . $_POST['desc'] . "','" . $_POST['link'] . "','" . $pos . "')");
+                $pos = db_result(db_query("SELECT COUNT(*) FROM `prefix_links` WHERE `cat` = " . $_POST['cat']), 0);
+                db_query("INSERT INTO `prefix_links` (`cat`,`name`,`banner`,`desc`,`link`,`pos`) VALUES ('" . $_POST['cat'] . "','" . $_POST['name'] . "','" . $_POST['banner'] . "','" . $_POST['desc'] . "','" . $_POST['link'] . "','" . $pos . "')");
             } else {
-                $alt_row = db_fetch_assoc(db_query("SELECT cat,pos FROM prefix_links WHERE id = " . $_POST['pkey']));
+                $alt_row = db_fetch_assoc(db_query("SELECT `cat`,`pos` FROM `prefix_links` WHERE `id` = " . $_POST['pkey']));
                 if ($alt_row['cat'] != $_POST['cat']) {
-                    $pos = db_result(db_query("SELECT COUNT(*) FROM prefix_links WHERE cat = " . $_POST['cat']), 0);
+                    $pos = db_result(db_query("SELECT COUNT(*) FROM `prefix_links` WHERE `cat` = " . $_POST['cat']), 0);
                 } else {
                     $pos = $alt_row['pos'];
                 }
-                db_query("UPDATE prefix_links SET cat = '" . $_POST['cat'] . "',name = '" . $_POST['name'] . "',pos = " . $pos . ", banner = '" . $_POST['banner'] . "',`desc` = '" . $_POST['desc'] . "',link = '" . $_POST['link'] . "' WHERE id = '" . $_POST['pkey'] . "'");
+                db_query("UPDATE `prefix_links` SET `cat` = '" . $_POST['cat'] . "',`name` = '" . $_POST['name'] . "',`pos` = " . $pos . ", `banner` = '" . $_POST['banner'] . "',`desc` = '" . $_POST['desc'] . "',`link` = '" . $_POST['link'] . "' WHERE `id` = '" . $_POST['pkey'] . "'");
                 if ($alt_row['cat'] != $_POST['cat']) {
-                    db_query("UPDATE prefix_links SET pos = pos - 1 WHERE pos > " . $alt_row['pos'] . " AND cat = " . $alt_row['cat']);
+                    db_query("UPDATE `prefix_links` SET `pos` = `pos` - 1 WHERE `pos` > " . $alt_row['pos'] . " AND `cat` = " . $alt_row['cat']);
                 }
             }
             $azk = $_POST['cat'];
@@ -560,25 +560,25 @@ switch ($um) {
                 $_POST['Ccat'] = 0;
             }
             if (empty ($_POST['Cpkey'])) {
-                $pos = db_result(db_query("SELECT COUNT(*) FROM prefix_linkcats WHERE cat = " . $_POST['Ccat']), 0);
-                db_query("INSERT INTO prefix_linkcats (`cat`,`name`,`desc`,pos) VALUES (" . $_POST['Ccat'] . ",'" . $_POST['Cname'] . "','" . $_POST['Cdesc'] . "','" . $pos . "')");
+                $pos = db_result(db_query("SELECT COUNT(*) FROM `prefix_linkcats` WHERE `cat` = " . $_POST['Ccat']), 0);
+                db_query("INSERT INTO `prefix_linkcats` (`cat`,`name`,`desc`,`pos`) VALUES (" . $_POST['Ccat'] . ",'" . $_POST['Cname'] . "','" . $_POST['Cdesc'] . "','" . $pos . "')");
             } else {
-                $alt_row = db_fetch_assoc(db_query("SELECT cat,pos FROM prefix_linkcats WHERE id = " . $_POST['Cpkey']));
+                $alt_row = db_fetch_assoc(db_query("SELECT `cat`,`pos` FROM `prefix_linkcats` WHERE `id` = " . $_POST['Cpkey']));
                 $tc = $_POST['Ccat'];
                 $bool = true;
                 while ($tc > 0) {
                     if ($tc == $_POST['Cpkey']) {
                         $bool = false;
                     }
-                    $tc = @db_result(db_query("SELECT cat FROM prefix_linkcats WHERE id = $tc"));
+                    $tc = @db_result(db_query("SELECT `cat` FROM `prefix_linkcats` WHERE `id` = ".$tc));
                 }
                 if ($bool) {
                     if ($alt_row['cat'] != $_POST['Ccat']) {
-                        $pos = db_result(db_query("SELECT COUNT(*) FROM prefix_linkcats WHERE cat = " . $_POST['Ccat']), 0);
+                        $pos = db_result(db_query("SELECT COUNT(*) FROM `prefix_linkcats` WHERE `cat` = " . $_POST['Ccat']), 0);
                     } else {
                         $pos = $alt_row['pos'];
                     }
-                    db_query("UPDATE prefix_linkcats SET `cat` = '" . $_POST['Ccat'] . "',`name` = '" . $_POST['Cname'] . "',pos = '" . $pos . "',`desc` = '" . $_POST['Cdesc'] . "' WHERE `id` = '" . $_POST['Cpkey'] . "'");
+                    db_query("UPDATE `prefix_linkcats` SET `cat` = '" . $_POST['Ccat'] . "',`name` = '" . $_POST['Cname'] . "',`pos` = '" . $pos . "',`desc` = '" . $_POST['Cdesc'] . "' WHERE `id` = '" . $_POST['Cpkey'] . "'");
                     if ($alt_row['cat'] != $_POST['Ccat']) {
                         db_query("UPDATE prefix_linkcats SET pos = pos - 1 WHERE pos > " . $alt_row['pos'] . " AND cat = " . $alt_row['cat']);
                     }
@@ -591,47 +591,47 @@ switch ($um) {
             $pos = $menu->get(4);
             $id = $menu->getE(3);
             $nps = ($menu->getA(3) == 'u' ? $pos + 1 : $pos - 1);
-            $anz = db_result(db_query("SELECT COUNT(*) FROM prefix_links WHERE cat = " . $menu->getE(2)), 0);
+            $anz = db_result(db_query("SELECT COUNT(*) FROM `prefix_links` WHERE `cat` = " . $menu->getE(2)), 0);
 
             if ($nps < 0) {
-                db_query("UPDATE prefix_links SET pos = " . $anz . " WHERE id = " . $id);
-                db_query("UPDATE prefix_links SET pos = pos -1 WHERE cat = " . $menu->getE(2));
+                db_query("UPDATE `prefix_links` SET `pos` = " . $anz . " WHERE `id` = " . $id);
+                db_query("UPDATE `prefix_links` SET `pos` = `pos` -1 WHERE `cat` = " . $menu->getE(2));
             }
             if ($nps >= $anz) {
-                db_query("UPDATE prefix_links SET pos = -1 WHERE id = " . $id);
-                db_query("UPDATE prefix_links SET pos = pos +1 WHERE cat = " . $menu->getE(2));
+                db_query("UPDATE `prefix_links` SET `pos` = -1 WHERE `id` = " . $id);
+                db_query("UPDATE `prefix_links` SET `pos` = `pos` +1 WHERE `cat` = " . $menu->getE(2));
             }
 
             if ($nps < $anz AND $nps >= 0) {
-                db_query("UPDATE prefix_links SET pos = " . $pos . " WHERE pos = " . $nps . " AND cat = " . $menu->getE(2));
-                db_query("UPDATE prefix_links SET pos = " . $nps . " WHERE id = " . $id);
+                db_query("UPDATE `prefix_links` SET `pos` = " . $pos . " WHERE `pos` = " . $nps . " AND `cat` = " . $menu->getE(2));
+                db_query("UPDATE `prefix_links` SET `pos` = " . $nps . " WHERE `id` = " . $id);
             }
         }
         // link kategorien verschieben
         if ($menu->getA(3) == 'U' OR $menu->getA(3) == 'O') {
             $pos = $menu->get(4);
             $id = $menu->getE(3);
-            $cat = db_result(db_query("SELECT cat FROM prefix_linkcats WHERE id = " . $id), 0);
+            $cat = db_result(db_query("SELECT `cat` FROM `prefix_linkcats` WHERE `id` = " . $id), 0);
             $nps = ($menu->getA(3) == 'U' ? $pos + 1 : $pos - 1);
-            $anz = db_result(db_query("SELECT COUNT(*) FROM prefix_linkcats WHERE cat = " . $cat), 0);
+            $anz = db_result(db_query("SELECT COUNT(*) FROM `prefix_linkcats` WHERE `cat` = " . $cat), 0);
 
             if ($nps < 0) {
-                db_query("UPDATE prefix_linkcats SET pos = " . $anz . " WHERE id = " . $id);
-                db_query("UPDATE prefix_linkcats SET pos = pos -1 WHERE cat = " . $cat);
+                db_query("UPDATE `prefix_linkcats` SET `pos` = " . $anz . " WHERE `id` = " . $id);
+                db_query("UPDATE `prefix_linkcats` SET `pos` = `pos` -1 WHERE `cat` = " . $cat);
             }
             if ($nps >= $anz) {
-                db_query("UPDATE prefix_linkcats SET pos = -1 WHERE id = " . $id);
-                db_query("UPDATE prefix_linkcats SET pos = pos +1 WHERE cat = " . $cat);
+                db_query("UPDATE `prefix_linkcats` SET `pos` = -1 WHERE `id` = " . $id);
+                db_query("UPDATE `prefix_linkcats` SET `pos` = `pos` +1 WHERE `cat` = " . $cat);
             }
 
             if ($nps < $anz AND $nps >= 0) {
-                db_query("UPDATE prefix_linkcats SET pos = " . $pos . " WHERE pos = " . $nps . " AND cat = " . $cat);
-                db_query("UPDATE prefix_linkcats SET pos = " . $nps . " WHERE id = " . $id);
+                db_query("UPDATE `prefix_linkcats` SET `pos` = " . $pos . " WHERE `pos` = " . $nps . " AND `cat` = " . $cat);
+                db_query("UPDATE `prefix_linkcats` SET `pos` = " . $nps . " WHERE `id` = " . $id);
             }
         }
         // links
         if ($menu->getA(2) == 'e') {
-            $erg = db_query("SELECT id,cat,`desc`,name,banner,link FROM prefix_links WHERE id = '" . $menu->getE(2) . "'");
+            $erg = db_query("SELECT `id`,`cat`,`desc`,`name`,`banner`,`link` FROM `prefix_links` WHERE `id` = '" . $menu->getE(2) . "'");
             $_ilch = db_fetch_assoc($erg);
             $_ilch['pkey'] = $menu->getE(2);
             $azk = $_ilch['cat'];
@@ -667,7 +667,7 @@ switch ($um) {
 
         $tpl->out(0);
         $class = 0;
-        $abf = "SELECT id,name,link,cat,pos FROM prefix_links WHERE cat = " . $azk . " ORDER BY pos";
+        $abf = "SELECT `id`,`name`,`link`,`cat`,`pos` FROM `prefix_links` WHERE `cat` = " . $azk . " ORDER BY `pos`";
         $erg = db_query($abf);
         while ($row = db_fetch_assoc($erg)) {
             $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
@@ -679,7 +679,7 @@ switch ($um) {
         $tpl->out(2);
         // cat
         if ($menu->getA(2) == 'E') {
-            $erg = db_query("SELECT id,cat as Ccat, name as Cname,pos as Cpos,`desc` as Cdesc FROM prefix_linkcats WHERE id = '" . $menu->getE(2) . "'");
+            $erg = db_query("SELECT `id`,`cat` as `Ccat`, `name` as `Cname`,`pos` as `Cpos`,`desc` as `Cdesc` FROM `prefix_linkcats` WHERE `id` = '" . $menu->getE(2) . "'");
             $_Cilch = db_fetch_assoc($erg);
             $_Cilch['Cpkey'] = $menu->getE(2);
         } else {
@@ -711,9 +711,9 @@ switch ($um) {
         $tpl = new tpl ('archiv/partners', 1);
         // loeschen
         if ($menu->getA(2) == 'd') {
-            $pos = db_result(db_query("SELECT pos FROM prefix_partners WHERE id = " . $menu->getE(2)), 0);
-            db_query("DELETE FROM prefix_partners WHERE id = " . $menu->getE(2));
-            db_query("UPDATE prefix_partners SET pos = pos -1 WHERE pos > " . $pos);
+            $pos = db_result(db_query("SELECT `pos` FROM `prefix_partners` WHERE `id` = " . $menu->getE(2)), 0);
+            db_query("DELETE FROM `prefix_partners` WHERE `id` = " . $menu->getE(2));
+            db_query("UPDATE `prefix_partners` SET `pos` = `pos` -1 WHERE `pos` > " . $pos);
         }
         // aendern / eintragen
         if (isset($_POST['sub'])) {
@@ -723,9 +723,9 @@ switch ($um) {
 
             if (empty ($_POST['pkey'])) {
                 $_POST['pos'] = db_result(db_query("SELECT COUNT(*) FROM prefix_partners"), 0);
-                db_query("INSERT INTO prefix_partners (name,banner,link,pos) VALUES ('" . $_POST['name'] . "','" . $_POST['banner'] . "','" . $_POST['link'] . "','" . $_POST['pos'] . "')");
+                db_query("INSERT INTO `prefix_partners` (`name`,`banner`,`link`,`pos`) VALUES ('" . $_POST['name'] . "','" . $_POST['banner'] . "','" . $_POST['link'] . "','" . $_POST['pos'] . "')");
             } else {
-                db_query("UPDATE prefix_partners SET name = '" . $_POST['name'] . "',banner = '" . $_POST['banner'] . "',link = '" . $_POST['link'] . "' WHERE id = '" . $_POST['pkey'] . "'");
+                db_query("UPDATE `prefix_partners` SET `name` = '" . $_POST['name'] . "',`banner` = '" . $_POST['banner'] . "',`link` = '" . $_POST['link'] . "' WHERE `id` = '" . $_POST['pkey'] . "'");
             }
         }
         // verschieben
@@ -733,25 +733,25 @@ switch ($um) {
             $pos = $menu->get(3);
             $id = $menu->getE(2);
             $nps = ($menu->getA(2) == 'u' ? $pos + 1 : $pos - 1);
-            $anz = db_result(db_query("SELECT COUNT(*) FROM prefix_partners"), 0);
+            $anz = db_result(db_query("SELECT COUNT(*) FROM `prefix_partners`"), 0);
 
             if ($nps < 0) {
-                db_query("UPDATE prefix_partners SET pos = " . $anz . " WHERE id = " . $id);
-                db_query("UPDATE prefix_partners SET pos = pos -1");
+                db_query("UPDATE `prefix_partners` SET `pos` = " . $anz . " WHERE `id` = " . $id);
+                db_query("UPDATE `prefix_partners` SET `pos` = `pos` -1");
             }
             if ($nps >= $anz) {
-                db_query("UPDATE prefix_partners SET pos = -1 WHERE id = " . $id);
-                db_query("UPDATE prefix_partners SET pos = pos +1");
+                db_query("UPDATE `prefix_partners` SET `pos` = -1 WHERE `id` = " . $id);
+                db_query("UPDATE `prefix_partners` SET `pos` = `pos` +1");
             }
 
             if ($nps < $anz AND $nps >= 0) {
-                db_query("UPDATE prefix_partners SET pos = " . $pos . " WHERE pos = " . $nps);
-                db_query("UPDATE prefix_partners SET pos = " . $nps . " WHERE id = " . $id);
+                db_query("UPDATE `prefix_partners` SET `pos` = " . $pos . " WHERE `pos` = " . $nps);
+                db_query("UPDATE `prefix_partners` SET `pos` = " . $nps . " WHERE `id` = " . $id);
             }
         }
         // aendern vorbereiten.
         if ($menu->getA(2) == 'e') {
-            $erg = db_query("SELECT id,name,banner,link FROM prefix_partners WHERE id = '" . $menu->getE(2) . "'");
+            $erg = db_query("SELECT `id`,`name`,`banner`,`link` FROM `prefix_partners` WHERE `id` = '" . $menu->getE(2) . "'");
             $_ilch = db_fetch_assoc($erg);
             $_ilch['pkey'] = $menu->getE(2);
         } else {
@@ -770,7 +770,7 @@ switch ($um) {
         $class = 'Cnorm';
         $MPL = db_make_sites ($page , '' , $limit , '?archiv-partners' , 'partners');
         $anfang = ($page - 1) * $limit;
-        $abf = "SELECT id,name,link, pos FROM prefix_partners ORDER BY pos ASC LIMIT " . $anfang . "," . $limit;
+        $abf = "SELECT `id`,`name`,`link`, `pos` FROM `prefix_partners` ORDER BY `pos` ASC LIMIT " . $anfang . "," . $limit;
         $erg = db_query($abf);
         while ($row = db_fetch_assoc($erg)) {
             $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');

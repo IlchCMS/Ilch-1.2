@@ -99,12 +99,12 @@ class BackupWriter {
 
 function get_def($dbname, $table, $writer) {
     $def = "\n-- ----------------------------------------------------------\n--\n";
-    $def .= "-- structur for table '$table'\n--\n";
+    $def .= "-- structur for table '".$table."'\n--\n";
     if (isset($_POST['drop'])) {
-        $def .= "DROP TABLE IF EXISTS `$table`;\n";
+        $def .= "DROP TABLE IF EXISTS `".$table."`;\n";
     }
-    $def .= "CREATE TABLE `$table` (\n";
-    $result = mysql_db_query($dbname, "SHOW FIELDS FROM `$table`", CONN);
+    $def .= "CREATE TABLE `".$table."` (\n";
+    $result = mysql_db_query($dbname, "SHOW FIELDS FROM `".$table."`", CONN);
     while ($row = mysql_fetch_array($result)) {
         $def .= "    `" . $row['Field'] . "` " . $row['Type'];
         if ($row["Default"] != "") $def .= " DEFAULT '" . $row['Default'] . "'";
@@ -113,36 +113,36 @@ function get_def($dbname, $table, $writer) {
         $def .= ",\n";
     }
     $def = ereg_replace(",\n$", "", $def);
-    $result = mysql_db_query($dbname, "SHOW KEYS FROM `$table`", CONN);
+    $result = mysql_db_query($dbname, "SHOW KEYS FROM `".$table."`", CONN);
     while ($row = mysql_fetch_array($result)) {
         $kname = $row['Key_name'];
-        if (($kname != "PRIMARY") && ($row['Non_unique'] == 0)) $kname = "UNIQUE|$kname";
+        if (($kname != "PRIMARY") && ($row['Non_unique'] == 0)) $kname = "UNIQUE|".$kname;
         if (!isset($index[$kname])) $index[$kname] = array();
         $index[$kname][] = "`" . $row['Column_name'] . "`";
     } while (list($x, $columns) = @each($index)) {
         $def .= ",\n";
         if ($x == "PRIMARY") $def .= "   PRIMARY KEY (" . implode($columns, ", ") . ")";
         else if (substr($x, 0, 6) == "UNIQUE") $def .= "   UNIQUE " . substr($x, 7) . " (" . implode($columns, ", ") . ")";
-        else $def .= "   KEY $x (" . implode($columns, ", ") . ")";
+        else $def .= "   KEY ".$x." (" . implode($columns, ", ") . ")";
     }
-    $result = mysql_db_query($dbname, "SHOW TABLE STATUS FROM `$dbname` LIKE '$table'", CONN);
+    $result = mysql_db_query($dbname, "SHOW TABLE STATUS FROM `".$dbname."` LIKE '".$table."'", CONN);
     $auto_inc = mysql_result($result, 0, 'Auto_increment');
-    $def .= "\n)" . ($auto_inc != '' ? " AUTO_INCREMENT=$auto_inc":'') . ";";
+    $def .= "\n)" . ($auto_inc != '' ? " AUTO_INCREMENT=".$auto_inc:'') . ";";
     $def .= "\n\n";
     stripslashes($def);
     $writer->write($def);
 }
 
 function get_content($dbname, $table, $writer) {
-    $writer->write("--\n-- data for table '$table'\n--\n");
-    $result = mysql_db_query($dbname, "SHOW FIELDS FROM `$table`", CONN);
+    $writer->write("--\n-- data for table '".$table."'\n--\n");
+    $result = mysql_db_query($dbname, "SHOW FIELDS FROM `".$table."`", CONN);
     $fields = '(';
     while ($row = mysql_fetch_row($result)) {
         $fields .= '`' . $row[0] . '`,';
     }
     $fields = substr($fields, 0, - 1) . ')';
-    $result = mysql_db_query($dbname, "SELECT * FROM `$table`", CONN);
-    $insert_begin = "INSERT INTO `$table` $fields VALUES ";
+    $result = mysql_db_query($dbname, "SELECT * FROM `".$table."`", CONN);
+    $insert_begin = "INSERT INTO `".$table."` ".$fields." VALUES ";
     while ($row = mysql_fetch_row($result)) {
         $insert = '(';
         for($j = 0; $j < mysql_num_fields($result);$j++) {
@@ -186,7 +186,7 @@ if (!empty($_POST['sendBackup']) AND $_POST['sendBackup'] == 'yes' AND isset($_P
     if ($writer->countWriters()) {
         $version = "0.4 beta";
         $cur_time = date("Y-m-d H:i");
-        $writer->write("-- Dump created with 'phpMyBackup v.$version' on $cur_time\r\n");
+        $writer->write("-- Dump created with 'phpMyBackup v.".$version."' on ".$cur_time."\r\n");
         $tables = db_list_tables(DBDATE);
         $num_tables = @db_num_rows($tables);
         $i = 0;

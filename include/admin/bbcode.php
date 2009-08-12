@@ -27,7 +27,7 @@ switch($menu->get(1)) {
 	case 'buttons':
 		$tpl = new tpl ( 'bbcode/buttons', 1);
 		if(!isset($_POST['BB_SubmitButtons'])) {
-			$sql = db_query("SELECT * FROM prefix_bbcode_buttons WHERE fnButtonNr='1'");
+			$sql = db_query("SELECT * FROM `prefix_bbcode_buttons` WHERE `fnButtonNr`='1'");
 
 			$bool = db_fetch_assoc($sql);
 			$tpl->set('Message',"");
@@ -70,34 +70,34 @@ switch($menu->get(1)) {
 			}
 		} else {
 			db_query("UPDATE
-							prefix_bbcode_buttons
+							`prefix_bbcode_buttons`
 						SET
-							fnFormatB = '".$_POST['BBCode_B']."',
-							fnFormatI = '".$_POST['BBCode_I']."',
-							fnFormatU = '".$_POST['BBCode_U']."',
-							fnFormatS = '".$_POST['BBCode_S']."',
-							fnFormatEmph = '".$_POST['BBCode_EMPH']."',
-							fnFormatColor = '".$_POST['BBCode_COLOR']."',
-							fnFormatSize = '".$_POST['BBCode_SIZE']."',
-							fnFormatUrl = '".$_POST['BBCode_URL']."',
-							fnFormatUrlAuto = '".$_POST['BBCode_AUTO_URL']."',
-							fnFormatEmail = '".$_POST['BBCode_MAIL']."',
-							fnFormatLeft = '".$_POST['BBCode_LEFT']."',
-							fnFormatCenter = '".$_POST['BBCode_CENTER']."',
-							fnFormatRight = '".$_POST['BBCode_RIGHT']."',
-							fnFormatSmilies = '".$_POST['BBCode_SMILIES']."',
-							fnFormatList = '".$_POST['BBCode_LIST']."',
-							fnFormatKtext = '".$_POST['BBCode_KTEXT']."',
-							fnFormatImg = '".$_POST['BBCode_IMG']."',
-							fnFormatScreen = '".$_POST['BBCode_SCREEN']."',
-							fnFormatVideo = '".$_POST['BBCode_VIDEO']."',
-							fnFormatCountdown = '".$_POST['BBCode_COUNTDOWN']."',
-							fnFormatPhp = '".$_POST['BBCode_PHP']."',
-							fnFormatCss = '".$_POST['BBCode_CSS']."',
-							fnFormatHtml = '".$_POST['BBCode_HTML']."',
-							fnFormatCode = '".$_POST['BBCode_CODE']."',
-							fnFormatQuote = '".$_POST['BBCode_QUOTE']."',
-                            fnFormatFlash = '".$_POST['BBCode_FLASH']."'");
+							`fnFormatB` = '".$_POST['BBCode_B']."',
+							`fnFormatI` = '".$_POST['BBCode_I']."',
+							`fnFormatU` = '".$_POST['BBCode_U']."',
+							`fnFormatS` = '".$_POST['BBCode_S']."',
+							`fnFormatEmph` = '".$_POST['BBCode_EMPH']."',
+							`fnFormatColor` = '".$_POST['BBCode_COLOR']."',
+							`fnFormatSize` = '".$_POST['BBCode_SIZE']."',
+							`fnFormatUrl` = '".$_POST['BBCode_URL']."',
+							`fnFormatUrlAuto` = '".$_POST['BBCode_AUTO_URL']."',
+							`fnFormatEmail` = '".$_POST['BBCode_MAIL']."',
+							`fnFormatLeft` = '".$_POST['BBCode_LEFT']."',
+							`fnFormatCenter` = '".$_POST['BBCode_CENTER']."',
+							`fnFormatRight` = '".$_POST['BBCode_RIGHT']."',
+							`fnFormatSmilies` = '".$_POST['BBCode_SMILIES']."',
+							`fnFormatList` = '".$_POST['BBCode_LIST']."',
+							`fnFormatKtext` = '".$_POST['BBCode_KTEXT']."',
+							`fnFormatImg` = '".$_POST['BBCode_IMG']."',
+							`fnFormatScreen` = '".$_POST['BBCode_SCREEN']."',
+							`fnFormatVideo` = '".$_POST['BBCode_VIDEO']."',
+							`fnFormatCountdown` = '".$_POST['BBCode_COUNTDOWN']."',
+							`fnFormatPhp` = '".$_POST['BBCode_PHP']."',
+							`fnFormatCss` = '".$_POST['BBCode_CSS']."',
+							`fnFormatHtml` = '".$_POST['BBCode_HTML']."',
+							`fnFormatCode` = '".$_POST['BBCode_CODE']."',
+							`fnFormatQuote` = '".$_POST['BBCode_QUOTE']."',
+                            `fnFormatFlash` = '".$_POST['BBCode_FLASH']."'");
 
 			$tpl->set('Message','Zustände wurden erfolgreich gespeichert!');
 
@@ -146,7 +146,7 @@ switch($menu->get(1)) {
 	case 'design':
 		$tpl = new tpl ( 'bbcode/design', 1);
 		if(!isset($_POST['BB_SubmitDesign'])) {
-			$sql = db_query("SELECT * FROM prefix_bbcode_design WHERE fnDesignNr='1'");
+			$sql = db_query("SELECT * FROM `prefix_bbcode_design` WHERE `fnDesignNr`='1'");
 
 			$BB_Design = db_fetch_assoc($sql);
 			$tpl->set('Message','');
@@ -231,31 +231,31 @@ switch($menu->get(1)) {
 			$tpl->set('BBCode_CountdownSchriftformat' ,$BB_Design['fcCountdownSchriftformat']);
 		} else {
 			db_query("UPDATE
-							prefix_bbcode_design
+							`prefix_bbcode_design`
 						SET
-							fcQuoteRandFarbe = '".$_POST['BBCode_QuoteRandFarbe']."',
-							fcQuoteTabelleBreite = '".$_POST['BBCode_QuoteTabelleBreite']."',
-							fcQuoteSchriftfarbe = '".$_POST['BBCode_QuoteSchriftfarbe']."',
-							fcQuoteHintergrundfarbe = '".$_POST['BBCode_QuoteHintergrundfarbe']."',
-							fcQuoteHintergrundfarbeIT = '".$_POST['BBCode_QuoteHintergrundfarbeIT']."',
-							fcQuoteSchriftformatIT = '".$_POST['BBCode_QuoteSchriftformatIT']."',
-							fcQuoteSchriftfarbeIT = '".$_POST['BBCode_QuoteSchriftfarbeIT']."',
-							fcBlockRandFarbe = '".$_POST['BBCode_BlockRandFarbe']."',
-							fcBlockTabelleBreite = '".$_POST['BBCode_BlockTabelleBreite']."',
-							fcBlockSchriftfarbe = '".$_POST['BBCode_BlockSchriftfarbe']."',
-							fcBlockHintergrundfarbe = '".$_POST['BBCode_BlockHintergrundfarbe']."',
-							fcBlockHintergrundfarbeIT = '".$_POST['BBCode_BlockHintergrundfarbeIT']."',
-							fcBlockSchriftfarbeIT = '".$_POST['BBCode_BlockSchriftfarbeIT']."',
-							fcKtextRandFarbe = '".$_POST['BBCode_KtextRandFarbe']."',
-							fcKtextTabelleBreite = '".$_POST['BBCode_KtextTabelleBreite']."',
-							fcKtextRandFormat = '".$_POST['BBCode_KtextRandFormat']."',
-							fcEmphHintergrundfarbe = '".$_POST['BBCode_EmphHintergrundfarbe']."',
-							fcEmphSchriftfarbe = '".$_POST['BBCode_EmphSchriftfarbe']."',
-							fcCountdownRandFarbe = '".$_POST['BBCode_CountdownRandFarbe']."',
-							fcCountdownTabelleBreite = '".$_POST['BBCode_CountdownTabelleBreite']."',
-							fcCountdownSchriftfarbe = '".$_POST['BBCode_CountdownSchriftfarbe']."',
-							fnCountdownSchriftsize = '".$_POST['BBCode_CountdownSchriftsize']."',
-							fcCountdownSchriftformat = '".$_POST['BBCode_CountdownSchriftformat']."'");
+							`fcQuoteRandFarbe` = '".$_POST['BBCode_QuoteRandFarbe']."',
+							`fcQuoteTabelleBreite` = '".$_POST['BBCode_QuoteTabelleBreite']."',
+							`fcQuoteSchriftfarbe` = '".$_POST['BBCode_QuoteSchriftfarbe']."',
+							`fcQuoteHintergrundfarbe` = '".$_POST['BBCode_QuoteHintergrundfarbe']."',
+							`fcQuoteHintergrundfarbeIT` = '".$_POST['BBCode_QuoteHintergrundfarbeIT']."',
+							`fcQuoteSchriftformatIT` = '".$_POST['BBCode_QuoteSchriftformatIT']."',
+							`fcQuoteSchriftfarbeIT` = '".$_POST['BBCode_QuoteSchriftfarbeIT']."',
+							`fcBlockRandFarbe` = '".$_POST['BBCode_BlockRandFarbe']."',
+							`fcBlockTabelleBreite` = '".$_POST['BBCode_BlockTabelleBreite']."',
+							`fcBlockSchriftfarbe` = '".$_POST['BBCode_BlockSchriftfarbe']."',
+							`fcBlockHintergrundfarbe` = '".$_POST['BBCode_BlockHintergrundfarbe']."',
+							`fcBlockHintergrundfarbeIT` = '".$_POST['BBCode_BlockHintergrundfarbeIT']."',
+							`fcBlockSchriftfarbeIT` = '".$_POST['BBCode_BlockSchriftfarbeIT']."',
+							`fcKtextRandFarbe` = '".$_POST['BBCode_KtextRandFarbe']."',
+							`fcKtextTabelleBreite` = '".$_POST['BBCode_KtextTabelleBreite']."',
+							`fcKtextRandFormat` = '".$_POST['BBCode_KtextRandFormat']."',
+							`fcEmphHintergrundfarbe` = '".$_POST['BBCode_EmphHintergrundfarbe']."',
+							`fcEmphSchriftfarbe` = '".$_POST['BBCode_EmphSchriftfarbe']."',
+							`fcCountdownRandFarbe` = '".$_POST['BBCode_CountdownRandFarbe']."',
+							`fcCountdownTabelleBreite` = '".$_POST['BBCode_CountdownTabelleBreite']."',
+							`fcCountdownSchriftfarbe` = '".$_POST['BBCode_CountdownSchriftfarbe']."',
+							`fnCountdownSchriftsize` = '".$_POST['BBCode_CountdownSchriftsize']."',
+							`fcCountdownSchriftformat` = '".$_POST['BBCode_CountdownSchriftformat']."'");
 
 			$tpl->set('Message','Design wurde erfolgreich gespeichert!');
 			$tpl->set('NBSP','&nbsp;');
@@ -346,7 +346,7 @@ switch($menu->get(1)) {
 	case 'config':
 		$tpl = new tpl ( 'bbcode/config', 1);
 		if(!isset($_POST['BB_SubmitConfig'])) {
-			$sql = db_query("SELECT * FROM prefix_bbcode_config WHERE fnConfigNr='1'");
+			$sql = db_query("SELECT * FROM `prefix_bbcode_config` WHERE `fnConfigNr`='1'");
 			$BB_Config = db_fetch_assoc($sql);
 			$tpl->set('Message','');
 			//> Video "YouTube"
@@ -381,27 +381,27 @@ switch($menu->get(1)) {
 			$tpl->set('BBCode_ScreenMaxHoehe' ,$BB_Config['fnScreenMaxHoehe']);
 		} else {
 			db_query("UPDATE
-							prefix_bbcode_config
+							`prefix_bbcode_config`
 					  SET
-							fnYoutubeBreite = '".$_POST['BBCode_YoutubeBreite']."',
-							fnYoutubeHoehe = '".$_POST['BBCode_YoutubeHoehe']."',
-							fcYoutubeHintergrundfarbe = '".$_POST['BBCode_YoutubeHintergrundfarbe']."',
-							fnGoogleBreite = '".$_POST['BBCode_GoogleBreite']."',
-							fnGoogleHoehe = '".$_POST['BBCode_GoogleHoehe']."',
-							fcGoogleHintergrundfarbe = '".$_POST['BBCode_GoogleHintergrundfarbe']."',
-							fnMyvideoBreite = '".$_POST['BBCode_MyvideoBreite']."',
-							fnMyvideoHoehe = '".$_POST['BBCode_MyvideoHoehe']."',
-							fcMyvideoHintergrundfarbe = '".$_POST['BBCode_MyvideoHintergrundfarbe']."',
-							fnFlashBreite = '".$_POST['BBCode_FlashBreite']."',
-							fnFlashHoehe = '".$_POST['BBCode_FlashHoehe']."',
-							fcFlashHintergrundfarbe = '".$_POST['BBCode_FlashHintergrundfarbe']."',
-							fnSizeMax = '".$_POST['BBCode_SizeMax']."',
-							fnUrlMaxLaenge = '".$_POST['BBCode_UrlMaxLaenge']."',
-							fnWortMaxLaenge = '".$_POST['BBCode_WortMaxLaenge']."',
-							fnImgMaxBreite = '".$_POST['BBCode_ImgMaxBreite']."',
-							fnImgMaxHoehe = '".$_POST['BBCode_ImgMaxHoehe']."',
-							fnScreenMaxBreite = '".$_POST['BBCode_ScreenMaxBreite']."',
-							fnScreenMaxHoehe = '".$_POST['BBCode_ScreenMaxHoehe']."'");
+							`fnYoutubeBreite` = '".$_POST['BBCode_YoutubeBreite']."',
+							`fnYoutubeHoehe` = '".$_POST['BBCode_YoutubeHoehe']."',
+							`fcYoutubeHintergrundfarbe` = '".$_POST['BBCode_YoutubeHintergrundfarbe']."',
+							`fnGoogleBreite` = '".$_POST['BBCode_GoogleBreite']."',
+							`fnGoogleHoehe` = '".$_POST['BBCode_GoogleHoehe']."',
+							`fcGoogleHintergrundfarbe` = '".$_POST['BBCode_GoogleHintergrundfarbe']."',
+							`fnMyvideoBreite` = '".$_POST['BBCode_MyvideoBreite']."',
+							`fnMyvideoHoehe` = '".$_POST['BBCode_MyvideoHoehe']."',
+							`fcMyvideoHintergrundfarbe` = '".$_POST['BBCode_MyvideoHintergrundfarbe']."',
+							`fnFlashBreite` = '".$_POST['BBCode_FlashBreite']."',
+							`fnFlashHoehe` = '".$_POST['BBCode_FlashHoehe']."',
+							`fcFlashHintergrundfarbe` = '".$_POST['BBCode_FlashHintergrundfarbe']."',
+							`fnSizeMax` = '".$_POST['BBCode_SizeMax']."',
+							`fnUrlMaxLaenge` = '".$_POST['BBCode_UrlMaxLaenge']."',
+							`fnWortMaxLaenge` = '".$_POST['BBCode_WortMaxLaenge']."',
+							`fnImgMaxBreite` = '".$_POST['BBCode_ImgMaxBreite']."',
+							`fnImgMaxHoehe` = '".$_POST['BBCode_ImgMaxHoehe']."',
+							`fnScreenMaxBreite` = '".$_POST['BBCode_ScreenMaxBreite']."',
+							`fnScreenMaxHoehe` = '".$_POST['BBCode_ScreenMaxHoehe']."'");
 
 			$tpl->set('Message','Konfiguration wurde erfolgreich gespeichert!');
 			//> Video "YouTube"
@@ -469,7 +469,7 @@ switch($menu->get(1)) {
 		}
 		//> Badword Löschen!
 		if($menu->get(2) == "delete") {
-			db_query('DELETE FROM  prefix_bbcode_badword WHERE fnBadwordNr = "'.$menu->get(3).'"');
+			db_query('DELETE FROM  `prefix_bbcode_badword` WHERE `fnBadwordNr` = "'.$menu->get(3).'"');
 		}
 
 		//> Ausgabe der Liste!
@@ -483,13 +483,13 @@ switch($menu->get(1)) {
 
 		unset($sql);
 		$sql = db_query("SELECT
-							fnBadwordNr,
-							fcBadPatter,
-							fcBadReplace
+							`fnBadwordNr`,
+							`fcBadPatter`,
+							`fcBadReplace`
 						 FROM
-							 prefix_bbcode_badword
+							 `prefix_bbcode_badword`
 						 ORDER BY
-						 	fnBadwordNr DESC
+						 	`fnBadwordNr` DESC
 						 LIMIT ".$anfang.",".$limit);
 		$class = '';
 		while ($row = db_fetch_object($sql) ) {

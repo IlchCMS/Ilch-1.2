@@ -1,0 +1,34 @@
+<table>
+{EXPLODE}
+<tr><td colspan="2"><span style="font-weight: bold;">Mitglieder:</td></tr></span>
+{EXPLODE}
+<tr><td colspan="2"><span style="font-weight: bold;">G&auml;ste:</td></tr></span>
+{EXPLODE}
+<tr><td valign="top"><b> &raquo; </b></td><td><a href="index.php?user-details-{userID}">{userNAME}</a></td></tr>
+{EXPLODE}
+<tr><td valign="top"><b> &raquo; </b></td><td><small>{userNAME}</small></td></tr>
+{EXPLODE}
+<tr><td><span style="font-style: italic;">keine im Chat</span></td></tr>
+{EXPLODE}
+</table>
+<br />
+{EXPLODE}
+<hr style="width: 85%;" />
+<script language="JavaScript" type="text/javascript">
+<!--
+
+  function openChat() {
+    var Fenster = window.open ('index.php?ajaxchat&iframe=false', 'createNewUser', 'status=yes,scrollbars=no,height=500,width=700');
+    Fenster.focus();
+	document.location.href="index.php?{completemenu}&ajaxbox=false";
+  }
+//-->
+</script>
+<table style="text-align: center;">
+  <tr>
+    <td><small>Nutzer im Chat: {num}</small></td>
+  </tr>
+  <tr>
+    <td><a href="javascript: openChat();">Chat im PopUp &ouml;ffnen</a></td>
+  </tr>
+</table>

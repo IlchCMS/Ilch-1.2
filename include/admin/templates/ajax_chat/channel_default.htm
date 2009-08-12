@@ -1,0 +1,62 @@
+<script language="JavaScript" type="text/javascript">
+<!--
+  function deleteChann (id) {
+	var x = confirm ( 'Diesen Channel wirklich loeschen?' );
+	if (x) {
+	  document.location.href='admin.php?ajaxchat-channels-del-'+id;
+	}
+  }
+//-->
+</script>
+<div style="float:right"><a href="admin.php?ajaxchat">Zur&uuml;ck zum Hauptmen&uuml;</a></div>
+<br />
+<br />
+<table cellpadding="3" cellspacing="1" border="0" style="width: 100%;">
+  <tr>
+    <td style="width: 60%; vertical-align: top;">
+		<table cellpadding="5" cellspacing="1" border="0" class="border" style="width: 100%;">
+		  <tr class="Chead">
+			<th colspan="3">Channel Verwaltung</th>
+		  </tr>
+ {EXPLODE}
+		  <tr class="{class}">
+			<td style="width: 50px; text-align: center;">
+			  &nbsp;<a href="admin.php?ajaxchat-channels-{id}"><img src="include/images/icons/edit.gif" border="0" title="&auml;ndern" alt="&auml;ndern" /></a>&nbsp;
+			  &nbsp;<a href="javascript:deleteChann({id})"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" alt="l&ouml;schen" /></a>&nbsp;
+			</td>
+			<td>{name}</td>
+			<td style="width: 250px;">Ab {right}</td>
+		  </tr>
+ {EXPLODE}
+		</table>
+	</td>
+	<td style="width: 40%; vertical-align: top;">
+	  <form method="POST">
+		<table cellpadding="5" cellspacing="1" border="0" class="border" style="width: 100%;">
+		  <tr class="Chead">
+			<th colspan="2">Channel hinzuf&uuml;gen/bearbeiten</th>
+		  </tr><tr>
+			<td class="Cmite">Channelname</td>
+			<td class="Cnorm">
+			  <input name="name" value="{name}"/>
+			</td>
+		  </tr><tr>
+			<td class="Cmite">Zugriff ab</td>
+			<td class="Cnorm">
+			  <select name="right">
+			    <option {s0}value="0">Gast</option>
+				<option {s1}value="1">User</option>
+				<option {s2}value="2">Moderator</option>
+				<option {s3}value="3">Administrator</option>
+			  </select>
+			</td>
+		  </tr><tr>
+			<td colspan="2" class="Cdark" style="text-align: right;">
+			  <input type="submit" value="Speichern" name="submit">
+			</td>
+		  </tr>
+		</table>
+	  </form>
+	</td>
+  </tr>
+</table>

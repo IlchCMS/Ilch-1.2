@@ -1,3 +1,89 @@
+--------------------------------------
+---------> AJAX CHAT START <----------
+--------------------------------------
+
+CREATE TABLE IF NOT EXISTS `prefix_ajax_chat_bans` (
+  `userID` int(11) NOT NULL,
+  `userName` varchar(64) COLLATE utf8_bin NOT NULL,
+  `dateTime` datetime NOT NULL,
+  `ip` varbinary(16) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE IF NOT EXISTS `prefix_ajax_chat_channels` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `right` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+INSERT INTO `prefix_ajax_chat_channels` (`name`, `right`) VALUES
+('Public', 0);
+
+CREATE TABLE IF NOT EXISTS `prefix_ajax_chat_config` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `active` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL DEFAULT 'unbekannt',
+  `styleDefault` varchar(100) NOT NULL,
+  `defaultChannelID` int(10) NOT NULL,
+  `allowPrivateChannels` int(10) NOT NULL,
+  `allowPrivateMessages` int(10) NOT NULL,
+  `forceAutoLogin` int(10) NOT NULL,
+  `showChannelMessages` int(10) NOT NULL,
+  `chatClosed` int(10) NOT NULL,
+  `allowGuestLogins` int(10) NOT NULL,
+  `allowGuestWrite` int(10) NOT NULL,
+  `allowGuestUserName` int(10) NOT NULL,
+  `allowNickChange` int(10) NOT NULL,
+  `allowUserMessageDelete` int(10) NOT NULL,
+  `chatBotName` varchar(100) NOT NULL,
+  `requestMessagesPriorChannelEnter` int(10) NOT NULL,
+  `requestMessagesTimeDiff` int(10) NOT NULL,
+  `requestMessagesLimit` int(10) NOT NULL,
+  `maxUsersLoggedIn` int(10) NOT NULL,
+  `maxMessageRate` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+INSERT INTO `prefix_ajax_chat_config` (`active`, `name`, `styleDefault`, `defaultChannelID`, `allowPrivateChannels`, `allowPrivateMessages`, `forceAutoLogin`, `showChannelMessages`, `chatClosed`, `allowGuestLogins`, `allowGuestWrite`, `allowGuestUserName`, `allowNickChange`, `allowUserMessageDelete`, `chatBotName`, `requestMessagesPriorChannelEnter`, `requestMessagesTimeDiff`, `requestMessagesLimit`, `maxUsersLoggedIn`, `maxMessageRate`) VALUES
+('1', 'Standardkonfiguration', 'ilchCMS.css', 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 'ChatBot', 1, 7, 10, 100, 20);
+
+CREATE TABLE IF NOT EXISTS `prefix_ajax_chat_invitations` (
+  `userID` int(11) NOT NULL,
+  `channel` int(11) NOT NULL,
+  `dateTime` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=FIXED;
+
+CREATE TABLE IF NOT EXISTS `prefix_ajax_chat_messages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `userName` varchar(64) COLLATE utf8_bin NOT NULL,
+  `userRole` int(1) NOT NULL,
+  `channel` int(11) NOT NULL,
+  `dateTime` datetime NOT NULL,
+  `ip` varbinary(16) NOT NULL,
+  `text` text COLLATE utf8_bin,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `prefix_ajax_chat_online` (
+  `userID` int(11) NOT NULL,
+  `userName` varchar(64) COLLATE utf8_bin NOT NULL,
+  `userRole` int(1) NOT NULL,
+  `channel` int(11) NOT NULL,
+  `dateTime` datetime NOT NULL,
+  `ip` varbinary(16) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+
+INSERT INTO `prefix_modules` (`url`, `name`, `gshow`, `ashow`, `fright`) VALUES ('ajaxchat', 'Ajax Chat', 0, 1, 1);
+
+--------------------------------------
+----------> AJAX CHAT END <-----------
+--------------------------------------
+
+
+
 CREATE TABLE `prefix_allg` (
   `id` int(5) unsigned NOT NULL auto_increment,
   `k` varchar(255) NOT NULL default '',

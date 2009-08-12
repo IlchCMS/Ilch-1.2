@@ -1,0 +1,149 @@
+<div style="float:right"><a href="admin.php?ajaxchat-config">Zur&uuml;ck zur Konfiguration</a> | <a href="admin.php?ajaxchat">Zur&uuml;ck zum Hauptmen&uuml;</a></div>
+<br />
+<br />
+<form action="" method="post">
+    <table border="0" cellpadding="3" cellspacing="1"
+    class="border" style="margin-left: auto; margin-right: auto;">
+        <tr>
+            <td colspan="2" class="Cdark"><b>Allgemein</b></td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">Konfigurations-Name</td>
+            <td class="Cnorm">
+			<input name="name" value="{name}">
+			</td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">Standardkonfiguration?</td>
+            <td class="Cnorm">
+			<input name="active" value="1" {active_1}type="radio"> Ja &nbsp;&nbsp;<input name="active" value="0" {active_0}type="radio"> Nein
+			</td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">Chat f&uuml;r alle schlie&szlig;en, au&szlig;er f&uuml;r den Admin?</td>
+            <td class="Cnorm">
+			<input name="chatClosed" value="1" {chatClosed_1}type="radio"> Ja &nbsp;&nbsp;<input name="chatClosed" value="0" {chatClosed_0}type="radio"> Nein
+			</td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">G&auml;ste automatisch einloggen?</td>
+            <td class="Cnorm">
+			<input name="forceAutoLogin" value="1" {forceAutoLogin_1}type="radio"> Ja &nbsp;&nbsp;<input name="forceAutoLogin" value="0" {forceAutoLogin_0}type="radio"> Nein
+			</td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">Standard-Channel</td>
+            <td class="Cnorm">
+			<select name="defaultChannelID">
+				{defaultChannelID}
+			</select>
+			</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="Cdark"><b>Aussehen</b></td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">Standard-Style</td>
+            <td class="Cnorm">
+			<select name="styleDefault">
+				{styleDefault}
+			</select>
+			</td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">Private-Channel anzeigen?</td>
+            <td class="Cnorm">
+			<input name="allowPrivateChannels" value="1" {allowPrivateChannels_1}type="radio"> Ja &nbsp;&nbsp;<input name="allowPrivateChannels" value="0" {allowPrivateChannels_0}type="radio"> Nein
+			</td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">Private-Nachrichten anzeigen?</td>
+            <td class="Cnorm">
+			<input name="allowPrivateMessages" value="1" {allowPrivateMessages_1}type="radio"> Ja &nbsp;&nbsp;<input name="allowPrivateMessages" value="0" {allowPrivateMessages_0}type="radio"> Nein
+			</td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">Maximales Alter (Tage) alter Eint&auml;ge beim betreten</td>
+            <td class="Cnorm">
+			<input name="requestMessagesTimeDiff" value="{requestMessagesTimeDiff}">
+			</td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">Maximale alte Eint&auml;ge beim betreten</td>
+            <td class="Cnorm">
+			<input name="requestMessagesLimit" value="{requestMessagesLimit}">
+			</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="Cdark"><b>Rechte</b></td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">D&uuml;rfen G&auml;ste ihren Namen w&auml;hlen?</td>
+            <td class="Cnorm">
+			<input name="allowGuestUserName" value="1" {allowGuestUserName_1}type="radio"> Ja &nbsp;&nbsp;<input name="allowGuestUserName" value="0" {allowGuestUserName_0}type="radio"> Nein
+			</td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">Darf der Name sp&auml;ter ge&auml;ndert werden?</td>
+            <td class="Cnorm">
+			<input name="allowNickChange" value="1" {allowNickChange_1}type="radio"> Ja &nbsp;&nbsp;<input name="allowNickChange" value="0" {allowNickChange_0}type="radio"> Nein
+			</td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">D&uuml;rfen Mitglieder ihre Nachrichten l&ouml;schen?</td>
+            <td class="Cnorm">
+			<input name="allowUserMessageDelete" value="1" {allowUserMessageDelete_1}type="radio"> Ja &nbsp;&nbsp;<input name="allowUserMessageDelete" value="0" {allowUserMessageDelete_0}type="radio"> Nein
+			</td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">Gastlogin erlauben?</td>
+            <td class="Cnorm">
+			<input name="allowGuestLogins" value="1" {allowGuestLogins_1}type="radio"> Ja &nbsp;&nbsp;<input name="allowGuestLogins" value="0" {allowGuestLogins_0}type="radio"> Nein
+			</td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">G&auml;sten schreiben erlauben?</td>
+            <td class="Cnorm">
+			<input name="allowGuestWrite" value="1" {allowGuestWrite_1}type="radio"> Ja &nbsp;&nbsp;<input name="allowGuestWrite" value="0" {allowGuestWrite_0}type="radio"> Nein
+			</td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">Maximale Nutzer im Chat, au&szlig;er Mods und Admins</td>
+            <td class="Cnorm">
+			<input name="maxUsersLoggedIn" value="{maxUsersLoggedIn}">
+			</td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">Maximale Nachrichten in der Minute</td>
+            <td class="Cnorm">
+			<input name="maxMessageRate" value="{maxMessageRate}">
+			</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="Cdark"><b>Bot Eigenschaften</b></td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">Bot-Name</td>
+            <td class="Cnorm">
+			<input name="chatBotName" value="{chatBotName}">
+			</td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">Nachricht bei Login/Logout und Join/Quit?</td>
+            <td class="Cnorm">
+			<input name="showChannelMessages" value="1" {showChannelMessages_1}type="radio"> Ja &nbsp;&nbsp;<input name="showChannelMessages" value="0" {showChannelMessages_0}type="radio"> Nein
+			</td>
+        </tr>
+        <tr>
+            <td nowrap class="Cmite">Nachricht beim betreten eines Channels?</td>
+            <td class="Cnorm">
+			<input name="requestMessagesPriorChannelEnter" value="1" {requestMessagesPriorChannelEnter_1}type="radio"> Ja &nbsp;&nbsp;<input name="requestMessagesPriorChannelEnter" value="0" {requestMessagesPriorChannelEnter_0}type="radio"> Nein
+			</td>
+        </tr>
+        <tr class="Cdark">
+            <td>&nbsp;</td>
+            <td><input type="submit" name="submit"
+            value="Absenden" /></td>
+        </tr>
+    </table>
+</form>
