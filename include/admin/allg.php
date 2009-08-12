@@ -167,7 +167,7 @@ if (empty ($_POST['submit'])) {
 
     echo '</form>';
 } else {
-    $abf = 'SELECT * FROM `prefix_config` ORDER BY `katv';
+    $abf = 'SELECT * FROM `prefix_config` ORDER BY `kat`';
     $erg = db_query($abf);
     while ($row = db_fetch_assoc($erg)) {
         if ($row['typ'] == 'password' AND $_POST[$row['schl']] == '***') {

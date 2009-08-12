@@ -8,7 +8,7 @@ $design = new design ('Admins Area', 'Admins Area', 2);
 $design->header();
 // function show menu ( 1 == links, 2 == rechts )
 function show_menu ($wo) {
-    $erg = db_query("SELECT * FROM prefix_menu WHERE wo = " . $wo . " ORDER BY pos");
+    $erg = db_query("SELECT * FROM `prefix_menu` WHERE `wo` = " . $wo . " ORDER BY `pos`");
     $x = 0;
     $class = '';
     echo '<table class="border" cellpadding="3" cellspacing="1" border="0">';
@@ -30,42 +30,42 @@ function show_menu ($wo) {
 }
 
 function menu_update_menupos_reparieren ($wo) {
-    $q = "SELECT pos FROM prefix_menu WHERE wo = " . $wo . " ORDER BY pos ASC";
+    $q = "SELECT `pos` FROM `prefix_menu` WHERE `wo` = " . $wo . " ORDER BY `pos` ASC";
     $e = db_query($q);
     $i = - 127;
     while ($r = db_fetch_assoc($e)) {
-        db_query("UPDATE prefix_menu SET pos = " . $i . " WHERE pos = " . $r['pos'] . " AND wo = " . $wo) or die (mysql_error());
+        db_query("UPDATE `prefix_menu` SET `pos` = " . $i . " WHERE `pos` = " . $r['pos'] . " AND `wo` = " . $wo) or die (mysql_error());
         $i++;
     }
-    $q = "SELECT pos FROM prefix_menu WHERE wo = " . $wo . " ORDER BY pos ASC";
+    $q = "SELECT `pos` FROM `prefix_menu` WHERE `wo` = " . $wo . " ORDER BY `pos` ASC";
     $e = db_query($q);
     $i = 0;
     while ($r = db_fetch_assoc($e)) {
-        db_query("UPDATE prefix_menu SET pos = " . $i . " WHERE pos = " . $r['pos'] . " AND wo = " . $wo) or die (mysql_error());
+        db_query("UPDATE `prefix_menu` SET `pos` = " . $i . " WHERE `pos` = " . $r['pos'] . " AND `wo` = " . $wo) or die (mysql_error());
         $i++;
     }
 }
 function menu_update_menupos ($wo) {
-    $q = "SELECT pos FROM prefix_menu WHERE wo = " . $wo . " ORDER BY pos ASC";
+    $q = "SELECT `pos` FROM `prefix_menu` WHERE `wo` = " . $wo . " ORDER BY `pos` ASC";
     $e = db_query($q);
     $i = 0;
     while ($r = db_fetch_assoc($e)) {
-        db_query("UPDATE prefix_menu SET pos = " . $i . " WHERE pos = " . $r['pos'] . " AND wo = " . $wo) or die (mysql_error());
+        db_query("UPDATE `prefix_menu` SET `pos` = " . $i . " WHERE `pos` = " . $r['pos'] . " AND `wo` = " . $wo) or die (mysql_error());
         $i++;
     }
 }
 function menu_update_menupos_p1 ($wo, $pos) {
-    $q = "SELECT pos FROM prefix_menu WHERE wo = " . $wo . " AND pos >= " . $pos . " ORDER BY pos DESC";
+    $q = "SELECT `pos` FROM `prefix_menu` WHERE `wo` = " . $wo . " AND `pos` >= " . $pos . " ORDER BY `pos` DESC";
     $e = db_query($q);
     while ($r = db_fetch_assoc($e)) {
-        db_query("UPDATE prefix_menu SET pos = " . ($r['pos'] + 1) . " WHERE pos = " . $r['pos'] . " AND wo = " . $wo);
+        db_query("UPDATE `prefix_menu` SET `pos` = " . ($r['pos'] + 1) . " WHERE `pos` = " . $r['pos'] . " AND `wo` = " . $wo);
     }
 }
 function menu_update_menupos_m1 ($wo, $pos) {
-    $q = "SELECT pos FROM prefix_menu WHERE wo = " . $wo . " AND pos > " . $pos . " ORDER BY pos ASC";
+    $q = "SELECT `pos` FROM `prefix_menu` WHERE `wo` = " . $wo . " AND `pos` > " . $pos . " ORDER BY `pos` ASC";
     $e = db_query($q);
     while ($r = db_fetch_assoc($e)) {
-        db_query("UPDATE prefix_menu SET pos = " . ($r['pos'] - 1) . " WHERE pos = " . $r['pos'] . " AND wo = " . $wo);
+        db_query("UPDATE `prefix_menu` SET `pos` = " . ($r['pos'] - 1) . " WHERE `pos` = " . $r['pos'] . " AND `wo` = " . $wo);
     }
 }
 function get_boxes_array () {
@@ -236,27 +236,27 @@ if ($aktion == 'an') {
 
     if ($apos == '' AND $awo == '') {
         // eintragen
-        $npos = db_result(db_query("SELECT COUNT(*) FROM prefix_menu WHERE wo = " . $wo), 0, 0);
+        $npos = db_result(db_query("SELECT COUNT(*) FROM `prefix_menu` WHERE `wo` = " . $wo), 0, 0);
         if ($posi == '' OR intval($posi) != $posi OR $posi > $npos) {
             $posi = $npos;
         } else {
-            if (!@db_query("UPDATE prefix_menu SET pos = pos + 1 WHERE wo = " . $wo . " AND pos >= " . $posi . " ORDER BY pos DESC")) {
+            if (!@db_query("UPDATE `prefix_menu` SET `pos` = `pos` + 1 WHERE `wo` = " . $wo . " AND `pos` >= " . $posi . " ORDER BY `pos` DESC")) {
                 menu_update_menupos_p1 ($wo, $posi);
             }
         }
 
-        $q = "INSERT INTO prefix_menu (wo,pos,was,ebene,recht,name,path)
+        $q = "INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`)
     VALUES (" . $wo . "," . $posi . "," . $was . "," . $ebene . "," . $grecht . ",'" . $name . "','" . $link . "')";
         db_query($q);
     } else {
         // aendern
         $xpos = $apos;
         if ($awo != $wo) {
-            $npos = db_result(db_query("SELECT COUNT(*) FROM prefix_menu WHERE wo = " . $wo), 0, 0);
+            $npos = db_result(db_query("SELECT COUNT(*) FROM `prefix_menu` WHERE `wo` = " . $wo), 0, 0);
             if ($posi == '' OR !is_numeric($posi) OR $posi > $npos) {
                 $posi = $npos;
             } else {
-                if (!@db_query("UPDATE prefix_menu SET pos = pos + 1 WHERE wo = " . $wo . " AND pos >= " . $posi . " ORDER BY pos DESC")) {
+                if (!@db_query("UPDATE `prefix_menu` SET `pos` = `pos` + 1 WHERE `wo` = " . $wo . " AND `pos` >= " . $posi . " ORDER BY `pos` DESC")) {
                     menu_update_menupos_p1 ($wo, $posi);
                 }
             }
@@ -265,33 +265,33 @@ if ($aktion == 'an') {
             $posi = $apos;
         }
 
-        $q = "UPDATE prefix_menu SET wo = " . $wo . ", name = '" . $name . "', path = '" . $link . "', pos = " . $posi . ", recht = " . $grecht . ", was = " . $was . ", ebene = " . $ebene . " WHERE pos = " . $apos . " AND wo = " . $awo;
+        $q = "UPDATE `prefix_menu` SET `wo` = " . $wo . ", `name` = '" . $name . "', `path` = '" . $link . "', `pos` = " . $posi . ", `recht` = " . $grecht . ", `was` = " . $was . ", `ebene` = " . $ebene . " WHERE `pos` = " . $apos . " AND `wo` = " . $awo;
         db_query($q);
         if ($awo != $wo) {
-            if (!@db_query("UPDATE prefix_menu SET pos = pos - 1 WHERE pos > " . $apos . " AND wo = " . $awo . " ORDER BY pos ASC")) {
+            if (!@db_query("UPDATE `prefix_menu` SET `pos` = `pos` - 1 WHERE `pos` > " . $apos . " AND `wo` = " . $awo . " ORDER BY `pos` ASC")) {
                 menu_update_menupos_m1 ($awo, $apos);
             }
         } elseif ($xpos != $apos AND $awo == $wo) {
-            $npos = db_result(db_query("SELECT COUNT(*) FROM prefix_menu WHERE wo = " . $awo), 0, 0);
+            $npos = db_result(db_query("SELECT COUNT(*) FROM `prefix_menu` WHERE `wo` = " . $awo), 0, 0);
             if ($posi != '' AND is_numeric($xpos) AND $xpos < $npos) {
-                db_query("UPDATE prefix_menu SET pos = -1 WHERE pos = " . $apos . " AND wo = " . $wo);
+                db_query("UPDATE `prefix_menu` SET `pos` = -1 WHERE `pos` = " . $apos . " AND `wo` = " . $wo);
 
-                if (!@db_query("UPDATE prefix_menu SET pos = pos -1 WHERE pos > " . $apos . " AND wo = " . $wo . " ORDER BY pos ASC")) {
+                if (!@db_query("UPDATE `prefix_menu` SET `pos` = `pos` -1 WHERE `pos` > " . $apos . " AND `wo` = " . $wo . " ORDER BY `pos` ASC")) {
                     menu_update_menupos_m1 ($wo, $apos);
                 }
 
-                if (!@db_query("UPDATE prefix_menu SET pos = pos +1 WHERE pos >= " . $xpos . " AND wo = " . $wo . " ORDER BY pos DESC")) {
+                if (!@db_query("UPDATE `prefix_menu` SET `pos` = `pos` +1 WHERE `pos` >= " . $xpos . " AND `wo` = " . $wo . " ORDER BY `pos` DESC")) {
                     menu_update_menupos_p1 ($wo, $xpos);
                 }
-                db_query("UPDATE prefix_menu SET pos = " . $xpos . " WHERE pos = -1 AND wo = " . $wo);
+                db_query("UPDATE `prefix_menu` SET `pos` = " . $xpos . " WHERE `pos` = -1 AND `wo` = " . $wo);
             }
         }
     }
 }
 // nach rechts oder links verschieben
 if ($aktion == 'r' OR $aktion == 'l') {
-    $ebene = db_result(db_query("SELECT ebene FROM prefix_menu WHERE wo = " . $wo . " AND pos = " . $menu->get(3)), 0, 0);
-    $was = db_result(db_query("SELECT was FROM prefix_menu WHERE wo = " . $wo . " AND pos = " . $menu->get(3)), 0, 0);
+    $ebene = db_result(db_query("SELECT `ebene` FROM `prefix_menu` WHERE `wo` = " . $wo . " AND `pos` = " . $menu->get(3)), 0, 0);
+    $was = db_result(db_query("SELECT `was` FROM `prefix_menu` WHERE `wo` = " . $wo . " AND `pos` = " . $menu->get(3)), 0, 0);
     if ($was >= 7) {
         $nebene = ($aktion == 'r' ? $ebene + 1 : $ebene - 1);
         if ($nebene == - 1) {
@@ -300,7 +300,7 @@ if ($aktion == 'r' OR $aktion == 'l') {
         if ($nebene == 5) {
             $nebene = 4;
         }
-        db_query("UPDATE prefix_menu SET ebene = " . $nebene . " WHERE wo = " . $wo . " AND pos = " . $menu->get(3));
+        db_query("UPDATE `prefix_menu` SET `ebene` = " . $nebene . " WHERE `wo` = " . $wo . " AND `pos` = " . $menu->get(3));
     }
 }
 // reparieren
@@ -312,30 +312,30 @@ if ($menu->get(1) == 'reparieren') {
 // nach unten oder oben verschieben
 if ($aktion == 'o' OR $aktion == 'u') {
     $pos = $menu->get(3);
-    $ges = db_result(db_query("SELECT COUNT(*) FROM prefix_menu WHERE wo = " . $wo), 0, 0);
+    $ges = db_result(db_query("SELECT COUNT(*) FROM `prefix_menu` WHERE `wo` = " . $wo), 0, 0);
     if ($aktion == 'o') {
         $npos = $pos - 1;
     } else {
         $npos = $pos + 1;
     }
     if ($npos < $ges AND $pos >= 0) {
-        db_query("UPDATE prefix_menu SET pos = -1 WHERE pos = " . $pos . " AND wo = " . $wo);
-        db_query("UPDATE prefix_menu SET pos = " . $pos . " WHERE pos = " . $npos . " AND wo = " . $wo);
-        db_query("UPDATE prefix_menu SET pos = " . $npos . " WHERE pos = -1 AND wo = " . $wo);
+        db_query("UPDATE `prefix_menu` SET `pos` = -1 WHERE `pos` = " . $pos . " AND `wo` = " . $wo);
+        db_query("UPDATE `prefix_menu` SET `pos` = " . $pos . " WHERE `pos` = " . $npos . " AND `wo` = " . $wo);
+        db_query("UPDATE `prefix_menu` SET `pos` = " . $npos . " WHERE `pos` = -1 AND `wo` = " . $wo);
     }
 }
 // loeschen
 if ($aktion == 'delete') {
     $pos = $menu->get(3);
-    db_query("DELETE FROM prefix_menu WHERE pos = " . $pos . " AND wo = " . $wo);
-    if (!@db_query("UPDATE prefix_menu SET pos = pos - 1 WHERE pos > " . $pos . " AND wo = " . $wo . " ORDER BY pos ASC")) {
+    db_query("DELETE FROM `prefix_menu` WHERE `pos` = " . $pos . " AND `wo` = " . $wo);
+    if (!@db_query("UPDATE `prefix_menu` SET `pos` = `pos` - 1 WHERE `pos` > " . $pos . " AND `wo` = " . $wo . " ORDER BY `pos` ASC")) {
         menu_update_menupos ($wo);
     }
 }
 // aendern / anzeigen vorbereiten
 if ($aktion == 'edit') {
     $pos = $menu->get(3);
-    $row = db_fetch_assoc(db_query("SELECT * FROM prefix_menu WHERE wo = " . $wo . " AND pos = " . $pos));
+    $row = db_fetch_assoc(db_query("SELECT * FROM `prefix_menu` WHERE `wo` = " . $wo . " AND `pos` = " . $pos));
     $ar = array (
         'allboxes' => $row['path'],
         'getfuerB' => $row['recht'],
@@ -397,7 +397,7 @@ $ar_menutyp = array (2 => 'Vertikal',
     );
 $ar['allboxes'] = arliste($ar['allboxes'], $boxenArNav, $tpl, 'allboxes');
 $ar['alllinkss'] = arliste($ar['alllinkss'], $menuArNav, $tpl, 'alllinkss');
-$ar['getfuerB'] = dbliste($ar['getfuerB'], $tpl, 'getfuerB', "SELECT id,name FROM prefix_grundrechte ORDER BY id DESC");
+$ar['getfuerB'] = dbliste($ar['getfuerB'], $tpl, 'getfuerB', "SELECT `id`,`name` FROM `prefix_grundrechte` ORDER BY `id` DESC");
 $ar['cwmenu'] = arliste($ar['cwmenu'], $ar_cwmenu , $tpl, 'cwmenu');
 $ar['cwebene'] = arliste($ar['cwebene'], $ar_cwebene, $tpl, 'cwebene');
 $ar['cwwas'] = arliste($ar['was'], $ar_cwwas, $tpl, 'cwwas');

@@ -13,10 +13,10 @@ if (isset($_POST['sub'])) {
     $v2 = escape($_POST['v2'], 'string');
     $v3 = escape($_POST['v3'], 'string');
     $v4 = escape($_POST['v4'], 'string');
-    db_query("UPDATE prefix_allg SET v1 = '" . $v1 . "', v2 = '" . $v2 . "', v3 = '" . $v3 . "', v4 = '" . $v4 . "', t1 = '" . $t1 . "' WHERE k = 'impressum'");
+    db_query("UPDATE `prefix_allg` SET `v1` = '" . $v1 . "', `v2` = '" . $v2 . "', `v3` = '" . $v3 . "', `v4` = '" . $v4 . "', `t1` = '" . $t1 . "' WHERE `k` = 'impressum'");
 }
 
-$erg = db_query("SELECT * FROM prefix_allg WHERE k = 'impressum' LIMIT 1");
+$erg = db_query("SELECT * FROM `prefix_allg` WHERE `k` = 'impressum' LIMIT 1");
 $row = db_fetch_assoc($erg);
 if ($row['t1'] == '') {
     $f = @implode('', @file('http://disclaimer.de/disclaimer.htm'));

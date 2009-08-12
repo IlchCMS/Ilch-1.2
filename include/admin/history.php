@@ -10,7 +10,7 @@ $design->header();
 $tpl = new tpl ('history', 1);
 // delete
 if (!empty ($_GET['delete'])) {
-    db_query("DELETE FROM prefix_history WHERE id = '" . $_GET['delete'] . "'");
+    db_query("DELETE FROM `prefix_history` WHERE `id` = '" . $_GET['delete'] . "'");
 }
 
 if (isset($_REQUEST['pkey'])) {
@@ -24,9 +24,9 @@ if (!empty($_POST['sub'])) {
         $txt = escape($_POST['txt'], 'textarea');
         $title = escape($_POST['title'], 'string');
         if (empty ($_POST['pkey'])) {
-            db_query("INSERT INTO prefix_history (date,title,txt) VALUES ('" . $date . "','" . $title . "','" . $txt . "')");
+            db_query("INSERT INTO `prefix_history` (`date`,`title`,`txt`) VALUES ('" . $date . "','" . $title . "','" . $txt . "')");
         } else {
-            db_query("UPDATE prefix_history SET date = '" . $date . "',title = '" . $title . "',txt = '" . $txt . "' WHERE id = '" . $_REQUEST['pkey'] . "'");
+            db_query("UPDATE `prefix_history` SET `date` = '" . $date . "',`title` = '" . $title . "',`txt` = '" . $txt . "' WHERE `id` = '" . $_REQUEST['pkey'] . "'");
         }
     } else {
         echo 'Datum stimmt nicht, bitte im Format DD.MM.YYYY eingeben also z.B. 29.12.2005<br />';
@@ -34,7 +34,7 @@ if (!empty($_POST['sub'])) {
 }
 
 if (!empty ($_REQUEST['pkey'])) {
-    $erg = db_query("SELECT id,DATE_FORMAT(date,'%d.%m.%Y') as date,title,txt FROM prefix_history WHERE id = '" . $_GET['pkey'] . "'");
+    $erg = db_query("SELECT `id`,DATE_FORMAT(`date`,'%d.%m.%Y') as `date`,`title`,`txt` FROM `prefix_history` WHERE `id` = '" . $_GET['pkey'] . "'");
     $_ilch = db_fetch_assoc($erg);
     $_ilch['pkey'] = $_REQUEST['pkey'];
 } else {
@@ -51,7 +51,7 @@ $class = '';
 $MPL = db_make_sites ($_GET['page'] , '' , $limit , '?history' , 'history');
 $anfang = ($_GET['page'] - 1) * $limit;
 
-$abf = "SELECT id,DATE_FORMAT(date,'%d.%m.%Y') as date,title FROM prefix_history ORDER BY date LIMIT " . $anfang . "," . $limit;
+$abf = "SELECT `id`,DATE_FORMAT(`date`,'%d.%m.%Y') as `date`,`title` FROM `prefix_history` ORDER BY `date` LIMIT " . $anfang . "," . $limit;
 $erg = db_query($abf);
 while ($row = db_fetch_assoc($erg)) {
     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');

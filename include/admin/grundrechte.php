@@ -18,10 +18,10 @@ if (isset($_GET['m']) AND $_GET['m'] == 'm') {
         // logisch an und ist es auch.
         $mid = escape($_POST['md'], 'integer');
         $gr = escape($_POST['gr'], 'integer');
-        db_query("DELETE FROM prefix_modulerights USING prefix_modulerights, prefix_user WHERE prefix_user.id = prefix_modulerights.uid AND prefix_modulerights.mid = " . $mid . " AND prefix_user.recht = " . $gr);
+        db_query("DELETE FROM `prefix_modulerights` USING `prefix_modulerights`, `prefix_user` WHERE `prefix_user`.`id` = `prefix_modulerights`.`uid` AND `prefix_modulerights`.`mid` = " . $mid . " AND `prefix_user`.`recht` = " . $gr);
 
         if ($_POST['ak'] == 1) {
-            db_query("INSERT INTO prefix_modulerights (mid,uid) SELECT " . $mid . " as mid, id as uid FROM prefix_user WHERE recht = " . $gr);
+            db_query("INSERT INTO `prefix_modulerights` (`mid`,`uid`) SELECT " . $mid . " as `mid`, `id` as `uid` FROM `prefix_user` WHERE `recht` = " . $gr);
         }
 
         wd (
@@ -38,8 +38,8 @@ if (isset($_GET['m']) AND $_GET['m'] == 'm') {
         $design->footer(1);
     }
 
-    $grl = dblistee ('', "SELECT id, name FROM prefix_grundrechte ORDER BY id ASC");
-    $mdl = dblistee ('', "SELECT id, name FROM prefix_modules ORDER BY name");
+    $grl = dblistee ('', "SELECT `id`, `name` FROM `prefix_grundrechte` ORDER BY `id` ASC");
+    $mdl = dblistee ('', "SELECT `id`, `name` FROM `prefix_modules` ORDER BY `name`");
 
     ?>
 
@@ -67,10 +67,10 @@ $arb = array (- 9 => 'Dieser User hat alle Rechte :-)', - 8 => 'Dieser User darf
     );
 
 if (isset($_POST['o'])) {
-    $erg = db_query("SELECT * FROM prefix_grundrechte ORDER BY id ASC");
+    $erg = db_query("SELECT * FROM `prefix_grundrechte` ORDER BY `id` ASC");
     while ($r = db_fetch_assoc($erg)) {
         if ($r['name'] != $_POST['gr'][$r['id']]) {
-            db_query("UPDATE prefix_grundrechte SET name = '" . escape($_POST['gr'][$r['id']], 'string') . "' WHERE id = " . $r['id']);
+            db_query("UPDATE `prefix_grundrechte` SET `name` = '" . escape($_POST['gr'][$r['id']], 'string') . "' WHERE `id` = " . $r['id']);
         }
     }
     echo 'Die Aenderungen wurden gespeichert<br /><br />';
@@ -87,7 +87,7 @@ if (isset($_POST['o'])) {
   </tr>
   <?php
 $class = '';
-$erg = db_query("SELECT * FROM prefix_grundrechte ORDER BY id ASC");
+$erg = db_query("SELECT * FROM `prefix_grundrechte` ORDER BY `id` ASC");
 while ($r = db_fetch_assoc($erg)) {
     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
 
