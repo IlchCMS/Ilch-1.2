@@ -16,11 +16,11 @@ function groups_update_modulerights_for ($ar) {
             continue;
         }
         foreach ($re[$k] as $r) {
-            $s = "SELECT `id` FROM `prefix_modules` WHERE `url` = '" . $r . "'";
+            $s = "SELECT `id` FROM `prefix_modules` WHERE `url` = '$r'";
             $mid = db_result(db_query($s), 0, 0);
-            $s = "SELECT COUNT(*) FROM `prefix_modulerights` WHERE `uid` = " . $uid . " AND `mid` = " . $mid;
+            $s = "SELECT COUNT(*) FROM `prefix_modulerights` WHERE `uid` = '$uid' AND `mid` = '$mid'";
             if (0 == db_result(db_query($s), 0, 0)) {
-                db_query("INSERT INTO `prefix_modulerights` (`mid`,`uid`) VALUES (" . $mid . "," . $uid . ")");
+                db_query("INSERT INTO `prefix_modulerights` (`mid`,`uid`) VALUES ('$mid','$uid')");
             }
         }
     }
@@ -33,7 +33,7 @@ function may_changegroup ($gi, $m = 0) {
     } elseif ($gi == 0) {
         return false;
     } else {
-        $q = db_query("SELECT `mod1`, `mod2`" . ($m == 1?', mod4':'') . " FROM `prefix_groups` WHERE `id` = ".$gi);
+        $q = db_query("SELECT `mod1`, `mod2`".($m == 1 ? ', mod4' : '')." FROM `prefix_groups` WHERE `id` = '$gi'");
         if (db_num_rows($q) < 1) {
             return false;
         } else {
@@ -63,7 +63,7 @@ if ($um == 'ins') {
     $fightus = escape($_POST['fightus'], 'integer');
     $joinus = escape($_POST['joinus'], 'integer');
     if (may_changegroup(0)) {
-        db_query("INSERT INTO `prefix_groups` (`name`,`img`,`mod1`,`mod2`,`mod3`,`mod4`,`show_fightus`,`show_joinus`,`zeigen`,`pos`) VALUES ('" . $name . "','" . $img . "'," . $mod1 . "," . $mod2 . "," . $mod3 . "," . $mod4 . "," . $fightus . "," . $joinus . "," . $zeigen . "," . $pos . ")");
+        db_query("INSERT INTO `prefix_groups` (`name`,`img`,`mod1`,`mod2`,`mod3`,`mod4`,`show_fightus`,`show_joinus`,`zeigen`,`pos`) VALUES ('$name','$img','$mod1','$mod2','$mod3','$mod4','$fightus','$joinus','$zeigen','$pos')");
     }
 
     if (is_coadmin()) {
@@ -82,9 +82,9 @@ if (isset ($_POST['ins_user'])) {
             $fid = escape($_POST['fid'], 'integer');
         }
         $name = escape($_POST['name'], 'string');
-        $uid = @db_result(@db_query("SELECT `id` FROM `prefix_user` WHERE `name` = BINARY '" . $name . "'"), 0, 0);
-        if (!empty($uid) AND 0 == db_result(db_query("SELECT COUNT(*) FROM `prefix_groupusers` WHERE `gid` = " . $gid . " AND `uid` = " . $uid), 0)) {
-            db_query("INSERT INTO `prefix_groupusers` (`gid`,`uid`,`fid`) VALUES (" . $gid . "," . $uid . "," . $fid . ")");
+        $uid = @db_result(@db_query("SELECT `id` FROM `prefix_user` WHERE `name` = BINARY '$name'"), 0, 0);
+        if (!empty($uid) AND 0 == db_result(db_query("SELECT COUNT(*) FROM `prefix_groupusers` WHERE `gid` = '$gid' AND `uid` = '$uid'"), 0)) {
+            db_query("INSERT INTO `prefix_groupusers` (`gid`,`uid`,`fid`) VALUES ('$gid','$uid','$fid')");
         }
     }
     $um = 'addusers';
@@ -92,7 +92,7 @@ if (isset ($_POST['ins_user'])) {
 
 if ($um == 'ch') {
     $gid = escape($_POST['gid'], 'integer');
-    $oldopts = db_fetch_object(db_query("SELECT * FROM `prefix_groups` WHERE `id` = ".$gid));
+    $oldopts = db_fetch_object(db_query("SELECT * FROM `prefix_groups` WHERE `id` = '$gid'"));
     $name = escape($_POST['group_name'], 'string');
     $img = escape($_POST['img'], 'string');
     $mod1 = escape($_POST['mod1'], 'integer');
@@ -115,33 +115,33 @@ if ($um == 'ch') {
     }
 
     if (may_changegroup($gid, 1)) {
-        db_query("UPDATE `prefix_groups` SET `name` = '" . $name . "', `show_fightus` = " . $fightus . ", `show_joinus` = " . $joinus . ", `img` = '" . $img . "', `mod1` = " . $mod1 . ", `mod2` = " . $mod2 . ", `mod3` = " . $mod3 . ", `mod4` = " . $mod4 . ", `zeigen` = " . $zeigen . " WHERE `id` = " . $gid);
-        $msg = "Die Gruppe wurde ver&auml;ndert";
+        db_query("UPDATE `prefix_groups` SET `name` = '$name', `show_fightus` = '$fightus', `show_joinus` = '$joinus', `img` = '$img', `mod1` = '$mod1', `mod2` = '$mod2', `mod3` = '$mod3', `mod4` = '$mod4', `zeigen` = '$zeigen' WHERE `id` = '$gid'");
+        $msg = 'Die Gruppe wurde ver&auml;ndert';
     }
 
     if (is_coadmin()) {
         // mods wieder die richtigen modulrechte geben. dazu erst loeschen, dann eintragen.
         groups_update_modulerights_for (array($mod1, $mod2, $mod3, $mod4));
-        $msg .= ", die Modulrechte wurden erneuert. Wenn allerdings Leader, Co-Leader, Warorga oder Memberorga ge&auml;ndert wurden haben diese User immer noch die Modulrechte ... das sollte daher &uuml;berpr&uuml;ft werden.";
+        $msg .= ', die Modulrechte wurden erneuert. Wenn allerdings Leader, Co-Leader, Warorga oder Memberorga ge&auml;ndert wurden haben diese User immer noch die Modulrechte ... das sollte daher &uuml;berpr&uuml;ft werden.';
     }
 }
 
 if (isset ($_GET['group_delete']) AND ($gid = escape($_GET['group_delete'], 'integer') AND may_changegroup(0))) {
-    $pos = db_result(db_query("SELECT `pos` FROM `prefix_groups` WHERE `id` = " . $gid), 0);
-    db_query("DELETE FROM `prefix_groups` WHERE `id` = " . $gid);
-    db_query("DELETE FROM `prefix_groupusers` WHERE `gid` = " . $gid);
-    db_query("UPDATE `prefix_groups` SET `pos` = `pos` -1 WHERE `pos` > " . $pos);
+    $pos = db_result(db_query("SELECT `pos` FROM `prefix_groups` WHERE `id` = '$gid'"), 0);
+    db_query("DELETE FROM `prefix_groups` WHERE `id` = '$gid'");
+    db_query("DELETE FROM `prefix_groupusers` WHERE `gid` = '$gid'");
+    db_query("UPDATE `prefix_groups` SET `pos` = `pos` -1 WHERE `pos` > '$gid'");
 }
 
 if ($menu->get(3) == 'user_delete' AND ($gid = escape($menu->get(2), 'integer') AND may_changegroup($gid, 1))) {
     $uid = escape($menu->get(4), 'integer');
-    db_query("DELETE FROM `prefix_groupusers` WHERE `gid` = " . $gid . " AND `uid` = " . $uid);
+    db_query("DELETE FROM `prefix_groupusers` WHERE `gid` = '$gid' AND `uid` = '$uid'");
 }
 
 if ($menu->get(3) == 'userchange' AND ($gid = escape($menu->get(2), 'integer') AND may_changegroup($gid, 1))) {
     $uid = escape($menu->get(4), 'integer');
     $fid = escape($menu->get(5), 'integer');
-    db_query("UPDATE `prefix_groupusers` SET `fid` = ".$fid." WHERE `gid` = ".$gid." AND `uid` = ."$uid);
+    db_query("UPDATE `prefix_groupusers` SET `fid` = ".$fid." WHERE `gid` = '$gid' AND `uid` = '$uid'");
 }
 
 if ($um == 'addusers') {
@@ -165,7 +165,7 @@ if ($um == 'addusers') {
         return $out;
     }
 
-    $row1 = db_fetch_object(db_query("SELECT `name` FROM `prefix_groups` WHERE `id` = " . $gid));
+    $row1 = db_fetch_object(db_query("SELECT `name` FROM `prefix_groups` WHERE `id` = '$gid'"));
     $tpl->set('gruppe', $row1->name);
     $tpl->set('fehler', (empty($fehler) ? '' : $fehler));
     $tpl->set('gid', $gid);
@@ -181,7 +181,7 @@ if ($um == 'addusers') {
 	FROM `prefix_groupusers` `a`
 	LEFT JOIN `prefix_user` `b` ON `a`.`uid` = `b`.`id`
 	LEFT JOIN `prefix_groupfuncs` `c` ON `a`.`fid` = `c`.`id`
-	WHERE `a`.`gid` = " . $gid . "
+	WHERE `a`.`gid` = '$gid'
 	ORDER BY `c`.`pos`";
     $erg = db_query($q);
     while ($row = db_fetch_assoc($erg)) {
@@ -196,7 +196,7 @@ if ($um == 'addusers') {
 
 if ($menu->get(1) == 'move' AND may_changegroup(0)) {
     $id = escape($menu->getE(2), 'integer');
-    $pos = db_result(db_query("SELECT `pos` FROM `prefix_groups` WHERE `id` = " . $id), 0);
+    $pos = db_result(db_query("SELECT `pos` FROM `prefix_groups` WHERE `id` = '$id'"), 0);
     $anz = db_result(db_query("SELECT COUNT(*) FROM `prefix_groups`"), 0);
     if ($menu->getA(2) == 'u') {
         $npos = $pos + 1;
@@ -204,17 +204,17 @@ if ($menu->get(1) == 'move' AND may_changegroup(0)) {
         $npos = $pos - 1;
     }
     if ($npos < 0) {
-        db_query("UPDATE `prefix_groups` SET `pos` = " . $anz . " WHERE `id` = " . $id);
+        db_query("UPDATE `prefix_groups` SET `pos` = '$anz' WHERE `id` = '$id'");
         db_query("UPDATE `prefix_groups` SET `pos` = `pos` -1");
     }
     if ($npos >= $anz) {
-        db_query("UPDATE `prefix_groups` SET `pos` = -1 WHERE `id` = " . $id);
+        db_query("UPDATE `prefix_groups` SET `pos` = -1 WHERE `id` = '$id'");
         db_query("UPDATE `prefix_groups` SET `pos` = `pos` +1");
     }
 
     if ($npos >= 0 AND $npos < $anz) {
-        db_query("UPDATE `prefix_groups` SET `pos` = " . $pos . " WHERE `pos` = " . $npos);
-        db_query("UPDATE `prefix_groups` SET `pos` = " . $npos . " WHERE `id` = " . $id);
+        db_query("UPDATE `prefix_groups` SET `pos` = '$pos' WHERE `pos` = '$npos'");
+        db_query("UPDATE `prefix_groups` SET `pos` = '$npos' WHERE `id` = '$id'");
     }
 }
 
@@ -225,20 +225,20 @@ if ($um == 'funcs') {
     if (isset($_POST['s']) AND $_POST['s'] == 'Add') {
         $pos = escape($_POST['apos'], 'integer');
         $name = escape($_POST['aname'], 'string');
-        db_query("INSERT INTO `prefix_groupfuncs` (`pos`,`name`) VALUES (" . $pos . ", '" . $name . "')");
+        db_query("INSERT INTO `prefix_groupfuncs` (`pos`,`name`) VALUES ('$pos`', '$name')");
     } elseif (isset($_POST['s']) AND $_POST['s'] == 'Send') {
         $erg = db_query('SELECT * FROM `prefix_groupfuncs` ORDER BY `pos`');
         while ($row = db_fetch_assoc($erg)) {
             if ((!empty($_POST['pos'][$row['id']]) AND !empty($_POST['name'][$row['id']])) AND $_POST['pos'][$row['id']] != $row['pos'] OR $_POST['name'][$row['id']] != $row['name']) {
                 $pos = escape($_POST['pos'][$row['id']], 'integer');
                 $name = escape($_POST['name'][$row['id']], 'string');
-                db_query("UPDATE `prefix_groupfuncs` SET `pos` = " . $pos . ", `name` = '" . $name . "' WHERE `id` = " . $row['id']);
+                db_query("UPDATE `prefix_groupfuncs` SET `pos` = '$pos', `name` = '$name' WHERE `id` = '".$row['id']."'");
             }
         }
     }
     if ($menu->getA(2) == 'd' AND is_numeric($menu->getE(2))) {
         $id = escape($menu->getE(2), 'integer');
-        db_query("DELETE FROM `prefix_groupfuncs` WHERE `id` = " . $id);
+        db_query("DELETE FROM `prefix_groupfuncs` WHERE `id` = '$id'");
     }
 
     $tpl = new tpl ('groups/funcs', 1);
@@ -261,14 +261,14 @@ if ($um == 'joinus') {
         $check = escape($menu->get(3), 'string');
         $id = escape($menu->getE(2), 'integer');
         if ($menu->get(4) == 'addtoteam') {
-            $gid = db_count_query("SELECT `groupid` FROM `prefix_usercheck` WHERE `check` = '".$check."'");
-            db_query("INSERT INTO `prefix_groupusers` (`gid`,`uid`,`fid`) VALUES (".$gid.",".$id.",4)");
+            $gid = db_count_query("SELECT `groupid` FROM `prefix_usercheck` WHERE `check` = '$check'");
+            db_query("INSERT INTO `prefix_groupusers` (`gid`,`uid`,`fid`) VALUES ('$gid','$id','4')");
             $msg = 'Er wurde als Trial in das Team eingetragen.';
         } else {
             $msg = 'Jetzt muss er noch in ein Team aufgenommen werden.';
         }
-        db_query("DELETE FROM `prefix_usercheck` WHERE `ak` = 4 AND `check` = '" . $check . "'");
-        db_query("UPDATE `prefix_user` SET `recht` = -3 WHERE `id` = " . $id . " AND `recht` > -3");
+        db_query("DELETE FROM `prefix_usercheck` WHERE `ak` = 4 AND `check` = '$check'");
+        db_query("UPDATE `prefix_user` SET `recht` = -3 WHERE `id` = '$id' AND `recht` > -3");
         sendpm ($_SESSION['authid'], $id, 'Deine Joinus Anfrage', 'Du wurdest als Trial-Member aufgenommen.');
         $msg = 'erfolgreich als Trial markiert, der User wurde darueber informiert. ' . $msg;
     }
@@ -276,7 +276,7 @@ if ($um == 'joinus') {
     if ($menu->getA(2) == 'd' AND is_numeric($menu->getE(2))) {
         $check = escape($menu->get(3), 'string');
         $id = escape($menu->getE(2), 'integer');
-        db_query("DELETE FROM `prefix_usercheck` WHERE `ak` = 4 AND `check` = '" . $check . "'");
+        db_query("DELETE FROM `prefix_usercheck` WHERE `ak` = 4 AND `check` = '$check'");
         if ($id != 0) {
             sendpm ($_SESSION['authid'], $id, 'Deine Joinus Anfrage', 'Deine Joinus Anfrage wurde leider abgelehnt');
         }
@@ -290,11 +290,11 @@ if ($um == 'joinus') {
     if ($_SESSION['authright'] <= - 8 OR $allgAr['groups_forall'] == 0) {
         $where = '';
     } else {
-        $where = " AND `prefix_usercheck`.`groupid` IN (SELECT `id` FROM `prefix_groups` WHERE `mod1` = {$_SESSION['authid']} OR `mod2` = {$_SESSION['authid']} OR `mod4` = {$_SESSION['authid']})";
+        $where = " AND `prefix_usercheck`.`groupid` IN (SELECT `id` FROM `prefix_groups` WHERE `mod1` = '{$_SESSION['authid']}' OR `mod2` = '{$_SESSION['authid']}' OR `mod4` = '{$_SESSION['authid']}')";
     }
 
     $class = 'Cnorm';
-    $erg = db_query("SELECT `check`, `prefix_usercheck`.`name`, `prefix_user`.`id`, `prefix_user`.`email`, `prefix_groups`.`name` as `groupname` FROM `prefix_usercheck` LEFT JOIN `prefix_user` ON `prefix_user`.`name` = BINARY `prefix_usercheck`.`name` LEFT JOIN `prefix_groups` ON `prefix_groups`.`id` = `prefix_usercheck`.`groupid` WHERE `ak` = 4" . $where);
+    $erg = db_query("SELECT `check`, `prefix_usercheck`.`name`, `prefix_user`.`id`, `prefix_user`.`email`, `prefix_groups`.`name` as `groupname` FROM `prefix_usercheck` LEFT JOIN `prefix_user` ON `prefix_user`.`name` = BINARY `prefix_usercheck`.`name` LEFT JOIN `prefix_groups` ON `prefix_groups`.`id` = `prefix_usercheck`.`groupid` WHERE `ak` = 4$where");
     while ($r = db_fetch_assoc($erg)) {
         if ($r['id'] < 1) {
             $r['email'] = db_count_query("SELECT `email` FROM `prefix_usercheck` WHERE `name` = '{$r['name']}' AND `ak`");
@@ -318,7 +318,7 @@ if ($show) {
     $tpl = new tpl ('groups/groups', 1);
 
     if ($um == 'edit') {
-        $ar = db_fetch_assoc(db_query("SELECT `id` as `gid`, `name`, `img`, `mod1`, `mod2`, `mod3`, `mod4`, `zeigen`, `show_joinus`, `show_fightus` FROM `prefix_groups` WHERE `id` = " . $menu->get(2)));
+        $ar = db_fetch_assoc(db_query("SELECT `id` as `gid`, `name`, `img`, `mod1`, `mod2`, `mod3`, `mod4`, `zeigen`, `show_joinus`, `show_fightus` FROM `prefix_groups` WHERE `id` = '{$menu->get(2)}'"));
         $ar['ak'] = 'ch';
         $ar['zeigenja'] = ($ar['zeigen'] == 1 ? 'checked' : '');
         $ar['zeigenno'] = ($ar['zeigen'] == 1 ? '' : 'checked');
@@ -334,10 +334,10 @@ if ($show) {
             );
     }
 
-    $ar['mods1'] = dbliste ($ar['mod1'] , $tpl, 'mods1', "SELECT `id`,`name` FROM `prefix_user` WHERE `recht` <= -4 ORDER BY `name`");
-    $ar['mods2'] = dbliste ($ar['mod2'] , $tpl, 'mods2', "SELECT `id`,`name` FROM `prefix_user` WHERE `recht` <= -4 ORDER BY `name`");
-    $ar['mods3'] = dbliste ($ar['mod3'] , $tpl, 'mods3', "SELECT `id`,`name` FROM `prefix_user` WHERE `recht` <= -4 ORDER BY `name`");
-    $ar['mods4'] = dbliste ($ar['mod4'] , $tpl, 'mods4', "SELECT `id`,`name` FROM `prefix_user` WHERE `recht` <= -4 ORDER BY `name`");
+    $ar['mods1'] = dbliste ($ar['mod1'] , $tpl, 'mods1', "SELECT `id`,`name` FROM `prefix_user` WHERE `recht` <= '-4' ORDER BY `name`");
+    $ar['mods2'] = dbliste ($ar['mod2'] , $tpl, 'mods2', "SELECT `id`,`name` FROM `prefix_user` WHERE `recht` <= '-4' ORDER BY `name`");
+    $ar['mods3'] = dbliste ($ar['mod3'] , $tpl, 'mods3', "SELECT `id`,`name` FROM `prefix_user` WHERE `recht` <= '-4' ORDER BY `name`");
+    $ar['mods4'] = dbliste ($ar['mod4'] , $tpl, 'mods4', "SELECT `id`,`name` FROM `prefix_user` WHERE `recht` <= '-4' ORDER BY `name`");
     $ar['mods2'] = '<option value="0">keiner</option>' . $ar['mods2'];
     $ar['mods3'] = '<option value="0">keiner</option>' . $ar['mods3'];
     $ar['mods4'] = '<option value="0">keiner</option>' . $ar['mods4'];
@@ -354,7 +354,7 @@ if ($show) {
     $class = 'Cnorm';
     $erg = db_query("SELECT `name`,`id` FROM `prefix_groups` ORDER BY `pos` ASC");
     while ($row = db_fetch_assoc($erg)) {
-        $row['useranz'] = db_count_query("SELECT COUNT(`uid`) FROM `prefix_groupusers` WHERE `gid` = " . $row['id']);
+        $row['useranz'] = db_count_query("SELECT COUNT(`uid`) FROM `prefix_groupusers` WHERE `gid` = '{$row['id']}'");
         $class = ($class == 'Cnorm' ? 'Cmite' : 'Cnorm');
         $row['class'] = $class;
         $tpl->set_ar_out($row, 1);
