@@ -278,7 +278,9 @@ INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('groups_forall', 'r2', 'Team Optionen', 'Modulrecht <i>Gruppen</i> auf eigene Gruppe beschr&auml;nken?', '1');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('lang', 's', 'Allgemeine Optionen', 'Standard Sprache', 'de');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES('mail_smtp', 'r2', 'Allgemeine Optionen', 'SMTP für den Mailversand verwenden? <a href="admin.php?smtpconf" class="smalfont">weitere Einstellungen</a>', '0', 0);
-
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('userpic_Fabreite', 'input', 'Forum Optionen', 'max Breite f&uuml;r das Userpic', '160');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('userpic_Fahohe', 'input', 'Forum Optionen', 'max H&ouml;he f&uuml;r das Userpic', '160');
+INSERT INTO `preifx_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('userpic_Fasize', 'input', 'Forum Optionen', 'max Gr&ouml;&szlig;e in Bytes f&uuml;r das Userpic', '32322');
 
 CREATE TABLE `prefix_counter` (
   `date` date NOT NULL,
@@ -800,6 +802,7 @@ CREATE TABLE `prefix_user` (
   `homepage` varchar(100) NOT NULL default '',
   `staat` varchar(50) NOT NULL default '',
   `avatar` varchar(100) NOT NULL default '',
+  `userpic` varchar(100) NOT NULL default '',
   `icq` varchar(20) NOT NULL default '',
   `msn` varchar(50) NOT NULL default '',
   `yahoo` varchar(50) NOT NULL default '',

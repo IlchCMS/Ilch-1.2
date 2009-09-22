@@ -29,11 +29,18 @@ $('.password').pstrength();
       <legend>{_lang_removeaccount}</legend>
       <label style="float:left; width:35%;">&nbsp;</label><input type="checkbox" value="yes" name="removeaccount" /> {_lang_delete}? &nbsp; <font class="smalfont">{_lang_mustbeentered}</font>
       </fieldset>
+	  <br />
       <fieldset>
 			  <legend>{_lang_avatar}</legend>
 			    <label style="float:left; width:35%;">&nbsp;</label>{avatarbild}<input type="checkbox" value="yes" name="avatarloeschen" /> {_lang_delete}?<br /><br />
 			    <label style="float:left; width:35%;">&nbsp;</label><input style="margin-bottom:2px;" type="file" name="avatarfile" /><br /><font class="smalfont"><br />{_lang_criterions}: {_lang_maxwidth} {Fabreite}px, {_lang_maxheight} {Fahohe}px {_lang_and} max size {Fasize} bytes.  {_lang_otherwisenoaction}.</font><br />
 			</fieldset>
+			<br />
+      <fieldset>
+			  <legend>{_lang_userpic}</legend>
+			    <label style="float:left; width:35%;">&nbsp;</label>{userpic}<input type="checkbox" value="yes" name="userpicloeschen" /> {_lang_delete}?<br /><br />
+			    <label style="float:left; width:35%;">&nbsp;</label><input style="margin-bottom:2px;" type="file" name="userpicfile" /><br /><font class="smalfont"><br />{_lang_criterions}: {_lang_maxwidth} {userpic_Fabreite}px, {_lang_maxheight} {userpic_Fahohe}px {_lang_and} max size {userpic_Fasize} bytes.  {_lang_otherwisenoaction}.</font><br />
+	  </fieldset>
 			<br />
 			{EXPLODE}
 			<fieldset>

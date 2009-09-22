@@ -1,3 +1,10 @@
+/* -----> Rev. 31 <----- */
+INSERT INTO `ic1_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('userpic_Fabreite', 'input', 'Forum Optionen', 'max Breite f&uuml;r das Userpic', '160');
+INSERT INTO `ic1_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('userpic_Fahohe', 'input', 'Forum Optionen', 'max H&ouml;he f&uuml;r das Userpic', '160');
+INSERT INTO `ic1_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('userpic_Fasize', 'input', 'Forum Optionen', 'max Gr&ouml;&szlig;e in Bytes f&uuml;r das Userpic', '32322');
+ALTER TABLE `ic1_user` ADD `userpic` VARCHAR( 200 ) NOT NULL AFTER `avatar`;
+
+
 --------------------------------------
 ---------> AJAX CHAT START <----------
 --------------------------------------

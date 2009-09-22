@@ -409,7 +409,9 @@ $lang = array_merge($lang, array
 'phpserverconf' => 'PHP Server Configuration',
 'filesystemrights' => 'Filesystem Rights',
 'correct' => 'OK',
-'incorrect' => 'incorrect'
+'incorrect' => 'incorrect',
+
+'userpic' => 'Userpic'
 ));
 
 #$x = array();

@@ -11,7 +11,7 @@ $design = new design ($title , $hmenu, 1);
 if ($_SESSION['authright'] <= - 1) {
     if (empty ($_POST['submit'])) {
         $design->header( $header );
-        $abf = 'SELECT `email`,`wohnort`,`homepage`,`aim`,`msn`,`icq`,`yahoo`,`avatar`,`status`,`staat`,`gebdatum`,`sig`,`opt_pm_popup`,`opt_pm`,`opt_mail`,`geschlecht`,`spezrank` FROM `prefix_user` WHERE `id` = "' . $_SESSION['authid'] . '"';
+        $abf = 'SELECT * FROM `prefix_user` WHERE `id` = "' . $_SESSION['authid'] . '"';
         $erg = db_query($abf);
         if (db_num_rows($erg) > 0) {
             $row = db_fetch_assoc($erg);
@@ -49,11 +49,19 @@ if ($_SESSION['authright'] <= - 1) {
                 $row['opt_pm_popup1'] = '';
                 $row['opt_pm_popup0'] = 'checked';
             }
-
+			
+			// Avatar
             $row['avatarbild'] = (file_exists ($row['avatar']) ? '<img src="' . $row['avatar'] . '" alt=""><br />' : '');
             $row['Fabreite'] = $allgAr['Fabreite'];
             $row['Fahohe'] = $allgAr['Fahohe'];
             $row['Fasize'] = $allgAr['Fasize'];
+			
+			// Userpic
+			$row['userpic'] = (file_exists ($row['userpic']) ? '<img src="' . $row['userpic'] . '" alt=""><br />' : '');
+            $row['userpic_Fabreite'] = $allgAr['userpic_Fabreite'];
+            $row['userpic_Fahohe'] = $allgAr['userpic_Fahohe'];
+            $row['userpic_Fasize'] = $allgAr['userpic_Fasize'];
+			
             $row['forum_max_sig'] = $allgAr['forum_max_sig'];
             $row['uid'] = $_SESSION['authid'];
             $row['forum_usergallery'] = $allgAr['forum_usergallery'];
@@ -67,7 +75,7 @@ if ($_SESSION['authright'] <= - 1) {
             $tpl->set_out('WDLINK', 'index.php', 0);
         }
     } else { // submit
-        // change poassword
+        // change password
         if (!empty($_POST['np1']) AND !empty($_POST['np2']) AND !empty($_POST['op'])) {
             if ($_POST['np1'] == $_POST['np2']) {
                 $akpw = db_result(db_query("SELECT pass FROM prefix_user WHERE id = " . $_SESSION['authid']), 0);
@@ -113,6 +121,36 @@ if ($_SESSION['authright'] <= - 1) {
             $avatar_sql_update = "avatar = '',";
         }
         // avatar speichern ENDE
+        // userpic speichern START
+        $userpic_sql_update = '';
+        if (!empty ($_FILES['userpicfile']['name']) AND $allgAr['forum_avatar_upload']) {
+            $file_tmpe = $_FILES['userpicfile']['tmp_name'];
+            $rile_type = ic_mime_type ($_FILES['userpicfile']['tmp_name']);
+            $file_type = $_FILES['userpicfile']['type'];
+            $file_size = $_FILES['userpicfile']['size'];
+            $fmsg = $lang['userpicisnopicture'];
+            $size = @getimagesize ($file_tmpe);
+            $endar = array (1 => 'gif', 2 => 'jpg', 3 => 'png');
+            if (($size[2] == 1 OR $size[2] == 2 OR $size[2] == 3) AND $size[0] > 10 AND $size[1] > 10 AND substr ($file_type , 0 , 6) == 'image/' AND substr ($rile_type , 0 , 6) == 'image/') {
+                $endung = $endar[$size[2]];
+                $breite = $size[0];
+                $hoehe = $size[1];
+                $fmsg = $lang['userpiccannotupload'];
+                if ($file_size <= $allgAr['userpic_Fasize'] AND $breite <= $allgAr['userpic_Fabreite'] AND $hoehe <= $allgAr['userpic_Fahohe']) {
+                    $neuer_name = 'include/images/userpics/' . $_SESSION['authid'] . '.' . $endung;
+                    @unlink (db_result(db_query("SELECT `userpic` FROM `prefix_user` WHERE `id` = " . $_SESSION['authid']), 0));
+                    move_uploaded_file ($file_tmpe , $neuer_name);
+                    @chmod($neuer_name, 0777);
+                    $userpic_sql_update = "userpic = '" . $neuer_name . "',";
+                    $fmsg = $lang['pictureuploaded'];
+                }
+            }
+        } elseif (isset($_POST['userpicloeschen'])) {
+            $fmsg = $lang['picturedelete'];
+            @unlink (db_result(db_query("SELECT `userpic` FROM `prefix_user` WHERE `id` = " . $_SESSION['authid']), 0));
+            $userpic_sql_update = "userpic = '',";
+        }
+        // userpic speichern ENDE
         // email aendern
         if ($_POST['email'] != $_POST['aemail']) {
             $id = $_SESSION['authid'] . '||' . md5 (uniqid (rand()));
@@ -144,6 +182,7 @@ if ($_SESSION['authright'] <= - 1) {
           msn = '" . escape($_POST['msn'], 'string') . "',
           yahoo = '" . escape($_POST['yahoo'], 'string') . "',
           " . $avatar_sql_update . "
+		  " . $userpic_sql_update . "
           aim = '" . escape($_POST['aim'], 'string') . "',
           staat = '" . escape($_POST['staat'], 'string') . "',
           geschlecht = '" . escape($_POST['geschlecht'], 'string') . "',

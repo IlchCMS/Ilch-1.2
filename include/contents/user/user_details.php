@@ -9,9 +9,9 @@ $abf = 'SELECT * FROM `prefix_user` WHERE id = "' . $uid . '"';
 $erg = db_query($abf);
 $row = db_fetch_assoc($erg);
 
-$avatar = '';
-if (file_exists($row['avatar'])) {
-    $avatar = '<img src="' . $row['avatar'] . '" border="0">';
+$userpic = '';
+if (file_exists($row['userpic'])) {
+    $userpic = '<img src="' . $row['userpic'] . '" border="0">';
 }
 
 $regsek = mktime (0, 0, 0, date('m'), date('d'), date('Y')) - $row['regist'];
@@ -25,7 +25,7 @@ $ar = array (
     'POSTS' => $row['posts'],
     'postpday' => $postpday,
     'RANG' => userrang ($row['posts'], $uid),
-    'AVATA' => $avatar,
+    'AVATA' => $userpic,
     );
 
 $title = $allgAr['title'] . ' :: Users :: Details von ' . $row['name'];

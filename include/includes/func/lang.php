@@ -34,7 +34,7 @@ function load_modul_lang( $content = 1 ){
 		$modul = $allgAr['smodul'];
 	}
 	
-	$file = 'include/includes/lang/'.$_SESSION['authlang'].'/'.$dir.'/'.$modul;
+	$file = 'include/includes/lang/'.$_SESSION['authlang'].'/'.$dir.'/'.$modul.'.php';
 	if (file_exists ($file) ) {
 		require_once ($file);
 	}
