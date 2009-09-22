@@ -23,7 +23,7 @@ if (version_compare(phpversion(), '5.3') != -1) {
 session_name  ('sid');
 session_start ();
 
-// datenbankverbindung aufbauen und Funktionen und Klassen laden
+// Datenbankverbindung aufbauen und Funktionen und Klassen laden
 require_once ('include/includes/config.php');
 require_once ('include/includes/loader.php');
 
@@ -34,6 +34,10 @@ $allgAr = getAllgAr ();
 $menu = new menu();
 user_identification();
 site_statistic();
+
+// Sprachdateien oeffnen
+load_global_lang( 2 );
+load_modul_lang( 2 );
 
 // Modul oeffnen
 if ( user_has_admin_right($menu) ) {

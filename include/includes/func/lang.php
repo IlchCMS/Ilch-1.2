@@ -20,18 +20,25 @@ function load_global_lang(){
 }
 
 // Modulare Sprachdateien oeffnen
-function load_modul_lang(){
+function load_modul_lang( $content = 1 ){
 	global $menu, $allgAr, $lang;
+	
+	if( $content == 2 ){
+		$dir = 'admin';
+	}else{
+		$dir = 'contents';
+	}
 	
 	$modul = $menu->get(0);
 	if (empty ($modul) ){
 		$modul = $allgAr['smodul'];
 	}
 	
-	$file = 'include/includes/lang/'.$_SESSION['authlang'].'/'.$modul;
+	$file = 'include/includes/lang/'.$_SESSION['authlang'].'/'.$dir.'/'.$modul;
 	if (file_exists ($file) ) {
 		require_once ($file);
 	}
+	
 	return $lang;
 }
 

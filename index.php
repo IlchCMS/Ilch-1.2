@@ -22,7 +22,7 @@ if (version_compare(phpversion(), '5.3') != -1) {
 session_name  ('sid');
 session_start ();
 
-// datenbankverbindung aufbauen und Funktionen und Klassen laden
+// Datenbankverbindung aufbauen und Funktionen und Klassen laden
 require_once ('include/includes/config.php');
 require_once ('include/includes/loader.php');
 
@@ -47,6 +47,4 @@ if (false) { //debugging aktivieren
 	debug('anzahl sql querys: '.$count_query_xyzXYZ);
 	debug('',1,true);
 }
-
-
 ?>

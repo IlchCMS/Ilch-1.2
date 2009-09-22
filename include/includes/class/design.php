@@ -133,6 +133,7 @@ class design extends tpl {
 		
 		return $buffer;
 	}
+	
     function addtobodyend($text) {
         if (isset($this->html[1])) {
             $this->html[1] = str_replace('</body>', $text . "\n</body>" , $this->html[1]);
