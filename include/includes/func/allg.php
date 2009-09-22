@@ -174,28 +174,88 @@ function genkey ($anz) {
 }
 
 function icmail ($mail, $bet, $txt, $from = '', $html = false) {
-    global $allgAr;
-    if ($from == '') {
-        $from = $allgAr['allg_default_subject'] . ' <' . $allgAr['adminMail'] . '>';
-    }
-    $from = preg_replace ("/\015\012|\015|\012/", "", $from);
-    $header = "From: " . $from . "\n";
-    $header .= "MIME-Version: 1.0\n";
-    $header .= "Content-Type: " . ($html?"text/html":"text/plain") . "; charset=\"iso-8859-1\";\n";
-    $header .= "Content-Transfer-Encoding: 8bit";
+	global $allgAr;
+	include_once('include/includes/class/phpmailer/class.phpmailer.php');
+	$mailer = new PHPMailer();
+	if (empty($from)) {
+		$mailer->From = $allgAr['adminMail'];
+		$mailer->FromName = $allgAr['allg_default_subject'];
+	} elseif ( preg_match('%(.*) <([\w\.-]*@[\w\.-]*)>%i', $from, $tmp) ) {
+		$mailer->From = trim($tmp[2]);
+		$mailer->FromName = trim($tmp[1]);
+	} elseif (preg_match('%([\w\.-]*@[\w\.-]*)%i', $from, $tmp)) {
+		$mailer->From = trim($tmp[1]);
+		$mailer->FromName = '';
+	}
+	if ($allgAr['mail_smtp']) { //SMTP Versand
 
-    $mail = escape_for_email($mail);
-    $bet = escape_for_email($bet, true);
-    $txt = str_replace("\r", "\n", str_replace("\r\n", "\n", $txt));
+		$smtpser = @db_result(db_query('SELECT `t1` FROM `prefix_allg` WHERE `k` = "smtpconf"'));
+		if (empty($smtpser)) {
+			echo '<span style="font-size: 2em; color: red;">Mailversand muss konfiguriert werden!</span><br />';
+		} else {
+			$smtp = unserialize($smtpser);
 
-    if ($allgAr['mail_smtp']) {
-        require_once('include/includes/func/smtp.php');
-        return smtpmail($mail, $bet , $txt , $header);
-    } elseif (mail ($mail, $bet, $txt, $header)) {
-        return (true);
-    } else {
-        return (false);
-    }
+			$mailer->IsSMTP();
+			$mailer->Host = $smtp['smtp_host'];
+			$mailer->SMTPAuth = ($smtp['smtp_auth'] == 'no' ? false : true);
+			if ($smtp['smtp_auth'] == 'ssl' or $smtp['smtp_auth'] == 'tls') {
+				$mailer->SMTPSecure = $smtp['smtp_auth'];
+			}
+			if (!empty($smtp['smtp_port'])) {
+				$mailer->Port = $smtp['smtp_port'];
+			}
+			$mailer->AddReplyTo($mailer->From, $mailer->FromName);
+
+			if ($smtp['smtp_changesubject'] and $mailer->From != $smtp['smtp_email']) {
+				$bet = '(For ' .$mailer->FromName . ' - '. $mailer->From .') '. $bet;
+				$mailer->From = $smtp['smtp_email'];
+			}
+
+			$mailer->Username = $smtp['smtp_login'];
+
+			require_once('include/includes/class/AzDGCrypt.class.inc.php');
+			$cr64 = new AzDGCrypt(DBDATE.DBUSER.DBPREF);
+			$mailer->Password = $cr64->decrypt($smtp['smtp_pass']);
+
+			if ($smtp['smtp_pop3beforesmtp'] == 1) {
+				$pop = new POP3();
+				$pop3port = !empty($smpt['smtp_pop3port']) ? $smpt['smtp_pop3port'] : 110;
+				$pop->Authorise($smpt['smtp_pop3host'], $pop3port, 5, $mailer->Username, $mailer->Password, 1);
+			}
+		}
+		//$mailer->SMTPDebug = true;
+	}
+	if (is_array($mail)) {
+		if ($mail[0] != 'bcc') {
+			array_shift($mail);
+			foreach ($mail as $m){
+				$mailer->AddBCC(escape_for_email($m));
+			}
+			$mailer->AddAddress($mailer->From);
+		} else {
+			foreach ($mail as $m){
+				$mailer->AddAddress(escape_for_email($mail));
+			}
+		}
+	} else {
+		$mailer->AddAddress(escape_for_email($mail));
+	}
+	$mailer->Subject = escape_for_email($bet, true);
+	$txt = str_replace("\r", "\n", str_replace("\r\n", "\n", $txt));
+	if ($html) {
+		$mailer->IsHTML(true);
+		$mailer->AltBody = strip_tags($txt);
+	}
+	$mailer->Body = $txt;
+
+	if ($mailer->Send()) {
+		return true;
+	} else {
+		if (is_coadmin()) {
+			echo "<h2 style=\"color:red;\">Mailer Error: " . $mailer->ErrorInfo . '</h2>';
+		}
+		return false;
+	}
 }
 
 function html_enc_substr($text, $start, $length) {
@@ -364,7 +424,7 @@ function get_lower($value){
 	} 
 }
 
-// Liefert
+// Liefert alle Dateien eines Ordners gegebener Typen aus
 function read_ext ($dir, $ext = '') {
     $buffer = Array( );
 	if ( !is_array( $ext ) ){

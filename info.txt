@@ -1,15 +1,14 @@
-ilchClan 1.1 M
+ilchClan 1.1 Update N (von ilchClan 1.1 M)
 
-04. Februar 2009
+18. September 2009
 
 Copyright (c) 2005 by Manuel
 
 
 i n s t a l l a t i o n
   - alle Dateien hochladen.
-  - der config.php chmod 666 geben.
-  - install.php im browser aufrufen.
-  - nach der Installation install.php und install.sql löschen.
+  - update.php ausführen und danach wieder löschen
+  - changelog lesen ;)
 
 s u p p o r t
   - www.ilch.de

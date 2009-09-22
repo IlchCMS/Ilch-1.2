@@ -269,18 +269,28 @@ switch ($menu->get(1)) {
         $design->footer();
         break;
     case 'down' :
-        $fid = $menu->get(2);
-        $recht = @db_result(db_query("SELECT `recht` FROM `prefix_downcats` LEFT JOIN `prefix_downloads` ON `prefix_downcats`.`id` = `prefix_downloads`.`cat` WHERE `prefix_downloads`.`id` = $fid"), 0);
-        $recht = (is_int($recht)?$recht:0);
-        if (has_right($recht)) {
-            $row = db_fetch_assoc(db_query("SELECT `url` FROM `prefix_downloads` WHERE `id` = " . $fid));
-            $url = iurlencode($row['url']);
-        } else {
-            $url = 'http://' . $_SERVER["HTTP_HOST"] . dirname($_SERVER["SCRIPT_NAME"]) . '/index.php?downloads';
-        }
-        db_query("UPDATE `prefix_downloads` SET `downs` = `downs` +1 WHERE `id` = " . $fid);
-        header('location: ' . $url);
-        break;
+		$fid = intval($menu->get(2));
+		if (!isset($_SESSION['download'][$fid])) {
+			header('Location: ' . 'http://' . $_SERVER["HTTP_HOST"] . dirname($_SERVER["SCRIPT_NAME"]) . '/index.php?downloads');
+			break;
+		}
+		$qry = db_query("SELECT d.`url`, IFNULL(c.`recht`,0) AS recht FROM `prefix_downloads` d LEFT JOIN `prefix_downcats` c ON c.`id` = d.`cat` WHERE d.`id` = $fid");
+		$row = db_fetch_assoc($qry);
+		$url = 'http://' . $_SERVER["HTTP_HOST"] . dirname($_SERVER["SCRIPT_NAME"]) . '/index.php?downloads';
+		if ($qry !== false and has_right($row['recht'])) {
+			db_query("UPDATE prefix_downloads SET downs = downs +1 WHERE id = " . $fid);
+			if (file_exists($row['url'])) {
+				header('Content-type: application/octet-stream');
+				header('Content-Disposition: attachment; filename="' . basename($row['url']) . '"');
+				readfile($row['url']);
+				exit;
+			} else {
+				$url = iurlencode($row['url']);
+			}
+			$error = false;
+		}
+		header('Location: ' . $url);
+		break;
     case 'upload' :
         if ($allgAr['archiv_down_userupload'] == 1 AND loggedin() AND is_writeable ('include/downs/downloads/user_upload')) {
             $title = $allgAr['title'] . ' :: Downloads :: User - Upload';

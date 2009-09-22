@@ -1,5 +1,20 @@
 <script language="JavaScript" type="text/javascript">
 <!--
+function createNamedElement(type, name) {
+   var element = null;
+   // Try the IE way; this fails on standards-compliant browsers
+   try {
+      element = document.createElement('<'+type+' name="'+name+'">');
+   } catch (e) {
+   }
+   if (!element || element.nodeName != type.toUpperCase()) {
+      // Non-IE browser; use canonical method to create named element
+      element = document.createElement(type);
+      element.name = name;
+   }
+   return element;
+}
+
   function setufocus() {
     document.f.q.focus();
   }
@@ -13,7 +28,7 @@
       mausX = e.pageX;
       mausY = e.pageY;
     }
-    
+
   }
   function alertpos(dname) {
   if (document.layers) {
@@ -31,9 +46,13 @@
   function changeUserRight (id1) {
     var x = confirm ( 'Das Recht dieses Users wirklich aendern?' );
     if (x) {
-      var newr = document.getElementById('recht'+id1).value;
-      var Fenster = window.open ('admin.php?user-changeRecht-' + id1 + '=0&newr='+ newr, 'changeRecht', 'status=no,scrollbars=no,height=10,width=10');
-      Fenster.focus();
+      var options = {
+        'action' : 'changeRight',
+      	'uid' : id1,
+      	'newright' : document.getElementById('recht'+id1).value
+      };
+	  var frm = setIframe(options);
+	  frm.submit();
     }
   }
   function changeGruppen (id1) {
@@ -47,21 +66,56 @@
   function deleteUser (id1) {
     var x = confirm ( 'Diesen User wirklich komplett entfernen?' );
     if (x) {
-      var Fenster = window.open ('admin.php?user-deleteUser-' + id1, 'deleteUser', 'status=no,scrollbars=no,height=10,width=10');
-      Fenster.focus();
+    	document.getElementById('af_action').value = 'deleteUser';
+		document.getElementById('af_uid').value = id1;
+		document.getElementById('actionForm').submit();
     }
   }
   function changeModulRecht ( modul, uid ) {
-    var aktion = 'loeschen';
-    if ( document.getElementById("MN" + modul + "-" + uid).checked == true ) {
-      aktion = 'eintragen';
-    }
-    var Fenster = window.open ('admin.php?user-modulrecht-' +uid+ '=0&modul=' + modul + '&aktion=' + aktion, 'changeModulRecht', 'status=no,scrollbars=no,height=10,width=10');
+      var action = ( document.getElementById("MN" + modul + "-" + uid).checked == true ) ? 'give' : 'remove';
+      var options = {
+        'action' : 'changeModulRight',
+      	'uid' : uid,
+      	'giveremove' : action,
+      	'modul' : modul
+      };
+	  var frm = setIframe(options);
+	  frm.submit();
+  }
+  function setIframe(fields){
+  	var ifrm = window.frames['ifrm']; //document.getElementById('ifrm');
+	var frm2 = document.getElementById('actionForm').cloneNode(true);
+	frm2.setAttribute('action', 'admin.php?user');
+	for (var f in fields){
+		if (frm2.elements[f] != undefined) {
+			frm2.elements[f].value = fields[f];
+		} else {
+		    var i = createNamedElement('input', f);
+		    i.setAttribute('type', 'hidden');
+		    i.setAttribute('value', fields[f]);
+		    frm2.appendChild(i);
+		}
+	}
+	if (document.all) {
+		ifrm.document.write(frm2.outerHTML);
+		frm2 = ifrm.document.all.actionForm;
+	} else {
+		ifrm.document.body.appendChild(frm2);
+	}
+	return frm2;
+  }
+  function setNewAntispam(element){
+  	document.getElementById('actionForm').elements['antispam_id'].value = element.value;
   }
 //-->
 </script>
 <div style="float:right"><a href="admin.php?puser">Noch nicht best&auml;tigte Registrierungen verwalten</a></div>
-
+<form id="actionForm" id="actionForm" method="post">
+{action_antispam}
+<input type="hidden" name="action" id="af_action" value="" />
+<input type="hidden" name="uid" id="af_uid" value="0" />
+</form>
+<iframe name="ifrm" id="ifrm" style="display:none;"></iframe>
 <body onload="setufocus()">
 <form action="admin.php" name="f" method="GET" style="padding: 0px; margin:0px 0px 0px 0px;" >
   <input type="hidden" name="user" value="" />
@@ -90,9 +144,9 @@
     {modlall}
   </tr>
  {EXPLODE}
-  
 
-  
+
+
   <tr class="{class}">
     <td><div onmouseover="hiddpos('groupdiv{id}')" id="groupdiv{id}" style="position:absolute; top:50px; left:50px; display:none; width:200px;">
 <table width="100%" class="border" border="0" cellspacing="1" cellpadding="4">
@@ -102,7 +156,7 @@
 </table>
 </div><strong>{name}</strong></td>
     <td><select id="recht{id}" onChange="changeUserRight({id})">{recht}</select></td>
-    <td style="text-align: center;"><a onmouseout="hiddpos('groupdiv{id}')" onmouseover="alertpos('groupdiv{id}')" href="javascript:changeGruppen({id})" title="hier die Gruppenzugeh&ouml;rigkeit &auml;ndern">Gruppen</a></td> 
+    <td style="text-align: center;"><a onmouseout="hiddpos('groupdiv{id}')" onmouseover="alertpos('groupdiv{id}')" href="javascript:changeGruppen({id})" title="hier die Gruppenzugeh&ouml;rigkeit &auml;ndern">Gruppen</a></td>
     <td>&nbsp;<a href="admin.php?user-1-{id}"><img src="include/images/icons/edit.gif" border="0" title="&auml;ndern" alt="&auml;ndern" /></a>&nbsp;</td>
     <td>&nbsp;<a href="javascript:deleteUser({id})"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" alt="l&ouml;schen" /></a>&nbsp;</td>
     <td class="border"></td>

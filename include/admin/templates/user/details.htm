@@ -1,6 +1,6 @@
 <form action="admin.php?user-2" method="POST" enctype="multipart/form-data">
 	<input type="hidden" name="uID" value="{id}">
-	
+{antispam}
   <table border="0" cellspacing="1" cellpadding="3" class="border">
 	  <tr class="Chead"><td colspan="2"><b>Details von {name} - ID: {id}</b></td></tr>
      <tr>
@@ -58,7 +58,7 @@
 		  <td class="Cmite">Avatar</td>
 			<td class="Cnorm"><input type="checkbox" name="avatardel" value="1">L&ouml;schen ?<br />
       {avatar}<input type="file" name="avatarfile" /></td>
-		</tr><tr> 
+		</tr><tr>
       <td class="Cmite">Password</td>
       <td class="Cnorm"><input type="checkbox" name="passw" value="1">neues generieren ?</td>
     </tr><tr>
@@ -70,19 +70,19 @@
 		</tr><tr>
       <td colspan="2" class="Cnorm">
 
-  
+
   <fieldset><legend>Profilefields </legend>
-    
+
     {EXPLODE}
- 
+
  </fieldset>
     </td></tr>
 		<tr>
       <td class="Cdark"></td>
-      <td class="Cdark"> 
+      <td class="Cdark">
         <input type="submit" value="&Auml;ndern" name="submit"> &nbsp; <input type="button" value="zur&uuml;ck" onclick="javscript:history.back();" />
       </td>
     </tr>
-		
+
   </table>
 </form>

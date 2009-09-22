@@ -2,7 +2,25 @@ Changelog:
 ==========
 + neue Funktionen       * Änderungen/Bugfixes
 
+Version 1.1 N
+-------------
+* Sicherheitslücke in der include/includes/func/statistic.php behoben (Danke an www.securityplanet.de für den Hinweis)
+  und weiter einige Formulare im Adminbereich (Userverwaltung) gegen Cross-Site_Request_Forgery -> http://de.wikipedia.org/wiki/Cross-Site_Request_Forgery geschützt
+* SMTP Funktion überarbeitet, damit eine breitere Auswahl an Anbietern genutzt werden kann
+* Newsletter etwas überarbeitet, so dass auch Usergruppen gewählt werden können, und HTML Mails möglich sind
+* Bei Downloads wird der eigentliche Pfad zur Datei nicht mehr übertragen, und leichter Leecherschutz
+* Antispam geändert, so dass Fehler im Gästebuch etc. nicht mehr auftreten sollten
+* Charset Encoding in der class/design.php hinzugefügt, um auftretende Fehler mit Umlauten beizukommen,
+  wer nach dem Update falsche Umlaute hat, sollte einfach die alte class/design.php (von Version M z.B.) nutzen
+* Kleinere Fehler behoben bei:
+	Alterberechnung im Kalender
+	Löschen in der Shoutbox
+	Datum bei RSS der News
+	Gruppen im Adminbereich
+* debug(), sendpm() und icmail() etwas verbessert (nur für Entwickler interessant)
+
 Version 1.1 M
+-------------
 * Security Issue in getip fuction in file include/includes/func/statistic.php
 
 Version 1.1 L
@@ -20,7 +38,7 @@ Version 1.1 K
 * Fehler beim Selfpageeditor im Zusammenhang mit Datien die neu.php heißen behoben
 * Fehler in der Shoutbox behoben, wo es möglich war ohne Rechte zu einzutragen
 * Fehler bei PMs mit der Sortierung behoben (Dank an boehserdavid ;))
-* Fehler im Kalender, wo Termine am 1. des Monats um 0:00Uhr nicht angezeigt wurden (Dank an boehserdavid ;))
+* Fehler im Kalender, wo Termine am 1. des Monats um 0:00 Uhr nicht angezeigt wurden (Dank an boehserdavid ;))
 * Im Kontankformular längere E-Mailadressen erlaubt
 * Gallerykategorien im Adminbereich von PicOfX werden ordentlich sortiert angezeigt
 

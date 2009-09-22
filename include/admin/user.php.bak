@@ -32,7 +32,7 @@ function user_get_mod_change_list ($uid) {
         } else {
             $c = ' checked';
         }
-        $l .= '<td align="center"><input onclick="changeModulRecht(' . $r['id'] . ',' . $uid . ')" type="checkbox" id="MN' . $r['id'] . '-' . $uid . '" name="MN' . $r['id'] . '-' . $uid . '" ' . $c . ' /></td>';
+        $l .= '<td align="center"><input onChange="changeModulRecht(' . $r['id'] . ',' . $uid . ')" type="checkbox" id="MN' . $r['id'] . '-' . $uid . '" name="MN' . $r['id'] . '-' . $uid . '" ' . $c . ' /></td>';
     }
     return ($l);
 }
@@ -59,58 +59,6 @@ function getfl($gid) {
     return($liste);
 }
 
-if (isset($_POST['action'])) {
-	$design = new design ('Admins Area', 'Admins Area', 0);
-	$design->header();
-	$wdtext = 'Es ist ein Fehler aufgetreten.';
-	if (chk_antispam('adminuser_action', true) and isset($_POST['uid'])) {
-		$uid = escape($_POST['uid'], 'integer');
-		switch($_POST['action']){
-			// einen user komplett loeschen
-			case 'deleteUser':
-				$name = get_n($uid);
-				if ($uid != 1 and !empty($name)) {
-					user_remove($uid);
-					$wdtext = 'Der User ' . $name . ' wurde erfolgreich gel&ouml;scht.';
-				}
-				break;
-			// das recht eines users aendern
-			case 'changeRight' :
-				$altes_recht = db_result(db_query("SELECT recht FROM prefix_user WHERE id = " . $uid), 0);
-				$neues_recht = escape($_POST['newright'], 'integer');
-				if (($neues_recht > $_SESSION['authright'] AND $altes_recht > $_SESSION['authright']) OR ($_SESSION['authid'] == 1 AND $uid != 1)) {
-					$q = "UPDATE prefix_user SET recht = " . $neues_recht . " WHERE id = " . $uid;
-					db_query($q);
-				}
-				$wdtext = false;
-			break;
-			// modulrechte fuer einen user aendern
-			case 'changeModulRight' :
-				$modul = escape($_POST['modul'], 'integer');
-				$aktion = $_POST['giveremove'];
-				if ($aktion == 'give' AND 0 == db_result(db_query("SELECT COUNT(*) FROM prefix_modulerights WHERE mid = '" . $modul . "' AND uid = " . $uid), 0)) {
-					db_query("INSERT INTO prefix_modulerights (mid,uid) VALUES ('" . $modul . "'," . $uid . ")");
-				} elseif ($aktion == 'remove' AND 1 == db_result(db_query("SELECT COUNT(*) FROM prefix_modulerights WHERE mid = '" . $modul . "' AND uid = " . $uid), 0)) {
-					db_query("DELETE FROM prefix_modulerights WHERE mid = '" . $modul . "' AND uid = " . $uid);
-				}
-				$wdtext = false;
-			break;
-		}
-	}
-	if ($wdtext === false) {
-		$antispam = get_antispam('adminuser_action', 0, true);
-		?><script type="text/javascript"><!--
-		    function updateParent() { parent.setNewAntispam(document.getElementById('tmp').childNodes[0]);}
-		    window.onload = function() { updateParent(); };
-		    //--></script>
-		    <div id="tmp"><?php echo $antispam; ?></div>
-		<?php
-		exit;
-	}
-	wd('admin.php?' . $menu->get_complete(), $wdtext, 5);
-	$design->footer(1);
-}
-
 $um = $menu->get(1);
 switch ($um) {
     default :
@@ -123,7 +71,6 @@ switch ($um) {
         $tpl = new tpl ('user/user', 1);
         $tpl->set('modlall', user_get_all_mod_list());
         $tpl->set('anzmods', db_result(db_query("SELECT COUNT(*) FROM `prefix_modules` WHERE `fright` = 1"), 0));
-        $tpl->set('action_antispam', get_antispam('adminuser_action', 0, true));
         $tpl->set_out('q', unescape($q), 0);
 
         $q = str_replace('*', '%', $q);
@@ -157,7 +104,21 @@ switch ($um) {
         $tpl->set_out('MPL', $MPL, 2);
         $design->footer();
         break;
+    // modulrechte fuer einen user aendern
+    case 'modulrecht' :
+        $uid = intval($menu->get(2));
+        $modul = intval($_REQUEST['modul']);
+        $aktion = $_REQUEST['aktion'];
+        if ($aktion == 'eintragen' AND 0 == db_result(db_query("SELECT COUNT(*) FROM `prefix_modulerights` WHERE `mid` = '" . $modul . "' AND `uid` = " . $uid), 0)) {
+            db_query("INSERT INTO `prefix_modulerights` (`mid`,`uid`) VALUES ('" . $modul . "'," . $uid . ")");
+        } elseif ($aktion == 'loeschen' AND 1 == db_result(db_query("SELECT COUNT(*) FROM `prefix_modulerights` WHERE `mid` = '" . $modul . "' AND `uid` = " . $uid), 0)) {
+            db_query("DELETE FROM `prefix_modulerights` WHERE `mid` = '" . $modul . "' AND `uid` = " . $uid);
+        }
 
+        ?><html><head><script language="JavaScript" type="text/javascript"><!--  opener.location.reload();
+    function closeThisWindow() { opener.focus(); window.close(); } closeThisWindow()
+    //--></script></head><body></body></html><?php
+        break;
     // gruppen zugehoerigkeiten eines users aendern
     case 'gruppen' :
         $uid = $menu->get(2);
@@ -187,7 +148,20 @@ switch ($um) {
         }
         $tpl->out(2);
         break;
+    // das recht eines users aendern
+    case 'changeRecht' :
+        $uid = $menu->get(2);
+        $altes_recht = db_result(db_query("SELECT `recht` FROM `prefix_user` WHERE `id` = " . $uid), 0);
+        $neues_recht = escape($_GET['newr'], 'integer');
+        if (($neues_recht > $_SESSION['authright'] AND $altes_recht > $_SESSION['authright']) OR ($_SESSION['authid'] == 1 AND $uid != 1)) {
+            $q = "UPDATE `prefix_user` SET `recht` = " . $neues_recht . " WHERE `id` = " . $uid;
+            db_query($q);
+        }
 
+        ?><html><head><script language="JavaScript" type="text/javascript"><!--
+    function closeThisWindow() { opener.focus(); window.close(); } closeThisWindow()
+    //--></script></head><body></body></html><?php
+        break;
     // details eines users anzeigen
     case 1 :
         $design = new design ('Admins Area', 'Admins Area', 2);
@@ -244,7 +218,6 @@ switch ($um) {
             }else {
                 $row['avatar'] = '';
             }
-            $row['antispam'] = get_antispam('adminuser', 0, true);
             $tpl->set_ar_out ($row, 0);
 
             profilefields_change ($row['id']);
@@ -266,7 +239,7 @@ switch ($um) {
             $changeok = false;
         }
 
-        if ($changeok and chk_antispam('adminuser', true)) {
+        if ($changeok) {
             if (isset($_POST['userdel'])) {
                 user_remove($uid);
                 wd ('?user', 'User wurde erfolgreich gel&ouml;scht');
@@ -412,9 +385,19 @@ switch ($um) {
         $tpl->set('msg', $msg);
         $tpl->set('pass', $pass);
         $tpl->set('email', $email);
-        $tpl->set('recht', dblistee($recht, "SELECT id,name FROM prefix_grundrechte ORDER BY id ASC"));
-    	$tpl->set('antispam', get_antispam('adminuser_create', 0, true));
+        $tpl->set('recht', dblistee($recht, "SELECT `id`,`name` FROM `prefix_grundrechte` ORDER BY `id` ASC"));
         $tpl->out(0);
+        break;
+    // einen user komplett loeschen
+    case 'deleteUser' :
+        $uid = $menu->get(2);
+        if ($uid != 1) {
+            user_remove($uid);
+
+            ?><html><head><script language="JavaScript" type="text/javascript"><!--
+      function closeThisWindow() { opener.location.reload(); opener.focus(); window.close(); } closeThisWindow()
+      //--></script></head><body></body></html><?php
+        }
         break;
 }
 

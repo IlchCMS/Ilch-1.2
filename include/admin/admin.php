@@ -7,8 +7,8 @@ defined ('admin') or die ('only admin access');
 $design = new design ('Admins Area', 'Admins Area', 2);
 $design->header();
 // script version
-$scriptVersion = 11;
-$scriptUpdate = 'L';
+$scriptVersion = 12;
+$scriptUpdate = 'A';
 // statistik wird bereinigt.
 $mon = date('n');
 $lastmon = $mon - 1;
@@ -76,7 +76,10 @@ switch ($um) {
              <li class="admix_box">Admin<br />
                <ul>
                  <li><a href="admin.php?allg"><img src="include/images/icons/admin/konfiguration.png" alt="">Konfiguration</a></li>
-                 <li><a href="admin.php?menu"><img src="include/images/icons/admin/navigation.png" alt="">Navigation</a></li>
+                 <?php if ($allgAr['mail_smtp']) { ?>
+                 <li><a href="admin.php?smtpconf"><img src="include/images/icons/admin/smtpconf.png" alt="">SMTP konfigurieren</a></li>
+                 <?php } ?>
+				 <li><a href="admin.php?menu"><img src="include/images/icons/admin/navigation.png" alt="">Navigation</a></li>
                  <li><a href="admin.php?backup"><img src="include/images/icons/admin/backup.png" alt="">Backup</a></li>
                  <li><a href="admin.php?range"><img src="include/images/icons/admin/ranks.png" alt="">Ranks</a></li>
                  <li><a href="admin.php?smilies"><img src="include/images/icons/admin/smilies.png" alt="">Smiles</a></li>

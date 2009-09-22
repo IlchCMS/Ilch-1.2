@@ -106,6 +106,7 @@ INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (
 INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (7, 'picofx', 'nextchange', '0', '', '', '', '', '');
 INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (8, 'picofx', 'picwidth', '100', '', '', '', '', '');
 INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (9, 'trainzeiten', '', '', '', '', '', '', 'Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train');
+INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (10, 'smtpconf', '', '', '', '', '', '', '');
 
 CREATE TABLE `prefix_awards` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -275,12 +276,8 @@ INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('antispam', 'grecht2', 'Allgemeine Optionen', 'Antispam <small>(ab diesem Recht keine Eingabe mehr erforderlich)</small>', '-2');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('joinus_rules', 'r2', 'Team Optionen', 'Regeln bei Joinus vollst&auml;ndig anzeigen?', '0');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('groups_forall', 'r2', 'Team Optionen', 'Modulrecht <i>Gruppen</i> auf eigene Gruppe beschr&auml;nken?', '1');
-INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` , `pos`) VALUES('mail_smtp', 'r2', 'Mail Optionen', 'Soll anstatt der PHP Funktion mail() versucht werden, den angegeben SMTP Server zum Versenden von Mails zu benutzen?', '0', 0);
-INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` , `pos`) VALUES('mail_smtp_login', 'input', 'Mail Optionen', 'SMTP Benutzername', '', 3);
-INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` , `pos`) VALUES('mail_smtp_password', 'password', 'Mail Optionen', 'SMTP Passwort', '', 4);
-INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` , `pos`) VALUES('mail_smtp_host', 'input', 'Mail Optionen', 'Hostadresse des SMTP', '', 1);
-INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` , `pos`) VALUES('mail_smtp_email', 'input', 'Mail Optionen', 'E-Mail-Adresse des Accounts', '', 2);
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('lang', 's', 'Allgemeine Optionen', 'Standard Sprache', 'de');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES('mail_smtp', 'r2', 'Allgemeine Optionen', 'SMTP für den Mailversand verwenden? <a href="admin.php?smtpconf" class="smalfont">weitere Einstellungen</a>', '0', 0);
 
 
 CREATE TABLE `prefix_counter` (

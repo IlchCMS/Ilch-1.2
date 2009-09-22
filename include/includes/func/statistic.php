@@ -123,11 +123,11 @@ function site_statistic () {
         $ergResul = db_result(db_query("SELECT COUNT(`ip`) FROM `prefix_stats` WHERE `ip` = '" . $ip . "' AND `day` = " . $d . " AND `mon` = " . $m . " AND `yar` = " . $y), 0);
         debug ($ergResul . '#statistic res');
         if ($ergResul == 0) {
-            $os = site_statistic_get_os($_SERVER['HTTP_USER_AGENT']);
-            $br = site_statistic_get_browser($_SERVER['HTTP_USER_AGENT']);
+            $os = escape(site_statistic_get_os($_SERVER['HTTP_USER_AGENT']), 'string');
+            $br = escape(site_statistic_get_browser($_SERVER['HTTP_USER_AGENT']), 'string');
             $wt = date('w');
             $st = date('G');
-            $ur = (isset ($_SERVER['HTTP_REFERER']) ? site_statistic_get_referer($_SERVER['HTTP_REFERER']) : '');
+            $ur = (isset ($_SERVER['HTTP_REFERER']) ? escape(site_statistic_get_referer($_SERVER['HTTP_REFERER']), 'string') : '');
             db_query("INSERT INTO `prefix_stats` (`wtag`,`stunde`,`day`,`mon`,`yar`,`os`,`browser`,`ip`,`ref`)
 			VALUES(" . $wt . "," . $st . "," . $d . "," . $m . "," . $y . ",'" . $os . "','" . $br . "','" . $ip . "','" . $ur . "')");
 
@@ -145,58 +145,62 @@ function site_statistic () {
 }
 
 function site_statistic_get_browser($useragent) {
-    if (preg_match("=MSIE [0-9]{1,2}.[0-9]{1,2}.*Opera.([0-9]{1})=", $useragent, $browser)) {
-        return "Opera " . $browser[1] . " (als IE)";
-    } elseif (preg_match("=MSIE ([0-9]{1,2}).[0-9]{1,2}=", $useragent, $browser)) {
-        return "Internet Explorer " . $browser[1];
-    } elseif (preg_match("=Opera/([0-9]{1,2}).[0-9]{1,2}=", $useragent, $browser)) {
-        return "Opera " . $browser[1];
-    } elseif (preg_match("=Konqueror=", $useragent)) {
-        return "Konqueror";
-    } elseif (preg_match("=Netscape/7.[0-9]{1,2}=", $useragent)) {
-        return "Netscape Navigator 7";
-    } elseif (preg_match("=^Mozilla.*Firefox\/(.*)$=", $useragent, $browser)) {
-        return ("Firefox " . $browser[1]);
-    } elseif (preg_match("=Mozilla/5.[0-9]{1,2}=", $useragent)) {
-        return "Netscape Navigator 6";
-    } elseif (preg_match("=Mozilla/([0-9]{1,2}).[0-9]{1,2}=", $useragent, $browser)) {
-        return "Netscape Navigator " . $browser[1];
-    } else {
-        return 0;
-    }
+	if (preg_match("=Firefox/([\.a-zA-Z0-9]*)=", $useragent, $browser)) {
+		return ("Firefox " . $browser[1]);
+	} elseif (preg_match("=MSIE ([0-9]{1,2})\.[0-9]{1,2}=", $useragent, $browser)) {
+		return "Internet Explorer " . $browser[1];
+	} elseif (preg_match("=Opera[/ ]([0-9\.]+)=", $useragent, $browser)) {
+		return "Opera " . $browser[1];
+	} elseif (preg_match("=Chrome/([0-9\.]*)=", $useragent, $browser)) {
+		$tmp = explode('.', $browser[1]);
+		if (count($tmp) > 2) {
+			$browser[1] = $tmp[0].'.'.$tmp[1];
+		}
+		return "Chrome " . $browser[1];
+	} elseif (preg_match('=Safari/=', $useragent)){
+		if (preg_match('=Version/([\.0-9]*)=', $useragent, $browser)) {
+			$version = ' ' . $browser[1];
+		} else {
+			$version = '';
+		}
+		return "Safari" . $version;
+	} elseif (preg_match("=Konqueror=", $useragent)) {
+		return "Konqueror";
+	} elseif (preg_match("=Netscape|Navigator=", $useragent)) {
+		return "Netscape";
+	} else {
+		return 0;
+	}
 }
 
 function site_statistic_get_os($useragent) {
-    if (preg_match("=Windows NT 5\.0|Windows 2000=", $useragent)) {
-        return "Windows 2000";
-    } elseif (preg_match("=Windows NT 5\.1|Windows XP=", $useragent)) {
-        return "Windows XP";
-    } elseif (preg_match("=Windows NT 6\.0|Windows Vista=", $useragent)) {
-        return "Windows Vista";
-    } elseif (preg_match("=Windows NT 5\.2|Windows Server 2003|Windows XP x64=", $useragent)) {
-        return "Windows Server 2003\\Windows XP x64";
-    } elseif (preg_match("=Windows NT 4\.0|Windows NT|WinNT4\.0=", $useragent)) {
-        return "Windows NT";
-    } elseif (preg_match("=Windows 98=", $useragent)) {
-        return "Windows 98";
-    } elseif (preg_match("=Windows 95=", $useragent)) {
-        return "Windows 95";
-    } elseif (preg_match("=Mac_PowerPC|Macintosh=", $useragent)) {
-        return "Macintosh";
-    } elseif (preg_match("=Linux=", $useragent)) {
-        return "Linux";
-    } elseif (preg_match("=SunOS=", $useragent)) {
-        return "SunOS";
-    } else {
-        return 0;
-    }
+	$osArray = array(
+		'Windows XP'   => '=Windows NT 5\.1|Windows XP=',
+		'Windows Vista' => '=Windows NT 6\.0|Windows Vista=',
+		'Windows 7' => '=Windows NT 6\.1|Windows 7=',
+		'Windows 2000' => '=Windows NT 5\.0|Windows 2000=',
+		'Windows Server 2003\\Windows XP x64' => '=Windows NT 5\.2|Windows Server 2003|Windows XP x64=',
+		'Windows NT' => '=Windows NT 4\.0|Windows NT|WinNT4\.0=',
+		'Windows 98' => '=Windows 98=',
+		'Windows 95' => '=Windows 95=',
+		'Macintosh' => '=Mac_PowerPC|Macintosh=',
+		'Linux' => '=Linux=',
+		'SunOs' => '=SunOS='
+	);
+
+	foreach ($osArray as $os => $regex){
+		if (preg_match($regex, $useragent)) {
+			return $os;
+		}
+	}
+	return 0;
 }
 
 function site_statistic_get_referer ($referer) {
     if (! empty ($referer)) {
         $refzar = parse_url($referer);
-        $refspa = 'http://' . $refzar['host'] . $refzar['path'];
-        return $refspa;
+        $refspa = $refzar['scheme'] . '://' . $refzar['host'] . $refzar['path'];
+        return preg_replace('=[^a-z0-9öäüß_/:\-\.\\\\]=i', '', $refspa);
     } else {
         return 0;
     }

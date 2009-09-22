@@ -19,6 +19,8 @@ class design extends tpl {
     function design ($title, $hmenu, $was = 1, $file = null) {
         global $allgAr;
 
+    	header('Content-Type: text/html;charset=ISO-8859-1');
+
         if (!is_null($file)) {
             echo '<div style="display: block; background-color: #FFFFFF; border: 2px solid #ff0000;">!!Man konnte in einer PHP Datei eine spezielle Index angeben. Damit das Design fuer diese Datei anders aussieht. Diese Funktion wurde ersetzt. Weitere Informationen im Forum auf ilch.de ... Thema: <a href="http://www.ilch.de/forum-showposts-13758-p1.html#108812">http://www.ilch.de/forum-showposts-13758-p1.html#108812</a></div>';
         }
@@ -240,7 +242,7 @@ class design extends tpl {
         while ($row = db_fetch_assoc($erg)) {
             $subhauptx = $row['was'];
             $whileMenP = ($subhauptx >= 7 ? true : false);
-            if (($row['was'] >= 7 AND $ex_was == 1) OR ($ex_ebene < ($row['ebene'] - 1)) OR ($ex_was <= 4 AND $row['ebene'] != 0) OR ($row['was'] >= 7 AND !$tpl->list_exists($hovmenup))) {
+            if (($row['was'] >= 7 AND $ex_was == 1) OR ($ex_ebene < ($row['ebene']-1)) OR ($ex_was <= 4 AND $row['ebene'] <> 0) OR ($row['was'] >= 7 AND !$tpl->list_exists($hovmenup))) {
                 /*
         echo '<pre>Das Menu ist Fehlerhaft, bitte benachrichtigen Sie den Administrator!';
         echo '<br /><br /><u>Informationen:</u>';

@@ -1,0 +1,60 @@
+<table cellpadding="0" cellspacing="0" border="0">
+<tr><td><img src="include/images/icons/admin/smtpconf.png" /></td><td width="30"></td><td valign="bottom"><h1>SMTP Konfiguration</h1></td></tr>
+</table>
+<div class="warning_box" style="margin: 5px 0px;">
+    {_if_{smtp}=='0'}<p>
+    	<b>Beachten:</b> Diese Einstellungen sind nur von Bedeutung, wenn unter <a href="admin.php?allg">Konfiguration</a> der Mailversand auf SMTP gestellt ist,
+    	was derzeit nicht der Fall ist.
+	</p>{/_endif}
+    <p>
+    	Welche Einstellungen hier vorgenommen werden m&uuml;ssen, h&auml;ngt stark von dem E-Mailanbieter ab,
+    	den du verwenden m&ouml;chstest um die Mails zu versenden. Weitere Informationen dazu kannst du in den <a target="_blank" href="http://www.ilch.de/texts-s107-einstellungen-zur-smtp-funktion.html">FAQ auf ilch.de</a> erfahren.
+    </p>
+    <p>
+    	Optimalerweise sollte diese E-Mail-Adresse auch als <strong>Administrator eMail</strong> in der Konfiguration eingetragen sein, ist jedoch kein Muss.
+	</p>
+</div>
+<form action="admin.php?smtpconf" method="post">
+{antispam}
+<table cellpadding="2" cellspacing="1" border="0" class="border">
+  <tr class="Chead"><td colspan="2"><b>SMTP Einstellungen</b></td></tr>
+<tr>
+    <td class="Cnorm">SMTP-Server-Adresse</td>
+    <td class="Cmite"><input type="input" name="smtp_host" value="{smtp_host}" size="30" /></td>
+</tr><tr>
+	<td class="Cnorm">SMTP-Port <small>(optional)</small></td>
+    <td class="Cmite"><input type="input" name="smtp_port" value="{smtp_port}" size="5" /></td>
+</tr><tr>
+	<td class="Cnorm">Authentifizierung / Verschl&uuml;sselung</td>
+    <td class="Cmite"><select name="smtp_auth">{smtp_selauth}</select><br />
+	</td>
+</tr><tr>
+	<td class="Cnorm">Wird anderer Absender unterst&uuml;tzt?</td>
+    <td class="Cmite">
+    <input type="radio" id="radio_cs_0" name="smtp_changesubject" value="0" {_if_{smtp_changesubject}=='0'}checked="checked"{/_endif} />
+    <label for="radio_cs_0">ja</label>
+	    <input type="radio" id="radio_cs_1" name="smtp_changesubject" value="1" {_if_{smtp_changesubject}=='1'}checked="checked"{/_endif} />
+    <label for="radio_cs_1">nein</label>
+	<br />
+	<small>Falls nicht, wird der Betreff wie folgt ge&auml;ndert: <strong>(For NAME - EMAIL) Eigentlicher Betreff</strong></small>
+	</td>
+</tr><tr>
+	<td class="Cnorm">POP3 vor SMTP</td>
+    <td class="Cmite"><input type="checkbox" id="smtp_pop3beforesmtp" name="smtp_pop3beforesmtp" value="1" {_if_{smtp_pop3beforesmtp}=='1'}checked="checked"{/_endif} />
+    <label for="smtp_pop3beforesmtp">Soll POP3 vor SMTP benutzt werden?</label><br /> Falls ja kann noch ein Host und Port (Standard 110) angegeben werden:<br />
+    <div style="float:left; width:80px;">POP3-Host:</div><input type="text" name="smtp_pop3host" value="{smtp_pop3host}" size="30" /><br />
+	<div style="float:left; width:80px;">POP3-Port:</div><input type="text" name="smtp_pop3port" value="{smtp_pop3port}" size="5" />
+	</td>
+</tr><tr>
+	<td class="Cnorm">E-Mail-Adresse</td>
+    <td class="Cmite"><input type="input" name="smtp_email" value="{smtp_email}" size="30" /></td>
+</tr><tr>
+	<td class="Cnorm">Login</td>
+    <td class="Cmite"><input type="input" name="smtp_login" value="{smtp_login}" size="30" /></td>
+</tr><tr>
+    <td class="Cnorm">Passwort <small>(es ist {_if_{smtp_pass}=='1'}ein{_else_}<span style="color:red; font-size:1.5em;">noch kein</span>{/_endif} Passwort angegeben)</small></td>
+    <td class="Cmite"><input type="password" name="smtp_pass" size="30" /> <small>(muss nicht angegeben werden, wenn es nicht ge&auml;ndert werden soll)</small></td>
+</tr><tr>
+    <td class="Cdark" colspan="2"><input type="submit" name="subform" value="Einstellungen speichern" /></td>
+</tr></table>
+</form>
