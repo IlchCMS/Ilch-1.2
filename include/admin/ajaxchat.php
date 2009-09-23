@@ -185,8 +185,6 @@ switch($strParam) {
 				."<ul>\n"
                 ."<li><a href=\"admin.php?ajaxchat-config\">AjaxChat Einstellungen</a></li>\n"
                 ."<li><a href=\"admin.php?ajaxchat-channels\">Channel Verwaltung</a></li>\n"
-				."<li><a href=\"admin.php?ajaxchat-donate\">Unterst&uuml;tzen</a></li>\n"
-                ."<li><a href=\"admin.php?ajaxchat-update\">Update</a></li>\n"
                 ."</ul>";
         break;
         
@@ -341,22 +339,6 @@ switch($strParam) {
 				break;
 			}
 		
-        break;
-		
-        // Unterstuetzen
-        case 'donate':
-			
-			$tpl = new tpl('ajax_chat/donate', 1);
-			$tpl->out(0);
-			
-        break;
-		
-        // Update
-        case 'update':
-			
-			$tpl = new tpl('ajax_chat/update', 1);
-			$tpl->set_out('version', $aktVers, 0);
-
         break;
 }
 

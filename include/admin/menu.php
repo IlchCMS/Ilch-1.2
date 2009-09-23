@@ -72,7 +72,7 @@ function get_boxes_array () {
     $ar = array ();
     $handle = opendir('include/boxes');
     while ($ver = readdir ($handle)) {
-        if ($ver != "." AND $ver != ".." AND !is_dir('include/boxes/' . $ver) AND strpos($ver, 'adminmenu') === false) {
+        if ($ver != "." AND $ver != ".." AND !is_dir('include/boxes/' . $ver) AND strpos($ver, 'adminmenu') === false AND strpos($ver, 'adminsubmenu') === false) {
             $ar[$ver] = $ver;
         }
     }
@@ -379,7 +379,7 @@ $tpl = new tpl ('menu', 1);
 $boxenArNav = get_boxes_array ();
 $menuArNav = get_links_array ();
 $ar_cwmenu = array ();
-for($i = 1;$i <= 5;$i++) {
+for($i = 1;$i <= $allgAr['menu_anz'];$i++) {
     $ar_cwmenu[$i] = 'Men&uuml; 0' . $i;
 }
 $ar_cwebene = array ();
@@ -404,9 +404,13 @@ $ar['cwwas'] = arliste($ar['was'], $ar_cwwas, $tpl, 'cwwas');
 $ar['menutyp'] = arliste($ar['menutyp'], $ar_menutyp, $tpl, 'menutyp');
 // ausgabe
 $tpl->out(0);
+for($i=1;$i<=$allgAr['menu_anz'];$i++) { 
+	$tpl->set_out('MENU', $i, 1);
+}
+$tpl->out(2);
 show_menu($wo);
 $tpl->set_ar($ar);
-$tpl->out(1);
+$tpl->out(3);
 
 $design->footer();
 

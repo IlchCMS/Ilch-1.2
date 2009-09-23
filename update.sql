@@ -1,3 +1,7 @@
+/* -----> Rev. 32 <----- */
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('menu_anz', 'input', 'Allgemeine Optionen', 'Wie viele Menüs sollen verwaltet werden?', '5');
+
+
 /* -----> Rev. 31 <----- */
 INSERT INTO `ic1_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('userpic_Fabreite', 'input', 'Forum Optionen', 'max Breite f&uuml;r das Userpic', '160');
 INSERT INTO `ic1_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('userpic_Fahohe', 'input', 'Forum Optionen', 'max H&ouml;he f&uuml;r das Userpic', '160');

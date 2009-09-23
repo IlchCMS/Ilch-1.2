@@ -70,7 +70,7 @@ function get_downloads_ar ($ar = null, $f = null) {
 }
 
 function archiv_downs_admin_showcats ($id , $stufe) {
-    $q = "SELECT `id`,`name`,`pos`,`cat` FROM `prefix_downcats` WHERE `ca`t = " . $id . " ORDER BY `pos`";
+    $q = "SELECT `id`,`name`,`pos`,`cat` FROM `prefix_downcats` WHERE `cat` = " . $id . " ORDER BY `pos`";
     $erg = db_query($q);
     if (db_num_rows($erg) > 0) {
         while ($row = db_fetch_object($erg)) {

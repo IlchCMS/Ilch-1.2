@@ -39,13 +39,13 @@ class design extends tpl {
         if ($tpl->list_exists ('boxright')) {
             $tpl->set ('boxright' , $this->get_boxes ('r', $tpl));
         }
-        // ab 0.6 =  ... 5 menu listen moeglich
-        for($i = 1;$i <= 5;$i++) {
+        // ab 0.6 =  ... menu listen moeglich
+        for($i = 1;$i <= $allgAr['menu_anz'];$i++) {
             if ($tpl->list_exists ('menunr' . $i)) {
                 $tpl->set ('menunr' . $i , $this->get_boxes ($i, $tpl));
             }
         }
-
+ 
         $ar = array
         ('TITLE' => $this->escape_explode($title),
             'HMENU' => $this->escape_explode($hmenu),

@@ -30,8 +30,10 @@ function load_modul_lang( $content = 1 ){
 	}
 	
 	$modul = $menu->get(0);
-	if (empty ($modul) ){
+	if ( empty ($modul) AND $content == 1 ){
 		$modul = $allgAr['smodul'];
+	}else if( empty ($modul) ){
+		$modul = 'admin';
 	}
 	
 	$file = 'include/includes/lang/'.$_SESSION['authlang'].'/'.$dir.'/'.$modul.'.php';
