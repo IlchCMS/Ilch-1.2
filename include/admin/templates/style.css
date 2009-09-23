@@ -178,6 +178,7 @@ margin: 5px auto 5px auto;
 #maincol {
   margin-left: 212px;
   padding: 0px;
+  float: right;
 }
 
 #leftcol {

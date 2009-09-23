@@ -404,13 +404,9 @@ $ar['cwwas'] = arliste($ar['was'], $ar_cwwas, $tpl, 'cwwas');
 $ar['menutyp'] = arliste($ar['menutyp'], $ar_menutyp, $tpl, 'menutyp');
 // ausgabe
 $tpl->out(0);
-for($i=1;$i<=$allgAr['menu_anz'];$i++) { 
-	$tpl->set_out('MENU', $i, 1);
-}
-$tpl->out(2);
 show_menu($wo);
 $tpl->set_ar($ar);
-$tpl->out(3);
+$tpl->out(1);
 
 $design->footer();
 

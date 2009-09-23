@@ -20,6 +20,12 @@ $umenu = '';
 // Template laden
 $tpl = new tpl ('adminsubmenu', 1);
 
+// PHP-Erweiterung laden
+$file = 'include/admin/navigation/'.$modul.'.php';
+if (file_exists ($file) ) {
+	require_once ($file);
+}
+
 // XML Prasen
 $file = 'include/admin/navigation/'.$modul.'.xml';
 if (file_exists ($file) ) {
