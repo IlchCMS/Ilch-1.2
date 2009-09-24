@@ -196,6 +196,10 @@ margin: 5px auto 5px auto;
   position:fixed; 
 }
 
+#innerleftcol ul { margin: 0; padding-left: 15px; }
+#innerleftcol li { padding: 1px 0px 1px 0px; }
+#innerleftcol a { color: #FFFFFF; font-size: 12px; }
+
 
  
  /* *** Float containers fix:

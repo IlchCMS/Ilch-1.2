@@ -36,41 +36,8 @@ switch ($um) {
 
 
            <table width="100%"><tr><td valign="top" width="100%">
-           <!--
-           Hallo, hier k&ouml;nnen Sie alle m&ouml;glichen Einstellungen vornehmen.
-           <br /><br />
-           Wenn Sie Probleme haben sollten, oder irgendwie nicht weiter wissen, bitte
-           kommen Sie uns doch auf <a href="http://www.ilch.de" target="_blank">www.ilch.de</a>
-           besuchen, damit wir Ihnen helfen k&ouml;nnen.
-           <br /><br />
-           Auch wenn Sie Verbesserungsw&uuml;nsche oder eine geniale Idee haben,
-           freuen wir uns &uuml;ber jeden Vorschlag.
-           <br /><br />
-           und jetzt <b>viel Spass mit dem Script!</b>
-           -->
-          <!-- </td><td valign="top" width="60%"> -->
            <br />
            <h3 style="display:inline;">Ein &Uuml;berblick &uuml;ber alle Inhalte</h3>
-
-           <script type="text/javascript">
-           function toggle_mimg()
-           {
-               class_name = document.getElementById('cpm').className;
-               if(class_name == "admix")
-               {
-                   class_name = "admix_n";
-                   link_text = "Symbol-Ansicht";
-               }
-               else
-               {
-                   class_name = "admix";
-                   link_text = "Listen-Ansicht";
-
-               }
-               document.getElementById('cpm').className = class_name;
-               document.getElementById('list_toggle').innerHTML = link_text;
-           }
-           </script>
 
            <ul id="cpm" class="admix">
              <li class="admix_box">Admin<br />

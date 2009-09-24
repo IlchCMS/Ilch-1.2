@@ -5,131 +5,43 @@ defined ('main') or die ('no direct access');
 defined ('admin') or die ('only admin access');
 
 $design = new design ('Admins Area', 'Admins Area', 2);
-$design->header();
+$design->header( 'jquery/templates/redmond/jquery-ui-1.7.2.allg.css' );
 
 if (!is_admin()) {
     echo 'Dieser Bereich ist nicht fuer dich...';
     $design->footer();
     exit();
 }
-// hilfsfunktionen
-function get_links_array () {
-    $ar = array ();
-    $handle = opendir('include/contents');
-    while ($ver = readdir ($handle)) {
-        if ($ver != "." AND $ver != ".." AND !is_dir('include/contents/' . $ver)) {
-            $n = explode('.', $ver);
-            $ar[$n[0]] = $ver;
-        }
-    }
-    closedir($handle);
-    $handle = opendir('include/contents/selfbp/selfp');
-    while ($ver = readdir ($handle)) {
-        if ($ver == "." OR $ver == ".." OR is_dir('include/contents/selfbp/selfp/' . $ver)) {
-            continue;
-        }
-        $n = explode('.', $ver);
-        if (file_exists ('include/contents/' . $ver) OR file_exists ('include/contents/' . $n[0] . '.php')) {
-            $n[0] = 'self-' . $n[0];
-        }
-        $ar[$n[0]] = 'self_' . $ver;
-    }
-    closedir($handle);
-    asort ($ar);
-    return ($ar);
-}
-// funktionen fuer listen
-function admin_allg_gfx ($ak) {
-    $gfx = '';
-    $o = opendir('include/designs');
-    while ($ver = readdir ($o)) {
-        if ($ver != "." AND $ver != ".." AND is_dir('include/designs/' . $ver)) {
-            if ($ver == $ak) {
-                $sel = ' selected';
-            } else {
-                $sel = '';
-            }
-            $gfx .= '<option' . $sel . '>' . $ver . '</option>';
-        }
-    }
-    closedir($o);
-    return ($gfx);
-}
-function admin_allg_smodul ($ak) {
-    $ordner = array();
-    $handle = opendir('include/contents');
-    while ($ver = readdir ($handle)) {
-        if ($ver == '.' OR $ver == '..' OR is_dir ('include/contents/' . $ver)) {
-            continue;
-        }
-        $lver = explode('.', $ver);
-        $ordner[] = $lver[0];
-    }
-    $smodul = '';
-    $ordner = get_links_array ();
-    foreach ($ordner as $a => $x) {
-        if ($a == $ak) {
-            $sel = ' selected';
-        } else {
-            $sel = '';
-        }
-        $smodul .= '<option' . $sel . ' value="' . $a . '">' . ucfirst($a) . '</option>';
-    }
-    return ($smodul);
-}
-function admin_allg_wars_last_komms ($ak) {
-    $ar = array (0 => 'nein', - 1 => 'ab User', - 3 => 'ab Trial', - 4 => 'ab Member');
-    $l = '';
-    foreach ($ar as $k => $v) {
-        if ($k == $ak) {
-            $sel = ' selected';
-        } else {
-            $sel = '';
-        }
-        $l .= '<option' . $sel . ' value="' . $k . '">' . $v . '</option>';
-    }
-    return ($l);
-}
-function admin_allg_lang ($ak) {
-    $lang = '';
-    $o = opendir('include/includes/lang');
-    while ($ver = readdir ($o)) {
-        if ($ver != "." AND $ver != ".." AND is_dir('include/includes/lang/' . $ver)) {
-            if ($ver == $ak) {
-                $sel = ' selected';
-            } else {
-                $sel = '';
-            }
-            $lang .= '<option' . $sel . '>' . $ver . '</option>';
-        }
-    }
-    closedir($o);
-    return ($lang);
+
+// Load needed functions
+$funcs = read_ext ('include/admin/allgfunc', 'php');
+
+foreach ( $funcs as $file ){
+	require_once('include/admin/allgfunc/'.$file);
 }
 
 if (empty ($_POST['submit'])) {
-    $gfx = admin_allg_gfx($allgAr['gfx']);
-	$lang = admin_allg_lang($allgAr['lang']);
-    $smodul = admin_allg_smodul ($allgAr['smodul']);
-    $wars_last_komms = admin_allg_wars_last_komms ($allgAr['wars_last_komms']);
 
-    echo '<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/konfiguration.png" /></td><td width="30"></td><td valign="bottom"><h1>Konfiguration</h1></td></tr></table>';
-
-    echo '<form action="admin.php?allg" method="POST">';
-    echo '<table cellpadding="3" cellspacing="1" class="border" border="0">';
-    // echo '<tr class="Chead"><td colspan="2"><b>Konfiguration</b></td></tr>';
-    $ch = '';
+	// Template laden
+	$tpl = new tpl ('allg', 1);
+	
+	// Template-Header ausgeben
+	$tpl->out( 0 );
+	
+	$katid = 0;
+    $katname = '';
 
     $abf = 'SELECT * FROM `prefix_config` ORDER BY `kat`,`pos`,`typ` ASC';
     $erg = db_query($abf);
     while ($row = db_fetch_assoc($erg)) {
-        if ($ch != $row['kat']) {
-            echo '<tr><td colspan="2" class="Cdark"><b>' . $row['kat'] . '</b></td></tr>';
+        if ($katname != $row['kat']) {
+			$katid++;
+			$tpl->set_ar_out( Array( 'katid' => $katid, 'kat' => $row['kat'] ), 1 );
+			$katname = $row['kat'];
         }
-        echo '<tr><td class="Cmite">' . $row['frage'] . '</td>';
-        echo '<td class="Cnorm">';
+
         if ($row['typ'] == 'input') {
-            echo '<input size="50" type="text" name="' . $row['schl'] . '" value="' . $row['wert'] . '">';
+            $input = '<input size="50" type="text" name="' . $row['schl'] . '" value="' . $row['wert'] . '">';
         } elseif ($row['typ'] == 'r2') {
             $checkedj = '';
             $checkedn = '';
@@ -140,32 +52,30 @@ if (empty ($_POST['submit'])) {
                 $checkedn = 'checked';
                 $checkedj = '';
             }
-            echo '<input type="radio" name="' . $row['schl'] . '" value="1" ' . $checkedj . ' > ja';
-            echo '&nbsp;&nbsp;';
-            echo '<input type="radio" name="' . $row['schl'] . '" value="0" ' . $checkedn . ' > nein';
+            $input = '<input type="radio" name="' . $row['schl'] . '" value="1" ' . $checkedj . ' > ja'
+					.'&nbsp;&nbsp;'
+					.'<input type="radio" name="' . $row['schl'] . '" value="0" ' . $checkedn . ' > nein';
         } elseif ($row['typ'] == 's') {
             $vname = $row['schl'];
-            echo '<select name="' . $row['schl'] . '">' . $$vname . '</select>';
+            $input = '<select name="' . $row['schl'] . '">' . $$vname . '</select>';
         } elseif ($row['typ'] == 'textarea') {
-            echo '<textarea cols="55" rows="3" name="' . $row['schl'] . '">' . $row['wert'] . '</textarea>';
+            $input = '<textarea cols="55" rows="3" name="' . $row['schl'] . '">' . $row['wert'] . '</textarea>';
         } elseif ($row['typ'] == 'grecht') {
             $grl = dblistee($allgAr[$row['schl']], "SELECT id,name FROM prefix_grundrechte ORDER BY id ASC");
-            echo '<select name="' . $row['schl'] . '">' . $grl . '</select>';
+            $input = '<select name="' . $row['schl'] . '">' . $grl . '</select>';
         } elseif ($row['typ'] == 'grecht2') {
             $grl = dblistee($allgAr[$row['schl']], "SELECT id,name FROM prefix_grundrechte WHERE id >= -2 ORDER BY id ASC");
-            echo '<select name="' . $row['schl'] . '">' . $grl . '</select>';
+            $input = '<select name="' . $row['schl'] . '">' . $grl . '</select>';
         } elseif ($row['typ'] == 'password') {
-            echo '<input size="50" type="password" name="' . $row['schl'] . '" value="***" />';
+            $input = '<input size="50" type="password" name="' . $row['schl'] . '" value="***" />';
         }
-        echo '</td></tr>' . "\n\n";
-        $ch = $row['kat'];
+
+		$tpl->set_ar_out( Array( 'frage' => $row['frage'], 'input' => $input ), 2 );
     }
-
-    echo '<tr class="Cdark"><td></td><td><input type="submit" value="Absenden" name="submit"></td></tr>';
-
-    echo '</table>';
-
-    echo '</form>';
+	
+	// Template-Footer ausgeben
+    $tpl->out( 3 );
+	
 } else {
     $abf = 'SELECT * FROM `prefix_config` ORDER BY `kat`';
     $erg = db_query($abf);

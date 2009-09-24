@@ -5,9 +5,13 @@
   <list title="Ilch CMS 1.2">
   
     <modul>
+	  <title>ACP Startseite</title>
+	  <url>admin.php?admin</url>
+	</modul>
+	
+    <modul>
 	  <title>Versions Kontrolle</title>
 	  <url>admin.php?admin-versionsKontrolle</url>
-	  <pic>include/images/icons/admin/version_check.png</pic>
 	</modul>
 	
   </list>
@@ -17,19 +21,16 @@
     <modul>
 	  <title>Besucher</title>
 	  <url>admin.php?admin-besucherStatistik</url>
-	  <pic>include/images/icons/admin/stats_visitor.png</pic>
 	</modul>
 	
     <modul>
 	  <title>Seite</title>
 	  <url>admin.php?admin-siteStatistik</url>
-	  <pic>include/images/icons/admin/stats_site.png</pic>
 	</modul>
 	
     <modul>
 	  <title>Online</title>
 	  <url>admin.php?admin-userOnline</url>
-	  <pic>include/images/icons/admin/stats_online.png</pic>
 	</modul>
 	
   </list>

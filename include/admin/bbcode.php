@@ -11,17 +11,6 @@ defined ('admin') or die ( 'only admin access' );
 $design = new design ( 'Admins Area', 'Admins Area', 2 );
 $design->header();
 
-//> Modulauswahl
-$bbmodules = array('buttons'=>'Buttons','design'=>'Design','config'=>'Konfiguration','badword'=>'Badwordliste');
-if ($menu->get(1) == '') {
-    $menu->set_url(1,'buttons');
-}
-echo '<table class="border" cellpadding="3" cellspacing="2" width="400"><tr>';
-foreach ($bbmodules as $k => $v) {
-    echo '<td width="25%" class="'.($menu->get(1) == $k ? 'Cmite' : 'Cnorm').'"><a href="admin.php?bbcode-'.$k.'">'.$v.'</a></td>';
-}
-echo '</tr></table>';
-
 switch($menu->get(1)) {
 	#> Buttons
 	case 'buttons':

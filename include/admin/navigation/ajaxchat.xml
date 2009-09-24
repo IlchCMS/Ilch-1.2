@@ -20,7 +20,7 @@
   
     <modul>
 	  <title>&#220;bersicht</title>
-	  <url>admin.php?admin-versionsKontrolle</url>
+	  <url>admin.php?ajaxchat-channels</url>
 	</modul>
 	
   </list>

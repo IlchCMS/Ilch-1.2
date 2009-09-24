@@ -32,12 +32,14 @@ if (file_exists ($file) ) {
 	$menus = simplexml_load_file('include/admin/navigation/'.$modul.'.xml');
 	
 	$umenu .= '<p><b>Weitere Funktionen</b></p>';
-	$umenu .= '<ul style="padding-left: 15px;">';
+	$umenu .= '<ul>';
 
 	foreach( $menus->list AS $liste ){
 		$umenu .= '<li><b>'.$liste->attributes()->title.'</b><br />';
 		foreach( $liste->modul AS $mod ){
-			$umenu .= '<a href="'.$mod->url.'" style="color: #FFFFFF">'.utf8_decode($mod->title).'</a><br />';
+			if( $mod->right >= $_SESSION['authright'] OR !isset( $mod->right ) ){
+				$umenu .= '<div style="padding: 1px 0px 1px 0px;"><a href="'.$mod->url.'" style="color: #FFFFFF;">'.utf8_decode($mod->title).'</a></div>';
+			}
 		}
 		$umenu .= '</li><br />';
 	}
