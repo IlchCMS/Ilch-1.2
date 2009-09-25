@@ -10,7 +10,7 @@ if (empty ($modul) ) {
 
 // Script version
 $out['ilchversion'] = 1.2;
-$out['ilchupdate'] = 'A';
+$out['ilchupdate'] = 0;
 $out['phpversion'] = phpversion();
 $out['mysqlversion'] = mysql_get_server_info();
 

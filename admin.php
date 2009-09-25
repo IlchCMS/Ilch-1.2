@@ -1,6 +1,6 @@
 <?php
 
-# $messungStart = strtok(microtime(), " ") + strtok(" ");
+#$messungStart = strtok(microtime(), " ") + strtok(" ");
 
 #   Copyright by: Manuel
 #   Support: www.ilch.de
@@ -49,7 +49,7 @@ if (false) { //debugging aktivieren
 	debug('', 1, true);
 }
 
-# $messungEnde = strtok(microtime(), " ") + strtok(" ");
-# echo "Dauer: ".number_format($messungEnde - $messungStart, 6)." Sekunden";
+ #$messungEnde = strtok(microtime(), " ") + strtok(" ");
+ #echo "Dauer: ".number_format($messungEnde - $messungStart, 6)." Sekunden";
 
 ?>

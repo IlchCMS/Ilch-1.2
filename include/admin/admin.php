@@ -7,8 +7,8 @@ defined ('admin') or die ('only admin access');
 $design = new design ('Admins Area', 'Admins Area', 2);
 $design->header();
 // script version
-$scriptVersion = 12;
-$scriptUpdate = 'A';
+$scriptVersion = 1.2;
+$scriptUpdate = 0;
 // statistik wird bereinigt.
 $mon = date('n');
 $lastmon = $mon - 1;
@@ -24,133 +24,75 @@ db_query("OPTIMIZE TABLE `prefix_stats`");
 
 $um = $menu->get(1);
 switch ($um) {
-    default : { ?>
-<table width="100%" border="0" cellspacing="0" cellpadding="5" class="rand">
-  <tr class="Chead">
-    <td><b>Willkommen bei ilchClan - Administration!</b></td>
-  </tr>
+    default : 
+		
+		// Funktionen
+		// Menue im Template ausgeben
+		function make_menu_list ($erg, $katname = '') {
+			global $tpl;
+			
+			while ($row = db_fetch_assoc($erg)) {
+				if( $katname != $row['menu'] ){
+					if( $katname != '' ){
+						$tpl->out( 3 );
+					}
+					$tpl->set_ar_out( Array( 'kat' => $row['menu'], 'url' => $row['url'] ), 1 );
+					$katname = $row['menu'];
+				}
+				
+				$exturl = str_replace( '-', '_', $row['url'] );
+				$expurl = explode( '_', $exturl );
+					
+				if (file_exists('include/images/icons/admin/' . $exturl . '.png')) {
+					$bild = 'include/images/icons/admin/' . $exturl . '.png';
+				}else if (file_exists('include/images/icons/admin/' . $expurl[0] . '.png')) {
+					$bild = 'include/images/icons/admin/' . $expurl[0] . '.png';
+				} else {
+					$bild = 'include/images/icons/admin/na.png';
+				}
+					
+				$tpl->set_ar_out( Array( 'url' => $row['url'], 'pic' => $bild, 'name' => $row['name'] ), 2 );
+			}
+			
+			if( $katname != '' AND $katname != 'Admin' ){
+				$tpl->out( 3 );
+			}
+		}
+		// Kategorie-Name
+		$katname = '';
+		
+		// Template laden
+		$tpl = new tpl ('admin', 1);
+		
+		// Template-Header
+		$tpl->out( 0 );
 
-  <tr>
-    <td class="Cnorm">
+		// Module abfragen und Ausgeben
+		$first_erg = db_query("SELECT * FROM `prefix_modules` WHERE `menu` = 'admin' ORDER BY  `pos` ASC");
+		$second_erg = db_query("SELECT * FROM `prefix_modules` WHERE `menu` != '' AND `menu` != 'admin' ORDER BY `menu`, `pos` ASC");
+		
+		// Admin gesondert ausgeben
+		make_menu_list ($first_erg);
+		
+		// Restliche Module
+		make_menu_list ($second_erg, 'Admin');
+		
+		// Template-Footer
+		$tpl->out( 4 );
+		
+        break;
+        
 
-
-
-           <table width="100%"><tr><td valign="top" width="100%">
-           <br />
-           <h3 style="display:inline;">Ein &Uuml;berblick &uuml;ber alle Inhalte</h3>
-
-           <ul id="cpm" class="admix">
-             <li class="admix_box">Admin<br />
-               <ul>
-                 <li><a href="admin.php?allg"><img src="include/images/icons/admin/konfiguration.png" alt="">Konfiguration</a></li>
-                 <?php if ($allgAr['mail_smtp']) { ?>
-                 <li><a href="admin.php?smtpconf"><img src="include/images/icons/admin/smtpconf.png" alt="">SMTP konfigurieren</a></li>
-                 <?php } ?>
-				 <li><a href="admin.php?menu"><img src="include/images/icons/admin/navigation.png" alt="">Navigation</a></li>
-                 <li><a href="admin.php?backup"><img src="include/images/icons/admin/backup.png" alt="">Backup</a></li>
-                 <li><a href="admin.php?range"><img src="include/images/icons/admin/ranks.png" alt="">Ranks</a></li>
-                 <li><a href="admin.php?smilies"><img src="include/images/icons/admin/smilies.png" alt="">Smiles</a></li>
-                 <li><a href="admin.php?newsletter"><img src="include/images/icons/admin/newsletter.png" alt="">Newsletter</a></li>
-                 <li><a href="admin.php?admin-versionsKontrolle"><img src="include/images/icons/admin/version_check.png" alt="">Versions Kontrolle</a></li>
-                 <li><a href="admin.php?checkconf"><img src="include/images/icons/admin/version_check.png" alt="">Server Konfiguration</a></li>
-                 <br class="admix_last"/>
-               </ul>
-             </li>
-	     <li class="admix_box">Statistik<br />
-                   <ul>
-                     <li><a href="admin.php?admin-besucherStatistik"><img src="include/images/icons/admin/stats_visitor.png" alt="">Besucher</a></li>
-                     <li><a href="admin.php?admin-siteStatistik"><img src="include/images/icons/admin/stats_site.png" alt="">Seite</a></li>
-                     <li><a href="admin.php?admin-userOnline"><img src="include/images/icons/admin/stats_online.png" alt="">Online</a></li>
-                     <br class="admix_last"/>
-                   </ul>
-                 </li>
-             <li class="admix_box">Clanbox<br />
-               <ul>
-                 <li><a href="admin.php?wars-last"><img src="include/images/icons/admin/wars_last.png" alt="" />Lastwars</a></li>
-                 <li><a href="admin.php?wars-next"><img src="include/images/icons/admin/wars_next.png" alt="" />Nextwars</a></li>
-                 <li><a href="admin.php?awards"><img src="include/images/icons/admin/awards.png" alt="" />Awards</a></li>
-                 <li><a href="admin.php?kasse"><img src="include/images/icons/admin/kasse.png" alt="" />Kasse</a></li>
-                 <li><a href="admin.php?rules"><img src="include/images/icons/admin/rules.png" alt="" />Rules</a></li>
-                 <li><a href="admin.php?history"><img src="include/images/icons/admin/history.png" alt="" />History</a></li>
-                 <li><a href="admin.php?groups"><img src="include/images/icons/admin/teams.png" alt="" />Teams</a></li>
-                 <li><a href="admin.php?trains"><img src="include/images/icons/admin/training_times.png" alt="" />Trainzeiten</a></li>
-                 <br class="admix_last"/>
-               </ul>
-             </li>
-             <li class="admix_box">User<br />
-               <ul>
-                 <li><a href="admin.php?user"><img src="include/images/icons/admin/user.png" alt="">Verwalten</a></li>
-                 <li><a href="admin.php?grundrechte"><img src="include/images/icons/admin/user_rights.png" alt="">Grundrechte</a></li>
-                 <li><a href="admin.php?profilefields"><img src="include/images/icons/admin/user_profile_fields.png" alt="">Profilefelder</a></li>
-                 <li><a href="javascript: createNewUser();"><img src="include/images/icons/admin/user_add.png" alt="">neuen User</a></li>
-                 <br class="admix_last"/>
-               </ul>
-             </li>
-             <li class="admix_box">Content<br />
-               <ul>
-                 <li><a href="admin.php?news"><img src="include/images/icons/admin/news.png" alt="">News</a></li>
-                 <li><a href="admin.php?forum"><img src="include/images/icons/admin/forum.png" alt="">Forum</a></li>
-                 <li><a href="admin.php?archiv-downloads"><img src="include/images/icons/admin/downloads.png" alt="">Downloads</a></li>
-                 <li><a href="admin.php?archiv-links"><img src="include/images/icons/admin/links.png" alt="">Links</a></li>
-                 <li><a href="admin.php?gallery"><img src="include/images/icons/admin/gallery.png" alt="">Gallery</a></li>
-                 <li><a href="admin.php?vote"><img src="include/images/icons/admin/vote.png" alt="">Umfrage</a></li>
-                 <li><a href="admin.php?kalender"><img src="include/images/icons/admin/calendar.png" alt="">Kalender</a></li>
-                 <li><a href="admin.php?contact"><img src="include/images/icons/admin/contact.png" alt="">Kontakt</a></li>
-                 <li><a href="admin.php?impressum"><img src="include/images/icons/admin/imprint.png" alt="">Impressum</a></li>
-                 <li><a href="admin.php?selfbp"><img src="include/images/icons/admin/self_page_box.png" alt="">Eigene Box/Page</a></li>
-                 <li><a href="admin.php?gbook"><img src="include/images/icons/admin/guestbook.png" alt="">G&auml;stebuch</a></li>
-                 <br class="admix_last"/>
-               </ul>
-             </li>
-             <li class="admix_box">Boxen<br />
-               <ul>
-                 <li><a href="admin.php?picofx"><img src="include/images/icons/admin/picofx.png" alt="">PicOfX</a></li>
-                 <li><a href="admin.php?archiv-partners"><img src="include/images/icons/admin/partners.png" alt="">Partner</a></li>
-                 <br class="admix_last"/>
-               </ul>
-             </li>
-             <li class="admix_box">Module
-             <?php
-            $modabf = db_query("SELECT * FROM `prefix_modules` WHERE `ashow` = 1");
-            if (db_num_rows($modabf) > 0) {
-                echo '<br /><ul>';
-                while ($modrow = db_fetch_object($modabf)) {
-                    if (file_exists('include/images/icons/admin/' . $modrow->url . '.png')) {
-                        $bild = 'include/images/icons/admin/' . $modrow->url . '.png';
-                    } else {
-                        $bild = 'include/images/icons/admin/na.png';
-                    }
-                    echo '<li><a href="admin.php?' . $modrow->url . '"><img src="' . $bild . '" alt="">' . $modrow->name . '</a></li>' . "\n";
-                }
-                echo '<br class="admix_last"/></ul>';
-            }
-
-            ?>
-             </li>
-           </ul>
-
-           </td></td></table>
-
-		</td>
-  </tr>
-</table>
-
-
-           <?php
-            break;
-        }
-
-    case 'versionsKontrolle' : {
+    case 'versionsKontrolle' : 
             // ICON Anzeige...
             echo '<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/version_check.png" /></td><td width="30"></td><td valign="bottom"><h1>Versionskontrolle</h1></td></tr></table>';
 
             echo 'Scripte Version: ' . $scriptVersion . '<br />Update Version: ' . $scriptUpdate . '<br /><br />';
             echo '<script language="JavaScript" type="text/javascript" src="http://www.ilch.de/down/ilchClan/update.php?version=' . $scriptVersion . '&update=' . $scriptUpdate . '"></script>';
-            // echo '<iframe width="100%" height="60" src="http://www.ilch.de/down/ilchClan/update.php?version='.$scriptVersion.'&update='.$scriptUpdate.'"></iframe>';
             break;
-        }
+        
         // ####################################
-    case 'besucherStatistik' : {
+    case 'besucherStatistik' : 
             function echo_admin_site_statistik ($title, $col, $smon, $ges, $orderQuery) {
                 $sql = db_query("SELECT COUNT(*) AS `wert`, ".$col." as `schl` FROM  `prefix_stats` WHERE `mon` = " . $smon . " GROUP BY `schl` ORDER BY " . $orderQuery);
                 $max = @db_result(db_query("SELECT COUNT(*) as `wert`, ".$col." as `schl` FROM `prefix_stats` WHERE `mon` = " . $smon . " GROUP BY `schl` ORDER BY `wert` DESC LIMIT 1"), 0, 0);
@@ -199,9 +141,9 @@ switch ($um) {
             echo '</table>';
 
             break;
-        }
+        
 
-    case 'userOnline' : { ?>
+    case 'userOnline' :  ?>
           <table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/stats_online.png" /></td><td width="30"></td><td valign="bottom"><h1>Online Statistik</h1></td></tr></table>
           <table border="0" cellpadding="2" cellspacing="1" class="border">
           <tr class="Chead">
@@ -218,8 +160,8 @@ switch ($um) {
           <?php
 
             break;
-        }
-    case 'besucherUebersicht' : {
+        
+    case 'besucherUebersicht' : 
             function get_max_from_x ($q) {
                 $q = db_query($q);
                 $m = 0;
@@ -284,8 +226,8 @@ switch ($um) {
 
             echo '</td></tr></table>';
             break;
-        }
-    case 'siteStatistik' : {
+        
+    case 'siteStatistik' : 
             // #########################################
             function forum_statistic_show ($sql, $ges) {
                 $erg = db_query($sql);
@@ -347,7 +289,7 @@ switch ($um) {
             echo '<h1>Es ist ganz ehrlich noch mehr geplant :P</h1>';
             // #########################################
             break;
-        }
+        
 }
 
 $design->footer();

@@ -72,7 +72,7 @@ function get_boxes_array () {
     $ar = array ();
     $handle = opendir('include/boxes');
     while ($ver = readdir ($handle)) {
-        if ($ver != "." AND $ver != ".." AND !is_dir('include/boxes/' . $ver) AND strpos($ver, 'adminmenu') === false AND strpos($ver, 'adminsubmenu') === false) {
+        if ($ver != "." AND $ver != ".." AND !is_dir('include/boxes/' . $ver) AND strpos($ver, 'adminmenu') === false AND strpos($ver, 'adminsubmenu') === false AND strpos($ver, 'adminhmenu') === false) {
             $ar[$ver] = $ver;
         }
     }

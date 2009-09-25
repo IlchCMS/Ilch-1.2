@@ -3,12 +3,6 @@
 // Support www.ilch.de
 defined ('main') or die ('no direct access');
 
-if (!is_admin()) {
-    echo 'Dieser Bereich ist nicht fuer dich...';
-    $design->footer();
-    exit();
-}
-
 if (empty ($_POST['submit'])) {
 	echo '<script type="text/javascript">'
 		.'$(function() {'

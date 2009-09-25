@@ -189,7 +189,7 @@ margin: 5px auto 5px auto;
 }
 
 #innerleftcol {
-  background-image: url(../../images/icons/admin/adminmenu.png);
+  background-image: url(../../images/icons/admin/adminmenubg.png);
   width:210px;
   height:100%;
   color: #FFFFFF;
@@ -200,6 +200,22 @@ margin: 5px auto 5px auto;
 #innerleftcol li { padding: 1px 0px 1px 0px; }
 #innerleftcol a { color: #FFFFFF; font-size: 12px; }
 
+#hmenu {
+  background-image: url(../../images/icons/admin/hmenu.png);
+  background-repeat: no-repeat;
+  width:210px;
+  height:30px;
+  top: 40px;
+  padding: 4px 4px 0px 10px;
+  font-size: 18px;
+  color: #aad8d9;
+  position:fixed; 
+}
+
+#hmenu img {
+	width: 14px;
+	height: 14px;
+}
 
  
  /* *** Float containers fix:
@@ -207,7 +223,7 @@ margin: 5px auto 5px auto;
 .clearfix:after {
  content: "."; 
  display: block; 
-height: 0; 
+ height: 0; 
  clear: both; 
  visibility: hidden;
  }

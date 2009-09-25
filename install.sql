@@ -76,8 +76,6 @@ CREATE TABLE IF NOT EXISTS `prefix_ajax_chat_online` (
   `ip` varbinary(16) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
-INSERT INTO `prefix_modules` (`url`, `name`, `gshow`, `ashow`, `fright`) VALUES ('ajaxchat', 'Ajax Chat', 0, 1, 1);
-
 --------------------------------------
 ----------> AJAX CHAT END <-----------
 --------------------------------------
@@ -575,27 +573,55 @@ CREATE TABLE `prefix_modulerights` (
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
 CREATE TABLE `prefix_modules` (
-  `id` mediumint(8) unsigned NOT NULL auto_increment,
-  `url` varchar(20) NOT NULL default '',
-  `name` varchar(50) NOT NULL default '',
-  `gshow` tinyint(1) NOT NULL default '0',
-  `ashow` tinyint(1) NOT NULL default '0',
-  `fright` tinyint(1) NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='powered by ilch.de';
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `url` varchar(20) NOT NULL DEFAULT '',
+  `name` varchar(50) NOT NULL DEFAULT '',
+  `gshow` tinyint(1) NOT NULL DEFAULT '0',
+  `ashow` tinyint(1) NOT NULL DEFAULT '0',
+  `fright` tinyint(1) NOT NULL DEFAULT '0',
+  `menu` varchar(200) NOT NULL,
+  `pos` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de' AUTO_INCREMENT=38 ;
 
-INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (1, 'gallery', 'Gallery', 1, 0, 1);
-INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (2, 'news', 'News', 1, 0, 1);
-INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (3, 'groups', 'Gruppen', 1, 0, 1);
-INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (4, 'rules', 'Regeln', 1, 0, 1);
-INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (5, 'awards', 'Awards', 1, 0, 1);
-INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (6, 'forum', 'Forum', 1, 0, 1);
-INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (7, 'archiv-downloads', 'Downloads', 1, 0, 1);
-INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (8, 'kalender', 'Kalender', 1, 0, 1);
-INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (9, 'wars', 'Wars', 1, 0, 1);
-INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (10, 'kasse', 'Kasse', 1, 0, 1);
-INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (11, 'gbook', 'Gbook', 1, 0, 1);
-INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (12, 'awaycal', 'Awaycal', 0, 0, 1);
+INSERT INTO `prefix_modules` (`id`, `url`, `name`, `gshow`, `ashow`, `fright`, `menu`, `pos`) VALUES
+(1, 'gallery', 'Gallery', 1, 0, 1, 'Content', 4),
+(2, 'menu', 'Navigation', 1, 0, 0, 'Admin', 2),
+(3, 'groups', 'Teams', 1, 0, 1, 'Clanbox', 2),
+(4, 'rules', 'Regeln', 1, 0, 1, 'Clanbox', 5),
+(5, 'awards', 'Awards', 1, 0, 1, 'Clanbox', 3),
+(6, 'forum', 'Forum', 1, 0, 1, 'Content', 1),
+(7, 'archiv-downloads', 'Downloads', 1, 0, 1, 'Content', 2),
+(8, 'kalender', 'Kalender', 1, 0, 1, 'Content', 7),
+(9, 'wars', 'Wars', 0, 0, 1, '', 0),
+(10, 'kasse', 'Kasse', 1, 0, 1, 'Clanbox', 4),
+(11, 'gbook', 'Gästebuch', 1, 0, 1, 'Content', 5),
+(12, 'awaycal', 'Awaycal', 0, 0, 0, '', 0),
+(13, 'news', 'News', 1, 0, 1, 'Content', 0),
+(14, 'allg', 'Konfiguration', 1, 0, 0, 'Admin', 0),
+(15, 'backup', 'Backup', 1, 0, 0, 'Admin', 3),
+(16, 'range', 'Ranks', 1, 0, 0, 'Admin', 4),
+(17, 'ajaxchat', 'Ajax Chat', 1, 0, 1, 'Content', 10),
+(18, 'wars-last', 'Lastwars', 1, 0, 0, 'Clanbox', 1),
+(19, 'smilies', 'Smilies', 1, 0, 0, 'Admin', 5),
+(20, 'newsletter', 'Newsletter', 1, 0, 0, 'Admin', 6),
+(21, 'checkconf', 'Serverkonfiguration', 1, 0, 0, 'Admin', 7),
+(22, 'user', 'User', 1, 0, 0, 'User', 0),
+(23, 'grundrechte', 'Grundrechte', 1, 0, 0, 'User', 1),
+(24, 'profilefields', 'Profilfelder', 1, 0, 0, 'User', 2),
+(25, 'selfbp', 'Eigene Box/Page', 1, 0, 0, 'Eigene Box/Page', 0),
+(26, 'wars-next', 'Nextwars', 1, 0, 0, 'Clanbox', 0),
+(27, 'history', 'History', 1, 0, 0, 'Clanbox', 6),
+(28, 'trains', 'Trainzeiten', 1, 0, 0, 'Clanbox', 7),
+(29, 'archiv-links', 'Links', 1, 0, 0, 'Content', 3),
+(30, 'vote', 'Umfragen', 1, 0, 0, 'Content', 6),
+(31, 'contact', 'Kontakt', 1, 0, 0, 'Content', 8),
+(32, 'impressum', 'Impressum', 1, 0, 0, 'Content', 9),
+(33, 'archiv-partners', 'Partner', 1, 0, 0, 'Boxen', 0),
+(34, 'picofx', 'Pic of X', 1, 0, 0, 'Boxen', 1),
+(35, 'modules', 'Modulverwaltung', 1, 0, 0, 'Admin', 8),
+(36, 'smtpconf', 'SMTP', 1, 0, 0, 'Admin', 1),
+(37, 'puser', 'User', 1, 0, 0, '', 0);
 
 CREATE TABLE `prefix_news` (
   `news_id` int(10) unsigned NOT NULL auto_increment,
