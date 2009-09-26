@@ -83,7 +83,7 @@ switch ($aid) {
 			select_radio( 'ashow', $row['ashow'] );
 			select_radio( 'fright', $row['fright'] );
 			
-			$tpl->set_ar_out (Array ( 'aname' => 'Eintrag hinzuf&uuml;gen', 'name' => $row['name'], 'url' => $row['url'] ), 5) ;
+			$tpl->set_ar_out (Array ( 'aname' => 'Eintrag bearbeiten', 'name' => $row['name'], 'url' => $row['url'] ), 5) ;
 		}else{
 			select_radio( 'gshow', 0 );
 			select_radio( 'ashow', 0 );
