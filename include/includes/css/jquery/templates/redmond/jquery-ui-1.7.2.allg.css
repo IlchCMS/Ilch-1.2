@@ -1,0 +1,14 @@
+/*
+* jQuery UI CSS Framework
+* Copyright (c) 2009 AUTHORS.txt (http://jqueryui.com/about)
+* Dual licensed under the MIT (MIT-LICENSE.txt) and GPL (GPL-LICENSE.txt) licenses.
+*/
+
+/* Tabs
+----------------------------------*/
+.ui-tabs {  }
+.ui-tabs .ui-tabs-nav {  }
+.ui-tabs .ui-tabs-nav li a { color: #FFFFFF }
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected { font-style: italic; font-weight: bold; }
+.ui-tabs .ui-tabs-panel {  }
+.ui-tabs .ui-tabs-hide { display: none !important; }
