@@ -592,7 +592,7 @@ config;
 
 
 define ( 'main' , TRUE );
-require_once('include/includes/loader.php');
+require_once('include/includes/func/db/mysql.php');
 
 db_connect();
 
@@ -600,7 +600,7 @@ db_connect();
 # checken ob die config tabelle + prefix schon da ist.
 # wenn ja wird hier abgebrochen, keine 2 mal installation.
 # zumal sonst evtl. eintraege doppelt vorkommen koennten
-if (DBPREF.'allg' == @db_result(@db_query("SHOW TABLES LIKE 'prefix_allg'"),0)) {
+if (DBPREF.'allg' == @db_result(@db_query('SHOW TABLES LIKE "prefix_allg"'),0)) {
   ?>
 	  <html>
 		<head><title>... ::: [ I n s t a l l a t i o n &nbsp; v o n &nbsp; i l c h &nbsp; v o n &nbsp; 1 . 2 ] ::: ...</title>
@@ -631,14 +631,15 @@ $sql_file = preg_replace ("/(\015\012|\015|\012)/", "\n", $sql_file);
 $sql_statements = explode(";\n",$sql_file);
 foreach ( $sql_statements as $sql_statement ) {
   if ( trim($sql_statement) != '' ) {
-    #echo '<pre>'.$sql_statement.'</pre><hr>';
+    //echo '<pre>'.$sql_statement.'</pre>';
+    //echo '<font color="#ff0000">'.mysql_error().'</font><hr />';
     db_query($sql_statement);
 	}
 }
 
-db_query ("INSERT INTO `prefix_user` ( name , name_clean , pass , regist , email , recht , llogin, status, opt_mail, opt_pm ) VALUES ( '".$_POST['admin_name']."','".get_lower($_POST['admin_name'])."','".md5($_POST['admin_pwd'])."','".time()."','".get_lower($_POST['admin_amail'])."','-9','".time()."',1,1,1)");
-db_query ("UPDATE prefix_allg SET t1 = '".$_POST['admin_amail']."|Webmaster' WHERE k = 'kontakt'");
-db_query ("UPDATE prefix_config SET wert = '".$_POST['admin_amail']."' WHERE schl = 'adminMail'");
+db_query ('INSERT INTO `prefix_user` (`name`, `name_clean`, `pass`, `regist`, `email`, `recht`, `llogin`, `status`, `opt_mail`, `opt_pm`) VALUES ( "'.$_POST['admin_name'].'","'.strtolower($_POST['admin_name']).'","'.md5($_POST['admin_pwd']).'","'.time().'","'.strtolower($_POST['admin_amail']).'","-9","'.time().'","1","1","1")');
+db_query ('UPDATE `prefix_allg` SET t1 = "'.$_POST['admin_amail'].'|Webmaster" WHERE `k` = "kontakt"');
+db_query ('UPDATE `prefix_config` SET `wert` = "'.$_POST['admin_amail'].'" WHERE `schl` = "adminMail"');
 ?>
 
 	  <html>
@@ -673,5 +674,4 @@ db_query ("UPDATE prefix_config SET wert = '".$_POST['admin_amail']."' WHERE sch
 <?php
   }
 }
-
 ?>

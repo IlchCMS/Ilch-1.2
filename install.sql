@@ -1,7 +1,3 @@
---------------------------------------
----------> AJAX CHAT START <----------
---------------------------------------
-
 CREATE TABLE IF NOT EXISTS `prefix_ajax_chat_bans` (
   `userID` int(11) NOT NULL,
   `userName` varchar(64) COLLATE utf8_bin NOT NULL,
@@ -75,12 +71,6 @@ CREATE TABLE IF NOT EXISTS `prefix_ajax_chat_online` (
   `dateTime` datetime NOT NULL,
   `ip` varbinary(16) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
-
---------------------------------------
-----------> AJAX CHAT END <-----------
---------------------------------------
-
-
 
 CREATE TABLE `prefix_allg` (
   `id` int(5) unsigned NOT NULL auto_increment,
@@ -278,7 +268,7 @@ INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('mail_smtp', 'r2', 'Allgemeine Optionen', 'SMTP für den Mailversand verwenden? <a href="admin.php?smtpconf" class="smalfont">weitere Einstellungen</a>', '0');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('userpic_Fabreite', 'input', 'Forum Optionen', 'max Breite f&uuml;r das Userpic', '160');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('userpic_Fahohe', 'input', 'Forum Optionen', 'max H&ouml;he f&uuml;r das Userpic', '160');
-INSERT INTO `preifx_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('userpic_Fasize', 'input', 'Forum Optionen', 'max Gr&ouml;&szlig;e in Bytes f&uuml;r das Userpic', '32322');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('userpic_Fasize', 'input', 'Forum Optionen', 'max Gr&ouml;&szlig;e in Bytes f&uuml;r das Userpic', '32322');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('menu_anz', 'input', 'Allgemeine Optionen', 'Wie viele Menüs sollen verwaltet werden?', '5');
 
 CREATE TABLE `prefix_counter` (
@@ -834,7 +824,7 @@ CREATE TABLE `prefix_user` (
   `msn` varchar(50) NOT NULL default '',
   `yahoo` varchar(50) NOT NULL default '',
   `aim` varchar(50) NOT NULL default '',
-  `sig` text NOT NULL,
+  `sig` text,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
