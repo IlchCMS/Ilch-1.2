@@ -7,11 +7,6 @@
  
 /*---------->>> GLOBAL <<<-----------*/
 
-* {
-	margin: 0; padding: 0;
-	font-size: 100%;
-}
-
 body {
 	margin:0; padding:0;
 	font-family:Verdana, "Trebuchet MS";
@@ -281,7 +276,7 @@ div#main_content {
 	border-left:1px solid #fff;
 	border-right:1px solid #fff;
 	background:#e8f3f9;
-	color:#919da2;
+	color:#7a8286;
 }
 
 #con_menu {
@@ -315,8 +310,7 @@ div#main_content {
 	border-bottom:1px solid #dae1e5;	
 	font-size: 1em;		
 	font-weight: normal;
-	min-width:200px;
-	color:#919da2;	
+	min-width:200px;	
 }
 
 #con_menu li a {
@@ -328,7 +322,7 @@ div#main_content {
     margin: 0 auto; 
 	font-size: 1em;		
 	font-weight: normal;
-	color:#919da2;
+	color:#7a8286;
 	text-decoration:none;	
 }
 
@@ -395,8 +389,9 @@ td, center, div, span, font, tr, table, body
 
 a 
 { 
-  color: #003366; 
-	text-decoration: underline; 
+  color: #6e7c7f; 
+	text-decoration: underline;
+	font-weight:bold;
 }
 
 a:hover 
@@ -406,7 +401,7 @@ a:hover
 
 a.box 
 { 
-  color: #003366; 
+  color: #6e7c7f; 
 	font-family: Verdana; 
 	font-size: 11px; 
 	text-decoration: underline; 
@@ -419,8 +414,9 @@ a.box:hover
 
 .Chead
 {
-  background-color: #5584bb;
+  background-color: #c4ddeb;
   color: #FFF;
+  font-weight:bold;
 }
 
 .Chead td, .Chead td strong, .Chead h4, .Chead td b
@@ -441,15 +437,16 @@ a.box:hover
 
 .Cnorm 
 {
-  background-color: #DDDDDD;
+  background-color: #f7fcff;
 }
 .Cmite
 {
-  background-color: #eeeeec;/*#B4C6D8;*/
+  background-color: #f0f7fb;/*#B4C6D8;*/
 }
 .Cdark
 {
-  background-color: #729FCF;
+  background-color: #eaf1f5;
+  color:#6e7c7f;
 }
 
 #Ballg
@@ -475,7 +472,7 @@ a.box:hover
 
 .rand
 {
-  border: solid #003366 1px;
+  border: solid #cdd8de 1px;
 }
 
 .smalfont 
@@ -486,41 +483,59 @@ a.box:hover
 
 .border 
 { 
-   background-color: #003366; 
+   background-color: #cdd8de; 
 }
 hr 
 { 
     height: 0px; 
-		border: solid #003366 0px; 
+		border: solid #cdd8de 0px; 
 		border-top-width: 1px; 
 }
 
+
 input, textarea, select
 { 
-    color: #000000;  
+    color: #738792;  
     font: 12px Verdana;  
-    border-color: #003366;
+    border-color: #cbd8de;
   	border-width: 1px;
     border-style: solid;  
     font-weight: none;  
-    text-decoration: none;  
-    background-color: #EFEFEF;  
+    text-decoration: none;
+	padding:4px;  
+    background-color: #f2f9ff;
+	-moz-border-radius:2px; -webkit-border-radius:2px;
+	margin:2px;  
 }
+
 
 img { border: 0; }
 
 div.info_box {
-width: 400px; border: 1px solid #204a87; padding: 8px 16px 8px 68px; 
-background: #eeeeec url(../../images/icons/admin/info.png) no-repeat 8px 8px;
+width: 400px; border: 1px solid #cbd6dc; padding: 8px 16px 8px 68px; 
+background: #f0f7fb url(../../images/icons/admin/info.png) no-repeat 8px 8px;
 margin: 5px 5px 5px 5px;
 /* margin: 5px auto 5px auto; */
 }
 
+div.info_box b, div.info_box strong {
+color:#6e7c7f;
+}
+
 div.warning_box {
-width: 400px; border: 1px solid #a40000; padding: 8px 16px 8px 68px; 
-background: #eeeeec url(../../images/icons/admin/warning.png) no-repeat 8px 8px;
+width: 400px; color:#fdc3c4; border: 1px solid #fe0000; padding: 8px 16px 8px 68px; 
+background: #e26666 url(../../images/icons/admin/warning.png) no-repeat 8px 8px;
 margin: 5px auto 5px auto;
 }
 
+div.warning_box a {
+color:#fcb8b5;
+text-decoration:underline;
+font-weight:bold;
+}
+
+div.info_box, div.warning_box {
+	-moz-border-radius:3px; -webkit-border-radius:3px;
+}
 
 
