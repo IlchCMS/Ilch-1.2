@@ -37,6 +37,9 @@ site_statistic();
 load_global_lang( 2 );
 load_modul_lang( 2 );
 
+// Navigation in Variable als Array speichern
+$menuAr = $menu->get_menu();
+
 // Modul oeffnen
 if ( user_has_admin_right($menu) ) {
   require_once ('include/admin/'.$menu->get_url('admin'));

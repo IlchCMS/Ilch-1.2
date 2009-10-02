@@ -377,17 +377,7 @@ function get_antispam ($m, $t) {
 	  return ('');
 	}
 }
-###
-##
-#// Funktion scandir für PHP 4
-if (version_compare(phpversion(), '5.0.0') == - 1) {
-    function scandir($dir) {
-        $dh = opendir($dir);
-        while (false !== ($filename = readdir($dh))) $files[] = $filename;
-        sort($files);
-        return $files;
-    }
-}
+
 // Funktion, die die Größe aller Dateien im Ordner zusammenrechnet
 function dirsize($dir) {
     if (!is_dir($dir)) {

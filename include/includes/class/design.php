@@ -197,7 +197,7 @@ class design extends tpl {
         } elseif ($this->was == 1) {
             $f = 'designs/' . $this->design . '/index.htm';
         } elseif ($this->was == 2) {
-            $f = 'admin/templates/index.htm';
+            $f = 'admin/design/index.htm';
         }
         return ($f);
     }
@@ -342,7 +342,7 @@ class design extends tpl {
     }
 
     function get_boxcontent ($box) {
-        global $lang, $allgAr, $menu, $ILCH_HEADER_ADDITIONS, $ILCH_BODYEND_ADDITIONS;
+        global $lang, $allgAr, $menuAr, $menu, $ILCH_HEADER_ADDITIONS, $ILCH_BODYEND_ADDITIONS;
         if (file_exists('include/boxes/' . $box)) {
             $pfad = 'include/boxes/' . $box;
         } elseif (file_exists ('include/contents/selfbp/selfb/' . str_replace('self_', '', $box))) {

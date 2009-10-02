@@ -1,23 +1,7 @@
-<script language="JavaScript" type="text/javascript">
-<!--
-  function createNewUser() {
-    var Fenster = window.open ('admin.php?user-createNewUser', 'createNewUser', 'status=yes,scrollbars=yes,height=255,width=350,left=300,top=50');
-    Fenster.focus();
-  }
--->
-</script>
-<script language="JavaScript">
-<!--
-	var myMenu =
-	[
-		[null, 'Seite', './', null, null],
-	{EXPLODE}
-		[null, '{kat}', 'admin.php?{url}', null, null,
-	{EXPLODE}
-		  ['<img src="{pic}" width="16" height="16">', '{name}', 'admin.php?{url}', null, null],
-	{EXPLODE}
-		],
-	{EXPLODE}
-	];
--->
-</script>
+<li{class}><a href="admin.php?{url}" rel="dropm-{id}"><span>{title}</span></a></li>
+{EXPLODE}
+<div id="dropm-{id}" class="dropmenu_container">
+{EXPLODE}
+<a href="admin.php?{url}">{title}</a>
+{EXPLODE}
+</div>

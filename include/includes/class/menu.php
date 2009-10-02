@@ -174,6 +174,20 @@ class menu {
             return ('');
         }
     }
+	
+	// Gibt das Adminmenu in einem Array zurueck
+	function get_menu () {
+		$menuAr = Array ();
+		$kat = '';
+		
+		$erg = db_query("SELECT * FROM `prefix_modules` WHERE `menu` != '' ORDER BY `menu`, `pos` ASC");
+		while ($row = db_fetch_assoc($erg)) {
+			$menuAr[$row['url']] = Array ( 'name' => $row['name'], 'menu' => $row['menu'] );
+		}
+		
+		return $menuAr;
+	}
+
     // gibt den kompletten "Pfad" aus
     function get_complete() {
         return implode('-', $this->menu_ar);

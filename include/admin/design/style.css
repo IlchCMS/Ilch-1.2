@@ -1,0 +1,526 @@
+@charset "utf-8";
+/**
+ *   Copyright (c) 2009 Ilch
+ * Design and Design Code by OloX
+ * ---------- www.ilch.de ------------
+ **/
+ 
+/*---------->>> GLOBAL <<<-----------*/
+
+* {
+	margin: 0; padding: 0;
+	font-size: 100%;
+}
+
+body {
+	margin:0; padding:0;
+	font-family:Verdana, "Trebuchet MS";
+	font-size: 12px;
+	color: #ffffff; text-align: center;
+	background: #ddecf3 url("img/background.png") repeat-x;
+  }
+
+br.clear {
+	content: "."; 
+	display: block; 
+	height: 0; 
+	clear: both; 
+	visibility: hidden;
+}
+
+/* ---------->>> structure <<<-----------*/
+
+div#admin_head {
+	clear:both;
+	text-align:left;
+	height:36px; /* 36*/
+	margin: 0 auto; padding:0 ;
+  }
+
+div#admin_head a span#logo {
+	background: url("img/logo.png") no-repeat;
+	display:block;
+	float:left;
+	width:70px; height:36px;
+	padding:0; margin:0 18px 0 18px;
+}
+
+div#admin_head ul.button{
+	padding:0; margin:0;
+	list-style-type: none;
+	width:700px;
+}
+
+div#admin_head .button li{
+	display: block; float:left;
+	padding: 0px 0px 0px 0px;
+}
+
+div#admin_head .button li a{
+	float: left; text-decoration: none;
+	background: url("img/top_admin_menu.png") no-repeat left top;
+}
+
+div#admin_head .button li a:hover{
+    background: url("img/top_admin_menu.png") no-repeat left -68px;
+}
+
+div#admin_head .button li a span {
+	float: left;
+	display: block;
+	background: url("img/top_admin_menu.png") no-repeat right -34px;
+	padding: 10px 10px 10px 10px;
+	color:#89939b;
+	font-size:12px;
+	font-weight:bold;	
+	text-decoration:none;
+}
+
+div#admin_head .button li a span:hover {
+
+	background: url("img/top_admin_menu.png") no-repeat right -102px;
+
+}
+
+div#admin_head .button li a span strong {
+	color:#727a81;
+}
+ 
+div#admin_content {
+	clear:both;
+	text-align:left;
+	height:36px; /* 36*/
+	margin: 50px auto 5px auto;
+	padding:0px 20px 0px 20px ;
+}
+
+/* ---------->>> admin tabs <<<-----------*/
+
+div#admin_tabs {
+	text-align:left;
+	line-height: normal;
+    margin: 0 auto; padding:0 0 0 10px; 
+	min-width: 600px;
+
+}
+
+.tla #tabs {
+	margin: 0 7px -6px 0;
+}
+
+div#admin_tabs ul {
+	margin:0; padding: 0;
+	list-style: none;
+}
+
+div#admin_tabs li {
+	display: inline;
+	margin: 0; padding: 0;
+	font-size: 1em;
+    letter-spacing: 0.8px;
+    text-shadow: #a9c1d0 0px 1px 1px;		
+	font-weight: bold;
+}
+
+div#admin_tabs a {
+	float: left;
+	background:url("img/tab_bg1.png") no-repeat 0% -26px;
+	margin: 0 3px 0 0;
+	padding: 0 0 0 7px;
+	text-decoration: none;
+	position: relative;
+}
+
+.tla div#admin_tabs a {
+	float: right;
+}
+
+div#admin_tabs a span {
+	float: left;
+	display: block;
+	background: url("img/tab_bg2.png") no-repeat 100% -26px;
+	padding: 7px 10px 4px 4px;
+	color: #ffffff;
+	white-space: nowrap;
+	font-family: Arial, Helvetica, sans-serif;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.tla div#admin_tabs a span {
+	float: right;
+}
+
+/* IE hack \*/
+#tabs a span, .tla #tabs a span { float:none;}
+/* IE hack \*/
+
+div#admin_tabs a:hover span {
+	color: #8c969d;
+}
+
+div#admin_tabs #activetab a {
+	background-position: 0 0;
+}
+
+div#admin_tabs #activetab a span {
+	background-position: 100% 0;
+	color: #8c969d;
+}
+
+div#admin_tabs a:hover {
+	background-position: 0 -52px;
+}
+
+div#admin_tabs a:hover span {
+	background-position: 100% -52px;
+}
+
+div#admin_tabs #activetab a:hover span {
+	color: #6e7c7f;
+}
+
+
+/* ------>>> dropdown menu <<<-------*/
+div.dropmenu_container {
+	margin-top:-1px;
+	position:absolute;
+	top: 0;
+	border: 1px solid #a1c8dd;
+	border-width: 1px 1px 0px 1px;
+	line-height:18px;
+	z-index:100;
+	background-color: #b8d5e8;
+	visibility: hidden;
+	-moz-opacity:0.9;
+}
+
+
+div.dropmenu_container a {
+	width: auto;
+	margin:0;
+	display: block;
+	text-indent: 5px;
+	border: 0 solid #a1c8dd; 
+	border-bottom-width: 1px;
+	padding: 3px 3px 3px 12px;
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serif;
+	color:#858c92;
+	background:url("img/points.png") no-repeat 6px -36px;	
+}
+
+div.dropmenu_container a:hover {
+	background-color:#c4ddeb;
+	color:#ffffff;
+}
+
+
+/* ---------->>> content <<<-----------*/
+
+span.corners-top, span.corners-bottom, 
+span.corners-top span, span.corners-bottom span {
+	font-size: 1px;
+	line-height: 1px;
+	display: block;
+	height: 9px;
+	background-repeat: no-repeat;
+}
+
+span.corners-top {
+	background-image: url("img/content_left.png");
+	background-position: 0 0;
+	margin: 0px 0px 0;
+}
+
+span.corners-top span {
+	background-image: url("img/content_right.png");
+	background-position: 100% 0;
+}
+
+span.corners-bottom {
+	background-image: url("img/content_left.png");
+	background-position: 0 100%;
+	margin: 0 0px -4px;
+	clear: both;
+}
+
+span.corners-bottom span {
+	background-image: url("img/content_right.png");
+	background-position: 100% 100%;
+}
+
+/* IE hack \*/
+* html span.corners-top, * html span.corners-bottom { background-image: url("img/content_left.png"); }
+* html span.corners-top span, * html span.corners-bottom span { background-image: url("img/content_right.png"); }
+/* IE hack \*/
+
+span.footer {
+	display:block;
+	margin:14px 0 20px 0;
+	text-align:center;
+	color:#abbdc4;
+	font-size:1em;
+	font-weight:bold;
+	text-shadow:1px 1px 0 #F7F7F7;		
+}
+
+span.footer a {
+	color:#abbdc4;
+	text-decoration:none;		
+}
+
+div#main_content_border {
+	padding:0; margin:0;
+	border-left:1px solid #cbd6dc;
+	border-right:1px solid #cbd6dc;
+}
+
+div#main_content {
+	margin: 0 auto; padding:25px 12px 25px 12px;
+	border-left:1px solid #fff;
+	border-right:1px solid #fff;
+	background:#e8f3f9;
+	color:#919da2;
+}
+
+#con_menu {
+	float:left;
+	font-size:1em;
+	padding:40px 0 0 0;
+	width:20%;
+	min-width:18%;
+}
+
+#con_menu h1 {
+	display:block;
+	margin: 0 auto;  padding:6px 0 6px 20px;
+	background:url(img/points.png) no-repeat 5px 4px;
+	border-bottom:1px solid #dae1e5;
+	font-family:"trebuchet MS",sans-serif;
+	font-size:1.1em;
+    text-shadow:1px 1px 0 #F7F7F7;	
+	min-width:200px;	
+}
+
+#con_menu ul {
+	margin:0; padding: 0;
+	list-style: none;
+	min-width:200px;
+}
+
+#con_menu li {
+	margin: 0 auto;  padding:6px 0 6px 24px;
+	background:url("img/points.png") no-repeat 12px -16px;	
+	border-bottom:1px solid #dae1e5;	
+	font-size: 1em;		
+	font-weight: normal;
+	min-width:200px;
+	color:#919da2;	
+}
+
+#con_menu li a {
+	text-decoration:none;
+}
+
+#con_menu li a span {
+    display:block;
+    margin: 0 auto; 
+	font-size: 1em;		
+	font-weight: normal;
+	color:#919da2;
+	text-decoration:none;	
+}
+
+
+
+div#con_mid {
+	width:2%;
+	float:left;
+	margin:0 0 0 0.2%;
+	text-align: right;
+}
+
+span.toggle-on, span.toggle-off {
+	background:url("img/toggle.png") no-repeat;
+	background-position: 0 bottom;
+	height:21px; width:21px;
+	display:block;
+	float:right;
+	cursor: pointer;
+}
+
+span.toggle-off {
+	background-position: 0 0;
+}
+
+#con_main {
+	float:left;
+	padding:0 0 0 2%;
+	margin:0 0 0 0;
+	min-height:380px;
+	width:74%;
+	background:url("img/2px.png") repeat-y;
+	background-position: 0 0;
+}
+
+#con_main h1 {
+	margin: 0 auto 10px auto;
+	display:block;
+	clear:both;
+	color:#6e7c7f;
+	line-height:1.2em;
+	font-family:"Trebuchet MS",Helvetica,sans-serif;
+    font-size:1.6em;
+    font-weight:normal;
+	text-shadow:1px 1px 0 #F7F7F7;		
+}
+
+
+
+
+/* ---------->>> Ilch Saff <<<-----------*/
+
+
+.abg
+{
+  background-color: #204A87;
+}
+
+td, center, div, span, font, tr, table, body 
+{
+  font-family: Verdana; 
+  font-size: 12px;
+}
+
+a 
+{ 
+  color: #003366; 
+	text-decoration: underline; 
+}
+
+a:hover 
+{   
+  text-decoration: none;  
+}
+
+a.box 
+{ 
+  color: #003366; 
+	font-family: Verdana; 
+	font-size: 11px; 
+	text-decoration: underline; 
+}
+
+a.box:hover 
+{   
+  text-decoration: none;  
+}
+
+.Chead
+{
+  background-color: #5584bb;
+  color: #FFF;
+}
+
+.Chead td, .Chead td strong, .Chead h4, .Chead td b
+{
+  color: #FFF;
+}
+
+.Callg
+{
+  background-color: #EFEFEF;
+	color: #000000;
+}
+
+.Callg td
+{
+  color: #000000;
+}
+
+.Cnorm 
+{
+  background-color: #DDDDDD;
+}
+.Cmite
+{
+  background-color: #eeeeec;/*#B4C6D8;*/
+}
+.Cdark
+{
+  background-color: #729FCF;
+}
+
+#Ballg
+{
+	color: #000000;
+}
+#Ballg td
+{
+	color: #000000;
+}
+
+.Bhead
+
+{
+  background-color: #4E7AA5;
+	color: #FFFFFF;
+}
+.Bbody
+{
+  background-color: #B4C6D8;
+	color: #000000;
+}
+
+.rand
+{
+  border: solid #003366 1px;
+}
+
+.smalfont 
+{ 
+    font-size: 10px;
+		text-decoration: none; 
+}
+
+.border 
+{ 
+   background-color: #003366; 
+}
+hr 
+{ 
+    height: 0px; 
+		border: solid #003366 0px; 
+		border-top-width: 1px; 
+}
+
+input, textarea, select
+{ 
+    color: #000000;  
+    font: 12px Verdana;  
+    border-color: #003366;
+  	border-width: 1px;
+    border-style: solid;  
+    font-weight: none;  
+    text-decoration: none;  
+    background-color: #EFEFEF;  
+}
+
+img { border: 0; }
+
+div.info_box {
+width: 400px; border: 1px solid #204a87; padding: 8px 16px 8px 68px; 
+background: #eeeeec url(../../images/icons/admin/info.png) no-repeat 8px 8px;
+margin: 5px 5px 5px 5px;
+/* margin: 5px auto 5px auto; */
+}
+
+div.warning_box {
+width: 400px; border: 1px solid #a40000; padding: 8px 16px 8px 68px; 
+background: #eeeeec url(../../images/icons/admin/warning.png) no-repeat 8px 8px;
+margin: 5px auto 5px auto;
+}
+
+
+

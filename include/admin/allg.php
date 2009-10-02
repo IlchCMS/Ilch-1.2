@@ -14,10 +14,10 @@ if (!is_admin()) {
 }
 
 // Load needed functions
-$funcs = read_ext ('include/admin/allgfunc', 'php');
+$funcs = read_ext ('include/admin/inc/allg', 'php');
 
 foreach ( $funcs as $file ){
-	require_once('include/admin/allgfunc/'.$file);
+	require_once('include/admin/inc/allg/'.$file);
 }
 
 if (empty ($_POST['submit'])) {

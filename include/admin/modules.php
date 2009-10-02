@@ -13,6 +13,6 @@ switch ($menu->get(1)) {
 	case 'database' :		$file = 'database';		break;
 }
 
-require_once('include/admin/modules/' . $file . '.php');
+require_once('include/admin/inc/modules/' . $file . '.php');
 
 ?>
