@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<menu>
+
+  <list title="Module">
+  
+    <modul>
+	  <title>Meine Module (in A.)</title>
+	  <url>admin.php?modules</url>
+	</modul>
+	
+    <modul>
+	  <title>Modul hochladen (in A.)</title>
+	  <url>admin.php?modules-upload</url>
+	</modul>
+	
+    <modul>
+	  <title>Ilch Updates (in A.)</title>
+	  <url>admin.php?modules-update</url>
+	</modul>
+	
+    <modul>
+	  <title>Backups (in A.)</title>
+	  <url>admin.php?modules-backups</url>
+	</modul>
+	
+  </list>
+  
+  <list title="Designs">
+  
+    <modul>
+	  <title>Meine Designs (in A.)</title>
+	  <url>admin.php?modules-designs</url>
+	</modul>
+	
+    <modul>
+	  <title>Design hochladen (in A.)</title>
+	  <url>admin.php?modules-designs-upload</url>
+	</modul>
+	
+  </list>
+  
+  <list title="Sonstiges">
+  
+    <modul>
+	  <title>ACP Navigation</title>
+	  <url>admin.php?modules-adminmenu</url>
+	</modul>
+	
+    <modul>
+	  <title>Modul-Datenbank</title>
+	  <url>admin.php?modules-database</url>
+	</modul>
+	
+  </list>
+</menu>

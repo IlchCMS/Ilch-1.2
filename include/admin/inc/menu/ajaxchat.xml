@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<menu>
+
+  <list title="Einstellungen">
+  
+    <modul>
+	  <title>Alle Konfigurationen</title>
+	  <url>admin.php?ajaxchat-config</url>
+	</modul>
+	
+    <modul>
+	  <title>Neue Konfiguration</title>
+	  <url>admin.php?ajaxchat-config-show</url>
+	</modul>
+	
+  </list>
+  
+  <list title="Channel Verwaltung">
+  
+    <modul>
+	  <title>&#220;bersicht</title>
+	  <url>admin.php?ajaxchat-channels</url>
+	</modul>
+	
+  </list>
+  
+</menu>
