@@ -34,6 +34,8 @@ function closebegind () {
 }
 //-->
 </script>
+<script type="text/javascript" src="include/includes/js/bbcode.js"></script> 
+<script type="text/javascript" src="include/includes/js/interface.js"></script>
 <table width="99%" border="0" cellspacing="1" cellpadding="5">
 <tr> 
 	<td valign="top"> 
@@ -51,15 +53,9 @@ function closebegind () {
 		<tr> 
 			<td align="right" valign="top" rowspan="2" class="Cmite"><strong>Text : &nbsp;</strong></td>
 			<td class="Cnorm">
-				<!-- BB Code START -->
-	    <a href="javascript:simple('b')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.bold.gif" alt="b" title="{_lang_bold}" border="0"></a>
-      <a href="javascript:simple('i')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.italic.gif" alt="i" title="{_lang_italic}" border="0"></a>
-      <a href="javascript:simple('u')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.underline.gif" alt="u" title="{_lang_underlined}" border="0"></a>
-      <a href="javascript:simple('code')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.code.gif" alt="Code" title="{_lang_code}" border="0"></a>
-	    <a href="javascript:simple_liste()"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.insertunorderedlist.gif" alt="{_lang_list}" title="{_lang_list}" border="0"></a>
-      <a href="javascript:simple('url')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.link.gif" alt="Url" title="{_lang_link}" border="0"></a>
-      <a href="javascript:simple('img')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.image.gif" alt="{_lang_picture}" title="{_lang_picture}" border="0"></a>
-				<!-- BB Code ENDE-->
+		      <!-- BB Code START -->
+	           {__BBCodeButtons__}
+              <!-- BB Code ENDE -->
       </td></tr>
       <td class="Cnorm"><textarea cols="60" rows="13" name="txt">{TEXT}</textarea></td>
 		</tr>
@@ -123,8 +119,8 @@ function closebegind () {
 		<table width="100%" cellpadding="4" cellspacing="1" border="0" class="border">
 		{EXPLODE}
 		<tr class="Cnorm">
-			<td><a href="#" onClick="return delcheck({ID},{GID})"><img src="include/images/icons/del.gif" alt="L&ouml;schen" title="L&ouml;schen" border="0"></a></td>
-      <td><a href="?kalender&edit={ID}"><img src="include/images/icons/edit.gif" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
+			<td><a href="#" onClick="return delcheck({ID},{GID})"><img src="include/images/icons/del.png" alt="L&ouml;schen" title="L&ouml;schen" border="0"></a></td>
+      <td><a href="?kalender&edit={ID}"><img src="include/images/icons/edit.png" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
 			<td class="smalfont">{TITLE} # Am {DATE} um {TIME}</td>
 		</tr>
 		{EXPLODE}

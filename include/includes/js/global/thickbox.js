@@ -8,7 +8,7 @@
 //var tb_pathToImage = "../images/loadingAnimation.gif";
 /*!!!!!!!!!!!!!!!!! edit below this line at your own risk !!!!!!!!!!!!!!!!!!!!!!!*/
 //on page load call tb_init
-  var tb_pathToImage = "theme/standard/images/loading.gif";
+  var tb_pathToImage = "include/images/icons/loading-48.gif";
   var CaptionClose = "Fenster schlie&szlig;en";
   var LoadingContent = "<strong>Lade Seite...</strong><br /><br />";
 

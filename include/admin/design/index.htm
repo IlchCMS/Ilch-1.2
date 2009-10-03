@@ -7,16 +7,13 @@
 <meta name="author" content="OloX - www.ilch.de" />
 <link rel="stylesheet" type="text/css" href="include/admin/design/style.css" media="all" />
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript" src="include/admin/design/dropdowntabs.js"></script>
-
-
+<script type="text/javascript" src="include/includes/js/dropdowntabs.js"></script>
 <script language="javascript" type="text/javascript">
   //<![CDATA[
   function set_width(width) {
        var div_con = document.getElementById('con_main');
 	   div_con.style.width =  width + '%'  
-  }
-  
+  } 
   
   $(document).ready(function(){
        var div = document.getElementById('con_menu');
@@ -27,27 +24,17 @@
 	  if (div.style.display == 'none') {
 	   $("div#con_menu").fadeIn("slow");
 		 pic.className = 'toggle-off';
-         //div_con.style.width = '74%'
-         set_width(74);		 
+		 set_width(74);		 
       } else {
 	   $("div#con_menu").fadeOut("slow");  
-         pic.className = 'toggle-on';
-         //div_con.style.width = '94%'
-         window.setTimeout("set_width(94)",700);		 
+		 pic.className = 'toggle-on';
+		 window.setTimeout("set_width(94)",700);		 
       }
 	
     });    
 
   });
   //]]>
-</script>
-<script language="JavaScript" type="text/javascript">
-<!--
-  function createNewUser() {
-    var Fenster = window.open ('admin.php?user-createNewUser', 'createNewUser', 'status=yes,scrollbars=yes,height=255,width=350,left=300,top=50');
-    Fenster.focus();
-  }
--->
 </script>
 </head>
 <body>

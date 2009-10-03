@@ -44,8 +44,8 @@ while ($r = db_fetch_assoc($erg)) {
     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
     $text = substr(preg_replace("/\015\012|\015|\012/", " ", htmlentities(strip_tags(stripslashes($r['txt'])))), 0, 75);
     echo '<tr class="' . $class . '">';
-    echo '<td><a href="admin.php?gbook=0&edit=' . $r['id'] . '"><img src="include/images/icons/edit.gif" /></a></td>';
-    echo '<td><a href="javascript:delcheck(' . $r['id'] . ')"><img src="include/images/icons/del.gif"></a></td>';
+    echo '<td><a href="admin.php?gbook=0&edit=' . $r['id'] . '"><img src="include/images/icons/edit.png" /></a></td>';
+    echo '<td><a href="javascript:delcheck(' . $r['id'] . ')"><img src="include/images/icons/del.png"></a></td>';
     echo '<td><b><a href="mailto:' . $r['mail'] . '">' . $r['name'] . '</a></b>&nbsp;<span class="smalfont">';
     echo $text . '</span></td>';
     echo '</tr>';

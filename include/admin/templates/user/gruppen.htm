@@ -1,13 +1,15 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="include/admin/design/style.css" media="all" />
+<script type="text/javascript" src="include/includes/js/jquery/jquery.form.js"></script>
 <script language="JavaScript" type="text/javascript">
 <!--
-function closeThisWindow() {
-  opener.location.reload();
-  opener.focus();
-  window.close();
-}
+$(document).ready(function() { 
+   $('#grup-c').ajaxForm(function() {  
+      tb_remove();
+	  location.reload();	   			
+   }); 
+}); 
 //-->
 </script>
 </head>
@@ -15,7 +17,7 @@ function closeThisWindow() {
 <table border="0" cellpadding="5" cellspacing="1" class="border" width="100%">
   <tr>
     <td class="Callg">
-<form action="admin.php?user-gruppen-{userid}" method="POST">
+<form id="grup-c" action="admin.php?user-gruppen-{userid}" method="POST">
 
 	<input type="hidden" name="usergroups" value="sub">
   <table cellpadding="3" cellspacing="1" border="0" class="border">
@@ -29,7 +31,7 @@ function closeThisWindow() {
 	  </tr>
     {EXPLODE}
     <tr>
-	    <td colspan="2" class="Cdark"><input class="sub" type="submit" name="chuserr" value="Speichern"> <input class="sub" type="button" value="Schlie&szlig;en" onClick="closeThisWindow()" /></td>
+	    <td colspan="2" class="Cdark"><input class="sub" type="submit" name="chuserr" value="Speichern"> <input class="sub" type="button" value="Schlie&szlig;en" onClick="self.parent.tb_remove();" /></td>
 		</tr>
   </table>
 </form>

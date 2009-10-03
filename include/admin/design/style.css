@@ -11,7 +11,7 @@ body {
 	margin:0; padding:0;
 	font-family:Verdana, "Trebuchet MS";
 	font-size: 12px;
-	color: #ffffff; text-align: center;
+	color: #6e7c7f; text-align: center;
 	background: #ddecf3 url("img/background.png") repeat-x;
   }
 
@@ -440,6 +440,11 @@ a.box:hover {
 	background-color: #f7fcff;
 	border:1px solid #fff;   
 }
+
+.Cnorm td {
+	border:1px solid #fff;   
+}
+
 .Cmite {
 	background-color: #f0f7fb;/*#B4C6D8;*/
 	border:1px solid #fff;

@@ -1,12 +1,13 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="include/admin/design/style.css" media="all" />
+<script type="text/javascript" src="include/includes/js/jquery/jquery.form.js"></script>
 <script language="JavaScript" type="text/javascript">
 <!--
-function closeThisWindow() {
-  opener.focus();
-  window.close();
-}
+$(document).ready(function() { 
+   $('#new-user').ajaxForm(function() {     			
+   }); 
+}); 
 //-->
 </script>
 </head>
@@ -14,7 +15,7 @@ function closeThisWindow() {
 <table border="0" cellpadding="5" cellspacing="1" class="border" width="100%">
   <tr>
     <td class="Callg">{msg}
-<form action="admin.php?user-createNewUser" method="POST" name="form">
+<form id="new-user" action="admin.php?user-createNewUser" method="post" name="form">
 {antispam}
   <table cellpadding="3" cellspacing="1" border="0" class="border">
     <tr class="Chead">
@@ -36,7 +37,7 @@ function closeThisWindow() {
 			<td class="Cnorm"><input id="sja" type="checkbox" name="info" value="ja" /><label for="sja"> Dem User seine Daten zusenden?</label></td>
 		</tr><tr class="Cdark">
 		  <td></td>
-			<td><input class="sub" type="submit" name="sub" value="Absenden" /> <input class="sub" type="button" value="Schlie&szlig;en" onClick="closeThisWindow()" /></td>
+			<td><input class="sub" type="submit" name="sub" value="Absenden" /> <input class="sub" type="button" value="Schlie&szlig;en" onClick="self.parent.tb_remove();" /></td>
 		</tr>
   </table>
 </form>

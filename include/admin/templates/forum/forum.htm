@@ -13,10 +13,6 @@
 				  document.location.href="?forum-deleteCategorie-"+DID;
 				}
 			}
-      function choosemods (FID) {
-        var Fenster = window.open ('admin.php?forum-choosemods&fid='+FID, 'choosemods', 'status=no,scrollbars=yes,height=400,width=300');
-        Fenster.focus();
-      }
 		//-->
 </script>
 
@@ -44,7 +40,7 @@
 		<td>&nbsp;&nbsp;{fname}</td>
 		<td><a href="?forum-changeForum-{fid}"><img src="include/images/icons/edit.png" border="0" /></a></td>
 		<td><a href="javascript:delFcheck({fid},{cid})"><img src="include/images/icons/del.png" border="0" /></a></td>
-		<td><a href="javascript:choosemods({fid})">Moderatoren</a></td>
+		<td><a href="javascript:tb_show('Moderatoren', 'admin.php?forum-choosemods&fid={fid}?KeepThis=true&amp;TB_iframe=true&amp;height=265&amp;width=300', false);">Moderatoren</a></td>
     <td><a href="?forum-moveForum-0-{fid}-{fpos}-{cid}"><img src="include/images/icons/pfeilo.png" border="0"></a></td> 
 		<td><a href="?forum-moveForum-1-{fid}-{fpos}-{cid}"><img src="include/images/icons/pfeilu.png" border="0"></a></td>
     
