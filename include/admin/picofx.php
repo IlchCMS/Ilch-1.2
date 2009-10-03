@@ -30,8 +30,7 @@ if (empty ($um)) {
     }
 
     ?>
-    <h2><b>Pic of the X verwalten</b></h2>
-    <br /><br /><form action="admin.php?picofx-update" method="POST">
+    <form action="admin.php?picofx-update" method="POST">
     <table cellspacing="1" border="0" cellpadding="10" class="border">
       <tr class="Chead">
         <td colspan="2">
@@ -78,7 +77,7 @@ if (empty ($um)) {
             Andernfalls wird dieses Feld ignoriert.</b></small></td></tr>
 
             <tr><td class="Cmite">Thumbnail Breite</td><td class="Cnorm" valign="top"><input type="text" value="<?php echo $picofxOpts['picwidth'] ?>" name="picwidth" size="3" maxlength="3"> Pixel</td></tr>
-            <tr class="Cdark"><td></td><td><input type="submit" value="Speichern"></td></tr></table>
+            <tr class="Cdark"><td></td><td><input class="sub" type="submit" value="Speichern"></td></tr></table>
 
     </td></tr></table></form>
 

@@ -1,4 +1,3 @@
-<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/ranks.png" /></td><td width="30"></td><td valign="bottom"><h1>Ranks</h1></td></tr></table>
 <table cellspacing="1" cellpadding="5" broder="0" class="border">
   <tr class="Chead">
 		<td>Rank Bezeichnung</td>
@@ -18,7 +17,7 @@
 
 {EXPLODE}
   <tr class="Cdark">
-	  <td colspan="5" height="50" align="center"><input type="button" value="Neuen Rang eintragen" onClick="document.location.href='?range-2'"></td>
+	  <td colspan="5" height="50" align="center"><input class="sub" type="button" value="Neuen Rang eintragen" onClick="document.location.href='?range-2'"></td>
   </tr>
 </table>
 
@@ -45,15 +44,17 @@
 		  <td class="Cnorm"><input type="radio" value="1" name="spez" {JCH}> Ja &nbsp; <input type="radio" value="0" name="spez" {NCH}> Nein</td>
 	  </tr><tr>
 		  <td class="Cdark"></td>
-			<td class="Cdark"><input type="submit" value="{SUB}" name="sub"></td>
+			<td class="Cdark"><input class="sub" type="submit" value="{SUB}" name="sub"></td>
 	  </tr>
   </table>
 
 </form>
 <br />
 
-<b>Merke</b><br /> 
+<div class="info_box">
+<ul>
+<li>Ab X Posts wird der dazu geh&ouml;rige Rangname benutz bis die n&auml;chste Ab Zahl erreicht wird usw.</li>
+<li>Spizalrangs kannst du f&uuml;r besondere Benutzer festlegen. Die R&auml;nge kannst du sp&auml;ter dann vergeben.</li>
+</ul>
+</div>
 
-- Ab X Posts wird der dazu geh&ouml;rige Rangname benutz bis die n&auml;chste Ab Zahl erreicht wird usw.
-<br />
-- Spizalrangs kannst du f&uuml;r besondere Benutzer festlegen. Die R&auml;nge kannst du sp&auml;ter dann vergeben.

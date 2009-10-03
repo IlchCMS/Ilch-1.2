@@ -14,8 +14,8 @@
     <td><b>Moderatoren festlegen</b></td>
   </tr><tr>
     <td>
-      <input name="name" /> <input type="submit" value="Add" name="s" /> 
-      <input type="button" value="Find" onClick="finduser()" />
+      <input name="name" /> <input class="sub" type="submit" value="Add" name="s" /> 
+      <input class="sub" type="button" value="Find" onClick="finduser()" />
     </td>
   </tr>
 </table>
@@ -24,6 +24,6 @@
 <table cellpadding="2" cellspacing="1" border="0" class="border">
   <tr class="Chead"><td colspan="2"><b>Moderatoren verwalten</b></td></tr>
 {EXPLODE}<tr class="{class}">
-     <td>{name}</td><td><a href="admin.php?forum-choosemods-d{uid}&fid={fid}"><img src="include/images/icons/del.gif" alt="l&ouml;schen" title="l&ouml;schen"></a></td>
+     <td>{name}</td><td><a href="admin.php?forum-choosemods-d{uid}&fid={fid}"><img src="include/images/icons/del.png" alt="l&ouml;schen" title="l&ouml;schen"></a></td>
    </tr>{EXPLODE}
 </table>

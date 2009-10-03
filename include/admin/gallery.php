@@ -16,12 +16,12 @@ function gallery_admin_showcats ($id , $stufe) {
                 $row->name = '<strong>' . $row->name . '</strong>';
             }
             echo '<tr class="Cmite"><td>' . $stufe . '- <a href="?gallery-S' . $row->id . '">' . $row->name . '</a></td>';
-            echo '<td><a href="javascript:uploadImages(' . $row->id . ')"><img src="include/images/icons/upload.gif" title="Bilder in diese Kategorie hochladen" alt="Bilder in diese Kategorie hochladen" border="0"></td>';
-            echo '<td><a href="javascript:reloadImages(' . $row->id . ')"><img src="include/images/icons/reload.gif" title="Bilder in diese Kategorie erneuern / einlesen" alt="Bilder in diese Kategorie erneuern / einlesen" border="0"></a></td>';
-            echo '<td><a href="admin.php?gallery-E' . $row->id . '#edit"><img src="include/images/icons/edit.gif" border="0" alt="&auml;ndern" title="&auml;ndern"></a></td>';
-            echo '<td><a href="javascript:Kdel(' . $row->id . ')"><img src="include/images/icons/del.gif" border="0" alt="l&ouml;schen" title="l&ouml;schen"></a></td>';
-            echo '<td><a href="admin.php?gallery-M' . $row->id . '-o' . $row->pos . '"><img src="include/images/icons/pfeilo.gif" border="0" title="hoch" alt="hoch"></a></td>';
-            echo '<td><a href="admin.php?gallery-M' . $row->id . '-u' . $row->pos . '"><img src="include/images/icons/pfeilu.gif" border="0" title="runter" alt="runter"></a></td></tr>';
+            echo '<td><a href="javascript:uploadImages(' . $row->id . ')"><img src="include/images/icons/upload.png" title="Bilder in diese Kategorie hochladen" alt="Bilder in diese Kategorie hochladen" border="0"></td>';
+            echo '<td><a href="javascript:reloadImages(' . $row->id . ')"><img src="include/images/icons/reload.png" title="Bilder in diese Kategorie erneuern / einlesen" alt="Bilder in diese Kategorie erneuern / einlesen" border="0"></a></td>';
+            echo '<td><a href="admin.php?gallery-E' . $row->id . '#edit"><img src="include/images/icons/edit.png" border="0" alt="&auml;ndern" title="&auml;ndern"></a></td>';
+            echo '<td><a href="javascript:Kdel(' . $row->id . ')"><img src="include/images/icons/del.png" border="0" alt="l&ouml;schen" title="l&ouml;schen"></a></td>';
+            echo '<td><a href="admin.php?gallery-M' . $row->id . '-o' . $row->pos . '"><img src="include/images/icons/pfeilo.png" border="0" title="hoch" alt="hoch"></a></td>';
+            echo '<td><a href="admin.php?gallery-M' . $row->id . '-u' . $row->pos . '"><img src="include/images/icons/pfeilu.png" border="0" title="runter" alt="runter"></a></td></tr>';
             gallery_admin_showcats($row->id, $stufe . ' &nbsp; &nbsp;');
         }
     }

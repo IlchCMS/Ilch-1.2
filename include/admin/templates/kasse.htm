@@ -1,5 +1,3 @@
-<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/kasse.png" /></td><td width="30"></td><td valign="bottom"><h1>Kasse</h1></td></tr></table>
-
 <form action="admin.php?kasse{id}" method="POST">
 <table cellpadding="2" cellspacing="1" border="0" class="border">
   <tr class="Chead">
@@ -17,7 +15,7 @@
     <td width="30%" class="Cnorm"><input name="name" value="{name}"/></td>
     <td width="50%" rowspan="5" valign="top" class="Cnorm">
       <textarea cols="60" rows="10" name="kontodaten">{kontodaten}</textarea>
-      <br /><input type="submit" value="Kontodaten speichern" name="ksub" />
+      <br /><input class="sub" type="submit" value="Kontodaten speichern" name="ksub" />
     </td>
   </tr><tr>
     <td class="Cmite" valign="top">Datum<br /></td>
@@ -30,7 +28,7 @@
     <td class="Cnorm"><input name="verwendung" value="{verwendung}" /></td>
   </tr><tr class="Cdark">
     <td></td>
-    <td><input type="submit" value="Absenden" name="sub" /></td>
+    <td><input class="sub" type="submit" value="Absenden" name="sub" /></td>
   </tr>
 </table>
 </form>

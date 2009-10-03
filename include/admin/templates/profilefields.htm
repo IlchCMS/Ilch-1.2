@@ -8,12 +8,11 @@
   }
 //-->
 </script>
-<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/user_profile_fields.png" /></td><td width="30"></td><td valign="bottom"><h1>Profilfelder</h1></td></tr></table>
 
 <table><tr><td valign="top">
 <form action="admin.php?profilefields" method="POST">
   <input type="hidden" name="sid" value="{sid}" />
-  <table cellspacing="1" cellpadding="3" broder="0" class="border">
+  <table cellspacing="1" cellpadding="3" class="border">
     <tr>
 	    <th class="Chead" colspan="2"><b>neues Profilefeld</b></th>
 		</tr><tr>
@@ -24,14 +23,14 @@
 			<td class="Cnorm"><select name="func">{_list_func@<option%1 value="%2">%3</option>}</select></td>
 		</tr><tr>
 		  <td class="Cdark"></td>
-			<td class="Cdark"><input type="submit" value="{sub}" name="sub"></td>
+			<td class="Cdark"><input class="sub" type="submit" value="{sub}" name="sub"></td>
 	  </tr>
   </table>
 </form>
 </td><td>&nbsp;&nbsp;&nbsp;</td><td valign="top">
-<table cellspacing="1" cellpadding="3" broder="0" class="border">
+<table cellspacing="1" cellpadding="3" class="border">
   <tr class="Chead">
-		<th colspan="7">Profilfelder verwalten</h1>
+		<th colspan="7">Profilfelder verwalten
 	</tr>
 	{EXPLODE}
 	<tr class="{CLASS}">
@@ -39,8 +38,8 @@
 		<td align="center">{func}</td>
 		<td><a href="?profilefields-edit-{id}">&auml;ndern</a></td>
 		<td><a href="javascript:delcheck({id})">l&ouml;schen</a></td>
-		<td><a href="?profilefields-o-{id}-{pos}"><img src="include/images/icons/pfeilo.gif" border="0"></a></td>
-		<td><a href="?profilefields-u-{id}-{pos}"><img src="include/images/icons/pfeilu.gif" border="0"></a></td>
+		<td><a href="?profilefields-o-{id}-{pos}"><img src="include/images/icons/pfeilo.png" border="0"></a></td>
+		<td><a href="?profilefields-u-{id}-{pos}"><img src="include/images/icons/pfeilu.png" border="0"></a></td>
 	</tr>
 {EXPLODE}
 </table>

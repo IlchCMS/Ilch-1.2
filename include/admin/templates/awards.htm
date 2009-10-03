@@ -9,9 +9,6 @@
 			}
 		//-->
 </script>
-
-<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/awards.png" /></td><td width="30"></td><td valign="bottom"><h1>Awards</h1></td></tr></table>
-
 <table width="100%" border="0" cellpadding="2" cellspacing="1" class="border">
    <tr>
 	  <td width="60%" valign="top" class="Cnorm">
@@ -46,7 +43,7 @@
 					<td class="Cnorm"><textarea cols="30" rows="3" name="text">{text}</textarea></td>
 				</tr><tr>
 				  <td class="Cmite"></td>
-					<td class="Cnorm"><input type="submit" value="Eintragen" name="ins" /></td>
+					<td class="Cnorm"><input class="sub" type="submit" value="Eintragen" name="ins" /></td>
 				</tr>
 			</table>
 			
@@ -64,8 +61,8 @@
 <tr class="Cnorm">
 <td>{datum}</td><td>{platz}</td><td>{team}</td>
 <td>
-  <a href="admin.php?awards-e{id}"><img src="include/images/icons/edit.gif" border="0" alt="{_lang_change}" title="{_lang_change}" /></a>
-  <a href="#" onclick="delcheck({id})"><img src="include/images/icons/del.gif" border="0" alt="{_lang_delete}" title="{_lang_delete}" /></a>
+  <a href="admin.php?awards-e{id}"><img src="include/images/icons/edit.png" border="0" alt="{_lang_change}" title="{_lang_change}" /></a>
+  <a href="#" onclick="delcheck({id})"><img src="include/images/icons/del.png" border="0" alt="{_lang_delete}" title="{_lang_delete}" /></a>
 </td>
 </tr>
 {EXPLODE}

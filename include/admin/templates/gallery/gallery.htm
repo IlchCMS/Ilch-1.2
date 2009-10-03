@@ -1,4 +1,3 @@
-<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/gallery.png" /></td><td width="30"></td><td valign="bottom"><h1>Gallery</h1></td></tr></table>
 <form action="admin.php?gallery" method="POST">
 <table width="100%">
   <tr>
@@ -14,11 +13,11 @@
 
           <table cellpadding="1" border="0" cellspacing="0" class="border">
             <tr>
-              <td class="Cmite"><a href="javascript:del({id})"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" alt="l&ouml;schen"></a></td>
+              <td class="Cmite"><a href="javascript:del({id})"><img src="include/images/icons/del.png" border="0" title="l&ouml;schen" alt="l&ouml;schen"></a></td>
             </tr><tr>
-              <td class="Cnorm"><a href="javascript:edit('{besch}',{id})"><img src="include/images/icons/edit.gif" title="&auml;ndern" border="0" alt="&auml;ndern"></a></td>
+              <td class="Cnorm"><a href="javascript:edit('{besch}',{id})"><img src="include/images/icons/edit.png" title="&auml;ndern" border="0" alt="&auml;ndern"></a></td>
             </tr><tr>
-              <td class="Cmite"><a href="javascript:reload({id})"><img src="include/images/icons/reload.gif" border="0" title="erneuern" alt="erneuern"></a></td>
+              <td class="Cmite"><a href="javascript:reload({id})"><img src="include/images/icons/reload.png" border="0" title="erneuern" alt="erneuern"></a></td>
             </tr><tr>
               <td class="Cnorm"><input type="checkbox" name="img[]" value="{id}" style="margin:0px; padding: 0px;" title="Bild f&uuml;r Verschieben markieren" /></td>
             </tr>
@@ -40,8 +39,8 @@
 		<td colspan="9"><b>Kategorien</b></td>
   </tr><tr class="Cmite">
     <td><a href="?gallery-S0">Keine</a></td>
-    <td><a href="javascript:uploadImages(0)"><img src="include/images/icons/upload.gif" title="Bilder in diese Kategorie hochladen" alt="Bilder in diese Kategorie hochladen" border="0"></a></td>
-    <td><a href="javascript:reloadImages(0)"><img src="include/images/icons/reload.gif" title="Bilder in diese Kategorie erneuern / einlesen" alt="Bilder in diese Kategorie erneuern / einlesen" border="0"></a></td>
+    <td><a href="javascript:uploadImages(0)"><img src="include/images/icons/upload.png" title="Bilder in diese Kategorie hochladen" alt="Bilder in diese Kategorie hochladen" border="0"></a></td>
+    <td><a href="javascript:reloadImages(0)"><img src="include/images/icons/reload.png" title="Bilder in diese Kategorie erneuern / einlesen" alt="Bilder in diese Kategorie erneuern / einlesen" border="0"></a></td>
     <td></td>
     <td></td>
     <td></td>
@@ -54,7 +53,7 @@
 		<td colspan="9"><b>Bilder verschieben</b></td>
   </tr><tr class="Cmite"><td>nach:</td><td><select name="movecat">{Ccat}</select></td>
   </tr><tr class="Cdark">
-        <td colspan="2"><input type="submit" value="markierte Bilder verschieben" name="movepics" /></td>
+        <td colspan="2"><input class="sub" type="submit" value="markierte Bilder verschieben" name="movepics" /></td>
   </tr>
 </table>
 <br />
@@ -78,7 +77,7 @@
     </tr>
 		<tr class="Cdark">
 		  <td></td>
-			<td><input type="submit" value="Absenden" name="Csub" /></td>
+			<td><input class="sub" type="submit" value="Absenden" name="Csub" /></td>
 		</tr>
   </table>
 </form>
@@ -116,8 +115,9 @@
   function uploadImages (kid) {
     var x = prompt ( "Wie viele Bilder möchten Sie hochladen?", "5");
     if ( x ) {
-      var Fenster = window.open ('admin.php?gallery-uploadImages-' + kid + '=0&anzb=' + x, 'uploadImages', 'status=yes,scrollbars=yes,height=500,width=350,left=300,top=50');
-      Fenster.focus();
+      //var Fenster = window.open ('admin.php?gallery-uploadImages-' + kid + '=0&anzb=' + x, 'uploadImages', 'status=yes,scrollbars=yes,height=500,width=350,left=300,top=50');
+      //Fenster.focus();
+	  tb_show('uploadImages', 'admin.php?gallery-uploadImages-' + kid + '=0&anzb=' + x , false);
     }
   }
 //-->

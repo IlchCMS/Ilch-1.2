@@ -1,6 +1,3 @@
-<table cellpadding="0" cellspacing="0" border="0">
-<tr><td><img src="include/images/icons/admin/smtpconf.png" /></td><td width="30"></td><td valign="bottom"><h1>SMTP Konfiguration</h1></td></tr>
-</table>
 <div class="warning_box" style="margin: 5px 0px;">
     {_if_{smtp}=='0'}<p>
     	<b>Beachten:</b> Diese Einstellungen sind nur von Bedeutung, wenn unter <a href="admin.php?allg">Konfiguration</a> der Mailversand auf SMTP gestellt ist,
@@ -55,6 +52,6 @@
     <td class="Cnorm">Passwort <small>(es ist {_if_{smtp_pass}=='1'}ein{_else_}<span style="color:red; font-size:1.5em;">noch kein</span>{/_endif} Passwort angegeben)</small></td>
     <td class="Cmite"><input type="password" name="smtp_pass" size="30" /> <small>(muss nicht angegeben werden, wenn es nicht ge&auml;ndert werden soll)</small></td>
 </tr><tr>
-    <td class="Cdark" colspan="2"><input type="submit" name="subform" value="Einstellungen speichern" /></td>
+    <td class="Cdark" colspan="2"><input class="sub" type="submit" name="subform" value="Einstellungen speichern" /></td>
 </tr></table>
 </form>

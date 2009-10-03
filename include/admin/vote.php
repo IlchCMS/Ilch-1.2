@@ -116,8 +116,6 @@ if (isset ($_POST['add'])) {
 
 echo '<form action="admin.php?vote" method="POST">';
 echo '<input type="hidden" name="vid" value="' . $_POST['vid'] . '" />';
-echo '<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/vote.png" /></td><td width="30"></td><td valign="bottom"><h1>Umfrage</h1></td></tr></table>';
-
 echo '<table width="100%" cellpadding="2" cellspacing="1" border="0" class="border">';
 echo '<tr><td width="100" class="Cmite">Frage</td>';
 echo '<td width="500" class="Cnorm"><input type="text" size="40" value="' . $_POST['frage'] . '" name="frage"></td></tr>';
@@ -127,11 +125,11 @@ for ($i = 1;$i <= $anzFeld; $i++) {
     echo '<tr><td class="Cmite">Antwort ' . $i . '</td><td class="Cnorm">';
     echo '<input type="text" value="' . $_POST['antw'][$i] . '" size="40" name="antw[' . $i . ']">';
     if ($i == $anzFeld) {
-        echo ' &nbsp; <input type="submit" name="add" value="Antwort hinzuf&uuml;gen">';
+        echo ' &nbsp; <input class="sub" type="submit" name="add" value="Antwort hinzuf&uuml;gen">';
     }
     echo '</td></tr>' . "\n";
 }
-echo '<tr class="Cdark"><td></td><td><input name="sub" type="submit" value="' . $lang['formsub'] . '"></td></tr>';
+echo '<tr class="Cdark"><td></td><td><input class="sub" name="sub" type="submit" value="' . $lang['formsub'] . '"></td></tr>';
 echo '</table></form>';
 echo '<table width="100%" cellpadding="3" cellspacing="1" border="0" class="border">';
 echo '<tr class="Chead"><td colspan="5"><b>Vote verwalten</b></td></tr>';

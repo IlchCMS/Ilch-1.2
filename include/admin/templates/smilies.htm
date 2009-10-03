@@ -26,8 +26,6 @@ function more_upload() {
 //-->
 </SCRIPT>
 
-<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/smilies.png" /></td><td width="30"></td><td valign="bottom"><h1>Smilies</h1></td></tr></table>
-
 <table border="0" cellspacing="0" cellpadding="0"><tr><td valign="top" width="400">
 <form action="admin.php?smilies" method="POST">
 
@@ -47,7 +45,7 @@ function more_upload() {
 		  <td class="Cnorm"><input type="text" name="emo" value="{emo}" maxlength="75"></td>
 	  </tr><tr>
 		  <td class="Cdark"></td>
-			<td class="Cdark"><input type="submit" value="{_lang_formsub}" name="sub"></td>
+			<td class="Cdark"><input class="sub" type="submit" value="{_lang_formsub}" name="sub"></td>
 	  </tr>
   </table>
 
@@ -60,7 +58,7 @@ function more_upload() {
 		</tr><tr class="Cmite">
       <td><div id="moreUpload"><input type="file" size="40" name="ar[]" /></div></td>
     </tr><tr class="Cdark">
-      <td><input type="button" onClick="more_upload();" value="+" />&nbsp;<input type="submit" value="{_lang_formsub}" name="u" /></td>
+      <td><input class="sub" type="button" onClick="more_upload();" value="+" />&nbsp;<input class="sub" type="submit" value="{_lang_formsub}" name="u" /></td>
     </tr>
   </table>  
 </form>
@@ -70,7 +68,7 @@ function more_upload() {
     <tr class="Chead">
 	    <td colspan="3"><b>Smilie Pakete verwalten</b>&nbsp;&nbsp;(<a href="admin.php?smilies-createpak">Paket erstellen</a>)</td>
 		</tr><tr class="Cdark">
-      <td>Paket importieren</td><td class="Cmite"><select name="pak"><option value="0">Bitte pak Datei w&auml;hlen</option>{pakfile}</select></td><td><input type="submit" name="i" value="{_lang_formsub}" /></td>
+      <td>Paket importieren</td><td class="Cmite"><select name="pak"><option value="0">Bitte pak Datei w&auml;hlen</option>{pakfile}</select></td><td><input class="sub" type="submit" name="i" value="{_lang_formsub}" /></td>
     </tr>
   </table>  
 </form>
@@ -88,7 +86,7 @@ function more_upload() {
       <td><input name="emo[{url}]" value="{emo}"></td>
     </tr>{EXPLODE}<tr class="Cdark">
       <td><input name="ALL" type="checkbox" value="CHECK ALL" onClick="CheckAll();" /></td>
-      <td colspan="3"><select name="ak"><option value="1">eintragen</option><option value="2">l&ouml;schen</option></select>&nbsp;<input type="submit" value="{_lang_formsub}" name="s" /></td>
+      <td colspan="3"><select name="ak"><option value="1">eintragen</option><option value="2">l&ouml;schen</option></select>&nbsp;<input class="sub" type="submit" value="{_lang_formsub}" name="s" /></td>
     </tr>
   </table>
 </form>
@@ -107,8 +105,8 @@ function more_upload() {
 		<td align="center"><img src="include/images/smiles/{url}" alt=""></td>
 		<td align="center">{ent}</td>
 		<td align="center">{emo}</td>
-    <td><a href="admin.php?smilies-e{id}"><img src="include/images/icons/edit.gif" alt="Bearbeiten" title="Bearbeiten" /></a></td>
-		<td><a href="admin.php?smilies-d{id}"><img src="include/images/icons/del.gif" alt="L&ouml;schen" title="L&ouml;schen" /></a></td>
+    <td><a href="admin.php?smilies-e{id}"><img src="include/images/icons/edit.png" alt="Bearbeiten" title="Bearbeiten" /></a></td>
+		<td><a href="admin.php?smilies-d{id}"><img src="include/images/icons/del.png" alt="L&ouml;schen" title="L&ouml;schen" /></a></td>
 	</tr>
 
 {EXPLODE}

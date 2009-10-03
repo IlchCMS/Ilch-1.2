@@ -78,12 +78,9 @@ if (isset($_POST['o'])) {
 
 ?>
 <form action="admin.php?grundrechte" method="POST">
-
-<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/user_rights.png" /></td><td width="30"></td><td valign="bottom"><h1>Grundrechte</h1></td></tr></table>
-
 <table cellspacing="1" cellpadding="5" broder="0" class="border">
 <tr>
-     <td colspan="2" class="Cdark"><input type="submit" value="&Auml;nderungen speichern" name="o" /> (<a href="admin.php?grundrechte=0&m=m">Modulrechte f&uuml;r Grundrechte)</a></td>
+     <td colspan="2" class="Cdark"><input class="sub" type="submit" value="&Auml;nderungen speichern" name="o" /> (<a href="admin.php?grundrechte=0&m=m">Modulrechte f&uuml;r Grundrechte</a>)</td>
   </tr>
   <?php
 $class = '';
@@ -101,7 +98,7 @@ while ($r = db_fetch_assoc($erg)) {
 
 ?>
   <tr>
-     <td colspan="2" class="Cdark"><input type="submit" value="&Auml;nderungen speichern" name="o" /></td>
+     <td colspan="2" class="Cdark"><input class="sub" type="submit" value="&Auml;nderungen speichern" name="o" /></td>
   </tr>
 </table>
 

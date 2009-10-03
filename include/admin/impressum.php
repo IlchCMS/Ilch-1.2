@@ -29,9 +29,6 @@ if ($row['t1'] == '') {
 
 ?>
 
-
-  <table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/imprint.png" /></td><td width="30"></td><td valign="bottom"><h1>Impressum</h1></td></tr></table>
-
 	<form action="?impressum" method="POST">
 	<input type="text" name="v1" value="<?php echo $row['v1']; ?>" size="60">
 	<br />
@@ -43,7 +40,7 @@ if ($row['t1'] == '') {
 	<br /><br /><br />
 	<textarea cols="60" rows="15" name="t1"><?php echo unescape($t); ?></textarea>
 	<br /><br />
-	<input type="submit" name="sub" value="Absenden" />
+	<input class="sub" type="submit" name="sub" value="Absenden" />
 	</form>
 
 <?php

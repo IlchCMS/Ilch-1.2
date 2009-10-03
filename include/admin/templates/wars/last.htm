@@ -1,5 +1,3 @@
-<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/wars_last.png" /></td><td width="30"></td><td valign="bottom"><h1>Lastwars</h1></td></tr></table>
-
 <table cellpadding="0" cellspacing="0" border="0" width="100%">
 <tr>
 	<td width="60%" valign="top">
@@ -21,7 +19,7 @@
 			<td class="Cnorm"><input size="46" type="text" name="tag" value="{tag}"></td>
 		</tr><tr>
 			<td class="Cmite">Gegner Page</td>
-			<td class="Cnorm"><input size="40" type="text" name="page" value="{page}"> <a href="javascript:visitpage()">Visit</a></td>
+			<td class="Cnorm"><input size="40" type="text" name="page" value="{page}"> <input type="button" class="sub" onclick="javascript:visitpage()" value="Visit" /></td>
 		</tr><tr class="Cdark">
 			<td colspan="2"><b>Ansprechpartner</b></td>
 		</tr><tr>
@@ -101,7 +99,7 @@
 			<td class="Cnorm"><textarea cols="47" rows="2" name="txt">{txt}</textarea></td>
 		</tr><tr class="Cdark">
 			<td></td>
-			<td><input type="submit" value="Absenden" name="sub" /></td>
+			<td><input class="sub" type="submit" value="Absenden" name="sub" /></td>
 		</tr>
 		</table>
 		</form>
@@ -114,8 +112,8 @@
 {EXPLODE}
 		<tr class="{class}">
 			<td>{game} {gegner}</td>
-			<td align="center"><a href="javascript:del('{id}')"><img src="include/images/icons/del.gif" alt="{_lang_delete}" title="{_lang_delete}" /></a></td>
-			<td align="center"><a href="admin.php?wars-last&amp;pkey={id}"><img src="include/images/icons/edit.gif" alt="{_lang_change}" title="{_lang_change}" /></a></td>
+			<td align="center"><a href="javascript:del('{id}')"><img src="include/images/icons/del.png" alt="{_lang_delete}" title="{_lang_delete}" /></a></td>
+			<td align="center"><a href="admin.php?wars-last&amp;pkey={id}"><img src="include/images/icons/edit.png" alt="{_lang_change}" title="{_lang_change}" /></a></td>
 		</tr>
 {EXPLODE}
 		</table>

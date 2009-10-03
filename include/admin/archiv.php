@@ -75,10 +75,10 @@ function archiv_downs_admin_showcats ($id , $stufe) {
     if (db_num_rows($erg) > 0) {
         while ($row = db_fetch_object($erg)) {
             echo '<tr class="Cmite"><td>' . $stufe . '- <a href="admin.php?archiv-downloads-S' . $row->id . '">' . $row->name . '</a></td>';
-            echo '<td align="center"><a href="admin.php?archiv-downloads-E' . $row->id . '#edit"><img src="include/images/icons/edit.gif" border="0"></a></td>';
-            echo '<td align="center"><a href="javascript:Kdel(' . $row->id . ')"><img src="include/images/icons/del.gif" border="0"></a></td>';
-            echo '<td align="center"><a href="admin.php?archiv-downloads-S' . $row->id . '-O' . $row->id . '-' . $row->pos . '-' . $row->cat . '"><img src="include/images/icons/pfeilo.gif" border="0"></a></td>';
-            echo '<td align="center"><a href="admin.php?archiv-downloads-S' . $row->id . '-U' . $row->id . '-' . $row->pos . '-' . $row->cat . '"><img src="include/images/icons/pfeilu.gif" border="0"></a></td></tr>';
+            echo '<td align="center"><a href="admin.php?archiv-downloads-E' . $row->id . '#edit"><img src="include/images/icons/edit.png" border="0"></a></td>';
+            echo '<td align="center"><a href="javascript:Kdel(' . $row->id . ')"><img src="include/images/icons/del.png" border="0"></a></td>';
+            echo '<td align="center"><a href="admin.php?archiv-downloads-S' . $row->id . '-O' . $row->id . '-' . $row->pos . '-' . $row->cat . '"><img src="include/images/icons/pfeilo.png" border="0"></a></td>';
+            echo '<td align="center"><a href="admin.php?archiv-downloads-S' . $row->id . '-U' . $row->id . '-' . $row->pos . '-' . $row->cat . '"><img src="include/images/icons/pfeilu.png" border="0"></a></td></tr>';
             archiv_downs_admin_showcats($row->id, $stufe . ' &nbsp; &nbsp;');
         }
     }
@@ -101,10 +101,10 @@ function archiv_links_admin_showcats ($id , $stufe) {
     if (db_num_rows($erg) > 0) {
         while ($row = db_fetch_object($erg)) {
             echo '<tr class="Cmite"><td>' . $stufe . '- <a href="admin.php?archiv-links-S' . $row->id . '">' . $row->name . '</a></td>';
-            echo '<td align="center"><a href="?archiv-links-E' . $row->id . '#edit"><img src="include/images/icons/edit.gif" border="0"></a></td>';
-            echo '<td align="center"><a href="javascript:Kdel(' . $row->id . ')"><img src="include/images/icons/del.gif" border="0"></a></td>';
-            echo '<td align="center"><a href="admin.php?archiv-links-S' . $row->id . '-O' . $row->id . '-' . $row->pos . '-' . $row->cat . '"><img src="include/images/icons/pfeilo.gif" border="0"></a></td>';
-            echo '<td align="center"><a href="admin.php?archiv-links-S' . $row->id . '-U' . $row->id . '-' . $row->pos . '-' . $row->cat . '"><img src="include/images/icons/pfeilu.gif" border="0"></a></td></tr>';
+            echo '<td align="center"><a href="?archiv-links-E' . $row->id . '#edit"><img src="include/images/icons/edit.png" border="0"></a></td>';
+            echo '<td align="center"><a href="javascript:Kdel(' . $row->id . ')"><img src="include/images/icons/del.png" border="0"></a></td>';
+            echo '<td align="center"><a href="admin.php?archiv-links-S' . $row->id . '-O' . $row->id . '-' . $row->pos . '-' . $row->cat . '"><img src="include/images/icons/pfeilo.png" border="0"></a></td>';
+            echo '<td align="center"><a href="admin.php?archiv-links-S' . $row->id . '-U' . $row->id . '-' . $row->pos . '-' . $row->cat . '"><img src="include/images/icons/pfeilu.png" border="0"></a></td></tr>';
             archiv_links_admin_showcats($row->id, $stufe . ' &nbsp; &nbsp;');
         }
     }
@@ -233,9 +233,9 @@ switch ($um) {
                     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
                     echo '<tr class="' . $class . '">';
                     echo '<td>' . $v . '</td>';
-                    echo '<td><a href="javascript:deleteFile(\'' . $f . '\',\'' . $v . '\')"><img src="include/images/icons/del.gif" title="l&ouml;schen" border="0" /></a></td>';
-                    echo '<td><a href="javascript:moveFile(\'' . $f . '\',\'' . $v . '\')"><img src="include/images/icons/pfeila.gif" title="verschieben" border="0" /></a></td>';
-                    echo '<td><a href="javascript:renFile(\'' . $f . '\',\'' . $v . '\')"><img src="include/images/icons/edit.gif" title="umbennen" border="0" /></a></td>';
+                    echo '<td><a href="javascript:deleteFile(\'' . $f . '\',\'' . $v . '\')"><img src="include/images/icons/del.png" title="l&ouml;schen" border="0" /></a></td>';
+                    echo '<td><a href="javascript:moveFile(\'' . $f . '\',\'' . $v . '\')"><img src="include/images/icons/pfeila.png" title="verschieben" border="0" /></a></td>';
+                    echo '<td><a href="javascript:renFile(\'' . $f . '\',\'' . $v . '\')"><img src="include/images/icons/edit.png" title="umbennen" border="0" /></a></td>';
                     echo '<td>' . get_upload_linked ($f . '/' . $v) . '<a href="javascript:waehleThisFile(\'' . $f . '/' . $v . '\')">w&auml;hlen</a></td>';
                     echo '</tr>';
                 }
@@ -412,7 +412,7 @@ switch ($um) {
             $_ilch = db_fetch_assoc($erg);
             $_ilch['pkey'] = $menu->getE(2);
             $azk = $_ilch['cat'];
-            $_ilch['datum'] = '<input type="checkbox" name="refdate" /><font color="white">Datum aktualisieren</font>';
+            $_ilch['datum'] = '<input type="checkbox" name="refdate" /><font>Datum aktualisieren</font>';
         } else {
             if (isset ($azk)) {
                 $c = $azk;

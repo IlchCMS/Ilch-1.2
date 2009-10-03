@@ -39,7 +39,7 @@ if (db_num_rows($fraErg) > 0) {
             echo '<table width="100%" cellpadding="0">';
             $imPollArrayDrin = true;
         } else {
-            echo '<form action="index.php?vote-W' . $fraRow->poll_id . '" method="POST">';
+            echo '<form action="index.php?vote-W' . $fraRow->poll_id . '" method="post">';
             $imPollArrayDrin = false;
         }
         $i = 0;
@@ -49,13 +49,13 @@ if (db_num_rows($fraErg) > 0) {
                 echo '<tr><td>' . $pollRow->antw . '</td><td align="right">' . $pollRow->res . '</td></tr>';
             } else {
                 $i++;
-                echo '<input type="radio" id="vote' . $i . '" name="radio" value="' . $pollRow->sort . '"><label for="vote' . $i . '"> ' . $pollRow->antw . '</label><br>';
+                echo '<input type="radio" id="vote' . $i . '" name="radio" value="' . $pollRow->sort . '" /><label for="vote' . $i . '"> ' . $pollRow->antw . '</label><br />';
             }
         }
         if ($imPollArrayDrin) {
             echo '<tr><td colspan="2" align="right">' . $lang['whole'] . ': &nbsp; ' . $ges . '</td></tr></table>';
         } else {
-            echo '<p align="center"><input type="submit" value="' . $lang['formsub'] . '"></p></form>';
+            echo '<p align="center"><input type="submit" value="' . $lang['formsub'] . '" /></p></form>';
         }
     } else {
         echo $lang['nowvoteavailable'];

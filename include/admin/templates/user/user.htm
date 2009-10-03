@@ -116,13 +116,13 @@ function createNamedElement(type, name) {
 <input type="hidden" name="uid" id="af_uid" value="0" />
 </form>
 <iframe name="ifrm" id="ifrm" style="display:none;"></iframe>
-<body onload="setufocus()">
+<body onLoad="setufocus()">
 <form action="admin.php" name="f" method="GET" style="padding: 0px; margin:0px 0px 0px 0px;" >
   <input type="hidden" name="user" value="" />
 <table cellpadding="3" cellspacing="1" border="0" class="border" style="float:left">
   <tr>
     <td class="Cmite"><input name="q" value="{q}" /></td>
-    <td class="Cdark"><input type="submit" value="Suchen" /></td>
+    <td class="Cdark"><input class="sub" type="submit" value="Suchen" /></td>
   </tr>
 </table>
 </form>
@@ -148,7 +148,7 @@ function createNamedElement(type, name) {
 
 
   <tr class="{class}">
-    <td><div onmouseover="hiddpos('groupdiv{id}')" id="groupdiv{id}" style="position:absolute; top:50px; left:50px; display:none; width:200px;">
+    <td><div onMouseOver="hiddpos('groupdiv{id}')" id="groupdiv{id}" style="position:absolute; top:50px; left:50px; display:none; width:200px;">
 <table width="100%" class="border" border="0" cellspacing="1" cellpadding="4">
   <tr>
     <td class="{class}" align="left">{grouplist}</td>
@@ -156,9 +156,9 @@ function createNamedElement(type, name) {
 </table>
 </div><strong>{name}</strong></td>
     <td><select id="recht{id}" onChange="changeUserRight({id})">{recht}</select></td>
-    <td style="text-align: center;"><a onmouseout="hiddpos('groupdiv{id}')" onmouseover="alertpos('groupdiv{id}')" href="javascript:changeGruppen({id})" title="hier die Gruppenzugeh&ouml;rigkeit &auml;ndern">Gruppen</a></td>
-    <td>&nbsp;<a href="admin.php?user-1-{id}"><img src="include/images/icons/edit.gif" border="0" title="&auml;ndern" alt="&auml;ndern" /></a>&nbsp;</td>
-    <td>&nbsp;<a href="javascript:deleteUser({id})"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" alt="l&ouml;schen" /></a>&nbsp;</td>
+    <td style="text-align: center;"><a onMouseOut="hiddpos('groupdiv{id}')" onMouseOver="alertpos('groupdiv{id}')" href="javascript:changeGruppen({id})" title="hier die Gruppenzugeh&ouml;rigkeit &auml;ndern">Gruppen</a></td>
+    <td>&nbsp;<a href="admin.php?user-1-{id}"><img src="include/images/icons/edit.png" border="0" title="&auml;ndern" alt="&auml;ndern" /></a>&nbsp;</td>
+    <td>&nbsp;<a href="javascript:deleteUser({id})"><img src="include/images/icons/del.png" border="0" title="l&ouml;schen" alt="l&ouml;schen" /></a>&nbsp;</td>
     <td class="border"></td>
     {modslist}
   </tr>

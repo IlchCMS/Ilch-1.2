@@ -41,10 +41,10 @@ while ($row2 = db_fetch_object($erg2)) {
     $content .= '<tr><td><img src="include/images/icons/offline.gif"  border="0" alt="offline" /></td><td><a href="index.php?user-details-' . $row2->id . '" title="' . $lang['lasttimeonline'] . $datum . '">' . $user . '</a></td></tr>' . "\n";
 }
 if ($guests == 0) {
-    $content .= '<tr><td colspan="2"><hr style="height: 0px; border: dashed #9AB1C8 0px; border-top-width: 1px";></td></tr>' . "\n" . '
+    $content .= '<tr><td colspan="2"><hr style="height: 0px; border: dashed #9AB1C8 0px; border-top-width: 1px;" /></td></tr>' . "\n" . '
 		<tr><td><img src="include/images/icons/offline.gif"  border="0" alt="offline" /></td><td><font size="-1" color="#003366">0 ' . $lang['guests'] . '</td></tr>' . "\n";
 } else {
-    $content .= '<tr><td colspan="2"><hr style="height: 0px; border: dashed #9AB1C8 0px; border-top-width: 1px;"></td></tr>' . "\n" . '
+    $content .= '<tr><td colspan="2"><hr style="height: 0px; border: dashed #9AB1C8 0px; border-top-width: 1px;" /></td></tr>' . "\n" . '
 		<tr><td><img src="include/images/icons/online.gif" border="0" alt="online" /></td><td><font size=-1>' . $guests . ' ' . $guestn . '</font></td></tr>' . "\n";
 }
 

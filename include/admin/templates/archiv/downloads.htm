@@ -1,5 +1,3 @@
-<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/downloads.png" /></td><td width="30"></td><td valign="bottom"><h1>Downloads</h1></td></tr></table>
-
 <table width="100%">
   <tr>
 	  <td valign="top" width="60%">
@@ -16,10 +14,10 @@
 {EXPLODE}
   <tr class="{class}">
 	  <td>{name} {version}</td>
-		<td><a href="?archiv-downloads-e{id}#edit"><img src="include/images/icons/edit.gif" border="0" title="&auml;ndern" alt="&auml;ndern"></a></td>
-		<td><a href="javascript:del('{id}')"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" alt="l&ouml;schen"></a></td>
-    <td><a href="?archiv-downloads-S{cat}-o{id}-{pos}"><img src="include/images/icons/pfeilo.gif" border="0" title="oben" alt="oben"></a></td>
-    <td><a href="?archiv-downloads-S{cat}-u{id}-{pos}"><img src="include/images/icons/pfeilu.gif" border="0" title="unten" alt="unten"></a></td>
+		<td><a href="?archiv-downloads-e{id}#edit"><img src="include/images/icons/edit.png" border="0" title="&auml;ndern" alt="&auml;ndern"></a></td>
+		<td><a href="javascript:del('{id}')"><img src="include/images/icons/del.png" border="0" title="l&ouml;schen" alt="l&ouml;schen"></a></td>
+    <td><a href="?archiv-downloads-S{cat}-o{id}-{pos}"><img src="include/images/icons/pfeilo.png" border="0" title="oben" alt="oben"></a></td>
+    <td><a href="?archiv-downloads-S{cat}-u{id}-{pos}"><img src="include/images/icons/pfeilu.png" border="0" title="unten" alt="unten"></a></td>
 	</tr>
 {EXPLODE}
 </table>
@@ -62,7 +60,7 @@
     </tr><tr>
       <td class="Cmite">Url</td>
 			<td class="Cnorm"><input type="text" size="35" name="newurl" value="{newurl}" />&nbsp;
-      <input type="button" value="Verwalten" title="Files verwalten" onClick="javascript:openFiles()" />
+      <input class="sub" type="button" value="Verwalten" title="Files verwalten" onClick="javascript:openFiles()" />
       </td>
     </tr><tr>
       <td class="Cmite">Screenshot Url</td>
@@ -79,7 +77,7 @@
     </tr>
 		<tr class="Cdark">
 		  <td></td>
-			<td><input type="submit" value="Absenden" name="sub" />{datum}</td>
+			<td><input class="sub" type="submit" value="Absenden" name="sub" />{datum}</td>
 		</tr>
   </table>
 </form>
@@ -107,7 +105,7 @@
     </tr>
 		<tr class="Cdark">
 		  <td></td>
-			<td><input type="submit" value="Absenden" name="Csub" /></td>
+			<td><input class="sub" type="submit" value="Absenden" name="Csub" /></td>
 		</tr>
   </table>
 </form>

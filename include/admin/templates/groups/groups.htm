@@ -19,8 +19,6 @@
 //-->
 </script>
 
-<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/teams.png" /></td><td width="30"></td><td valign="bottom"><h1>Groups</h1></td></tr></table>
-
 {msg}
 
 
@@ -61,7 +59,7 @@
 			<td class="Cnorm"><input id="zeigenja" type="radio" {zeigenja} name="zeigen" value="1" /><label for="zeigenja"> ja</label>, <input id="zeigenno" type="radio" {zeigenno} name="zeigen" value="0" /><label for="zeigenno"> nein</label></td>
 		</tr><tr class="Cdark">
 			<td></td>
-			<td><input type="submit" value="Absenden" name="sub"></td>
+			<td><input class="sub" type="submit" value="Absenden" name="sub"></td>
 		</tr>
 		</table>
 	</form>
@@ -84,11 +82,11 @@
 {EXPLODE}
 		<tr class="{class}">
 			<td>{name}</td>
-			<td><a href="javascript:manageUser({id})">manage Users</a> ({useranz})</td>
-			<td><a href="?groups-edit-{id}"><img src="include/images/icons/edit.gif" alt="&auml;ndern" title="&auml;ndern" /></a></td>
-			<td><a href="javascript:delete_group('{id}')"><img src="include/images/icons/del.gif" alt="l&ouml;schen" title="l&ouml;schen" /></a></td>
-			<td><a href="?groups-move-o{id}"><img src="include/images/icons/pfeilo.gif" alt="hoch" title="hoch" /></td>
-			<td><a href="?groups-move-u{id}"><img src="include/images/icons/pfeilu.gif" alt="runter" title="runter" /></a></td>
+			<td><a class="thickbox" href="admin.php?groups-addusers-{id}?KeepThis=true&TB_iframe=true&height=445&width=600" title="manage Users">manage Users</a> ({useranz})</td>
+			<td><a href="?groups-edit-{id}"><img src="include/images/icons/edit.png" alt="&auml;ndern" title="&auml;ndern" /></a></td>
+			<td><a href="javascript:delete_group('{id}')"><img src="include/images/icons/del.png" alt="l&ouml;schen" title="l&ouml;schen" /></a></td>
+			<td><a href="?groups-move-o{id}"><img src="include/images/icons/pfeilo.png" alt="hoch" title="hoch" /></a></td>
+			<td><a href="?groups-move-u{id}"><img src="include/images/icons/pfeilu.png" alt="runter" title="runter" /></a></td>
 		</tr>
 {EXPLODE}
 		</table>

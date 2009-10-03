@@ -80,8 +80,8 @@ if ($show) {
         } else {
             echo '<td colspan="2"><a href="?profilefields-c-' . $r['id'] . '-' . $r['func'] . '">' . ($r['func'] == 3?'verstecken':'anzeigen') . '</a></td>';
         }
-        echo '<td><a href="?profilefields-o-' . $r['id'] . '-' . $r['pos'] . '"><img src="include/images/icons/pfeilo.gif" border="0"></a></td>';
-        echo '<td><a href="?profilefields-u-' . $r['id'] . '-' . $r['pos'] . '"><img src="include/images/icons/pfeilu.gif" border="0"></a></td>';
+        echo '<td><a href="?profilefields-o-' . $r['id'] . '-' . $r['pos'] . '"><img src="include/images/icons/pfeilo.png" border="0"></a></td>';
+        echo '<td><a href="?profilefields-u-' . $r['id'] . '-' . $r['pos'] . '"><img src="include/images/icons/pfeilu.png" border="0"></a></td>';
         echo '</tr>';
     }
     $tpl->out(2);

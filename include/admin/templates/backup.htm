@@ -1,7 +1,4 @@
-<table cellpadding="0" cellspacing="0" border="0">
-<tr><td><img src="include/images/icons/admin/backup.png" /></td><td width="30"></td><td valign="bottom"><h1>Backup</h1></td></tr>
-<tr><td><a href="include/backup/bigdump.php">Backup mit BigDump importieren</a></td></tr>
-</table>
+<a href="include/backup/bigdump.php">Backup mit BigDump importieren</a>
 
 <form action="admin.php?backup" method="POST">
 <input type="hidden" name="sendBackup" value="yes" />
@@ -34,6 +31,6 @@
     <td class="Cnorm"><input type="checkbox" name="gelesen" value="yes" id="gelesen" /><label style="cursor: pointer;" for="gelesen">
                         Ich habe den Text gelesen und verstanden!</label></td>
 </tr><tr>
-    <td class="Cdark"><input type="submit" value="Backup erstellen" /></td>
+    <td class="Cdark"><input class="sub" type="submit" value="Backup erstellen" /></td>
 </tr></table>
 </form>
