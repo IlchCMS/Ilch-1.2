@@ -5,7 +5,7 @@ defined ('main') or die ('no direct access');
 defined ('admin') or die ('only admin access');
 
 if (!is_admin()) {
-    $design = new design ('Admins Area', 'Admins Area', 2);
+    $design = new design ('Ilch Admin-Control-Panel :: Backup', '', 2);
     $design->header();
     echo 'Dieser Bereich ist nicht fuer dich...';
     $design->footer();
@@ -203,7 +203,7 @@ if (!empty($_POST['sendBackup']) AND $_POST['sendBackup'] == 'yes' AND isset($_P
         $writer->close();
     }
 } else {
-    $design = new design ('Admins Area', 'Admins Area', 2);
+    $design = new design ('Ilch Admin-Control-Panel :: Backup', '', 2);
     $design->header();
     $tpl = new tpl ('backup', 1);
     $tpl->out(0);

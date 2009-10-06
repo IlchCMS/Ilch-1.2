@@ -11,6 +11,8 @@ switch ($menu->get(1)) {
 
     case 'adminmenu' :		$file = 'adminmenu';	break;
 	case 'database' :		$file = 'database';		break;
+	case 'loader' :			$file = 'loader';			break;
+	case 'allg' :			$file = 'allg';			break;
 }
 
 require_once('include/admin/inc/modules/' . $file . '.php');

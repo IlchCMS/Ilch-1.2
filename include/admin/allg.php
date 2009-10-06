@@ -4,7 +4,7 @@
 defined ('main') or die ('no direct access');
 defined ('admin') or die ('only admin access');
 
-$design = new design ('Admins Area', 'Admins Area', 2);
+$design = new design ('Ilch Admin-Control-Panel :: Konfiguration', '', 2);
 $design->header( 'jquery/templates/redmond/jquery-ui-1.7.2.allg.css' );
 
 if (!is_admin()) {

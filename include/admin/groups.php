@@ -145,7 +145,7 @@ if ($menu->get(3) == 'userchange' AND ($gid = escape($menu->get(2), 'integer') A
 }
 
 if ($um == 'addusers') {
-    $design = new design ('Admins Area', 'Admins Area', 0);
+    $design = new design ('Ilch Admin-Control-Panel :: Neuen Nutzer hinzufügen', '', 0);
     $design->header();
     $gid = $menu->get(2);
     $tpl = new tpl ('groups/users', 1);
@@ -219,7 +219,7 @@ if ($menu->get(1) == 'move' AND may_changegroup(0)) {
 }
 
 if ($um == 'funcs') {
-    $design = new design ('Admins Area', 'Admins Area', 0);
+    $design = new design ('Ilch Admin-Control-Panel :: Gruppen', '', 0);
     $design->header();
 
     if (isset($_POST['s']) AND $_POST['s'] == 'Add') {
@@ -254,7 +254,7 @@ if ($um == 'funcs') {
     $show = false;
 }
 if ($um == 'joinus') {
-    $design = new design ('Admins Area', 'Admins Area', 2);
+    $design = new design ('Ilch Admin-Control-Panel :: Gruppen', '', 2);
     $design->header();
     // als trial aufnehmen
     if ($menu->getA(2) == 'a' AND is_numeric($menu->getE(2)) AND $menu->getE(2) != 0) {

@@ -264,7 +264,7 @@ switch ($um) {
             exit ();
         }
 
-        $design = new design ('Admins Area', 'Admins Area', 2);
+        $design = new design ('Ilch Admin-Control-Panel :: Downloads', '', 2);
         $design->header();
 
         $tpl = new tpl ('archiv/downloads', 1);
@@ -511,7 +511,7 @@ switch ($um) {
     // # # # # # # # # # # # # # # # # # #
     // Links
     case 'links' :
-        $design = new design ('Admins Area', 'Admins Area', 2);
+        $design = new design ('Ilch Admin-Control-Panel :: Links', '', 2);
         $design->header();
 
         $tpl = new tpl ('archiv/links', 1);
@@ -705,7 +705,7 @@ switch ($um) {
     // # # # # # # # # # # # # # # # # # #
     // Partners
     case 'partners' :
-        $design = new design ('Admins Area', 'Admins Area', 2);
+        $design = new design ('Ilch Admin-Control-Panel :: Partner', '', 2);
         $design->header();
 
         $tpl = new tpl ('archiv/partners', 1);

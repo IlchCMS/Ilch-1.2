@@ -40,16 +40,30 @@
 	
   </list>
   
-  <list title="Sonstiges">
+  <list title="Datenbanken">
   
     <modul>
-	  <title>ACP Navigation</title>
-	  <url>admin.php?modules-adminmenu</url>
+	  <title>Allg-Datenbank</title>
+	  <url>admin.php?modules-allg</url>
 	</modul>
 	
     <modul>
 	  <title>Modul-Datenbank</title>
 	  <url>admin.php?modules-database</url>
+	</modul>
+	
+    <modul>
+	  <title>Loader-Datenbank</title>
+	  <url>admin.php?modules-loader</url>
+	</modul>
+	
+  </list>
+  
+  <list title="Sonstiges">
+  
+    <modul>
+	  <title>ACP Navigation</title>
+	  <url>admin.php?modules-adminmenu</url>
 	</modul>
 	
   </list>

@@ -9,11 +9,11 @@ function forum_admin_showcats ($id , $stufe) {
     $erg = db_query($q);
     if (db_num_rows($erg) > 0) {
         while ($row = db_fetch_object($erg)) {
-            echo '<tr class="Cmite"><td>' . $stufe . '- <a href="?forum-S' . $row->id . '">' . $row->name . '</a></td>';
-            echo '<td><a href="admin.php?forum-changeCategorie-' . $row->id . '"><img src="include/images/icons/edit.png" border="0" alt="&auml;ndern" title="&auml;ndern"></a></td>';
+            echo '<tr class="Cmite"><td><a href="admin.php?forum-changeCategorie-' . $row->id . '"><img src="include/images/icons/edit.png" border="0" alt="&auml;ndern" title="&auml;ndern"></a></td>';
             echo '<td><a href="javascript:delCcheck(' . $row->id . ')"><img src="include/images/icons/del.png" border="0" alt="l&ouml;schen" title="l&ouml;schen"></a></td>';
             echo '<td><a href="admin.php?forum-moveCategorie-0-' . $row->id . '-' . $row->pos . '"><img src="include/images/icons/pfeilo.png" border="0" title="hoch" alt="hoch"></a></td>';
-            echo '<td><a href="admin.php?forum-moveCategorie-1-' . $row->id . '-' . $row->pos . '"><img src="include/images/icons/pfeilu.png" border="0" title="runter" alt="runter"></a></td></tr>';
+            echo '<td><a href="admin.php?forum-moveCategorie-1-' . $row->id . '-' . $row->pos . '"><img src="include/images/icons/pfeilu.png" border="0" title="runter" alt="runter"></a></td>';
+            echo '<td>' . $stufe . '- <a href="?forum-S' . $row->id . '">' . $row->name . '</a></td></tr>';
             forum_admin_showcats($row->id, $stufe . ' &nbsp; &nbsp;');
         }
     }
@@ -34,10 +34,10 @@ $show = true;
 $um = $menu->get(1);
 
 if ($um == 'choosemods') {
-    $design = new design ('Admins Area', 'Admins Area', 0);
+    $design = new design ('Ilch Admin-Control-Panel :: Forum', '', 0);
     $design->header();
 } else {
-    $design = new design ('Admins Area', 'Admins Area', 2);
+    $design = new design ('Ilch Admin-Control-Panel :: Forum', '', 2);
     $design->header();
 }
 

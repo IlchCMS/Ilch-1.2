@@ -52,7 +52,7 @@ if ( isset($_POST['sub']) ) {
    @chmod("include/includes/func/captcha/settings.php", 0644);
 } 
 
-$design = new design ( 'Admins Area', 'Admins Area', 2 );
+$design = new design ( 'Ilch Admin-Control-Panel :: Captcha', '', 2 );
 $design->header();
 
 if (@!include("include/includes/func/captcha/settings.php")) {

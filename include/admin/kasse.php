@@ -2,7 +2,7 @@
 defined ('main') or die ('no direct access');
 defined ('admin') or die ('only admin access');
 
-$design = new design ('Admins Area', 'Admins Area', 2);
+$design = new design ('Ilch Admin-Control-Panel :: Kasse', '', 2);
 $design->header();
 
 if (isset($_POST['ksub']) AND !empty($_POST['kontodaten'])) {

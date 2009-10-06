@@ -4,7 +4,7 @@
 defined ('main') or die ('no direct access');
 defined ('admin') or die ('only admin access');
 
-$design = new design ('Admins Area', 'Admins Area', 2);
+$design = new design ('Ilch Admin-Control-Panel :: Admin-Navigation', '- Admin-Navigation', 2);
 $design->header();
 
 // Funktionen
@@ -22,29 +22,6 @@ function getKats ($akt = '') {
     }
 
     return ($kats);
-}
-
-//// Menu im Template ausgeben
-function make_menu_list ($erg) {
-	global $tpl;
-	
-	// Kategorie-Name
-	$katname = '';
-	
-	while ($row = db_fetch_assoc($erg)) {
-		if ($katname != $row['menu']) {
-			if ($row['menu'] == 'Admin') {
-				$row['url'] = 'admin';
-			}
-			
-			$class = 'Cmite';
-		
-			$tpl->set_ar_out (Array ('kat' => $row['menu'], 'url' => $row['url']) , 3) ;
-			$katname = $row['menu'];
-		}
-		$class =  ($class == 'Cmite' ? 'Cnorm' : 'Cmite') ;
-		$tpl->set_ar_out (Array ('class' => $class, 'id' => $row['id'], 'name' => $row['name'], 'url' => $row['url'], 'pos' => $row['pos']) , 4) ;
-	}
 }
 
 $aid = $menu->get(2);
@@ -119,14 +96,20 @@ switch ($aid) {
 		$tpl->out (0) ;
 		
 		// Module abfragen und Ausgeben
-		$first_erg = db_query("SELECT * FROM `prefix_modules` WHERE `menu` = 'admin' ORDER BY  `pos` ASC");
-		$second_erg = db_query("SELECT * FROM `prefix_modules` WHERE `menu` != '' AND `menu` != 'admin' ORDER BY `menu`, `pos` ASC");
+		$erg = db_query("SELECT * FROM `prefix_modules` WHERE `menu` != '' ORDER BY `menu`, `pos` ASC");
+
+		$katname = '';
 		
-		// Admin gesondert ausgeben
-		make_menu_list ($first_erg);
-		
-		// Restliche Module
-		make_menu_list ($second_erg);
+		while ($row = db_fetch_assoc($erg)) {
+			if ($katname != $row['menu']) {
+				$class = 'Cmite';
+			
+				$tpl->set_ar_out (Array ('kat' => $row['menu'], 'url' => $row['url']) , 3) ;
+				$katname = $row['menu'];
+			}
+			$class =  ($class == 'Cmite' ? 'Cnorm' : 'Cmite') ;
+			$tpl->set_ar_out (Array ('class' => $class, 'id' => $row['id'], 'name' => $row['name'], 'url' => $row['url'], 'pos' => $row['pos']) , 4) ;
+		}
 		
 		// Tabellenuebergang
 		$tpl->out (1) ;

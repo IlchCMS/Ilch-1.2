@@ -572,7 +572,7 @@ CREATE TABLE `prefix_modules` (
   `menu` varchar(200) NOT NULL,
   `pos` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de' AUTO_INCREMENT=38 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de' AUTO_INCREMENT=39 ;
 
 INSERT INTO `prefix_modules` (`id`, `url`, `name`, `gshow`, `ashow`, `fright`, `menu`, `pos`) VALUES
 (1, 'gallery', 'Gallery', 1, 0, 1, 'Content', 4),
@@ -611,7 +611,8 @@ INSERT INTO `prefix_modules` (`id`, `url`, `name`, `gshow`, `ashow`, `fright`, `
 (34, 'picofx', 'Pic of X', 1, 0, 0, 'Boxen', 1),
 (35, 'modules', 'Modulverwaltung', 1, 0, 0, 'Admin', 8),
 (36, 'smtpconf', 'SMTP', 1, 0, 0, 'Admin', 1),
-(37, 'puser', 'User', 1, 0, 0, '', 0);
+(37, 'puser', 'Nicht bestätigte Registrierungen', 0, 0, 0, '', 0)
+(38, 'bbcode', 'BBcode 2.0', 1, 0, 1, 'Content', 11);
 
 CREATE TABLE `prefix_news` (
   `news_id` int(10) unsigned NOT NULL auto_increment,

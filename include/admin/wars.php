@@ -44,7 +44,7 @@ function get_datime() {
 
 switch ($um) {
     default :
-        $design = new design ('Admins Area', 'Admins Area', 2);
+        $design = new design ('Ilch Admin-Control-Panel :: Wars', '', 2);
         $design->header();
 
         ?>
@@ -141,7 +141,7 @@ switch ($um) {
             exit();
         }
         // last wars
-        $design = new design ('Admins Area', 'Admins Area', 2);
+        $design = new design ('Ilch Admin-Control-Panel :: Lastwars', '', 2);
         $design->header();
         $show = true;
         $tpl = new tpl ('wars/last', 1);
@@ -299,7 +299,7 @@ switch ($um) {
     // Next wars
     case 'next' :
 
-        $design = new design ('Admins Area', 'Admins Area', 2);
+        $design = new design ('Ilch Admin-Control-Panel :: Nextwars', '', 2);
         $design->header();
         $show = true;
         $tpl = new tpl ('wars/next', 1);
@@ -411,7 +411,7 @@ switch ($um) {
         $design->footer();
         break;
     case 'info' :
-        $design = new design ('Admins Area', 'Admins Area', 2);
+        $design = new design ('Ilch Admin-Control-Panel :: Warsinfo', '', 2);
         $design->header();
         $erg = db_query("SELECT DATE_FORMAT(`datime`,'%d.%m.%Y.%H.%i.%s') as `datime`, `id`,`status`,`gegner`,`tag`,`page`,`mail`,`icq`,`wo`,`tid`,`mod`,`game`,`mtyp`,`land`,`txt` FROM `prefix_wars` WHERE `id` = '" . intval($menu->get(2)) . "'");
         $_ilch = db_fetch_assoc($erg);

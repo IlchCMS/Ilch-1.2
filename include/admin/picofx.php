@@ -18,7 +18,7 @@ function getGalleryCats($cats, $cat, &$op, $sel, $lvl) {
     }
 }
 
-$design = new design ('Admins Area', 'Admins Area', 2);
+$design = new design ('Ilch Admin-Control-Panel :: Pic of X', '', 2);
 $design->header();
 
 $um = $menu->get(1);

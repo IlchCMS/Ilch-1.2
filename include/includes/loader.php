@@ -10,10 +10,15 @@ require_once('include/includes/func/db/mysql.php');
 db_connect();
 
 // Eintraege aus `prefix_loader` laden
-$sql = 'SELECT `task`,`file` FROM `prefix_loader` ORDER BY `task`,`pos` ASC';
+$sql = 'SELECT `task`,`file` FROM `prefix_loader` ORDER BY `pos` ASC';
 $erg = db_query ($sql);
 
 while( $row = db_fetch_assoc ($erg) ){
-	require_once('include/includes/'.$row['task'].'/'.$row['file']);
+	$file = 'include/includes/'.$row['task'].'/'.$row['file'];
+	if ( file_exists( $file ) ) {
+		require_once( $file );
+	} else {
+		echo "<b>ILCH LOADER ERROR:</b> The file <b>".$file."</b> does not exists.\n";
+	}
 }
 ?>

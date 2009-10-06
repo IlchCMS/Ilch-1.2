@@ -60,7 +60,7 @@ function getfl($gid) {
 }
 
 if (isset($_POST['action'])) {
-	$design = new design ('Admins Area', 'Admins Area', 0);
+	$design = new design ('Ilch Admin-Control-Panel :: User', '', 0);
 	$design->header();
 	$wdtext = 'Es ist ein Fehler aufgetreten.';
 	if (chk_antispam('adminuser_action', true) and isset($_POST['uid'])) {
@@ -114,7 +114,7 @@ if (isset($_POST['action'])) {
 $um = $menu->get(1);
 switch ($um) {
     default :
-        $design = new design ('Admins Area', 'Admins Area', 2);
+        $design = new design ('Ilch Admin-Control-Panel :: User', '', 2);
         $design->header();
         $q = '';
         if (isset($_REQUEST['q'])) {
@@ -190,7 +190,7 @@ switch ($um) {
 
     // details eines users anzeigen
     case 1 :
-        $design = new design ('Admins Area', 'Admins Area', 2);
+        $design = new design ('Ilch Admin-Control-Panel :: Userdetails', '- Details', 2);
         $design->header();
         if (isset ($_REQUEST['uID'])) {
             $uid = $_REQUEST['uID'];
@@ -255,7 +255,7 @@ switch ($um) {
         break;
     // details des users aendern
     case 2 :
-        $design = new design ('Admins Area', 'Admins Area', 2);
+        $design = new design ('Ilch Admin-Control-Panel :: Userdetails', '- Details', 2);
         $design->header();
         $changeok = true;
         $uid = escape($_POST['uID'], 'integer');

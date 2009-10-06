@@ -8,6 +8,7 @@ if (empty ($_POST['submit'])) {
 		.'$(function() {'
 		.'	$("#tabsnav").tabs();'
 		.'	$("#tabsmain").tabs();'
+		.'  $(this).removeClass();'
 		.'});'
 		.'</script>'
 		.'<h1>Konfiguration</h1>'

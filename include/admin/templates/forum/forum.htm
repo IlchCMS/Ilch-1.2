@@ -26,24 +26,20 @@
   </tr>
 	{EXPLODE}
   <tr class="Cdark">
-    <td><b>{cname}</b></td>
-	  <td></td><td></td>
-		<td>Moderator</td>
-    <td></td>
-		<td></td>
+    <td colspan="5"><b>{cname}</b></td>
+	<td>Moderator</td>
     <td>lesen/sehen</td>
     <td>antworten</td>
     <td>Themen erstellen</td>
 	</tr>
 	{EXPLODE}
   <tr class="Cmite">
-		<td>&nbsp;&nbsp;{fname}</td>
-		<td><a href="?forum-changeForum-{fid}"><img src="include/images/icons/edit.png" border="0" /></a></td>
-		<td><a href="javascript:delFcheck({fid},{cid})"><img src="include/images/icons/del.png" border="0" /></a></td>
-		<td><a href="javascript:tb_show('Moderatoren', 'admin.php?forum-choosemods&fid={fid}?KeepThis=true&amp;TB_iframe=true&amp;height=265&amp;width=300', false);">Moderatoren</a></td>
-    <td><a href="?forum-moveForum-0-{fid}-{fpos}-{cid}"><img src="include/images/icons/pfeilo.png" border="0"></a></td> 
-		<td><a href="?forum-moveForum-1-{fid}-{fpos}-{cid}"><img src="include/images/icons/pfeilu.png" border="0"></a></td>
-    
+	<td><a href="?forum-changeForum-{fid}"><img src="include/images/icons/edit.png" border="0" /></a></td>
+	<td><a href="javascript:delFcheck({fid},{cid})"><img src="include/images/icons/del.png" border="0" /></a></td>
+	<td><a href="?forum-moveForum-0-{fid}-{fpos}-{cid}"><img src="include/images/icons/pfeilo.png" border="0"></a></td> 
+	<td><a href="?forum-moveForum-1-{fid}-{fpos}-{cid}"><img src="include/images/icons/pfeilu.png" border="0"></a></td>
+	<td>&nbsp;&nbsp;{fname}</td>
+	<td><a href="javascript:tb_show('Moderatoren', 'admin.php?forum-choosemods&fid={fid}?KeepThis=true&amp;TB_iframe=true&amp;height=265&amp;width=300', false);">Moderatoren</a></td>
     <td align="center">{view}</td>
     <td align="center">{reply}</td>
     <td align="center">{start}</td>
@@ -56,11 +52,11 @@
   <tr class="Chead">
 		<td colspan="9"><b>Kategorien</b></td>
   </tr><tr class="Cmite">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
     <td><a href="?forum-S0">Keine</a></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
   </tr>{EXPLODE}
 </table>
 <br /><br />

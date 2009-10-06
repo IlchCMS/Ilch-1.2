@@ -83,7 +83,7 @@ $xajax = new xajax('http://' . $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"] .
 $xajax->registerFunction("XAJAX_showCalendar");
 $xajax->processRequest();
 // DESIGN
-$design = new design ('Admins Area', 'Admins Area', 2);
+$design = new design ('Ilch Admin-Control-Panel :: Kalender', '', 2);
 $design->header();
 // AJAX ausgabe
 echo $xajax->printJavascript();

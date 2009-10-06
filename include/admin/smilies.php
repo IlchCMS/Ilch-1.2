@@ -46,7 +46,7 @@ if ($menu->get(1) == 'createpak') {
     exit();
 }
 // header ausgeben
-$design = new design ('Admins Area', 'Admins Area', 2);
+$design = new design ('Ilch Admin-Control-Panel :: Smilies', '', 2);
 $design->header();
 // smilie loeschen
 if ($menu->getA(1) == 'd' AND is_numeric($menu->getE(1))) {

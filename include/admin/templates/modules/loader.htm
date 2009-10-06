@@ -2,8 +2,15 @@
 	function delid ( DELID ) {
 		var frage = confirm ( "Bist Du Dir sicher, dass Du diesen Eintrag loeschen moechtest?" );
 		if ( frage == true ) {
-		  document.location.href="?modules-database-del-"+DELID;
+		  document.location.href="?modules-loader-del-"+DELID;
 		}
+	}
+	function sichtbar(){
+		if( document.form.task.value=="neu"){
+		  document.form.newtask.style.visibility="visible";
+		} else {
+		  document.form.newtask.style.visibility="hidden";
+	  }
 	}
 //--></script>
 
@@ -28,21 +35,21 @@
 	<tr class="Chead">
 		<th></th>
 		<th></th>
-		<th>name</th>
-		<th>url</th>
-		<th>gshow</th>
-		<th>ashow</th>
-		<th>fright</th>
+		<th></th>
+		<th></th>
+		<th>task</th>
+		<th>file</th>
+		<th>Info</th>
 	</tr>
 {EXPLODE}
 	<tr class="{class}" >
-		<td><a href="admin.php?modules-database-edit-{id}"><img src="include/images/icons/edit.png" border="0" title="&auml;ndern" alt="&auml;ndern" /></a></td>
+		<td><a href="admin.php?modules-loader-edit-{id}"><img src="include/images/icons/edit.png" border="0" title="&auml;ndern" alt="&auml;ndern" /></a></td>
 		<td><a href="javascript:delid({id})"><img src="include/images/icons/del.png" border="0" title="l&ouml;schen" alt="l&ouml;schen" /></a></td>
-		<td>{name}</td>
-		<td>{url}</td>
-		<td>{gshow}</td>
-		<td>{ashow}</td>
-		<td>{fright}</td>
+		<td><a href="?modules-loader-O{pos}"><img src="include/images/icons/pfeilo.png" border="0" title="oben" alt="oben"></a></td>
+		<td><a href="?modules-loader-U{pos}"><img src="include/images/icons/pfeilu.png" border="0" title="unten" alt="unten"></a></td>
+		<td>{task}</td>
+		<td>{file}</td>
+		<td>more</td>
 	</tr>
 {EXPLODE}
 <form name="form" method="post">
@@ -52,24 +59,18 @@
       <th class="Chead" colspan="2" rowspan="1">{aname}</td>
     </tr>
     <tr>
-      <td class="Cmite">name:</td>
-      <td class="Cnorm"><input name="name" value="{name}" /></td>
+      <td class="Cmite">task:</td>
+      <td class="Cnorm">
+	  <select onChange="sichtbar()" name="task">{task}<option value="neu">Neu:</option></select>&nbsp;&nbsp;<input type="text" name="newtask" size="40" />
+      </td>
     </tr>
     <tr>
-      <td class="Cmite">url:</td>
-      <td class="Cnorm"><input name="url" value="{url}" /></td>
+      <td class="Cmite">file:</td>
+      <td class="Cnorm"><input type="text" name="file" size="40" value="{file}" /></td>
     </tr>
     <tr>
-      <td class="Cmite">gshow:</td>
-      <td class="Cnorm"><input name="gshow" value="1" {gshow_1}type="radio"> Ja &nbsp;&nbsp;<input name="gshow" value="0" {gshow_0}type="radio"> Nein</td>
-    </tr>
-    <tr>
-      <td class="Cmite">ashow:</td>
-      <td class="Cnorm"><input name="ashow" value="1" {ashow_1}type="radio"> Ja &nbsp;&nbsp;<input name="ashow" value="0" {ashow_0}type="radio"> Nein</td>
-    </tr>
-    <tr>
-      <td class="Cmite">fright:</td>
-      <td class="Cnorm"><input name="fright" value="1" {fright_1}type="radio"> Ja &nbsp;&nbsp;<input name="fright" value="0" {fright_0}type="radio"> Nein</td>
+      <td class="Cmite">description:</td>
+      <td class="Cnorm"><textarea cols="40" rows="5" name="discription">{description}</textarea></td>
     </tr>
     <tr>
       <td class="Cdark" colspan="2" rowspan="1"><input type="submit" value="Speichern" name="submit"></td>
@@ -114,3 +115,9 @@
 					k&ouml;nnen
 				</span>
 </div>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+  sichtbar();
+//-->
+</script>

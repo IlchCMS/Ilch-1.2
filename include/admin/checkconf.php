@@ -7,7 +7,7 @@ defined ('admin') or die ('only admin access');
 if ($menu->get(1) == "phpinfo") {
     phpinfo();
 } else {
-    $design = new design ('Admins Area', 'Admins Area', 2);
+    $design = new design ('Ilch Admin-Control-Panel :: Serverkonfiguration', '', 2);
     $design->header();
 
     $tpl = new tpl('checkconf', 1);

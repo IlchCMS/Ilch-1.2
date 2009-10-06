@@ -4,7 +4,7 @@
 defined ('main') or die ('no direct access');
 defined ('admin') or die ('only admin access');
 
-$design = new design ('Admins Area', 'Admins Area', 2);
+$design = new design ('Ilch Admin-Control-Panel :: Eigene Box/Page', '', 2);
 // liest die <!--@..=..@--> in den ersten 1024 Zeichen in ein Array aus
 function get_properties($t) {
     preg_match_all("|(?:<!--@(?P<name>[^=]*)=(?P<value>.*)@-->)|U", $t, $out, PREG_SET_ORDER);
@@ -167,7 +167,7 @@ if ($menu->get(1) == 'imagebrowser') {
     $abf = "SELECT `id`,`besch`,`datei_name`,`endung` FROM `prefix_gallery_imgs` WHERE `cat` = " . $cat;
     $erg = db_query($abf);
     $i = 0;
-    $design = new design ('Admins Area', 'Admins Area', 0);
+    $design = new design ('Ilch Admin-Control-Panel :: Bilder', '', 0);
     $design->header();
     $tpl = new tpl('selfbp-imagebrowser', 1);
     $tpl->out(0);

@@ -76,7 +76,7 @@ $xajax->configureMany(array('characterEncoding' => 'ISO-8859-1', 'decodeUTF8Inpu
 $xajax->registerFunction('XAJAX_changeList');
 $xajax->processRequest();
 
-$design = new design ('Admins Area', 'Admins Area', 2);
+$design = new design ('Ilch Admin-Control-Panel :: Newsletter', '', 2);
 $design->header();
 
 if (isset($_POST['SEND']) and chk_antispam('newsletter', true)) {

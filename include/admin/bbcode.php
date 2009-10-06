@@ -7,13 +7,14 @@
 defined ('main') or die ( 'no direct access' );
 defined ('admin') or die ( 'only admin access' );
 
-//> Design ausgeben!
-$design = new design ( 'Admins Area', 'Admins Area', 2 );
-$design->header();
-
 switch($menu->get(1)) {
 	#> Buttons
 	case 'buttons':
+	
+		//> Design ausgeben!
+		$design = new design ( 'Ilch Admin-Control-Panel :: BBcode-Buttons', '- Buttons', 2 );
+		$design->header();
+		
 		$tpl = new tpl ( 'bbcode/buttons', 1);
 		if(!isset($_POST['BB_SubmitButtons'])) {
 			$sql = db_query("SELECT * FROM `prefix_bbcode_buttons` WHERE `fnButtonNr`='1'");
@@ -133,6 +134,11 @@ switch($menu->get(1)) {
 
 	#> Design
 	case 'design':
+	
+		//> Design ausgeben!
+		$design = new design ( 'Ilch Admin-Control-Panel :: BBcode-Design', '- Design', 2 );
+		$design->header();
+		
 		$tpl = new tpl ( 'bbcode/design', 1);
 		if(!isset($_POST['BB_SubmitDesign'])) {
 			$sql = db_query("SELECT * FROM `prefix_bbcode_design` WHERE `fnDesignNr`='1'");
@@ -333,6 +339,11 @@ switch($menu->get(1)) {
 
 	#> Konfiguration
 	case 'config':
+	
+		//> Design ausgeben!
+		$design = new design ( 'Ilch Admin-Control-Panel :: BBcode-Konfiguration', '- Konfiguration', 2 );
+		$design->header();
+	
 		$tpl = new tpl ( 'bbcode/config', 1);
 		if(!isset($_POST['BB_SubmitConfig'])) {
 			$sql = db_query("SELECT * FROM `prefix_bbcode_config` WHERE `fnConfigNr`='1'");
@@ -429,6 +440,11 @@ switch($menu->get(1)) {
 
 	#> Badwordlist
 	case 'badword':
+
+		//> Design ausgeben!
+		$design = new design ( 'Ilch Admin-Control-Panel :: BBcode-Badwords', '- Badwords', 2 );
+		$design->header();
+	
 		$tpl = new tpl ( 'bbcode/badword', 1);
 		$tpl->set('msgColor','#0033FF');
 		$tpl->set('Message','');
@@ -494,5 +510,12 @@ switch($menu->get(1)) {
 
 	break;
 }
+
+if ( !isset($design) ) {
+	//> Design ausgeben!
+	$design = new design ( 'Ilch Admin-Control-Panel :: BBcode', '- Bitte Menüpunkt wählen!', 2 );
+	$design->header();
+}
+
 $design->footer();
 ?>

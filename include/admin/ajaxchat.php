@@ -172,8 +172,8 @@ function chat_channel_delete(){
 	return 'Channel erfolgreich gel&ouml;scht';
 }
 
-// Neue Designklasse und Heaer ausgeben
-$design = new design ( 'Admins Area', 'Admins Area', 2 );
+// Neue Designklasse und Header ausgeben
+$design = new design ( 'Ilch Admin-Control-Panel :: Ajaxchat', '', 2 );
 $design->header();
 
 // switch-Menuefuehrung

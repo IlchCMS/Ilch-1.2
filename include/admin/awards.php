@@ -4,7 +4,7 @@
 defined ('main') or die ('no direct access');
 defined ('admin') or die ('only admin access');
 
-$design = new design ('Admins Area', 'Admins Area', 2);
+$design = new design ('Ilch Admin-Control-Panel :: Awards', '', 2);
 $design->header();
 // #### F u n k t i o n e n
 function getTeams () {
