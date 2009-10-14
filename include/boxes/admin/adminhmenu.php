@@ -7,7 +7,7 @@ $ma = $menu->get_string_ar();
 arsort($ma);
 
 foreach ($ma as $v) {
-	if ( is_array( $menuAr[$v] ) ){
+	if ( isset( $menuAr[$v] ) ){
 		$modulname = $menuAr[$v]['name'];
 		break;
 	}

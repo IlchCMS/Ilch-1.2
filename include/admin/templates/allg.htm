@@ -1,10 +1,20 @@
+<script type="text/javascript">
+	$(function() {
+		$("#tabs").tabs();
+	});
+	$("div#con_menu").hide();
+	set_width(94);
+</script>
+
 <form action="admin.php?allg" method="POST">
-  <div id="tabsmain">
-    <div>
+  <div id="tabs">
+    <ul>
 {EXPLODE}
-      </table>
-	</div>
-	<div id="tabsmain-{katid}">
+	  <li><a href="#tabs-{katid}">{katname}</a></li>
+{EXPLODE}
+	</ul>
+{EXPLODE}
+	<div id="tabs-{katid}">
 	  <table cellpadding="3" cellspacing="1" class="border" border="0" width="100%">
         <tr>
 		  <td colspan="2" class="Cdark">
@@ -23,6 +33,7 @@
 {EXPLODE}
       </table>
 	</div>
+{EXPLODE}
 	<br />
 	<table cellpadding="3" cellspacing="1" class="border" border="0" width="100%">
       <tr class="Cdark">
