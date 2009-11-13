@@ -8,21 +8,23 @@
  */
 
 // Angepasst von Florian Körner 
-defined ('main') or die ( 'no direct access' );
+defined( 'main' ) or die( 'no direct access' );
 
-class CustomAJAXChatShoutBox extends CustomAJAXChat {
-
-	function initialize() {
-		// Initialize configuration settings:
-		$this->initConfig();
-	}
-
-	function getShoutBoxContent() {
-		$template = new AJAXChatTemplate($this, AJAX_CHAT_PATH.'/include/templates/ajax_chat/shoutbox.html');
-		
-		// Return parsed template content:
-		return $template->getParsedContent();
-	}
-
+class CustomAJAXChatShoutBox extends CustomAJAXChat
+{
+    function initialize( )
+    {
+        // Initialize configuration settings:
+        $this->initConfig();
+    }
+    
+    function getShoutBoxContent( )
+    {
+        $template = new AJAXChatTemplate( $this, AJAX_CHAT_PATH . '/include/templates/ajax_chat/shoutbox.html' );
+        
+        // Return parsed template content:
+        return $template->getParsedContent();
+    }
+    
 }
 ?>

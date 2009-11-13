@@ -8,10 +8,10 @@
  */
 
 // List containing the custom channels:
-$channels = array();
+$channels = array( );
 
-$erg = db_query("SELECT * FROM `prefix_ajax_chat_channels` WHERE `right` <= '".$rights[$_SESSION['authright']]."'");
-while( $row = db_fetch_assoc($erg) ){
-	$channels[$row['id']] = $row['name'];
+$erg = db_query( "SELECT * FROM `prefix_ajax_chat_channels` WHERE `right` <= '" . $rights[ $_SESSION[ 'authright' ] ] . "'" );
+while ( $row = db_fetch_assoc( $erg ) ) {
+    $channels[ $row[ 'id' ] ] = $row[ 'name' ];
 }
 ?>

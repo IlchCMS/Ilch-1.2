@@ -1,6 +1,6 @@
 <?php
-#   Copyright by: Manuel
-#   Support: www.ilch.de
+//   Copyright by: Manuel
+//   Support: www.ilch.de
 
 ?>
 <html>
@@ -17,8 +17,7 @@
 <?php
 
 
-if ( empty ($_POST['step']) ) {
-
+if ( empty( $_POST[ 'step' ] ) ) {
 ?>
 		<input type="hidden" name="step" value="3" />
 
@@ -451,9 +450,9 @@ POSSIBILITY OF SUCH DAMAGES.
 		</form>
 		</body>
 		</html> <?php
-
-} elseif ($_POST['step'] == 3) {
-  ?>
+    
+} elseif ( $_POST[ 'step' ] == 3 ) {
+?>
 
 		<input type="hidden" name="step" value="4" />
 
@@ -462,40 +461,112 @@ POSSIBILITY OF SUCH DAMAGES.
         <td colspan="2"><b>Voraussetzungen Pr&uuml;fen</b></td>
 			</tr><tr>
         <td class="Cmite"><br>"include/includes/config.php" CHMOD 666<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/includes/config.php' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+    		<td class="Cnorm"><?php
+    if ( @is_writeable( 'include/includes/config.php' ) ) {
+        echo '<font color="#40aa00"><b>RICHTIG</b></font>';
+    } else {
+        echo '<font color="#FF0000"><b>FALSCH</b></font>';
+    }
+?></td>
   		</tr><tr>
         <td class="Cmite"><br>"include/backup" Schreibrechte (CHMOD 777)<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/backup' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+    		<td class="Cnorm"><?php
+    if ( @is_writeable( 'include/backup' ) ) {
+        echo '<font color="#40aa00"><b>RICHTIG</b></font>';
+    } else {
+        echo '<font color="#FF0000"><b>FALSCH</b></font>';
+    }
+?></td>
   		</tr><tr>
     		<td class="Cmite"><br>"include/images/avatars" Schreibrechte (CHMOD 777)<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/avatars' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+    		<td class="Cnorm"><?php
+    if ( @is_writeable( 'include/images/avatars' ) ) {
+        echo '<font color="#40aa00"><b>RICHTIG</b></font>';
+    } else {
+        echo '<font color="#FF0000"><b>FALSCH</b></font>';
+    }
+?></td>
   		</tr><tr>
     		<td class="Cmite"><br>"include/images/gallery" Schreibrechte (CHMOD 777)<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/gallery' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+    		<td class="Cnorm"><?php
+    if ( @is_writeable( 'include/images/gallery' ) ) {
+        echo '<font color="#40aa00"><b>RICHTIG</b></font>';
+    } else {
+        echo '<font color="#FF0000"><b>FALSCH</b></font>';
+    }
+?></td>
   		</tr><tr>
     		<td class="Cmite"><br>"include/images/usergallery" Schreibrechte (CHMOD 777)<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/usergallery' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+    		<td class="Cnorm"><?php
+    if ( @is_writeable( 'include/images/usergallery' ) ) {
+        echo '<font color="#40aa00"><b>RICHTIG</b></font>';
+    } else {
+        echo '<font color="#FF0000"><b>FALSCH</b></font>';
+    }
+?></td>
   		</tr><tr>
     		<td class="Cmite"><br>"include/downs/downloads" Schreibrechte (CHMOD 777)<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/downs/downloads' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+    		<td class="Cnorm"><?php
+    if ( @is_writeable( 'include/downs/downloads' ) ) {
+        echo '<font color="#40aa00"><b>RICHTIG</b></font>';
+    } else {
+        echo '<font color="#FF0000"><b>FALSCH</b></font>';
+    }
+?></td>
   		</tr><tr>
     		<td class="Cmite"><br>"include/downs/downloads/user_upload" Schreibrechte (CHMOD 777)<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/downs/downloads/user_upload' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+    		<td class="Cnorm"><?php
+    if ( @is_writeable( 'include/downs/downloads/user_upload' ) ) {
+        echo '<font color="#40aa00"><b>RICHTIG</b></font>';
+    } else {
+        echo '<font color="#FF0000"><b>FALSCH</b></font>';
+    }
+?></td>
   		</tr><tr>
     		<td class="Cmite"><br>"include/images/wars" Schreibrechte (CHMOD 777)<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/wars' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+    		<td class="Cnorm"><?php
+    if ( @is_writeable( 'include/images/wars' ) ) {
+        echo '<font color="#40aa00"><b>RICHTIG</b></font>';
+    } else {
+        echo '<font color="#FF0000"><b>FALSCH</b></font>';
+    }
+?></td>
   		</tr><tr>
     		<td class="Cmite"><br>"include/contents/selfbp/selfp" Schreibrechte (CHMOD 777)<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/contents/selfbp/selfp' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+    		<td class="Cnorm"><?php
+    if ( @is_writeable( 'include/contents/selfbp/selfp' ) ) {
+        echo '<font color="#40aa00"><b>RICHTIG</b></font>';
+    } else {
+        echo '<font color="#FF0000"><b>FALSCH</b></font>';
+    }
+?></td>
   		</tr><tr>
     		<td class="Cmite"><br>"include/contents/selfbp/selfb" Schreibrechte (CHMOD 777)<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/contents/selfbp/selfb' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+    		<td class="Cnorm"><?php
+    if ( @is_writeable( 'include/contents/selfbp/selfb' ) ) {
+        echo '<font color="#40aa00"><b>RICHTIG</b></font>';
+    } else {
+        echo '<font color="#FF0000"><b>FALSCH</b></font>';
+    }
+?></td>
   		</tr><tr>
     		<td class="Cmite"><br>"include/includes/func/captcha/txt" Schreibrechte (CHMOD 777)<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/includes/func/captcha/txt' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+    		<td class="Cnorm"><?php
+    if ( @is_writeable( 'include/includes/func/captcha/txt' ) ) {
+        echo '<font color="#40aa00"><b>RICHTIG</b></font>';
+    } else {
+        echo '<font color="#FF0000"><b>FALSCH</b></font>';
+    }
+?></td>
   		</tr><tr>
     		<td class="Cmite"><br>"include/images/smiles" Schreibrechte (CHMOD 777)<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/smiles' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+    		<td class="Cnorm"><?php
+    if ( @is_writeable( 'include/images/smiles' ) ) {
+        echo '<font color="#40aa00"><b>RICHTIG</b></font>';
+    } else {
+        echo '<font color="#FF0000"><b>FALSCH</b></font>';
+    }
+?></td>
   		</tr><tr class="Cdark">
 		    <td></td>
 				<td><input type="submit" value="Weiter ->"></td>
@@ -504,8 +575,8 @@ POSSIBILITY OF SUCH DAMAGES.
 		</form>
 		</body>
 		</html> <?php
-} elseif ( $_POST['step'] == 4 ) {
-  ?>
+} elseif ( $_POST[ 'step' ] == 4 ) {
+?>
 	<input type="hidden" name="step" value="5">
 
 		<table width="700" class="border" border="0" cellspacing="1" cellpadding="3" align="center">
@@ -554,20 +625,11 @@ POSSIBILITY OF SUCH DAMAGES.
 		</form>
 		</body>
 		</html> <?php
-} elseif ( $_POST['step'] == 5 ) {
-
-  if (
-      empty ( $_POST['admin_name'] ) OR
-	    empty ( $_POST['admin_amail'] ) OR
-	    empty($_POST['mysql_hostname']) OR
-	    empty($_POST['mysql_username']) OR
-	    empty($_POST['mysql_datenbank']) OR
-	    empty($_POST['mysql_prefix'])
-    )
-  {
-    echo '<table width="50%" class="border" border="0" cellspacing="1" cellpadding="3" align="center"><tr><td class="Cnorm">Folgende Angaben sind unbedingt erforderlich:<br />&nbsp;&nbsp;- Hostname<br />&nbsp;&nbsp;- Username<br />&nbsp;&nbsp;- Prefix<br />&nbsp;&nbsp;- Datenbank<br />&nbsp;&nbsp;- AdminPassword<br />&nbsp;&nbsp;- AdminE-Mail<br />&nbsp;&nbsp;- AdminName<br />&nbsp;<a href="javascript:history.back(-1)">zur&uuml;ck</a></td></tr></table>';
-  } else {
-    $config = <<< config
+} elseif ( $_POST[ 'step' ] == 5 ) {
+    if ( empty( $_POST[ 'admin_name' ] ) OR empty( $_POST[ 'admin_amail' ] ) OR empty( $_POST[ 'mysql_hostname' ] ) OR empty( $_POST[ 'mysql_username' ] ) OR empty( $_POST[ 'mysql_datenbank' ] ) OR empty( $_POST[ 'mysql_prefix' ] ) ) {
+        echo '<table width="50%" class="border" border="0" cellspacing="1" cellpadding="3" align="center"><tr><td class="Cnorm">Folgende Angaben sind unbedingt erforderlich:<br />&nbsp;&nbsp;- Hostname<br />&nbsp;&nbsp;- Username<br />&nbsp;&nbsp;- Prefix<br />&nbsp;&nbsp;- Datenbank<br />&nbsp;&nbsp;- AdminPassword<br />&nbsp;&nbsp;- AdminE-Mail<br />&nbsp;&nbsp;- AdminName<br />&nbsp;<a href="javascript:history.back(-1)">zur&uuml;ck</a></td></tr></table>';
+    } else {
+        $config = <<< config
 <?php
 define ( 'DBHOST', '{$_POST['mysql_hostname']}' );   # sql host
 define ( 'DBUSER', '{$_POST['mysql_username']}');  # sql user
@@ -575,33 +637,33 @@ define ( 'DBPASS', '{$_POST['mysql_passW']}');  # sql pass
 define ( 'DBDATE', '{$_POST['mysql_datenbank']}');  # sql datenbank
 define ( 'DBPREF', '{$_POST['mysql_prefix']}'); # sql prefix
 config;
-    $config .= "\n".'?>';
-    $open = @fopen('include/includes/config.php' , 'w' );
-    if ($open) {
-    	fwrite ( $open , trim($config) );
-		  fclose ( $open );
-      require_once('include/includes/config.php');
-    } else {
-      define ( 'DBHOST', $_POST['mysql_hostname'] );   # sql host
-      define ( 'DBUSER', $_POST['mysql_username']);  # sql user
-      define ( 'DBPASS', $_POST['mysql_passW']);  # sql pass
-      define ( 'DBDATE', $_POST['mysql_datenbank']);  # sql datenbank
-      define ( 'DBPREF', $_POST['mysql_prefix']); # sql prefix
-    }
-
-
-
-define ( 'main' , TRUE );
-require_once('include/includes/func/db/mysql.php');
-
-db_connect();
-
-
-# checken ob die config tabelle + prefix schon da ist.
-# wenn ja wird hier abgebrochen, keine 2 mal installation.
-# zumal sonst evtl. eintraege doppelt vorkommen koennten
-if (DBPREF.'allg' == @db_result(@db_query('SHOW TABLES LIKE "prefix_allg"'),0)) {
-  ?>
+        $config .= "\n" . '?>';
+        $open = @fopen( 'include/includes/config.php', 'w' );
+        if ( $open ) {
+            fwrite( $open, trim( $config ) );
+            fclose( $open );
+            require_once( 'include/includes/config.php' );
+        } else {
+            define( 'DBHOST', $_POST[ 'mysql_hostname' ] ); // sql host
+            define( 'DBUSER', $_POST[ 'mysql_username' ] ); // sql user
+            define( 'DBPASS', $_POST[ 'mysql_passW' ] ); // sql pass
+            define( 'DBDATE', $_POST[ 'mysql_datenbank' ] ); // sql datenbank
+            define( 'DBPREF', $_POST[ 'mysql_prefix' ] ); // sql prefix
+        }
+        
+        
+        
+        define( 'main', TRUE );
+        require_once( 'include/includes/func/db/mysql.php' );
+        
+        db_connect();
+        
+        
+        // checken ob die config tabelle + prefix schon da ist.
+        // wenn ja wird hier abgebrochen, keine 2 mal installation.
+        // zumal sonst evtl. eintraege doppelt vorkommen koennten
+        if ( DBPREF . 'allg' == @db_result( @db_query( 'SHOW TABLES LIKE "prefix_allg"' ), 0 ) ) {
+?>
 	  <html>
 		<head><title>... ::: [ I n s t a l l a t i o n &nbsp; v o n &nbsp; i l c h &nbsp; v o n &nbsp; 1 . 2 ] ::: ...</title>
 		<link rel="stylesheet" href="include/designs/ilchClan/style.css" type="text/css"></head>
@@ -622,24 +684,24 @@ if (DBPREF.'allg' == @db_result(@db_query('SHOW TABLES LIKE "prefix_allg"'),0)) 
 		</body>
 		</html>
   <?php
-
-  exit ();
-}
-
-$sql_file = implode('',file('install.sql'));
-$sql_file = preg_replace ("/(\015\012|\015|\012)/", "\n", $sql_file);
-$sql_statements = explode(";\n",$sql_file);
-foreach ( $sql_statements as $sql_statement ) {
-  if ( trim($sql_statement) != '' ) {
-    //echo '<pre>'.$sql_statement.'</pre>';
-    //echo '<font color="#ff0000">'.mysql_error().'</font><hr />';
-    db_query($sql_statement);
-	}
-}
-
-db_query ('INSERT INTO `prefix_user` (`name`, `name_clean`, `pass`, `regist`, `email`, `recht`, `llogin`, `status`, `opt_mail`, `opt_pm`) VALUES ( "'.$_POST['admin_name'].'","'.strtolower($_POST['admin_name']).'","'.md5($_POST['admin_pwd']).'","'.time().'","'.strtolower($_POST['admin_amail']).'","-9","'.time().'","1","1","1")');
-db_query ('UPDATE `prefix_allg` SET t1 = "'.$_POST['admin_amail'].'|Webmaster" WHERE `k` = "kontakt"');
-db_query ('UPDATE `prefix_config` SET `wert` = "'.$_POST['admin_amail'].'" WHERE `schl` = "adminMail"');
+            
+            exit( );
+        }
+        
+        $sql_file       = implode( '', file( 'install.sql' ) );
+        $sql_file       = preg_replace( "/(\015\012|\015|\012)/", "\n", $sql_file );
+        $sql_statements = explode( ";\n", $sql_file );
+        foreach ( $sql_statements as $sql_statement ) {
+            if ( trim( $sql_statement ) != '' ) {
+                //echo '<pre>'.$sql_statement.'</pre>';
+                //echo '<font color="#ff0000">'.mysql_error().'</font><hr />';
+                db_query( $sql_statement );
+            }
+        }
+        
+        db_query( 'INSERT INTO `prefix_user` (`name`, `name_clean`, `pass`, `regist`, `email`, `recht`, `llogin`, `status`, `opt_mail`, `opt_pm`) VALUES ( "' . $_POST[ 'admin_name' ] . '","' . strtolower( $_POST[ 'admin_name' ] ) . '","' . md5( $_POST[ 'admin_pwd' ] ) . '","' . time() . '","' . strtolower( $_POST[ 'admin_amail' ] ) . '","-9","' . time() . '","1","1","1")' );
+        db_query( 'UPDATE `prefix_allg` SET t1 = "' . $_POST[ 'admin_amail' ] . '|Webmaster" WHERE `k` = "kontakt"' );
+        db_query( 'UPDATE `prefix_config` SET `wert` = "' . $_POST[ 'admin_amail' ] . '" WHERE `schl` = "adminMail"' );
 ?>
 
 	  <html>
@@ -652,15 +714,21 @@ db_query ('UPDATE `prefix_config` SET `wert` = "'.$_POST['admin_amail'].'" WHERE
     	    <h2><b>Installation abgeschlossen</b></h2>
 					Sofern keine Fehler aufgetreten sind ist die Installation abgeschlossen.
 
-          <?php if (!$open) { ?>
+          <?php
+        if ( !$open ) {
+?>
           <br /><br /><br />Weil die Datei include/includes/config.php nicht die n&ouml;tigen
           Rechte hatte bitte einfach den Inhalt des folgenden Eingabefeldes kopieren
           und komplett in diese Datei auf dem Server schreiben. Die Datei dazu einfach
           mit einem Editor &ouml;ffnen und den Inhalt einf&uuml;gen.
           <br /><b>Inhalt include/includes/config.php</b><br />
-          <textarea cols="60" rows="10"><?php echo trim($config); ?></textarea>
+          <textarea cols="60" rows="10"><?php
+            echo trim( $config );
+?></textarea>
           <br /><br />
-          <?php  } ?>
+          <?php
+        }
+?>
 					<br />
           Die Seite kann jetzt unter <a href="index.php">Aufgerufen</a> werden.
 					<br /><br />
@@ -672,6 +740,6 @@ db_query ('UPDATE `prefix_config` SET `wert` = "'.$_POST['admin_amail'].'" WHERE
 		</html>
 
 <?php
-  }
+    }
 }
 ?>

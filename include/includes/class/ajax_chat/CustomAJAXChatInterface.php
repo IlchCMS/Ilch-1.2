@@ -8,14 +8,15 @@
  */
 
 // Angepasst von Florian Körner 
-defined ('main') or die ( 'no direct access' );
+defined( 'main' ) or die( 'no direct access' );
 
-class CustomAJAXChatInterface extends CustomAJAXChat {
-
-	function initialize() {
-		// Initialize configuration settings:
-		$this->initConfig();
-	}
-
+class CustomAJAXChatInterface extends CustomAJAXChat
+{
+    function initialize( )
+    {
+        // Initialize configuration settings:
+        $this->initConfig();
+    }
+    
 }
 ?>
