@@ -136,7 +136,7 @@ switch ( $aid ) {
         // Wert entfernen
         db_query( 'DELETE FROM `prefix_loader` WHERE `id` = ' . $lid );
         
-        wd( 'admin.php?modules-database', 'Eintrag gel&ouml;scht' );
+        wd( 'admin.php?modules-loader', 'Eintrag gel&ouml;scht' );
         $design->footer( 1 );
         break;
 }

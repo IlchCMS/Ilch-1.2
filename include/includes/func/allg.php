@@ -534,7 +534,7 @@ function get_lower( $value )
 }
 
 // Liefert alle Dateien eines Ordners gegebener Typen aus
-function read_ext( $dir, $ext = '' )
+function read_ext( $dir, $ext = '', $spez = 0 )
 {
     $buffer = Array( );
     if ( !is_array( $ext ) ) {
@@ -546,7 +546,11 @@ function read_ext( $dir, $ext = '' )
     while ( $file = readdir( $open ) ) {
         $file_info = pathinfo( $file );
         if ( $file != "." AND $file != ".." AND !is_dir( $dir . '/' . $file ) AND ( in_array( $file_info[ "extension" ], $ext ) OR empty( $ext ) ) ) {
-            $buffer[ ] = $file;
+			if ( $spez == 1 ) {
+				$buffer[ ] = basename($dir.$file,'.png');
+			} else {
+				$buffer[ ] = $file;
+			}
         }
     }
     closedir( $open );

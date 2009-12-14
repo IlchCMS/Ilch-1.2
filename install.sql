@@ -1,77 +1,3 @@
-CREATE TABLE IF NOT EXISTS `prefix_ajax_chat_bans` (
-  `userID` int(11) NOT NULL,
-  `userName` varchar(64) COLLATE utf8_bin NOT NULL,
-  `dateTime` datetime NOT NULL,
-  `ip` varbinary(16) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
-
-CREATE TABLE IF NOT EXISTS `prefix_ajax_chat_channels` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `right` int(10) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
-INSERT INTO `prefix_ajax_chat_channels` (`name`, `right`) VALUES
-('Public', 0);
-
-CREATE TABLE IF NOT EXISTS `prefix_ajax_chat_config` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `active` varchar(100) NOT NULL,
-  `name` varchar(100) NOT NULL DEFAULT 'unbekannt',
-  `styleDefault` varchar(100) NOT NULL,
-  `defaultChannelID` int(10) NOT NULL,
-  `allowPrivateChannels` int(10) NOT NULL,
-  `allowPrivateMessages` int(10) NOT NULL,
-  `forceAutoLogin` int(10) NOT NULL,
-  `showChannelMessages` int(10) NOT NULL,
-  `chatClosed` int(10) NOT NULL,
-  `allowGuestLogins` int(10) NOT NULL,
-  `allowGuestWrite` int(10) NOT NULL,
-  `allowGuestUserName` int(10) NOT NULL,
-  `allowNickChange` int(10) NOT NULL,
-  `allowUserMessageDelete` int(10) NOT NULL,
-  `chatBotName` varchar(100) NOT NULL,
-  `requestMessagesPriorChannelEnter` int(10) NOT NULL,
-  `requestMessagesTimeDiff` int(10) NOT NULL,
-  `requestMessagesLimit` int(10) NOT NULL,
-  `maxUsersLoggedIn` int(10) NOT NULL,
-  `maxMessageRate` int(10) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
-INSERT INTO `prefix_ajax_chat_config` (`active`, `name`, `styleDefault`, `defaultChannelID`, `allowPrivateChannels`, `allowPrivateMessages`, `forceAutoLogin`, `showChannelMessages`, `chatClosed`, `allowGuestLogins`, `allowGuestWrite`, `allowGuestUserName`, `allowNickChange`, `allowUserMessageDelete`, `chatBotName`, `requestMessagesPriorChannelEnter`, `requestMessagesTimeDiff`, `requestMessagesLimit`, `maxUsersLoggedIn`, `maxMessageRate`) VALUES
-('1', 'Standardkonfiguration', 'ilchCMS.css', 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 'ChatBot', 1, 7, 10, 100, 20);
-
-CREATE TABLE IF NOT EXISTS `prefix_ajax_chat_invitations` (
-  `userID` int(11) NOT NULL,
-  `channel` int(11) NOT NULL,
-  `dateTime` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=FIXED;
-
-CREATE TABLE IF NOT EXISTS `prefix_ajax_chat_messages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userID` int(11) NOT NULL,
-  `userName` varchar(64) COLLATE utf8_bin NOT NULL,
-  `userRole` int(1) NOT NULL,
-  `channel` int(11) NOT NULL,
-  `dateTime` datetime NOT NULL,
-  `ip` varbinary(16) NOT NULL,
-  `text` text COLLATE utf8_bin,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
-
-CREATE TABLE IF NOT EXISTS `prefix_ajax_chat_online` (
-  `userID` int(11) NOT NULL,
-  `userName` varchar(64) COLLATE utf8_bin NOT NULL,
-  `userRole` int(1) NOT NULL,
-  `channel` int(11) NOT NULL,
-  `dateTime` datetime NOT NULL,
-  `ip` varbinary(16) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
-
 CREATE TABLE `prefix_allg` (
   `id` int(5) unsigned NOT NULL auto_increment,
   `k` varchar(255) NOT NULL default '',
@@ -575,44 +501,43 @@ CREATE TABLE `prefix_modules` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de' AUTO_INCREMENT=39 ;
 
 INSERT INTO `prefix_modules` (`id`, `url`, `name`, `gshow`, `ashow`, `fright`, `menu`, `pos`) VALUES
-(1, 'gallery', 'Gallery', 1, 0, 1, 'Content', 4),
-(2, 'menu', 'Navigation', 1, 0, 0, 'Admin', 2),
-(3, 'groups', 'Teams', 1, 0, 1, 'Clanbox', 2),
-(4, 'rules', 'Regeln', 1, 0, 1, 'Clanbox', 5),
-(5, 'awards', 'Awards', 1, 0, 1, 'Clanbox', 3),
-(6, 'forum', 'Forum', 1, 0, 1, 'Content', 1),
-(7, 'archiv-downloads', 'Downloads', 1, 0, 1, 'Content', 2),
-(8, 'kalender', 'Kalender', 1, 0, 1, 'Content', 7),
-(9, 'wars', 'Wars', 0, 0, 1, '', 0),
-(10, 'kasse', 'Kasse', 1, 0, 1, 'Clanbox', 4),
-(11, 'gbook', 'Gästebuch', 1, 0, 1, 'Content', 5),
-(12, 'awaycal', 'Awaycal', 0, 0, 0, '', 0),
-(13, 'news', 'News', 1, 0, 1, 'Content', 0),
-(14, 'allg', 'Konfiguration', 1, 0, 0, 'Admin', 0),
-(15, 'backup', 'Backup', 1, 0, 0, 'Admin', 3),
-(16, 'range', 'Ranks', 1, 0, 0, 'Admin', 4),
-(17, 'ajaxchat', 'Ajax Chat', 1, 0, 1, 'Content', 10),
-(18, 'wars-last', 'Lastwars', 1, 0, 0, 'Clanbox', 1),
-(19, 'smilies', 'Smilies', 1, 0, 0, 'Admin', 5),
-(20, 'newsletter', 'Newsletter', 1, 0, 0, 'Admin', 6),
-(21, 'checkconf', 'Serverkonfiguration', 1, 0, 0, 'Admin', 7),
-(22, 'user', 'User', 1, 0, 0, 'User', 0),
-(23, 'grundrechte', 'Grundrechte', 1, 0, 0, 'User', 1),
-(24, 'profilefields', 'Profilfelder', 1, 0, 0, 'User', 2),
-(25, 'selfbp', 'Eigene Box/Page', 1, 0, 0, 'Eigene Box/Page', 0),
-(26, 'wars-next', 'Nextwars', 1, 0, 0, 'Clanbox', 0),
-(27, 'history', 'History', 1, 0, 0, 'Clanbox', 6),
-(28, 'trains', 'Trainzeiten', 1, 0, 0, 'Clanbox', 7),
-(29, 'archiv-links', 'Links', 1, 0, 0, 'Content', 3),
-(30, 'vote', 'Umfragen', 1, 0, 0, 'Content', 6),
-(31, 'contact', 'Kontakt', 1, 0, 0, 'Content', 8),
-(32, 'impressum', 'Impressum', 1, 0, 0, 'Content', 9),
-(33, 'archiv-partners', 'Partner', 1, 0, 0, 'Boxen', 0),
-(34, 'picofx', 'Pic of X', 1, 0, 0, 'Boxen', 1),
-(35, 'modules', 'Modulverwaltung', 1, 0, 0, 'Admin', 8),
-(36, 'smtpconf', 'SMTP', 1, 0, 0, 'Admin', 1),
-(37, 'puser', 'Nicht bestätigte Registrierungen', 0, 0, 0, '', 0),
-(38, 'bbcode', 'BBcode 2.0', 1, 0, 1, 'Content', 11);
+('gallery', 'Gallery', 1, 0, 1, 'Content', 4),
+('menu', 'Navigation', 1, 0, 0, 'Admin', 2),
+('groups', 'Teams', 1, 0, 1, 'Clanbox', 2),
+('rules', 'Regeln', 1, 0, 1, 'Clanbox', 5),
+('awards', 'Awards', 1, 0, 1, 'Clanbox', 3),
+('forum', 'Forum', 1, 0, 1, 'Content', 1),
+('archiv-downloads', 'Downloads', 1, 0, 1, 'Content', 2),
+('kalender', 'Kalender', 1, 0, 1, 'Content', 7),
+('wars', 'Wars', 0, 0, 1, '', 0),
+('kasse', 'Kasse', 1, 0, 1, 'Clanbox', 4),
+('gbook', 'Gästebuch', 1, 0, 1, 'Content', 5),
+('awaycal', 'Awaycal', 0, 0, 0, '', 0),
+('news', 'News', 1, 0, 1, 'Content', 0),
+('allg', 'Konfiguration', 1, 0, 0, 'Admin', 0),
+('backup', 'Backup', 1, 0, 0, 'Admin', 3),
+('range', 'Ranks', 1, 0, 0, 'Admin', 4),
+('wars-last', 'Lastwars', 1, 0, 0, 'Clanbox', 1),
+('smilies', 'Smilies', 1, 0, 0, 'Admin', 5),
+('newsletter', 'Newsletter', 1, 0, 0, 'Admin', 6),
+('checkconf', 'Serverkonfiguration', 1, 0, 0, 'Admin', 7),
+('user', 'User', 1, 0, 0, 'User', 0),
+('grundrechte', 'Grundrechte', 1, 0, 0, 'User', 1),
+('profilefields', 'Profilfelder', 1, 0, 0, 'User', 2),
+('selfbp', 'Eigene Box/Page', 1, 0, 0, 'Eigene Box/Page', 0),
+('wars-next', 'Nextwars', 1, 0, 0, 'Clanbox', 0),
+('history', 'History', 1, 0, 0, 'Clanbox', 6),
+('trains', 'Trainzeiten', 1, 0, 0, 'Clanbox', 7),
+('archiv-links', 'Links', 1, 0, 0, 'Content', 3),
+('vote', 'Umfragen', 1, 0, 0, 'Content', 6),
+('contact', 'Kontakt', 1, 0, 0, 'Content', 8),
+('impressum', 'Impressum', 1, 0, 0, 'Content', 9),
+('archiv-partners', 'Partner', 1, 0, 0, 'Boxen', 0),
+('picofx', 'Pic of X', 1, 0, 0, 'Boxen', 1),
+('modules', 'Modulverwaltung', 1, 0, 0, 'Admin', 8),
+('smtpconf', 'SMTP', 1, 0, 0, 'Admin', 1),
+('puser', 'Nicht bestätigte Registrierungen', 0, 0, 0, '', 0),
+('bbcode', 'BBcode 2.0', 1, 0, 1, 'Content', 10);
 
 CREATE TABLE `prefix_news` (
   `news_id` int(10) unsigned NOT NULL auto_increment,
