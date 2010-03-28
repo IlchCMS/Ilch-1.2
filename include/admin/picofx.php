@@ -79,13 +79,13 @@ if ( empty( $um ) ) {
     
 ?>
             </select></td></tr>
-            <tr><td class="Cmite">Wechseln alle <br/></td><td class="Cnorm" valign="top"><input type="text" value="<?php
+            <tr><td class="Cmite">Wechseln alle <br/></td><td class="Cnorm" v><input type="text" value="<?php
     echo $cval;
 ?>" name="cchange" size="3" maxlength="2"> Tage <br/><br/>
             <small><b>Nur ausf&uuml;llen wenn oben "selbstdefiniert" ausgew&auml;hlt ist!<br/>
             Andernfalls wird dieses Feld ignoriert.</b></small></td></tr>
 
-            <tr><td class="Cmite">Thumbnail Breite</td><td class="Cnorm" valign="top"><input type="text" value="<?php
+            <tr><td class="Cmite">Thumbnail Breite</td><td class="Cnorm" v><input type="text" value="<?php
     echo $picofxOpts[ 'picwidth' ];
 ?>" name="picwidth" size="3" maxlength="3"> Pixel</td></tr>
             <tr class="Cdark"><td></td><td><input class="sub" type="submit" value="Speichern"></td></tr></table>

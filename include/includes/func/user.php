@@ -78,19 +78,13 @@ function user_login_check( )
 {
     global $allgAr;
     
-    if ( isset( $_POST[ 'user_login_sub' ] ) AND ( isset( $_POST[ 'email' ] ) OR isset( $_POST[ 'name' ] ) ) AND isset( $_POST[ 'pass' ] ) ) {
+    if ( isset( $_POST[ 'user_login_sub' ] ) AND ( isset( $_POST[ 'email' ] ) AND isset( $_POST[ 'pass' ] ) ) {
         debug( 'posts vorhanden' );
         
-        if ( isset( $_POST[ 'email' ] ) ) {
-            $lower = get_lower( $_POST[ 'email' ] );
-            $value = escape_for_email( $lower );
-            $term  = "email = BINARY '" . $value . "'";
-        } else if ( isset( $_POST[ 'name' ] ) ) {
-            $lower = get_lower( $_POST[ 'name' ] );
-            $value = escape_nickname( $lower );
-            $term  = "name_clean = BINARY '" . $value . "'";
-        }
-        
+        $lower = get_lower( $_POST[ 'email' ] );
+        $value = escape_for_email( $lower );
+        $term  = "email = BINARY '" . $value . "'";
+
         if ( $lower != $value ) {
             return false;
         }
@@ -108,7 +102,7 @@ function user_login_check( )
                 $_SESSION[ 'lastlogin' ] = $row[ 'llogin' ];
                 $_SESSION[ 'authsess' ]  = session_und_cookie_name();
                 db_query( "UPDATE `prefix_online` SET `uid` = " . $_SESSION[ 'authid' ] . " WHERE `sid` = '" . session_id() . "'" );
-                setcookie( $_SESSION[ 'authsess' ], $row[ 'id' ] . '=' . $row[ 'pass' ], time() + 31104000, "/" );
+                setcookie( $_SESSION[ 'authsess' ], $row[ 'id' ] . '=' . $row[ 'pass' ], time() + strtotime('+ 360 days'), "/" );
                 user_set_grps_and_modules();
                 return ( true );
             }

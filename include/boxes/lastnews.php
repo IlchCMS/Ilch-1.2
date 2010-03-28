@@ -11,7 +11,7 @@ $abf = 'SELECT *
 $erg = db_query( $abf );
 echo '<table>';
 while ( $row = db_fetch_object( $erg ) ) {
-    echo '<tr><td valign="top"><b> &raquo; </b></td><td><a class="box" href="index.php?news-' . $row->news_id . '">' . $row->news_title . '</a></td></tr>';
+    echo '<tr><td v><b> &raquo; </b></td><td><a class="box" href="index.php?news-' . $row->news_id . '">' . $row->news_title . '</a></td></tr>';
 }
 echo '</table>';
 

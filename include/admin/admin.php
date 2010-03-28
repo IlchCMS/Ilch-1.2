@@ -205,7 +205,7 @@ switch ( $um ) {
         echo '<a href="admin.php?admin-besucherUebersicht">&Uuml;bersicht</a>&nbsp;<b>|</b>&nbsp;<a href="?admin-besucherStatistik-' . $lastmon . '" title="' . $lastmon . '. ' . $lastjahr . '">letzter Monat</a>&nbsp;<b>|</b>&nbsp;<a href="?admin-besucherStatistik-' . $mon . '" title="' . $mon . '. ' . $jahr . '">dieser Monat</a>';
         
         echo '<br /><br /><table cellpadding="0" border="0" cellspacing="0" width="100%">';
-        echo '<tr><td valign="top" width="33%"><b>Nach Tagen (letzten 5 Monate):</b><br />';
+        echo '<tr><td v width="33%"><b>Nach Tagen (letzten 5 Monate):</b><br />';
         
         echo '<table cellpadding="0" border="0" cellspacing="0" width="90%">';
         $max = db_result( db_query( "SELECT MAX(`count`) FROM `prefix_counter`" ), 0 );
@@ -216,7 +216,7 @@ switch ( $um ) {
         }
         echo '</table>';
         
-        echo '</td><td valign="top" width="33%"><b>Nach Monaten:</b><br />';
+        echo '</td><td v width="33%"><b>Nach Monaten:</b><br />';
         
         echo '<table cellpadding="0" border="0" cellspacing="0" width="90%">';
         $max = get_max_from_x( "SELECT SUM(`count`) FROM `prefix_counter` GROUP BY MONTH(`date`), YEAR(`date`)" );
@@ -226,7 +226,7 @@ switch ( $um ) {
         }
         echo '</table>';
         
-        echo '</td><td valign="top" width="33%"><b>Nach Jahren:</b><br />';
+        echo '</td><td v width="33%"><b>Nach Jahren:</b><br />';
         
         echo '<table cellpadding="0" border="0" cellspacing="0" width="90%">';
         $max = get_max_from_x( "SELECT SUM(`count`) FROM `prefix_counter` GROUP BY YEAR(`date`)" );
@@ -254,7 +254,7 @@ switch ( $um ) {
         // ICON Anzeige...
         echo '<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/stats_site.png" /></td><td width="30"></td><td valign="bottom"><h1>Seiten Statistik</h1></td></tr></table>';
         
-        echo '<table><tr><td valign="top">';
+        echo '<table><tr><td v>';
         $heute    = mktime( 0, 0, 0, date( 'm' ), date( 'd' ), date( 'Y' ) );
         $anzheute = db_result( db_query( "SELECT COUNT(*) FROM `prefix_posts` WHERE `time` >= " . $heute ), 0, 0 );
         echo 'Gesamt Posts heute: ' . $anzheute . '<br /><hr>';
@@ -276,7 +276,7 @@ switch ( $um ) {
         echo '<hr><b>Neue User heute</b><br />';
         forum_statistic_show( $sql, $gsh );
         
-        echo '</td><td valign="top">';
+        echo '</td><td v>';
         $heute1   = mktime( 0, 0, 0, date( 'm' ), date( 'd' ) - 1, date( 'Y' ) );
         $anzheute = db_result( db_query( "SELECT COUNT(*) FROM `prefix_posts` WHERE `time` >= " . $heute1 . " AND `time` <= " . $heute ), 0, 0 );
         echo 'Gesamt Posts gestern: ' . $anzheute . '<br /><hr>';

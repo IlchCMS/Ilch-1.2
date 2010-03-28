@@ -71,7 +71,7 @@ if ( empty( $_POST[ 'bet' ] ) OR empty( $_POST[ 'email' ] ) OR empty( $_POST[ 't
     echo $_POST[ 'email' ];
 ?>"></td>
 		</tr><tr class="Cnorm">
-		  <td class="Cmite" valign="top">Nachricht</td>
+		  <td class="Cmite" v>Nachricht</td>
 		  <td class="Cnorm"><textarea cols="40" rows="10" name="txt"><?php
     echo $_POST[ 'txt' ];
 ?></textarea></td>

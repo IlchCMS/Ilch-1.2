@@ -39,7 +39,7 @@ if ( !empty( $such ) ) {
         }
     } // ende forum durchsuchen
     if ( !empty( $jnews ) AND !empty( $jforum ) ) {
-        $such_string .= '</td><td class="Cnorm" valign="top">';
+        $such_string .= '</td><td class="Cnorm" v>';
     }
     
     if ( !empty( $jnews ) ) {
@@ -62,7 +62,7 @@ if ( !empty( $such ) ) {
     }
     if ( $i > 0 ) {
         echo $i . ' Treffer für die suche nach: ' . $such;
-        echo '<table width="100%" cellpadding="10" border="0" cellspacing="1" class="border"><tr><td class="Cnorm" valign="top">';
+        echo '<table width="100%" cellpadding="10" border="0" cellspacing="1" class="border"><tr><td class="Cnorm" v>';
         echo $such_string;
         echo '</td></tr></table>';
     } else {

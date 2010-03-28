@@ -24,7 +24,7 @@ $resultID = db_query( $query );
 while ( $row = db_fetch_assoc( $resultID ) ) {
     $row[ 'date' ] = date( 'd.m.y - H:i', $row[ 'time' ] );
     $row[ 'page' ] = ceil( ( $row[ 'rep' ] + 1 ) / $allgAr[ 'Fpanz' ] );
-    echo '<tr><td valign="top"><b> &raquo; </b></td><td><a href="?forum-showposts-' . $row[ 'id' ] . '-p' . $row[ 'page' ] . '#' . $row[ 'pid' ] . '" title="' . $row[ 'date' ] . '">' . ( ( strlen( $row[ 'name' ] ) < 18 ) ? $row[ 'name' ] : substr( $row[ 'name' ], 0, 15 ) . '...' ) . '<br /><span class="smalfont"> von ' . $row[ 'last' ] . '</span></a></td></tr>';
+    echo '<tr><td v><b> &raquo; </b></td><td><a href="?forum-showposts-' . $row[ 'id' ] . '-p' . $row[ 'page' ] . '#' . $row[ 'pid' ] . '" title="' . $row[ 'date' ] . '">' . ( ( strlen( $row[ 'name' ] ) < 18 ) ? $row[ 'name' ] : substr( $row[ 'name' ], 0, 15 ) . '...' ) . '<br /><span class="smalfont"> von ' . $row[ 'last' ] . '</span></a></td></tr>';
 }
 echo '</table>';
 

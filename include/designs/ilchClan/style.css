@@ -51,7 +51,7 @@ body {
   background: url(img/top2.gif);
   height: 31px;
 }
-#top2 font {
+#top2 span {
   display: inline;
   position: absolute;
   left: 172px;

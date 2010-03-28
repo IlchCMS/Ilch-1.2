@@ -32,7 +32,7 @@ function bbwy_init () {
 		  var height = thisTbl.clientHeight;
 		  var width  = thisTbl.clientWidth;
 		  
-		  var iframe  = '<table cellpadding="0" cellspacing="0" border="0" style="width:' + width + 'px; height:' + (height-50) + 'px; border: 1px solid #000000; background-color: #FFFFFF;"><tr><td valign="top">\n'
+		  var iframe  = '<table cellpadding="0" cellspacing="0" border="0" style="width:' + width + 'px; height:' + (height-50) + 'px; border: 1px solid #000000; background-color: #FFFFFF;"><tr><td v>\n'
 		      iframe += '<iframe frameborder="0" id="wysiwyg' + n + '"></iframe></td></tr></table>';
 		  
 			var toolba  = bbwy_toolbars (1, n);
