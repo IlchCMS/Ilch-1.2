@@ -33,18 +33,18 @@ $_POST[ 'txt' ]   = ( isset( $_POST[ 'txt' ] ) ? trim( $_POST[ 'txt' ] ) : '' );
 
 if ( empty( $_POST[ 'bet' ] ) OR empty( $_POST[ 'email' ] ) OR empty( $_POST[ 'txt' ] ) OR $_SESSION[ 'klicktime' ] > ( time() - 60 ) ) {
     if ( !empty( $_POST[ 'send' ] ) ) {
-        $fehler = '<font color="#FF0000">Fehler:</font><br>';
+        $fehler = '<font color="#FF0000">Fehler:</font><br/>';
         if ( $_SESSION[ 'klicktime' ] > ( time() - 60 ) ) {
-            $fehler .= '&nbsp; - Bitte nicht so schnell eMails Schreiben<br>';
+            $fehler .= '&nbsp; - Bitte nicht so schnell eMails Schreiben<br/>';
         }
         if ( trim( $_POST[ 'bet' ] ) == '' ) {
-            $fehler .= '&nbsp; - Bitte einen Betreff angeben<br>';
+            $fehler .= '&nbsp; - Bitte einen Betreff angeben<br/>';
         }
         if ( trim( $_POST[ 'email' ] ) == '' ) {
-            $fehler .= '&nbsp; - Bitte eine eMail angeben<br>';
+            $fehler .= '&nbsp; - Bitte eine eMail angeben<br/>';
         }
         if ( trim( $_POST[ 'txt' ] ) == '' ) {
-            $fehler .= '&nbsp; - Bitte eine Nachricht angeben<br>';
+            $fehler .= '&nbsp; - Bitte eine Nachricht angeben<br/>';
         }
     } else {
         $fehler = '';

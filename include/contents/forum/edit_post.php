@@ -17,7 +17,7 @@ $design = new design( $title, $hmenu, 1 );
 $design->header();
 
 if ( !loggedin() ) {
-    echo 'Gäste dürfen keine Beiträge editieren<br><a href="index.php?user-regist">Registrieren</a> / <a href="index.php?user-login">Einloggen</a> um deine Beiträge editieren zu können';
+    echo 'Gäste dürfen keine Beiträge editieren<br/><a href="index.php?user-regist">Registrieren</a> / <a href="index.php?user-login">Einloggen</a> um deine Beiträge editieren zu können';
     $design->footer( 1 );
 }
 

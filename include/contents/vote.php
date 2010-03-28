@@ -110,7 +110,7 @@ while ( $fraRow = db_fetch_object( $erg ) ) {
             echo '<td width="20%" align="right">' . $pollRow->res . '</td></tr>';
         } else {
             $i++;
-            echo '<input type="radio" id="vote' . $i . '" name="radio" value="' . $pollRow->sort . '"><label for="vote' . $i . '"> ' . $pollRow->antw . '</label><br>';
+            echo '<input type="radio" id="vote' . $i . '" name="radio" value="' . $pollRow->sort . '"><label for="vote' . $i . '"> ' . $pollRow->antw . '</label><br/>';
         }
     }
     if ( $imPollArrayDrin ) {

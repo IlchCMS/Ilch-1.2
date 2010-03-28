@@ -29,7 +29,7 @@ switch ( $uum ) {
         if ( empty( $_POST[ 'sub' ] ) ) {
             echo '<form action="index.php?forum-edittopic-' . $tid . '-2" method="POST">';
             echo 'Begr&uuml;ndung an den Ersteller (freiwillig)<br /><textarea cols="50" rows="2" name="reason"></textarea>';
-            echo '<br /><br ><input type="submit" value="' . $lang[ 'delete' ] . '" name="sub">';
+            echo '<br /><br/><input type="submit" value="' . $lang[ 'delete' ] . '" name="sub">';
             echo '</form>';
         } else {
             // autor benachrichtigen

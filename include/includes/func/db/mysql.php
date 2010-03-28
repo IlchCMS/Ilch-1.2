@@ -34,7 +34,7 @@ function db_check_error( &$r, $q )
 {
     if ( !$r AND mysql_errno( CONN ) != 0 AND function_exists( 'is_coadmin' ) AND is_coadmin() ) {
         // var_export (debug_backtrace(), true)
-        echo ( '<font color="#FF0000">MySQL Error:</font><br>' . mysql_errno( CONN ) . ' : ' . mysql_error( CONN ) . '<br>in Query:<br>' . $q . '<pre>' . debug_bt() . '</pre>' );
+        echo ( '<font color="#FF0000">MySQL Error:</font><br/>' . mysql_errno( CONN ) . ' : ' . mysql_error( CONN ) . '<br/>in Query:<br/>' . $q . '<pre>' . debug_bt() . '</pre>' );
     }
     return ( $r );
 }

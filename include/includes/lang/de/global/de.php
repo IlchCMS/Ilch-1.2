@@ -322,7 +322,7 @@ $lang = array_merge($lang, array
 'weeksum' => 'Wochen Summe',
 'gbooktexttolong' => 'Der Text ist l&auml;nger als %s erlaubte Zeichen',
 'inserthereaname' => 'Hier einen Namen eingeben, das Zeichen * kann als Joker benutzt werden, wird es komplett alleine benutzt werden alle User angezeigt.',
-'login3failure' => 'Du hast leider schon 3 mal ohne Erfolg versucht dich einzuloggen!<br>Aus Sicherheitsgr&uuml;nden ist es nur 3 mal erlaubt zu versuchen sich einzuloggen. Komme bitte sp&auml;ter wieder und lass dir dein <a href="?user-13">  Passwort zuschicken</a>, wenn du das derzeitige vergessen haben solltest.',
+'login3failure' => 'Du hast leider schon 3 mal ohne Erfolg versucht dich einzuloggen!<br/>Aus Sicherheitsgr&uuml;nden ist es nur 3 mal erlaubt zu versuchen sich einzuloggen. Komme bitte sp&auml;ter wieder und lass dir dein <a href="?user-13">  Passwort zuschicken</a>, wenn du das derzeitige vergessen haben solltest.',
 'leaderofxalert' => 'Der Leader von %s wurde benachrichtigt.',
 'logoutsuccessful' => 'Du wurdest erfolgreich ausgeloggt, alle Cookies wurden gel&ouml;scht!',
 'membershaveritten' => 'Mitglieder haben',

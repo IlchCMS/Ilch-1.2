@@ -14,10 +14,10 @@ $design->header( $load );
 
 if ( $allgAr[ 'Fpmf' ] != 1 ) {
     echo 'Private Nachrichten wurden von dem Administrator komplet gesperrt';
-    echo '<br><a href="javascript:history.back(-1)">zurück</a>';
+    echo '<br/><a href="javascript:history.back(-1)">zurück</a>';
     $design->footer( 1 );
 } elseif ( !loggedin() ) {
-    echo '<br>Gäste dürfen keine Privaten Nachrichten Verschicken!';
+    echo '<br/>Gäste dürfen keine Privaten Nachrichten Verschicken!';
     $tpl = new tpl( 'user/login' );
     $tpl->set_out( 'WDLINK', 'index.php', 0 );
     $design->footer( 1 );
@@ -144,9 +144,9 @@ switch ( $uum ) {
                     $i++;
                     echo '<input type="hidden" name="del' . $s . 'ids[]" value="' . $a . '">';
                 }
-                echo '<br>Wollen Sie ';
+                echo '<br/>Wollen Sie ';
                 echo ( $i > 1 ? 'die (' . $i . ') Nachrichten ' : 'die Nachricht ' );
-                echo 'wirklich löschen ?<br><br><input type="submit" value=" Ja " name="sub"> &nbsp; &nbsp; <input type="button" value="Nein" onclick="document.location.href =\'?forum-privmsg\'"></form>';
+                echo 'wirklich löschen ?<br/><br/><input type="submit" value=" Ja " name="sub"> &nbsp; &nbsp; <input type="button" value="Nein" onclick="document.location.href =\'?forum-privmsg\'"></form>';
             } else {
                 $delids = ( empty( $_POST[ 'delids' ] ) ? $_POST[ 'delsids' ] : $_POST[ 'delids' ] );
                 $s      = ( empty( $_POST[ 'delids' ] ) ? '' : 's' );

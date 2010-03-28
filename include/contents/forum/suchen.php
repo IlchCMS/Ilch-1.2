@@ -29,7 +29,7 @@ if ( !empty( $such ) ) {
 		        INNER JOIN `prefix_topic` `b` ON `a`.`tid` = `b`.`id`
 						WHERE `txt` LIKE "%' . $such . '%"';
         
-        $such_string = '<b>Forum</b><br><br>';
+        $such_string = '<b>Forum</b><br/><br/>';
         
         $erg = db_query( $abf );
         while ( $row = db_fetch_object( $erg ) ) {
@@ -43,7 +43,7 @@ if ( !empty( $such ) ) {
     }
     
     if ( !empty( $jnews ) ) {
-        $such_string .= '<b>News</b><br><br>';
+        $such_string .= '<b>News</b><br/><br/>';
         $abf = 'SELECT
 	            titel,id
 						FROM

@@ -321,7 +321,7 @@ $lang = array_merge($lang, array
 'weeksum' => 'Week Sum',
 'gbooktexttolong' => 'The text is longer than the allowed %s characters',
 'inserthereaname' => 'Enter a name here, * can be used as a joker, if you only enter *, all users are displayed.',
-'login3failure' => '3 login attemts failed<br>For security reasons we only allow 3 login attempts. Please come back later and <a href="?user-13">  request your password</a>, in case you forgot it.',
+'login3failure' => '3 login attemts failed<br/>For security reasons we only allow 3 login attempts. Please come back later and <a href="?user-13">  request your password</a>, in case you forgot it.',
 'leaderofxalert' => 'Leader of %s has been alerted.',
 'logoutsuccessful' => 'You have logged out successfully, all cookies have been delted.',
 'membershaveritten' => 'members have written',

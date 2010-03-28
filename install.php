@@ -460,7 +460,7 @@ POSSIBILITY OF SUCH DAMAGES.
       <tr class="Chead">
         <td colspan="2"><b>Voraussetzungen Pr&uuml;fen</b></td>
 			</tr><tr>
-        <td class="Cmite"><br>"include/includes/config.php" CHMOD 666<br></td>
+        <td class="Cmite"><br/>"include/includes/config.php" CHMOD 666<br/></td>
     		<td class="Cnorm"><?php
     if ( @is_writeable( 'include/includes/config.php' ) ) {
         echo '<font color="#40aa00"><b>RICHTIG</b></font>';
@@ -469,7 +469,7 @@ POSSIBILITY OF SUCH DAMAGES.
     }
 ?></td>
   		</tr><tr>
-        <td class="Cmite"><br>"include/backup" Schreibrechte (CHMOD 777)<br></td>
+        <td class="Cmite"><br/>"include/backup" Schreibrechte (CHMOD 777)<br/></td>
     		<td class="Cnorm"><?php
     if ( @is_writeable( 'include/backup' ) ) {
         echo '<font color="#40aa00"><b>RICHTIG</b></font>';
@@ -478,7 +478,7 @@ POSSIBILITY OF SUCH DAMAGES.
     }
 ?></td>
   		</tr><tr>
-    		<td class="Cmite"><br>"include/images/avatars" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cmite"><br/>"include/images/avatars" Schreibrechte (CHMOD 777)<br/></td>
     		<td class="Cnorm"><?php
     if ( @is_writeable( 'include/images/avatars' ) ) {
         echo '<font color="#40aa00"><b>RICHTIG</b></font>';
@@ -487,7 +487,7 @@ POSSIBILITY OF SUCH DAMAGES.
     }
 ?></td>
   		</tr><tr>
-    		<td class="Cmite"><br>"include/images/gallery" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cmite"><br/>"include/images/gallery" Schreibrechte (CHMOD 777)<br/></td>
     		<td class="Cnorm"><?php
     if ( @is_writeable( 'include/images/gallery' ) ) {
         echo '<font color="#40aa00"><b>RICHTIG</b></font>';
@@ -496,7 +496,7 @@ POSSIBILITY OF SUCH DAMAGES.
     }
 ?></td>
   		</tr><tr>
-    		<td class="Cmite"><br>"include/images/usergallery" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cmite"><br/>"include/images/usergallery" Schreibrechte (CHMOD 777)<br/></td>
     		<td class="Cnorm"><?php
     if ( @is_writeable( 'include/images/usergallery' ) ) {
         echo '<font color="#40aa00"><b>RICHTIG</b></font>';
@@ -505,7 +505,7 @@ POSSIBILITY OF SUCH DAMAGES.
     }
 ?></td>
   		</tr><tr>
-    		<td class="Cmite"><br>"include/downs/downloads" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cmite"><br/>"include/downs/downloads" Schreibrechte (CHMOD 777)<br/></td>
     		<td class="Cnorm"><?php
     if ( @is_writeable( 'include/downs/downloads' ) ) {
         echo '<font color="#40aa00"><b>RICHTIG</b></font>';
@@ -514,7 +514,7 @@ POSSIBILITY OF SUCH DAMAGES.
     }
 ?></td>
   		</tr><tr>
-    		<td class="Cmite"><br>"include/downs/downloads/user_upload" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cmite"><br/>"include/downs/downloads/user_upload" Schreibrechte (CHMOD 777)<br/></td>
     		<td class="Cnorm"><?php
     if ( @is_writeable( 'include/downs/downloads/user_upload' ) ) {
         echo '<font color="#40aa00"><b>RICHTIG</b></font>';
@@ -523,7 +523,7 @@ POSSIBILITY OF SUCH DAMAGES.
     }
 ?></td>
   		</tr><tr>
-    		<td class="Cmite"><br>"include/images/wars" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cmite"><br/>"include/images/wars" Schreibrechte (CHMOD 777)<br/></td>
     		<td class="Cnorm"><?php
     if ( @is_writeable( 'include/images/wars' ) ) {
         echo '<font color="#40aa00"><b>RICHTIG</b></font>';
@@ -532,7 +532,7 @@ POSSIBILITY OF SUCH DAMAGES.
     }
 ?></td>
   		</tr><tr>
-    		<td class="Cmite"><br>"include/contents/selfbp/selfp" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cmite"><br/>"include/contents/selfbp/selfp" Schreibrechte (CHMOD 777)<br/></td>
     		<td class="Cnorm"><?php
     if ( @is_writeable( 'include/contents/selfbp/selfp' ) ) {
         echo '<font color="#40aa00"><b>RICHTIG</b></font>';
@@ -541,7 +541,7 @@ POSSIBILITY OF SUCH DAMAGES.
     }
 ?></td>
   		</tr><tr>
-    		<td class="Cmite"><br>"include/contents/selfbp/selfb" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cmite"><br/>"include/contents/selfbp/selfb" Schreibrechte (CHMOD 777)<br/></td>
     		<td class="Cnorm"><?php
     if ( @is_writeable( 'include/contents/selfbp/selfb' ) ) {
         echo '<font color="#40aa00"><b>RICHTIG</b></font>';
@@ -550,7 +550,7 @@ POSSIBILITY OF SUCH DAMAGES.
     }
 ?></td>
   		</tr><tr>
-    		<td class="Cmite"><br>"include/includes/func/captcha/txt" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cmite"><br/>"include/includes/func/captcha/txt" Schreibrechte (CHMOD 777)<br/></td>
     		<td class="Cnorm"><?php
     if ( @is_writeable( 'include/includes/func/captcha/txt' ) ) {
         echo '<font color="#40aa00"><b>RICHTIG</b></font>';
@@ -559,7 +559,7 @@ POSSIBILITY OF SUCH DAMAGES.
     }
 ?></td>
   		</tr><tr>
-    		<td class="Cmite"><br>"include/images/smiles" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cmite"><br/>"include/images/smiles" Schreibrechte (CHMOD 777)<br/></td>
     		<td class="Cnorm"><?php
     if ( @is_writeable( 'include/images/smiles' ) ) {
         echo '<font color="#40aa00"><b>RICHTIG</b></font>';

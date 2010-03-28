@@ -13,9 +13,9 @@
 ///////////////////////////////////////////////////////
 // $cr64 = new AzDGCrypt($keys);
 // $e = $cr64->crypt($keys);
-// echo "Crypted information = ".$e."<br>";
+// echo "Crypted information = ".$e."<br/>";
 // $d = $cr64->decrypt($e);
-// echo "Decrypted information = ".$d."<br>";
+// echo "Decrypted information = ".$d."<br/>";
 ///////////////////////////////////////////////////////
 // Test results:
 // Machine: P1-233, 64 Ram (Free 78%), W98, apache 2.0.39

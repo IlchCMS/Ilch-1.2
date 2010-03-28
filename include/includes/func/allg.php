@@ -484,11 +484,11 @@ function get_antispam( $m, $t )
     
     $rs = '<img class="Custom" src="include/includes/func/captcha/captchaimg.php" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt darunter stehende Feld ein.">&nbsp;<input name="number" type="text" maxlength="5" size="8">';
     if ( $t == 0 ) {
-        return ( '<img class="Custom" src="include/includes/func/captcha/captchaimg.php" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt darunter stehende Feld ein."><br><input name="number" type="text" maxlength="5" size="8">' );
+        return ( '<img class="Custom" src="include/includes/func/captcha/captchaimg.php" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt darunter stehende Feld ein."><br/><input name="number" type="text" maxlength="5" size="8">' );
     } elseif ( $t == 1 ) {
         return ( '<tr><td class="Cmite" valign="top"><b>Antispam</b></td><td class="Cnorm">' . $rs . '</td></tr>' );
     } elseif ( $t > 10 ) {
-        return ( '<label style="float:left; width: ' . $t . 'px; ">Antispam</label>' . $rs . '<br>' );
+        return ( '<label style="float:left; width: ' . $t . 'px; ">Antispam</label>' . $rs . '<br/>' );
     } else {
         return ( '' );
     }

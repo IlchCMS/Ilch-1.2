@@ -18,7 +18,7 @@ echo '<br />';
 echo $row[ 'v3' ]; // strasse nr
 echo '<br /><br />';
 echo $row[ 'v4' ]; // plz, ort
-echo '<br ><br />';
+echo '<br/><br />';
 echo 'Kontakt: <a href="index.php?contact">Formular</a><br /><br />';
 echo unescape( $row[ 't1' ] );
 

@@ -79,10 +79,10 @@ if ( empty( $um ) ) {
     
 ?>
             </select></td></tr>
-            <tr><td class="Cmite">Wechseln alle <br></td><td class="Cnorm" valign="top"><input type="text" value="<?php
+            <tr><td class="Cmite">Wechseln alle <br/></td><td class="Cnorm" valign="top"><input type="text" value="<?php
     echo $cval;
-?>" name="cchange" size="3" maxlength="2"> Tage <br><br>
-            <small><b>Nur ausf&uuml;llen wenn oben "selbstdefiniert" ausgew&auml;hlt ist!<br>
+?>" name="cchange" size="3" maxlength="2"> Tage <br/><br/>
+            <small><b>Nur ausf&uuml;llen wenn oben "selbstdefiniert" ausgew&auml;hlt ist!<br/>
             Andernfalls wird dieses Feld ignoriert.</b></small></td></tr>
 
             <tr><td class="Cmite">Thumbnail Breite</td><td class="Cnorm" valign="top"><input type="text" value="<?php
@@ -114,8 +114,8 @@ if ( empty( $um ) ) {
     
     if ( strval( $change ) == 'x' ) {
         echo 'c ' . $change;
-        echo '<br>d ' . $directory;
-        echo '<br>fehler';
+        echo '<br/>d ' . $directory;
+        echo '<br/>fehler';
     } else {
         if ( $directory == 0 ) {
             $picofxOpts[ 'pic' ] = @db_result( db_query( "SELECT `id` FROM `prefix_gallery_imgs` ORDER BY RAND() LIMIT 1" ), 0 );
