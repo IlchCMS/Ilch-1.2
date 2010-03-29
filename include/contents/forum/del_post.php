@@ -13,12 +13,12 @@ $hmenu = $extented_forum_menu . '<a class="smalfont" href="index.php?forum">Foru
 $hmenu .= '<a class="smalfont" href="index.php?forum-showposts-' . $tid . '">' . $aktTopicRow[ 'name' ] . '</a> <b> &raquo; </b>Beitrag l&ouml;schen' . $extented_forum_menu_sufix;
 $design = new design( $title, $hmenu, 1 );
 $design->header();
-
+$get_3 = $menu->get( 3 );
 if ( empty( $_POST[ 'delete' ] ) ) {
     $tpl = new tpl( 'forum/del_post' );
     $tpl->set_ar( array(
          'tid' => $tid,
-        'get3' => $menu->get( 3 ) 
+        'get3' => $get_3
     ) );
     $tpl->out( 0 );
 } else {
@@ -26,7 +26,7 @@ if ( empty( $_POST[ 'delete' ] ) ) {
     if ( $erstid > 0 )
         db_query( "UPDATE `prefix_user` SET `posts` = `posts` - 1 WHERE id = " . $erstid );
     
-    db_query( "DELETE FROM `prefix_posts` WHERE `id` = " . $menu->get( 3 ) . " LIMIT 1" );
+    db_query( "DELETE FROM `prefix_posts` WHERE `id` = " . $get_3 . " LIMIT 1" );
     $erg = db_query( "SELECT MAX(`id`) FROM `prefix_posts` WHERE `tid` = " . $tid );
     $max = db_result( $erg, 0 );
     db_query( "UPDATE `prefix_topics` SET `last_post_id` = " . $max . ", `rep` = `rep` - 1 WHERE `id` = " . $tid );
