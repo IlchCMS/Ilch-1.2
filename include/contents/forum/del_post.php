@@ -13,7 +13,7 @@ $hmenu = $extented_forum_menu . '<a class="smalfont" href="index.php?forum">Foru
 $hmenu .= '<a class="smalfont" href="index.php?forum-showposts-' . $tid . '">' . $aktTopicRow[ 'name' ] . '</a> <b> &raquo; </b>Beitrag l&ouml;schen' . $extented_forum_menu_sufix;
 $design = new design( $title, $hmenu, 1 );
 $design->header();
-$get_3 = $menu->get( 3 );
+$get_3 = escape($menu->get( 3 ), 'integer');
 if ( empty( $_POST[ 'delete' ] ) ) {
     $tpl = new tpl( 'forum/del_post' );
     $tpl->set_ar( array(
@@ -22,7 +22,7 @@ if ( empty( $_POST[ 'delete' ] ) ) {
     ) );
     $tpl->out( 0 );
 } else {
-    $erstid = @db_result( db_query( "SELECT `erstid` FROM `prefix_posts` WHERE `id` = " . $menu->get( 3 ) . " LIMIT 1" ), 0 );
+    $erstid = @db_result( db_query( "SELECT `erstid` FROM `prefix_posts` WHERE `id` = " . $get_3 . " LIMIT 1" ), 0 );
     if ( $erstid > 0 )
         db_query( "UPDATE `prefix_user` SET `posts` = `posts` - 1 WHERE id = " . $erstid );
     
