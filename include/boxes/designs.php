@@ -12,7 +12,7 @@ if ( !empty( $_POST[ 'temp_ch' ] ) ) {
     echo '<select name="temp_ch" onchange="this.form.submit();">';
     $o = opendir( 'include/designs' );
     while ( $f = readdir( $o ) ) {
-        if ( $f != '.' AND $f != '..' AND is_dir( 'include/designs/' . $f ) ) {
+        if ( !preg_match("/\\..*/", $f) AND is_dir( 'include/designs/' . $f ) ) {
             $s = ( $f == $_SESSION[ 'authgfx' ] ? ' selected' : '' );
             echo '<option' . $s . '>' . $f . '</option>';
         }
