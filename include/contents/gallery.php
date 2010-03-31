@@ -190,7 +190,7 @@ if ( $menu->get( 1 ) == 'showOrig' ) {
     
     $limit  = $img_per_site;
     $page   = ( $menu->getA( 2 ) == 'p' ? escape( $menu->getE( 2 ), 'integer' ) : 1 );
-    $MPL    = db_make_sites( $page, '', $limit, '?gallery-' . $cid, "gallery_imgs LEFT JOIN `prefix_gallery_cats` ON `prefix_gallery_imgs`.`cat` = `prefix_gallery_cats`.`id` WHERE `prefix_gallery_imgs`.`cat` = " . $cid . " AND (`recht` >= " . $_SESSION[ 'authright' ] . " OR `recht` IS NULL)" );
+    $MPL    = db_make_sites( $page, "LEFT JOIN `prefix_gallery_cats` ON `prefix_gallery_imgs`.`cat` = `prefix_gallery_cats`.`id` WHERE `prefix_gallery_imgs`.`cat` = " . $cid . " AND (`recht` >= " . $_SESSION[ 'authright' ] . " OR `recht` IS NULL)", $limit, '?gallery-' . $cid, "gallery_imgs" );
     $anfang = ( $page - 1 ) * $limit;
     $erg    = db_query( "SELECT `prefix_gallery_imgs`.`id`,`prefix_gallery_imgs`.`cat`,`datei_name`,`endung`,`prefix_gallery_imgs`.`besch`,`klicks`,`vote_wertung`,`vote_klicks` FROM `prefix_gallery_imgs` LEFT JOIN `prefix_gallery_cats` ON `prefix_gallery_imgs`.`cat` = `prefix_gallery_cats`.`id` WHERE `prefix_gallery_imgs`.`cat` = " . $cid . " AND (`recht` >= " . $_SESSION[ 'authright' ] . " OR `recht` IS NULL) ORDER BY `id` ASC LIMIT " . $anfang . "," . $limit );
     if ( db_num_rows( $erg ) > 0 ) {
