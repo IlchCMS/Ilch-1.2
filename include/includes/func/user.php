@@ -78,7 +78,7 @@ function user_login_check( )
 {
     global $allgAr;
     
-    if ( isset( $_POST[ 'user_login_sub' ] ) AND ( isset( $_POST[ 'email' ] ) AND isset( $_POST[ 'pass' ] ) ) {
+    if ( isset( $_POST[ 'user_login_sub' ] ) AND isset( $_POST[ 'email' ] ) AND isset( $_POST[ 'pass' ] ) ) {
         debug( 'posts vorhanden' );
         
         $lower = get_lower( $_POST[ 'email' ] );
@@ -388,13 +388,13 @@ function sendpm( $sid, $eid, $ti, $te, $status = 0 )
         );
     }
     
-    // Alle Emfänger durchlaufen
+    // Alle Emfï¿½nger durchlaufen
     foreach ( $eid AS $empf ) {
         // PM schreiben und ID speichern
         db_query( "INSERT INTO `prefix_pm` (`sid`,`eid`,`time`,`titel`,`txt`,`status`) VALUES (" . $sid . "," . $empf . ",'" . time() . "','" . $ti . "','" . $te . "'," . $status . ")" );
         $last_id = db_last_id();
         
-        // Alle Zeiten der letzten PMs abfragen, die nach dem letzten Login des Empfängers verschickt wurden
+        // Alle Zeiten der letzten PMs abfragen, die nach dem letzten Login des Empfï¿½ngers verschickt wurden
         $erg = db_query( "SELECT `b`.`time` FROM `prefix_user` AS `a` LEFT JOIN `prefix_pm` AS `b` ON `a`.`id` = `b`.`eid` AND `b`.`id` != " . $last_id . " WHERE `a`.`id` = " . $empf . " AND `a`.`llogin` < `b`.`time`" );
         
         // Wenn keine PM gefunden wurde, Email schreiben
@@ -402,7 +402,7 @@ function sendpm( $sid, $eid, $ti, $te, $status = 0 )
             // Email-Adresse abfragen und Email verschicken
             $mail = db_result( db_query( "SELECT `email` FROM `prefix_user` WHERE `id` = " . $empf ), 0 );
             if ( !empty( $mail ) ) {
-                icmail( $mail, "Du hast eine neue Nachricht", "Hallo,\ndu hast eben eine Neue Nachricht mit dem Betreff '" . $ti . "' bekommen. Diese Nachricht kannst du nun unter folgender Adresse mit Deinen Logindaten aufrufen: " . $page . "?forum-privmsg-showmsg-" . $last_id . "\n\nWir wünschen Dir noch einen schönen Tag!" );
+                icmail( $mail, "Du hast eine neue Nachricht", "Hallo,\ndu hast eben eine Neue Nachricht mit dem Betreff '" . $ti . "' bekommen. Diese Nachricht kannst du nun unter folgender Adresse mit Deinen Logindaten aufrufen: " . $page . "?forum-privmsg-showmsg-" . $last_id . "\n\nWir wï¿½nschen Dir noch einen schï¿½nen Tag!" );
             }
             
         }
