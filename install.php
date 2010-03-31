@@ -591,7 +591,7 @@ POSSIBILITY OF SUCH DAMAGES.
   		</tr><tr>
     		<td class="Cmite">Username</td>
     		<td class="Cnorm"><input type="text" name="mysql_username"></td>
-				<td class="Cnorm">Der Username der auf die Datenbank zugreiffen soll.</td>
+				<td class="Cnorm">Der Username der auf die Datenbank zugreifen soll.</td>
   		</tr><tr>
     		<td class="Cmite">Password</td>
     		<td class="Cnorm"><input type="text" name="mysql_passW"></td>
