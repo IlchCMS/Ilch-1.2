@@ -533,7 +533,12 @@ function get_lower( $value )
     }
 }
 
-// Liefert alle Dateien eines Ordners gegebener Typen aus
+/**
+ * Gib alle Dateien des angegeben Ordners mit der gegebenen Endung uas
+ * @param $dir der Ordner (z.B. "include/admin"
+ * @param $ext die Extension, z.B. "php"
+ * @param $spez TODO document
+ */
 function read_ext( $dir, $ext = '', $spez = 0 )
 {
     $buffer = Array( );
