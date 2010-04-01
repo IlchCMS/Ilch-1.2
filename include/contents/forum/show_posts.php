@@ -74,7 +74,7 @@ while ( $row = db_fetch_assoc( $erg ) ) {
     if ( $forum_rights[ 'mods' ] == true AND $i > 1 ) {
     	$row['delete'] = TRUE;
     }
-    if ( $forum_rights[ 'reply' ] == true AND loggedin() && $row["erstid"] == $_SESSION["authid"]) {
+    if ( $forum_rights[ 'reply' ] == true AND (loggedin() || $row["erstid"] == $_SESSION["authid"])) {
     	$row['change'] = TRUE;
     }
     $row[ 'posts' ] = ( $row[ 'posts' ] ? '<br />Posts: ' . $row[ 'posts' ] : '' ) . '<br />';
