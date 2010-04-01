@@ -25,10 +25,14 @@
 	  		{date}
 	  	</div>
       	<div style="float: right; width: 50%; text-align:right;">	
-      		<a href="#toppost">{_lang_top}</a>
-      		 {delete} &nbsp; 
-      		 {change} &nbsp; 
-      		 <a href="index.php?forum-newpost-{TID}-z{id}">{_lang_quote}</a>
+      		<a href="#toppost"><img src="include/images/icons/pfeilo.png" alt="{_lang_top}" style="border:none;"/></a>
+      		{_if_{delete}=='true'}
+      			<a href="index.php?forum-delpost-{TID}-{id}"><img style="border:none" src="include/images/icons/del.png" alt="{_lang_delete}"></img></a>&nbsp; 
+      		{/_endif}
+      		{_if_{change}=='true'}
+      			<a href="index.php?forum-editpost-{TID}-{id}"><img style="border:none" src="include/images/icons/edit.png" alt="{_lang_edit}"></img></a>
+      		{/_endif}
+      		 <a href="index.php?forum-newpost-{TID}-z{id}"><img style="border:none" src="include/images/icons/comment.png" alt="{_lang_quote}"></img></a>
       	</div>
       	<div style="clear:both;" />
       </div>
