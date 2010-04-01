@@ -22,10 +22,16 @@ function getmods( $fid )
 // fid ( 0 is forum, > 0 is forum_id_vom_topic )
 function forum_get_ordner( $ftime, $id, $fid = 0 )
 {
+	// $_SESSION['forumSEE'] enthält ein zweidimensionales array
+	// $_SESSION['forumSEE'][$FORUMID][$TOPICID]
     if ( $ftime >= $_SESSION[ 'lastlogin' ] ) {
         if ( $fid == 0 ) {
-            $anzOpenTopics = db_result( db_query( "SELECT COUNT(*) FROM `prefix_topics` LEFT JOIN `prefix_posts` ON `prefix_posts`.`id` = `prefix_topics`.`last_post_id` WHERE `prefix_topics`.`fid` = " . $id . " AND `prefix_posts`.`time` >= " . $_SESSION[ 'lastlogin' ] ), 0 );
-            if ( ( ( $anzOpenTopics > 0 ) AND !isset( $_SESSION[ 'forumSEE' ][ $id ] ) ) OR $anzOpenTopics > count( $_SESSION[ 'forumSEE' ][ $id ] ) OR max( $_SESSION[ 'forumSEE' ][ $id ] ) <= ( $ftime - 4 ) ) {
+            $anzUnreadTopics = db_result( db_query( "SELECT COUNT(*) FROM `prefix_topics` LEFT JOIN `prefix_posts` ON `prefix_posts`.`id` = `prefix_topics`.`last_post_id` WHERE `prefix_topics`.`fid` = " . $id . " AND `prefix_posts`.`time` >= " . $_SESSION[ 'lastlogin' ] ), 0 );
+            if (((  $anzUnreadTopics > 0 ) AND 
+            		!isset( $_SESSION[ 'forumSEE' ][ $id ] ) ) OR
+            		$anzUnreadTopics > count( $_SESSION[ 'forumSEE' ][ $id ] )
+            		OR max( $_SESSION[ 'forumSEE' ][ $id ] ) <= ( $ftime - 4 ) )
+            {
                 return ( 'nord' );
             } else {
                 return ( 'ord' );
@@ -40,6 +46,18 @@ function forum_get_ordner( $ftime, $id, $fid = 0 )
     } else {
         return ( 'ord' );
     }
+}
+
+/**
+ * Checkt, ob ein Post neu ist
+ * @param $ftime Die letzte Updatezeit des Topics
+ * @param $id Die Id des Topics
+ * @param $postid die Id des Posts
+ */
+function post_is_new($ftime, $topicId, $forumId) {
+	// wir rufen ganz frech forum_get_ordner auf und überprüfen den rückgabewert
+	$result = forum_get_ordner($ftime, $topicId, $forumId) == 'nord' ? true : false;
+	return $result;
 }
 
 function check_for_pm_popup( )

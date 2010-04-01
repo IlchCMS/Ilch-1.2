@@ -4,8 +4,7 @@
 defined( 'main' ) or die( 'no direct access' );
 // check ob ein fehler aufgetreten ist.
 check_forum_failure( $forum_failure );
-// toipc als gelesen markieren
-$_SESSION[ 'forumSEE' ][ $fid ][ $tid ] = time();
+
 
 $title = $allgAr[ 'title' ] . ' :: Forum :: ' . $aktTopicRow[ 'name' ] . ' :: Beitr&auml;ge zeigen';
 $hmenu = $extented_forum_menu . '<a class="smalfont" href="index.php?forum">Forum</a><b> &raquo; </b>' . aktForumCats( $aktForumRow[ 'kat' ] ) . '<b> &raquo; </b><a class="smalfont" href="index.php?forum-showtopics-' . $fid . '">' . $aktForumRow[ 'name' ] . '</a><b> &raquo; </b>';
@@ -79,6 +78,8 @@ while ( $row = db_fetch_assoc( $erg ) ) {
         $row[ 'change' ] = '&nbsp;<a href="index.php?forum-editpost-' . $tid . '-' . $row[ 'id' ] . '">' . $lang[ 'change' ] . '</a>';
     }
     $row[ 'posts' ] = ( $row[ 'posts' ] ? '<br />Posts: ' . $row[ 'posts' ] : '' ) . '<br />';
+    
+    $row['NEW'] = post_is_new($row["time"], $tid, $fid) ? "true" : "false";
     $tpl->set_ar_out( $row, 1 );
     
     $i++;
@@ -112,6 +113,10 @@ if ( $forum_rights[ 'mods' ] == true ) {
     $tpl->set( 'tid', $tid );
     $tpl->out( 3 );
 }
+
+// toipc als gelesen markieren
+$_SESSION[ 'forumSEE' ][ $fid ][ $tid ] = time();
+
 $design->footer();
 
 ?>
