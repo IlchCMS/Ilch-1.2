@@ -33,7 +33,7 @@
 
 <div align="center">{SITELINK}</div>
 
-{EXPLODE}
+{EXPLODE "formular_eintrag"}
 
 <!-- G &auml; S T E B U C H   E N T E R   F O R M U L A R -->
 
@@ -97,12 +97,12 @@ function RestlicheZeichenErmitteln(d)
 		<td class="Cnorm"><input type="text" value="{uname}" tabindex="1" name="name"></td>
 	</tr><tr>
     <td class="Cmite"><b>{_lang_mail}</b> *</td>
-		<td class="Cnorm"><input type="text" name="mail" tabindex="2"></td>
+		<td class="Cnorm"><input type="text" name="mail" tabindex="2" value="{MAIL}"></td>
 	</tr><tr>
     <td class="Cmite"><b>{_lang_homepage}</b> *</td>
-		<td class="Cnorm"><input type="text" name="page" tabindex="3"></td>
+		<td class="Cnorm"><input type="text" name="page" tabindex="3" value="{PAGE}"></td>
 	</tr><tr>
-  <td class="Cmite" v><b>{_lang_message}</b><br/><br/>{SMILIES}</td>
+  <td class="Cmite"><b>{_lang_message}</b><br/><br/>{SMILIES}</td>
 	<td class="Cnorm">
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
       <tr>
@@ -110,11 +110,11 @@ function RestlicheZeichenErmitteln(d)
       <!-- BB Code START -->{__BBCodeButtons__}<!-- BB Code START -->
 				</td>
       </tr><tr class="Cnorm">
-        <td width="100%"><textarea style="width: 98%" onblur="RestlicheZeichenErmitteln(this);" onchange="RestlicheZeichenErmitteln(this);" onfocus="RestlicheZeichenErmitteln(this);" onkeydown="RestlicheZeichenErmitteln(this);" onkeyup="RestlicheZeichenErmitteln(this);" cols="50" rows="10" tabindex="4" name="txt"></textarea><br />Noch <input size="3" name="Laenge" value="{TXTL}"> {_lang_signs}</td>
+        <td width="100%"><textarea style="width: 98%" onblur="RestlicheZeichenErmitteln(this);" onchange="RestlicheZeichenErmitteln(this);" onfocus="RestlicheZeichenErmitteln(this);" onkeydown="RestlicheZeichenErmitteln(this);" onkeyup="RestlicheZeichenErmitteln(this);" cols="50" rows="10" tabindex="4" name="txt">{TEXT}</textarea><br />Noch <input size="3" name="Laenge" value="{TXTL}"> {_lang_signs}</td>
       </tr>
     </table></td>
 	</tr>{ANTISPAM}<tr class="Cdark">
-  <td></td><td><input type="submit" value="{_lang_formsub}" tabindex="5" accesskey="s"></td>
+  <td></td><td><input type="submit" value="{_lang_formsub}" tabindex="5" accesskey="s">  &nbsp; <input name="preview" type="submit" value="{_lang_preview}" /></td>
 	</tr></table></form>
 
 {EXPLODE}
@@ -148,4 +148,13 @@ function RestlicheZeichenErmitteln(d)
       {EXPLODE}
     </td>
   </tr>
+</table>
+{EXPLODE "preview"}
+<table class="border" width="100%">
+	<tr>
+		<td class="Chead"><b>{_lang_preview}</b></td>
+	</tr>
+	<tr class="Cnorm">
+		<td>{TEXT}</td>
+	</tr>
 </table>
