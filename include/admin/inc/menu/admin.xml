@@ -138,5 +138,10 @@
    	<modul>
    		<title>Partner</title>
    		<url>admin.php?archiv-partners</url></modul></list>
+   <list title="Module">
+   	<modul>
+   		<title>Modulübersicht</title>
+   		<url>admin.php?modules</url>
+   	</modul></list>
 
 </menu>
