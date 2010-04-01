@@ -3,6 +3,10 @@
 // Support www.ilch.de
 defined( 'main' ) or die( 'no direct access' );
 
+/**
+ * Die Adminnavigation aus der angegeben XML-Datei auslesen
+ * @param $file die zu lesende XML-Datei
+ */
 function get_ini_menu( $file )
 {
     $menus = simplexml_load_file( $file );
@@ -14,6 +18,7 @@ function get_ini_menu( $file )
         $tpl->set_out( 'headline', $liste->attributes()->title, 0 );
         $tpl->out( 1 );
         foreach ( $liste->modul AS $mod ) {
+        	// wenn der nutzer die nötigen rechte hat
             if ( $mod->right >= $_SESSION[ 'authright' ] OR !isset( $mod->right ) ) {
                 $tpl->set_ar_out( Array(
                      'url' => $mod->url,
