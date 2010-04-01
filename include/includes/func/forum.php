@@ -17,6 +17,24 @@ function getmods( $fid )
         return ( '' );
     }
 }
+
+/**
+ * Gibt die ids aller Forummoderatoren des entsprechenden Forums zurück
+ * @param $fid die Forum Id des Forums, dessen Moderatoren gebraucht werden
+ */
+function getmod_ids($fid) 
+{
+	$erg = db_query(sprintf("SELECT `uid` FROM `prefix_forummods` WHERE fid=%d", $fid));
+	$mods = array();
+	if(db_num_rows($erg) > 0) {
+		while($row = db_fetch_assoc($erg)) {
+			$mods[] = $row["uid"];
+		}
+	}
+	return $mods;
+}
+
+
 // forum oder topic las update zeit
 // id ( forum oder topic id )
 // fid ( 0 is forum, > 0 is forum_id_vom_topic )
@@ -58,6 +76,32 @@ function post_is_new($ftime, $topicId, $forumId) {
 	// wir rufen ganz frech forum_get_ordner auf und überprüfen den rückgabewert
 	$result = forum_get_ordner($ftime, $topicId, $forumId) == 'nord' ? true : false;
 	return $result;
+}
+
+/**
+ * Checkt, ob ein gegebener Post existiert oder nicht
+ * @param int $postId
+ */
+function post_exists($postId) {
+	return db_num_rows(db_query(sprintf("SELECT `id` FROM `prefix_posts` WHERE id=%d", $postId)));
+}
+
+/**
+ * Gibt den Titel des Topics zurück
+ * @param $topicId
+ */
+function get_topic_title($topicId) {
+	$result = db_fetch_assoc(db_query(sprintf("SELECT `name` FROM `prefix_topics` WHERE id = %d", $topicId)));
+	return $result["name"];
+}
+
+/**
+ * Gibt die Forum id des gegebenen Topics zurück
+ * @param int $topicId
+ */
+function get_forum_id($topicId) {
+	$row = db_fetch_assoc(db_query(sprintf("SELECT `fid` FROM `prefix_topics` WHERE id=%d", $topicId)));
+	return $row["fid"];
 }
 
 function check_for_pm_popup( )

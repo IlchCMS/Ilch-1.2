@@ -2,7 +2,7 @@
 // Copyright by: Manuel
 // Support: www.ilch.de
 defined( 'main' ) or die( 'no direct access' );
-// Kategorien aufschlüsseln
+// Kategorien aufschlï¿½sseln
 function aktForumCats( $catAR, $trenn = 'hmenu' )
 {
     $out = '';
@@ -146,6 +146,9 @@ switch ( $menu->get( 1 ) ) {
     case 'search':
         $incdatei = 'suchen.php';
         break;
+    case 'reportpost':
+    	$incdatei = 'report_post.php';
+    	break;
 }
 
 if ( isset( $incdatei ) ) {
