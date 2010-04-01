@@ -10,7 +10,7 @@
 define( 'main', TRUE );
 
 //Konfiguration zur Anzeige von Fehlern
-//Auf http://www.php.net/manual/de/function.error-reporting.php sind die verfügbaren Modi aufgelistet
+//Auf http://www.php.net/manual/de/function.error-reporting.php sind die verfï¿½gbaren Modi aufgelistet
 @error_reporting( E_ALL ^ E_NOTICE ^ E_DEPRECATED );
 date_default_timezone_set( 'Europe/Berlin' );
 
@@ -36,10 +36,13 @@ site_statistic();
 load_global_lang();
 load_modul_lang();
 
+/* ENTWICKLUNGSVERSION SQL UPDATES */
+require_once('update/update.php');
+
 // Modul oeffnen
 require_once( 'include/contents/' . $menu->get_url() );
 
-// Datenbank schließen
+// Datenbank schlieï¿½en
 db_close();
 if ( false ) { //debugging aktivieren
     debug( 'anzahl sql querys: ' . $count_query_xyzXYZ );

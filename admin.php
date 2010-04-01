@@ -11,7 +11,7 @@ define( 'main', TRUE );
 define( 'admin', TRUE );
 
 //Konfiguration zur Anzeige von Fehlern
-//Auf http://www.php.net/manual/de/function.error-reporting.php sind die verfügbaren Modi aufgelistet
+//Auf http://www.php.net/manual/de/function.error-reporting.php sind die verfï¿½gbaren Modi aufgelistet
 @error_reporting( E_ALL ^ E_NOTICE ^ E_DEPRECATED );
 date_default_timezone_set( 'Europe/Berlin' );
 
@@ -40,12 +40,15 @@ load_modul_lang( 2 );
 // Navigation in Variable als Array speichern
 $menuAr = $menu->get_menu();
 
+/* ENTWICKLUNGSVERSION SQL UPDATES */
+require_once('update/update.php');
+
 // Modul oeffnen
 if ( user_has_admin_right( $menu ) ) {
     require_once( 'include/admin/' . $menu->get_url( 'admin' ) );
 }
 
-// Datenbank schließen
+// Datenbank schlieï¿½en
 db_close();
 if ( false ) { //debugging aktivieren
     debug( 'anzahl sql querys: ' . $count_query_xyzXYZ );
