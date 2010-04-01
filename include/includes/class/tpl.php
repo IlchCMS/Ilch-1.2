@@ -189,8 +189,8 @@ class tpl
      */
     function set_assoc_keys($inhalt)
     {
-    	// wir splitten zunächst bei [{EXPLODE ]
-    	$parts = preg_split("/{EXPLODE /", $inhalt);
+    	// wir splitten zunächst bei [{EXPLODE]
+    	$parts = preg_split("/{EXPLODE/", $inhalt);
     	// den ersten teil müssen wir wegschmeißen, da er
     	// sicher irrelevant ist
     	array_splice($parts, 0, 1);
@@ -201,11 +201,13 @@ class tpl
     		$key = $keyParts[0];
     		// jetzt noch die anführungszeichen entfernen, also das
     		// erste und das letzte zeichen
-    		$key = substr($key, 1, sizeof($key) - 2);
+    		$key = substr($key, 2, sizeof($key) - 2);
     		
-    		// und dann in parts setzen
-    		array_splice($keyParts, 0, 1);
-    		$this->parts[$key] = implode("}", $keyParts);
+    		if($key != "") {
+    			// und dann in parts setzen
+    			array_splice($keyParts, 0, 1);
+    			$this->parts[$key] = implode("}", $keyParts);
+    		}	
     	}
     }
     
