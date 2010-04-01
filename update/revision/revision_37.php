@@ -14,9 +14,9 @@ VALUES (
 'revision', 'input', 'Allgemeine Optionen', 'Revisionsnummer', '0', '0'
 );");
 
-db_query("DROP TABLE `prefix_modules` ;
+db_query("DROP TABLE `prefix_modules` ;");
 
-CREATE TABLE IF NOT EXISTS `prefix_modules` (
+db_query("CREATE TABLE IF NOT EXISTS `prefix_modules` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `url` varchar(20) NOT NULL DEFAULT '',
   `name` varchar(50) NOT NULL DEFAULT '',
@@ -26,9 +26,9 @@ CREATE TABLE IF NOT EXISTS `prefix_modules` (
   `menu` varchar(200) NOT NULL,
   `pos` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de' AUTO_INCREMENT=39 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de' AUTO_INCREMENT=39 ;");
 
-INSERT INTO `prefix_modules` (`url`, `name`, `gshow`, `ashow`, `fright`, `menu`, `pos`) VALUES
+db_query("INSERT INTO `prefix_modules` (`url`, `name`, `gshow`, `ashow`, `fright`, `menu`, `pos`) VALUES
 ('gallery', 'Gallery', 1, 0, 1, 'Content', 4),
 ('menu', 'Navigation', 1, 0, 0, 'Admin', 2),
 ('groups', 'Teams', 1, 0, 1, 'Clanbox', 2),
