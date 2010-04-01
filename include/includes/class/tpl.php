@@ -86,7 +86,7 @@ class tpl
         // dadurch können auch die Explode mit Keys ganz normal über
         // deren index angesprochen werden
         // siehe Entwicklerdokumentation
-        $this->parts = preg_split( '/\{EXPLODE.*}/', $inhalt);
+        $this->parts = preg_split( '/\{EXPLODE( ".*")?}/', $inhalt);
         
         // die keys für {EXPLODE "my_key"} setzen
         $this->set_assoc_keys($inhalt);
