@@ -13,13 +13,33 @@ class tpl
     var $lang;
     var $ort;
     
+    /**
+     * Der Konstruktor dieser Klasse
+     * 
+     * Initialisiert das Template mit einer Datei (Ausnahme: $ort = 3),
+     * die als Template verwendet werden soll.
+     * Wie Templates genau aussehen, ist in der Entwicklerdoku beschrieben
+     * 
+     * @param $file, die Datei aus der das Template geladen werden soll
+     * Einzige Ausnahme $ort = 3, dann steht das Template direkt als String
+     * in $file
+     * 
+     * @param $ort
+     * $ort = 0: das Template liegt im Ordner include/templates (normale Templates)
+     * $ort = 1: das Template liegt in include/admin/templates (Admintemplates)
+     * $ort = 2: anderer Ort, Pfad ist ab include/ (sonstige Templates)
+     * $ort = 3: das Template ist schon in $file geladen
+     */
     function tpl( $file, $ort = 0 )
     {
+    	// die arrays initialisieren
         $this->parts                       = array( );
         $this->keys                        = array( );
         $this->lists                       = array( );
         $this->lang                        = array( );
         $this->ort                         = $ort;
+        
+        // die Variable __BBCodeButtons__ wird immer durch die Buttons ersetzt
         $this->keys[ '__BBCodeButtons__' ] = getBBCodeButtons(); //BBCode2.0 Buttons
         
         // file bearbeiten, weil file auch ohne .htm angegeben werden kann.
@@ -51,12 +71,25 @@ class tpl
             $inhalt = implode( "", file( $file ) );
         }
         
+        // jetzt steckt in $inhalt der Inhalt des Templates
+        
+        // Sprachdateien einfügen
         global $lang;
         $this->lang = $lang;
         $inhalt     = $this->replace_lang( $inhalt );
         
+        // Listen einfügen
         $inhalt      = $this->replace_list( $inhalt );
-        $this->parts = explode( '{EXPLODE}', $inhalt );
+        
+        // die einzelnen Teile setzen
+        // wir splitten bei {EXPLODE[X]}, wobei [X] beliebig viele zeichen sind
+        // dadurch können auch die Explode mit Keys ganz normal über
+        // deren index angesprochen werden
+        // siehe Entwicklerdokumentation
+        $this->parts = preg_split( '/\{EXPLODE.*}/', $inhalt);
+        
+        // die keys für {EXPLODE "my_key"} setzen
+        $this->set_assoc_keys($inhalt);
     }
     
     
@@ -146,6 +179,34 @@ class tpl
     {
         $this->set_ar( $ar );
         $this->out( $pos );
+    }
+    
+    /**
+     * Die assoziativen Keys für das Template setzen
+     * Ein assoziativer Key wird über {EXPLODE "my_key"} gesetzt
+     * für nähere Informationen siehe Entwicklerdokumentation
+     * @param $inhalt der String, aus dem die assoziativen Keys gelesen werden sollen
+     */
+    function set_assoc_keys($inhalt)
+    {
+    	// wir splitten zunächst bei [{EXPLODE ]
+    	$parts = preg_split("/{EXPLODE /", $inhalt);
+    	// den ersten teil müssen wir wegschmeißen, da er
+    	// sicher irrelevant ist
+    	array_splice($parts, 0, 1);
+    	
+    	foreach($parts as $explodeKey => $part) {
+    		// wir splitten bei } und nehmen uns dann das erste ergebnis
+    		$keyParts = preg_split("/}/", $part);
+    		$key = $keyParts[0];
+    		// jetzt noch die anführungszeichen entfernen, also das
+    		// erste und das letzte zeichen
+    		$key = substr($key, 1, sizeof($key) - 2);
+    		
+    		// und dann in parts setzen
+    		array_splice($keyParts, 0, 1);
+    		$this->parts[$key] = implode("}", $keyParts);
+    	}
     }
     
     function set_out( $k, $v, $pos )

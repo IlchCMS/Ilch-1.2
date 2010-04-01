@@ -20,9 +20,9 @@ while ( $row = db_fetch_assoc( $erg ) ) {
         $row[ 'bildutime' ] = $lang[ 'date' ] . ': ' . $row[ 'time' ] . '<br />';
     }
     $row[ 'class' ] = $class;
-    $tpl->set_ar_out( $row, 1 );
+    $tpl->set_ar_out( $row, "tabelle");
 }
-$tpl->out( 2 );
+$tpl->out("ende");
 
 $design->footer();
 
