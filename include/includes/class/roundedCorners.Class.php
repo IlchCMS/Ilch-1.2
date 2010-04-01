@@ -123,15 +123,15 @@ class roundedCorner
     
     protected $_border = false;
     
-    public function generateRoundedCornerImage($imageObj, $radius = '10', $backgroundcolor = NULL, $roundcorners = 'all', $border = false, $savePath = '', $saveName = 'fallback', $transparencyColor = 'ff00f0')
+    public function generateRoundedCornerImage($imageObj, $radius = '10', $backgroundcolor = NULL, $roundcorners = 'all', $border = false, $borderThickness = 1, $borderColor = 'ACACAC', $savePath = '', $saveName = 'fallback', $transparencyColor = 'ff00f0')
     {
         list( $this->_source_width, $this->_source_height, $this->_source_type ) = getimagesize( $imageObj );
         $this->_radius = $radius;
         if($border == true) {
             $this->_border = $border;
             $this->_radius_2 = $radius + 5;
-            $this->_borderThickness = 0;
-            $this->_borderColor = $this->hex2rgb('ACACAC');
+            $this->_borderThickness = $borderThickness;
+            $this->_borderColor = $this->hex2rgb($borderColor);
         }
         $this->_transparencyColor = $transparencyColor;
         $this->_backgroundcolor = $this->getBackgroundcolor($backgroundcolor);
@@ -148,7 +148,7 @@ class roundedCorner
     {
         if($this->_borderThickness != -1 && $this->_border == true){
             $color = imagecolorallocate($this->_source_image, $this->_borderColor[0], $this->_borderColor[1], $this->_borderColor[2]);
-            imagerectangle($this->_source_image, $this->_borderThickness, $this->_borderThickness, $this->_source_width - $this->_borderThickness, $this->_source_height - $this->_borderThickness, $color);
+            imagerectangle($this->_source_image, $this->_borderThickness, $this->_borderThickness, $this->_source_width - $this->_borderThickness -1, $this->_source_height - $this->_borderThickness - 1, $color);
             $this->_borderThickness--;
             $this->drawBorder();
         }
@@ -319,7 +319,7 @@ class roundedCorner
         }
         
         $this->_corner_image = imagerotate( $this->_corner_image, 90, 0 );
-        $this->_corner_image_2 = imagerotate( $this->_corner_image_2, 90, 0 );
+        if ($this->_border) { $this->_corner_image_2 = imagerotate( $this->_corner_image_2, 90, 0 ); }
         
         if($this->_roundcorners == 'all' || in_array('bottomleft', $this->_roundcorners)){
             
@@ -349,7 +349,7 @@ class roundedCorner
         }
         
         $this->_corner_image = imagerotate( $this->_corner_image, 90, 0 );
-        $this->_corner_image_2 = imagerotate( $this->_corner_image_2, 90, 0 );
+        if ($this->_border) { $this->_corner_image_2 = imagerotate( $this->_corner_image_2, 90, 0 ); }
         
         if($this->_roundcorners == 'all' || in_array('bottomright', $this->_roundcorners)){
             
@@ -379,7 +379,7 @@ class roundedCorner
         }
         
         $this->_corner_image = imagerotate( $this->_corner_image, 90, 0 );
-        $this->_corner_image_2 = imagerotate( $this->_corner_image_2, 90, 0 );
+        if ($this->_border) { $this->_corner_image_2 = imagerotate( $this->_corner_image_2, 90, 0 ); }
 
         if($this->_roundcorners == 'all' || in_array('topright', $this->_roundcorners)){        
             imagecopymerge(
