@@ -536,10 +536,10 @@ function get_lower( $value )
 /**
  * Gib alle Dateien des angegeben Ordners mit der gegebenen Endung uas
  * @param $dir der Ordner (z.B. "include/admin"
- * @param $ext die Extension, z.B. "php"
- * @param $spez TODO document
+ * @param $ext die Extension, z.B. "php" oder array("php","html","htm")
+ * @param $sExt gibt die Dateierweiterung mit aus
  */
-function read_ext( $dir, $ext = '', $spez = 0 )
+function read_ext( $dir, $ext = '', $sExt = 0 )
 {
     $buffer = Array( );
     if ( !is_array( $ext ) ) {
@@ -551,8 +551,8 @@ function read_ext( $dir, $ext = '', $spez = 0 )
     while ( $file = readdir( $open ) ) {
         $file_info = pathinfo( $file );
         if ( $file != "." AND $file != ".." AND !is_dir( $dir . '/' . $file ) AND ( in_array( $file_info[ "extension" ], $ext ) OR empty( $ext ) ) ) {
-			if ( $spez == 1 ) {
-				$buffer[ ] = basename($dir.$file,'.png');
+			if ( $sExt == 1 ) {
+				$buffer[ ] = basename($dir.$file,'.'.$file_info[ "extension" ]);
 			} else {
 				$buffer[ ] = $file;
 			}
