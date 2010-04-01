@@ -9,7 +9,7 @@ function get_teampic_ar( )
     $ar = array( );
     $o  = opendir( 'include/images/teams' );
     while ( $f = readdir( $o ) ) {
-        if ( $f != '.' AND $f != '..' ) {
+        if ( !preg_match("/\..*/", $f) ) {
             $ar[ 'include/images/teams/' . $f ] = $f;
         }
     }
