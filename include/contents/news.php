@@ -25,9 +25,9 @@ function news_find_kat( $kat )
     }
     
     if ( !empty( $pfadzumBild ) ) {
-        $kategorie = '<img style="" src="' . $pfadzumBild . '" alt="' . $kat . '" />';
+        $kategorie = '<img style="" src="' . $pfadzumBild . '" alt="' . $kat . '" class="newscategoryimage"/>';
     } else {
-        $kategorie = '<b>' . $kat . '</b><br /><br />';
+        $kategorie = '<span class="newscategoryimage">' . $kat . '</span>';
     }
     
     return ( $kategorie );
@@ -104,7 +104,6 @@ if ( !is_numeric( $menu->get( 1 ) ) ) {
        OR `a`.`news_recht` = 0
     ORDER BY `news_time` DESC
     LIMIT " . $anfang . "," . $limit;
-        // echo '<pre>'.$abf.'</pre>';
         $erg = db_query( $abf );
         while ( $row = db_fetch_assoc( $erg ) ) {
             $k0m          = db_query( "SELECT COUNT(ID) FROM `prefix_koms` WHERE `uid` = " . $row[ 'id' ] . " AND `cat` = 'NEWS'" );
@@ -122,7 +121,9 @@ if ( !is_numeric( $menu->get( 1 ) ) ) {
             $row[ 'text' ] = bbcode( $row[ 'text' ] );
             $tpl->set_ar_out( $row, 0 );
         }
-        $tpl->set_out( 'SITELINK', $MPL, 1 );
+        if(strlen($MPL)>0){
+          $tpl->set_out( 'SITELINK', $MPL, 1 );
+        }
         unset( $tpl );
     }
 } else {

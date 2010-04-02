@@ -1,34 +1,18 @@
-<div>
-  <strong>{datum}</strong>
-  <hr style="height: 0px; border: dotted #000000 0px; border-top-width: 1px; " />
+<div class="newsitem" id="news-{id}">
+  <div class="newsdate">{datum}</div>
+  {kate}
+  <div class="newstitle">
+        <h3><a href="index.php?news-{id}">{title}</a></h3>
+        <span class="smalfont">{_lang_from} {username}</span>
+  </div>
+  <div class="newscontentwrapper">
+    {text}
+    <div>
+      <a class="floatleft" href="index.php?news-{id}">{kom} {_if_{kom}=='1'}{_lang_comment}{_else_}{_lang_comments}{/_endif}</a>
+      <span class="floatright">{readwholenews}</span>
+    </div>
+  </div>
 </div>
-<div style="float:left; width:20%; text-align:center; ">{kate}</div>
-<div style="float:left; width:80%; padding-top:25px; ">
-  <table width="100%" border="0" align="center" cellpadding="1" cellspacing="0" class="cbg1">
-    <tr>
-      <td><strong><a href="index.php?news-{id}">{title}</a></strong></td>
-    </tr>
-    <tr>
-      <td class="smalfont">{_lang_from} {username}</td>
-    </tr>
-  </table>
-</div><br style="clear:both; " />
-<div>
-  <table width="100%"  border="0" cellspacing="0" cellpadding="2">
-    <tr>
-	  <td colspan="2">{text}</td>
-	</tr>
-    <tr>
-      <td width="50%"><a href="index.php?news-{id}">{kom} {_if_{kom}=='1'}{_lang_comment}{_else_}{_lang_comments}{/_endif} </a></td>
-      <td width="50%">
-        <div align="right">{readwholenews}</div>
-      </td>
-    </tr>
-  </table>
-</div>
-
-<br />
-<br />
 {EXPLODE}
 <br />
 <br /><center>{SITELINK}</center>
