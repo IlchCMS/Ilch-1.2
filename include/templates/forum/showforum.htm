@@ -24,6 +24,10 @@
 				<a class="smalfont" title="{topicl}" href="index.php?forum-showposts-{tid}-p{page}#{pid}">{topic}</a>
 		    <br />
 			  {_lang_from}: {erst}
+			{_if_{show_author}=='1'}
+			  <br />
+			  	{_lang_author} : {author}
+			{/_endif}
 		  </span>
 		</td>
   </tr>{EXPLODE}

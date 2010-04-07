@@ -21,7 +21,7 @@ $forum_array    = array( );
 $q    = "SELECT
   `a`.`id`, `a`.`cid`, `a`.`name`, `a`.`besch`,
   `a`.`topics`, `a`.`posts`, `b`.`name` as `topic`,
-  `c`.`id` as `pid`, `c`.`tid`, `b`.`rep`, `c`.`erst`, `c`.`time`,
+  `c`.`id` as `pid`, `c`.`tid`, `b`.`rep`, `b`.`erst` as `author`, `c`.`erst`, `c`.`time`,
   `a`.`cid`, `k`.`name` as `cname`
 FROM `prefix_forums` `a`
   LEFT JOIN `prefix_forumcats` `k` ON `k`.`id` = `a`.`cid`
@@ -50,6 +50,9 @@ while ( $r = db_fetch_assoc( $erg1 ) ) {
     $r[ 'mods' ]   = getmods( $r[ 'id' ] );
     $r[ 'datum' ]  = date( 'd.m.y - H:i', $r[ 'time' ] );
     $r[ 'page' ]   = ceil( ( $r[ 'rep' ] + 1 ) / $allgAr[ 'Fpanz' ] );
+
+    $r['show_author'] = $allgAr['threadersteller_in_uebersicht'];
+    
     $tpl->set_ar( $r );
     
     if ( $r[ 'cid' ] != $xcid ) {
