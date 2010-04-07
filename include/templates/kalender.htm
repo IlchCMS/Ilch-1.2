@@ -1,4 +1,4 @@
-<!-- Kalender Script © by Nickel -->
+<!-- Kalender Script ï¿½ by Nickel -->
 <table width="100%" cellpadding="0" border="0" cellspacing="0">
 <tr>
 	<td width="100%" valign="top">
@@ -32,4 +32,37 @@
 	</td>
 </tr>
 </table>
-<!-- Kalender Script © by Nickel -->
+<!-- Kalender Script ï¿½ by Nickel -->
+{EXPLODE "tooltips start"}
+<div class="kalender-event-tooltips" style="display: none">
+{EXPLODE "tooltip"}
+	<div id="calender-event-details-{id}" title="{title}">
+		{text}
+	</div>
+{EXPLODE "tooltips end"}
+</div>
+{EXPLODE "tooltips javascript"}
+<script language="Javascript" type="text/javascript">
+	var currentDialog;
+
+	$(
+		function() {
+			/*$(".kalender-event-tooltips > div").each(function(index,element) {
+				$(element).dialog({autoOpen: false});
+			});*/
+			
+			$(".calender-event").each(function(index,element) {
+					$(element).mouseover(function() {
+						currentDialog = $(document.getElementById(element.rel));
+						currentDialog.dialog(); 
+					});
+
+					$(element).mouseout(function() {
+						if(currentDialog != null) {
+							currentDialog.dialog('destroy');
+						}
+					});
+			});
+
+		});
+</script>

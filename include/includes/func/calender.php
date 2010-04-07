@@ -58,4 +58,17 @@ function getCalendar( $mon, $jahr, $url, $urlod, $data, $cellpadding = 2 )
     return ( $return_str );
 }
 
+/**
+ * gibt die tooltips aus
+ * TODO in der konfiguration fragen ob überhaupt tooltips gewünscht sind
+ * @param $calendartpl der tpl des kalenders, um kein eigenes tpl machen zu müssen
+ * @param $tooltips die gesammelten tooltips (mittels $tpl->get("tooltip"));
+ */
+function showTooltips(&$calendartpl, $tooltips) {
+	$calendartpl->out("tooltips javascript");
+	$calendartpl->out("tooltips start");
+	echo $tooltips;
+	$calendartpl->out("tooltips end");
+}
+
 ?>

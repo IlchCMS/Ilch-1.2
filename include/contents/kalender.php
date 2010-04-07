@@ -1,5 +1,5 @@
 <?php
-// Kalender Script © by Nickel
+// Kalender Script ï¿½ by Nickel
 defined( 'main' ) or die( 'no direct access' );
 // -----------------------------------------------------------|
 $title  = $allgAr[ 'title' ] . ' :: Kalender';
@@ -34,7 +34,7 @@ if ( $menu->getA( 2 ) == 'e' AND is_numeric( $menu->getE( 1 ) ) ) {
 $arr_month = array(
      '1' => 'Januar',
     'Februar',
-    'März',
+    'Mï¿½rz',
     'April',
     'Mai',
     'Juni',
@@ -137,8 +137,12 @@ elseif ( $view == 0 ) {
         $date = mktime( 0, 0, 0, $month, $i + 1, $year );
         $text = '';
         if ( isset( $data[ $date ] ) ) {
-            foreach ( $data[ $date ] as $info ) {
-                $text .= '<a href="?kalender-v' . $view . '-e' . $info[ 'id' ] . '">' . $info[ 'title' ] . '</a>;&nbsp;';
+            foreach ( $data[ $date ] as $eventinfo ) {
+                $text .= '<a class="calender-event" rel="calender-event-details-' . $eventinfo['id'] . '" href="?kalender-v' . $view . '-e' . $eventinfo[ 'id' ] . '">' . $eventinfo[ 'title' ] . '</a>;&nbsp;';
+            	
+				// bbcode anwenden
+				$eventinfo["text"] = BBCode($eventinfo["text"]);
+                $tooltips .= $tpl->set_ar_get($eventinfo, "tooltip");
             }
         }
         
@@ -148,8 +152,10 @@ elseif ( $view == 0 ) {
         $class               = ( $i % 2 ) ? 'Cnorm' : 'Cmite';
         $aus[ 'LIST_CLASS' ] = ( $i + 1 == date( 'j' ) && $month == date( 'n' ) && $year == date( 'Y' ) ) ? 'Cdark' : $class;
         $tpl->set_ar_out( $aus, 1 );
+
         unset( $aus );
     }
+      showTooltips($tpl, $tooltips);
 }
 // Liste der Tage (Listenansicht)
     elseif ( $view == 1 ) {
@@ -158,26 +164,31 @@ elseif ( $view == 0 ) {
         $date = mktime( 0, 0, 0, $month, $gday, $year );
         $i    = 1;
         if ( isset( $data[ $date ] ) ) {
-            foreach ( $data[ $date ] as $info ) {
+            foreach ( $data[ $date ] as $eventinfo ) {
                 $text = '';
-                $text .= '<a href="?kalender-v' . $view . '-e' . $info[ 'id' ] . '">' . $info[ 'title' ] . '</a>;&nbsp;';
+                $text .= '<a class="calender-event" rel="calender-event-details-' . $eventinfo['id'] . '" href="?kalender-v' . $view . '-e' . $eventinfo[ 'id' ] . '">' . $eventinfo[ 'title' ] . '</a>;&nbsp;';
                 $aus[ 'LIST_I' ] = $arr_day[ date( 'w', $date ) ];
-                $aus[ 'LIST_D' ] = date( 'H:i', $info[ 'time' ] );
+                $aus[ 'LIST_D' ] = date( 'H:i', $eventinfo[ 'time' ] );
                 $aus[ 'LIST_T' ]     = $text;
                 $class               = ( $i % 2 ) ? 'Cnorm' : 'Cmite';
                 $aus[ 'LIST_CLASS' ] = ( $i + 1 == date( 'j' ) && $month == date( 'n' ) && $year == date( 'Y' ) ) ? 'Cdark' : $class;
                 $tpl->set_ar_out( $aus, 1 );
                 unset( $aus );
                 $i++;
+                
+                // bbcode anwenden
+				$eventinfo["text"] = BBCode($eventinfo["text"]);
+                $tooltips .= $tpl->set_ar_get($eventinfo, "tooltip");
             }
         }
+        showTooltips($tpl, $tooltips);
         // Ganze Liste
     } elseif ( isset( $data ) ) {
         $i = 1;
         foreach ( $data as $date => $data1 ) {
             $text = '';
-            foreach ( $data1 as $info ) {
-                $text .= '<a href="?kalender-v' . $view . '-e' . $info[ 'id' ] . '">' . $info[ 'title' ] . '</a>;&nbsp;';
+            foreach ( $data1 as $eventinfo ) {
+                $text .= '<a class="calender-event" rel="calender-event-details-' . $eventinfo['id'] .'" href="?kalender-v' . $view . '-e' . $eventinfo[ 'id' ] . '">' . $eventinfo[ 'title' ] . '</a>;&nbsp;';
             }
             $aus[ 'LIST_I' ]     = date( 'd.m.Y', $date );
             $aus[ 'LIST_D' ]     = $arr_day[ date( 'w', $date ) ];
@@ -187,7 +198,12 @@ elseif ( $view == 0 ) {
             $tpl->set_ar_out( $aus, 1 );
             unset( $aus );
             $i++;
+            
+            // bbcode anwenden
+			$eventinfo["text"] = BBCode($eventinfo["text"]);
+            $tooltips .= $tpl->set_ar_get($eventinfo, "tooltip");
         }
+        showTooltips($tpl, $tooltips);
     } else {
         $aus[ 'LIST_I' ]     = '-';
         $aus[ 'LIST_D' ]     = '-';
