@@ -10,10 +10,11 @@ defined ('main') or die ( 'no direct access' );
 // DEVELOPERS PLEASE NOTE
 //
 // Some characters you may want to copy&paste:
-// ’ » „ “ — …
+// ï¿½ ï¿½ ï¿½ ï¿½ ï¿½ ï¿½
 
 $lang = array_merge($lang, array (
-	'top' => 'Nach oben'
+	'top' => 'Nach oben',
+	'report' => 'Beitrag melden'
 ) );
 
 ?>
