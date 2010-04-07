@@ -7,7 +7,7 @@ $updateFiles = array();
 $versions = array();
 
 foreach($files as $file) {
-	if(preg_match("/revision_[0-9]+/", $file)) {
+	if(preg_match("/^revision_[0-9]+/", $file)) {
 		$updateFiles[] = $file;
 		$parts = explode("_", $file);
 		$versionsnummer = explode(".", $parts[1]);
