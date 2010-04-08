@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<menu>
+
+  <list title="Gaestebuch">
+  
+    <modul>
+	  <title>Einträge verwalten</title>
+	  <url>admin.php?gbook</url>
+	</modul>
+	
+    <modul>
+	  <title>Badword-Liste</title>
+	  <url>admin.php?bbcode-badword</url>
+	</modul>
+	
+  </list>
+  
+</menu>
