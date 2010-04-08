@@ -71,4 +71,17 @@ function showTooltips(&$calendartpl, $tooltips) {
 	$calendartpl->out("tooltips end");
 }
 
+/**
+ * gibt den link zu einem event aus
+ * @param tpl $calendartpl der tpl des kalenders (zugriff auf "event link")
+ * @param $view view, was angezeigt werden soll
+ * @param array $eventinfo die info des events
+ * @return den link
+ */
+function eventlink(&$calendartpl, $view, $eventinfo) {
+	$calendartpl->set_ar($eventinfo);
+	$calendartpl->set("view", $view);
+	return $calendartpl->get("event link");
+}
+
 ?>

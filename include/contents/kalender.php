@@ -34,7 +34,7 @@ if ( $menu->getA( 2 ) == 'e' AND is_numeric( $menu->getE( 1 ) ) ) {
 $arr_month = array(
      '1' => 'Januar',
     'Februar',
-    'Mï¿½rz',
+    'März',
     'April',
     'Mai',
     'Juni',
@@ -138,7 +138,7 @@ elseif ( $view == 0 ) {
         $text = '';
         if ( isset( $data[ $date ] ) ) {
             foreach ( $data[ $date ] as $eventinfo ) {
-                $text .= '<a class="calender-event" rel="calender-event-details-' . $eventinfo['id'] . '" href="?kalender-v' . $view . '-e' . $eventinfo[ 'id' ] . '">' . $eventinfo[ 'title' ] . '</a>;&nbsp;';
+                $text .= eventlink($tpl, $view, $eventinfo);
             	
 				// bbcode anwenden
 				$eventinfo["text"] = BBCode($eventinfo["text"]);
@@ -166,7 +166,7 @@ elseif ( $view == 0 ) {
         if ( isset( $data[ $date ] ) ) {
             foreach ( $data[ $date ] as $eventinfo ) {
                 $text = '';
-                $text .= '<a class="calender-event" rel="calender-event-details-' . $eventinfo['id'] . '" href="?kalender-v' . $view . '-e' . $eventinfo[ 'id' ] . '">' . $eventinfo[ 'title' ] . '</a>;&nbsp;';
+                $text .= eventlink($tpl, $view, $eventinfo);
                 $aus[ 'LIST_I' ] = $arr_day[ date( 'w', $date ) ];
                 $aus[ 'LIST_D' ] = date( 'H:i', $eventinfo[ 'time' ] );
                 $aus[ 'LIST_T' ]     = $text;
@@ -188,7 +188,7 @@ elseif ( $view == 0 ) {
         foreach ( $data as $date => $data1 ) {
             $text = '';
             foreach ( $data1 as $eventinfo ) {
-                $text .= '<a class="calender-event" rel="calender-event-details-' . $eventinfo['id'] .'" href="?kalender-v' . $view . '-e' . $eventinfo[ 'id' ] . '">' . $eventinfo[ 'title' ] . '</a>;&nbsp;';
+                $text .= eventlink($tpl, $view, $eventinfo);
             }
             $aus[ 'LIST_I' ]     = date( 'd.m.Y', $date );
             $aus[ 'LIST_D' ]     = $arr_day[ date( 'w', $date ) ];
