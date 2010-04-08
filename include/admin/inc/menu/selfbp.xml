@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<menu>
+
+  <list title="Eigene Box/Page">
+  
+    <modul>
+	  <title>Übersicht</title>
+	  <url>admin.php?selfbp-overview</url>
+	</modul>
+	
+    <modul>
+	  <title>Neue Box/Page</title>
+	  <url>admin.php?selfbp</url>
+	</modul>
+	
+  </list>
+  
+</menu>

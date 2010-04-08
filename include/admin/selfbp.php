@@ -18,6 +18,9 @@ switch($menu->get(1)) {
 	case 'imagebrowser':
 		$file = 'imagebrowser.php';
 		break;
+	case 'overview':
+		$file = 'overview.php';
+		break;
 	default:
 		$file = 'selfbp.php';
 		break;
