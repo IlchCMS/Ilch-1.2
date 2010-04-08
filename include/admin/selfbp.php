@@ -13,6 +13,16 @@ foreach ( $funcs as $file ) {
     require_once( 'include/admin/inc/selfbp/' . $file );
 }
 
+switch($menu->get(1)) {
+	
+	case 'imagebrowser':
+		$file = 'imagebrowser.php';
+		break;
+	default:
+		$file = 'selfbp.php';
+		break;
+}
+require_once("include/admin/inc/selfbp/pages/" . $file);
 
 // gallery image browser
 if ( $menu->get( 1 ) == 'imagebrowser' ) {
@@ -44,6 +54,7 @@ if ( $menu->get( 1 ) == 'imagebrowser' ) {
     $design->footer( 1 );
 }
 
+// check ob selfp und selfbp beschreibbar sind
 $f = false;
 if ( !is_writable( './include/contents/selfbp/selfp' ) ) {
     $f = true;
@@ -109,28 +120,5 @@ if ( isset( $_REQUEST[ 'del' ] ) ) {
     }
 }
 
-$text       = get_text( $akl );
-$properties = get_properties( $text );
-if ( !isset( $properties[ 'wysiwyg' ] ) ) {
-    $properties[ 'wysiwyg' ] = 1;
-}
-$text     = edit_text( $text, false );
-// $text = rteSafe($text);
-$filename = get_filename( $akl );
-$akl      = get_akl( $akl );
-$view     = get_view( $properties[ 'view' ] );
-$tpl->set_ar_out( array(
-     'akl' => $akl,
-    'text' => $text,
-    'filename' => $filename,
-    'exfilename' => $filename,
-    'wysiwyg' => $properties[ 'wysiwyg' ],
-    'title' => $properties[ 'title' ],
-    'hmenu' => $properties[ 'hmenu' ],
-    'view' => $view,
-    'viewoptions' => $properties[ 'viewoptions' ],
-    'wysiwyg_editor' => $properties[ 'wysiwyg' ] == 1 ? '<script type="text/javascript">buttonPath = "include/images/icons/editor/"; imageBrowse = "admin.php?selfbp-imagebrowser"; makeWhizzyWig("bbwy", "all");</script>' : '' 
-), 0 );
-$design->footer();
 
 ?>
