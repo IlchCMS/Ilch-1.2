@@ -26,11 +26,12 @@ if(!isset($allgAr["revision"])) {
 foreach($versions as $key => $version) {
 
 	if($currentversion < $version) {
-		// dann müssen wir ein update machen
-		include_once("update/revision/" . $key. ".php");
-		$currentversion = $version;
+	  if(file_exists('update/revision/' . $key. '.php')) {
+      // dann müssen wir ein update machen
+      include_once('update/revision/' . $key. '.php');
+      $currentversion = $version;
+      // aktuelle version setzen
+      db_query(sprintf("UPDATE `prefix_config` SET `wert` =  '%d' WHERE `schl` = 'revision';", $currentversion));
+    }
 	}
 }
-
-// aktuelle version setzen
-db_query(sprintf("UPDATE `prefix_config` SET `wert` =  '%d' WHERE `schl` = 'revision';", $currentversion));
