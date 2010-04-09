@@ -18,12 +18,13 @@ foreach($files as $file) {
 asort($versions);
 
 if(!isset($allgAr["revision"])) {
-	$currentverison = 0;
+	$currentversion = 0;
 } else {
 	$currentversion = $allgAr["revision"];
 }
 
 foreach($versions as $key => $version) {
+
 	if($currentversion < $version) {
 		// dann müssen wir ein update machen
 		include_once("update/revision/" . $key. ".php");
@@ -33,4 +34,3 @@ foreach($versions as $key => $version) {
 
 // aktuelle version setzen
 db_query(sprintf("UPDATE `prefix_config` SET `wert` =  '%d' WHERE `schl` = 'revision';", $currentversion));
-?>
