@@ -33,6 +33,9 @@ function getpakar( )
     }
     return ( $ar );
 }
+
+
+
 // pak paket erstellen.
 if ( $menu->get( 1 ) == 'createpak' ) {
     $name = 'smilies' . date( 'Y-m-d' ) . '.pak';
@@ -51,6 +54,7 @@ if ( $menu->get( 1 ) == 'createpak' ) {
 // header ausgeben
 $design = new design( 'Ilch Admin-Control-Panel :: Smilies', '', 2 );
 $design->header();
+
 // smilie loeschen
 if ( $menu->getA( 1 ) == 'd' AND is_numeric( $menu->getE( 1 ) ) ) {
     db_query( 'DELETE FROM `prefix_smilies` WHERE `id` = "' . $menu->getE( 1 ) . '" LIMIT 1' );
@@ -102,6 +106,10 @@ if ( isset( $_POST[ 'i' ] ) AND !empty( $_POST[ 'pak' ] ) AND file_exists( 'incl
     }
     echo '</table><br /><br />';
 }
+// sortierung speichern
+if(isset($_POST["pos"])) {
+	require_once("include/admin/inc/smilies/positioning.php");
+}
 
 $ar = array(
      'url' => '',
@@ -123,6 +131,7 @@ $i     = 0;
 $class = 'Cnorm';
 $o     = opendir( 'include/images/smiles' );
 while ( $f = readdir( $o ) ) {
+	// TODO optimize efficiency. einfach einmal alle smilies holen sollte schneller gehen
     if ( $f == '.' OR $f == '..' OR 0 != db_result( db_query( "SELECT COUNT(*) FROM `prefix_smilies` WHERE `url` = '" . $f . "'" ), 0 ) ) {
         continue;
     }
@@ -159,7 +168,7 @@ if ( $i <= 0 ) {
 
 $tpl->out( 2 );
 $clas = 'Cnorm';
-$erg  = db_query( 'SELECT * FROM `prefix_smilies`' );
+$erg  = db_query( 'SELECT * FROM `prefix_smilies` ORDER BY `pos` ASC' );
 while ( $row = db_fetch_assoc( $erg ) ) {
     $class          = ( $class == 'Cmite' ? 'Cnorm' : 'Cmite' );
     $row[ 'class' ] = $class;
