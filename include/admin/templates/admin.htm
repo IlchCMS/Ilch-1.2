@@ -13,10 +13,19 @@
             <h3 style="display:inline;">Ein &Uuml;berblick &uuml;ber alle Inhalte</h3>
             <ul id="cpm" class="admix">
 {EXPLODE}
-              <li class="admix_box">{kat}<br />
-                <ul>
+              <li class="admix_box"><b>{kat}</b><br />
+                <ul style="padding-top: 20px">
 {EXPLODE}
-                  <li><a href="admin.php?{url}"><img src="{pic}" alt="">{name}</a></li>
+                  <li style="display:inline-block; padding-right: 20px; padding-bottom: 20px;">
+                  		<div style="text-align: center">
+                  		<a href="admin.php?{url}">	
+                  			<img src="{pic}" alt="">
+                  		</a>
+                  		</div>
+                  		<a href="admin.php?{url}" class="smalfont">
+                  			{name}
+                  		</a>
+                  </li>
 {EXPLODE}
                   <br class="admix_last"/>
                 </ul>
