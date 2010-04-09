@@ -92,24 +92,29 @@ function more_upload() {
 </form>
 
 </td><td width="100"><td valign="top">
+<form action="admin.php?smilies" method="POST" name="sort_form">
 <table cellspacing="1" cellpadding="5" broder="0" class="border">
   <tr class="Chead">
 		<td>Smilie</td>
 		<td>Smilie Code</td>
     <td>Beschreibung</td>
-		<td></td>
-		<td></td>
+		<td align="center"><a href="#" onClick="sort_form.submit()"><img src="include/images/icons/upload.gif"></img></a></td>
+		<td> </td>
+		<td> </td>
 	</tr>
 	{EXPLODE}
 	<tr class="{class}">
 		<td align="center"><img src="include/images/smiles/{url}" alt=""></td>
 		<td align="center">{ent}</td>
 		<td align="center">{emo}</td>
+	<td><input type="text" size="1" value="{pos}" name="pos[]" />
+		<input type="hidden" name="id[]" value="{id}" />
+	</td>
     <td><a href="admin.php?smilies-e{id}"><img src="include/images/icons/edit.png" alt="Bearbeiten" title="Bearbeiten" /></a></td>
 		<td><a href="admin.php?smilies-d{id}"><img src="include/images/icons/del.png" alt="L&ouml;schen" title="L&ouml;schen" /></a></td>
 	</tr>
-
 {EXPLODE}
 </table>
+</form>
 
 </td></tr></table>
