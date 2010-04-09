@@ -1,0 +1,88 @@
+{EXPLODE "info"}
+<table width="100%" cellpadding="5">
+	<tr>
+		<td class="Cnorm">
+		<h3>Hallo <b>{authname}</b>!</h3>
+
+		<p>Willkommen zurück auf unserer Seite <b>"<a href="index.php">{title}</a>"</b>!
+		Dein letzter Login war <b>{lastlogin}</b>.
+		Unten siehst du in der Übersicht, was seit deinem letzten Besuch neu
+		und interessant ist.</p>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="Cmite"><b>Neue News</b></td>
+	</tr>
+	<tr>
+		<td class="Cnorm">
+			<ul style="list-style-type:none;">
+			{_list_news@<li><a href="?news-%1">%2</a></li>}
+			</ul>
+			<a href="#" style="float:right; clear:right">&raquo; alle News</a>
+		</td>
+	</tr>
+	<tr>
+		<td class="Cmite"><b>Hot Topics</b></td>
+	</tr>
+	<tr>
+		<td class="Cnorm">
+			<ul style="list-style-type:none;">
+			{_list_topics@<li class="smalfont">%3 in <a href="?forum-showposts-%1-p%4#%5">%2</a></li>}
+			</ul>
+			<a href="#" style="float:right; clear:right">&raquo; zum Forum</a>
+
+		</td>
+	</tr>
+</table>
+{EXPLODE "actions"}
+<table width="100%" class="Cnorm" cellpadding="1">
+	<tr class="Chead">
+		<td colspan="3"><b>User Control Panel</b></td>
+	</tr>
+	<tr>
+		<td align="center"><a href="index.php"><img src="include/images/icons/home.png"
+			alt="zur Startseite"></img></a></td>
+		<td align="center"><a href="?gallery"><img src="include/images/icons/gallery.png"
+			alt="Gallerie"></img></a></td>
+		<td align="center"><a href="?kasse"><img src="include/images/icons/clankasse.png"
+			alt="Clankasse"></img></a></td>
+	</tr>
+	<tr>
+		<td align="center"><a href="index.php">Startseite</a></td>
+		<td align="center"><a href="?gallery">Gallerie</a></td>
+		<td align="center"><a href="?kasse">Clankasse</a></td>
+	</tr>
+	<tr>
+		<td align="center"><a href="?forum-privmsg"><img
+			src="include/images/icons/nachrichten.png" alt="Nachrichten"></img></a>
+		</td>
+		<td align="center"><a href="?user-8"><img src="include/images/icons/profil.png"
+			alt="Profil"></img></a></td>
+		<td align="center"><a href="?kalender"><img src="include/images/icons/events.png"
+			alt="Events"></a></img></td>
+	</tr>
+	<tr>
+		<td align="center"><a href="?forum-privmsg">Nachrichten</a></td>
+		<td align="center"><a href="?user-8">Mein Profil</a></td>
+		<td align="center"><a href="?kalender">Events</a></td>
+	</tr>
+	<tr>
+		<td align="center"><a href="?forum"><img
+			src="include/images/icons/forum.png" alt="Forum"></a></img>
+		</td>
+		<td align="center"><a href="?wars"><img src="include/images/icons/wars.png"
+			alt="Wars"></img></a></td>
+		<td align="center"><a href="?awaycal"><img src="include/images/icons/awaycal.png"
+			alt="Events"></img></a></td>
+	</tr>
+	<tr>
+		<td align="center"><a href="?forum">Forum</a></td>
+		<td align="center"><a href="?wars">Wars</a></td>
+		<td align="center"><a href="?awaycal">Awaycal</a></td>
+	</tr>
+</table>
+{EXPLODE "please log in"} Bitte logge dich ein um das User Control Panel
+zu verwenden!
+{EXPLODE "no news"} <li>Keine neuen News seit deinem letzten login!</li>
+{EXPLODE "no topics"} <li>Keine neuen Beiträge seit deinem letzten login!</li>

@@ -79,6 +79,59 @@ function post_is_new($ftime, $topicId, $forumId) {
 }
 
 /**
+ * Alle topics, in denen sich seit dem letzten login was getan hat.
+ */
+function get_topics_since_last_login() {
+	return get_topics_since($_SESSION["lastlogin"]);
+}
+/**
+ * Gibt alle Topics mit neuen Posts seit dem letzten login zurück
+ * sortiert nach der Zeit, neueste zuerst
+ * Rechte werden dabei beachtet!
+ * TODO: limit variabel machen
+ * @param $since timestamp, ab wann nach topics gesucht werden soll
+ */
+function get_topics_since($since) {
+	$erg = db_query("SELECT  DISTINCT `a`.`id` as `id`,
+									 `b`.`id` as `fid`,
+									 `a`.`name` as `title`,
+									 `c`.`id` as `pid`,
+									 `d`.`name` as `author`,
+									 `a`.`rep` as `replies`
+						FROM `prefix_topics` `a` 
+						LEFT JOIN `prefix_forums` `b` ON `b`.`id` = `a`.`fid` 
+						LEFT JOIN `prefix_posts` `c` ON `c`.`tid` = `a`.`id` 
+						LEFT JOIN `prefix_user` `d` ON `c`.`erstid` = `d`.`id`
+						LEFT JOIN `prefix_groupusers` `vg` ON `vg`.`uid` = " . $_SESSION["authid"] . " 
+							AND `vg`.`gid` = `b`.`view` 
+						LEFT JOIN `prefix_groupusers` `rg` ON `rg`.`uid` = " . $_SESSION["authid"] . " 
+							AND `rg`.`gid` = `b`.`reply`
+						LEFT JOIN `prefix_groupusers` `sg` ON `sg`.`uid` = " . $_SESSION["authid"] . " 
+							AND `sg`.`gid` = `b`.`start` 
+								WHERE (((`b`.`view` >= " . $_SESSION["authright"] . " 
+											AND `b`.`view` <= 0) 
+										OR (`b`.`reply` >= " . $_SESSION["authright"] . " 
+											AND `b`.`reply` <= 0) 
+										OR (`b`.`start` >= " . $_SESSION["authright"] . " 
+											AND `b`.`start` <= 0))
+										OR (`vg`.`fid` IS NOT NULL 
+											OR `rg`.`fid` IS NOT NULL 
+											OR `sg`.`fid` IS NOT NULL 
+											OR " . $_SESSION["authright"] . " = -9)
+											) 
+										AND `c`.`time` >= " . $since . "
+										AND `c`.`id` = `a`.`last_post_id`
+						ORDER BY `c`.`time` DESC 
+						LIMIT 0,5");
+	
+	$posts = array();
+	while($row = db_fetch_assoc($erg)) {
+		$posts[] = $row;
+	}
+	return $posts;
+}
+
+/**
  * Checkt, ob ein gegebener Post existiert oder nicht
  * @param int $postId
  */

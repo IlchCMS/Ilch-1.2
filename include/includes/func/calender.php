@@ -88,4 +88,23 @@ function eventlink(&$calendartpl, $view, $eventinfo) {
 	return $calendartpl->get("event link");
 }
 
+/**
+ * Gibt ein Datum in folgendem Format zurück:
+ * Heute, um hh:mm, wenn das datum heute ist
+ * Gestern, um hh:mm, wenn das datum gestern war
+ * ansonsten Tag, am dd.mm um hh:mm
+ * @param int $timestamp der zu formatierende timestamp
+ * @TODO internationalisieren
+ */
+function formatdate($timestamp) {
+	if($timestamp >= strtotime("-1 day")) {
+		// dann war es heute
+		return "Heute, um " . date("H:i", $timestamp);
+	} else if($timestamp >= strtotime("-2 days")) {
+		return "Gestern, um " . date("H:i", $timestamp);
+	} else {
+		return date("d.m, \u\m H:i", $timestamp);
+	}
+}
+
 ?>
