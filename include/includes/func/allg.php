@@ -535,11 +535,12 @@ function get_lower( $value )
 
 /**
  * Gib alle Dateien des angegeben Ordners mit der gegebenen Endung uas
- * @param $dir der Ordner (z.B. "include/admin"
- * @param $ext die Extension, z.B. "php" oder array("php","html","htm")
+ * @param $dir der Ordner (z.B. "include/admin")
+ * @param $ext die Extension (z.B. "php" oder array("php","html","htm"))
  * @param $sExt gibt die Dateierweiterung mit aus
+ * @param $sDir gibt das Verzeichnis mit aus
  */
-function read_ext( $dir, $ext = '', $sExt = 0 )
+function read_ext( $dir, $ext = '', $sExt = 1, $sDir = 0 )
 {
     $buffer = Array( );
     if ( !is_array( $ext ) ) {
@@ -550,12 +551,14 @@ function read_ext( $dir, $ext = '', $sExt = 0 )
     $open = opendir( $dir );
     while ( $file = readdir( $open ) ) {
         $file_info = pathinfo( $file );
-        if ( $file != "." AND $file != ".." AND !is_dir( $dir . '/' . $file ) AND ( in_array( $file_info[ "extension" ], $ext ) OR empty( $ext ) ) ) {
-			if ( $sExt == 1 ) {
-				$buffer[ ] = basename($dir.$file,'.'.$file_info[ "extension" ]);
-			} else {
-				$buffer[ ] = $file;
+        if ( substr( $file, 0, 1 ) != "." AND !is_dir( $dir . '/' . $file ) AND ( in_array( $file_info[ "extension" ], $ext ) OR empty( $ext ) ) ) {
+			if ( $sExt == 0 ) {
+				$file = basename($dir.'/'.$file,'.'.$file_info[ "extension" ]);
 			}
+			if ( $sDir == 1 ) {
+				$file = $dir.'/'.$file;
+			}
+			$buffer[ ] = $file;
         }
     }
     closedir( $open );
