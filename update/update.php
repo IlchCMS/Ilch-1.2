@@ -1,10 +1,11 @@
 <?php
 // update-datei für das sql. Siehe Entwicklerdokumentation
-$files = read_ext("update/revision", "php", 0, 1);
+$files = read_ext("update/revision", "php", 0, 0);
 
 // updatefiles bestimmen
 $updateFiles = array();
 $versions = array();
+
 
 foreach($files as $file) {
 	if(preg_match("/^revision_[0-9]+/", $file)) {
@@ -25,7 +26,7 @@ if(!isset($allgAr["revision"])) {
 foreach($versions as $key => $version) {
 	if($currentversion < $version) {
 		// dann müssen wir ein update machen
-		include_once($key.".php");
+		include_once("update/revision/" . $key. ".php");
 		$currentversion = $version;
 	}
 }
