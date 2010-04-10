@@ -3,6 +3,10 @@
 // Support www.ilch.de
 defined( 'main' ) or die( 'no direct access' );
 
+/**
+ * Die Profilfeld-Arten, die im Adminmenü bei 
+ * der Erstellung eines Profilfelds verfügbar sind
+ */
 function profilefields_functions2( )
 {
     $ar = array(
