@@ -25,9 +25,10 @@ function profilefields_functions( )
 // Felder zum aendern anzeigen.
 function profilefields_change( $uid )
 {
+	$tpl = new tpl('user/profil_edit');
     $q = db_query( "SELECT `id`, `show`, `val` FROM `prefix_profilefields` LEFT JOIN `prefix_userfields` ON `prefix_userfields`.`fid` = `prefix_profilefields`.`id` AND `prefix_userfields`.`uid` = " . $uid . " WHERE `func` = 1 ORDER BY `pos`" );
     while ( $r = db_fetch_assoc( $q ) ) {
-        echo '<label style="float:left; width:35%;">' . $r[ 'show' ] . '</label><input type="text" name="profilefields[' . $r[ 'id' ] . ']" value="' . $r[ 'val' ] . '"><br />';
+    	$tpl->set_ar_out($r, "profilefield");
     }
 }
 // Felder die uebermittelt wurden speichern.
