@@ -1,9 +1,29 @@
 <?php
 //   Copyright by Manuel
 //   Support www.ilch.de
-
-
 defined( 'main' ) or die( 'no direct access' );
+/**
+ * eine funktion für var_dump und <pre>print_r()</pre> zu vereinen
+ * @return formatierte Ausgabe eines Arrays oder Objectes 
+ * @author gecko
+ **/
+function dump($src)
+{
+    if(is_array($src)) {
+        echo "<pre>----------\n";
+        print_r($src);
+        echo "----------</pre>";
+    } elseif (is_object($src)) {
+        echo "<pre>==========\n";
+        var_dump($src);
+        echo "==========</pre>";
+    } else {
+        echo "=========&gt; ";
+        var_dump($src);
+        echo " &lt;=========";
+    }
+}
+
 
 $debug_output = '';
 
