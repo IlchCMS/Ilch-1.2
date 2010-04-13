@@ -13,6 +13,9 @@ function profilefields_functions2( )
          1 => 'Feld',
         2 => 'Kategorie' 
     );
+    foreach(ProfilefieldRegistry::getAllTypes() as $key => $type) {
+    	$ar[$key] = $type;
+    }
     return ( $ar );
 }
 
@@ -27,18 +30,23 @@ function profilefields_functions( )
     return ( $ar );
 }
 // Felder zum aendern anzeigen.
+// TODO optimize (es wird doppelt gequeryt)
 function profilefields_change( $uid )
 {
 	$tpl = new tpl('user/profil_edit');
-    $q = db_query( "SELECT `id`, `show`, `val` FROM `prefix_profilefields` LEFT JOIN `prefix_userfields` ON `prefix_userfields`.`fid` = `prefix_profilefields`.`id` AND `prefix_userfields`.`uid` = " . $uid . " WHERE `func` = 1 ORDER BY `pos`" );
+    $q = db_query( "SELECT `id`, `func` FROM `prefix_profilefields` LEFT JOIN `prefix_userfields` ON `prefix_userfields`.`fid` = `prefix_profilefields`.`id` AND `prefix_userfields`.`uid` = " . $uid . " WHERE `func` != 3 AND `func` != 2 ORDER BY `pos`" );
     while ( $r = db_fetch_assoc( $q ) ) {
-    	$tpl->set_ar_out($r, "profilefield");
+    	$ar = ProfilefieldRegistry::get($r["func"], $r["id"]);
+    	$ar["val"] = ProfilefieldRegistry::getUserValue($r["func"], $r["id"], $uid);
+    	ProfilefieldRegistry::renderProfile($ar);
     }
+    ProfilefieldRegistry::clearStack();
 }
 // Felder die uebermittelt wurden speichern.
 function profilefields_change_save( $uid )
 {
-    $q = db_query( "SELECT `id`, `show`, `val` FROM `prefix_profilefields` LEFT JOIN `prefix_userfields` ON `prefix_userfields`.`fid` = `prefix_profilefields`.`id` AND `prefix_userfields`.`uid` = " . $uid . " WHERE `func` = 1 ORDER BY `pos`" );
+	// TODO: `func` am ende dieses querys...weg damit im endeffekt
+    $q = db_query( "SELECT `id`, `show`, `val` FROM `prefix_profilefields` LEFT JOIN `prefix_userfields` ON `prefix_userfields`.`fid` = `prefix_profilefields`.`id` AND `prefix_userfields`.`uid` = " . $uid . " WHERE `func` != 2 AND `func` != 3 ORDER BY `pos`" );
     while ( $r = db_fetch_assoc( $q ) ) {
         if ( isset( $_REQUEST[ 'profilefields' ][ $r[ 'id' ] ] ) ) {
             $v = $_REQUEST[ 'profilefields' ][ $r[ 'id' ] ];

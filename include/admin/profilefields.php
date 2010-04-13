@@ -4,6 +4,22 @@
 defined( 'main' ) or die( 'no direct access' );
 defined( 'admin' ) or die( 'only admin access' );
 
+// ajax-nachladen der optionen für das profilfeld
+if($menu->get(1) == "loadtype") {
+	if($menu->get(2) == "new") {
+		//echo "<td class='Cmite'>hallo</td><td class='Cnorm'></td>";
+		$func = escape($menu->get(3), "integer");
+		ProfilefieldRegistry::renderAdmin(array("func" => $func));	
+	} else if($menu->get(2) == "edit") {
+		$func = escape($menu->get(4), "integer");
+		$id = escape($menu->get(3), "integer");
+		$ar = ProfilefieldRegistry::get($func, $id);
+		ProfilefieldRegistry::renderAdmin($ar);
+	}
+	// damit der rest nicht mehr ausgegeben wird
+	die();
+}
+
 $design = new design( 'Ilch Admin-Control-Panel :: Profilfelder', '', 2 );
 $design->header();
 
@@ -14,8 +30,7 @@ $_POST[ 'sid' ]  = escape( $_POST[ 'sid' ], 'integer' );
 $show = true;
 if ( isset( $_POST[ 'sub' ] ) ) {
     if ( empty( $_POST[ 'sid' ] ) ) {
-        $pos = db_count_query( "SELECT COUNT(*) as `anz` FROM `prefix_profilefields`" );
-        db_query( "INSERT INTO `prefix_profilefields` (`pos`,`show`,`func`) VALUES (" . $pos . ",'" . $_POST[ 'show' ] . "','" . $_POST[ 'func' ] . "')" );
+    	ProfilefieldRegistry::insert($_POST);
     } else {
         db_query( "UPDATE `prefix_profilefields` SET `show` = '" . $_POST[ 'show' ] . "', `func` = " . $_POST[ 'func' ] . "  WHERE `id` = " . $_POST[ 'sid' ] );
     }
@@ -23,7 +38,8 @@ if ( isset( $_POST[ 'sub' ] ) ) {
 
 if ( $menu->get( 1 ) == 'delete' ) {
     $id  = $menu->get( 2 );
-    $anz = db_count_query( "SELECT COUNT(`id`) FROM `prefix_profilefields` WHERE `id` = " . $id . " AND `func` < 3" );
+    // TODO func in diesem query anpassen
+    $anz = db_count_query( "SELECT COUNT(`id`) FROM `prefix_profilefields` WHERE `id` = " . $id . " AND `func` != 3 AND `func` != 2" );
     if ( $anz == 1 ) {
         $pos = db_result( db_query( "SELECT `pos` FROM `prefix_profilefields` WHERE `id` = " . $id ), 0 );
         db_query( "DELETE FROM `prefix_profilefields` WHERE `id` = " . $id );
@@ -49,7 +65,7 @@ if ( $menu->get( 1 ) == 'c' ) {
 if ( $show ) {
     $tpl = new tpl( 'profilefields', 1 );
     if ( $menu->get( 1 ) != 'edit' ) {
-        $row = array(
+    	$row = array(
              'sub' => 'Eintragen',
             'pos' => '',
             'show' => '',
@@ -74,7 +90,7 @@ if ( $show ) {
         $class = ( $r[ 'func' ] == 2 ? 'Cdark' : $class );
         echo '<tr class="' . $class . '"><td>' . $r[ 'show' ] . '</td>';
         echo '<td align="center">' . $ar[ $r[ 'func' ] ] . '</td>';
-        if ( $r[ 'func' ] < 3 ) {
+        if ( $r[ 'func' ] != 3 ) { // func == 3 haben die vordefinierten
             echo '<td><a href="?profilefields-edit-' . $r[ 'id' ] . '">&auml;ndern</a></td>';
             echo '<td><a href="javascript:delcheck(' . $r[ 'id' ] . ')">l&ouml;schen</a></td>';
         } else {

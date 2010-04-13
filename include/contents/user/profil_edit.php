@@ -24,6 +24,7 @@ if ( $_SESSION[ 'authright' ] <= -1 ) {
             $row[ 'geschlecht0' ] = ( $row[ 'geschlecht' ] < 1 ? 'checked' : '' );
             $row[ 'geschlecht1' ] = ( $row[ 'geschlecht' ] == 1 ? 'checked' : '' );
             $row[ 'geschlecht2' ] = ( $row[ 'geschlecht' ] == 2 ? 'checked' : '' );
+            // TODO diesen code ins template auslagern mit ({_if_})
             if ( $row[ 'status' ] == 1 ) {
                 $row[ 'status1' ] = 'checked';
                 $row[ 'status0' ] = '';

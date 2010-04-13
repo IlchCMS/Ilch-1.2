@@ -564,4 +564,20 @@ function read_ext( $dir, $ext = '', $sExt = 1, $sDir = 0 )
     closedir( $open );
     return ( $buffer );
 }
+
+/**
+ * Alle Keys, die in $array2 vorhanden sind, aber nicht in $array1,
+ * werden in $array1 gesetzt.
+ * TODO: genauer recherchieren, ob es nicht schon eine entsprechende funktion gibt
+ * @param $array1 the array to set the missing keys
+ * @param $array2 array zum auffüllen von array1
+ */
+function array_set_missing_keys($array1, $array2) {
+	foreach($array2 as $key => $value) {
+		if(!isset($array1[$key])) {
+			$array1[$key] = $value;
+		}
+	}
+	return $array1;
+}
 ?>
