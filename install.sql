@@ -681,16 +681,16 @@ CREATE TABLE `prefix_smilies` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
-INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (1, ':)', 'Smilie', '1.gif');
-INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (2, ':D', 'Lachen', '2.gif');
-INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (3, ':O', 'Opssss', '3.gif');
-INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (4, ':P', 'Auslachen', '4.gif');
-INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (5, ';)', 'Zwinker', '5.gif');
-INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (6, ':(', 'Traurig', '6.gif');
-INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (7, ':S', 'Grummel', '7.gif');
-INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (8, ':|', 'Sauer', '8.gif');
-INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (9, ':\'(', 'Weinen', '9.gif');
-INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (10, ':@', 'Veraergert', '10.gif');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (1, ':)', 'Smilie', '1.png');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (2, ':D', 'Lachen', '2.png');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (3, ':O', 'Opssss', '3.png');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (4, ':P', 'Auslachen', '4.png');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (5, ';)', 'Zwinker', '5.png');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (6, ':(', 'Traurig', '6.png');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (7, ':S', 'Grummel', '7.png');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (8, ':|', 'Sauer', '8.png');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (9, ':\'(', 'Weinen', '9.png');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (10, ':@', 'Veraergert', '10.png');
 
 
 CREATE TABLE `prefix_stats` (
