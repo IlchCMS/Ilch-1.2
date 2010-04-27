@@ -8,11 +8,17 @@
   <div class="newscontentwrapper">
     {text}
     <div>
-      <a class="floatleft" href="index.php?news-{id}">{kom} {_if_{kom}=='1'}{_lang_comment}{_else_}{_lang_comments}{/_endif}</a>
-      <span class="floatright">{readwholenews}</span>
+      <p><a class="floatleft" href="index.php?news-{id}">{kom} {_if_{kom}=='1'}{_lang_comment}{_else_}{_lang_comments}{/_endif}</a>
+        <span class="floatright">{readwholenews}</span>
+      </p>
+          <!-- START der sozial networks -->
+  		<iframe align="right" src="http://www.facebook.com/plugins/like.php?href={newslink}&amp;layout=button_count&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light" scrolling="no" frameborder="0" allowTransparency="true" style="border:none; overflow:hidden; width:127px; height:50px">							
+        </iframe>
+  		<!-- ENDE der sozial networks -->
     </div>
   </div>
 </div>
+
 {EXPLODE}
 <br />
 <br /><center>{SITELINK}</center>
@@ -31,7 +37,7 @@
       <div style="float:left; ">{KATE}</div>
 	    <div style="float:left; padding-left:10px; ">{TEXT}</div><br style="clear:both; " />
       <p></p>
-      <a href="index.php?news"><b>&laquo;</b> {_lang_back}</a> </td>
+      <a href="index.php?news"><b>&laquo;</b> {_lang_back}</a></td>
   </tr>
 
   <tr>

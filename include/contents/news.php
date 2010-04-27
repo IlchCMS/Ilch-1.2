@@ -108,7 +108,7 @@ if ( !is_numeric( $menu->get( 1 ) ) ) {
         while ( $row = db_fetch_assoc( $erg ) ) {
             $k0m          = db_query( "SELECT COUNT(ID) FROM `prefix_koms` WHERE `uid` = " . $row[ 'id' ] . " AND `cat` = 'NEWS'" );
             $row[ 'kom' ] = db_result( $k0m, 0 );
-            
+            $row[ 'newslink' ] = 'http://' . $_SERVER[ 'HTTP_HOST' ] . dirname( $_SERVER[ 'PHP_SELF' ] ) . '/index.php?news-' . $row[ 'id' ];
             $row[ 'kate' ]  = news_find_kat( $row[ 'kate' ] );
             $row[ 'datum' ] = $lang[ $row[ 'dayofweek' ] ] . ' ' . $row[ 'datum' ];
             if ( strpos( $row[ 'text' ], '[PREVIEWENDE]' ) !== false ) {
