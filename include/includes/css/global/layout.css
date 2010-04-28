@@ -1,3 +1,23 @@
+/* STANDARD */
+.bold { font-weight:bold; }
+
+/* AWARDS */
+#awards {}
+#awards ._lang_for {}
+#awards .bildutime {}
+#awards ._lang_place {}
+#awards ._lang_whatfor {}
+#awards ._lang_desc {}
+#awards .colon {}
+#awards .platz {}
+#awards .wofur {}
+#awards .text {}
+#awards .team {}
+#awards .thead {}
+#awards .thead, #awards .team, #awards .text, #awards .wofur, #awards .platz, #awards .colon, #awards ._lang_desc, #awards ._lang_whatfor, #awards ._lang_place, #awards .bildutime, #awards ._lang_for, #awards {}
+
+
+
 #test {
 	border:1px solid #ccc;
 	background-color:#fff;
