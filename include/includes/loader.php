@@ -21,4 +21,3 @@ while ( $row = db_fetch_assoc( $erg ) ) {
         echo "<b>ILCH LOADER ERROR:</b> The file <b>" . $file . "</b> does not exists.\n";
     }
 }
-?>

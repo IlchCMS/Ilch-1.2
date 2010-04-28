@@ -28,7 +28,7 @@ class design extends tpl
         }
         
         $this->vars = array( );
-        $this->file = $file; // setzte das file standart 0 weil durch was definiert
+        $this->file = $file; // setzte das file standard 0 weil durch was definiert
         $this->was  = $was; // 0 = smalindex, 1 = normal index , 2 = admin
         
         $this->design = $this->get_design();

@@ -16,5 +16,3 @@ $lang = array_merge($lang, array (
 	'userpicisnopicture' => 'Das Userpic ist kein Bild',
 	'userpiccannotupload' => 'Konnte Userpic nicht hochladen'
 ) );
-
-?>

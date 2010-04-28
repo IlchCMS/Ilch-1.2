@@ -416,9 +416,3 @@ $lang = array_merge($lang, array
 'userpic' => 'Userpic'
 
 ));
-
-#$x = array();
-#foreach ($lang as $k => $v) { $x[$k] = 'NIX'; }
-#$lang = $x;
-
-?>
