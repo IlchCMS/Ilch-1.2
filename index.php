@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 // $messungStart = strtok(microtime(), " ") + strtok(" ");
 
