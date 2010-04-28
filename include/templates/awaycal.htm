@@ -1,30 +1,31 @@
-<form action="index.php?awaycal" method="POST">
-<input type="hidden" name="ch" value="{id}" />
-<table cellpadding="2" cellspacing="1" border="0" class="border">
-<tr class="Chead"><td colspan="2"><b>{_lang_dateform}</b></td>
+<form action="index.php?awaycal" method="POST" name="awaycal_form" id="awaycal_form">
+<input type="hidden" name="ch" value="{id}" class="hidden input_text" />
+<table cellpadding="2" cellspacing="1" border="0" class="border" id="awaycal">
+<tr class="Chead"><td colspan="2"><span class="bold _lang_dateform">{_lang_dateform}</span></td>
 </tr><tr>
-  <td class="Cmite">{_lang_from}</td>
-  <td class="Cnorm"><input name="von" value="{von}"></td>
+  <td class="Cmite"><span class="_lang_from">{_lang_from}</span></td>
+  <td class="Cnorm"><input name="von" value="{von}" class="input_date"></td>
 </tr><tr>
-  <td class="Cmite">{_lang_to}</td>
-  <td class="Cnorm"><input name="bis" value="{bis}"></td>
+  <td class="Cmite"><span class="_lang_to">{_lang_to}</span></td>
+  <td class="Cnorm"><input name="bis" value="{bis}" class="input_date"></td>
 </tr><tr>
-  <td class="Cmite">{_lang_ground}</td>
-  <td class="Cnorm"><textarea name="betreff" cols="50" rows="10">{betreff}</textarea></td>
+  <td class="Cmite"><span class="_lang_ground">{_lang_ground}</span></td>
+  <td class="Cnorm"><textarea name="betreff" cols="50" rows="10" class="input_textarea">{betreff}</textarea></td>
 </tr><tr class="Cdark">
   <td></td>
-  <td><input type="submit" value="Absenden"></td>
+  <td><input type="submit" value="Absenden" class="input_submit"></td>
 </tr>
 </table>
 </form>
 {EXPLODE}
 <table width="100%" border="0" cellpadding="2" cellspacing="1" class="border">
 <tr class="Chead">
-<td><strong>{_lang_datemanage}</strong></td></tr>
+<td><span class="bold _lang_datemanage">{_lang_datemanage}</span></td></tr>
 {EXPLODE}
 <tr class="{class}">
-<td><span style="float: right;">{_lang_from}: {von} - {bis},&nbsp; <u>{status}</u></span>
-<b>{name}</b><hr style="width: 200px;" align="left">
+<td><span class="fright">{_lang_from}<span class="colon">:</span> {von} - {bis},&nbsp;<span class="underlined">{status}</span></span>
+<span class="bold">{name}</span>
+<hr style="width: 200px;" align="left">
 {betreff}
 </td>
 </tr>

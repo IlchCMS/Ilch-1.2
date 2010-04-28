@@ -1,5 +1,15 @@
 /* STANDARD */
-.bold { font-weight:bold; }
+.bold { font-weight:bold !important; }
+.underlined { text-decoration:underline; }
+.hidden { display:none !important; }
+.fleft { float:left !important; }
+.fright { float:right !important; }
+
+/* FORM ELMENTE */
+.input_text {}
+.input_date {}
+.input_textarea {}
+.input_submit {}
 
 /* AWARDS */
 #awards {}
@@ -16,7 +26,20 @@
 #awards .thead {}
 #awards .thead, #awards .team, #awards .text, #awards .wofur, #awards .platz, #awards .colon, #awards ._lang_desc, #awards ._lang_whatfor, #awards ._lang_place, #awards .bildutime, #awards ._lang_for, #awards {}
 
-
+/* AWAYCAL */
+#awaycal_form {}
+#awaycal {}
+#awaycal ._lang_dateform {}
+#awaycal ._lang_from {}
+#awaycal ._lang_to {}
+#awaycal ._lang_ground {}
+#awaycal ._lang_datemanage {}
+#awaycal . {}
+#awaycal . {}
+#awaycal . {}
+#awaycal . {}
+#awaycal . {}
+#awaycal ._lang_dateform, #awaycal ._lang_from , #awaycal ._lang_to , #awaycal ._lang_ground , #awaycal ._lang_datemanage , #awaycal . , #awaycal . , #awaycal . , #awaycal . , #awaycal . , #awaycal . , #awaycal . {}
 
 #test {
 	border:1px solid #ccc;
