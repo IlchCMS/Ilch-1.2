@@ -208,7 +208,7 @@ switch ( $um ) {
         } else {
             $uid = $menu->get( 2 );
         }
-        $erg = db_query( "SELECT `name`,`email`,`id`,`recht`,`wohnort`,`homepage`,`aim`,`msn`,`icq`,`yahoo`,`status`,`staat`,`gebdatum`,`sig`,`opt_pm`,`opt_pm_popup`,`opt_mail`,`geschlecht`,`spezrank`,`avatar` FROM `prefix_user` WHERE `id` = '" . $uid . "'" );
+        $erg = db_query( "SELECT `name`,`email`,`id`,`recht`,`wohnort`,`homepage`,`aim`,`msn`,`icq`,`yahoo`,`status`, `sperre`,`staat`,`gebdatum`,`sig`,`opt_pm`,`opt_pm_popup`,`opt_mail`,`geschlecht`,`spezrank`,`avatar` FROM `prefix_user` WHERE `id` = '" . $uid . "'" );
         if ( db_num_rows( $erg ) == 0 ) {
             die( 'Fehler: Username nicht gefunden <a href="?user">zur&uuml;ck</a>' );
         } else {
@@ -228,6 +228,11 @@ switch ( $um ) {
             } else {
                 $row[ 'status1' ] = '';
                 $row[ 'status0' ] = 'checked';
+            }
+             if ( $row[ 'sperre' ] == 1 ) {
+                $row[ 'sperre1' ] = 'checked';
+            } else {
+                $row[ 'sperre1' ] = '';
             }
             if ( $row[ 'opt_mail' ] == 1 ) {
                 $row[ 'opt_mail1' ] = 'checked';
@@ -336,6 +341,7 @@ switch ( $um ) {
                 $spezrank     = escape( $_POST[ 'spezrank' ], 'integer' );
                 $geschlecht   = escape( $_POST[ 'geschlecht' ], 'integer' );
                 $status       = escape( $_POST[ 'status' ], 'integer' );
+                $sperre       = escape( $_POST[ 'usersperre' ], 'integer' );
                 $opt_mail     = escape( $_POST[ 'opt_mail' ], 'integer' );
                 $opt_pm       = escape( $_POST[ 'opt_pm' ], 'integer' );
                 $opt_pm_popup = escape( $_POST[ 'opt_pm_popup' ], 'integer' );
@@ -354,26 +360,33 @@ switch ( $um ) {
 					`name`  = "' . $usaName1 . '",
 					`recht` = "' . $neues_recht . '",
 					`email` = "' . $email . '",
-          `homepage` = "' . $homepage . '",
-          `wohnort` = "' . $wohnort . '",
-          `icq` = "' . $icq . '",
-          `msn` = "' . $msn . '",
-          `yahoo` = "' . $yahoo . '",
-          `aim` = "' . $aim . '",
-          `staat` = "' . $staat . '",
-          `spezrank` = "' . $spezrank . '",
-          `geschlecht` = "' . $geschlecht . '",
-          `status` = "' . $status . '",
-          `opt_mail` = "' . $opt_mail . '",
-          `opt_pm` = "' . $opt_pm . '",
-          `opt_pm_popup` = "' . $opt_pm_popup . '",
-          `gebdatum` = "' . $gebdatum . '",
-          `sig` = "' . $sig . '"
-          ' . $avatar_sql_update . '
+		          `homepage` = "' . $homepage . '",
+		          `wohnort` = "' . $wohnort . '",
+		          `icq` = "' . $icq . '",
+		          `msn` = "' . $msn . '",
+		          `yahoo` = "' . $yahoo . '",
+		          `aim` = "' . $aim . '",
+		          `staat` = "' . $staat . '",
+		          `spezrank` = "' . $spezrank . '",
+		          `geschlecht` = "' . $geschlecht . '",
+		          `status` = "' . $status . '",
+		          `sperre` = "' . $sperre . '",
+		          `opt_mail` = "' . $opt_mail . '",
+		          `opt_pm` = "' . $opt_pm . '",
+		          `opt_pm_popup` = "' . $opt_pm_popup . '",
+		          `gebdatum` = "' . $gebdatum . '",
+		          `sig` = "' . $sig . '"
+		          ' . $avatar_sql_update . '
 				WHERE `id` = "' . $uid . '"' );
             }
         }
-        wd( 'admin.php?user-1-' . $uid, 'Das Profil wurde erfolgreich geaendert', 2 );
+        if ($sperre == 1) {
+        	@db_query("DELETE FROM `prefix_online` WHERE uid = '".$uid."' ");
+        	$sperrinfo = ' und User wurde ausgeloggt';
+        } else {
+        	$sperrinfo = '';
+        }
+        wd( 'admin.php?user-1-' . $uid, 'Das Profil wurde erfolgreich geaendert' . $sperrinfo, 2 );
         $design->footer();
         break;
     // mal kurz nen neuen user anlegen

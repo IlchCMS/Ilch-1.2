@@ -89,10 +89,14 @@ function user_login_check( )
             return false;
         }
         
-        $erg = db_query( "SELECT `name`,`id`,`recht`,`pass`,`llogin` FROM `prefix_user` WHERE " . $term );
+        $erg = db_query( "SELECT `name`,`id`,`recht`,`pass`,`llogin`, `sperre` FROM `prefix_user` WHERE " . $term );
         if ( db_num_rows( $erg ) == 1 ) {
-            debug( 'user gefunden' );
+            debug( 'user gefunden... ' . $row['name'] );
             $row = db_fetch_assoc( $erg );
+            if ( $row['sperre'] == 1) {
+            	debug( 'user gesperrt... ' . $row['name'] );
+            	return false;
+            } else 
             if ( $row[ 'pass' ] == md5( $_POST[ 'pass' ] ) ) {
                 debug( 'passwort stimmt ... ' . $row[ 'name' ] );
                 $_SESSION[ 'authname' ]  = $row[ 'name' ];
@@ -128,10 +132,15 @@ function user_auto_login_check( )
     }
     debug( ' pw ' . $pw );
     debug( ' id ' . $id );
-    $erg = db_query( "SELECT `name`,`id`,`recht`,`pass`,`llogin` FROM `prefix_user` WHERE `id` = " . $id );
-    if ( db_num_rows( $erg ) == 1 ) {
+    $erg = db_query( "SELECT `name`,`id`,`recht`,`pass`,`llogin`,`sperre` FROM `prefix_user` WHERE `id` = " . $id );
+     if ( db_num_rows( $erg ) == 1 ) {
         debug( 'benutzer gefunden' );
         $row = db_fetch_assoc( $erg );
+         if ( $row['sperre'] == 1) {
+        	debug( 'user gesperrt... ' . $row['name'] );
+        	user_logout();
+        	return false;
+     	} else
         if ( $row[ 'pass' ] == $pw ) {
             debug( 'passwoerter stimmen' );
             debug( $row[ 'name' ] );

@@ -63,7 +63,11 @@
       <td class="Cnorm"><input type="checkbox" name="passw" value="1">neues generieren ?</td>
     </tr><tr>
       <td class="Cmite">User</td>
-      <td class="Cnorm"><input type="checkbox" name="userdel" value="1">L&ouml;schen ? <font color="#FF0000">Achtung der User wird <strong>ohne R&uuml;ckfrage</strong> gel&ouml;scht</font></td>
+      <td class="Cnorm">
+      	<input type="checkbox" name="userdel" value="1"> 
+        	L&ouml;schen ? <font color="#FF0000">Achtung der User wird <strong>ohne R&uuml;ckfrage</strong> gel&ouml;scht<br /></font>
+        <input type="checkbox" name="usersperre" value="1" {sperre1}/>
+        	Sperren ? <font color="#FF0000">User bleibt erhalten, kann sich jedoch nicht mehr einloggen</font></td>
     </tr><tr>
 		  <td class="Cmite">Signature</td>
 			<td class="Cnorm"><textarea cols="60" rows="2" name="sig">{sig}</textarea></td>
