@@ -739,6 +739,7 @@ CREATE TABLE `prefix_user` (
   `opt_pm_popup` tinyint(1) NOT NULL default '0',
   `opt_mail` tinyint(1) NOT NULL default '0',
   `status` tinyint(1) NOT NULL default '0',
+  `sperre` tinyint(1) NOT NULL default '0',
   `geschlecht` tinyint(1) NOT NULL default '0',
   `gebdatum` date NOT NULL default '0000-00-00',
   `wohnort` varchar(50) NOT NULL default '',
