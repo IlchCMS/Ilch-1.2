@@ -71,6 +71,9 @@ ALTER TABLE `prefix_user` ADD `userpic` VARCHAR( 200 ) NOT NULL AFTER `avatar`;
 /* -----> Rev. 5 <----- */
 ALTER TABLE `prefix_user` ADD `name_clean` VARCHAR( 50 )  `name` varchar(50) NOT NULL default '' AFTER `name`;
 
+/* -----> Rev. 132 <----- */
+ALTER TABLE `prefix_user` ADD `sperre` TINYINT( 1 ) NOT NULL AFTER `status`;
+
 /* -----> Rev. 10 <----- */
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('lang', 's', 'Allgemeine Optionen', 'Standard Sprache', 'de');
 
