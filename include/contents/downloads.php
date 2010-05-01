@@ -245,7 +245,7 @@ switch ( $menu->get( 1 ) ) {
     case 'show':
         
         $fid = escape( $menu->get( 2 ), 'integer' );
-        $erg = db_query( "SELECT `prefix_downloads`.`cat`,`ssurl`,`surl`,`url`,`hits`,`vote_klicks`,`vote_wertung`,`prefix_downloads`.`name`,`version`,`creater`,`downs`,`descl,prefix_downloads`.`id`,DATE_FORMAT(time,'%d.%m.%Y') as `datum` FROM `prefix_downloads` LEFT JOIN `prefix_downcats` ON `prefix_downcats`.`id` = `prefix_downloads`.`cat` WHERE `prefix_downloads`.`id` = " . $fid . " AND (" . $_SESSION[ 'authright' ] . " <= `prefix_downcats`.`recht` OR (`prefix_downloads`.`cat` = 0 AND `prefix_downcats`.`recht` IS NULL))" );
+        $erg = db_query( "SELECT `prefix_downloads`.`cat`,`ssurl`,`surl`,`url`,`hits`,`vote_klicks`,`vote_wertung`,`prefix_downloads`.`name`,`version`,`creater`,`downs`,`descl`,`prefix_downloads`.`id`,DATE_FORMAT(time,'%d.%m.%Y') as `datum` FROM `prefix_downloads` LEFT JOIN `prefix_downcats` ON `prefix_downcats`.`id` = `prefix_downloads`.`cat` WHERE `prefix_downloads`.`id` = " . $fid . " AND (" . $_SESSION[ 'authright' ] . " <= `prefix_downcats`.`recht` OR (`prefix_downloads`.`cat` = 0 AND `prefix_downcats`.`recht` IS NULL))" );
         if ( @db_num_rows( $erg ) != 1 ) {
             $title  = $allgAr[ 'title' ] . ' :: Downloads ';
             $hmenu  = '<a class="smalfont" href="?downloads">Downloads</a>';
