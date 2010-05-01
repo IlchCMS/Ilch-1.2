@@ -17,7 +17,12 @@ if ($check == 1) {
 	if ( file_exists( $row[ 'userpic' ] ) ) {
 	    $userpic = '<img src="' . $row[ 'userpic' ] . '" border="0">';
 	}
-	
+	if ( $row['sperre'] == 1) {
+	$usersperr = '<tr>
+					<td class="Cmite">Userstatus</td>
+					<td class="Cnorm"><strong>gesperrt</strong></td>
+				</tr>';
+	}
 	$regsek   = mktime( 0, 0, 0, date( 'm' ), date( 'd' ), date( 'Y' ) ) - $row[ 'regist' ];
 	$regday   = round( $regsek / 86400 );
 	$postpday = ( $regday == 0 ? 0 : round( $row[ 'posts' ] / $regday, 2 ) );
@@ -29,7 +34,8 @@ if ($check == 1) {
 	    'POSTS' => $row[ 'posts' ],
 	    'postpday' => $postpday,
 	    'RANG' => userrang( $row[ 'posts' ], $uid ),
-	    'AVATA' => $userpic 
+	    'AVATA' => $userpic,
+		'SPERRE' => $usersperr
 	);
 	
 	$title  = $allgAr[ 'title' ] . ' :: Users :: Details von ' . $row[ 'name' ];
