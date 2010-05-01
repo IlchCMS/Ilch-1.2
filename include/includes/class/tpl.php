@@ -68,7 +68,12 @@ class tpl
         }
         
         if ( $ort != 3 ) {
+          if (file_exists( $file )) {
             $inhalt = implode( "", file( $file ) );
+          } else {
+            $dbbtrc = debug_backtrace();
+            die('Template nicht gefunden.'. "\n" .'<!-- ' . $file . "\n" . ' <pre>'.print_r($dbbtrc[1], true).'</pre> -->');
+          }
         }
         
         // jetzt steckt in $inhalt der Inhalt des Templates
@@ -288,6 +293,3 @@ class tpl
         echo $this->get( $pos );
     }
 }
-
-
-?>

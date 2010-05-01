@@ -84,19 +84,24 @@ function icUpload( )
     $url     = ( empty( $_POST[ 'url' ] ) ? '' : escape( $_POST[ 'url' ], 'string' ) );
     $desc    = escape( $_POST[ 'desc' ], 'string' );
     $descl   = escape( $_POST[ 'descl' ], 'textarea' );
+    $upload_errors = array();
+    $upload_error = false;
     
     if ( empty( $name ) ) {
-        return ( 'keinen Namen angegeben.' );
+        $upload_errors[] = 'keinen Namen angegeben.';
+        $upload_error = true;
     }
     
     if ( empty( $desc ) or empty( $descl ) ) {
-        return ( 'kein langer oder/und kein kurzer Text angegeben.' );
+        $upload_errors[] = 'kein langer oder/und kein kurzer Text angegeben.';
+        $upload_error = true;
     }
     
-    if ( empty( $url ) AND empty( $_FILES[ 'file' ][ 'name' ] ) ) {
-        return ( 'Keine Datei oder Link angegeben.' );
+    if ( empty( $url ) OR empty( $_FILES[ 'file' ][ 'name' ] ) ) {
+        $upload_errors[] = 'Keine Datei oder Link angegeben.';
+        $upload_error = true;
     }
-    
+   
     if ( !empty( $_FILES[ 'file' ][ 'name' ] ) ) {
         $rtype = trim( ic_mime_type( $_FILES[ 'file' ][ 'tmp_name' ] ) );
         $fname = escape( $_FILES[ 'file' ][ 'name' ], 'string' );
@@ -104,11 +109,13 @@ function icUpload( )
         $fende = strtolower( $fende );
         
         if ( $_FILES[ 'file' ][ 'size' ] > 2097000 ) { // 2 mb (2 097 152)
-            return ( 'Die Datei darf NICHT gr&ouml;sser als 2 MBytes sein.' );
+          $upload_errors[] = 'Die Datei darf NICHT gr&ouml;sser als 2 MBytes sein.';
+          $upload_error = true;
         }
         
         if ( ( $fende != 'rar' AND $fende != 'zip' AND $fende != 'tar' ) OR ( $rtype != 'application/x-rar' AND $rtype != 'application/x-zip' AND $rtype != 'application/x-tar' ) ) {
-            return ( 'Die Datei darf nur die Endungen: .zip, .tar oder .rar haben.' );
+          $upload_errors[] = 'Die Datei darf nur die Endungen: .zip, .tar oder .rar haben.';
+          $upload_error = true;
         }
         
         $fname = str_replace( '.' . $fende, '', $fname );
@@ -116,17 +123,26 @@ function icUpload( )
         $fname = $fname . '.' . $fende;
         
         if ( file_exists( 'include/downs/downloads/user_upload/' . $fname ) ) {
-            return ( 'Die Datei existiert bereits und kann nicht &uuml;berschrieben werden.' );
-        }
-        
-        if ( move_uploaded_file( $_FILES[ 'file' ][ 'tmp_name' ], 'include/downs/downloads/user_upload/' . $fname ) ) {
+          $upload_errors[] = 'Die Datei existiert bereits und kann nicht &uuml;berschrieben werden.';
+          $upload_error = true;
+        }else if ( move_uploaded_file( $_FILES[ 'file' ][ 'tmp_name' ], 'include/downs/downloads/user_upload/' . $fname ) ) {
             $url = 'include/downs/downloads/user_upload/' . $fname;
             @chmod( $url, 0777 );
+        }else {
+          $upload_errors[] = 'Die Datei konnte nicht verschoben werden.';
+          $upload_error = true;
         }
     }
     
-    if ( empty( $url ) ) {
-        return ( 'Keine Datei oder Link angegeben' );
+    if ($upload_error == true) {
+      $errors = '<ul>';
+      $error_keys = array();
+      foreach ($upload_errors as $error) {
+          $errors .= '<li>' . $error . '</li>';
+      }
+      $errors .= '<li><a href="?downloads">zur&uuml;ck</a></li>';
+      $errors .= '</ul>';
+      return $errors;
     }
     
     db_query( "INSERT INTO `prefix_downloads` (`time`,`cat`,`creater`,`version`,`url`,surl,`ssurl`,`name`,`desc`,`descl`,`pos`) VALUES (NOW(),-1,'" . $autor . "','" . $version . "','" . $url . "','" . $surl . "','" . $ssurl . "','" . $name . "','" . $desc . "','" . $descl . "','0')" );
@@ -324,5 +340,3 @@ switch ( $menu->get( 1 ) ) {
         }
         break;
 }
-
-?>

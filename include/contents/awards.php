@@ -25,5 +25,3 @@ while ( $row = db_fetch_assoc( $erg ) ) {
 $tpl->out("ende");
 
 $design->footer();
-
-?>

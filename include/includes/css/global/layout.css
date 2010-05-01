@@ -2,14 +2,19 @@
 .bold { font-weight:bold !important; }
 .underlined { text-decoration:underline; }
 .hidden { display:none !important; }
+.clear { clear:both; }
 .fleft { float:left !important; }
 .fright { float:right !important; }
+.codereplace_table { width:98%; table-layout: fixed; }
 
 /* FORM ELMENTE */
 .input_text {}
 .input_date {}
 .input_textarea {}
 .input_submit {}
+.input_radio {}
+
+.required_alert { background-color:#e44850; border:2px dotted #0000FF; }
 
 /* AWARDS */
 #awards {}
@@ -34,12 +39,20 @@
 #awaycal ._lang_to {}
 #awaycal ._lang_ground {}
 #awaycal ._lang_datemanage {}
-#awaycal . {}
-#awaycal . {}
-#awaycal . {}
-#awaycal . {}
-#awaycal . {}
 #awaycal ._lang_dateform, #awaycal ._lang_from , #awaycal ._lang_to , #awaycal ._lang_ground , #awaycal ._lang_datemanage , #awaycal . , #awaycal . , #awaycal . , #awaycal . , #awaycal . , #awaycal . , #awaycal . {}
+
+/* CONTACT */
+#contact_form {}
+#contact {}
+#contact .contact_label { float:left; width:100px; }
+#contact ._lang_name {}
+#contact ._lang_mail {}
+#contact ._lang_subject {}
+#contact ._lang_whereyouwrite {}
+#contact .contact_label ,#contact ._lang_name ,#contact ._lang_mail ,#contact ._lang_subject ,#contact ._lang_message ,#contact ._lang_whereyouwrite {}
+
+/* DOWNLOADS */
+#downloads . {}
 
 #test {
 	border:1px solid #ccc;
