@@ -40,7 +40,7 @@ $ges_ar = array(
     'maennlich',
     'weiblich' 
 );
-$erg    = db_query( "SELECT `geschlecht`, `prefix_posts`.`id`,`txt`,`time`,`erstid`,`erst`,`sig`,`avatar`,`posts` FROM `prefix_posts` LEFT JOIN `prefix_user` ON `prefix_posts`.`erstid` = `prefix_user`.`id` WHERE `tid` = " . $tid . " ORDER BY `time` LIMIT " . $anfang . "," . $limit );
+$erg    = db_query( "SELECT `geschlecht`, `prefix_posts`.`id`,`txt`,`time`,`erstid`,`erst`,`sig`,`avatar`,`posts`,`prefix_user`.`sperre` FROM `prefix_posts` LEFT JOIN `prefix_user` ON `prefix_posts`.`erstid` = `prefix_user`.`id` WHERE `tid` = " . $tid . " ORDER BY `time` LIMIT " . $anfang . "," . $limit );
 while ( $row = db_fetch_assoc( $erg ) ) {
     $class           = ( $class == 'Cnorm' ? 'Cmite' : 'Cnorm' );
     // define some vars.
@@ -50,6 +50,12 @@ while ( $row = db_fetch_assoc( $erg ) ) {
     $row[ 'date' ]   = date( 'd.m.Y - H:i:s', $row[ 'time' ] );
     $row[ 'delete' ] = '';
     $row[ 'change' ] = '';
+    
+    if ($row[ 'sperre' ] == 1) {
+    	$row[ 'sperre' ] = '<br /><strong>gesperrt</strong>';
+    } else {
+    	$row[ 'sperre' ] = '';
+    }
     if ( !is_numeric( $row[ 'geschlecht' ] ) ) {
         $row[ 'geschlecht' ] = 0;
     }
