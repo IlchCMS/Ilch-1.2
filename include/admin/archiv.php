@@ -26,7 +26,7 @@ function uploadMoveFile_getdirlist( $f = 'include/downs/downloads', $list = '<op
 {
     $o = opendir( $f );
     while ( $v = readdir( $o ) ) {
-        if ( $v == '.' OR $v == '..' OR !is_dir( $f . '/' . $v ) ) {
+        if ( $v == '.' OR $v == '..' OR $v == '.svn' OR !is_dir( $f . '/' . $v ) ) {
             continue;
         }
         $dirn = str_replace( 'include/downs/downloads/', '', $f . '/' . $v );
@@ -40,7 +40,7 @@ function upload_getdirlist( $f = 'include/downs/downloads', $list = '' )
 {
     $o = opendir( $f );
     while ( $v = readdir( $o ) ) {
-        if ( $v == '.' OR $v == '..' OR !is_dir( $f . '/' . $v ) ) {
+        if ( $v == '.' OR $v == '..' OR $v == '.svn' OR !is_dir( $f . '/' . $v ) ) {
             continue;
         }
         $dirn = str_replace( 'include/downs/downloads/', '', $f . '/' . $v );
@@ -61,7 +61,7 @@ function get_downloads_ar( $ar = null, $f = null )
     
     $o = opendir( $f );
     while ( $v = readdir( $o ) ) {
-        if ( $v != '.' AND $v != '..' ) {
+        if ( $v != '.' AND $v != '..' AND $v != '.svn'  ) {
             if ( is_dir( $f . '/' . $v ) ) {
                 $ar = get_downloads_ar( $ar, $f . '/' . $v );
             } else {
@@ -222,7 +222,7 @@ switch ( $um ) {
                 $ar_dirs  = array( );
                 $o        = opendir( $f );
                 while ( $v = readdir( $o ) ) {
-                    if ( $v == '.' OR $v == '..' ) {
+                    if ( $v == '.' OR $v == '..' OR $v == '.svn' ) {
                         continue;
                     }
                     $is_dir = is_dir( $f . '/' . $v );
