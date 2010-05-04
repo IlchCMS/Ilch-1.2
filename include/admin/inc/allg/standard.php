@@ -38,10 +38,11 @@ function admin_allg_gfx( $ak )
     $gfx = '';
     $o   = opendir( 'include/designs' );
     while ( $ver = readdir( $o ) ) {
-        if ( $ver != "." AND $ver != ".." AND is_dir( 'include/designs/' . $ver ) ) {
+        if ( $ver != "." AND $ver != ".." AND $ver != '.svn' AND is_dir( 'include/designs/' . $ver ) ) {
             if ( $ver == $ak ) {
                 $sel = ' selected';
-            } else {
+            }
+			else {
                 $sel = '';
             }
             $gfx .= '<option' . $sel . '>' . $ver . '</option>';
@@ -97,7 +98,7 @@ function admin_allg_lang( $ak )
     $lang = '';
     $o    = opendir( 'include/includes/lang' );
     while ( $ver = readdir( $o ) ) {
-        if ( $ver != "." AND $ver != ".." AND is_dir( 'include/includes/lang/' . $ver ) ) {
+        if ( $ver != "." AND $ver != ".." AND $ver != '.svn' AND is_dir( 'include/includes/lang/' . $ver ) ) {
             if ( $ver == $ak ) {
                 $sel = ' selected';
             } else {

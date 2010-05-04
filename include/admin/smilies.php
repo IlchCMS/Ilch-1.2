@@ -9,7 +9,7 @@ function getsmiliear( )
     $ar = array( );
     $o  = opendir( 'include/images/smiles' );
     while ( $f = readdir( $o ) ) {
-        if ( $f == '.' OR $f == '..' ) {
+        if ( $f == '.' OR $f == '..' OR $f == '.svn' ) {
             continue;
         }
         $ar[ $f ] = $f;
