@@ -152,7 +152,7 @@ function get_nationality_array( )
     $ar = array( );
     $o  = opendir( 'include/images/flags' );
     while ( $f = readdir( $o ) ) {
-        if ( $f != '.' AND $f != '..' ) {
+        if ( $f != '.' AND $f != '..' AND $f != '.svn' ) {
             $ar[ $f ] = str_replace( '.gif', '', $f );
         }
     }
