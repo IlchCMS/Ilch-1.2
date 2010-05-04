@@ -66,7 +66,11 @@ switch ( $menu->get( 1 ) ) {
 
 			if ( ( $_SESSION[ 'klicktime_gbook' ] + $timeSperre ) < $dppk_time AND isset( $_POST[ 'name' ] ) AND isset( $_POST[ 'txt' ] ) AND trim( $_POST[ 'name' ] ) != "" AND trim( $_POST[ 'txt' ] ) != "" AND chk_antispam( 'gbook' ) AND strlen( $_POST[ 'txt' ] ) <= $allgAr[ 'Gtxtl' ] ) {
 				$txt  = escape( $_POST[ 'txt' ], 'textarea' );
-				$name = escape( $_POST[ 'name' ], 'string' );
+				if ($_SESSION['authid'] == 0) {
+					$name = escape_nickname( $_POST[ 'name' ], 'string' ).' (Gast)';
+				} else {
+					$name = escape_nickname( $_POST[ 'name' ], 'string' );
+				}
 				$mail = escape( $_POST[ 'mail' ], 'string' );
 				$page = escape( $_POST[ 'page' ], 'string' );
 
