@@ -21,22 +21,41 @@ if(empty($topicId) || empty($postId)) {
 } else if(!post_exists($postId)) {
 	$tpl->out("no_such_post");
 } else {
-	// den moderatoren eine pm senden
-	foreach(getmod_ids(get_forum_id($topicId)) as $userid) {
-		if(isset($_SESSION["authid"])) {
-			$fromUser = $_SESSION["authid"];	
-		} else {
-			$fromUser = 0;
+	// PM Versenden
+	$getmodids = getmod_ids(get_forum_id($topicId));
+	if (empty($getmodids)) {
+		# An den Admin schicken
+			if(isset($_SESSION["authid"])) {
+				$fromUser = $_SESSION["authid"];	
+			} else {
+				$fromUser = 0;
+			}
+			$tpl->set("NAME", get_n($fromUser));
+			$tpl->set("BEITRAG", get_topic_title($topicId));
+			$tpl->set("PID", $postId);
+			$tpl->set("TID", $topicId);
+			sendpm($fromUser, 1, $tpl->get("pm_betreff"), $tpl->get("pm_content"), 0);
+			// weiterleitung
+			wd("index.php?forum-showposts-" . $topicId, $tpl->get("weiterleitung"));
+	} else {
+		# An die Mods schicken
+		foreach($getmodids as $userid) {
+			if(isset($_SESSION["authid"])) {
+				$fromUser = $_SESSION["authid"];	
+			} else {
+				$fromUser = 0;
+			}
+			$tpl->set("NAME", get_n($fromUser));
+			$tpl->set("BEITRAG", get_topic_title($topicId));
+			$tpl->set("PID", $postId);
+			$tpl->set("TID", $topicId);
+			sendpm($fromUser, $userid, $tpl->get("pm_betreff"), $tpl->get("pm_content"), 0);
+			
+			// weiterleitung
+			wd("index.php?forum-showposts-" . $topicId, $tpl->get("weiterleitung"));
 		}
-		$tpl->set("NAME", get_n($fromUser));
-		$tpl->set("BEITRAG", get_topic_title($topicId));
-		$tpl->set("PID", $postId);
-		$tpl->set("TID", $topicId);
-		sendpm($fromUser, $userid, $tpl->get("pm_betreff"), $tpl->get("pm_content"), 0);
-		
-		// weiterleitung
+
 	}
-	wd("index.php?forum-showposts-" . $topicId, $tpl->get("weiterleitung"));
 }
 
 $design->footer();
