@@ -97,7 +97,7 @@ function icUpload( )
         $upload_error = true;
     }
     
-    if ( empty( $url ) OR empty( $_FILES[ 'file' ][ 'name' ] ) ) {
+    if ( empty( $url ) and empty( $_FILES[ 'file' ][ 'name' ] ) ) {
         $upload_errors[] = 'Keine Datei oder Link angegeben.';
         $upload_error = true;
     }
