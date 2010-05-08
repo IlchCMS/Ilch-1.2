@@ -473,6 +473,9 @@ POSSIBILITY OF SUCH DAMAGES.
     		<td class="Cmite"><br>"include/contents/selfbp/selfb" Schreibrechte (CHMOD 777)<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/contents/selfbp/selfb' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
   		</tr><tr>
+        <td class="Cmite"><br>"include/images/linkus" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/linkus' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+  		</tr><tr>
     		<td class="Cmite"><br>"include/images/avatars" Schreibrechte (CHMOD 777)<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/avatars' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
   		</tr><tr>

@@ -58,6 +58,7 @@ if ( $menu->get( 1 ) == "phpinfo" ) {
     
     $files = array(
          'include/backup',
+		'include/images/linkus',
         'include/images/avatars',
         'include/images/gallery',
         'include/images/usergallery',
@@ -101,6 +102,7 @@ if ( $menu->get( 1 ) == "phpinfo" ) {
         'SQL Zeit' => db_result( db_query( "SELECT NOW()" ) ),
         'MySQL-Version' => db_result( db_query( "SELECT VERSION()" ) ),
         'Datenbankgr&ouml;&szlig;e' => nicebytes( $dbsize ),
+		'Linkusordnergr&ouml;&szlig;e' => nicebytes( dirsize('include/images/linkus/' ) ),
         'Avatarordnergr&ouml;&szlig;e' => nicebytes( dirsize( 'include/images/avatars/' ) ),
         'Galleryordnergr&ouml;&szlig;e' => nicebytes( dirsize( 'include/images/gallery/' ) ),
         'Usergalleryordnergr&ouml;&szlig;e' => nicebytes( dirsize( 'include/images/usergallery/' ) ) 

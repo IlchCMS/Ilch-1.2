@@ -1,0 +1,69 @@
+<script>
+
+function bbcode() {
+ $(function() {
+ 	$("#BBCode").dialog("destroy");
+
+ 	$("#BBCode").dialog({
+	autoOpen: true,
+ 	height: 'auto',
+	width: 250
+ 	//modal: true
+	});
+}); 
+}
+function htmcode() {
+ $(function() {
+ 	$("#HTMCode").dialog("destroy");
+
+	$("#HTMCode").dialog({
+	autoOpen: true,
+ 	height: 'auto',
+	width: 250
+ 	//modal: true
+	});
+}); 
+}
+function direktlink() {
+ $(function() {
+ 	$("#direktlink").dialog("destroy");
+
+	$("#direktlink").dialog({
+	autoOpen: true,
+ 	height: 'auto',
+	width: 350
+ 	//modal: true
+	});
+}); 
+}
+</script>
+
+<div align="center">
+  <p><strong>Unsere Banner</strong></p>
+  <p>{bannerlist}</p>
+  <p><em>Vielen Dank f&uuml;r die Unterst&uuml;tzung</em></p>
+</div>
+<p>{EXPLODE}</p>
+<p><div align="center" class="cmite">
+  <hr />
+  {name}
+  <p>
+	<img src="index.php?linkus-view-{id}-false" alt="{name}" border="0"></p>
+						  <p>
+							<a style="cursor:pointer;" onclick="bbcode();">BB-Code</a> | 
+							<a style="cursor:pointer;" onclick="htmcode();">HTML-Code</a> | 
+                            <a style="cursor:pointer;" onclick="direktlink();">Direkt-Link</a>
+						</p>
+  <p></p>
+						</div>
+						<div id="BBCode" title="[BB] {name} ({id})" style="display:none;">
+								{bb-link}
+						</div>
+						<div id="HTMCode" title="[HTML] {name} ({id})" style="display:none;">
+								{html-link}
+						</div>
+                        <div id="direktlink" title="[DIREKT] {name} ({id})" style="display:none;">
+								{host}index.php?linkus-view-{id}-true
+						</div></p>
+
+
