@@ -297,6 +297,10 @@ switch ( $um ) {
                     icmail( $row->email, 'neues Password', "Hallo\n\nDein Password wurde soeben von einem Administrator ge‰ndert es ist nun:\n\n" . $newPass . "\n\nGruﬂ der Administrator" );
                     db_query( 'UPDATE `prefix_user` SET `pass` = "' . $newPassMD5 . '" WHERE `id` = "' . escape( $_POST[ 'uID' ], 'integer' ) . '"' );
                 }
+				if ($_POST['setnewpw'] != '') {
+					$newPassMD5 = md5(escape($_POST['setnewpw'], 'string'));
+					db_query( 'UPDATE `prefix_user` SET `pass` = "' . $newPassMD5 . '" WHERE `id` = "' . escape( $_POST[ 'uID' ], 'integer' ) . '"' );
+				}
                 // avatar speichern START
                 $avatar_sql_update = '';
                 if ( !empty( $_FILES[ 'avatarfile' ][ 'name' ] ) ) {
