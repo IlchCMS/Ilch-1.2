@@ -16,13 +16,13 @@ $design = new design( $title, $hmenu, 1 );
 $design->header();
 
 $uum = $menu->get( 3 );
-$tid = $menu->get( 2 );
+$tid = intval($menu->get( 2 ));
 switch ( $uum ) {
     case 1: // change topic title
-        db_query( "UPDATE `prefix_topics` SET name = '" . $_REQUEST[ 'newTopic' ] . "' WHERE id = '" . $tid . "'" );
+        db_query( "UPDATE `prefix_topics` SET name = '" . escape($_REQUEST[ 'newTopic' ], 'string') . "' WHERE id = '" . $tid . "'" );
         wd( array(
              'zur&uuml;ck zum Thema' => 'index.php?forum-showposts-' . $tid,
-            'zur Themen &Uuml;bersicht' => 'index.php?forum-showtopics-' . $fid 
+            'zur Themen &Uuml;bersicht' => 'index.php?forum-showtopics-' . $fid
         ), 'Das Themas wurde umbennant', 3 );
         break;
     case 2: // delete topic
@@ -37,8 +37,8 @@ switch ( $uum ) {
                 $uid  = db_result( db_query( "SELECT `erstid` FROM `prefix_posts` WHERE `tid` = " . $tid . " ORDER BY `id` ASC LIMIT 1" ), 0 );
                 $top  = db_result( db_query( "SELECT `name` FROM `prefix_topics` WHERE `id` = " . $tid ), 0 );
                 $page = $_SERVER[ "HTTP_HOST" ] . $_SERVER[ "SCRIPT_NAME" ];
-                $txt  = "Dein Thema \"" . $top . "\" wurde gelöscht Begründung:\n\n" . escape( $_POST[ 'reason' ], 'string' );
-                sendpm( $_SESSION[ 'authid' ], $uid, 'Theme gelöscht', $txt );
+                $txt  = "Dein Thema \"" . $top . "\" wurde gelöscht Begründung:\n\n" . $_POST[ 'reason' ];
+                sendpm( $_SESSION[ 'authid' ], $uid, 'Theme gelöscht', escape($txt, 'textarea') );
             }
             $postsMinus = $aktTopicRow[ 'rep' ] + 1;
             db_query( "DELETE FROM `prefix_topics` WHERE `id` = '" . $tid . "' LIMIT 1" );
@@ -60,7 +60,7 @@ switch ( $uum ) {
             echo '<form action="index.php?forum-edittopic-' . $tid . '-3" method="POST">';
             echo '<input type="hidden" name="afid" value="' . $fid . '">neues Forum ausw&auml;hlen<br />';
             echo '<select name="nfid">';
-            
+
             function stufe( $anz, $t = 'f' )
             {
                 $z = ( $t == 'f' ? '&nbsp;&nbsp;' : '&raquo;' );
@@ -69,7 +69,7 @@ switch ( $uum ) {
                 }
                 return $out;
             }
-            
+
             function forum_admin_selectcats( $id, $stufe, $sel )
             {
                 $q   = "SELECT * FROM `prefix_forumcats` WHERE `cid` = " . $id . " ORDER BY `pos`";
@@ -88,10 +88,12 @@ switch ( $uum ) {
                     }
                 }
             }
-            
+
             forum_admin_selectcats( 0, 0, $fid );
             echo '</select><br /><input type="checkbox" name="alertautor" value="yes" /> Den Autor &uuml;ber das verschieben informieren?<br /><input type="submit" value="Verschieben" name="sub"></form>';
         } else {
+            $_POST['nfid'] = escape($_POST['nfid'], 'integer');
+            $_POST['afid'] = escape($_POST['afid'], 'integer');
             $postsMinus = $aktTopicRow[ 'rep' ] + 1;
             db_query( "UPDATE `prefix_topics` SET `fid` = " . $_POST[ 'nfid' ] . " WHERE `id` = " . $tid );
             db_query( "UPDATE `prefix_posts` SET `fid` = " . $_POST[ 'nfid' ] . " WHERE `tid` = " . $tid );
@@ -113,13 +115,13 @@ switch ( $uum ) {
                 $txt .= "\n\n- [url=http://" . $page . "?forum-showposts-" . $tid . "]Link zum Thema[/url]";
                 $txt .= "\n- [url=http://" . $page . "?forum-showtopics-" . $_POST[ 'nfid' ] . "]Link zum neuen Forum[/url]";
                 $txt .= "\n- [url=http://" . $page . "?forum-showtopics-" . $_POST[ 'afid' ] . "]Link zum alten Forum[/url]";
-                sendpm( $_SESSION[ 'authid' ], $uid, 'Thema verschoben', $txt );
+                sendpm( $_SESSION[ 'authid' ], $uid, 'Thema verschoben', escape($txt, 'textarea') );
             }
-            
+
             wd( array(
                  'neue Themen Übersicht' => 'index.php?forum-showtopics-' . $_POST[ 'nfid' ],
                 'alte Themen Übersicht' => 'index.php?forum-showtopics-' . $_POST[ 'afid' ],
-                'Zum Thema' => 'index.php?forum-showposts-' . $tid 
+                'Zum Thema' => 'index.php?forum-showposts-' . $tid
             ), 'Thema erfolgreich verschoben', 3 );
         }
         break;
@@ -133,7 +135,7 @@ switch ( $uum ) {
         db_query( "UPDATE `prefix_topics` SET `art` = '" . $nart . "' WHERE `id` = " . $tid );
         wd( array(
              'zur&uuml;ck zum Thema' => 'index.php?forum-showposts-' . $tid,
-            'zur Themen &Uuml;bersicht' => 'index.php?forum-showtopics-' . $fid 
+            'zur Themen &Uuml;bersicht' => 'index.php?forum-showtopics-' . $fid
         ), 'Die Art des Themas wurde ge&auml;ndert', 3 );
         break;
 }

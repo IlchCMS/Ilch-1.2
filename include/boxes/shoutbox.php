@@ -26,7 +26,11 @@ if ( has_right( $allgAr[ 'sb_recht' ] ) ) {
     echo '<form action="index.php?' . $menu->get_complete() . '" method="post">';
     echo '<input type="text" size="15" name="shoutbox_nickname" value="' . $_SESSION[ 'authname' ] . '"/>';
     echo '<br /><textarea style="width: 80%" cols="15" rows="2" name="shoutbox_textarea"></textarea><br />';
-    echo get_antispam( 'shoutbox', 0 );
+    $antispam = get_antispam ('shoutbox', 0);
+    echo $antispam;
+    if (!empty($antispam)) {
+        echo '<br />';
+    }
     echo '<input type="submit" value="' . $lang[ 'formsub' ] . '" name="shoutbox_submit" />';
     echo '</form>';
 }

@@ -7,20 +7,20 @@ defined( 'admin' ) or die( 'only admin access' );
 function XAJAX_changeList( $select )
 {
     $objResponse = new xajaxResponse();
-    
+
     if ( $select == 'Normal' ) {
         $auswahl = array(
-             'u0' => 'an alle User' 
+             'u0' => 'an alle User'
         );
-        
+
         $erg = db_query( "SELECT `name`,`id` FROM `prefix_groups` ORDER BY `id`" );
         while ( $RRrow = db_fetch_object( $erg ) ) {
             $auswahl[ 'g' . $RRrow->id ] = $RRrow->name;
         }
-        
+
         $listeB = '';
         $listeT = '';
-        
+
         foreach ( $auswahl as $k => $v ) {
             if ( strpos( $k, 'u' ) !== false ) {
                 $listeB .= '<option value="P' . $k . '">' . $v . ' PrivMsg</option>' . "\n";
@@ -30,7 +30,7 @@ function XAJAX_changeList( $select )
                 $listeT .= '<option value="E' . $k . '">' . $v . ' eMail</option>' . "\n";
             }
         }
-        
+
         $content = <<<END
             <select id="nl_auswahl" name="auswahl">
                 <option value="Enews" selected="selected">eMail Newsletter</option>
@@ -46,14 +46,14 @@ END;
     } else {
         $erg    = db_query( "SELECT * FROM `prefix_grundrechte` ORDER BY `id` ASC" );
         $listeG = '';
-        
+
         while ( $row = db_fetch_assoc( $erg ) ) {
             $listeG .= '<optgroup label="' . $row[ 'name' ] . '">';
             $listeG .= '<option value="Pr' . $row[ 'id' ] . '"> PrivMsg</option>';
             $listeG .= '<option value="Er' . $row[ 'id' ] . '"> eMail</option>';
             $listeG .= '</optgroup>';
         }
-        
+
         $content = <<<END
             <select name="auswahl" id="nl_auswahl">
                 <option selected="selected" disabled="disabled">Bitte treffen Sie eine Auswahl</option>
@@ -63,7 +63,7 @@ END;
 			<label for="cb_andhigher">und für alle höheren Rechte</label>
 END;
     }
-    
+
     $objResponse->assign( 'list', 'innerHTML', $content );
     $objResponse->setEvent( 'nl_auswahl', 'onchange', 'checkEmail();' );
     return $objResponse;
@@ -72,7 +72,7 @@ END;
 $xajax = new xajax( 'http://' . $_SERVER[ 'HTTP_HOST' ] . $_SERVER[ 'SCRIPT_NAME' ] . '?newsletter=0' );
 $xajax->configureMany( array(
      'characterEncoding' => 'ISO-8859-1',
-    'decodeUTF8Input' => true 
+    'decodeUTF8Input' => true
 ) );
 
 $xajax->registerFunction( 'XAJAX_changeList' );
@@ -84,7 +84,7 @@ $design->header();
 if ( isset( $_POST[ 'SEND' ] ) and chk_antispam( 'newsletter', true ) ) {
     $mailopm = substr( $_POST[ 'auswahl' ], 0, 1 );
     $usrogrp = substr( $_POST[ 'auswahl' ], 1, 1 );
-    
+
     if ( $_POST[ 'auswahl' ] == 'Enews' ) {
         $q = "SELECT `email` FROM `prefix_newsletter`";
     } elseif ( $usrogrp == 'u' ) {
@@ -95,16 +95,16 @@ if ( isset( $_POST[ 'SEND' ] ) and chk_antispam( 'newsletter', true ) ) {
     } elseif ( $usrogrp == 'r' ) {
         $q = "SELECT `email`,`id` as `uid` FROM `prefix_user` WHERE `recht` " . ( isset( $_POST[ 'andhigher' ] ) ? '<' : '' ) . "= '" . substr( $_POST[ 'auswahl' ], 2, strlen( $_POST[ 'auswahl' ] ) - 1 ) . "'";
     }
-    
+
     $erg = db_query( $q );
-    
+
     $zahler = 0;
-    
+
     if ( db_num_rows( $erg ) > 0 ) {
         if ( $mailopm == 'E' ) {
             $emails = array(
                  'bbc',
-                $allgAr[ 'adminMail' ] 
+                $allgAr[ 'adminMail' ]
             );
             while ( $row = db_fetch_object( $erg ) ) {
                 if ( !in_array( $row->email, $emails ) and preg_match( '/^([a-z0-9])(([-a-z0-9._])*([a-z0-9]))*\@([a-z0-9])' . '(([a-z0-9-])*([a-z0-9]))+' . '(\.([a-z0-9])([-a-z0-9_-])?([a-z0-9])+)+$/i', $row->email ) == 1 ) {
@@ -119,15 +119,15 @@ if ( isset( $_POST[ 'SEND' ] ) and chk_antispam( 'newsletter', true ) ) {
                 $uids[ ] = $row->uid;
                 $zahler++;
             }
-            sendpm( $_SESSION[ 'authid' ], $uids, escape( $_POST[ 'bet' ], 'string' ), escape( $_POST[ 'txt' ], 'string' ) );
+            sendpm( $_SESSION[ 'authid' ], $uids, escape( $_POST[ 'bet' ], 'string' ), escape( $_POST[ 'txt' ], 'string' ), -1 );
         }
-        
+
         if ( $mailopm == 'E' ) {
             $eMailorPmsg = 'eMail(s)';
         } elseif ( $mailopm == 'P' ) {
             $eMailorPmsg = 'Private Nachrichte(n)';
         }
-        
+
         wd( 'admin.php?newsletter', 'Es wurde(n) ' . $zahler . ' ' . $eMailorPmsg . ' verschickt.', 5 );
     } else {
         wd( 'admin.php?newsletter', 'F&uuml;r diese Auswahl konnte nichts gefunden werden.', 5 );

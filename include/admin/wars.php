@@ -19,7 +19,7 @@ function get_wlp_array( )
     $ar = array(
          1 => 'gewonnen',
         2 => 'verloren',
-        3 => 'unentschieden' 
+        3 => 'unentschieden'
     );
     return ( $ar );
 }
@@ -49,7 +49,7 @@ switch ( $um ) {
     default:
         $design = new design( 'Ilch Admin-Control-Panel :: Wars', '', 2 );
         $design->header();
-        
+
 ?>
     Folgende Auswahlm&ouml;glichkeiten:
     <ul>
@@ -76,7 +76,7 @@ switch ( $um ) {
                              'gif' => 'gif',
                             'png' => 'png',
                             'jpg' => 'jpg',
-                            'jpeg' => 'jpeg' 
+                            'jpeg' => 'jpeg'
                         );
                         unset( $ar[ $tmp[ 1 ] ] );
                         foreach ( $ar as $v ) {
@@ -91,7 +91,7 @@ switch ( $um ) {
                 }
             }
             if ( isset( $_GET[ 'd' ] ) ) {
-                if ( @unlink( $_GET[ 'd' ] ) ) {
+                if ( @unlink( 'include/images/wars/' . $_GET[ 'd' ] ) ) {
                     $msg = 'Datei <font color="#00FF00">erfolgreich gel&ouml;scht</font><br />';
                 } else {
                     $msg = 'Datei <font color="#FF0000">konnte nicht gel&ouml;scht werden</font><br />';
@@ -108,7 +108,7 @@ switch ( $um ) {
                  'gif',
                 'png',
                 'jpg',
-                'jpeg' 
+                'jpeg'
             );
             foreach ( $ar as $v ) {
                 if ( file_exists( 'include/images/wars/' . $wid . '_' . $mid . '.' . $v ) ) {
@@ -167,7 +167,7 @@ switch ( $um ) {
                  'gif',
                 'png',
                 'jpg',
-                'jpeg' 
+                'jpeg'
             );
             for ( $i = 1; $i <= 5; $i++ ) {
                 db_query( "DELETE FROM `prefix_warmaps` WHERE `wid` = " . $wid . " AND `mnr` = " . $i );
@@ -192,7 +192,7 @@ switch ( $um ) {
             if ( empty( $_POST[ 'tid' ] ) ) {
                 $_POST[ 'tid' ] = 0;
             }
-            
+
             $_POST[ 'pkey' ]   = escape( $_POST[ 'pkey' ], 'integer' );
             $_POST[ 'gegner' ] = escape( $_POST[ 'gegner' ], 'string' );
             $_POST[ 'page' ]   = get_homepage( escape( $_POST[ 'page' ], 'string' ) );
@@ -206,7 +206,7 @@ switch ( $um ) {
             $_POST[ 'email' ]  = escape( $_POST[ 'email' ], 'string' );
             $_POST[ 'icq' ]    = escape( $_POST[ 'icq' ], 'string' );
             $_POST[ 'wo' ]     = escape( $_POST[ 'wo' ], 'string' );
-            
+
             if ( empty( $_POST[ 'pkey' ] ) ) {
                 db_query( "INSERT INTO `prefix_wars` (`datime`,`status`,wlp,`owp`,`opp`,`gegner`,`tag`,`page`,`mail`,`icq`,`wo`,`tid`,`mod`,`game`,`mtyp`,`land`,`txt`) VALUES ('" . get_datime() . "',3,'" . $_POST[ 'wlp' ] . "','" . $_POST[ 'sumowp' ] . "','" . $_POST[ 'sumopp' ] . "','" . $_POST[ 'gegner' ] . "','" . $_POST[ 'tag' ] . "','" . $_POST[ 'page' ] . "','" . $_POST[ 'email' ] . "','" . $_POST[ 'icq' ] . "','" . $_POST[ 'wo' ] . "','" . $_POST[ 'tid' ] . "','" . $_POST[ 'mod' ] . "','" . $_POST[ 'game' ] . "','" . $_POST[ 'mtyp' ] . "','" . $_POST[ 'land' ] . "','" . $_POST[ 'txt' ] . "')" );
                 $wid = db_last_id();
@@ -304,7 +304,7 @@ switch ( $um ) {
                 'stu' => date( 'H' ),
                 'min' => date( 'i' ),
                 'sek' => date( 's' ),
-                'kalck' => '' 
+                'kalck' => ''
             );
             for ( $i = 1; $i <= 5; $i++ ) {
                 $_ilch[ 'map' . $i ] = '';
@@ -340,7 +340,7 @@ switch ( $um ) {
         break;
     // Next wars
     case 'next':
-        
+
         $design = new design( 'Ilch Admin-Control-Panel :: Nextwars', '', 2 );
         $design->header();
         $show = true;
@@ -364,7 +364,7 @@ switch ( $um ) {
             if ( empty( $_POST[ 'tid' ] ) ) {
                 $_POST[ 'tid' ] = 0;
             }
-            
+
             $_POST[ 'pkey' ]   = escape( $_POST[ 'pkey' ], 'integer' );
             $_POST[ 'gegner' ] = escape( $_POST[ 'gegner' ], 'string' );
             $_POST[ 'page' ]   = get_homepage( escape( $_POST[ 'page' ], 'string' ) );
@@ -434,7 +434,7 @@ switch ( $um ) {
                 'stu' => date( 'H' ),
                 'min' => date( 'i' ),
                 'sek' => date( 's' ),
-                'kalck' => '' 
+                'kalck' => ''
             );
         }
         $_ilch[ 'msg' ]  = ( isset( $msg ) ? $msg : '' );
@@ -444,9 +444,9 @@ switch ( $um ) {
         $_ilch[ 'mtyp' ] = dblistee( $_ilch[ 'mtyp' ], "SELECT DISTINCT `mtyp`,`mtyp` FROM `prefix_wars` ORDER BY `mtyp`" );
         $_ilch[ 'land' ] = arlistee( $_ilch[ 'land' ], get_nationality_array() );
         $tpl->set_ar_out( $_ilch, 0 );
-        
+
         $page = ( $menu->getA( 2 ) == 'p' ? $menu->getE( 2 ) : 1 );
-        
+
         $class = '';
         if ( $page == 1 ) {
             $abf = "SELECT `id`,`gegner`,`game` FROM `prefix_wars` WHERE `status` = 1 ORDER BY `id` DESC";
@@ -459,7 +459,7 @@ switch ( $um ) {
                 $tpl->out( 1 );
             }
         }
-        
+
         $limit  = 20;
         $MPL    = db_make_sites( $page, 'WHERE status = 2', $limit, '?wars-next', 'wars' );
         $anfang = ( $page - 1 ) * $limit;

@@ -13,8 +13,8 @@
 	<td align="center"><font color="#FFEE00">{PAT}</font></td>
 </tr>
 </table>
-<br/>
-<br/>
+<br>
+<br>
 <table width="100%" border="0" cellspacing="1" cellpadding="2" class="border">
 <tr class="Chead">
 	<td colspan="4"><b>{_lang_nextwars}</b></td>
@@ -37,7 +37,16 @@
 <br />
 <br />
 {EXPLODE}
-<form action="?wars-last" method="POST">
+<script type="text/javascript">
+function loadLWPage(page){
+	var f = document.forms['lwf'];
+	f.elements['page'].value = page;
+	f.submit();
+	return false;
+}
+</script>
+<form action="?wars-last" method="post" name="lwf">
+<input type="hidden" name="page" value="0" />
 <input type="hidden" name="che" value="1">
 <table width="100%" border="0" cellspacing="1" cellpadding="2" class="border">
 <tr class="Chead">
@@ -45,31 +54,26 @@
 </tr>
 <tr class="Cnorm">
 	<td>Team:</td>
-	<td colspan="2"><select name="tid"><option value="">----------</option> {tid}</select></td>
+	<td colspan="2"><select name="tid"><option value="">-- ( alle ) --</option> {tid}</select></td>
 </tr>
 <tr class="Cmite">
 	<td>{_lang_result}:</td>
-	<td colspan="2"><select name="wpl">
-	<option value="">----------</option>
-	<option value="1">{_lang_win}</option>
-	<option value="2">{_lang_los}</option>
-	<option value="3">{_lang_pat}</option>
-	</select>
+	<td colspan="2"><select name="wlp"><option value="">-- ( alle ) --</option>{wlp}</select>
 	</td>
 </tr>
 <tr class="Cnorm">
 	<td>Game:</td>
-	<td colspan="2"><select name="spiel"><option value="">----------</option> {game}</select></td>
+	<td colspan="2"><select name="spiel"><option value="">-- ( alle ) --</option> {game}</select></td>
 </tr>
 <tr class="Cmite">
 	<td>Typ:</td>
-	<td colspan="2"><select name="typ"><option value="">----------</option> {typ}</td>
+	<td colspan="2"><select name="typ"><option value="">-- ( alle ) --</option> {typ}</td>
 </tr>
 <tr class="Cnorm">
-<td></td><td><input type="Submit" name="Go" value="Go"></td><td><a href="index.php?wars-last">Zeige alle {_lang_lastwars}</a></td>
+<td></td><td colspan="2"><input type="Submit" name="Go" value="Go"></td>
 </tr>
 </table>
-</form>
+</form><br /><br />
 {EXPLODE}
 <table width="100%" border="0" cellspacing="1" cellpadding="2" class="border">
 <tr class="Chead">
@@ -94,3 +98,4 @@
 </tr>
 {EXPLODE}
 </table>
+<div style="width: 90%; height: 20px; text-align: center; vertical-align: middle;">{MPL}</div>

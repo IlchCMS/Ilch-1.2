@@ -87,8 +87,9 @@
       </tr>
         <td class="Cnorm">
     <form action="index.php?gallery-show-{cid}-p{bildr}" method="POST">
-      <input type="text" name="name" value="{uname}" /> &nbsp; &nbsp; <input type="submit" value="{_lang_formsub}"><br />
-      <textarea cols="50" rows="2" name="text"></textarea>
+      {insertmsg}<input type="text" name="name" value="{uname}" /><br />
+      <textarea cols="50" rows="2" name="text"></textarea><br />
+      {antispam}<input type="submit" name="subgalkom" value="{_lang_formsub}">
     </form>
         </td>
       </tr>

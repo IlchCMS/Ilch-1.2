@@ -19,7 +19,7 @@
 	</tr>
   {EXPLODE}
      <td class="{class}" width="{width}%" valign="top" align="center">
- 
+
 <div onmouseover="hiddpos('infodiv{id}')" class="layer" id="infodiv{id}" style="position:absolute; top:50px; left:50px; display:none; width:200px; height:200px;">
 <table width="100%" class="border" border="0" cellspacing="1" cellpadding="4">
   <tr>
@@ -35,7 +35,7 @@
 </div>
        <table class="border" border="0" cellspacing="1" cellpadding="0">
          <tr>
-           <td onmouseout="hiddpos('infodiv{id}')" onmouseover="alertpos('infodiv{id}')"><a href="index.php?gallery-show-{cat}-p{bildr}" onClick="return oeffneFenster({bildr},{cat});" target="_blank"><img src="include/images/gallery/img_thumb_{id}.{endung}" border="0" alt="{datei_name}" title="&nbsp;" /></a></td>           
+           <td onmouseout="hiddpos('infodiv{id}')" onmouseover="alertpos('infodiv{id}')"><a href="index.php?gallery-show-{cat}-p{bildr}" onClick="return oeffneFenster({bildr},{cat});" target="_blank"><img src="include/images/gallery/img_thumb_{id}.{endung}" border="0" alt="{datei_name}" title="&nbsp;" /></a></td>
          </tr>
        </table>
      </td>
@@ -46,11 +46,11 @@
 <script language="JavaScript" type="text/javascript">
 <!--
   function oeffneFenster (bildr, cat) {
-    var fenster = window.open ('index.php?gallery-show-'+cat+'-p'+bildr,'showBild','scrollbars=yes,height=600,width={breite},left=200,status=yes');
+    var fenster = window.open ('index.php?gallery-show-'+cat+'-p'+bildr,'showBild','scrollbars=yes,height=600,width={breite},left=200,status=yes,resizable=yes');
     fenster.focus();
     return (false);
   }
-  
+
   // manage div ...
   document.onmousemove = checkPosition;
   function checkPosition(e) {
@@ -61,9 +61,9 @@
       mausX = e.pageX;
       mausY = e.pageY;
     }
-    
+
   }
-  
+
   function alertpos(dname) {
   if (document.layers) {
     document.layers[0].left = mausX;

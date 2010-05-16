@@ -37,6 +37,17 @@ if ( $menu->get( 1 ) == "confirm" AND isset( $_GET[ 'check' ] ) ) {
                 break;
             // join us
             case 4:
+                echo '<br />Joinus kann über diese Liste nicht akzeptiert werden, mache diese über <a style="color:red;" href="http://ilch11.dev/admin.php?groups-joinus">Joinus Anfragen bearbeiten</a><br /><br />';
+                break;
+            // ak 5 remove account
+            case 5:
+                list ($id, $muell) = explode('-remove-', $row['check']);
+                if ($id == $_SESSION['authid']) {
+                    echo 'Der eigene Account ist auf diese Weise nicht l&ouml;schbar.';
+                    break;
+                }
+                user_remove($id);
+                db_query("DELETE FROM prefix_usercheck WHERE `check` = '".escape($_GET['check'], 'string')."'");
                 break;
         }
     } else {
@@ -54,7 +65,7 @@ $ak  = array(
     'neuer User',
     'neues Passwort',
     'neue Emailadresse',
-    'Join us' 
+    'Join us'
 );
 $c   = 0;
 $erg = db_query( "SELECT `check`, `name`, `email`, `ak`, date_format(`datime`,'%k:%i Uhr %e.%c.%Y') as `time` FROM `prefix_usercheck` ORDER by `datime` DESC" );

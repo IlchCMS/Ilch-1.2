@@ -34,7 +34,7 @@ if ( empty( $_GET[ 'sid' ] ) ) {
     $row[ 'titel' ] = '';
     $row[ 'text' ]  = $row[ 'sid' ] = '';
 } else {
-    $abf          = 'SELECT `text`,`zahl`,`titel`,`id` as `sid` FROM `prefix_rules` WHERE `id` = "' . $_GET[ 'sid' ] . '"';
+    $abf          = 'SELECT `text`,`zahl`,`titel`,`id` as `sid` FROM `prefix_rules` WHERE `id` = "' . escape($_GET[ 'sid' ], 'integer') . '"';
     $erg          = db_query( $abf );
     $row          = db_fetch_assoc( $erg );
     $row[ 'sub' ] = '&Auml;ndern';

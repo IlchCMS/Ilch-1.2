@@ -50,7 +50,7 @@ switch ( $um ) {
             // find user id
             $name = escape( $_POST[ 'name' ], 'string' );
             $uid  = @db_result( @db_query( "SELECT `id` FROM `prefix_user` WHERE `name` = BINARY '" . $name . "'" ), 0, 0 );
-            
+
             if ( !empty( $uid ) AND 0 == db_result( db_query( "SELECT COUNT(*) FROM `prefix_forummods` WHERE `uid` = " . $uid . " AND `fid` = " . $fid ), 0 ) ) {
                 db_query( "INSERT INTO `prefix_forummods` (`uid`,`fid`) VALUES (" . $uid . ", " . $fid . ")" );
             }
@@ -60,7 +60,7 @@ switch ( $um ) {
             $uid = escape( $menu->getE( 2 ), 'integer' );
             db_query( "DELETE FROM `prefix_forummods` WHERE `uid` = " . $uid . " AND `fid` = " . $fid );
         }
-        
+
         $tpl = new tpl( 'forum/mods', 1 );
         $tpl->set( 'fid', $fid );
         $tpl->out( 0 );
@@ -81,23 +81,23 @@ switch ( $um ) {
                 wd( 'admin.php?forum-newCategorie', 'Erst eine neue Kategorie anlegen dann ein Forum' );
                 die( );
             }
-            
+
             $ar = array(
                  'ak' => 'new',
                 'sub' => 'Eintragen',
                 'name' => '',
                 'fid' => '',
-                'text' => '' 
+                'text' => ''
             );
-            
+
             $tpl = new tpl( 'forum/eforum', 1 );
-            
+
             if ( $menu->getA( 2 ) == 'c' AND is_numeric( $menu->getE( 2 ) ) ) {
                 $cid = $menu->getE( 2 );
             } else {
                 $cid = 0;
             }
-            
+
             forum_admin_selectcats( 0, '', $ar[ 'kats' ], $cid );
             $ar[ 'view' ] = '<optgroup label="Grundrechte">';
             $ar[ 'view' ] .= dbliste( '', $tpl, 'view', "SELECT `id`, `name` FROM `prefix_grundrechte` ORDER BY `id` DESC" );
@@ -140,11 +140,11 @@ switch ( $um ) {
                 'sub' => '&Auml;ndern',
                 'fid' => $fid,
                 'name' => $row->name,
-                'text' => $row->besch 
+                'text' => $row->besch
             );
             $tpl          = new tpl( 'forum/eforum', 1 );
             $ar[ 'kats' ] = dbliste( $row->cid, $tpl, 'kats', "SELECT `id`, `name` FROM `prefix_forumcats` ORDER BY `name`" );
-            
+
             $ar[ 'view' ] = '<optgroup label="Grundrechte">';
             $ar[ 'view' ] .= dbliste( $row->view, $tpl, 'view', "SELECT `id`, `name` FROM `prefix_grundrechte` ORDER BY `id` DESC" );
             $ar[ 'view' ] .= '</optgroup>';
@@ -244,7 +244,6 @@ switch ( $um ) {
         }
         break;
     case 'deleteCategorie':
-        
         $cid = escape( $menu->get( 2 ), 'integer' );
         $e   = db_query( "SELECT `id` FROM `prefix_forums` WHERE `cid` = " . $cid );
         while ( $r = db_fetch_row( $e ) ) {
@@ -252,8 +251,8 @@ switch ( $um ) {
             db_query( "DELETE FROM `prefix_topics` WHERE `fid` = " . $r[ 0 ] );
         }
         db_query( "DELETE FROM `prefix_forums` WHERE `cid` = " . $cid );
-        $pos = db_result( db_query( "SELECT `pos` FROM `prefix_forumcats` WHERE `id` = " . $cid ), 0 );
-        db_query( "UPDATE `prefix_forumcats` SET `pos` = `pos` -1 WHERE `pos` > " . $pos );
+        list($pos, $uid) = db_fetch_row(db_query("SELECT pos, cid FROM prefix_forumcats WHERE id = ".$cid) );
+        db_query( "UPDATE prefix_forumcats SET pos = pos -1 WHERE pos > ".$pos." AND cid = ".$uid );
         db_query( "DELETE FROM `prefix_forumcats` WHERE `id` = " . $cid );
         break;
     case 'moveCategorie':
@@ -351,7 +350,7 @@ if ( $show ) {
         }
     }
     $tpl->out( 3 );
-    
+
     forum_admin_showcats( 0, '' );
     $topcid         = ( is_numeric( $r->topcid ) ? $r->topcid : 0 );
     $Cout           = array( );

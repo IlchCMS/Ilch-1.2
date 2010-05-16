@@ -118,23 +118,41 @@ if ( $menu->get( 1 ) == 'showOrig' ) {
         'bildr' => $page,
         'besch' => unescape( $row[ 'besch' ] ),
         'breite' => $breite,
-        'hoehe' => $hoehe 
+        'hoehe' => $hoehe
     );
     $tpl->set_ar_out( $arr, 0 );
     // kommentare
     if ( $allgAr[ 'gallery_img_koms' ] == 1 ) {
         // eintragen
-        if ( isset( $_POST[ 'name' ] ) ) {
-            $name = escape( $_POST[ 'name' ], 'string' );
-            $text = escape( $_POST[ 'text' ], 'string' );
-            db_query( "INSERT INTO `prefix_koms` (`name`,`text`,`uid`,`cat`) VALUES ('" . $name . "','" . $text . "'," . $row[ 'id' ] . ",'GALLERYIMG')" );
+        $insertmsg = '';
+        if ((loggedin() or isset($_POST['name'])) and !empty($_POST['text']) and $antispam = chk_antispam('gallery')) {
+            if (loggedin()) {
+                $name = $_SESSION['authname'];
+            } else {
+                $name = escape($_POST['name'],'string');
+                if (db_count_query('SELECT COUNT(*) FROM prefix_user WHERE name = "'.$name.'"')) {
+                    $insertmsg .= 'Der Name ist bereits für einen registrierten User vergeben';
+                }
+            }
+            if (empty($insertmsg)) {
+                $text = escape($_POST['text'],'string');
+                db_query("INSERT INTO prefix_koms (name,text,uid,cat) VALUES ('".$name."','".$text."',".$row['id'].",'GALLERYIMG')");
+            }
+        } elseif (isset($_POST['subgalkom']) and  !$antispam) {
+            $insertmsg .= 'Falscher Antispam';
         }
         // loeschen
-        if ( isset( $_GET[ 'delete' ] ) AND is_admin() ) {
-            db_query( "DELETE FROM `prefix_koms` WHERE `id` = " . $_GET[ 'delete' ] );
+        if (isset($_GET['delete']) AND is_siteadmin()) {
+            db_query("DELETE FROM prefix_koms WHERE id = ".escape($_GET['delete'], 'integer'));
         }
         // zeigen
-        $tpl->set( 'uname', $_SESSION[ 'authname' ] );
+        if (!empty($insertmsg)) {
+            $insertmsg = '<span style="color:red;">'.$insertmsg.'</span><br />';
+        }
+        $tpl->set('insertmsg', $insertmsg );
+        $tpl->set('uname', $_SESSION['authname']);
+        $tpl->set('antispam', get_antispam('gallery', 0));
+
         $tpl->out( 1 );
         $class = 'Cnorm';
         $erg   = db_query( "SELECT `id`, `name`, `text` FROM `prefix_koms` WHERE `uid` = " . $row[ 'id' ] . " AND `cat` = 'GALLERYIMG' ORDER BY `id` DESC" );
@@ -187,7 +205,7 @@ if ( $menu->get( 1 ) == 'showOrig' ) {
         }
         $tpl->out( 3 );
     }
-    
+
     $limit  = $img_per_site;
     $page   = ( $menu->getA( 2 ) == 'p' ? escape( $menu->getE( 2 ), 'integer' ) : 1 );
     $MPL    = db_make_sites( $page, "LEFT JOIN `prefix_gallery_cats` ON `prefix_gallery_imgs`.`cat` = `prefix_gallery_cats`.`id` WHERE `prefix_gallery_imgs`.`cat` = " . $cid . " AND (`recht` >= " . $_SESSION[ 'authright' ] . " OR `recht` IS NULL)", $limit, '?gallery-' . $cid, "gallery_imgs" );

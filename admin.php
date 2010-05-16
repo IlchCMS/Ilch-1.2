@@ -1,7 +1,4 @@
 <?php
-
-//$messungStart = strtok(microtime(), " ") + strtok(" ");
-
 //   Copyright by: Manuel
 //   Support: www.ilch.de
 
@@ -9,11 +6,23 @@
 
 define( 'main', TRUE );
 define( 'admin', TRUE );
+define( 'DEBUG', FALSE );
+define( 'SCRIPT_START_TIME', microtime(true) );
 
 //Konfiguration zur Anzeige von Fehlern
 //Auf http://www.php.net/manual/de/function.error-reporting.php sind die verf�gbaren Modi aufgelistet
-@error_reporting( E_ALL ^ E_NOTICE ^ E_DEPRECATED );
-date_default_timezone_set( 'Europe/Berlin' );
+//Seit php-5.3 ist eine Angabe der TimeZone Pflicht
+if (version_compare(phpversion(), '5.3') != -1) {
+    if (E_ALL > E_DEPRECATED) {
+        @error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
+    } else {
+        @error_reporting(E_ALL ^ E_NOTICE);
+    }
+    date_default_timezone_set('Europe/Berlin');
+} else {
+    @error_reporting(E_ALL ^ E_NOTICE);
+}
+
 
 @ini_set( 'display_errors', 'On' );
 
@@ -50,12 +59,9 @@ if ( user_has_admin_right( $menu ) ) {
 
 // Datenbank schlie�en
 db_close();
-if ( false ) { //debugging aktivieren
+if ( DEBUG ) { //debugging aktivieren
     debug( 'anzahl sql querys: ' . $count_query_xyzXYZ );
     debug( '', 1, true );
+    debug( 'Scriptlaufzeit: '. round(microtime(true) - SCRIPT_START_TIME, 5) );
 }
-
-//$messungEnde = strtok(microtime(), " ") + strtok(" ");
-//echo "Dauer: ".number_format($messungEnde - $messungStart, 6)." Sekunden";
-
 ?>

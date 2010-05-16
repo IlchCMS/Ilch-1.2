@@ -117,12 +117,12 @@ class BackupWriter
 
 function get_def( $dbname, $table, $writer )
 {
-    $def = "\n-- ----------------------------------------------------------\n--\n";
-    $def .= "-- structur for table '" . $table . "'\n--\n";
+    $def = "\r\n-- ----------------------------------------------------------\r\n--\r\n";
+    $def .= "-- structur for table '" . $table . "'\r\n--\r\n";
     if ( isset( $_POST[ 'drop' ] ) ) {
-        $def .= "DROP TABLE IF EXISTS `" . $table . "`;\n";
+        $def .= "DROP TABLE IF EXISTS `" . $table . "`;\r\n";
     }
-    $def .= "CREATE TABLE `" . $table . "` (\n";
+    $def .= "CREATE TABLE `" . $table . "` (\r\n";
     $result = mysql_db_query( $dbname, "SHOW FIELDS FROM `" . $table . "`", CONN );
     while ( $row = mysql_fetch_array( $result ) ) {
         $def .= "    `" . $row[ 'Field' ] . "` " . $row[ 'Type' ];
@@ -132,9 +132,9 @@ function get_def( $dbname, $table, $writer )
             $def .= " NOT NULL";
         if ( $row[ 'Extra' ] != "" )
             $def .= " " . $row[ 'Extra' ];
-        $def .= ",\n";
+        $def .= ",\r\n";
     }
-    $def    = ereg_replace( ",\n$", "", $def );
+    $def    = ereg_replace( ",\r\n$", "", $def );
     $result = mysql_db_query( $dbname, "SHOW KEYS FROM `" . $table . "`", CONN );
     while ( $row = mysql_fetch_array( $result ) ) {
         $kname = $row[ 'Key_name' ];
@@ -145,7 +145,7 @@ function get_def( $dbname, $table, $writer )
         $index[ $kname ][ ] = "`" . $row[ 'Column_name' ] . "`";
     }
     while ( list( $x, $columns ) = @each( $index ) ) {
-        $def .= ",\n";
+        $def .= ",\r\n";
         if ( $x == "PRIMARY" )
             $def .= "   PRIMARY KEY (" . implode( $columns, ", " ) . ")";
         else if ( substr( $x, 0, 6 ) == "UNIQUE" )
@@ -155,15 +155,15 @@ function get_def( $dbname, $table, $writer )
     }
     $result   = mysql_db_query( $dbname, "SHOW TABLE STATUS FROM `" . $dbname . "` LIKE '" . $table . "'", CONN );
     $auto_inc = mysql_result( $result, 0, 'Auto_increment' );
-    $def .= "\n)" . ( $auto_inc != '' ? " AUTO_INCREMENT=" . $auto_inc : '' ) . ";";
-    $def .= "\n\n";
+    $def .= "\r\n)" . ( $auto_inc != '' ? " AUTO_INCREMENT=" . $auto_inc : '' ) . ";";
+    $def .= "\r\n\r\n";
     stripslashes( $def );
     $writer->write( $def );
 }
 
 function get_content( $dbname, $table, $writer )
 {
-    $writer->write( "--\n-- data for table '" . $table . "'\n--\n" );
+    $writer->write( "--\r\n-- data for table '" . $table . "'\r\n--\r\n" );
     $result = mysql_db_query( $dbname, "SHOW FIELDS FROM `" . $table . "`", CONN );
     $fields = '(';
     while ( $row = mysql_fetch_row( $result ) ) {
@@ -183,10 +183,10 @@ function get_content( $dbname, $table, $writer )
                 $insert .= "'',";
         }
         $insert = ereg_replace( ",$", "", $insert );
-        $insert .= ");\n";
+        $insert .= ");\r\n";
         $writer->write( $insert_begin . $insert );
     }
-    $writer->write( "\n\n" );
+    $writer->write( "\r\n\r\n" );
 }
 
 if ( !empty( $_POST[ 'sendBackup' ] ) AND $_POST[ 'sendBackup' ] == 'yes' AND isset( $_POST[ 'gelesen' ] ) AND $_POST[ 'gelesen' ] == 'yes' ) {
@@ -204,17 +204,17 @@ if ( !empty( $_POST[ 'sendBackup' ] ) AND $_POST[ 'sendBackup' ] == 'yes' AND is
     // #
     // ##
     // ### start backup
-    
+
     /*
-    
+
     phpMyBackup v.0.4 Beta - Documentation
     Homepage: http://www.nm-service.de/phpmybackup
     Copyright (c) 2000-2001 by Holger Mauermann, mauermann@nm-service.de
-    
+
     phpMyBackup is distributed in the hope that it will be useful for you, but
     WITHOUT ANY WARRANTY. This programm may be used freely as long as all credit
     and copyright information are left intact.
-    
+
     */
     if ( $writer->countWriters() ) {
         $version  = "0.4 beta";

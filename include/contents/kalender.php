@@ -34,7 +34,7 @@ if ( $menu->getA( 2 ) == 'e' AND is_numeric( $menu->getE( 1 ) ) ) {
 $arr_month = array(
      '1' => 'Januar',
     'Februar',
-    'März',
+    'Mï¿½rz',
     'April',
     'Mai',
     'Juni',
@@ -43,7 +43,7 @@ $arr_month = array(
     'September',
     'Oktober',
     'November',
-    'Dezember' 
+    'Dezember'
 );
 $arr_day   = array(
      'So',
@@ -52,7 +52,7 @@ $arr_day   = array(
     'Mi',
     'Do',
     'Fr',
-    'Sa' 
+    'Sa'
 );
 
 $days      = date( 't', mktime( 0, 0, 0, $month, 1, $year ) );
@@ -94,16 +94,12 @@ while ( $r = db_fetch_assoc( $result ) ) {
     list( $y, $m, $d ) = explode( '-', $r[ 'gebdatum' ] );
     $date  = mktime( 0, 0, 0, $m, $d );
     $date2 = mktime( 0, 0, 0, $m, $d, $year );
-    $jetzt = time();
     $alter = date( 'Y' ) - $y;
-    if ( $date > $jetzt ) {
-        $alter = $alter - 1;
-    }
     $row                           = array(
          'title' => $alter . '. Geburtstag von ' . $r[ 'name' ],
         'text' => 'Der ' . $alter . '. Geburtstag von [url=http://' . ( $_SERVER[ "HTTP_HOST" ] . $_SERVER[ "SCRIPT_NAME" ] ) . '?user-details-' . $r[ 'id' ] . '][b]' . $r[ 'name' ] . '[/b][/url]',
         'time' => $date + 99,
-        'id' => '999' . $r[ 'id' ] 
+        'id' => '999' . $r[ 'id' ]
     );
     $data_id[ '999' . $r[ 'id' ] ] = $row;
     $data[ $date2 ][ ]             = $row;
@@ -139,13 +135,13 @@ elseif ( $view == 0 ) {
         if ( isset( $data[ $date ] ) ) {
             foreach ( $data[ $date ] as $eventinfo ) {
                 $text .= eventlink($tpl, $view, $eventinfo);
-            	
+
 				// bbcode anwenden
 				$eventinfo["text"] = BBCode($eventinfo["text"]);
                 $tooltips .= $tpl->set_ar_get($eventinfo, "tooltip");
             }
         }
-        
+
         $aus[ 'LIST_I' ]     = $i + 1;
         $aus[ 'LIST_D' ]     = $arr_day[ date( 'w', mktime( 0, 0, 0, $month, $i + 1, $year ) ) ];
         $aus[ 'LIST_T' ]     = $text;
@@ -175,7 +171,7 @@ elseif ( $view == 0 ) {
                 $tpl->set_ar_out( $aus, 1 );
                 unset( $aus );
                 $i++;
-                
+
                 // bbcode anwenden
 				$eventinfo["text"] = BBCode($eventinfo["text"]);
                 $tooltips .= $tpl->set_ar_get($eventinfo, "tooltip");
@@ -198,7 +194,7 @@ elseif ( $view == 0 ) {
             $tpl->set_ar_out( $aus, 1 );
             unset( $aus );
             $i++;
-            
+
             // bbcode anwenden
 			$eventinfo["text"] = BBCode($eventinfo["text"]);
             $tooltips .= $tpl->set_ar_get($eventinfo, "tooltip");

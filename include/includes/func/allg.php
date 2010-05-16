@@ -9,7 +9,7 @@ defined( 'main' ) or die( 'no direct access' );
 function wd( $wdLINK, $wdTEXT, $wdZEIT = 3 )
 {
     global $lang;
-    
+
     if ( !is_array( $wdLINK ) ) {
         $urls  = '<a href="' . $wdLINK . '">' . $lang[ 'forward2' ] . '</a>';
         $wdURL = $wdLINK;
@@ -29,7 +29,7 @@ function wd( $wdLINK, $wdTEXT, $wdZEIT = 3 )
          'LINK' => $urls,
         'URL' => $wdURL,
         'ZEIT' => $wdZEIT,
-        'TEXT' => $wdTEXT 
+        'TEXT' => $wdTEXT
     );
     $tpl->set_ar_out( $ar, 0 );
     unset( $tpl );
@@ -72,7 +72,7 @@ function wtage( $tag )
         'Mittwoch',
         'Donnerstag',
         'Freitag',
-        'Samstag' 
+        'Samstag'
     );
     return ( $wtage[ $tag ] );
 }
@@ -94,7 +94,7 @@ function getDmon( $mon )
         'September',
         'Oktober',
         'November',
-        'Dezember' 
+        'Dezember'
     );
     return ( $monate[ $mon - 1 ] );
 }
@@ -123,7 +123,7 @@ function getAllgAr( )
 function userrang( $post, $uid )
 {
     global $global_user_rang_array;
-    
+
     if ( !isset( $global_user_rang_array[ $uid ] ) ) {
         if ( !isset( $global_user_rang_array ) ) {
             $global_user_rang_array = array( );
@@ -141,7 +141,7 @@ function userrang( $post, $uid )
         }
         $global_user_rang_array[ $uid ] = $rRang;
     }
-    
+
     return ( $global_user_rang_array[ $uid ] );
 }
 // #
@@ -169,7 +169,7 @@ function getsmilies( $zeilen = 3 )
     while ( $row = db_fetch_object( $erg ) ) {
         $b .= 'x.document.write ("<a href=\"javascript:opener.put(\'' . addslashes( addslashes( $row->ent ) ) . '\')\">");';
         $b .= 'x.document.write ("<img style=\"border: 0px; padding: 5px;\" src=\"include/images/smiles/' . $row->url . '\" title=\"' . $row->emo . '\"></a>");';
-        
+
         if ( $i < 12 ) {
             // float einbauen
             if ( $i % $zeilen == 0 AND $i != 0 ) {
@@ -265,7 +265,7 @@ function genkey( $anz )
         '7',
         '8',
         '9',
-        '0' 
+        '0'
     );
     $key         = '';
     for ( $i = 0; $i < $anz; $i++ ) {
@@ -292,13 +292,13 @@ function icmail( $mail, $bet, $txt, $from = '', $html = false )
         $mailer->FromName = '';
     }
     if ( $allgAr[ 'mail_smtp' ] ) { //SMTP Versand
-        
+
         $smtpser = @db_result( db_query( 'SELECT `t1` FROM `prefix_allg` WHERE `k` = "smtpconf"' ) );
         if ( empty( $smtpser ) ) {
             echo '<span style="font-size: 2em; color: red;">Mailversand muss konfiguriert werden!</span><br />';
         } else {
             $smtp = unserialize( $smtpser );
-            
+
             $mailer->IsSMTP();
             $mailer->Host     = $smtp[ 'smtp_host' ];
             $mailer->SMTPAuth = ( $smtp[ 'smtp_auth' ] == 'no' ? false : true );
@@ -309,19 +309,20 @@ function icmail( $mail, $bet, $txt, $from = '', $html = false )
                 $mailer->Port = $smtp[ 'smtp_port' ];
             }
             $mailer->AddReplyTo( $mailer->From, $mailer->FromName );
-            
+
             if ( $smtp[ 'smtp_changesubject' ] and $mailer->From != $smtp[ 'smtp_email' ] ) {
                 $bet          = '(For ' . $mailer->FromName . ' - ' . $mailer->From . ') ' . $bet;
                 $mailer->From = $smtp[ 'smtp_email' ];
             }
-            
+
             $mailer->Username = $smtp[ 'smtp_login' ];
-            
+
             require_once( 'include/includes/class/AzDGCrypt.class.inc.php' );
             $cr64             = new AzDGCrypt( DBDATE . DBUSER . DBPREF );
             $mailer->Password = $cr64->decrypt( $smtp[ 'smtp_pass' ] );
-            
+
             if ( $smtp[ 'smtp_pop3beforesmtp' ] == 1 ) {
+                include_once('include/includes/class/phpmailer/class.pop3.php');
                 $pop      = new POP3();
                 $pop3port = !empty( $smpt[ 'smtp_pop3port' ] ) ? $smpt[ 'smtp_pop3port' ] : 110;
                 $pop->Authorise( $smpt[ 'smtp_pop3host' ], $pop3port, 5, $mailer->Username, $mailer->Password, 1 );
@@ -351,7 +352,7 @@ function icmail( $mail, $bet, $txt, $from = '', $html = false )
         $mailer->AltBody = strip_tags( $txt );
     }
     $mailer->Body = $txt;
-    
+
     if ( $mailer->Send() ) {
         return true;
     } else {
@@ -414,7 +415,7 @@ function iurlencode_help( $a )
     if ( preg_match( "/(http:|https:|ftp:)/", $a[ 0 ] ) ) {
         return ( $a[ 0 ] );
     }
-    
+
     return ( rawurlencode( $a[ 1 ] ) . substr( $a[ 0 ], -1 ) );
 }
 
@@ -436,18 +437,18 @@ function iurlencode( $s )
     $s = substr ($s, 6);
     $x = 'ftp://';
     }
-    
-    
+
+
     $a = explode('/', $s);
     $r = '';
     for ($i=0;$i<count($a);$i++) {
     $r .= rawurlencode($a[$i]).'/';
     }
-    
+
     if ($x !== 'false') {
     $r = $x.$r;
     }
-    
+
     $r = substr($r, 0, -1);
     return ($r);
     */
@@ -459,7 +460,7 @@ function iurlencode( $s )
 function chk_antispam( $m )
 {
     global $allgAr;
-    
+
     if ( is_numeric( $allgAr[ 'antispam' ] ) AND has_right( $allgAr[ 'antispam' ] ) ) {
         return ( true );
     }
@@ -477,11 +478,11 @@ function chk_antispam( $m )
 function get_antispam( $m, $t )
 {
     global $allgAr;
-    
+
     if ( is_numeric( $allgAr[ 'antispam' ] ) AND has_right( $allgAr[ 'antispam' ] ) ) {
         return ( '' );
     }
-    
+
     $rs = '<img class="Custom" src="include/includes/func/captcha/captchaimg.php" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt darunter stehende Feld ein.">&nbsp;<input name="number" type="text" maxlength="5" size="8">';
     if ( $t == 0 ) {
         return ( '<img class="Custom" src="include/includes/func/captcha/captchaimg.php" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt darunter stehende Feld ein."><br/><input name="number" type="text" maxlength="5" size="8">' );
@@ -545,7 +546,7 @@ function read_ext( $dir, $ext = '', $sExt = 1, $sDir = 0 )
     $buffer = Array( );
     if ( !is_array( $ext ) ) {
         $ext = Array(
-             $ext 
+             $ext
         );
     }
     $open = opendir( $dir );
