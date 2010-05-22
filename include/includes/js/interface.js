@@ -418,11 +418,13 @@ function bbcode_code_insert(tag,color) {
 		// Überprüfen ob es sich um den PHP Tag handelt und wenn ja Überprüfen ob der string folgende zeichenketten hat <? und ?>!
 		if(tag == "php" && prompt_box.match(/(\<\?)/i) && prompt_box.match(/(\?\>)/i)) {
 		 	prompt_box;	 
-		} else if(tag == "php") {
+		} else if(tag == "php" && prompt_box != null && prompt_box !='') {
 			prompt_box = "<?php\n"+prompt_box+"\n?>";	 
 		}
-			
-		range.text = begin_tag + prompt_box + end_tag;
+		
+        if(prompt_box != null && prompt_box !='') { 
+            range.text = begin_tag + prompt_box + end_tag;
+        }
 			
 		/* Anpassen der Cursorposition */
    		range = document.selection.createRange();
@@ -444,12 +446,14 @@ function bbcode_code_insert(tag,color) {
 		// Überprüfen ob es sich um den PHP Tag handelt und wenn ja Überprüfen ob der string folgende zeichenketten hat <? und ?>!
 		if(tag == "php" && prompt_box.match(/(\<\?)/i) && prompt_box.match(/(\?\>)/i)) {
 		 	prompt_box;	 
-		} else if(tag == "php") {
+		} else if(tag == "php" && prompt_box != null && prompt_box !='') {
 			prompt_box = "<?php\n"+prompt_box+"\n?>";	 
 		}
 		
 		
-		formular.value = formular.value.substr(0, start) + begin_tag + prompt_box + end_tag + formular.value.substr(end);
+		if(prompt_box != null && prompt_box !='') {
+            formular.value = formular.value.substr(0, start) + begin_tag + prompt_box + end_tag + formular.value.substr(end);
+        }
 			
 		/* Anpassen der Cursorposition */
    		var pos;
