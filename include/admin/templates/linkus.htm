@@ -1,18 +1,18 @@
 <style type="text/css">
 #newbannerdiv {
-	float: right;
+	float:none;
 	width:auto;
 	text-align: center;
 	display:none;
 }
 #editbannerdiv {
-	float: center;
+	float:none;
 	width:auto;
 	text-align: center;
 	display:none;
 }
 #topbannerdiv {
-	float: left;
+	float:none;
 	width:auto;
 	text-align: center;
 	display:none;
@@ -38,7 +38,7 @@ function newbanner() {
 		.dialog({
 			autoOpen: true,
 			title: 'Neuer Banner',
-			width: 262
+			width: 338
 	});
 }
 function editbanner($bid, $name, $link) {	
@@ -52,7 +52,7 @@ function editbanner($bid, $name, $link) {
 		.dialog({
 			autoOpen: true,
 			title: 'Banner ' + $bid + ' &auml;ndern',
-			width: 262
+			width: 338
 	});
 	
 }
@@ -83,12 +83,12 @@ function topbanner() {
 		 </label>
         <br>
         <label>Name<br>
-          <input type="text" name="setbannername" id="setbannername">
+          <input name="setbannername" type="text" id="setbannername" size="50" maxlength="250">
         </label>
       </p>
       <p>
         <label>Link<br>
-          <input name="setlink" type="text" id="setlink" value="http://">
+          <input name="setlink" type="text" id="setlink" value="http://" size="50" maxlength="250">
         </label>
       </p>
       <p>
@@ -107,12 +107,12 @@ function topbanner() {
 		 </label>
         <br>
         <label>Name<br>
-          <input type="text" name="editbannername" id="editbannername">
+          <input type="text" name="editbannername" id="editbannername" size="50" maxlength="250">
         </label>
       </p>
       <p>
         <label>Link<br>
-          <input name="editlink" type="text" id="editlink" value="">
+          <input name="editlink" type="text" id="editlink" value="" size="50" maxlength="250">
         </label>
       </p>
       	<input id="hiddeneditid" name="hiddeneditid" type="hidden" value="" />
@@ -124,7 +124,7 @@ function topbanner() {
 
 <!-- Top Banner -->
 <div id="topbannerdiv" name="topbannerdiv">
-	<table border="0">
+	<table border="0" align="center">
       <tr>
         <th nowrap="nowrap" align="right">ID&nbsp;</th>
         <th nowrap="nowrap" align="left">&nbsp;Name</th>
