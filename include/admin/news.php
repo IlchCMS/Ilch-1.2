@@ -52,8 +52,15 @@ if ( !empty( $_REQUEST[ 'um' ] ) ) {
         if ( $_POST[ 'katLis' ] == 'neu' ) {
             $_POST[ 'katLis' ] = $_POST[ 'kat' ];
         }
-        db_query( "INSERT INTO `prefix_news` (`news_title`,`user_id`,`news_time`,`news_recht`,`news_kat`,`news_text`)
-		VALUES ('" . $_POST[ 'titel' ] . "'," . $_SESSION[ 'authid' ] . ",NOW()," . $_POST[ 'grecht' ] . ",'" . $_POST[ 'katLis' ] . "','" . $text . "')" );
+		dump($_POST[ 'titel' ]);
+		if (!empty($_POST[ 'titel' ]) and !empty($text)) {
+			db_query( "INSERT INTO `prefix_news` (`news_title`,`user_id`,`news_time`,`news_recht`,`news_kat`,`news_text`)
+					VALUES ('" . $_POST[ 'titel' ] . "'," . $_SESSION[ 'authid' ] . ",NOW()," . $_POST[ 'grecht' ] . ",'" . $_POST[ 'katLis' ] . "','" . $text . "')" );
+		
+		} else {
+        	wd('admin.php?news', 'Titel und/oder Text darf nicht leer sein', 3);
+			$design->footer(1);
+		}
         // insert
     } elseif ( $um == 'change' ) {
         // edit
