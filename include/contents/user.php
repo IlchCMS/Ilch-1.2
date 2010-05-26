@@ -1,11 +1,11 @@
 <?php
 // Copyright by: Manuel
 // Support: www.ilch.de
-defined( 'main' ) or die( 'no direct access' );
+defined('main') or die('no direct access');
 // menu
-require_once( 'include/contents/forum/menu.php' );
+require_once('include/contents/forum/menu.php');
 
-switch ( $menu->get( 1 ) ) {
+switch ($menu->get(1)) {
     default:
         $userDatei = 'memb_list';
         break;
@@ -48,6 +48,6 @@ switch ( $menu->get( 1 ) ) {
         break;
 }
 
-require_once( 'include/contents/user/' . $userDatei . '.php' );
+require_once('include/contents/user/' . $userDatei . '.php');
 
 ?>

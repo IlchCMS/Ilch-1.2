@@ -48,16 +48,16 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
     $design = new design ($title , $hmenu);
     $design->header();
 
-	$out = array('GES' => 0, 'WIN' => 0, 'LOS' => 0, 'PAT' => 0, 'TITLE' => $allgAr['title']);
+    $out = array('GES' => 0, 'WIN' => 0, 'LOS' => 0, 'PAT' => 0, 'TITLE' => $allgAr['title']);
 
-	if (isset($_POST['tid']) and is_numeric($_POST['tid'])) {
-		$tid = escape($_POST['tid'], 'integer');
-		$where1 = 'AND tid = '.$tid;
-		$where2 = 'AND a.tid = '.$tid;
-		$out['TITLE'] = db_result(db_query('SELECT `name` FROM `prefix_groups` WHERE `id` = ' . $tid));
-	} else {
-		$where1 = $where2 = '';
-	}
+    if (isset($_POST['tid']) and is_numeric($_POST['tid'])) {
+        $tid = escape($_POST['tid'], 'integer');
+        $where1 = 'AND tid = ' . $tid;
+        $where2 = 'AND a.tid = ' . $tid;
+        $out['TITLE'] = db_result(db_query('SELECT `name` FROM `prefix_groups` WHERE `id` = ' . $tid));
+    } else {
+        $where1 = $where2 = '';
+    }
 
     $keys = array(1 => 'WIN', 2 => 'LOS', 3 => 'PAT');
     $qry = db_query('SELECT `wlp`, COUNT(`id`) AS sum FROM `prefix_wars` WHERE `status` = 3 ' . $where1 . ' GROUP BY `wlp`');
@@ -76,7 +76,7 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
         while ($row = db_fetch_assoc($erg)) {
             if ($class == 'Cmite') {
                 $class = 'Cnorm';
-            }else {
+            } else {
                 $class = 'Cmite';
             }
             $row['page'] = get_homepage($row['page']);
@@ -87,60 +87,60 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
     }
     $tpl->out(2);
     $class = '';
-		$wlps = array(1 => $lang['win'], 2 => $lang['los'], 3 => $lang['pat']);
-		$sqla = 'WHERE status = 3 AND ';
-        $wheres = array();
-		if (isset($_POST['tid']) and !empty($_POST['tid'])) {
-			$teams = dblistee ($_POST['tid'], "SELECT `id`, `name` FROM `prefix_groups` ORDER BY `name`");
-			$wheres[] = 'tid = ' . escape($_POST['tid'], 'integer');
-		    //wlps einschränken
-		    $qry = db_query('SELECT DISTINCT wlp FROM prefix_wars ' . (count($wheres) ? $sqla . implode(' AND ', $wheres) : ''));
-		    $dbwlps = array();
-		    while($r = db_fetch_assoc($qry)){
-		        $dbwlps[] = (int)$r['wlp'];
-		    }
-		    foreach ($wlps as $k => $v){
-                if (!in_array($k, $dbwlps)) {
-		            unset($wlps[$k]);
-		        }
-		    }
-		} else {
-			$teams = dblistee ('', "SELECT `id`, `name` FROM `prefix_groups` ORDER BY `name`");
-		}
-        if (isset($_POST['wlp']) and !empty($_POST['wlp'])) {
-            $wlp = arlistee($_POST['wlp'], $wlps);
-            $wheres[] = 'wlp = ' . escape($_POST['wlp'], 'integer');
-        } else {
-            $wlp = arlistee('', $wlps);
+    $wlps = array(1 => $lang['win'], 2 => $lang['los'], 3 => $lang['pat']);
+    $sqla = 'WHERE status = 3 AND ';
+    $wheres = array();
+    if (isset($_POST['tid']) and !empty($_POST['tid'])) {
+        $teams = dblistee ($_POST['tid'], "SELECT `id`, `name` FROM `prefix_groups` WHERE `zeigen` = 1 ORDER BY `name`");
+        $wheres[] = 'tid = ' . escape($_POST['tid'], 'integer');
+        // wlps einschränken
+        $qry = db_query('SELECT DISTINCT wlp FROM prefix_wars ' . (count($wheres) ? $sqla . implode(' AND ', $wheres) : ''));
+        $dbwlps = array();
+        while ($r = db_fetch_assoc($qry)) {
+            $dbwlps[] = (int)$r['wlp'];
         }
-		if (isset($_POST['spiel']) and !empty($_POST['spiel'])) {
-			$game = dblistee ($_POST['spiel'], "SELECT DISTINCT `game`,`game` FROM `prefix_wars` " .(count($wheres) ? $sqla . implode(' AND ', $wheres) : ''). " ORDER BY `game`");
-			$wheres[] = 'game = "'.escape($_POST['spiel'], 'string').'"';
-		} else {
-			$game = dblistee ('', "SELECT DISTINCT `game`,`game` FROM `prefix_wars` " .(count($wheres) ? $sqla . implode(' AND ', $wheres) : ''). " ORDER BY `game`");
-		}
-        if (isset($_POST['typ']) and !empty($_POST['typ'])) {
-            $mtyp = dblistee ($_POST['typ'], "SELECT DISTINCT `mtyp`,`mtyp` FROM `prefix_wars` " .(count($wheres) ? $sqla . implode(' AND ', $wheres) : ''). " ORDER BY `mtyp`");
-            $wheres[] = 'mtyp = "'.escape($_POST['typ'], 'string').'"';
-        } else {
-            $mtyp = dblistee ('', "SELECT DISTINCT `mtyp`,`mtyp` FROM `prefix_wars` " .(count($wheres) ? $sqla . implode(' AND ', $wheres) : ''). " ORDER BY `mtyp`");
+        foreach ($wlps as $k => $v) {
+            if (!in_array($k, $dbwlps)) {
+                unset($wlps[$k]);
+            }
         }
+    } else {
+        $teams = dblistee ('', "SELECT `id`, `name` FROM `prefix_groups` WHERE `zeigen` = 1 ORDER BY `name`");
+    }
+    if (isset($_POST['wlp']) and !empty($_POST['wlp'])) {
+        $wlp = arlistee($_POST['wlp'], $wlps);
+        $wheres[] = 'wlp = ' . escape($_POST['wlp'], 'integer');
+    } else {
+        $wlp = arlistee('', $wlps);
+    }
+    if (isset($_POST['spiel']) and !empty($_POST['spiel'])) {
+        $game = dblistee ($_POST['spiel'], "SELECT DISTINCT `game`,`game` FROM `prefix_wars` " . (count($wheres) ? $sqla . implode(' AND ', $wheres) : '') . " ORDER BY `game`");
+        $wheres[] = 'game = "' . escape($_POST['spiel'], 'string') . '"';
+    } else {
+        $game = dblistee ('', "SELECT DISTINCT `game`,`game` FROM `prefix_wars` " . (count($wheres) ? $sqla . implode(' AND ', $wheres) : '') . " ORDER BY `game`");
+    }
+    if (isset($_POST['typ']) and !empty($_POST['typ'])) {
+        $mtyp = dblistee ($_POST['typ'], "SELECT DISTINCT `mtyp`,`mtyp` FROM `prefix_wars` " . (count($wheres) ? $sqla . implode(' AND ', $wheres) : '') . " ORDER BY `mtyp`");
+        $wheres[] = 'mtyp = "' . escape($_POST['typ'], 'string') . '"';
+    } else {
+        $mtyp = dblistee ('', "SELECT DISTINCT `mtyp`,`mtyp` FROM `prefix_wars` " . (count($wheres) ? $sqla . implode(' AND ', $wheres) : '') . " ORDER BY `mtyp`");
+    }
 
-        $tpl->set_ar_out (array('tid' => $teams, 'game' => $game, 'typ' => $mtyp, 'wlp' => $wlp) , 3);
-	if ($menu->get(1) == 'last') {
+    $tpl->set_ar_out (array('tid' => $teams, 'game' => $game, 'typ' => $mtyp, 'wlp' => $wlp) , 3);
+    if ($menu->get(1) == 'last') {
         $tpl->out(4);
         $sqla = 'WHERE status = 3 ' . (!empty($wheres) ? ' AND ' . implode(' AND ', $wheres) : '');
         // seiten funktion
         $limit = $allgAr['wars_last_limit']; // Limit
-		if (isset($_POST['page']) and is_numeric($_POST['page']) and $_POST['page'] >= 1) {
-			$menu->set_url(2, 'p'.intval($_POST['page']));
-		}
+        if (isset($_POST['page']) and is_numeric($_POST['page']) and $_POST['page'] >= 1) {
+            $menu->set_url(2, 'p' . intval($_POST['page']));
+        }
         $page = ($menu->getA(2) == 'p' ? $menu->getE(2) : 1);
         $MPL = db_make_sites ($page , $sqla , $limit , "?wars-last" , 'wars');
 
-		$MPL = preg_replace('%-p(\d+)"%', '$0 onclick="return loadLWPage($1);"', $MPL);
+        $MPL = preg_replace('%-p(\d+)"%', '$0 onclick="return loadLWPage($1);"', $MPL);
 
-		$anfang = ($page - 1) * $limit;
+        $anfang = ($page - 1) * $limit;
         // seiten funktion
         $farbe1wlpar = array(1 => 'C8E1B8', 2 => 'D8B9B9', 3 => 'FDFBB7');
         $farbe2wlpar = array(1 => '00FF00', 2 => 'FF0000', 3 => 'FFFF00');
@@ -160,7 +160,7 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
             $tpl->set_ar_out($row, 5);
         }
         $tpl->set_out('MPL', $MPL, 6);
-	}
+    }
     $design->footer();
 } elseif (is_numeric($menu->get(2))) {
     $_GET['mehr'] = escape($menu->get(2), 'integer');
@@ -211,7 +211,7 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
                             $i}
                         )) {
                     $needed .= $bm {
-                        $i};
+                        $i} ;
                 }
             }
 

@@ -1,7 +1,7 @@
 <?php
 // Copyright by Manuel
 // Support www.ilch.de
-defined( 'main' ) or die( 'no direct access' );
+defined('main') or die('no direct access');
 
 $query = "SELECT `a`.`id`, `a`.`name`, `a`.`rep`, `c`.`erst` as `last`, `c`.`id` as `pid`, `c`.`time`
 FROM `prefix_topics` `a`
@@ -20,11 +20,11 @@ WHERE ((" . $_SESSION[ 'authright' ] . " <= `b`.`view` AND `b`.`view` < 1)
 ORDER BY `c`.`time` DESC
 LIMIT 0,5";
 echo '<table>';
-$resultID = db_query( $query );
-while ( $row = db_fetch_assoc( $resultID ) ) {
-    $row[ 'date' ] = date( 'd.m.y - H:i', $row[ 'time' ] );
-    $row[ 'page' ] = ceil( ( $row[ 'rep' ] + 1 ) / $allgAr[ 'Fpanz' ] );
-    echo '<tr><td v><b> &raquo; </b></td><td><a href="?forum-showposts-' . $row[ 'id' ] . '-p' . $row[ 'page' ] . '#' . $row[ 'pid' ] . '" title="' . $row[ 'date' ] . '">' . ( ( strlen( $row[ 'name' ] ) < 18 ) ? $row[ 'name' ] : substr( $row[ 'name' ], 0, 15 ) . '...' ) . '<br /><span class="smalfont"> von ' . $row[ 'last' ] . '</span></a></td></tr>';
+$resultID = db_query($query);
+while ($row = db_fetch_assoc($resultID)) {
+    $row[ 'date' ] = date('d.m.y - H:i', $row[ 'time' ]);
+    $row[ 'page' ] = ceil(($row[ 'rep' ] + 1) / $allgAr[ 'Fpanz' ]);
+    echo '<tr><td v><b> &raquo; </b></td><td><a href="?forum-showposts-' . $row[ 'id' ] . '-p' . $row[ 'page' ] . '#' . $row[ 'pid' ] . '" title="' . $row[ 'date' ] . '">' . ((strlen($row[ 'name' ]) < 18) ? $row[ 'name' ] : substr($row[ 'name' ], 0, 15) . '...') . '<br /><span class="smalfont"> von ' . $row[ 'last' ] . '</span></a></td></tr>';
 }
 echo '</table>';
 
