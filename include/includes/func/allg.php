@@ -268,7 +268,7 @@ function genkey($anz) {
 
 function icmail($mail, $bet, $txt, $from = '', $html = false) {
     global $allgAr;
-    include_once('include/includes/class/phpmailer/class.phpmailer.php');
+    include_once('include/includes/libs/phpmailer/class.phpmailer.php');
     $mailer = new PHPMailer();
     if (empty($from)) {
         $mailer->From = $allgAr[ 'adminMail' ];
@@ -305,12 +305,12 @@ function icmail($mail, $bet, $txt, $from = '', $html = false) {
 
             $mailer->Username = $smtp[ 'smtp_login' ];
 
-            require_once('include/includes/class/AzDGCrypt.class.inc.php');
+            require_once('include/includes/libs/AzDGCrypt.class.inc.php');
             $cr64 = new AzDGCrypt(DBDATE . DBUSER . DBPREF);
             $mailer->Password = $cr64->decrypt($smtp[ 'smtp_pass' ]);
 
             if ($smtp[ 'smtp_pop3beforesmtp' ] == 1) {
-                include_once('include/includes/class/phpmailer/class.pop3.php');
+                include_once('include/includes/libs/phpmailer/class.pop3.php');
                 $pop = new POP3();
                 $pop3port = !empty($smpt[ 'smtp_pop3port' ]) ? $smpt[ 'smtp_pop3port' ] : 110;
                 $pop->Authorise($smpt[ 'smtp_pop3host' ], $pop3port, 5, $mailer->Username, $mailer->Password, 1);
@@ -558,4 +558,24 @@ function array_set_missing_keys($array1, $array2) {
     return $array1;
 }
 
+/**
+ * getSiteURL()
+ * Gibt die URL der Seite zurück, um z.B. Links zu erstellen
+ *
+ * @param boolean $endslash URL mit abschließendem Slash
+ * @return string URL der Seite
+ */
+function getSiteURL($endslash = true)
+{
+    $site = 'http://' . $_SERVER['HTTP_HOST'];
+    $dir = dirname($_SERVER['SCRIPT_NAME']);
+    if (strlen($dir) == 1) {
+        if ($endslash) {
+            $site .= '/';
+        }
+    } else {
+        $site .= $dir . ($endslash ? '/' : '');
+    }
+    return $site;
+}
 ?>

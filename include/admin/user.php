@@ -390,7 +390,7 @@ switch ($um) {
     // mal kurz nen neuen user anlegen
     case 'createNewUser':
         $msg = '';
-        if (!empty($_POST[ 'name' ]) AND !empty($_POST[ 'pass' ]) AND !empty($_POST[ 'email' ])) {
+        if (!empty($_POST[ 'name' ]) and !empty($_POST[ 'pass' ]) and !empty($_POST[ 'email' ])) {
             $_POST[ 'name' ] = escape($_POST[ 'name' ], 'string');
             $_POST[ 'recht' ] = escape($_POST[ 'recht' ], 'integer');
             $_POST[ 'email' ] = escape($_POST[ 'email' ], 'string');
@@ -417,8 +417,10 @@ switch ($um) {
                     unset($tpl);
                     icmail($_POST[ 'email' ], 'Admin hat dich angelegt', $txt);
                 }
-                $msg = 'Benutzer angelegt <a href="javascript:self.parent.tb_remove();">Fenster schlieﬂen</a>';
+                $msg = 'Benutzer angelegt <a href="javascript:self.parent.ic.modalDialogClose();">Fenster schlieﬂen</a>';
             }
+        } elseif (isset($_POST['sub'])) {
+            $msg = 'Du musst Name, Passwort und eine Emailadresse angeben!<br />';
         }
         $pass = '';
         $email = '';
@@ -434,13 +436,20 @@ switch ($um) {
         } else {
             $recht = '-1';
         }
+
+        $design = new design('Admin', '', 0);
         $tpl = new tpl('user/new_user', 1);
+
+        $design->addheader($tpl->get(0));
+        $design->header();
+
         $tpl->set('msg', $msg);
         $tpl->set('pass', $pass);
         $tpl->set('email', $email);
         $tpl->set('recht', dblistee($recht, "SELECT id,name FROM prefix_grundrechte ORDER BY id ASC"));
         $tpl->set('antispam', get_antispam('adminuser_create', 0, true));
-        $tpl->out(0);
+        $tpl->out(1);
+        $design->footer();
         break;
 }
 

@@ -1,6 +1,6 @@
 <script language="JavaScript" type="text/javascript">
     <!--
-      
+
 			function delFcheck ( DELID, CID ) {
 			  var frage = confirm ( "Willst du dieses Forum wirklich löschen?\n\n Achtung es werden: \n - alle Themen \n - und alle Beiträge \n in diesem Forum unwiederbringlich gelöscht!!" );
 				if ( frage == true ) {
@@ -36,10 +36,10 @@
   <tr class="Cmite">
 	<td><a href="?forum-changeForum-{fid}"><img src="include/images/icons/edit.png" border="0" /></a></td>
 	<td><a href="javascript:delFcheck({fid},{cid})"><img src="include/images/icons/del.png" border="0" /></a></td>
-	<td><a href="?forum-moveForum-0-{fid}-{fpos}-{cid}"><img src="include/images/icons/pfeilo.png" border="0"></a></td> 
+	<td><a href="?forum-moveForum-0-{fid}-{fpos}-{cid}"><img src="include/images/icons/pfeilo.png" border="0"></a></td>
 	<td><a href="?forum-moveForum-1-{fid}-{fpos}-{cid}"><img src="include/images/icons/pfeilu.png" border="0"></a></td>
 	<td>&nbsp;&nbsp;{fname}</td>
-	<td><a href="javascript:tb_show('Moderatoren', 'admin.php?forum-choosemods&fid={fid}?KeepThis=true&amp;TB_iframe=true&amp;height=265&amp;width=300', false);">Moderatoren</a></td>
+	<td><a href="javascript:ic.modalDialog({title:'Moderatoren',url:'admin.php?forum-choosemods&fid={fid}',height:265,width:300});">Moderatoren</a></td>
     <td align="center">{view}</td>
     <td align="center">{reply}</td>
     <td align="center">{start}</td>

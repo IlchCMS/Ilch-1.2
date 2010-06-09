@@ -29,27 +29,67 @@ function db_close() {
     mysql_close(CONN);
 }
 
-function db_check_error(&$r, $q) {
-    if (!$r AND mysql_errno(CONN) != 0 AND function_exists('is_coadmin') AND is_coadmin()) {
-        // var_export (debug_backtrace(), true)
-        echo ('<font color="#FF0000">MySQL Error:</font><br/>' . mysql_errno(CONN) . ' : ' . mysql_error(CONN) . '<br/>in Query:<br/>' . $q . '<pre>' . debug_bt() . '</pre>');
-    }
-    return ($r);
-}
+if (DEBUG) {
+    $ILCH_DEBUG_DB_QUERIES = array();
+    $ILCH_DEBUG_DB_COUNT_QUERIES = 0;
 
-function db_query($q) {
-    global $count_query_xyzXYZ;
-    $count_query_xyzXYZ++;
-
-    if (preg_match("/^UPDATE `?prefix_\S+`?\s+SET/is", $q)) {
-        $q = preg_replace("/^UPDATE `?prefix_(\S+?)`?([\s\.,]|$)/i", "UPDATE `" . DBPREF . "\\1`\\2", $q);
-    } elseif (preg_match("/^INSERT INTO `?prefix_\S+`?\s+[a-z0-9\s,\)\(]*?VALUES/is", $q)) {
-        $q = preg_replace("/^INSERT INTO `?prefix_(\S+?)`?([\s\.,]|$)/i", "INSERT INTO `" . DBPREF . "\\1`\\2", $q);
-    } else {
-        $q = preg_replace("/prefix_(\S+?)([\s\.,]|$)/", DBPREF . "\\1\\2", $q);
+    function db_check_error($r) {
+        if (!$r AND mysql_errno(CONN) != 0) {
+            // var_export (debug_backtrace(), true)
+            return '<font color="#FF0000">MySQL Error:</font><br/>' . mysql_errno(CONN) . ' : ' . mysql_error(CONN);
+        }
+        return '';
     }
 
-    return (db_check_error(@mysql_query($q, CONN), $q));
+    function db_query ($q) {
+        global $ILCH_DEBUG_DB_COUNT_QUERIES, $ILCH_DEBUG_DB_QUERIES;
+        $ILCH_DEBUG_DB_COUNT_QUERIES++;
+
+        if (preg_match ("/^UPDATE `?prefix_\S+`?\s+SET/is", $q)) {
+            $q = preg_replace("/^UPDATE `?prefix_(\S+?)`?([\s\.,]|$)/i","UPDATE `".DBPREF."\\1`\\2", $q);
+        } elseif (preg_match ("/^INSERT INTO `?prefix_\S+`?\s+[a-z0-9\s,\)\(]*?VALUES/is", $q)) {
+            $q = preg_replace("/^INSERT INTO `?prefix_(\S+?)`?([\s\.,]|$)/i", "INSERT INTO `".DBPREF."\\1`\\2", $q);
+        } else {
+            $q = preg_replace("/prefix_(\S+?)([\s\.,]|$)/", DBPREF."\\1\\2", $q);
+        }
+
+        $tmp = array();
+        $vor = microtime(true);
+        $qry = @mysql_query($q, CONN);
+        $tmp['duration'] = microtime(true) - $vor;
+        $tmp['time'] = $nach - SCRIPT_START_TIME;
+        $tmp['query'] = $q;
+        $tmp['affected rows'] = mysql_affected_rows(CONN);
+        $tmp['result index'] = (int)$qry;
+        $tmp['call'] = debug_bt();
+        $error = db_check_error($qry);
+        if (!empty($error)) {
+            $tmp['error'] = $error;
+        }
+
+        $ILCH_DEBUG_DB_QUERIES[] = $tmp;
+        return ($qry);
+    }
+} else {
+    function db_check_error(&$r, $q) {
+        if (!$r AND mysql_errno(CONN) != 0 AND function_exists('is_coadmin') AND is_coadmin()) {
+            // var_export (debug_backtrace(), true)
+            echo ('<font color="#FF0000">MySQL Error:</font><br/>' . mysql_errno(CONN) . ' : ' . mysql_error(CONN) . '<br/>in Query:<br/>' . $q . '<pre>' . debug_bt() . '</pre>');
+        }
+        return ($r);
+    }
+
+    function db_query($q) {
+        if (preg_match("/^UPDATE `?prefix_\S+`?\s+SET/is", $q)) {
+            $q = preg_replace("/^UPDATE `?prefix_(\S+?)`?([\s\.,]|$)/i", "UPDATE `" . DBPREF . "\\1`\\2", $q);
+        } elseif (preg_match("/^INSERT INTO `?prefix_\S+`?\s+[a-z0-9\s,\)\(]*?VALUES/is", $q)) {
+            $q = preg_replace("/^INSERT INTO `?prefix_(\S+?)`?([\s\.,]|$)/i", "INSERT INTO `" . DBPREF . "\\1`\\2", $q);
+        } else {
+            $q = preg_replace("/prefix_(\S+?)([\s\.,]|$)/", DBPREF . "\\1\\2", $q);
+        }
+
+        return (db_check_error(@mysql_query($q, CONN), $q));
+    }
 }
 
 function db_result($erg, $zeile = 0, $spalte = 0) {

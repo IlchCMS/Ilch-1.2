@@ -2,13 +2,20 @@
 <!--
 
 function set_user_name ()
-{ 
-  
+{
+
 	var user_name = document.user_form.user_name.value;
-	
-	opener.document.form.name.value = user_name;
-	opener.focus();
-	window.close();
+
+    if (opener == undefined) {
+        var no = Number(self.name.replace(/icModalIframe/i,'')) - 1;
+        var opener = self.parent.frames['icModalIframe'+no];
+        opener.document.form.name.value = user_name;
+        self.parent.ic.modalDialogClose();
+    } else {
+    	opener.document.form.name.value = user_name;
+    	opener.focus();
+    	window.close();
+    }
 }
 
 
@@ -32,7 +39,7 @@ function set_user_name ()
 <form name="user_form">
 	<tr>
 	  <td class="Cnorm">
-		  <select name="user_name">{_list_username@<option%1 value="%2">%3</option>}</select> 
+		  <select name="user_name">{_list_username@<option%1 value="%2">%3</option>}</select>
 			<input type="button" value="Set" onClick="set_user_name()">
 		</td>
 	</tr>

@@ -8,13 +8,13 @@
 
 </head>
 
-<body> 
+<body>
 <div id="wrap">
   <div id="top"></div>
   <div id="header"><h1>{SITENAME}</h1></div>
   <div id="top2"><span><b> &raquo; </b>{HMENU}</span></div>
   <div id="content">
-  
+
   <div id="left_col">
 
     {_list_menunr1@
@@ -22,7 +22,7 @@
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
 	  <tr style="height: 12px;background: url(include/designs/ilchClan/img/box_left_middle.gif) top left repeat-y;">
 	  	<td style="height: 12px; background: url(include/designs/ilchClan/img/box_left_top.gif) top left no-repeat;"></td>
-	</tr>    
+	</tr>
       <tr>
         <td style="background: url(include/designs/ilchClan/img/box_left_middle.gif) top left repeat-y;" align="top">%2</td>
       </tr>
@@ -32,11 +32,11 @@
     </table>
     <br />
     }
-  
+
   </div>
-  
+
   <div id="main_col">{EXPLODE}</div>
-  
+
   <div id="right_col1">
         {_list_menunr2@
         <table width="141" cellpadding="0" cellspacing="0" border="0">
@@ -51,9 +51,9 @@
         <br />
         }
   </div>
-  
+
   <div id="right_col2">
-  
+
         {_list_menunr3@
         <table width="141" cellpadding="0" cellspacing="0" border="0">
           <tr>
@@ -66,19 +66,19 @@
         </table>
         <br />
         }
-        
+
   </div>
-  
+
   <br style="clear: both;" />
   </div>
-  
+
    <!--
    Der Link darf generell entfernt werden (Lizenz GNU/GPL)
    Ich bitte aber darum, aufgrund der extrem vielen Arbeit die in diesem
    Script steckt, ilch.de irgendwie mit einem Banner einem Link oder
    sonst irgendwie zu unterstuetzen. Danke !!
 	 //-->
-  
+
   <div id="footer">Script Copyright by <a href="http://www.ilch.de/" target="_blank">ilch.de</a></div>
 </div>
 
@@ -94,20 +94,20 @@
             <br />
 					}
           //-->
-          
+
           <!-- beispiel:
             [null, '%3', '%2', '%1', null|],|,
           -->
           <!--           anfang        +     link                |ende |teilende|teilee  -->
           <!-- horizontaler menupunkt -->
-          {_list_hmenupoint@<li><a target="%1" class="box" href="%2">%3</a>|</li>|<br />|</ul></li>}
+          {_list_hmenupoint@<li><a target="%1" class="box navi_%4" href="%2">%3</a>|</li>|<br />|</ul></li>}
           <!-- horizontaler menupunkt anfang -->
           {_list_hmenubegi@<ul>}
           <!-- horizontaler menupunkt ende -->
           {_list_hmenuende@</ul>}
-          
+
           <!-- vertikaler menupunkt -->
-          {_list_vmenupoint@<li><a target="%1" class="box" href="%2">%3</a>|</li>|<br /><ul>|</ul></li>}
+          {_list_vmenupoint@<li><a target="%1" class="box navi_%4" href="%2">%3</a>|</li>|<br /><ul>|</ul></li>}
           <!-- vertikaler menupunkt anfang -->
           {_list_vmenubegi@<ul>}
           <!-- vertikaler menupunkt ende -->

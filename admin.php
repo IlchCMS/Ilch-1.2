@@ -4,7 +4,7 @@
 // if(file_exists('install.php') || file_exists('install.sql')) die('Installationsdateien noch vorhanden! Bitte erst l&ouml;schen!');
 define('main', true);
 define('admin', true);
-define('DEBUG', false);
+define('DEBUG', true);
 define('SCRIPT_START_TIME', microtime(true));
 // Konfiguration zur Anzeige von Fehlern
 // Auf http://www.php.net/manual/de/function.error-reporting.php sind die verf�gbaren Modi aufgelistet
@@ -47,10 +47,5 @@ if (user_has_admin_right($menu)) {
 }
 // Datenbank schlie�en
 db_close();
-if (DEBUG) { // debugging aktivieren
-    debug('anzahl sql querys: ' . $count_query_xyzXYZ);
-    debug('', 1, true);
-    debug('Scriptlaufzeit: ' . round(microtime(true) - SCRIPT_START_TIME, 5));
-}
-
+debug_out();
 ?>

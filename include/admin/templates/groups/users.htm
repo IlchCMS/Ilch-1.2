@@ -1,28 +1,25 @@
-<script language="JavaScript" type="text/javascript">
-<!--
-  function delete_user ( gid , uid ) {
-		var x = confirm ( "Wollen Sie diesen User löschen?", "" );
-		if ( x ) {
-		  document.location.href="?groups-addusers-"+gid+"-user_delete-"+uid;
-		}
-	}
-  function userfuncs () {
-    var Fenster = window.open ('admin.php?groups-funcs', 'groupfuncs', 'status=no,scrollbars=yes,height=400,width=300');
-    Fenster.focus();
-  }
-  function finduser () {
-    var Fenster = window.open ('index.php?search-finduser', 'finduser', 'status=no,scrollbars=yes,height=200,width=350');
-    Fenster.focus();
-  }
-  function change_user ( gid, uid, fid , ofid, selname) {
-    var x = confirm ( "Wollen Sie die Funktion des Users wirklich ändern?", "" );
-		if ( x ) {
-		  document.location.href="admin.php?groups-addusers-"+gid+"-userchange-"+uid+"-"+fid;
-		} else {
-      document.getElementById(selname).value = ofid;
-    }  
-  }
-//-->
+<script type="text/javascript">
+    function delete_user ( gid , uid ) {
+        var x = confirm ( "Wollen Sie diesen User löschen?", "" );
+        if ( x ) {
+            document.location.href="?groups-addusers-"+gid+"-user_delete-"+uid;
+        }
+    }
+    function userfuncs () {
+        var Fenster = window.open ('admin.php?groups-funcs', 'groupfuncs', 'status=no,scrollbars=yes,height=400,width=300');
+        Fenster.focus();
+    }
+    function finduser () {
+        self.parent.ic.modalDialog({title:'User suchen', url:'index.php?search-finduser', width: 400, height: 250});
+    }
+    function change_user ( gid, uid, fid , ofid, selname) {
+        var x = confirm ( "Wollen Sie die Funktion des Users wirklich ändern?", "" );
+        if ( x ) {
+            document.location.href="admin.php?groups-addusers-"+gid+"-userchange-"+uid+"-"+fid;
+        } else {
+            document.getElementById(selname).value = ofid;
+        }
+    }
 </script>
 
 <form action="admin.php?groups-adduser-{gid}" method="POST" name="form">
@@ -62,5 +59,5 @@
 
 <br /><br />
 <div class="info_box">
-<p>Die Funktion eines Users ist seine Stellung in der Gruppe. Dies ist haupts&auml;chlich dann wichtig wenn die Gruppe unter Teams auf der Seite angezeigt wird. Damit hier Funktionen zur Auswahl stehen m&uuml;ssen diese erst eingetragen werden. Die User in einem Team werden beim Anzeigen nach ihrer Funktion sortiert, dass heisst wenn die Funktion "Leader" nach ganz oben geschoben wurde ist der User mit der Funktion "Leader" sp&auml;ter auch ganz oben... Ansonsten einfach mal testen ;-)</p>
+<p>Die Funktion eines Users ist seine Stellung in der Gruppe. Dies ist haupts&auml;chlich dann wichtig, wenn die Gruppe unter Teams auf der Seite angezeigt wird. Damit hier Funktionen zur Auswahl stehen m&uuml;ssen diese erst eingetragen werden. Die User in einem Team werden beim Anzeigen nach ihrer Funktion sortiert, dass heisst wenn die Funktion "Leader" nach ganz oben geschoben wurde ist der User mit der Funktion "Leader" sp&auml;ter auch ganz oben... Ansonsten einfach mal testen ;-)</p>
 </div>

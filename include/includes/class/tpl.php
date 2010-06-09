@@ -4,11 +4,12 @@
 defined('main') or die('no direct access');
 
 class tpl {
-    var $parts;
-    var $keys;
-    var $lists;
-    var $lang;
-    var $ort;
+    protected $parts;
+    protected $keys;
+    protected $lists;
+    protected $lang;
+    protected $ort;
+    private static $design = '';
 
     /**
      * Der Konstruktor dieser Klasse
@@ -25,7 +26,7 @@ class tpl {
      * $ort = 2: anderer Ort, Pfad ist ab include/ (sonstige Templates)
      * $ort = 3: das Template ist schon in $file geladen
      */
-    function tpl($file, $ort = 0) {
+    public function __construct($file, $ort = 0) {
         // die arrays initialisieren
         $this->parts = array();
         $this->keys = array();
@@ -43,7 +44,7 @@ class tpl {
         // evtl. im ordner include/design/DESIGN/templates liegt.
         // ort = 2 das template kommt von der design classe der pfad ist ab include
         // ort = 3 das template ist schon in der Variable $file geladen
-        $design = $this->get_design();
+        $design = self::get_design();
         if ($this->ort == 0) {
             if (file_exists('include/designs/' . $design . '/templates/' . $file)) {
                 $file = 'include/designs/' . $design . '/templates/' . $file;
@@ -83,24 +84,33 @@ class tpl {
         $this->set_assoc_keys($inhalt);
     }
 
-    function get_design() {
+    public static function get_design() {
+        if (!empty(self::$design)) {
+            return self::$design;
+        }
+        $design = '';
         if (file_exists('include/designs/' . $_SESSION[ 'authgfx' ] . '/index.htm')) {
-            return ($_SESSION[ 'authgfx' ]);
+            $design = $_SESSION[ 'authgfx' ];
         } elseif (file_exists('include/designs/ilchClan/index.htm')) {
-            return ('ilchClan');
+            $design = 'ilchClan';
         } else {
             $od = opendir('include/designs');
             while ($f = readdir($od)) {
                 if (file_exists('include/designs/' . $f . '/index.htm')) {
-                    return ($f);
+                    $design = $f;
                     break;
                 }
             }
             closedir($od);
         }
+        if (empty($design)) {
+            echo 'ERROR: No Design was found';
+        }
+        self::$design = $design;
+        return $design;
     }
 
-    function replace_lang($var) {
+    protected function replace_lang($var) {
         $lang_zwischenspeicher = array();
         preg_match_all("/\{_lang_([^\{\}]+)\}/", $var, $lang_zwischenspeicher);
         foreach ($lang_zwischenspeicher[ 1 ] as $v) {
@@ -112,7 +122,7 @@ class tpl {
         return ($var);
     }
 
-    function replace_list($var) {
+    protected function replace_list($var) {
         $zwischenspeicher = array();
         preg_match_all("/\{_list_([^\{\}]+)\}/", $var, $zwischenspeicher);
         foreach ($zwischenspeicher[ 1 ] as $v) {
@@ -123,7 +133,7 @@ class tpl {
         return ($var);
     }
 
-    function list_get($key, $ar) {
+    public function list_get($key, $ar) {
         $zwischenspeicher = $this->lists[ $key ];
         krsort($ar);
         foreach ($ar as $k => $v) {
@@ -133,7 +143,7 @@ class tpl {
         return ($zwischenspeicher);
     }
 
-    function list_exists($key) {
+    public function list_exists($key) {
         if (isset($this->lists[ $key ])) {
             return (true);
         } else {
@@ -141,23 +151,23 @@ class tpl {
         }
     }
 
-    function list_out($key, $ar) {
+    public function list_out($key, $ar) {
         echo $this->list_get($key, $ar);
     }
 
-    function set($k, $v) {
+    public function set($k, $v) {
         // $this->keys[$k] = unescape($v);
         $this->keys[ $k ] = $v;
     }
 
-    function set_ar($ar) {
+    public function set_ar($ar) {
         foreach ($ar as $k => $v) {
             // $this->keys[$k] = unescape($v);
             $this->keys[ $k ] = $v;
         }
     }
 
-    function set_ar_out($ar, $pos) {
+    public function set_ar_out($ar, $pos) {
         $this->set_ar($ar);
         $this->out($pos);
     }
@@ -169,7 +179,7 @@ class tpl {
      *
      * @param  $inhalt der String, aus dem die assoziativen Keys gelesen werden sollen
      */
-    function set_assoc_keys($inhalt) {
+    protected function set_assoc_keys($inhalt) {
         // wir splitten zunächst bei [{EXPLODE]
         $parts = preg_split("/{EXPLODE/", $inhalt);
         // den ersten teil müssen wir wegschmeißen, da er
@@ -192,32 +202,32 @@ class tpl {
         }
     }
 
-    function set_out($k, $v, $pos) {
+    public function set_out($k, $v, $pos) {
         $this->set($k, $v);
         $this->out($pos);
     }
 
-    function set_ar_get($ar, $pos) {
+    public function set_ar_get($ar, $pos) {
         $this->set_ar($ar);
         return ($this->get($pos));
     }
 
-    function set_get($k, $v, $pos) {
+    public function set_get($k, $v, $pos) {
         $this->set($k, $v);
         return ($this->get($pos));
     }
 
-    function del($k) {
+    public function del($k) {
         unset($this->keys[ $k ]);
     }
 
-    function del_ar($ar) {
+    public function del_ar($ar) {
         foreach ($ar as $k => $v) {
             unset($this->keys[ $k ]);
         }
     }
 
-    function parse_if_do($tr) {
+    protected function parse_if_do($tr) {
         if ($tr[ 1 ] == 'SESSION_AUTHRIGHT') {
             $this->keys[ $tr[ 1 ] ] = $_SESSION[ 'authright' ];
         }
@@ -229,7 +239,7 @@ class tpl {
         return ('');
     }
 
-    function parse_if($pos) {
+    protected function parse_if($pos) {
         $toout = $this->parts[ $pos ];
 
         $toout = preg_replace_callback("/\{_if_\{([^\}]+)\}(==|!=|<>|<|>|<=|>=)'([^']+)'\}(.*)(\{_else_\}(.*))?\{\/_endif\}/Us", array(&$this,
@@ -239,7 +249,7 @@ class tpl {
         return ($toout);
     }
 
-    function get($pos) {
+    public function get($pos) {
         $toout = $this->parse_if($pos);
 
         mt_srand((double) microtime() * 1000000);
@@ -255,7 +265,7 @@ class tpl {
         return ($toout);
     }
 
-    function out($pos) {
+    public function out($pos) {
         echo $this->get($pos);
     }
 }

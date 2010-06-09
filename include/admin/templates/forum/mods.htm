@@ -1,10 +1,7 @@
-<script language="JavaScript" type="text/javascript">
-<!--
-  function finduser () {
-    var Fenster = window.open ('index.php?search-finduser', 'finduser', 'status=no,scrollbars=yes,height=200,width=350');
-    Fenster.focus();
-  }
-//-->
+<script type="text/javascript">
+    function finduser () {
+        self.parent.ic.modalDialog({title:'User suchen', url:'index.php?search-finduser', width: 400, height: 250});
+    }
 </script>
 
 <form name="form" action="admin.php?forum-choosemods" method="POST">
@@ -14,7 +11,7 @@
     <td><b>Moderatoren festlegen</b></td>
   </tr><tr>
     <td>
-      <input name="name" /> <input class="sub" type="submit" value="Add" name="s" /> 
+      <input name="name" /> <input class="sub" type="submit" value="Add" name="s" />
       <input class="sub" type="button" value="Find" onClick="finduser()" />
     </td>
   </tr>

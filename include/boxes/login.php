@@ -26,14 +26,14 @@ if (loggedin()) {
     $tpl->out(0);
 } else {
     if (empty($_POST[ 'login_email' ])) {
-        $_POST[ 'login_email' ] = 'E-Mail';
+        $_POST[ 'login_email' ] = $lang['email_name'];
     }
     if (empty($_POST[ 'login_pw' ])) {
         $_POST[ 'login_pw' ] = 'הההההההה';
     }
     $regist = '';
     if ($allgAr[ 'forum_regist' ] == 1) {
-        $regist = ' &nbsp; &nbsp; <a href="index.php?user-regist">Regist</a>';
+        $regist = ' &nbsp; &nbsp; <a href="index.php?user-regist">'.$lang['regist'].'</a>';
     }
     $tpl->set_ar_out(array(
             'regist' => $regist,

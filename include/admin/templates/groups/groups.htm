@@ -1,5 +1,4 @@
-<script language="JavaScript" type="text/javascript">
-<!--
+<script type="text/javascript">
   function change_group ( gid ) {
 		var x = prompt ( "Bitte den neuen Namen der Gruppe eingeben", "" );
 		if ( x ) {
@@ -12,11 +11,12 @@
 		  document.location.href="admin.php?groups&group_delete="+gid;
 		}
 	}
-  function manageUser (GID) {
-    var Fenster = window.open ('admin.php?groups-addusers-'+ GID, 'adduser', 'status=no,scrollbars=yes,height=400,width=500');
-    Fenster.focus();
-  }
-//-->
+$(document).ready(function() {
+    $('a.manageUsers').click(function() {
+        ic.modalDialog({title:'User verwalten',height:500, width:600, url: $(this).attr('href')});
+        return false;
+    });
+});
 </script>
 
 {msg}
@@ -82,7 +82,7 @@
 {EXPLODE}
 		<tr class="{class}">
 			<td>{name}</td>
-			<td><a class="thickbox" href="admin.php?groups-addusers-{id}-?KeepThis=true&TB_iframe=true&height=450&width=600" title="manage Users">manage Users</a> ({useranz})</td>
+			<td><a class="manageUsers" href="admin.php?groups-addusers-{id}" title="manage Users">manage Users</a> ({useranz})</td>
 			<td><a href="?groups-edit-{id}"><img src="include/images/icons/edit.png" alt="&auml;ndern" title="&auml;ndern" /></a></td>
 			<td><a href="javascript:delete_group('{id}')"><img src="include/images/icons/del.png" alt="l&ouml;schen" title="l&ouml;schen" /></a></td>
 			<td><a href="?groups-move-o{id}"><img src="include/images/icons/pfeilo.png" alt="hoch" title="hoch" /></a></td>

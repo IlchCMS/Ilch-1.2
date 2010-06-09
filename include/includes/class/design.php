@@ -10,13 +10,13 @@ if (!isset($ILCH_BODYEND_ADDITIONS)) {
     $ILCH_BODYEND_ADDITIONS = '';
 }
 class design extends tpl {
-    var $html;
-    var $design;
-    var $vars;
-    var $was;
-    var $file;
+    protected $html;
+    protected $design;
+    protected $vars;
+    protected $was;
+    protected $file;
 
-    function design($title, $hmenu, $was = 1, $file = null) {
+    public function __construct($title, $hmenu, $was = 1, $file = null) {
         global $allgAr;
 
         header('Content-Type: text/html;charset=ISO-8859-1');
@@ -28,7 +28,7 @@ class design extends tpl {
         $this->vars = array();
         $this->file = $file; // setzte das file standard 0 weil durch was definiert
         $this->was = $was; // 0 = smalindex, 1 = normal index , 2 = admin
-        $this->design = $this->get_design();
+        $this->design = tpl::get_design();
         $link = $this->htmlfile();
 
         $tpl = new tpl($link, 2);
@@ -74,7 +74,7 @@ class design extends tpl {
         $this->html = explode('{EXPLODE}', $this->html);
     }
 
-    function addheader($text) {
+    public function addheader($text) {
         if (isset($this->html[ 0 ])) {
             $this->html[ 0 ] = str_replace('</head>', $text . "\n</head>", $this->html[ 0 ]);
             return true;
@@ -83,7 +83,7 @@ class design extends tpl {
         }
     }
 
-    function header($addons = '') {
+    public function header($addons = '') {
         global $ILCH_HEADER_ADDITIONS;
         $ILCH_HEADER_ADDITIONS .= $this->load_addons($addons);
         $this->addheader($ILCH_HEADER_ADDITIONS);
@@ -92,7 +92,7 @@ class design extends tpl {
     }
     // Fuegt Dynamische und Statische *.js und *.css Dateien in den Header ein
     // Kann jedoch nur uerber die header-Funktion aufgerufen werden
-    function load_addons($addons = '') {
+    protected function load_addons($addons = '') {
         $buffer = '';
         if (!is_array($addons)) {
             $addons = Array($addons
@@ -127,7 +127,7 @@ class design extends tpl {
         return $buffer;
     }
 
-    function addtobodyend($text) {
+    public function addtobodyend($text) {
         if (isset($this->html[ 1 ])) {
             $this->html[ 1 ] = str_replace('</body>', $text . "\n</body>", $this->html[ 1 ]);
             return true;
@@ -136,7 +136,7 @@ class design extends tpl {
         }
     }
 
-    function footer($exit = 0) {
+    public function footer($exit = 0) {
         global $ILCH_BODYEND_ADDITIONS;
         $this->addtobodyend($ILCH_BODYEND_ADDITIONS);
         echo $this->html[ 1 ];
@@ -146,12 +146,12 @@ class design extends tpl {
         }
     }
 
-    function escape_explode($s) {
+    protected function escape_explode($s) {
         $s = str_replace('{EXPLODE}', '&#123;EXPLODE&#125;', $s);
         return ($s);
     }
 
-    function htmlfile_ini() {
+    protected function htmlfile_ini() {
         global $menu;
         $ma = $menu->get_string_ar();
         $ia = array();
@@ -173,7 +173,7 @@ class design extends tpl {
         return (false);
     }
 
-    function htmlfile() {
+    protected function htmlfile() {
         $ini = $this->htmlfile_ini();
         /*
         if ( !is_null ($this->file) AND file_exists ('include/designs/'.$this->design.'/templates/'.$this->file)) {
@@ -195,7 +195,7 @@ class design extends tpl {
         return ($f);
     }
 
-    function replace_boxes($zsave0) {
+    protected function replace_boxes($zsave0) {
         foreach ($zsave0 as $v) {
             $dat = strtolower($v);
             $buffer = $this->get_boxcontent($dat);
@@ -208,13 +208,13 @@ class design extends tpl {
         }
     }
 
-    function vars_replace() {
+    protected function vars_replace() {
         foreach ($this->vars as $k => $v) {
             $this->html = str_replace('{' . $k . '}', $v, $this->html);
         }
     }
     // ####
-    function get_boxes($wo, $tpl) {
+    protected function get_boxes($wo, $tpl) {
         global $lang, $allgAr, $menu;
         if (is_numeric($wo)) {
             $datei = 'menunr' . $wo;
@@ -233,38 +233,43 @@ class design extends tpl {
         $hovmenup = '';
         $abf = "SELECT * FROM `prefix_menu` WHERE wo = " . $wo . " AND ( recht >= " . $_SESSION[ 'authright' ] . " OR recht = 0 ) ORDER by pos";
         $erg = db_query($abf);
-        while ($row = db_fetch_assoc($erg)) {
+        $menuar = $menupaths = array();
+        while ($r =  db_fetch_assoc($erg)) {
+            $menuar[$r['pos']] = $r;
+            $menupaths[$r['path']] = $r['pos'];
+        }
+        //Aktiven Punkt herausfinden
+        foreach(array_reverse($menu->get_string_ar()) as $path){
+            $path = str_replace('self-','',$path);
+            if (isset($menupaths[$path])) {
+                $act_pos = $menupaths[$path];
+                break;
+            }
+        }
+//        //Punkte löschen, die nicht angezeigt werden sollen
+//        //so dass Untermenüpunkte nur vom aktiven Menüpunkt angezeigt werden
+//        $todel = array();
+//        //Punkte davor
+//        for($i = $act_pos; $i > -1; $i--){
+//            if (isset($menuar[$i]) and $menuar[$i]['ebene'] == 0) {
+//                $todel_before = $i;
+//                break;
+//            }
+//        }
+//        $todel_after = count($menuar);
+//        for($i = $act_pos+1; $i < $todel_after; $i++){
+//            if (isset($menuar[$i]) and $menuar[$i]['ebene'] == 0) {
+//                $todel_after = $i;
+//                break;
+//            }
+//        }
+        foreach ($menuar as $pos => $row) {
+//            if ($row['ebene'] >  0 and ($pos < $todel_before  or $pos > $todel_after)) {
+//                continue;
+//            }
             $subhauptx = $row[ 'was' ];
             $whileMenP = ($subhauptx >= 7 ? true : false);
             if (($row[ 'was' ] >= 7 AND $ex_was == 1) OR ($ex_ebene < ($row[ 'ebene' ] - 1)) OR ($ex_was <= 4 AND $row[ 'ebene' ] != 0) OR ($row[ 'was' ] >= 7 AND !$tpl->list_exists($hovmenup))) {
-                /*
-                echo '<pre>Das Menu ist Fehlerhaft, bitte benachrichtigen Sie den Administrator!';
-                echo '<br /><br /><u>Informationen:</u>';
-                echo '<br />Region:  '.$row['name'];
-                echo '<br />Ebene:   '.$row['ebene'];
-                echo '<br />exEbene: '.$ex_ebene;
-                echo '<br />Typ:     '.$row['was'];
-                echo '<br />exTyp:   '.$ex_was;
-                echo '<br /><br /><u>Problemloesung:</u> Die Region gibt an um welchen Menupunkt, welches Menu oder welche Box es sich handelt.';
-                echo '<br />Ist der Typ groesser oder 7 und der exTyp 1 wurde ein Menupunkt in einer falschen Position im Menu platziert.';
-                echo '<br />Ist die exEbene 2 kleiner als die Ebene ist die Einrueckung im Menu falsch.';
-                echo '<br />Sonst mit den oben gegebenen Informationen und einem Screenshot des betreffenden Menus auf <a href="http://www.ilch.de/">ilch.de</a> im Forum melden.';
-                echo '<br /><br />Vielen Dank!</pre>';
-
-                $retur  = '<pre>Das Menu ist Fehlerhaft, bitte benachrichtigen Sie den Administrator!';
-                $retur .= '<br /><br /><u>Informationen:</u>';
-                $retur .= '<br />Region:  '.$row['name'];
-                $retur .= '<br />Ebene:   '.$row['ebene'];
-                $retur .= '<br />exEbene: '.$ex_ebene;
-                $retur .= '<br />Typ:     '.$row['was'];
-                $retur .= '<br />exTyp:   '.$ex_was;
-                $retur .= '<br /><br /><u>Problemloesung:</u> Die Region gibt an um welchen Menupunkt, welches Menu oder welche Box es sich handelt.';
-                $retur .= '<br />Ist der Typ groesser oder 7 und der exTyp 1 wurde ein Menupunkt in einer falschen Position im Menu platziert.';
-                $retur .= '<br />Ist die exEbene 2 kleiner als die Ebene ist die Einrueckung im Menu falsch.';
-                $retur .= '<br />Sonst mit den oben gegebenen Informationen und einem Screenshot des betreffenden Menus auf <a href="http://www.ilch.de/">ilch.de</a> im Forum melden.';
-                $retur .= '<br /><br />Vielen Dank!</pre>';
-                $menuzw = '';
-                */
                 continue;
             }
             // nur wenn ein menu in die variable $menuzw geschrieben wurde
@@ -308,7 +313,7 @@ class design extends tpl {
                 $menuTarget = ($subhauptx == 8 ? '_blank' : '_self');
                 list($wmpA, $wmpE, $wmpTE, $wmpTEE) = explode('|', $tpl->list_get($hovmenup, array($menuTarget,
                             ($subhauptx == 8 ? '' : 'index.php?') . $row[ 'path' ],
-                            $row[ 'name' ]
+                            $row[ 'name' ], ($row['pos'] ==  $act_pos ? 'active' : 'inactive')
                             )));
                 if (!empty($menuzw) AND $firstmep === false) {
                     $menuzw .= $this->get_boxes_get_menu_close($ex_ebene, $ebene, $menuzw, $wmpE, $wmpTE, $wmpTEE);
@@ -330,7 +335,7 @@ class design extends tpl {
         return ($retur);
     }
 
-    function get_boxes_get_menu_close($ex_ebene, $ebene, $menuzw, $wmpE, $wmpTE, $wmpTEE) {
+    protected function get_boxes_get_menu_close($ex_ebene, $ebene, $menuzw, $wmpE, $wmpTE, $wmpTEE) {
         $menu1 = '';
         if ($ex_ebene == $ebene AND !empty($menuzw)) {
             $menu1 .= $wmpE . "\n";
@@ -345,9 +350,10 @@ class design extends tpl {
         return ($menu1);
     }
 
-    function get_boxcontent($box) {
+    protected function get_boxcontent($box) {
         global $lang, $allgAr, $menuAr, $menu, $ILCH_HEADER_ADDITIONS, $ILCH_BODYEND_ADDITIONS;
         if (file_exists('include/boxes/' . $box)) {
+            load_box_lang($box);
             $pfad = 'include/boxes/' . $box;
         } elseif (file_exists('include/contents/selfbp/selfb/' . str_replace('self_', '', $box))) {
             $pfad = 'include/contents/selfbp/selfb/' . str_replace('self_', '', $box);
@@ -363,7 +369,7 @@ class design extends tpl {
             return (false);
         }
         ob_start();
-        require_once($pfad);
+        include $pfad;
         $buffer = $this->escape_explode(ob_get_contents());
         ob_end_clean();
         return ($buffer);

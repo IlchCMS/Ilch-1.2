@@ -118,7 +118,7 @@ if (empty($_POST[ 'submit' ])) {
         if ($row[ 'typ' ] == 'password' AND $_POST[ $row[ 'schl' ] ] == '***') {
             continue;
         } elseif ($row[ 'typ' ] == 'password') {
-            require_once('include/includes/class/AzDGCrypt.class.inc.php');
+            require_once('include/includes/libs/AzDGCrypt.class.inc.php');
             $cr64 = new AzDGCrypt(DBDATE . DBUSER . DBPREF);
             $_POST[ $row[ 'schl' ] ] = $cr64->crypt($_POST[ $row[ 'schl' ] ]);
         }

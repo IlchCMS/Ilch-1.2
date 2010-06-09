@@ -4,17 +4,21 @@
 defined('main') or die('no direct access');
 
 class menu {
-    var $menu_ar;
+    private $menu_ar;
 
-    function menu() {
+    public function __construct() {
         $this->set_menu_ar();
     }
     // menustring suchen und finden und zerteilen
     // in die richtige reihenfolge usw. blahhh :)
-    function set_menu_ar() {
+    private function set_menu_ar($menustr = '') {
         $ar = array();
-        if (isset($_SERVER[ 'QUERY_STRING' ])) {
+        if (empty($menustr) and isset($_SERVER[ 'QUERY_STRING' ])) {
             $q = $_SERVER[ 'QUERY_STRING' ];
+        } else {
+            $q = $menustr;
+        }
+        if (!empty($q)) {
             $q = preg_replace("/[^a-z0-9-_\&=]/i", "", $q);
             $fu = strpos($q, '&');
             $fi = strpos($q, '=');
@@ -36,8 +40,22 @@ class menu {
         }
         $this->menu_ar = $ar;
     }
+    // der url reseten (wichtig im adminbereich) fals ein user
+    // nicht die entsprechenden rechte hat... wird der query
+    // string des objekts manipuliert so das eine andere seite
+    // angezeigt wird...
+    public function set_url($index, $wert) {
+        $index = escape($index, 'integer');
+        $wert = preg_replace("/[^a-z0-9-_]/i", "", $wert);
+        $this->menu_ar[ $index ] = $wert;
+        return (true);
+    }
+    public function set_complete_url($newmenustring) {
+        $this->set_menu_ar($newmenustring);
+    }
+
     // gibt ein array mit strings aus was alle sinnvollen kombinationen des menu_ar enthaelt
-    function get_string_ar() {
+    public function get_string_ar() {
         $s = '';
         $a = array();
         foreach ($this->menu_ar as $k => $v) {
@@ -53,7 +71,7 @@ class menu {
     // diese funktion wird nur im admin.php und index.php
     // aufgerufen. is aber relativ zentral gell weil ohne
     // deren ok und rueckgabe laueft gar nix :)...
-    function get_url($w = 'contents') {
+    public function get_url($w = 'contents') {
         global $allgAr;
         // startwert und pfad zum pruefen raustuefteln.
         if ($w == 'contents') {
@@ -123,7 +141,13 @@ class menu {
             $design = new design($title, $hmenu);
             $design->header();
             if (loggedin()) {
-                echo 'Du hast leider nicht die n&ouml;tigen Rechte... :-S';
+                if (is_coadmin()) {
+                    echo 'Diese Seite ist nicht in der Navigation verlinkt und die Option
+<strong>Zugriff auf nicht im Menü verlinkte Module für alle?<strong> steht auf nein, deswegen kommt diese Meldung.<br />
+Also entweder die Seite ' . $this->get(0) . ' in der Navigation verlinken, oder die Option umstellen, ersteres wird empfohlen.';
+                } else {
+                    echo 'Du hast leider nicht die n&ouml;tigen Rechte, um diese Seite zu betrachten.';
+                }
             } else {
                 $tpl = new tpl('user/login');
                 $tpl->set_out('WDLINK', 'index.php', 0);
@@ -136,13 +160,13 @@ class menu {
     }
     // ersten buchstaben erhalten
     // zb. wichtig fuer strings p1 (page nr 1)...
-    function getA($x) {
+    public function getA($x) {
         $x = substr($this->get($x), 0, 1);
         return ($x);
     }
     // bei $x int alles nach dem ersten buchstaben erhalten z.b. die nummer der page..s.o
     // bei $x string -> direkt getE('p') und 1 zu erhalten, falls -p1
-    function getE($x) {
+    public function getE($x) {
         if (is_int($x)) {
             $x = substr($this->get($x), 1);
         } else {
@@ -154,7 +178,7 @@ class menu {
     }
     // Bsp. ?test-next
     // getN('test') -> 'next'
-    function getN($x) {
+    public function getN($x) {
         if (in_array($x, $this->menu_ar)) {
             $t = array_search($x, $this->menu_ar);
             return $this->menu_ar[ $t + 1 ];
@@ -162,22 +186,12 @@ class menu {
         return false;
     }
     // Prüft ob ein Eintrag vorhanden ist
-    function exists($x) {
+    public function exists($x) {
         return in_array($x, $this->menu_ar);
-    }
-    // der url reseten (wichtig im adminbereich) fals ein user
-    // nicht die entsprechenden rechte hat... wird der query
-    // string des objekts manipuliert so das eine andere seite
-    // angezeigt wird...
-    function set_url($index, $wert) {
-        $index = escape($index, 'integer');
-        $wert = preg_replace("/[^a-z0-9-]/i", "", $wert);
-        $this->menu_ar[ $index ] = $wert;
-        return (true);
     }
     // hier wird ein spzeiller teil
     // des querystrings abgefragt
-    function get($n) {
+    public function get($n) {
         if (isset($this->menu_ar[ $n ])) {
             return ($this->menu_ar[ $n ]);
         } else {
@@ -185,7 +199,7 @@ class menu {
         }
     }
     // Gibt das Adminmenu in einem Array zurueck
-    function get_menu() {
+    public function get_menu() {
         $menuAr = Array();
         $kat = '';
 
@@ -200,7 +214,7 @@ class menu {
         return $menuAr;
     }
     // gibt den kompletten "Pfad" aus
-    function get_complete() {
+    public function get_complete() {
         return implode('-', $this->menu_ar);
     }
 }

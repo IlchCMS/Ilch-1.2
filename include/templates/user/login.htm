@@ -1,22 +1,24 @@
-<table width="100%" border="0" cellspacing="0" cellpadding="10">
-  <tr>
-    <td>
-      <form action="index.php?user-login" method="post">
-			  <fieldset>
-				  <legend><b>{_lang_LOGIN}</b></legend>
-					  <label style="float:left; width:60px;">{_lang_mail}</label><b style="float:left; text-align:left; width:20px;">:</b><input type="text" style="margin-bottom:2px;" tabindex="1" name="email" /><br />
-            <label style="float:left; width:60px;">{_lang_password}</label><b style="float:left; text-align:left; width:20px;">:</b><input type="password" style="margin-bottom:2px;" tabindex="2" maxlength="20" name="pass" /><br />
-						<label style="float:left; width:80px;">&nbsp;</label><input type="hidden" name="wdlink" value="{WDLINK}" /><input type="submit" style="margin-bottom:2px;" tabindex="3" value="{_lang_login}" name="user_login_sub" /><br /><br />
-						<label style="padding-left:80px;"><a href="index.php?user-regist">{_lang_registernow}</a></label><br />
-						<label style="padding-left:80px;"><a href="index.php?user-remind">{_lang_forgottenpassword}?</a></label>
-      </form>
-    </td>
-  </tr>
-</table>
-
-
+<style type="text/css">
+#loginform div.title {float: left; width: 150px;}
+#loginform div.input {float: left; width: 250px;}
+#loginform span {clear:both;}
+#loginform div.input2, #loginform div.links {margin-left: 150px;}
+</style>
 {EXPLODE}
-{_lang_yourareloged}!
-{EXPLODE}
-
-{_lang_login3failure}
+<form action="index.php?user-login" method="post" id="loginform">
+<input type="hidden" name="wdlink" value="{WDLINK}" />
+<fieldset>
+<legend><b>{_lang_login}</b></legend>
+<div class="title">{_lang_mail_name}:</div>
+<div class="input"><input type="text" tabindex="1" name="email" /></div>
+<span></span>
+<div class="title">{_lang_password}:</div>
+<div class="input"><input type="password" tabindex="2" maxlength="20" name="pass" /></div>
+<span></span>
+<div class="input2"><input type="checkbox" tabindex="3" name="cookie" id="logincookie" />
+<label for="logincookie">{_lang_savecookie}</label>
+</div>
+<div class="input2"><input type="submit" tabindex="4" value="{_lang_login}" name="user_login_sub" /></div>
+<div class="links"><a href="index.php?user-regist">{_lang_registernow}</a>
+<a href="index.php?user-remind">{_lang_forgottenpassword}?</a></div>
+</form>

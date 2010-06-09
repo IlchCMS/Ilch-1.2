@@ -422,15 +422,14 @@ INSERT INTO `prefix_loader` (`pos`, `task`, `file`, `description`) VALUES
 (3, 'func', 'user.php', 'Userverwaltung Login/Logout und Rechte'),
 (4, 'func', 'escape.php', 'Sicherheitsvorkehrungen vom Ilch CMS'),
 (5, 'func', 'allg.php', 'Allgemeine Funktionen und Einstellungen'),
-(6, 'func', 'debug.php', 'Ilch-Debugger'),
-(7, 'func', 'bbcode.php', 'BB-Code Buttons und Funktionen'),
-(8, 'func', 'profilefields.php', 'Profilfelder Funktionen'),
-(9, 'func', 'statistic.php', 'Statistiken über den Besucher speichern'),
-(10, 'func', 'listen.php', 'Funktionen, zum Listen erstellen'),
-(11, 'func', 'forum.php', 'Alle Funktionen für das Forum'),
-(12, 'func', 'warsys.php', 'Funktionen für das War-System'),
-(13, 'func', 'ic_mime_type.php', 'Funktionen für den Umgang mit Dateiuploads'),
-(14, 'func', 'lang.php', 'Funktionen zum Aufrufen der Sprachdateien');
+(6, 'func', 'bbcode.php', 'BB-Code Buttons und Funktionen'),
+(7, 'func', 'profilefields.php', 'Profilfelder Funktionen'),
+(8, 'func', 'statistic.php', 'Statistiken über den Besucher speichern'),
+(9, 'func', 'listen.php', 'Funktionen, zum Listen erstellen'),
+(10, 'func', 'forum.php', 'Alle Funktionen für das Forum'),
+(11, 'func', 'warsys.php', 'Funktionen für das War-System'),
+(12, 'func', 'ic_mime_type.php', 'Funktionen für den Umgang mit Dateiuploads'),
+(13, 'func', 'lang.php', 'Funktionen zum Aufrufen der Sprachdateien');
 
 CREATE TABLE `prefix_menu` (
   `wo` tinyint(1) NOT NULL default '0',

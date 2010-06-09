@@ -56,7 +56,7 @@ function createNamedElement(type, name) {
     }
   }
   function changeGruppen (id1) {
-	  tb_show('Gruppen', 'admin.php?user-gruppen-' + id1 + '-?height=200&amp;width=200', false);	
+	  ic.modalDialog({title:'Gruppen',url:'admin.php?user-gruppen-' + id1,height:300,width:250});
   }
   function changeModulrecht (id1) {
     var Fenster = window.open ('admin.php?user-modulrecht-' + id1, 'changeModulrecht', 'status=yes,scrollbars=yes,height=500,width=250,left=300,top=50');

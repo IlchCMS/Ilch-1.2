@@ -3,8 +3,8 @@
 // Support: www.ilch.de
 defined('main') or die('no direct access');
 
-$title = $allgAr[ 'title' ] . ' :: Login';
-$hmenu = $extented_forum_menu . 'Login' . $extented_forum_menu_sufix;
+$title = $allgAr[ 'title' ] . ' :: ' . $lang['login'];
+$hmenu = $extented_forum_menu . $lang['login'] . $extented_forum_menu_sufix;
 
 $tpl = new tpl('user/login.htm');
 if (loggedin()) {
@@ -19,9 +19,10 @@ if (loggedin()) {
     $design->footer();
 } else {
     $design = new design($title, $hmenu);
+    $design->addheader($tpl->get(0));
     $design->header();
     $tpl = new tpl('user/login.htm');
-    $tpl->set_out('WDLINK', 'index.php?' . $allgAr[ 'smodul' ], 0);
+    $tpl->set_out('WDLINK', 'index.php?' . $allgAr[ 'smodul' ], 1);
     $design->footer();
 }
 

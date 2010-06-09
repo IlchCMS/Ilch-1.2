@@ -30,7 +30,7 @@ function search_finduser() {
     if (isset($_POST[ 'sub' ]) AND !empty($_POST[ 'name' ])) {
         $name = str_replace('*', "%", $_POST[ 'name' ]);
         $name = escape($name, 'string');
-        $q = "SELECT `name` FROM `prefix_user` WHERE `name` LIKE '" . $name . "'";
+        $q = "SELECT `name`,`name` FROM `prefix_user` WHERE `name` LIKE '" . $name . "'";
         $tpl->set('username', dbliste('', $tpl, 'username', $q));
         $tpl->out(1);
     }

@@ -115,9 +115,7 @@
   function uploadImages (kid) {
     var x = prompt ( "Wie viele Bilder möchten Sie hochladen?", "5");
     if ( x ) {
-      //var Fenster = window.open ('admin.php?gallery-uploadImages-' + kid + '=0&anzb=' + x, 'uploadImages', 'status=yes,scrollbars=yes,height=500,width=350,left=300,top=50');
-      //Fenster.focus();
-	  tb_show('Bilder hochladen', 'admin.php?gallery-uploadImages-' + kid + '=0&anzb=' + x , false);
+      ic.modalDialog({title:'Bilder hochladen',url:'admin.php?gallery-uploadImages-' + kid + '=0&anzb=' + x,width: 400, height: 150 + x * 75});
     }
   }
 //-->

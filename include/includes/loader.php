@@ -3,6 +3,7 @@
 // Support www.ilch.de
 defined('main') or die('no direct access');
 // Datenbankverbindung aufbauen
+require_once('include/includes/func/debug.php');
 require_once('include/includes/func/db/mysql.php');
 db_connect();
 // Eintraege aus `prefix_loader` laden

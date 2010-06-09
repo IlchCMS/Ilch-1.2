@@ -24,73 +24,129 @@ function dump($src) {
     }
 }
 
-$debug_output = '';
-
-function debug($d, $x = 0, $o = true) {
-    global $debug_output;
-
-    if ($o and $x == 0) {
-        if (is_array($d)) {
-            $debug_output .= '<div style="white-space:pre">' . var_export($d, true) . '</div>';
+if (DEBUG) {
+    $ILCH_DEBUG_OUTPUT = '';
+    /**
+     * debug_nice_filename()
+     * macht den Dateinamen kürzer und lesbarer (auf ilch Ordner Struktur bezogen)
+     *
+     * @param string $filename kompletten Dateinamen
+     * @return string gekürzten Dateinamen
+     */
+    function debug_nice_filename($filename) {
+        return str_replace(dirname($_SERVER['SCRIPT_FILENAME']) . '/', '', str_replace(DIRECTORY_SEPARATOR, '/', $filename));
+    }
+    /**
+     * debug()
+     * Einfach Debugfunktion, mit Zeitausgabe
+     *
+     * @param mixed $d Gibt an was fürs Debugging ausgegeben werden soll, wenn leer wird der Datename + Zeilennummer angegeben
+     * @param boolean $time Gibt an ob die Zeit mit ausgegeben
+     */
+    function debug($d = '', $time = true) {
+        global $ILCH_DEBUG_OUTPUT;
+        if ($time) {
+            $time = round(microtime(true) - SCRIPT_START_TIME, 5) . ': ';
+        } else {
+            $time = '';
+        }
+        if (empty($d)) {
+            // Filename + Linenumber ( + time);
+            $array = debug_backtrace();
+            $filename = debug_nice_filename($array[0]['file']);
+            $ILCH_DEBUG_OUTPUT .= '<div>' . $time . $filename . ' - Line: ' . $array[0]['line'] . ' ' . $extra . '</div>';
+        } elseif (is_array($d) or is_object($d)) {
+            $ILCH_DEBUG_OUTPUT .= '<div style="white-space:pre">' . $time . var_export($d, true) . '</div>';
         } else {
             if (is_bool($d)) {
                 $d = 'Bool: ' . ($d ? 'true' : 'false');
             }
-            $debug_output .= '<div>&nbsp;' . $d . '&nbsp;</div>';
+            $ILCH_DEBUG_OUTPUT .= '<div>' . $time . $d . '</div>';
         }
-    } elseif ($x == 1 AND $o) {?>
-	    <script language="JavaScript" type="text/javascript"><!--
-	    function closeDebugDivID () {
-	      if (document.getElementById('debugDivID').style.display == 'none') {
-	        document.getElementById('debugDivID').style.display = 'block';
-	      } else {
-	        document.getElementById('debugDivID').style.display = 'none';
-	      }
-	    }
-	    //--></script>
-	    <style>#debugDivID div {border-bottom: 1px dashed black; text-align: left;}</style>
-	    <div id="debugDiv" style="position:absolute; top:0px; left:0px; display:inline; width:50px; overflow: show;">
-	    <a href="javascript:closeDebugDivID();"><img src="include/images/icons/del.gif" alt=""></a>
-	    <div id="debugDivID" style="display: none; width: 700px; background-color: #FFFFFF; border:1px solid grey; color: #000000; z-index: 100;">
-	    <?php
-        echo $debug_output;
+    }
+    /**
+     * debug_bt()
+     * from php.net
+     * Gibt ein formatiertes debug_backtrace als String zurück
+     * @return string
+     */
+    function debug_bt() {
+        if (!function_exists('debug_backtrace')) {
+            return 'function debug_backtrace does not exists' . "\r\n";
+        }
+        $r = 'Debug backtrace:' . "\r\n";
+        $i = 0;
+        foreach (debug_backtrace() as $t) {
+            $i++;
+            if ($i == 1) {
+                continue;
+            }
+            $r .= "\t" . '@ ';
+            if (isset($t[ 'file' ])) {
+                $r .= debug_nice_filename($t[ 'file' ]) . ':' . $t[ 'line' ];
+            } else {
+                $r .= '<PHP inner-code>';
+            }
+
+            $r .= ' -- ';
+
+            if (isset($t[ 'class' ])) {
+                $r .= $t[ 'class' ] . $t[ 'type' ];
+            }
+
+            $r .= $t[ 'function' ];
+            if (isset($t[ 'args' ]) && sizeof($t[ 'args' ]) > 0) {
+                // $r .= '('.implode(',', $t['args']).')';
+                $r .= '(...)';
+            } else {
+                $r .= '()';
+            }
+
+            $r .= "\r\n";
+        }
+        return $r;
+    }
+    /**
+     * debug_out()
+     * Gibt gespeicherte Debugmeldungen aus
+     */
+    function debug_out() {
+        global $ILCH_DEBUG_OUTPUT, $ILCH_DEBUG_DB_QUERIES, $ILCH_DEBUG_DB_COUNT_QUERIES;
+
+        debug('Scriptlaufzeit: ' . round(microtime(true) - SCRIPT_START_TIME, 5) . ' secs');
+        debug('anzahl sql querys: ' . $ILCH_DEBUG_DB_COUNT_QUERIES);
+        debug($ILCH_DEBUG_DB_QUERIES);
 
         ?>
-	    </div></div><?php
+<script type="text/javascript">
+function toggleDebugDiv() {
+    var div = document.getElementById('debugDiv');
+    if (div.style.display == 'none') {
+        div.style.display = 'block';
+    } else {
+        div.style.display = 'none';
     }
 }
-// debug_bt() from php.net
-function debug_bt() {
-    if (!function_exists('debug_backtrace')) {
-        echo 'function debug_backtrace does not exists' . "\r\n";
-        return;
+</script>
+<style type="text/css">
+#debugButton {position:absolute; top:0px; left:0px; display:block; width:50px; height:20px; line-height:20px; vertical-align:middle; border: 1px solid black; background: #ff9;}
+#debugDiv {position: absolute; top:30px; left:50px; overflow: scroll; width:90%; height: 90%; background-color:#FFFFFF; border:1px solid grey; color: #000000; z-index: 1000;}
+#debugDiv div {border-bottom: 1px dashed black; text-align: left;}
+</style>
+<div id="debugButton"><a href="javascript:toggleDebugDiv();">Debug</a></div>
+<div id="debugDiv" style="display: none;">
+<?php
+        echo $ILCH_DEBUG_OUTPUT;
+
+        ?>
+</div><?php
     }
-    $r = 'Debug backtrace:' . "\r\n";
-    foreach (debug_backtrace() as $t) {
-        $r .= "\t" . '@ ';
-        if (isset($t[ 'file' ])) {
-            $r .= basename($t[ 'file' ]) . ':' . $t[ 'line' ];
-        } else {
-            $r .= '<PHP inner-code>';
-        }
-
-        $r .= ' -- ';
-
-        if (isset($t[ 'class' ])) {
-            $r .= $t[ 'class' ] . $t[ 'type' ];
-        }
-
-        $r .= $t[ 'function' ];
-        if (isset($t[ 'args' ]) && sizeof($t[ 'args' ]) > 0) {
-            // $r .= '('.implode(',', $t['args']).')';
-            $r .= '(...)';
-        } else {
-            $r .= '()';
-        }
-
-        $r .= "\r\n";
+} else {
+    function debug($d = '', $time = true) {}
+    function debug_bt() {
     }
-    return $r;
+    function debug_out() {
+    }
 }
 
 ?>

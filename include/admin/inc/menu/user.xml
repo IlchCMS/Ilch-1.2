@@ -4,7 +4,7 @@
   <list title="Sonstiges">
     <modul>
 	  <title>Neuer Nutzer</title>
-	  <url>javascript: tb_show('Neuer Nutzer', 'admin.php?user-createNewUser-?KeepThis=true&amp;TB_iframe=true&amp;height=265&amp;width=300', false);</url>
+	  <url>javascript: ic.modalDialog({title:'Neuer Nutzer',url:'admin.php?user-createNewUser',height:320,width:350});</url>
 	</modul>
   </list>
 </menu>

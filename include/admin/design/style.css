@@ -4,7 +4,7 @@
  * Design and Design Code by OloX
  * ---------- www.ilch.de ------------
  **/
- 
+
 /*---------->>> GLOBAL <<<-----------*/
 
 body {
@@ -16,10 +16,10 @@ body {
   }
 
 br.clear {
-	content: "."; 
-	display: block; 
-	height: 0; 
-	clear: both; 
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
 	visibility: hidden;
 }
 
@@ -67,7 +67,7 @@ div#admin_head .button li a span {
 	padding: 10px 10px 10px 10px;
 	color:#89939b;
 	font-size:12px;
-	font-weight:bold;	
+	font-weight:bold;
 	text-decoration:none;
 }
 
@@ -80,7 +80,7 @@ div#admin_head .button li a span:hover {
 div#admin_head .button li a span strong {
 	color:#727a81;
 }
- 
+
 div#admin_content {
 	clear:both;
 	text-align:left;
@@ -94,7 +94,7 @@ div#admin_content {
 div#admin_tabs {
 	text-align:left;
 	line-height: normal;
-    margin: 0 auto; padding:0 0 0 10px; 
+    margin: 0 auto; padding:0 0 0 10px;
 	min-width: 600px;
 
 }
@@ -113,7 +113,7 @@ div#admin_tabs li {
 	margin: 0; padding: 0;
 	font-size: 1em;
     letter-spacing: 0.8px;
-    text-shadow: #a9c1d0 0px 1px 1px;		
+    text-shadow: #a9c1d0 0px 1px 1px;
 	font-weight: bold;
 }
 
@@ -196,13 +196,13 @@ div.dropmenu_container a {
 	margin:0;
 	display: block;
 	text-indent: 5px;
-	border: 0 solid #a1c8dd; 
+	border: 0 solid #a1c8dd;
 	border-bottom-width: 1px;
 	padding: 3px 3px 3px 12px;
 	text-decoration: none;
 	font-family: Arial, Helvetica, sans-serif;
 	color:#858c92;
-	background:url("img/points.png") no-repeat 6px -36px;	
+	background:url("img/points.png") no-repeat 6px -36px;
 }
 
 div.dropmenu_container a:hover {
@@ -213,7 +213,7 @@ div.dropmenu_container a:hover {
 
 /* ---------->>> content <<<-----------*/
 
-span.corners-top, span.corners-bottom, 
+span.corners-top, span.corners-bottom,
 span.corners-top span, span.corners-bottom span {
 	font-size: 1px;
 	line-height: 1px;
@@ -257,12 +257,12 @@ span.footer {
 	color:#abbdc4;
 	font-size:1em;
 	font-weight:bold;
-	text-shadow:1px 1px 0 #F7F7F7;		
+	text-shadow:1px 1px 0 #F7F7F7;
 }
 
 span.footer a {
 	color:#abbdc4;
-	text-decoration:none;		
+	text-decoration:none;
 }
 
 div#main_content_border {
@@ -294,8 +294,8 @@ div#main_content {
 	border-bottom:1px solid #dae1e5;
 	font-family:"trebuchet MS",sans-serif;
 	font-size:1.1em;
-    text-shadow:1px 1px 0 #F7F7F7;	
-	min-width:200px;	
+    text-shadow:1px 1px 0 #F7F7F7;
+	min-width:200px;
 }
 
 #con_menu ul {
@@ -306,11 +306,11 @@ div#main_content {
 
 #con_menu li {
 	margin: 0 auto;  padding:6px 0 6px 24px;
-	background:url("img/points.png") no-repeat 12px -16px;	
-	border-bottom:1px solid #dae1e5;	
-	font-size: 1em;		
+	background:url("img/points.png") no-repeat 12px -16px;
+	border-bottom:1px solid #dae1e5;
+	font-size: 1em;
 	font-weight: normal;
-	min-width:200px;	
+	min-width:200px;
 }
 
 #con_menu li a {
@@ -319,11 +319,11 @@ div#main_content {
 
 #con_menu li a span {
     display:block;
-    margin: 0 auto; 
-	font-size: 1em;		
+    margin: 0 auto;
+	font-size: 1em;
 	font-weight: normal;
 	color:#7a8286;
-	text-decoration:none;	
+	text-decoration:none;
 }
 
 
@@ -367,7 +367,7 @@ span.toggle-off {
 	font-family:"Trebuchet MS",Helvetica,sans-serif;
     font-size:1.6em;
     font-weight:normal;
-	text-shadow:1px 1px 0 #F7F7F7;		
+	text-shadow:1px 1px 0 #F7F7F7;
 }
 
 
@@ -381,44 +381,44 @@ span.toggle-off {
 }
 
 td, center, div, span, font, tr, table, body {
-	font-family: Verdana; 
+	font-family: Verdana;
 	font-size: 12px;
 }
 
-a { 
-	color: #6e7c7f; 
+a {
+	color: #6e7c7f;
 	text-decoration: underline;
 	font-weight:bold;
 }
 
-a:hover {   
-	text-decoration: none;  
+a:hover {
+	text-decoration: none;
 }
 
-a.box { 
-	color: #6e7c7f; 
-	font-family: Verdana; 
-	font-size: 11px; 
-	text-decoration: underline; 
+a.box {
+	color: #6e7c7f;
+	font-family: Verdana;
+	font-size: 11px;
+	text-decoration: underline;
 }
 
-a.box:hover {   
-	text-decoration: none;  
+a.box:hover {
+	text-decoration: none;
 }
 
 .Chead {
 	background-color: #c4ddeb;
 	color: #FFF;
 	font-weight:bold;
-	border:1px solid #d9e8f0;   
+	border:1px solid #d9e8f0;
 }
 
 .Chead td {
-	border:1px solid #d9e8f0;   
+	border:1px solid #d9e8f0;
 }
 
 .Chead th {
-	border:1px solid #d9e8f0;  
+	border:1px solid #d9e8f0;
 }
 
 .Chead td, .Chead td strong, .Chead h4, .Chead td b {
@@ -428,21 +428,21 @@ a.box:hover {
 .Callg {
 	background-color: #EFEFEF;
 	color: #000000;
-	border:1px solid #fff;	
+	border:1px solid #fff;
 }
 
 .Callg td {
 	color: #000000;
-	border:1px solid #fff;   
+	border:1px solid #fff;
 }
 
 .Cnorm  {
 	background-color: #f7fcff;
-	border:1px solid #fff;   
+	border:1px solid #fff;
 }
 
 .Cnorm td {
-	border:1px solid #fff;   
+	border:1px solid #fff;
 }
 
 .Cmite {
@@ -451,23 +451,23 @@ a.box:hover {
 }
 
 .Cmite td {
-	border:1px solid #fff;  
+	border:1px solid #fff;
 }
 
 .Cdark {
 	background-color: #eaf1f5;
 	color:#6e7c7f;
-	border:1px solid #fff;  
+	border:1px solid #fff;
 }
 
 .Cdark td {
-	border:1px solid #fff; 
+	border:1px solid #fff;
 }
 
 #Ballg
 {
 	color: #000000;
-	
+
 }
 #Ballg td
 {
@@ -489,19 +489,19 @@ a.box:hover {
 	border: solid #cdd8de 1px;
 }
 
-.smalfont  { 
+.smalfont  {
 	font-size: 10px;
-	text-decoration: none; 
+	text-decoration: none;
 }
 
-.border  { 
-	background-color: #cdd8de; 
+.border  {
+	background-color: #cdd8de;
 }
-hr 
-{ 
-	height: 0px; 
-	border: solid #cdd8de 0px; 
-	border-top-width: 1px; 
+hr
+{
+	height: 0px;
+	border: solid #cdd8de 0px;
+	border-top-width: 1px;
 }
 
 legend {
@@ -514,18 +514,18 @@ fieldset {
 
 
 
-input, textarea, select { 
-	color: #738792;  
-    font: 12px Verdana;  
+input, textarea, select {
+	color: #738792;
+    font: 12px Verdana;
     border-color: #cbd8de;
   	border-width: 1px;
-    border-style: solid;  
-    font-weight: none;  
+    border-style: solid;
+    font-weight: none;
     text-decoration: none;
-	padding:4px;  
+	padding:4px;
     background-color: #f2f9ff;
 	-moz-border-radius:2px; -webkit-border-radius:2px;
-	margin:2px;  
+	margin:2px;
 }
 
 input.sub, .button_second {background: #d25a0b url("img/sub.png");cursor:pointer;color:#fff;font-weight:bold;padding: 3px;margin-left:1px;border:1px solid #a4c8dd; -moz-border-radius:3px; -webkit-border-radius:3px;}
@@ -536,7 +536,7 @@ input.sub, .button_second {background: #d25a0b url("img/sub.png");cursor:pointer
 img { border: 0; }
 
 div.info_box {
-	width: 400px; border: 1px solid #cbd6dc; padding: 8px 16px 8px 68px; 
+	width: 400px; border: 1px solid #cbd6dc; padding: 8px 16px 8px 68px;
 	background: #f0f7fb url(../../images/icons/admin/info.png) no-repeat 8px 8px;
 	margin: 5px 5px 5px 5px;
 /* margin: 5px auto 5px auto; */
@@ -547,7 +547,7 @@ div.info_box b, div.info_box strong {
 }
 
 div.warning_box {
-	width: 400px; color:#fdc3c4; border: 1px solid #fe0000; padding: 8px 16px 8px 68px; 
+	width: 400px; color:#fdc3c4; border: 1px solid #fe0000; padding: 8px 16px 8px 68px;
 	background: #e26666 url(../../images/icons/admin/warning.png) no-repeat 8px 8px;
 	margin: 5px auto 5px auto;
 }
@@ -561,159 +561,3 @@ div.warning_box a {
 div.info_box, div.warning_box {
 	-moz-border-radius:3px; -webkit-border-radius:3px;
 }
-
-
-
-
-/* ----------------------------------------------------------------------------------------------------------------*/
-/* ---------->>> thickbox settings <<<-----------------------------------------------------------------------------*/
-/* ----------------------------------------------------------------------------------------------------------------*/
-#TB_overlay {
-  position: fixed;
-  z-index:100;
-  top: 0px;
-  left: 0px;
-  height:100%;
-  width:100%;
-}
-.TB_overlayMacFFBGHack {background: url(macFFBgHack.png) repeat;}
-.TB_overlayBG {
-  background-color:#000;
-  filter:alpha(opacity=75);
-  -moz-opacity: 0.75;
-  opacity: 0.75;
- 
-}
-* html #TB_overlay { /* ie6 hack */
-     position: absolute;
-     height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
-}
-
-#com_loader {
-	 position: fixed;
-	 top:50%;
-	left:50%;position: fixed; 
-	width:100px; 
-	height:100px;
-	border: 4px solid #fff;
-	-moz-border-radius: 5px;
-	-webkit-border-radius:5px;
-	background: #ffffff;
-	text-align:center;
-	padding-top:20px;
-}
-
-#TB_window{
-  position: fixed;
-  background: #ffffff;
-  z-index: 102;
-  color:#000000;
-  display:none;
-  border: 4px solid #fff;
-  -moz-border-radius: 5px;
-  -webkit-border-radius:5px;
-  text-align:left;
-  top:50%;
-  left:50%;
-}
-* html #TB_window { /* ie6 hack */
-position: absolute;
-margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px');
-}
-#TB_window img#TB_Image {
-  display:block;
-  margin: 15px 0 0 15px;
-  border-right: 1px solid #c7bdb9;
-  border-bottom: 1px solid #c7bdb9;
-  border-top: 1px solid #666;
-  border-left: 1px solid #666;
-}
-#TB_caption{
-  height:25px;
-  padding:7px 30px 10px 25px;
-  float:left;
-}
-#TB_closeWindow{
-  height:25px;
-  padding:11px 25px 10px 0;
-  float:right;
-}
-#TB_closeAjaxWindow{
-  padding:7px 10px 5px 0;
-  margin-bottom:1px;
-  text-align:right;
-  float:right;
-}
-#TB_ajaxWindowTitle{
-  float:left;
-  font-size:14px;
-  padding:10px 0 5px 10px;
-  margin-bottom:1px;
-}
-#TB_title{
-  color:#727a81;
-  background:url("img/background.png") repeat-x;
-  height:35px;
-  border:1px solid #cdd8de;
-  -moz-border-radius: 4px;
-  -webkit-border-radius:4px
-}
-#TB_ajaxContent{
-  clear:both;
-  padding:2px 15px 15px 15px;
-  overflow:auto;
-  text-align:left;
-  line-height:1.4em;
-}
-#TB_ajaxContent.TB_modal{
-  padding:15px;
-}
-#TB_ajaxContent p{
-  padding:5px 0px 5px 0px;
-}
-#TB_load{
-  background:#e8f3f9;
-  position: fixed;
-  color:#6e7c7f;
-  display:none;
-  height:80px;
-  width:100px;
-  z-index:103;
-  top: 50%;
-  left: 50%;
-  padding:20px 10px 5px 10px;
-  text-align:center;
-  border:1px solid #cdd8de;
-  -moz-border-radius: 3px;
-  -webkit-border-radius:3px
-}
-* html #TB_load { /* ie6 hack */
-position: absolute;
-margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px');
-}
-#TB_HideSelect{
-  z-index:99;
-  position:fixed;
-  top: 0;
-  left: 0;
-  background-color:#fff;
-  border:none;
-  filter:alpha(opacity=0);
-  -moz-opacity: 0;
-  opacity: 0;
-  height:100%;
-  width:100%;
-}
-* html #TB_HideSelect { /* ie6 hack */
-     position: absolute;
-     height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
-}
-#TB_iframeContent{
-  clear:both;
-  border:none;
-  margin-bottom:-1px;
-  margin-top:1px;
-  _margin-bottom:1px;
-}
-
-

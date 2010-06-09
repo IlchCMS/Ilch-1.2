@@ -1,7 +1,6 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="include/admin/design/style.css" media="all" />
-<script type="text/javascript" src="include/includes/js/jquery/jquery.form.js"></script>
 <script language="JavaScript" type="text/javascript">
 <!--
 function closeThisWindow() {
@@ -18,13 +17,6 @@ function deleteMap(v) {
     document.location.href="admin.php?wars-last-upload=0&d=include/images/wars/{wid}_{mid}."+v+"&wid={wid}&mid={mid}";
   }
 }
-
-$(document).ready(function() { 
-   $('#picupload').ajaxForm(function() {  
-      tb_remove();
-      window.location.href = 'admin.php?gallery-S{cat}';		   			
-   }); 
-}); 
 //-->
 </script>
 </head>
@@ -43,7 +35,7 @@ $(document).ready(function() {
         </tr>{EXPLODE}<tr>
           <td class="Cdark">
             <input class="sub" type="submit" value="Absenden" /> &nbsp;
-            <input class="sub" type="button" value="Schliessen" onClick="self.parent.tb_remove();" />
+            <input class="sub" type="button" value="Schliessen" onClick="self.parent.ic.modalDialogClose();" />
           </td>
         </tr>
       </table>

@@ -201,6 +201,10 @@ a.box:hover
   text-decoration: none;
 }
 
+#left_col li a.navi_active {
+    font-weight: bold;
+}
+
 .Chead
 {
   background: #16639b;

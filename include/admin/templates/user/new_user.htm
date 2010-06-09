@@ -1,17 +1,11 @@
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="include/admin/design/style.css" media="all" />
-<script type="text/javascript" src="include/includes/js/jquery/jquery.form.js"></script>
-<script language="JavaScript" type="text/javascript">
-<!--
-$(document).ready(function() { 
-   $('#new-user').ajaxForm(function() {     			
-   }); 
-}); 
-//-->
-</script>
-</head>
-<body>
+<style type="text/css">table.rand td {
+    padding: 0;
+}
+table.border td {
+    padding: 3px;
+}</style>
+{EXPLODE}
+<div align="center">
 <table border="0" cellpadding="5" cellspacing="1" class="border" width="100%">
   <tr>
     <td class="Callg">{msg}
@@ -37,14 +31,9 @@ $(document).ready(function() {
 			<td class="Cnorm"><input id="sja" type="checkbox" name="info" value="ja" /><label for="sja"> Dem User seine Daten zusenden?</label></td>
 		</tr><tr class="Cdark">
 		  <td></td>
-			<td><input class="sub" type="submit" name="sub" value="Absenden" /> <input class="sub" type="button" value="Schlie&szlig;en" onClick="self.parent.tb_remove();" /></td>
+			<td><input class="sub" type="submit" name="sub" value="Absenden" /> <input class="sub" type="button" value="Schlie&szlig;en" onClick="self.parent.ic.modalDialogClose();" /></td>
 		</tr>
   </table>
 </form>
-
-
-    </td>
-  </tr>
-</table>
-</body>
-</html>
+</td></tr></table>
+</div>
