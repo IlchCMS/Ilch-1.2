@@ -29,7 +29,7 @@ function db_close() {
     mysql_close(CONN);
 }
 
-if (DEBUG) {
+if (defined(DEBUG)) {
     $ILCH_DEBUG_DB_QUERIES = array();
     $ILCH_DEBUG_DB_COUNT_QUERIES = 0;
 
