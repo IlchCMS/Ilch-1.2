@@ -688,7 +688,7 @@ INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (5, ';)', 'Zwinker'
 INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (6, ':(', 'Traurig', '6.png');
 INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (7, ':S', 'Grummel', '7.png');
 INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (8, ':|', 'Sauer', '8.png');
-INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (9, ':\'(', 'Weinen', '9.png');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (9, ':\', 'Weinen', '9.png');
 INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (10, ':@', 'Veraergert', '10.png');
 
 
