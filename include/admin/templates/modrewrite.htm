@@ -1,0 +1,59 @@
+<form name="modrewriteform" method="post" action="">
+  <table width="75%" border="0" align="center">
+    <tr>
+      <td width="36%">ModRewrite aktivieren</td>
+      <td width="11%" align="right"><p>
+      <input type="radio" name="aktivieremodrewrite" value="on" id="aktivieremodrewrite" {check_1}></td>
+      <td width="11%">Ja</td>
+      <td width="42%">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td align="right">
+      <input type="radio" name="aktivieremodrewrite" value="off" id="aktivieremodrewrite" {check_0}>
+      </td>
+      <td>Nein</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td><input type="submit" name="submitmodrewrite" id="submitmodrewrite" value="Speichern" /></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="4">
+</td>
+    </tr>
+  </table>
+
+</form> 
+
+<form id="form1" name="form1" method="post" action="">
+
+  <p align="center">
+    <div class="{infotype}_box">
+      <b>Information</b>
+      <br />
+    <span class="smalfont">
+      <br />
+    	<strong>{infotxt}</strong>
+      <br />
+    </span>
+  </div>
+  
+  <div class="info_box">
+    <b>Hier kann die .htaccess manuell editiert werden</b>
+        <br />
+    <span class="smalfont">
+          <br />
+    		<b>Bitte die Zeile RewriteEngine On/Off nur &uuml;ber das Script &auml;ndern </b>
+          <br />
+    </span>
+	</div>
+  <textarea name="htaccesscontentbox" id="htaccesscontentbox" cols="74" rows="7">{parse_htaccess}</textarea>
+  </p>
+  <p align="center">
+    <input type="submit" name="submithtaccesscontentbox" id="submithtaccesscontentbox" value="Speichern" />
+  </p>
+</form>

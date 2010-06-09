@@ -2,6 +2,7 @@
 // Copyright by: Manuel
 // Support: www.ilch.de
 // if(file_exists('install.php') || file_exists('install.sql')) die('Installationsdateien noch vorhanden! Bitte erst l&ouml;schen!');
+ob_start();
 define('main', true);
 define('DEBUG', true);
 define('SCRIPT_START_TIME', microtime(true));

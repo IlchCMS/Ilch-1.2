@@ -137,13 +137,28 @@ class design extends tpl {
     }
 
     public function footer($exit = 0) {
-        global $ILCH_BODYEND_ADDITIONS;
-        $this->addtobodyend($ILCH_BODYEND_ADDITIONS);
-        echo $this->html[ 1 ];
-        unset($this->html[ 1 ]);
-        if ($exit == 1) {
-            exit();
-        }
+		global $allgAr;
+			echo $this->html[ 1 ];
+        	unset($this->html[ 1 ]);
+			
+		if ($allgAr['modrewrite'] == '0') {
+			global $ILCH_BODYEND_ADDITIONS;
+        	$this->addtobodyend($ILCH_BODYEND_ADDITIONS);
+
+
+		} else
+		if ($allgAr['modrewrite'] == '1') {
+			$c = ob_get_clean();
+			$c = preg_replace ('%href=\"\?([^\"]+)\"%Uis',"href=\"index.php?\\1\"",$c);
+			$c = preg_replace ('%href=\"index.php\?([-0-9A-Z_]+)#([a-zA-Z0-9]+)\">%Uis',"href=\"\\1.html#\\2\">",$c);
+			$c = preg_replace ('%href=\"index.php\?([-0-9A-Z_]+)\">%Uis',"href=\"\\1.html\">",$c);
+			$c = preg_replace ('%action=\"\?([^\"]+)\"%Uis',"action=\"index.php?\\1\"",$c);
+			$c = preg_replace ('%URL=\?([^\"]+)\"%Uis',"URL=index.php?\\1\"",$c);
+			echo $c; 
+		}
+		if ($exit == 1) {
+			exit();
+		}
     }
 
     protected function escape_explode($s) {

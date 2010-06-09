@@ -56,7 +56,8 @@ if (DEBUG) {
         $tmp = array();
         $vor = microtime(true);
         $qry = @mysql_query($q, CONN);
-        $tmp['duration'] = microtime(true) - $vor;
+		$nach = microtime(true);
+        $tmp['duration'] = $nach - $vor;
         $tmp['time'] = $nach - SCRIPT_START_TIME;
         $tmp['query'] = $q;
         $tmp['affected rows'] = mysql_affected_rows(CONN);
