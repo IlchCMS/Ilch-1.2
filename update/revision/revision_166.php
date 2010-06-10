@@ -29,7 +29,7 @@ $sql2 = "INSERT INTO `prefix_config` (
 `hide`
 )
 VALUES (
-'wartungstext', 'input', 'Allgemeine Optionen', 'Wartungstext', '0', '0', '0'
+'wartungstext', 'input', 'Allgemeine Optionen', 'Wartungstext', 'Die Seite befindet sich zur Zeit im Wartungsmodus und ist bald wieder für dich erreichbar', '0', '0'
 )
 ";
 db_query($sql1);
