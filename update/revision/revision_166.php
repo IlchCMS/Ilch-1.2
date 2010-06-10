@@ -1,6 +1,6 @@
 <?php
 //mairu
-db_query('UPDATE `prefix_loader` SET `task` =  \'libs\', `file` = \'xajax\\xajax.inc.php\' WHERE `file` = \'xajax.inc.php\'');
+db_query('UPDATE `prefix_loader` SET `task` =  \'libs\', `file` = \'xajax//xajax.inc.php\' WHERE `file` = \'xajax.inc.php\'');
 db_query('DELETE FROM `prefix_loader` WHERE `file` = "bbcode_config.php"');
 db_query('DELETE FROM `prefix_loader` WHERE `file` = "debug.php"');
 db_query('UPDATE ic1_smilies SET `url` = REPLACE(`url`, ".gif", ".png")');
@@ -51,4 +51,4 @@ $mail_smtp 			= db_query("UPDATE `prefix_config` SET `pos` =  '12' WHERE `prefix
 $smodul 			= db_query("UPDATE `prefix_config` SET `pos` =  '13' WHERE `prefix_config`.`schl` = 'smodul' LIMIT 1 ;");
 $gfx 				= db_query("UPDATE `prefix_config` SET `pos` =  '14' WHERE `prefix_config`.`schl` = 'gfx' LIMIT 1");
 $language 			= db_query("UPDATE `prefix_config` SET `pos` =  '15' WHERE `prefix_config`.`schl` = 'lang' LIMIT 1 ;");
-$allg_regeln 			= db_query("UPDATE `prefix_config` SET `pos` =  '15' WHERE `prefix_config`.`schl` = 'allg_regeln' LIMIT 1 ;");
+$allg_regeln 			= db_query("UPDATE `prefix_config` SET `pos` =  '16' WHERE `prefix_config`.`schl` = 'allg_regeln' LIMIT 1 ;");

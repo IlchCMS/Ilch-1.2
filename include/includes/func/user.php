@@ -113,9 +113,10 @@ function user_login_check($auto=false) {
         debug(' id ' . $id);
         $erg = db_query("SELECT `name`,`id`,`recht`,`pass`,`llogin`,`sperre` FROM `prefix_user` WHERE `id` = " . $id);
     }
+	
     if (isset($erg) and db_num_rows($erg) == 1) {
-        debug('user gefunden... ' . $row['name']);
         $row = db_fetch_assoc($erg);
+		debug('user gefunden... ' . $row['name']);
         if ($row['sperre'] == 1) {
             debug('user gesperrt... ' . $row['name']);
             return false;

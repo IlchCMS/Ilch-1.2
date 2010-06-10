@@ -23,6 +23,10 @@ require_once('include/includes/config.php');
 require_once('include/includes/loader.php');
 // Allgemeiner Konfig-Array
 $allgAr = getAllgAr();
+// Wartungsmodus
+if ($allgAr['wartung'] == 1) {
+	debug ( 'Wartungsmodus aktiv' );
+}
 // Menu, Nutzerverwaltung und Seitenstatistik laden
 $menu = new menu();
 user_identification();

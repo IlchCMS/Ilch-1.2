@@ -115,7 +115,7 @@ if (empty($_POST[ 'submit' ])) {
     // Template-Footer ausgeben
     $tpl->out(6);
 } else {
-    $abf = 'SELECT * FROM `prefix_config` ORDER BY `kat`';
+    $abf = 'SELECT * FROM `prefix_config` WHERE hide = 0 ORDER BY `kat` ';
     $erg = db_query($abf);
     while ($row = db_fetch_assoc($erg)) {
         if ($row[ 'typ' ] == 'password' AND $_POST[ $row[ 'schl' ] ] == '***') {
