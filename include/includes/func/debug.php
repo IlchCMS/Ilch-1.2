@@ -59,6 +59,9 @@ if (DEBUG) {
             $filename = debug_nice_filename($array[0]['file']);
             $ILCH_DEBUG_OUTPUT .= '<div>' . $time . $filename . ' - Line: ' . $array[0]['line'] . '</div>';
         } elseif (is_array($d) or is_object($d)) {
+            if (DEVELOPER_MODE) {
+              $d = manipulate_debug_output($d);
+            }
             $ILCH_DEBUG_OUTPUT .= '<div style="white-space:pre">' . $time . var_export($d, true) . '</div>';
         } else {
             if (is_bool($d)) {
@@ -67,6 +70,48 @@ if (DEBUG) {
             $ILCH_DEBUG_OUTPUT .= '<div>' . $time . $d . '</div>';
         }
     }
+    
+    /**
+     * Funktion parst den backtrace output und kann seine ausgabe verändern
+     *
+     * @return array
+     * @author annemarie`
+     **/
+    function manipulate_debug_output($d)
+    {
+      
+      foreach ($d as $key => $rvalue) {
+        $q  = $rvalue['query'];
+        if (!empty($q)) {
+          if (preg_match('/(SELECT){1}/i',$q,$match)) {
+            $new_query = link_querys($q, $key);
+            $d[$key]['query'] = $new_query;
+            $_SESSION['debug_backtrace']['SELECT'][$key] = $q;
+          }
+        }
+      }
+      return $d;
+    }
+    
+    /**
+     * soll später einen mysql query verlinken um seine ergebnisse angezeigt zu bekommen
+     *
+     * @return string
+     * @author annemarie
+     **/
+    function link_querys($old_query, $key = NULL, $function = NULL, $href = 'javascript:FUNCTION;')
+    {
+      if ((preg_match('/(javascript:)(FUNCTION)(;)/i',$href, $match) AND !is_NULL($function)) OR preg_match('/(javascript:)(FUNCTION)(;)/i',$href, $match)) {
+        $href = $match[1] . 'alert(' . $key . ')' . $match[3];
+      }
+      (string)$new_query;
+      $new_query = '<a href="';
+      $new_query .= $href;
+      $new_query .= '" title="Query ausf&uuml;hren">QUERY #'.$key.' ' . $old_query;
+      $new_query .= '</a>';
+      return $new_query;
+    }
+    
     /**
      * debug_bt()
      * from php.net
@@ -79,7 +124,9 @@ if (DEBUG) {
         }
         $r = 'Debug backtrace:' . "\r\n";
         $i = 0;
+        
         foreach (debug_backtrace() as $t) {
+          
             $i++;
             if ($i == 1) {
                 continue;
@@ -120,7 +167,7 @@ if (DEBUG) {
         debug('anzahl sql querys: ' . $ILCH_DEBUG_DB_COUNT_QUERIES);
         debug($ILCH_DEBUG_DB_QUERIES);
 
-        ?>
+?>
 <script type="text/javascript">
 function toggleDebugDiv() {
     var div = document.getElementById('debugDiv');
@@ -138,11 +185,9 @@ function toggleDebugDiv() {
 </style>
 <div id="debugButton"><a href="javascript:toggleDebugDiv();">Debug</a></div>
 <div id="debugDiv" style="display: none;">
+<?php echo $ILCH_DEBUG_OUTPUT; ?>
+</div>
 <?php
-        echo $ILCH_DEBUG_OUTPUT;
-
-        ?>
-</div><?php
     }
 } else {
     function debug($d = '', $time = true) {}

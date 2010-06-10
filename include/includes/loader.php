@@ -5,7 +5,8 @@
  * @version $Id$
  */
 defined('main') or die('no direct access');
-
+//new feature, enhances Debug mode!
+define('DEVELOPER_MODE',false);
 require_once('include/includes/func/debug.php');
 // Datenbankverbindung aufbauen
 require_once('include/includes/func/db/mysql.php');
@@ -15,10 +16,10 @@ $sql = 'SELECT `task`,`file` FROM `prefix_loader` ORDER BY `pos` ASC';
 $erg = db_query($sql);
 
 while ($row = db_fetch_assoc($erg)) {
-    $file = 'include/includes/' . $row[ 'task' ] . '/' . $row[ 'file' ];
-    if (file_exists($file)) {
-        require_once($file);
+    $file_path = 'include/includes/' . $row[ 'task' ] . '/' . $row[ 'file' ];
+    if (file_exists($file_path)) {
+        require_once($file_path);
     } else {
-        echo "<b>ILCH LOADER ERROR:</b> The file <b>" . $file . "</b> does not exists.\n";
+        echo '<b>ILCH LOADER ERROR:</b> The file <b>" . $file_path . "</b> does not exists.' . "\n";
     }
 }
