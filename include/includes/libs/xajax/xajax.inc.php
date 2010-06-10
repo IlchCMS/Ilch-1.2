@@ -1,4 +1,6 @@
-<?php 
+<?php
+$error_reporting = E_ALL > E_DEPRECATED ? E_ALL ^ E_DEPRECATED : E_ALL;
+$error_reporting = @error_reporting($error_reporting);
 class xajaxCall{var $sFunction;var $sReturnValue;var $aParameters;var $sMode;var $sRequestType;var $sResponseProcessor;var $sRequestURI;var $sContentType;function xajaxCall($sFunction=''){$this->sFunction=$sFunction;$this->aParameters=array();$this->sMode='';$this->sRequestType='';$this->sResponseProcessor='';$this->sRequestURI='';$this->sContentType='';}
 function setFunction($sFunction){$this->sFunction=$sFunction;return $this;}
 function clearParameters(){$this->aParameters=array();}
@@ -409,7 +411,7 @@ array(
 'logFile'=> '',
 'timeout'=> 6000,
 'version'=> $this->getVersion(),
-'javascript URI' => 'include/includes/'
+'javascript URI' => 'include/includes/libs/xajax/'
 )
 );if(null!==$sRequestURI)
 $this->configure('requestURI',$sRequestURI);else
@@ -1241,3 +1243,5 @@ function setVariable($sName,$sValue){$this->aVariables[$sName]=$sValue;}
 function printScript(){$sScript=$this->sScript;foreach($this->aVariables as $sKey=> $sValue)
 $sScript=str_replace($sKey,$sValue,$sScript);echo $sScript;}
 }
+@error_reporting($error_reporting);
+unset($error_reporting);

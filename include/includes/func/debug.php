@@ -1,6 +1,9 @@
 <?php
-// Copyright by Manuel
-// Support www.ilch.de
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ */
 defined('main') or die('no direct access');
 /**
  * eine funktion für var_dump und <pre>print_r()</pre> zu vereinen
@@ -54,7 +57,7 @@ if (DEBUG) {
             // Filename + Linenumber ( + time);
             $array = debug_backtrace();
             $filename = debug_nice_filename($array[0]['file']);
-            $ILCH_DEBUG_OUTPUT .= '<div>' . $time . $filename . ' - Line: ' . $array[0]['line'] . ' ' . $extra . '</div>';
+            $ILCH_DEBUG_OUTPUT .= '<div>' . $time . $filename . ' - Line: ' . $array[0]['line'] . '</div>';
         } elseif (is_array($d) or is_object($d)) {
             $ILCH_DEBUG_OUTPUT .= '<div style="white-space:pre">' . $time . var_export($d, true) . '</div>';
         } else {

@@ -1,7 +1,11 @@
 <?php
-if (!defined('main')) {
-    die("no direct access");
-}
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ */
+defined('main') or die('no direct access');
+
 $dif = date('Y-m-d H:i:s', time() - 60);
 $abf = "SELECT uid FROM `prefix_online` WHERE uptime > '" . $dif . "'";
 $resultID = db_query($abf);

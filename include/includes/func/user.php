@@ -1,4 +1,9 @@
 <?php
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ */
 // hier werden alle user spezifischen funktionen
 // definert...
 function user_identification() {
@@ -216,27 +221,26 @@ function is_siteadmin($m = null) {
 // wenn keins uebereinstimmt false zurueck gegeben.
 function has_right($recht, $modul = '') {
     if (!is_array($recht) AND !is_null($recht)) {
-        $recht = array($recht
-            );
+        $recht = array($recht);
     }
 
-    if ($_SESSION[ 'authright' ] == - 9) {
-        return (true);
+    if ($_SESSION['authright'] == - 9) {
+        return true;
     }
 
     if (!is_null($recht)) {
         foreach ($recht as $v) {
-            if (($v <= 0 AND $v >= $_SESSION[ 'authright' ]) OR (isset($_SESSION[ 'authgrp' ][ $v ]) AND $_SESSION[ 'authgrp' ][ $v ] === true)) {
-                return (true);
+            if (($v <= 0 AND $v >= $_SESSION['authright']) OR (isset($_SESSION['authgrp'][$v]) AND $_SESSION['authgrp'][$v] === true)) {
+                return true;
             }
         }
     }
 
-    if (!empty($modul) AND isset($_SESSION[ 'authmod' ][ $modul ]) AND $_SESSION[ 'authmod' ][ $modul ] === true) {
-        return (true);
+    if (!empty($modul) AND isset($_SESSION['authmod'][$modul]) AND $_SESSION['authmod'][$modul] === true) {
+        return true;
     }
 
-    return (false);
+    return false;
 }
 // ## admin
 // wenn der 2. parameter weggelassen wird oder auf true gesetzt wird
@@ -245,15 +249,21 @@ function has_right($recht, $modul = '') {
 // erste parameter ist das menu objekt...
 function user_has_admin_right(&$menu, $sl = true) {
     if ($_SESSION[ 'authright' ] <= - 8) { // co leader...
-        return (true);
+        return true;
     } else {
         $uri_to_check1 = $menu->get(0);
         $uri_to_check2 = $menu->get(1);
         if (count($_SESSION[ 'authmod' ]) < 1 OR !loggedin()) {
             if ($sl === true) {
                 if (!loggedin()) {
+                    $design = new design('', '', 0);
+                    $menu->set_url(0, 'user');
+                    load_modul_lang();
                     $tpl = new tpl('user/login.htm');
-                    $tpl->set_out('WDLINK', 'admin.php', 0);
+                    $design->addheader($tpl->get(0));
+                    $design->header();
+                    $tpl->set_out('WDLINK', 'admin.php', 1);
+                    $design->footer();
                 } else {
                     echo '<strong>Keine Berechtigung!</strong> <a href="index.php">Startseite</a>';
                 }

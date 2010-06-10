@@ -1,13 +1,9 @@
 <?php
-/*      ìlchClan Pic of the X modul
--------------------------------------------------------------|
-Copyright       :   © by Manuel                         |
-E-Mail          :   manuel@ilch.de                      |
-Internet        :   www.ilch.de                         |
-Version         :   v.1.0.6                             |
-Lastupdate      :   20.12.2004                        |
-Modul Copyright   :   © by David "scarfhogg"              |
-------------------------------------------------------------*/
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ */
 defined('main') or die('no direct access');
 defined('admin') or die('only admin access');
 

@@ -1,6 +1,10 @@
 <?php
-// Copyright by Flomavali
-// Support www.ilch.de
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ * @author Flomavali
+ */
 defined('main') or die('no direct access');
 // Sprache die benutzt wird, wenn die Datei in der Usersprache nicht gefunden wird
 

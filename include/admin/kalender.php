@@ -1,6 +1,12 @@
 <?php
-// Kalender Script © by Nickel
-// ueberarbeitet von Manuel
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ *
+ * Kalender Script © by Nickel
+ * ueberarbeitet von Manuel
+ */
 defined('main') or die('no direct access');
 defined('admin') or die('only admin access');
 // Funktionen

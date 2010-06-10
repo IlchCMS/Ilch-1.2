@@ -1,8 +1,10 @@
 <?php
-// Copyright by: Manuel
-// Support: www.ilch.de
-// Captcha by: T0P0LIN0
-// Support: www.honklords.de
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ * @author T0P0LIN0 [www.honklords.de]
+ **/
 defined('main') or die('no direct access');
 defined('admin') or die('administrative access only - nur administrativer Zugang');
 

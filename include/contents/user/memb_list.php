@@ -1,6 +1,9 @@
 <?php
-// Copyright by: Manuel
-// Support: www.ilch.de
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ */
 defined('main') or die('no direct access');
 
 $title = $allgAr[ 'title' ] . ' :: User :: ' . $lang[ 'listofmembers' ];
@@ -65,8 +68,7 @@ while ($row = db_fetch_object($erg)) {
         );
     $tpl->set_ar_out($ar, 1);
 }
-$tpl->set_out('filtername', $filtername ? $filtername : '', 2);
+$tpl->set_out('filtername', !empty($filtername) ? $filtername : '', 2);
 
 $design->footer();
-
 ?>

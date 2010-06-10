@@ -1,15 +1,9 @@
 <?php
-
-/*      ilchClan Pic of the X modul
--------------------------------------------------------------|
-Copyright       :   copy by Manuel                      |
-E-Mail          :   Webmaster@ilch.de                   |
-Internet        :   www.ilch.de                         |
-Version         :   v.1                                 |
-Lastupdate        :   20.12.2005                        |
-Modul Copyright :  copy by David "scarfhogg"            |
-------------------------------------------------------------*/
-
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ */
 defined('main') or die('no direct access');
 
 $svResult = db_query('SELECT * FROM `prefix_allg` WHERE `k` = \'picofx\'');

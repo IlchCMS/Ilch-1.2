@@ -1,6 +1,9 @@
 <?php
-// Copyright by Manuel
-// Support www.ilch.de
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ */
 defined('main') or die('no direct access');
 
 if (!isset($ILCH_HEADER_ADDITIONS)) {
@@ -140,7 +143,7 @@ class design extends tpl {
 		global $allgAr;
 			echo $this->html[ 1 ];
         	unset($this->html[ 1 ]);
-			
+
 		if ($allgAr['modrewrite'] == '0') {
 			global $ILCH_BODYEND_ADDITIONS;
         	$this->addtobodyend($ILCH_BODYEND_ADDITIONS);
@@ -154,9 +157,12 @@ class design extends tpl {
 			$c = preg_replace ('%href=\"index.php\?([-0-9A-Z_]+)\">%Uis',"href=\"\\1.html\">",$c);
 			$c = preg_replace ('%action=\"\?([^\"]+)\"%Uis',"action=\"index.php?\\1\"",$c);
 			$c = preg_replace ('%URL=\?([^\"]+)\"%Uis',"URL=index.php?\\1\"",$c);
-			echo $c; 
+			echo $c;
 		}
 		if ($exit == 1) {
+		    if (DEBUG) {
+		        debug_out();
+		    }
 			exit();
 		}
     }

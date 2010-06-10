@@ -28,139 +28,139 @@ class Captcha
     var $maxsize = 30;
     var $addagrid = true;
     var $character = array( 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'Q', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 'S', 'T', 'U', 'V', 'Y', 'W', '2', '3', '4', '5', '6', '7' );
-    
+
     function Captcha( )
     {
         include 'memory.php';
         $this->memory = new Memory();
     }
-    
+
     function isValid( $number )
     {
         return $this->memory->numberExists( $number );
     }
-    
+
     function check_type_support( )
     {
         $get_info                 = @gd_info();
-        $Version                  = @ereg_replace( '[[:alpha:][:space:]()]+', '', $get_info[ 'GD_Version' ] );
-        $get_info[ 'GD_Version' ] = $Version;
+        $Version                  = @ereg_replace( '[[:alpha:][:space:]()]+', '', $get_info[ 'GD Version' ] );
+        $get_info[ 'GD Version' ] = $Version;
         if ( !is_array( $get_info ) ) {
             return false;
         } else {
             return $get_info;
         }
     }
-    
+
     function open_captcha_image( )
     {
         // Grafik anlegen
         $gd_lib_version = $this->check_type_support();
-        if ( ( is_array( $gd_lib_version ) ) && ( $gd_lib_version[ 'GD_VERSION' ] > "2.0.0" ) )
+        if ( ( is_array( $gd_lib_version ) ) && ( $gd_lib_version[ 'GD VERSION' ] > "2.0.0" ) )
             return ImageCreateTrueColor( $this->width, $this->height );
         else
             return ImageCreate( $this->width, $this->height );
     }
-    
+
     function setUseRandomColors( $useRandomColors = false )
     {
         $this->fontColor[ 'r' ] = 0;
         $this->fontColor[ 'g' ] = 0;
         $this->fontColor[ 'b' ] = 0;
-        
+
         $this->bgColor[ 'r' ] = 225;
         $this->bgColor[ 'g' ] = 225;
         $this->bgColor[ 'b' ] = 225;
-        
+
         $this->useRandomColors = $useRandomColors;
     }
-    
-    
+
+
     function setFontColor( $r, $g, $b )
     {
         $this->fontColor[ 'r' ] = $r;
         $this->fontColor[ 'g' ] = $g;
         $this->fontColor[ 'b' ] = $b;
     }
-    
+
     function setBgColor( $r, $g, $b )
     {
         $this->bgColor[ 'r' ] = $r;
         $this->bgColor[ 'g' ] = $g;
         $this->bgColor[ 'b' ] = $b;
     }
-    
+
     function set_character( $character )
     {
         $this->character = $character;
     }
-    
+
     function set_background_intensity( $background_intensity = 50 )
     {
         $this->background_intensity = $background_intensity;
     }
-    
+
     function set_angle( $angle = 45 )
     {
         $this->angle = $angle;
     }
-    
+
     function setImageWidth( $width )
     {
         $this->width = $width;
     }
-    
+
     function setImageHeight( $height )
     {
         $this->height = $height;
     }
-    
+
     function setFontsPath( $fontsPath )
     {
         $this->fontsPath = $fontsPath;
     }
-    
+
     function setFontSize( $size )
     {
         $this->fontSize = $size;
     }
-    
+
     function set_minmax_size( $minsize = 20, $maxsize = 30 )
     {
         $this->minsize = $minsize;
         $this->maxsize = $maxsize;
     }
-    
+
     function set_font_type( $font_type = 5 )
     {
         $this->font_type = $font_type;
     }
-    
+
     function enable_scratches( $scratches = true )
     {
         $this->scratches = $scratches;
     }
-    
+
     function set_scratches_amount( $amount = 25 )
     {
         $this->scraches_amount = $amount;
     }
-    
+
     function set_showgrid( $what = true )
     {
         $this->addagrid = $what;
     }
-    
+
     function set_showcoloredlines( $what = true )
     {
         $this->addhorizontallines = $what;
     }
-    
+
     function setPassPhraselenght( $passphraselenght )
     {
         $this->passphraselenght = $passphraselenght;
     }
-    
+
     function getRandomFont( )
     {
         static $fonts = array( );
@@ -177,7 +177,7 @@ class Captcha
         }
         return $fonts[ rand( 0, count( $fonts ) - 1 ) ];
     }
-    
+
     function inRgbTolerance( $originalColors, $newColors )
     {
         $matches = 0;
@@ -188,7 +188,7 @@ class Captcha
         }
         return true;
     }
-    
+
     function create_captcha_background( )
     {
         // Breite eines Zeichens
@@ -225,7 +225,7 @@ class Captcha
             $this->addhorlines();
         }
     }
-    
+
     function create_scratches( )
     {
         for ( $i = 1; $i < $this->scraches_amount; $i++ ) {
@@ -236,27 +236,27 @@ class Captcha
                 $txtColor = array(
                      mt_rand( 0, 255 ),
                     mt_rand( 0, 255 ),
-                    mt_rand( 0, 255 ) 
+                    mt_rand( 0, 255 )
                 );
                 ImageLine( $this->image, $randPixSpaceLeft, $randPixSpaceTop, $randPixSpaceLeft + 10, $randPixSpaceTop + 7, $txtColor );
             } elseif ( 1 == $style ) {
                 $noiseColor = array(
                      mt_rand( 0, 255 ),
                     mt_rand( 0, 255 ),
-                    mt_rand( 0, 255 ) 
+                    mt_rand( 0, 255 )
                 );
                 ImageLine( $this->image, $randPixSpaceLeft, $randPixSpaceTop, $randPixSpaceLeft - 3, $randPixSpaceTop + 7, $noiseColor );
             } else {
                 $bgColor = array(
                      mt_rand( 0, 255 ),
                     mt_rand( 0, 255 ),
-                    mt_rand( 0, 255 ) 
+                    mt_rand( 0, 255 )
                 );
                 ImageLine( $this->image, $randPixSpaceLeft, $randPixSpaceTop, $randPixSpaceLeft - 5, $randPixSpaceTop - 5, $bgColor );
             }
         }
     }
-    
+
     function displayImage( )
     {
         $this->image = $this->open_captcha_image();
@@ -267,6 +267,7 @@ class Captcha
         $heightPerChar = $this->height - 2; //2pix spacing...
         $color         = imagecolorallocate( $this->image, $this->fontColor[ 'r' ], $this->fontColor[ 'g' ], $this->fontColor[ 'b' ] );
         for ( $idx = 0; $idx < $phraseLength; $idx++ ) {
+            $number = $this->character[ rand( 0, count( $this->character ) - 1 ) ];
             $currentFont = $this->getRandomFont();
             $disangle    = rand( -$this->angle, $this->angle );
             $charInfo    = imageftbbox( $this->fontSize, $disangle, $currentFont, $number );
@@ -284,7 +285,7 @@ class Captcha
             }
             $baseline = ( $heightPerChar - $charHeight ) / 2;
             $y        = $baseline + $charHeight;
-            
+
             if ( $this->useRandomColors ) {
                 do {
                     $r = rand( 0, 255 );
@@ -293,12 +294,12 @@ class Captcha
                 } while ( !$this->inRgbTolerance( $this->bgColor, array(
                          "r" => $r,
                         "g" => $g,
-                        "b" => $b 
+                        "b" => $b
                     ) ) );
                 $color = imagecolorallocate( $this->image, $r, $g, $b );
             }
-            
-            $number = $this->character[ rand( 0, count( $this->character ) - 1 ) ];
+
+
             $numbers .= $number;
             imagettftext( $this->image, $this->fontSize, $disangle, $x, $y, $color, $currentFont, $number );
         }
@@ -309,7 +310,7 @@ class Captcha
         imagejpeg( $this->image );
         $this->memory->saveNumber( $numbers );
     }
-    
+
     function addhorlines( )
     {
         $grey  = imagecolorallocate( $this->image, 235, 235, 235 );
@@ -325,7 +326,7 @@ class Captcha
         imageline( $this->image, rand( 1, $this->width ), rand( 1, $this->height ), rand( 101, $this->width ), rand( 26, $this->height ), $green );
         imageline( $this->image, rand( 1, $this->width ), rand( 1, $this->height ), rand( 101, $this->width ), rand( 26, $this->height ), $blue );
     }
-    
+
     function random_color( $min, $max )
     {
         $randcol[ 'r' ] = intval( rand( $min, $max ) );
@@ -333,7 +334,7 @@ class Captcha
         $randcol[ 'b' ] = intval( rand( $min, $max ) );
         return $randcol;
     }
-    
+
     function addgrid( )
     {
         for ( $i = 0; $i < $this->width; $i += (int) ( $this->minsize / 1.5 ) ) {
@@ -349,7 +350,7 @@ class Captcha
         @imageline( $this->image, $this->width, 0, $this->width, $this->height, $color );
         @imageline( $this->image, 0, $this->height, $this->width, $this->height, $color );
     }
-    
+
     function pickRandomBackground( )
     {
         $bg_color = imagecolorallocate( $this->image, 255, 255, 255 );

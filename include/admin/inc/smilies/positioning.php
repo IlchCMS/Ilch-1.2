@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ */
 /**
  * Checkt die Konsistenz der Sortierung
  * Holt sich alle smilies der Reihe nach (also niedrige `pos` zuerst)

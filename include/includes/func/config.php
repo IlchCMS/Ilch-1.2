@@ -1,4 +1,10 @@
 <?php
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ */
+
 function parse_type($attr_name, $type, $value) {
     $part = explode(' ', trim($type));
     // break; wird nich gebraucht... immerhin hab ich return ;-)
@@ -48,5 +54,4 @@ function parse_type($attr_name, $type, $value) {
             return '<input type="text" value="' . $value . '" name="' . $attr_name . '" size="35"/>';
     }
 }
-
 ?>

@@ -3,8 +3,10 @@
 //   Copyright by: T0P0LIN0
 //   Support: www.honklords.de
 
-include_once 'captcha.php';
-include( "settings.php" );
+date_default_timezone_set('Europe/Berlin');
+
+include 'captcha.php';
+include 'settings.php';
 $captcha = new Captcha();
 
 

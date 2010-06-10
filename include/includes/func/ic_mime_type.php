@@ -1,5 +1,4 @@
 <?php
-
 /*
 
 Magic mime file interpreter
@@ -7,6 +6,7 @@ Copyright (c) 2004 by Phillip Berndt
 Version 1.0
 
 */
+defined('main') or die('no direct access');
 
 function ic_mime_type($file) {
     if (!file_exists($file)) {
@@ -88,5 +88,4 @@ function ic_mime_type($file) {
     }
     return $retVal;
 }
-
 ?>

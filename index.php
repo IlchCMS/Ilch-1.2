@@ -1,7 +1,9 @@
 <?php
-// Copyright by: Manuel
-// Support: www.ilch.de
-// if(file_exists('install.php') || file_exists('install.sql')) die('Installationsdateien noch vorhanden! Bitte erst l&ouml;schen!');
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ */
 ob_start();
 define('main', true);
 define('DEBUG', true);
@@ -9,17 +11,9 @@ define('SCRIPT_START_TIME', microtime(true));
 // Konfiguration zur Anzeige von Fehlern
 // Auf http://www.php.net/manual/de/function.error-reporting.php sind die verf�gbaren Modi aufgelistet
 // Seit php-5.3 ist eine Angabe der TimeZone Pflicht
-if (version_compare(phpversion(), '5.3') != - 1) {
-    if (E_ALL > E_DEPRECATED) {
-        @error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
-    } else {
-        @error_reporting(E_ALL ^ E_NOTICE);
-    }
-    date_default_timezone_set('Europe/Berlin');
-} else {
-    @error_reporting(E_ALL ^ E_NOTICE);
-}
-
+defined('E_DEPRECATED') or define('E_DEPRECATED', 0);
+@error_reporting(E_ALL > E_DEPRECATED ? E_ALL : E_ALL ^ E_DEPRECATED);
+date_default_timezone_set('Europe/Berlin');
 @ini_set('display_errors', 'On');
 // Session starten
 session_name('sid');

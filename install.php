@@ -1,17 +1,12 @@
 <?php
-#   Copyright by: Manuel
-#   Support: www.ilch.de
-if (version_compare(phpversion(), '5.3') != - 1) {
-    if (E_ALL > E_DEPRECATED) {
-        @error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
-    } else {
-        @error_reporting(E_ALL ^ E_NOTICE);
-    }
-    date_default_timezone_set('Europe/Berlin');
-} else {
-    @error_reporting(E_ALL ^ E_NOTICE);
-}
-
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ */
+defined('E_DEPRECATED') or define('E_DEPRECATED', 0);
+@error_reporting(E_ALL > E_DEPRECATED ? E_ALL : E_ALL ^ E_DEPRECATED);
+@date_default_timezone_set('Europe/Berlin');
 @ini_set('display_errors', 'On');
 ?>
 <html>
@@ -481,7 +476,7 @@ POSSIBILITY OF SUCH DAMAGES.
         <tr>
         <td class="Cmite"><br>MySQL-Version (5.0.0 oder h&ouml;her) - deine Version: <i><?php echo mysql_get_server_info();?></i><br></td>
     		<td class="Cnorm"><?php $sqlserver = mysql_get_server_info();
-									preg_match('/[1-9].[0-9].[1-9][0-9]/', $sqlserver, $sqlinfo); 
+									preg_match('/[1-9].[0-9].[1-9][0-9]/', $sqlserver, $sqlinfo);
 									if ( @version_compare($sqlinfo, '5.0.0') != -1) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?>
            </td>
   		</tr><tr>
@@ -664,20 +659,20 @@ foreach ( $sql_statements as $sql_statement ) {
 	}
 }
 
-db_query ("INSERT INTO `prefix_user` ( 
-										name, 
+db_query ("INSERT INTO `prefix_user` (
+										name,
 										name_clean,
-										pass, 
-										regist, 
-										email, 
-										recht, 
-										llogin, 
-										status, 
-										opt_mail, 
-										opt_pm 
-									) 
-										VALUES 
-									( 
+										pass,
+										regist,
+										email,
+										recht,
+										llogin,
+										status,
+										opt_mail,
+										opt_pm
+									)
+										VALUES
+									(
 										'".$_POST['admin_name']."',
 										'".strtolower($_POST['admin_name'])."',
 										'".md5($_POST['admin_pwd'])."',

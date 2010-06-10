@@ -1,6 +1,9 @@
 <?php
-// Copyright by Manuel
-// Support www.ilch.de
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ */
 defined('main') or die('no direct access');
 // #
 // ##
@@ -447,7 +450,7 @@ function chk_antispam($m) {
     }
     $captcha = true;
     if ($captcha) {
-        include_once 'include/includes/func/captcha/captcha.php';
+        include_once 'include/includes/libs/captcha/captcha.php';
         $controller = new Captcha();
     }
     if ($captcha && !($controller->isValid(htmlentities($_POST[ 'number' ])))) {
@@ -463,9 +466,9 @@ function get_antispam($m, $t) {
         return ('');
     }
 
-    $rs = '<img class="Custom" src="include/includes/func/captcha/captchaimg.php" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt darunter stehende Feld ein.">&nbsp;<input name="number" type="text" maxlength="5" size="8">';
+    $rs = '<img class="Custom" src="include/includes/libs/captcha/captchaimg.php" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt darunter stehende Feld ein.">&nbsp;<input name="number" type="text" maxlength="5" size="8">';
     if ($t == 0) {
-        return ('<img class="Custom" src="include/includes/func/captcha/captchaimg.php" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt darunter stehende Feld ein."><br/><input name="number" type="text" maxlength="5" size="8">');
+        return ('<img class="Custom" src="include/includes/libs/captcha/captchaimg.php" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt darunter stehende Feld ein."><br/><input name="number" type="text" maxlength="5" size="8">');
     } elseif ($t == 1) {
         return ('<tr><td class="Cmite" v><b>Antispam</b></td><td class="Cnorm">' . $rs . '</td></tr>');
     } elseif ($t > 10) {

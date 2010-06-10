@@ -1,6 +1,10 @@
 <?php
-// Copyright by: Florian Koerner
-// Support: www.ilch.de
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ * @author Florian Koerner
+ */
 defined('main') or die('no direct access');
 // Wert escapen und umwandeln
 $_POST = get_lower($_POST);

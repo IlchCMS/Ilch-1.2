@@ -1,7 +1,12 @@
 <?php
-// Copyright by Hannes Wunderli
-// www.fast-death.com
-// v1.2
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ * Copyright by Hannes Wunderli
+ * www.fast-death.com
+ * v1.2
+ */
 defined('main') or die('no direct access');
 // ----------------------------------- Einstellungen-----------------------------------
 $limit = 3; //wieviele Geburtstage Angezeigt werden sollen.

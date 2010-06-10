@@ -1,6 +1,9 @@
 <?php
-// Copyright by Manuel
-// Support www.ilch.de
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ */
 defined('main') or die('no direct access');
 
 /**
@@ -29,7 +32,7 @@ function db_close() {
     mysql_close(CONN);
 }
 
-if (defined(DEBUG)) {
+if (defined('DEBUG') and DEBUG) {
     $ILCH_DEBUG_DB_QUERIES = array();
     $ILCH_DEBUG_DB_COUNT_QUERIES = 0;
 
@@ -56,7 +59,7 @@ if (defined(DEBUG)) {
         $tmp = array();
         $vor = microtime(true);
         $qry = @mysql_query($q, CONN);
-		$nach = microtime(true);
+        $nach = microtime(true);
         $tmp['duration'] = $nach - $vor;
         $tmp['time'] = $nach - SCRIPT_START_TIME;
         $tmp['query'] = $q;

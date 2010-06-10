@@ -1,11 +1,12 @@
 <?php
-// Copyright by Thomas Bowe [Funjoy]
-// Support bbcode@phpline.de
-// link www.phpline.de
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de originally from Thomas Bowe [Funjoy]
+ * @version $Id$
+ */
 // > Hier werden die Einstellungen festgelegt.
 // #############################################################################################################
-// > Verbindung mit der Datenbank herstellen.
-db_connect();
+
 // > Buttons Informationen.
 $ButtonSql = db_query("SELECT * FROM `prefix_bbcode_buttons` WHERE `fnButtonNr` = '1'");
 $boolButton = db_fetch_assoc($ButtonSql);
