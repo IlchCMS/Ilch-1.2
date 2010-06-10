@@ -38,6 +38,7 @@ load_global_lang();
 load_modul_lang();
 // Wartungsmodus
 if ($allgAr['wartung'] == 1 and is_admin()) {
+	@define('DEBUG', true);
 	debug ('Wartungsmodus aktiv !');
 } else 
 if ($allgAr['wartung'] == 1 and !is_admin()) {

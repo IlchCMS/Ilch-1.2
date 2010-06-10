@@ -5,7 +5,7 @@
 db_query("ALTER TABLE `prefix_smilies` ADD `pos` INT( 8 ) NOT NULL DEFAULT '0'");
 
 // initiale werte für pos
-db_query("UPDATE `ic1_smilies` SET `pos` = `id`");
+db_query("UPDATE `prefix_smilies` SET `pos` = `id`");
 
 
 ?>

@@ -25,7 +25,8 @@ require_once('include/includes/loader.php');
 $allgAr = getAllgAr();
 // Wartungsmodus
 if ($allgAr['wartung'] == 1) {
-	debug ( 'Wartungsmodus aktiv' );
+	@define('DEBUG', true);
+	debug ('Wartungsmodus aktiv !');
 }
 // Menu, Nutzerverwaltung und Seitenstatistik laden
 $menu = new menu();
