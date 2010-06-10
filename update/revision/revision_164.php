@@ -28,7 +28,8 @@ $sql2 = "INSERT INTO `prefix_config` (
 		";
 			
 
-$sql3 = "DROP TABLE IF EXISTS `prefix_menu`;
+$sql3 = "DROP TABLE IF EXISTS `prefix_menu`";
+$sql4 = "
 		CREATE TABLE IF NOT EXISTS `prefix_menu` (
 		  `wo` tinyint(1) NOT NULL DEFAULT '0',
 		  `pos` tinyint(4) NOT NULL DEFAULT '0',
@@ -42,7 +43,7 @@ $sql3 = "DROP TABLE IF EXISTS `prefix_menu`;
 	";
 
 
-$sql4 = "INSERT INTO `prefix_menu` (`wo`, `pos`, `was`, `ebene`, `recht`, `name`, `path`) VALUES
+$sql5 = "INSERT INTO `prefix_menu` (`wo`, `pos`, `was`, `ebene`, `recht`, `name`, `path`) VALUES
 		(1, 0, 3, 0, 0, 'Menü', 'allianz.php'),
 		(1, 12, 3, 0, 0, 'Clan Menü', 'allianz.php'),
 		(1, 23, 1, 0, 0, 'Login', 'login.php'),
@@ -81,10 +82,14 @@ $sql4 = "INSERT INTO `prefix_menu` (`wo`, `pos`, `was`, `ebene`, `recht`, `name`
 		(3, 6, 1, 0, 0, 'Geburtstag', 'geburtstag.php'),
 		(2, 6, 1, 0, 0, 'Online', 'online.php'),
 		(1, 19, 7, 0, -3, 'Away', 'awaycal'),
-		(1, 6, 7, 0, 0, 'LinkUs', 'linkus');
+		(1, 6, 7, 0, 0, 'LinkUs', 'linkus')
 	";
+	
 db_query($sql1);
 db_query($sql2);
 db_query($sql3);
 db_query($sql4);
+db_query($sql5);
+db_query("ALTER TABLE `prefix_config` ADD `hide` TINYINT( 1 ) NOT NULL DEFAULT '0' COMMENT 'auf 1 setzen um dies NICHT in der konfiguration anzuzeigen'");
+db_query("UPDATE `prefix_config` SET `hide` =  '1' WHERE `schl` = 'modrewrite' LIMIT 1 ;");
 ?>

@@ -1,7 +1,18 @@
 <?php
 #   Copyright by: Manuel
 #   Support: www.ilch.de
+if (version_compare(phpversion(), '5.3') != - 1) {
+    if (E_ALL > E_DEPRECATED) {
+        @error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
+    } else {
+        @error_reporting(E_ALL ^ E_NOTICE);
+    }
+    date_default_timezone_set('Europe/Berlin');
+} else {
+    @error_reporting(E_ALL ^ E_NOTICE);
+}
 
+@ini_set('display_errors', 'On');
 ?>
 <html>
 
