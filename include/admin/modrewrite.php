@@ -22,19 +22,32 @@ $default_on_file 		= "RewriteEngine On\nRewriteRule ^(.*).html$ ./index.php?$1";
 $default_off_file 		= "RewriteEngine Off\nRewriteRule ^(.*).html$ ./index.php?$1";
 
 # Benötigte Funktionen überprüfen
+if (function_exists('apache_get_modules')) {
+	if (false === apache_get_modules('mod_rewrite')) {
+		$mr['infotype']		= 'warning';
+		$mr['infotxt'] 		.= '- Der Webserver hat kein ModRewrite-Modul geladen<br />';
+	}
+} else {
+	$mr['infotxt'] 		.= '- <b>Konnte nicht auf ModRewrite-Module pr&uuml;fen</b> -<br />
+		Es kann nicht mit Sicherheit gesagt werden, ob der Server dieses Modul geladen hat.<br />
+		Sollte Ihr Server kein Mod_Rewrite unterst&uuml;tzen und Sie diese Funktion hier aktivieren, treten interne Server-Fehler auf !<br /><br />';
+}
+
 if (!function_exists('fopen') or !function_exists('fwrite')) {
 	$mr['infotype']		= 'warning';
-	$mr['infotxt'] 		.= 'Der Server unsterst&uuml;tzt nicht die ben&ouml;tigte Funktion zum Anlegen der .htaccess <br />';
+	$mr['infotxt'] 		.= '- Der Server unsterst&uuml;tzt nicht die ben&ouml;tigte Funktion zum Anlegen der .htaccess <br />';
 }
+
 if (!function_exists('file_put_contents') or !function_exists('file_get_contents')) {
 	$mr['infotype']		= 'warning';
-	$mr['infotxt'] 		.= 'Der Server unsterst&uuml;tzt die ben&ouml;tigte Funktion zum editieren der .htaccess <br />';
+	$mr['infotxt'] 		.= '- Der Server unsterst&uuml;tzt die ben&ouml;tigte Funktion zum editieren der .htaccess <br />';
 }
 
 if (file_exists('.htaccess') and !is_writeable('.htaccess')) {
 	$mr['infotype']		= 'warning';
-	$mr['infotxt'] 		.= 'Die Datei .htaccess ist nicht beschreibbar (chmod 0777)';
+	$mr['infotxt'] 		.= '- Die Datei .htaccess ist nicht beschreibbar (chmod 0777)';
 }
+
 # Vorauswahl festlegen
 if (!file_exists('.htaccess')) {
 
@@ -130,7 +143,7 @@ if (isset($_POST['submitmodrewrite'])) {
 				$mr['infotxt'] = 'ModRewrite anlegen fehlgeschlagen<br />';
 			}
 		}
-		fclose($offhandle);
+		@fclose($offhandle);
 
 		db_query("UPDATE `prefix_config` SET `wert` =  '0' WHERE `schl` = 'modrewrite'");
 
@@ -138,19 +151,27 @@ if (isset($_POST['submitmodrewrite'])) {
 	wd('admin.php?modrewrite', $mr['infotxt'], 2);
 	$design->footer(1);
 }
+
 # contentbox "putten"
 if (isset($_POST['submithtaccesscontentbox'])) {
-	$newcontent = escape($_POST['htaccesscontentbox'], 'textarea');
-	if (file_put_contents('.htaccess', $newcontent)) {
-
-		$mr['infotxt'] = '.htaccess erfolgreich gespeichert';
-		wd('admin.php?modrewrite', $mr['infotxt'], 2);
-		$design->footer(1);
+	if(is_readable('.htaccess') and is_writeable('.htaccess')) {
+		
+		$newcontent = escape($_POST['htaccesscontentbox'], 'textarea');
+		if (file_put_contents('.htaccess', $newcontent)) {
+	
+			$mr['infotxt'] = '.htaccess erfolgreich gespeichert';
+			wd('admin.php?modrewrite', $mr['infotxt'], 2);
+			$design->footer(1);
+		} else {
+			$mr['infotype'] = 'warning';
+			$mr['infotxt'] = 'oOops... da lief was schief';
+			wd('admin.php?modrewrite', $mr['infotxt'], 2);
+			$design->footer(1);
+		}
 	} else {
-		$mr['infotype'] = 'warning';
-		$mr['infotxt'] = 'oOops... da lief was schief';
-		wd('admin.php?modrewrite', $mr['infotxt'], 2);
-		$design->footer(1);
+			$mr['infotxt'] = 'Datei ist nicht beschreibbar oder nicht vorhanden';
+			wd('admin.php?modrewrite', $mr['infotxt'], 2);
+			$design->footer(1);
 	}
 }
 $tpl->set_ar($mr, 0);

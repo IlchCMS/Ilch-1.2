@@ -461,27 +461,56 @@ POSSIBILITY OF SUCH DAMAGES.
 		</html> <?php
 
 } elseif ($_POST['step'] == 3) {
+	
   ?>
 
 		<input type="hidden" name="step" value="4" />
 
-		<table width="700" class="border" border="0" cellspacing="1" cellpadding="3" align="center">
+	<table width="700" class="border" border="0" cellspacing="1" cellpadding="3" align="center">
       <tr class="Chead">
         <td colspan="2"><b>Voraussetzungen Pr&uuml;fen</b></td>
 			</tr>
             <tr>
         <td class="Cmite"><br>PHP-Version (5.2.0 oder h&ouml;her) - deine Version: <i><?php echo @phpversion(); ?></i><br></td>
-    		<td class="Cnorm"><?php if ( @version_compare(phpversion(), '5.2.0') != -1) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+    		<td class="Cnorm"><?php if ( @version_compare(@phpversion(), '5.2.0') != -1) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
   		</tr>
         <tr>
-        <td class="Cmite"><br>MySQL-Version (5.0.0 oder h&ouml;her) - deine Version: <i><?php echo @mysql_get_server_info();?></i><br></td>
-    		<td class="Cnorm"><?php $sqlserver =@mysql_get_server_info();
-									preg_match('/[1-9].[0-9].[1-9][0-9]/', $sqlserver, $sqlinfo);
-									if ( @version_compare($sqlinfo, '5.0.0') != -1) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?>
+		<?php
+		ob_start();
+		phpinfo(INFO_MODULES);
+		$sqlinfo = ob_get_contents();
+		ob_end_clean();
+		$sqlinfo = stristr($sqlinfo, 'Client API header version');
+		preg_match('/[1-9].[0-9].[1-9][0-9]/', $sqlinfo, $sqlmatch); 
+		$sqlserver = $sqlmatch;
+		?>
+        <td class="Cmite"><br>MySQL-Version (5.0.0 oder h&ouml;her) - deine Version: <i><?php echo $sqlserver[0];?></i><br></td>
+    		<td class="Cnorm">
+		<?php
+            if ( @version_compare($sqlserver, '5.0.0') != -1) { 
+                echo '<font color="#40aa00"><b>RICHTIG</b></font>'; 
+            } else {
+                echo '<font color="#FF0000"><b>FALSCH</b></font>'; 
+            }
+        ?>
            </td>
   		</tr><tr>
         <td class="Cmite"><br>"include/includes/config.php" (CHMOD 666)<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/includes/config.php' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+    		<td class="Cnorm">
+		<?php
+            if ( file_exists( 'include/includes/config.php' ) and is_writeable ( 'include/includes/config.php' ) ) { 
+                echo '<font color="#40aa00"><b>RICHTIG</b></font>'; 
+            } else 
+            if ( file_exists( 'include/includes/config.php' ) and !is_writeable ( 'include/includes/config.php' ) ){ 
+                echo '<font color="#FF0000"><b>FALSCH</b></font>'; 
+            } else
+            if ( !file_exists( 'include/includes/config.php' ) and is_writeable('include/includes/')) {
+                echo '<font color="#40aa00"><b>wird angelegt</b></font>';
+            } else {
+                echo '<font color="#FF0000"><b>FEHLER</b></font>';
+            }
+        ?>
+        </td>
   		</tr><tr>
         <td class="Cmite"><br>"include/backup" Schreibrechte (CHMOD 777)<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/backup' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>

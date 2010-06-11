@@ -123,7 +123,7 @@ if ($menu->get(1) == "phpinfo") {
     }
     $tpl->out(2);
 
-    $tpl->out(5);
+    $tpl->out(4);
     $design->footer();
 }
 
