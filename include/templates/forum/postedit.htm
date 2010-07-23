@@ -1,60 +1,51 @@
 <table width="100%" border="0" cellspacing="1" class="border" cellpadding="5">
-  <tr>
-	  <th colspan="2" height="20" class="Chead">
-		  <b>{_lang_preview}</b>
-		</th>
-	</tr><tr>
-    <td class="Cmite">{txt}</td>
-  </tr>
+    <tr>
+	<th colspan="2" height="20" class="Chead"><b>{_lang_preview}</b></th>
+    </tr><tr>
+	<td class="Cmite">{txt}</td>
+    </tr>
 </table>
 <br /><br />
 {EXPLODE}
 <script language="JavaScript" type="text/javascript">
 <!--
-  function form_check() {
-	  document.form.submit.disabled = true;
- 	  document.form.submit.style.background = '#FF0000';
+function form_check() {
+    document.form.submit.disabled = true;
+    document.form.submit.style.background = '#FF0000';
     document.form.submit.value = '{_lang_send}...';
     return true;
-	}
+}
 //-->
 </script>
-
 <form action="index.php?forum-editpost-{tid}-{oid}" method="POST" name="form" onSubmit="return form_check()">
 <script type="text/javascript" src="include/includes/js/bbcode.js"></script>
-
 <table width="100%" border="0" cellspacing="1" class="border" cellpadding="5">
-  <TR>
-	  <th colspan="2" height="20" class="Chead">
-		  <b>{_lang_editthispost}</b>
-		</th>
-	</tr><tr>
-	  <td colspan="2" height="20" class="Cmite">
-		  <b>{_lang_edityoutpost}</td>
-		</td>
-	</tr><tr>
-	  <td class="Cmite" valign="top" rowspan="2">{SMILIES}</td>
-	  <td class="Cnorm">
-      <!-- BB Code START -->
-	  {__BBCodeButtons__}
-		 <!-- BB Code ENDE -->
-		</td>
-	</tr><tr>
-    <td width="80%" class="Cnorm"> 
-		  <textarea style="width: 98%" name="txt" rows="15" cols="50" tabindex="2">{txt}</textarea>
-    </td>
-  </tr><tr class="Cmite">
-    <td></td>
-    <td><input type="submit" name="priview" value="{_lang_preview}" accesskey='v' />&nbsp;<input type="submit" name="submit" value="{_lang_formsub}" accesskey='s' /></td>
-  </TR>
+    <tr>
+	<th colspan="2" height="20" class="Chead"><b>{_lang_editthispost}</b></th>
+    </tr><tr>
+	<td colspan="2" height="20" class="Cmite"><b>{_lang_edityoutpost}</b></td>
+    </tr><tr>
+	<td class="Cmite" valign="top" rowspan="2">{SMILIES}</td>
+	<td class="Cnorm">
+	    <!-- BB Code START -->
+	    {__BBCodeButtons__}
+	    <!-- BB Code ENDE -->
+	</td>
+    </tr><tr>
+	<td width="80%" class="Cnorm"><textarea style="width: 98%" name="txt" rows="15" cols="50" tabindex="2">{txt}</textarea></td>
+    </tr><tr class="Cmite">
+	<td></td>
+	<td><input type="submit" name="priview" value="{_lang_preview}" accesskey="v" />&nbsp;<input type="submit" name="submit" value="{_lang_formsub}" accesskey="s" /></td>
+    </tr>
 </table>
 </form>
 <br />
 <b>{_lang_overvieaboutthelast5posts}</b>
 <table width="100%" border="0" cellspacing="1" class="border" cellpadding="3">
-  {EXPLODE}
-	<tr class="Cnorm">
-	  <td valign="top" width="20%">{erst}</td>
-    <td width="80%">{txt}</td>
-	</tr>{EXPLODE}
+    {EXPLODE}
+    <tr class="Cnorm">
+	<td valign="top" width="20%">{erst}</td>
+	<td width="80%">{txt}</td>
+    </tr>
+    {EXPLODE}
 </table>
