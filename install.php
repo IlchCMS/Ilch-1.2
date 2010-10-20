@@ -476,15 +476,22 @@ POSSIBILITY OF SUCH DAMAGES.
   		</tr>
         <tr>
 		<?php
-		ob_start();
-		phpinfo(INFO_MODULES);
-		$sqlinfo = ob_get_contents();
-		ob_end_clean();
-		$sqlinfo = stristr($sqlinfo, 'Client API header version');
-		preg_match('/[1-9].[0-9].[1-9][0-9]/', $sqlinfo, $sqlmatch); 
-		$sqlserver = $sqlmatch;
+		if (function_exists('mysql_get_server_info')) {
+			$sqlinfo = mysql_get_server_info();
+			preg_match('/[1-9]\.[0-9]\.\d{1,2}/', $sqlinfo, $sqlmatch); 
+			$sqlserver = $sqlmatch[0];
+		} else {
+			ob_start();
+			phpinfo(INFO_MODULES);
+			$sqlinfo = ob_get_contents();
+			ob_end_clean();
+			$sqlinfo = stristr($sqlinfo, 'Client API version');		
+			preg_match('/[1-9]\.[0-9]\.\d{1,2}/', $sqlinfo, $sqlmatch);  	
+			$sqlserver = $sqlmatch[0];
+		}
+		
 		?>
-        <td class="Cmite"><br>MySQL-Version (5.0.0 oder h&ouml;her) - deine Version: <i><?php echo $sqlserver[0];?></i><br></td>
+        <td class="Cmite"><br>MySQL-Version (5.0.0 oder h&ouml;her) - deine Version: <i><?php echo $sqlserver;?></i><br></td>
     		<td class="Cnorm">
 		<?php
             if ( @version_compare($sqlserver, '5.0.0') != -1) { 
