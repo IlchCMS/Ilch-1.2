@@ -750,12 +750,6 @@ db_query ("UPDATE prefix_config SET wert = '".$_POST['admin_email']."' WHERE sch
 
 ?>
 <script type="text/javascript" charset="utf-8">
-function submitForm(){
-    $.each($('input.required'), function() { 
-      //TODO  gegen ein regex austauschen die whitespace und tabs herausfiltert
-      //if ($(this).val() == "") {$(this).css('background-color','#ff7070')}else{$(this).css('background-color','#fff')};
-    });
-}
   $(document).ready(function() {
     var container = $('div.container');
     $('#installform').validate({
