@@ -44,7 +44,7 @@ class Captcha
     {
         $get_info                 = @gd_info();
         $Version                  = @ereg_replace( '[[:alpha:][:space:]()]+', '', $get_info[ 'GD Version' ] );
-        $get_info[ 'GD Version' ] = $Version;
+        $get_info[ 'GD VERSION' ] = $Version;
         if ( !is_array( $get_info ) ) {
             return false;
         } else {

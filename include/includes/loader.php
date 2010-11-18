@@ -20,6 +20,6 @@ while ($row = db_fetch_assoc($erg)) {
     if (file_exists($file_path)) {
         require_once($file_path);
     } else {
-        echo '<b>ILCH LOADER ERROR:</b> The file <b>" . $file_path . "</b> does not exists.' . "\n";
+        echo '<b>ILCH LOADER ERROR:</b> The file <b>"' . $file_path . '"</b> does not exists.' . "\n";
     }
 }
