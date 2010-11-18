@@ -13,4 +13,5 @@ VALUES (
 'threadersteller_in_uebersicht', 'r2', 'Forum Optionen', 'Threadersteller - Anzeige in Übersicht?', '', '0'
 );");
 
-?>
+$rev='89';
+$update_messages[$rev][] = 'Forum Option "threadersteller in uebersicht" in der configtabelle registriert';

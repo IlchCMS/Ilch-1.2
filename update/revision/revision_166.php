@@ -1,6 +1,6 @@
 <?php
 //mairu
-db_query('UPDATE `prefix_loader` SET `task` =  \'libs\', `file` = \'xajax//xajax.inc.php\' WHERE `file` = \'xajax.inc.php\'');
+db_query('UPDATE `prefix_loader` SET `task` =  \'libs\', `file` = \'xajax/xajax.inc.php\' WHERE `file` = \'xajax.inc.php\'');
 db_query('DELETE FROM `prefix_loader` WHERE `file` = "bbcode_config.php"');
 db_query('DELETE FROM `prefix_loader` WHERE `file` = "debug.php"');
 db_query('UPDATE ic1_smilies SET `url` = REPLACE(`url`, ".gif", ".png")');
@@ -29,7 +29,7 @@ $sql2 = "INSERT INTO `prefix_config` (
 `hide`
 )
 VALUES (
-'wartungstext', 'input', 'Allgemeine Optionen', 'Wartungstext', 'Die Seite befindet sich zur Zeit im Wartungsmodus und ist bald wieder f�r dich erreichbar', '0', '0'
+'wartungstext', 'input', 'Allgemeine Optionen', 'Wartungstext', 'Die Seite befindet sich zur Zeit im Wartungsmodus und ist bald wieder für dich erreichbar', '0', '0'
 )
 ";
 db_query($sql1);
@@ -52,3 +52,9 @@ $smodul 			= @db_query("UPDATE `prefix_config` SET `pos` =  '13' WHERE `schl` = 
 $gfx 				= @db_query("UPDATE `prefix_config` SET `pos` =  '14' WHERE `schl` = 'gfx' LIMIT 1");
 $language 			= @db_query("UPDATE `prefix_config` SET `pos` =  '15' WHERE `schl` = 'lang' LIMIT 1 ;");
 $allg_regeln 		= @db_query("UPDATE `prefix_config` SET `pos` =  '16' WHERE `schl` = 'allg_regeln' LIMIT 1 ;");
+
+$rev='166';
+$update_messages[$rev][] = 'xajax systempfad angepasst (urspr&uuml;nglich "include/includes/class/xajax/xajax.inc.php" ge&auml;ndert zu "include/includes/class/libs/xajax/xajax.inc.php")';
+$update_messages[$rev][] = 'bbcode_config.php und debug.php aus der loader tabelle entfernt';
+$update_messages[$rev][] = 'smilie dateiendungen von gif auf png ge&auml;ndert';
+$update_messages[$rev][] = 'Wartungsmodus option für die Webseite angelegt';

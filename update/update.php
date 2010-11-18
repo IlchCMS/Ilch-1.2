@@ -23,8 +23,9 @@ if(!isset($allgAr["revision"])) {
 	$currentversion = $allgAr["revision"];
 }
 
-foreach($versions as $key => $version) {
+$update_messages = array();
 
+foreach($versions as $key => $version) {
 	if($currentversion < $version) {
 	  if(file_exists('update/revision/' . $key. '.php')) {
       // dann müssen wir ein update machen
@@ -35,3 +36,13 @@ foreach($versions as $key => $version) {
     }
 	}
 }
+
+echo '<div style="background-color:#FFFFFF;color:#000000;margin:0 auto;text-align:left;width:1000px;"><ul>';
+foreach ($update_messages as $key => $value){
+  echo '<li>Revision ' . $key . ' <ul>';
+    foreach ($value as $key2 => $value2) {
+      echo '<li>' . $value2 . '</li>';
+    }
+  echo '</ul></li>';
+}
+echo '<ul></div>';

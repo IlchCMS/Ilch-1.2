@@ -14,5 +14,5 @@ VALUES (
 );
 ");
 
-
-?>
+$rev='94';
+$update_messages[$rev][] = 'Kalender Event-Tooltip in der configtabelle registriert';

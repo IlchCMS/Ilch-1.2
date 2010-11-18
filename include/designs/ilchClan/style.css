@@ -279,3 +279,5 @@ input, textarea, select
     text-decoration: none;
     background-color: #EFEFEF;
 }
+
+input.error, select.error { background-color:#ff7070; }

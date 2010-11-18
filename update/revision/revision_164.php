@@ -44,8 +44,8 @@ $sql4 = "
 
 
 $sql5 = "INSERT INTO `prefix_menu` (`wo`, `pos`, `was`, `ebene`, `recht`, `name`, `path`) VALUES
-		(1, 0, 3, 0, 0, 'Menü', 'allianz.php'),
-		(1, 12, 3, 0, 0, 'Clan Menü', 'allianz.php'),
+		(1, 0, 3, 0, 0, 'MenÃ¼', 'allianz.php'),
+		(1, 12, 3, 0, 0, 'Clan MenÃ¼', 'allianz.php'),
 		(1, 23, 1, 0, 0, 'Login', 'login.php'),
 		(1, 5, 7, 0, 0, 'Links', 'links'),
 		(1, 7, 7, 0, 0, 'Downloads', 'downloads'),
@@ -92,4 +92,8 @@ db_query($sql4);
 db_query($sql5);
 db_query("ALTER TABLE `prefix_config` ADD `hide` TINYINT( 1 ) NOT NULL DEFAULT '0' COMMENT 'auf 1 setzen um dies NICHT in der konfiguration anzuzeigen'");
 db_query("UPDATE `prefix_config` SET `hide` =  '1' WHERE `schl` = 'modrewrite' LIMIT 1 ;");
-?>
+
+$rev='164';
+$update_messages[$rev][] = 'ModRewrite in der modultabelle registriert';
+$update_messages[$rev][] = 'menu tabelle komplett neugeschrieben';
+$update_messages[$rev][] = 'ModRewrite standardmÃ¤&szlig;ig ausblenden ';

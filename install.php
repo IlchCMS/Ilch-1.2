@@ -12,6 +12,8 @@ defined('E_DEPRECATED') or define('E_DEPRECATED', 0);
 <html>
 
 <head>
+  <script src="./include/includes/js/global/jquery-1.4.2.js" type="text/javascript"></script>
+  <script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>... ::: [ I n s t a l l a t i o n &nbsp; f &uuml; r &nbsp; C l a n s c r i p t &nbsp; v o n &nbsp; i l c h ] ::: ...</title>
 	<link rel="stylesheet" href="include/designs/ilchClan/style.css" type="text/css">
@@ -20,7 +22,7 @@ defined('E_DEPRECATED') or define('E_DEPRECATED', 0);
 
 <body>
 
-<form action="install.php" method="POST">
+<form action="install.php" method="POST" id="installform">
 
 <?php
 
@@ -456,9 +458,7 @@ POSSIBILITY OF SUCH DAMAGES.
 				<td align="center"><input type="submit" value="Lizenz gelesen und akzeptiert"></td>
  			</tr>
  	</table>
-		</form>
-		</body>
-		</html> <?php
+<?php
 
 } elseif ($_POST['step'] == 3) {
 	
@@ -556,9 +556,7 @@ POSSIBILITY OF SUCH DAMAGES.
 				<td><input type="submit" value="Weiter ->"></td>
  			</tr>
  	</table>
-		</form>
-		</body>
-		</html> <?php
+<?php
 } elseif ( $_POST['step'] == 4 ) {
   ?>
 	<input type="hidden" name="step" value="5">
@@ -570,19 +568,23 @@ POSSIBILITY OF SUCH DAMAGES.
  		    <td colspan="3"><b>MySQL Einstellungen</b><br />Wenn Sie mit den MySQL Daten nicht zurecht kommen, also nicht wissen was Sie im folgenden eingeben sollen, lesen Sie bitte erst die Beschreibung hinter dem Feld und bei weiterer Unklarheit wenden Sie sich an Ihren Webspace Anbieter oder Ihren Systemadministrator um die n&ouml;tigen Daten zu erfahren.</td>
 		  </tr><tr>
         <td class="Cmite" width="100">Hostname</td>
-    		<td class="Cnorm"><input type="text" value="localhost" name="mysql_hostname"></td>
+    		<td class="Cnorm"><input type="text" value="localhost" name="mysql_hostname" class="required"></td>
 				<td class="Cnorm">i.d.R. localhost oder 127.0.0.1 ansonsten ein Server-Name oder eine Server-IP.</td>
   		</tr><tr>
     		<td class="Cmite">Username</td>
-    		<td class="Cnorm"><input type="text" name="mysql_username"></td>
+    		<td class="Cnorm"><input type="text" name="mysql_username" class="required"></td>
 				<td class="Cnorm">Der Username der auf die Datenbank zugreiffen soll.</td>
   		</tr><tr>
     		<td class="Cmite">Password</td>
-    		<td class="Cnorm"><input type="text" name="mysql_passW"></td>
+    		<td class="Cnorm"><input type="password" name="mysql_password" id="mysql_password" class=""></td>
 				<td class="Cnorm">Das Password f&uuml;r den Username damit er sich an der Datenbank anmelden kann.</td>
   		</tr><tr>
+    		<td class="Cmite">Password</td>
+    		<td class="Cnorm"><input type="password" name="confirm_mysql_password" class=""></td>
+				<td class="Cnorm">Bitte wiederholen Sie das Passwort von oben.</td>
+  		</tr><tr>
     		<td class="Cmite">Datenbank</td>
-    		<td class="Cnorm"><input type="text" name="mysql_datenbank"></td>
+    		<td class="Cnorm"><input type="text" name="mysql_datenbank" class="required"></td>
 				<td class="Cnorm">Die Datenbank in der die Tabellen f&uuml;r das Clanscript angelegt werden sollen.</td>
   		</tr><tr>
     		<td class="Cmite">Installation Nr.</td>
@@ -596,28 +598,31 @@ POSSIBILITY OF SUCH DAMAGES.
     		<td colspan="3"><b>Admin anlegen</b></td>
   		</tr><tr>
     		<td class="Cmite">Usernamen</td>
-    		<td class="Cnorm"><input type="text" name="admin_name" maxlength="15"></td>
+    		<td class="Cnorm"><input type="text" name="admin_name" maxlength="15" class="required"></td>
 				<td class="Cnorm">Der Nickname des Administrator Users mit dem Sie sich nach dieser Installation anmelden k&ouml;nnen.</td>
   		</tr><tr>
     		<td class="Cmite">Passwort</td>
-    		<td class="Cnorm"><input type="text" name="admin_pwd" maxlength="20"></td>
+    		<td class="Cnorm"><input type="password" name="admin_pwd" maxlength="20" class="required"></td>
 				<td class="Cnorm">Das Password mit dem Sie sich nach der Installation zusammen mit dem Username anmelden k&ouml;nnen.</td>
   		</tr><tr>
+    		<td class="Cmite">Passwort</td>
+    		<td class="Cnorm"><input type="password" name="confirm_admin_pwd" id="confirm_admin_pwd" maxlength="20" class="required"></td>
+				<td class="Cnorm">Bitte wiederholen Sie das Passwort von oben.</td>
+  		</tr><tr>
     		<td class="Cmite">Admin eMail</td>
-    		<td class="Cnorm"><input type="text" name="admin_amail"></td>
+    		<td class="Cnorm"><input type="text" name="admin_email" class="required {validate:{required:true,email:true}}"></td>
 				<td class="Cnorm">Die eMail-Adresse des Administrator Users (also vermutlich Ihre eMail-Adresse).</td>
       </tr><tr class="Cdark">
-				<td colspan="3" align="center"><input type="submit" value="Daten Speichern und Installieren" /></td>
+				<td colspan="3" align="center"><button onClick="javascript:submitForm();">Daten Speichern und Installieren</button></td>
  			</tr>
  	</table>
 		</form>
-		</body>
-		</html> <?php
+<?php
 } elseif ( $_POST['step'] == 5 ) {
 
   if (
       empty ( $_POST['admin_name'] ) OR
-	    empty ( $_POST['admin_amail'] ) OR
+	    empty ( $_POST['admin_email'] ) OR
 	    empty($_POST['mysql_hostname']) OR
 	    empty($_POST['mysql_username']) OR
 	    empty($_POST['mysql_datenbank']) OR
@@ -630,7 +635,7 @@ POSSIBILITY OF SUCH DAMAGES.
 <?php
 define ( 'DBHOST', '{$_POST['mysql_hostname']}' );   # sql host
 define ( 'DBUSER', '{$_POST['mysql_username']}');  # sql user
-define ( 'DBPASS', '{$_POST['mysql_passW']}');  # sql pass
+define ( 'DBPASS', '{$_POST['mysql_password']}');  # sql pass
 define ( 'DBDATE', '{$_POST['mysql_datenbank']}');  # sql datenbank
 define ( 'DBPREF', '{$_POST['mysql_prefix']}'); # sql prefix
 config;
@@ -643,7 +648,7 @@ config;
     } else {
       define ( 'DBHOST', $_POST['mysql_hostname'] );   # sql host
       define ( 'DBUSER', $_POST['mysql_username']);  # sql user
-      define ( 'DBPASS', $_POST['mysql_passW']);  # sql pass
+      define ( 'DBPASS', $_POST['mysql_password']);  # sql pass
       define ( 'DBDATE', $_POST['mysql_datenbank']);  # sql datenbank
       define ( 'DBPREF', $_POST['mysql_prefix']); # sql prefix
     }
@@ -661,10 +666,6 @@ db_connect();
 # zumal sonst evtl. eintraege doppelt vorkommen koennten
 if (DBPREF.'allg' == @db_result(@db_query("SHOW TABLES LIKE 'prefix_allg'"),0)) {
   ?>
-	  <html>
-		<head><title>... ::: [ I n s t a l l a t i o n &nbsp; f  r &nbsp; C l a n s c r i p t &nbsp; v o n &nbsp; i l c h ] ::: ...</title>
-		<link rel="stylesheet" href="include/designs/ilchClan/style.css" type="text/css"></head>
-		<body>
 		<table width="70%" class="border" border="0" cellspacing="0" cellpadding="25" align="center">
       <tr>
         <td class="Cmite">
@@ -678,8 +679,6 @@ if (DBPREF.'allg' == @db_result(@db_query("SHOW TABLES LIKE 'prefix_allg'"),0)) 
         </td>
       </tr>
     </table>
-		</body>
-		</html>
   <?php
 
   exit ();
@@ -713,21 +712,16 @@ db_query ("INSERT INTO `prefix_user` (
 										'".strtolower($_POST['admin_name'])."',
 										'".md5($_POST['admin_pwd'])."',
 										'".time()."',
-										'".$_POST['admin_amail']."',
+										'".$_POST['admin_email']."',
 										'-9',
 										'".time()."',
 										1,
 										1,
 										1
 									)");
-db_query ("UPDATE prefix_allg SET t1 = '".$_POST['admin_amail']."|Webmaster' WHERE k = 'kontakt'");
-db_query ("UPDATE prefix_config SET wert = '".$_POST['admin_amail']."' WHERE schl = 'adminMail'");
+db_query ("UPDATE prefix_allg SET t1 = '".$_POST['admin_email']."|Webmaster' WHERE k = 'kontakt'");
+db_query ("UPDATE prefix_config SET wert = '".$_POST['admin_email']."' WHERE schl = 'adminMail'");
 ?>
-
-	  <html>
-		<head><title>... ::: [ I n s t a l l a t i o n &nbsp; f  r &nbsp; C l a n s c r i p t &nbsp; v o n &nbsp; i l c h ] ::: ...</title>
-		<link rel="stylesheet" href="include/designs/ilchClan/style.css" type="text/css"></head>
-		<body>
 		<table width="70%" class="border" border="0" cellspacing="0" cellpadding="25" align="center">
       <tr>
         <td class="Cmite">
@@ -750,11 +744,57 @@ db_query ("UPDATE prefix_config SET wert = '".$_POST['admin_amail']."' WHERE sch
         </td>
       </tr>
     </table>
-		</body>
-		</html>
-
 <?php
   }
 }
 
 ?>
+<script type="text/javascript" charset="utf-8">
+function submitForm(){
+    $.each($('input.required'), function() { 
+      //TODO  gegen ein regex austauschen die whitespace und tabs herausfiltert
+      //if ($(this).val() == "") {$(this).css('background-color','#ff7070')}else{$(this).css('background-color','#fff')};
+    });
+}
+  $(document).ready(function() {
+    var container = $('div.container');
+    $('#installform').validate({
+      rules: {
+			confirm_mysql_password: {
+				equalTo: "#mysql_password"
+			},
+			admin_pwd: {
+				required: true,
+				minlength: 8
+			},
+			confirm_admin_pwd: {
+				required: true,
+				minlength: 8,
+				equalTo: "#confirm_admin_pwd"
+			},
+			admin_email: {
+				required: true,
+				email: true
+			}
+		},
+		messages: {
+			admin_pwd: {
+				required: "Bitte wählen Sie ein Passwort",
+				minlength: "Ihr Passwort muss mindestens 8 Zeischen lang sein.",
+			},
+			confirm_admin_pwd: {
+				required: "Bitte wählen Sie ein Passwort",
+				minlength: "Ihr Passwort muss mindestens 8 Zeischen lang sein.",
+				equalTo: "Bitte das selbe Passwort wie oben angeben."
+			},
+			confirm_mysql_password: {
+				required: "Bitte wählen Sie ein Passwort",
+				equalTo: "Bitte das selbe Passwort wie oben angeben."
+			},
+			admin_email: "Bitte gib eine gültige E-Mail adresse an."
+		}
+});
+  });
+</script>
+</body>
+</html>

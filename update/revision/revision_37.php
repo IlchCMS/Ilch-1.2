@@ -66,3 +66,7 @@ db_query("INSERT INTO `prefix_modules` (`url`, `name`, `gshow`, `ashow`, `fright
 ('smtpconf', 'SMTP', 1, 0, 0, 'Admin', 1),
 ('puser', 'Nicht bestätigte Registrierungen', 0, 0, 0, '', 0),
 ('bbcode', 'BBcode 2.0', 1, 0, 1, 'Content', 11);");
+
+$rev='37';
+$update_messages[$rev][] = 'Revisionsnummer in der configtabelle registriert';
+$update_messages[$rev][] = 'modultabelle komplett neugeschrieben';

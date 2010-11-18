@@ -1,5 +1,5 @@
 <?php
-/* UPDATE FÜR REVISION 150 */
+/* UPDATE FÃœR REVISION 150 */
 
 $sql1 = "CREATE TABLE IF NOT EXISTS `prefix_linkus` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -41,4 +41,7 @@ db_query($sql2);
 
 db_query($sql4);
 
-?>
+$rev='150';
+$update_messages[$rev][] = '"link us" tabelle angelegt sofern sie noch nicht existierte';
+$update_messages[$rev][] = '2 ilch banner zur linkus tabelle als standard hinzugef&uuml;gt';
+$update_messages[$rev][] = '"link us" in der modultabelle registriert';

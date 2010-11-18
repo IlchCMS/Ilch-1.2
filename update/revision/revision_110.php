@@ -15,3 +15,6 @@ NULL , '15', 'class', 'profilefield_registry.php', 'Verwaltet die Profilfeld-Typ
 
 /* zusätzliches feld für die profilfeld-config */
 db_query("ALTER TABLE `prefix_profilefields` ADD `config_value` VARCHAR( 2048 ) NOT NULL ;");
+
+$rev='110';
+$update_messages[$rev][] = 'profilefields_special zum loader hinzugef&uuml;gt';

@@ -416,7 +416,7 @@ INSERT INTO `prefix_loader` (`pos`, `task`, `file`, `description`) VALUES
 (2, 'class', 'design.php', 'Design-Class'),
 (3, 'class', 'menu.php', 'Menu-Class'),
 (4, 'class', 'bbcode.php', 'BB-Code 2.0 Class'),
-(5, 'class', 'xajax.inc.php', 'Die xAjax-Class'),
+(5, 'libs', 'xajax/xajax.inc.php', 'Die xAjax-Class'),
 (1, 'func', 'bbcode_config.php', 'BB-Code Einstellungen'),
 (2, 'func', 'calender.php', 'Funktionen fuer den Kalender'),
 (3, 'func', 'user.php', 'Userverwaltung Login/Logout und Rechte'),
