@@ -22,5 +22,3 @@ if (!empty($_POST[ 'temp_ch' ])) {
     }
     echo '</select></div></form>';
 }
-
-?>

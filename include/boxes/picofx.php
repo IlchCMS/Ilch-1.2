@@ -69,5 +69,3 @@ if ($picofxOpts[ 'pic' ] != '' AND file_exists('include/images/gallery/' . $pico
 } else {
     echo $lang[ 'nothingavailable' ];
 }
-
-?>

@@ -6,12 +6,12 @@
  */
 /* Module - Information
 * -------------------------------------------------------
-* Hier kˆnnt ihr eure Module includieren lassen.
+* Hier k√∂nnt ihr eure Module includieren lassen.
 * Wenn Ihr selber Module zum Highlight programmiert
-* denkt daran das ihr auch noch das Parsen hier definieren m¸sst.
-* und in der bbcode_config.php Datei m¸sstet ihr die Option auch noch einstellen.
+* denkt daran das ihr auch noch das Parsen hier definieren m√ºsst.
+* und in der bbcode_config.php Datei m√ºsstet ihr die Option auch noch einstellen.
 * um ein Beispiel zu haben schaut euch die Funktion _htmlblock() am besten mal an.
-* und in Zeile 308 und Zeile 490 habt ihr ein Beispiel wie ihr die Parsebefehle schreiben kˆnnt.
+* und in Zeile 308 und Zeile 490 habt ihr ein Beispiel wie ihr die Parsebefehle schreiben k√∂nnt.
 */
 // > Bitte denkt daran das, dass Modul html.php immer unter dem Modul css.php sein muss.
 // > Modul [css.php]
@@ -28,13 +28,13 @@ class bbcode {
     public static $instance = null;
     // Speichern der BBCodeButtons
     protected static $BBCodeButtons = '';
-    // > Tags die geparsed werden d¸rfen.
+    // > Tags die geparsed werden d√ºrfen.
     protected $permitted = array();
-    // > Verschl¸sselte codeblocks.
+    // > Verschl√ºsselte codeblocks.
     protected $codecblocks = array();
     // > Badwords!
     protected $badwords = array();
-    // > Informationen f¸r die Klasse!
+    // > Informationen f√ºr die Klasse!
     protected $info = array();
     // > Patter befehle!
     protected $pattern = array();
@@ -42,13 +42,13 @@ class bbcode {
     protected $replace = array();
     // > Smilies die in Grafik umgewandelt werden sollen.
     protected $smileys = array();
-    // > Cache f¸r Quotes Header!
+    // > Cache f√ºr Quotes Header!
     protected $ayCacheQuoteOpen = array();
-    // > Cache f¸rQuotes Footer!
+    // > Cache f√ºrQuotes Footer!
     protected $ayCacheQuoteClose = array();
-    // > Cache f¸r Quotes Header!
+    // > Cache f√ºr Quotes Header!
     protected $ayCacheKtextOpen = array();
-    // > Cache f¸rQuotes Footer!
+    // > Cache f√ºrQuotes Footer!
     protected $ayCacheKtextClose = array();
 
     // > Singleton Funktionen
@@ -138,13 +138,13 @@ class bbcode {
                 $BBCodeButtons .= "<a href=\"javascript:hide_color();\"><img id=\"bbcode_color_button\" src=\"include/images/icons/bbcode/bbcode_color.png\" alt=\"Text f&auml;rben\" title=\"Text f&auml;rben\" width=\"23\" height=\"22\" border=\"0\"></a> ";
                 $BBCodeButtons .= '<div style="display:none; position:absolute; top:0px; left:0px; width:200px; z-index:100;" id="colorinput">
                   <table width="100%" class="border" border="0" cellspacing="1" cellpadding="0">
-                    <tr class="Chead" onclick="javascript:hide_color();"><td colspan="16"><b>Farbe w‰hlen</b></td></tr>
+                    <tr class="Chead" onclick="javascript:hide_color();"><td colspan="16"><b>Farbe w√§hlen</b></td></tr>
                     <tr class="Cmite" height="15">' . colorliste($colorar) . '</tr></table>
                   </div>';
             }
-            // > Schriftgrˆﬂe Button!
+            // > Schriftgr√∂√üe Button!
             if ($boolButton['fnFormatSize'] == 1) {
-                $BBCodeButtons .= "<a href=\"javascript:bbcode_insert_with_value('size','Gib hier den Text an, der in einer anderen Schriftgr&ouml;ﬂe formatiert werden soll.','Gib hier die Gr&ouml;&szlig;e des textes in Pixel an. \\n Pixellimit liegt bei " . $cfgInfo['fnSizeMax'] . "px !!!')\"><img src=\"include/images/icons/bbcode/bbcode_size.png\" alt=\"Textgr&ouml;&szlig;e ver&auml;ndern\" title=\"Textgr&ouml;&szlig;e ver&auml;ndern\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+                $BBCodeButtons .= "<a href=\"javascript:bbcode_insert_with_value('size','Gib hier den Text an, der in einer anderen Schriftgr&ouml;√üe formatiert werden soll.','Gib hier die Gr&ouml;&szlig;e des textes in Pixel an. \\n Pixellimit liegt bei " . $cfgInfo['fnSizeMax'] . "px !!!')\"><img src=\"include/images/icons/bbcode/bbcode_size.png\" alt=\"Textgr&ouml;&szlig;e ver&auml;ndern\" title=\"Textgr&ouml;&szlig;e ver&auml;ndern\" width=\"23\" height=\"22\" border=\"0\"></a> ";
             }
             // > Leerzeichen?
             if ($boolButton['fnFormatList'] == 1 || $boolButton['fnFormatEmph'] == 1 || $boolButton['fnFormatColor'] == 1 || $boolButton['fnFormatSize'] == 1) {
@@ -152,7 +152,7 @@ class bbcode {
             }
             // > Url Button!
             if ($boolButton['fnFormatUrl'] == 1) {
-                $BBCodeButtons .= "<a href=\"javascript:bbcode_insert_with_value('url','Gib hier die Beschreibung f¸r den Link an.','Gib hier die Adresse zu welcher verlinkt werden soll an.')\"><img src=\"include/images/icons/bbcode/bbcode_url.png\" alt=\"Hyperlink einf&uuml;gen\" title=\"Hyperlink einf&uuml;gen\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+                $BBCodeButtons .= "<a href=\"javascript:bbcode_insert_with_value('url','Gib hier die Beschreibung f√ºr den Link an.','Gib hier die Adresse zu welcher verlinkt werden soll an.')\"><img src=\"include/images/icons/bbcode/bbcode_url.png\" alt=\"Hyperlink einf&uuml;gen\" title=\"Hyperlink einf&uuml;gen\" width=\"23\" height=\"22\" border=\"0\"></a> ";
             }
             // > E-Mail Button!
             if ($boolButton['fnFormatEmail'] == 1) {
@@ -164,11 +164,11 @@ class bbcode {
             }
             // > Bild Button!
             if ($boolButton['fnFormatImg'] == 1) {
-                $BBCodeButtons .= "<a href=\"javascript:bbcode_insert('img','Gib hier die Adresse des Bildes an.\\nHinweise: Die Breite und H&ouml;he des Bildes ist auf " . $cfgInfo['fnImgMaxBreite'] . "x" . $cfgInfo['fnImgMaxHoehe'] . " eingeschr&auml;nkt und w&uuml;rde verkleinert dargstellt werden.\\nEs ist mˆglich ein Bild rechts oder links von anderen Elementen darzustellen, indem man [img=left] oder [img=right] benutzt.')\"><img src=\"include/images/icons/bbcode/bbcode_image.png\" alt=\"Bild einf&uuml;gen\" title=\"Bild einf&uuml;gen\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+                $BBCodeButtons .= "<a href=\"javascript:bbcode_insert('img','Gib hier die Adresse des Bildes an.\\nHinweise: Die Breite und H&ouml;he des Bildes ist auf " . $cfgInfo['fnImgMaxBreite'] . "x" . $cfgInfo['fnImgMaxHoehe'] . " eingeschr&auml;nkt und w&uuml;rde verkleinert dargstellt werden.\\nEs ist m√∂glich ein Bild rechts oder links von anderen Elementen darzustellen, indem man [img=left] oder [img=right] benutzt.')\"><img src=\"include/images/icons/bbcode/bbcode_image.png\" alt=\"Bild einf&uuml;gen\" title=\"Bild einf&uuml;gen\" width=\"23\" height=\"22\" border=\"0\"></a> ";
             }
             // > Screenshot Button!
             if ($boolButton['fnFormatScreen'] == 1) {
-                $BBCodeButtons .= "<a href=\"javascript:bbcode_insert('shot','Gib hier die Adresse des Screens an.\\nDie Breite und H&ouml;he des Bildes ist auf " . $cfgInfo['fnScreenMaxBreite'] . "x" . $cfgInfo['fnScreenMaxHoehe'] . " eingeschr‰nkt und wird verkleinert dargstellt.\\nEs ist mˆglich ein Screenshot rechts oder links von anderen Elementen darzustellen, indem man [shot=left] oder [shot=right] benutzt.')\"><img src=\"include/images/icons/bbcode/bbcode_screenshot.png\" alt=\"Bild einf&uuml;gen\" title=\"Screen einf&uuml;gen\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+                $BBCodeButtons .= "<a href=\"javascript:bbcode_insert('shot','Gib hier die Adresse des Screens an.\\nDie Breite und H&ouml;he des Bildes ist auf " . $cfgInfo['fnScreenMaxBreite'] . "x" . $cfgInfo['fnScreenMaxHoehe'] . " eingeschr√§nkt und wird verkleinert dargstellt.\\nEs ist m√∂glich ein Screenshot rechts oder links von anderen Elementen darzustellen, indem man [shot=left] oder [shot=right] benutzt.')\"><img src=\"include/images/icons/bbcode/bbcode_screenshot.png\" alt=\"Bild einf&uuml;gen\" title=\"Screen einf&uuml;gen\" width=\"23\" height=\"22\" border=\"0\"></a> ";
             }
             // > Leerzeichen?
             if ($boolButton['fnFormatImg'] == 1 || $boolButton['fnFormatScreen'] == 1) {
@@ -188,7 +188,7 @@ class bbcode {
             }
             // > Flash Button!
             if ($boolButton['fnFormatFlash'] == 1) {
-                $BBCodeButtons .= "<a href=\"javascript:bbcode_insert_with_multiple_values('flash',{tag:['Gib hier den Link zur Flashdatei an',''],width:['Gib hier die Breite f¸r die Flashdatei an','400'],height:['Gib hier die Hˆhe f¸r die Flashdatei an','300']})\"><img src=\"include/images/icons/bbcode/bbcode_flash.png\" alt=\"Flash einf&uuml;gen\" title=\"Flash einf&uuml;gen\" width=\"23\" height=\"22\" border=\"0\"></a> ";
+                $BBCodeButtons .= "<a href=\"javascript:bbcode_insert_with_multiple_values('flash',{tag:['Gib hier den Link zur Flashdatei an',''],width:['Gib hier die Breite f√ºr die Flashdatei an','400'],height:['Gib hier die H√∂he f√ºr die Flashdatei an','300']})\"><img src=\"include/images/icons/bbcode/bbcode_flash.png\" alt=\"Flash einf&uuml;gen\" title=\"Flash einf&uuml;gen\" width=\"23\" height=\"22\" border=\"0\"></a> ";
             }
             // > Countdown Button!
             if ($boolButton['fnFormatCountdown'] == 1) {
@@ -228,7 +228,7 @@ class bbcode {
         return self::$BBCodeButtons;
     }
 
-    // > Codeblock verschl¸sseln und wieder ausgeben.
+    // > Codeblock verschl√ºsseln und wieder ausgeben.
     protected function encode_codec($string, $tag, $file = null) {
         $string = str_replace('\"', '"', $string);
         $file = ($file == null) ? "":"=" . $file;
@@ -236,7 +236,7 @@ class bbcode {
         $this->codecblocks[$crypt . ":" . $tag] = $string;
         return "[" . $tag . $file . "]" . $crypt . "[/" . $tag . "]";
     }
-    // > Codeblock entschl¸sseln und parsen!
+    // > Codeblock entschl√ºsseln und parsen!
     protected function _codeblock($codecid, $file = null, $firstline = 1) {
         $string = $this->codecblocks[$codecid . ':code'];
         $string = htmlentities($string);
@@ -248,7 +248,7 @@ class bbcode {
 
         return $this->_addcodecontainer($string, 'Code', $file, $firstline);
     }
-    // > htmlblock entschl¸sseln und parsen!
+    // > htmlblock entschl√ºsseln und parsen!
     protected function _htmlblock($codecid, $file = null, $firstline = 1) {
         $string = $this->codecblocks[$codecid . ':html'];
         $string = htmlentities($string);
@@ -264,7 +264,7 @@ class bbcode {
 
         return $this->_addcodecontainer($string, 'HTML', $file, $firstline);
     }
-    // > cssblock entschl¸sseln und parsen!
+    // > cssblock entschl√ºsseln und parsen!
     protected function _cssblock($codecid, $file = null, $firstline = 1) {
         $string = $this->codecblocks[$codecid . ':css'];
         $string = htmlentities($string);
@@ -280,7 +280,7 @@ class bbcode {
 
         return $this->_addcodecontainer($string, 'CSS', $file, $firstline);
     }
-    // > phpblock entschl¸sseln und parsen!
+    // > phpblock entschl√ºsseln und parsen!
     protected function _phpblock($codecid, $file = null, $firstline = 1) {
         $string = $this->codecblocks[$codecid . ':php'];
         if (strpos($string, '<?php') === false) {
@@ -302,7 +302,7 @@ class bbcode {
     protected function _addcodecontainer($code, $type, $file = null, $firstline = 1) {
         // > Datei pfad mit angegeben?
         $file = ($file == null) ? "":" von Datei <em>" . $this->_shortwords($file) . "</em>";
-        // > Zeilen z‰hlen.
+        // > Zeilen z√§hlen.
         $linescount = substr_count($code, "\n") + $firstline + 1;
         if ($type == 'Php') {
             $linescount = substr_count($code, "\r") + $firstline + 1;
@@ -311,7 +311,7 @@ class bbcode {
         for($no = $firstline;$no < $linescount;$no++) {
             $line .= $no . ":<br />";
         }
-        // > Hier kˆnnt ihr den Header und Footer f¸r HTML editieren.
+        // > Hier k√∂nnt ihr den Header und Footer f√ºr HTML editieren.
         $breite = trim($this->info['BlockTabelleBreite']);
         $breite = (strpos($breite, '%') !== false) ? '450px' : $breite . 'px';
         $header = "<div style=\"overflow: auto; width: {$breite};\">"
@@ -389,7 +389,7 @@ class bbcode {
 
         return "<ul>" . $li . "</ul>";
     }
-    // > Auf Maximale Schriftgrˆﬂe ¸berpr¸fen.
+    // > Auf Maximale Schriftgr√∂√üe √ºberpr√ºfen.
     protected function _size($size, $string) {
         $max = $this->info['SizeMax'];
         if ($size <= $max) {
@@ -400,7 +400,7 @@ class bbcode {
 
         return $fontsize;
     }
-    // > Bilder auf Verkleinern via Javascript ¸berpr¸fen.
+    // > Bilder auf Verkleinern via Javascript √ºberpr√ºfen.
     protected function _img($string, $float = '') {
         if ($float == 'none' OR $float == 'left' OR $float == 'right') {
             $float = 'style="float:' . $float . '; margin: 5px;" ';
@@ -428,7 +428,7 @@ class bbcode {
             $url
             );
     }
-    // > Links darstellen und ggf. k¸rzen
+    // > Links darstellen und ggf. k√ºrzen
     protected function _shorturl($string, $caption = null) {
         if ($caption == null) {
             $caption = $string;
@@ -453,7 +453,7 @@ class bbcode {
         }
         return $string;
     }
-    // > Linkbeschreibung k¸rzen
+    // > Linkbeschreibung k√ºrzen
     protected function _shortcaptions($string) {
         $words = explode(" ", $string);
         foreach($words as $word)
@@ -463,7 +463,7 @@ class bbcode {
         }
         return $string;
     }
-    // > Hilfsfunktion f¸r _shortwords
+    // > Hilfsfunktion f√ºr _shortwords
     protected function _checkpatterns($patterns, $word) {
         if (!is_array($patterns)) {
             return true;
@@ -475,11 +475,11 @@ class bbcode {
         }
         return true;
     }
-    // > Zu lange Wˆrter k¸rzen.
+    // > Zu lange W√∂rter k√ºrzen.
     protected function _shortwords($string) {
         // > Zeichenkette in einzelne Array elemente zerlegen.
         $lines = explode("\n", $string);
-        // > Patter Befehle die nicht gek¸rzt werden d¸rfen !!!
+        // > Patter Befehle die nicht gek√ºrzt werden d√ºrfen !!!
         $pattern = array("%^(www)(.[-a-zA-Z0-9@:;\%_\+.~#?&//=]+?)%i",
             "%^(http|https|ftp)://{1}[-a-zA-Z0-9@:;\%_\+.~#?&//=]+?%i",
             "%(\[(url|img(=(left|right))?|shot(=(left|right))?)\](.*)\[/(url|img|shot)\])|(\[url=(.*)\])%i",
@@ -498,7 +498,7 @@ class bbcode {
         }
         return $string;
     }
-    // > Geˆffnete Ktext- Tags Nummerieren.
+    // > Ge√∂ffnete Ktext- Tags Nummerieren.
     protected function _addKtextOpen($Titel = null) {
         $this->ayCacheKtextOpen[count($this->ayCacheKtextOpen) + 1] = true;
         $intCountKtext = count($this->ayCacheKtextOpen);
@@ -517,16 +517,16 @@ class bbcode {
     // > Ktext- Tags umwandeln..
     protected function _ktext($string) {
         $Random = rand(1, 10000000);
-        // > Html- Muster f¸r geˆffnete Tags mit Titel.
+        // > Html- Muster f√ºr ge√∂ffnete Tags mit Titel.
         $HeaderTitel = "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"" . $this->info['KtextTabelleBreite'] . "\" align=\"center\">"
          . "<tr><td><a href=\"javascript:Klapptext('__ID__')\">"
          . "<img src=\"include/images/icons/plus.gif\" id=\"image___ID__\" border=0 alt=\"Aus/Ein-klappen\" title=\"Aus/Ein-klappen\"> ";
 
         $FooterTitel = "</a></td></tr>"
          . "<tr><td><div id=\"layer___ID__\" style=\"display:none;border:1px " . $this->info['KtextRandFormat'] . " " . $this->info['KtextRandFarbe'] . ";\">";
-        // > Html- Muster f¸r geschlossene Tags.
+        // > Html- Muster f√ºr geschlossene Tags.
         $KtextClose = "</div></td></tr></table>\n";
-        // > Geˆffnete Tags umwandeln.
+        // > Ge√∂ffnete Tags umwandeln.
         for($c = 1;$c <= count($this->ayCacheKtextOpen);$c++) {
             if (count($this->ayCacheKtextClose) == count($this->ayCacheKtextOpen)) {
                 // > Format: [ktext=xxx]
@@ -553,7 +553,7 @@ class bbcode {
 
         return $string;
     }
-    // > Geˆffnete Quote- Tags Nummerieren.
+    // > Ge√∂ffnete Quote- Tags Nummerieren.
     protected function _addQuoteOpen($User = null) {
         $this->ayCacheQuoteOpen[count($this->ayCacheQuoteOpen) + 1] = $User;
         $intCountQuote = count($this->ayCacheQuoteOpen);
@@ -575,24 +575,24 @@ class bbcode {
     }
     // > Quote- Tags umwandeln.
     protected function _quote($string) {
-        // > ¸berpr¸fen ob Bod gesetzt ist.
+        // > √ºberpr√ºfen ob Bod gesetzt ist.
         if (strtolower($this->info['QuoteSchriftformatIT']) == "bold") {
             $Schriftformat = "font-weight:bold;";
         } else {
             $Schriftformat = "font-style:" . $this->info['QuoteSchriftformatIT'] . ";";
         }
-        // > Html- Muster f¸r geˆffnete Quote- Tags.
+        // > Html- Muster f√ºr ge√∂ffnete Quote- Tags.
         $Header = "<table cellspacing=\"0\" cellpadding=\"2\" border=\"0\" style=\"BORDER: 1px SOLID " . $this->info['QuoteRandFarbe'] . ";\" width=\"" . $this->info['QuoteTabelleBreite'] . "\" align=\"center\">"
          . "<tr><td style=\"font-family:Arial, Helvetica, sans-serif;FONT-SIZE:13px;FONT-WEIGHT:BOLD;COLOR:" . $this->info['QuoteSchriftfarbe'] . ";BACKGROUND-COLOR:" . $this->info['QuoteHintergrundfarbe'] . ";\">&nbsp;Zitat</td></tr>"
          . "<tr bgcolor=\"" . $this->info['QuoteHintergrundfarbeIT'] . "\"><td><table align=\"center\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"98%\"><tr><td style=\"" . $Schriftformat . "FONT-SIZE:10px;COLOR:" . $this->info['QuoteSchriftfarbeIT'] . ";\">";
-        // > Html- Muster f¸r geˆffnete Quote- Tags mit User.
+        // > Html- Muster f√ºr ge√∂ffnete Quote- Tags mit User.
         $HeaderUser = "<table cellspacing=\"0\" cellpadding=\"2\" border=\"0\" style=\"BORDER: 1px SOLID " . $this->info['QuoteRandFarbe'] . ";\" width=\"" . $this->info['QuoteTabelleBreite'] . "\" align=\"center\">"
          . "<tr><td style=\"font-family:Arial, Helvetica, sans-serif;FONT-SIZE:13px;FONT-WEIGHT:BOLD;COLOR:" . $this->info['QuoteSchriftfarbe'] . ";BACKGROUND-COLOR:" . $this->info['QuoteHintergrundfarbe'] . ";\">&nbsp;Zitat von ";
 
         $FooterUser = "</td></tr><tr bgcolor=\"" . $this->info['QuoteHintergrundfarbeIT'] . "\"><td><table align=\"center\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"98%\"><tr><td style=\"" . $Schriftformat . "FONT-SIZE:10px;COLOR:" . $this->info['QuoteSchriftfarbeIT'] . ";\">";
-        // > Html- Muster f¸r geschlossene Quote- Tags.
+        // > Html- Muster f√ºr geschlossene Quote- Tags.
         $QuoteClose = "</td></tr></table></td></tr></table>";
-        // > Geˆffnete Tags umwandeln.
+        // > Ge√∂ffnete Tags umwandeln.
         for($c = 1;$c <= count($this->ayCacheQuoteOpen);$c++) {
             if (count($this->ayCacheQuoteClose) == count($this->ayCacheQuoteOpen)) {
                 // > Format: [quote=xxx]
@@ -662,7 +662,7 @@ class bbcode {
         // > Html Design.
         $Header = "<div style=\"width:" . $this->info['CountdownTabelleBreite'] . ";padding:5px;font-family:Verdana;font-size:" . $this->info['CountdownSchriftsize'] . "px;" . $Font . "color:" . $this->info['CountdownSchriftfarbe'] . ";border:2px dotted " . $this->info['CountdownRandFarbe'] . ";text-align:center\">";
         $Footer = "</div>";
-        // > ‹berpr¸fen ob die angaben stimmen.
+        // > √úberpr√ºfen ob die angaben stimmen.
         if ($date[0] <= 31 && $date[1] <= 12 && $date[2]/*>= date("Y")*/ && checkdate($date[1], $date[0], $date[2]) && $timechk) {
             if (isset($time)) {
                 $time = explode(":", $time);
@@ -685,7 +685,7 @@ class bbcode {
                 $Stunden = sprintf("%00d", (($Diff - ($Tage * 86400)) / 3600));
                 $Minuten = sprintf("%00d", (($Diff - (($Tage * 86400) + ($Stunden * 3600))) / 60));
                 $Sekunden = ($Diff - (($Tage * 86400) + ($Stunden * 3600) + ($Minuten * 60)));
-                // > Bei hˆheren Wert wie 1 als Mehrzahl ausgeben.
+                // > Bei h√∂heren Wert wie 1 als Mehrzahl ausgeben.
                 $mzTg = ($Tage == 1) ? "":"e";
                 $mzStd = ($Stunden == 1) ? "":"n";
                 $mzMin = ($Minuten == 1) ? "":"n";
@@ -763,7 +763,7 @@ class bbcode {
             $this->info['fnImgMaxBreite'] = $maxImgHeight;
         }
 
-        // > Die Blocks werden codiert um sie vor dem restlichen parsen zu sch¸tzen.
+        // > Die Blocks werden codiert um sie vor dem restlichen parsen zu sch√ºtzen.
         if ($this->permitted['php'] == true) {
             $string = preg_replace("%\[php\](.+)\[\/php\]%esiU", "\$this->encode_codec('\$1','php')", $string);
             $string = preg_replace("%\[php=(.*)\](.+)\[\/php\]%esiU", "\$this->encode_codec('\$2','php','\$1')", $string);
@@ -790,7 +790,7 @@ class bbcode {
         // > Badwors Filtern.
         $string = $this->_badwords($string);
         // > BB Code der den Codeblock nicht betrifft.
-        // > ‹berpr¸fen ob die wˆrter nicht die maximal l‰nge ¸berschrieten.
+        // > √úberpr√ºfen ob die w√∂rter nicht die maximal l√§nge √ºberschrieten.
         $string = $this->_shortwords($string);
         $string = htmlentities($string);
         $string = nl2br($string);
@@ -958,7 +958,7 @@ class bbcode {
         }
         // > Smilies Filtern.
         $string = $this->_smileys($string);
-        // > Zum schluss die blˆcke die verschl¸sselt wurden wieder entschl¸sseln und Parsen.
+        // > Zum schluss die bl√∂cke die verschl√ºsselt wurden wieder entschl√ºsseln und Parsen.
         if ($this->permitted['php'] == true) {
             $string = preg_replace("%\[php\](.+)\[\/php\]%esiU", '$this->_phpblock("$1")', $string);
             $string = preg_replace("%\[php=([^;]*);(\d+)\](.+)\[\/php\]%esiU", 'this->_phpblock("$3","$1","$2")', $string);
@@ -995,7 +995,7 @@ class bbcode {
         $this->ayCacheKtextOpen = array();
         $this->ayCacheKtextClose = array();
 
-        //Optionen r¸ckg‰ngig machen
+        //Optionen r√ºckg√§ngig machen
         if (isset($resetMaxLength)) {
             $this->info['fnWortMaxLaenge'] = $resetMaxLength;
         }

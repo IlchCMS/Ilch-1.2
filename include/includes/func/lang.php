@@ -42,7 +42,7 @@ function load_modul_lang($content = 1) {
         include 'include/includes/lang/' . $allgAr['lang'] . '/' . $dir . '/' . $modul . '.php';
     }
 }
-// Modulare Sprachdatei für eine Box hinzufügen
+// Modulare Sprachdatei fÃ¼r eine Box hinzufÃ¼gen
 function load_box_lang($boxname){
     global $lang, $allgAr;
     if (file_exists('include/includes/lang/' . $_SESSION[ 'authlang' ] . '/boxes/' . $boxname)) {

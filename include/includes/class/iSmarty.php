@@ -20,7 +20,7 @@ class iSmarty extends Smarty {
 
     /**
      * Constructor
-     * Setzt einige Optionen, damit man sich nicht um Optionen von Smarty kümmern muss
+     * Setzt einige Optionen, damit man sich nicht um Optionen von Smarty kÃ¼mmern muss
      */
     public function __construct() {
         $this->left_delimiter = '{';
@@ -37,7 +37,7 @@ class iSmarty extends Smarty {
 
     /**
      * iSmarty::fetch()
-     * Wrapper für die fetch Funktion vom Smarty, um im Designordner nach Templates zu suchen
+     * Wrapper fÃ¼r die fetch Funktion vom Smarty, um im Designordner nach Templates zu suchen
      *
      * @param string $template the resource handle of the template file or template object
      * @param mixed $cache_id cache id to be used with this template

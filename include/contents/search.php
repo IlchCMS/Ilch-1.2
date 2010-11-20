@@ -252,5 +252,3 @@ if (!empty($such) OR !empty($autor)) {
 }
 
 $design->footer();
-
-?>

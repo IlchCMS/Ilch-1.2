@@ -195,7 +195,7 @@ class Captcha
         $this->image_font_width  = ImageFontWidth( $this->font_type ) + 2;
         // Hoehe eines Zeichens
         $this->image_font_height = ImageFontHeight( $this->font_type ) + 2;
-        // Zufallswerte für hintergrundfarbe
+        // Zufallswerte fÃ¼r hintergrundfarbe
         if ( $this->useRandomColors ) {
             $this->setBgColor( intval( rand( 225, 255 ) ), intval( rand( 225, 255 ) ), intval( rand( 225, 255 ) ) );
         } else {

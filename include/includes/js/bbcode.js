@@ -14,9 +14,9 @@ function simple_insert(aTag,eTag) {
   
   var input = document.forms['form'].elements['txt'];
   input.focus();
-  /* für Internet Explorer */
+  /* fÃ¼r Internet Explorer */
   if(typeof document.selection != 'undefined') {
-    /* Einfügen des Formatierungscodes */
+    /* EinfÃ¼gen des Formatierungscodes */
     var range = document.selection.createRange();
     var insText = range.text;
     range.text = aTag + insText + eTag;
@@ -29,10 +29,10 @@ function simple_insert(aTag,eTag) {
     }
     range.select();
   }
-  /* für neuere auf Gecko basierende Browser */
+  /* fÃ¼r neuere auf Gecko basierende Browser */
   else if(typeof input.selectionStart != 'undefined')
   {
-    /* Einfügen des Formatierungscodes */
+    /* EinfÃ¼gen des Formatierungscodes */
     var start = input.selectionStart;
     var end = input.selectionEnd;
     var insText = input.value.substring(start, end);
@@ -47,13 +47,13 @@ function simple_insert(aTag,eTag) {
     input.selectionStart = pos;
     input.selectionEnd = pos;
   }
-  /* für die übrigen Browser */
+  /* fÃ¼r die Ã¼brigen Browser */
   else
   {
-    /* Abfrage der Einfügeposition */
+    /* Abfrage der EinfÃ¼geposition */
     var pos = input.value.length;
     
-    /* Einfügen des Formatierungscodes */
+    /* EinfÃ¼gen des Formatierungscodes */
     var insText = prompt("Bitte geben Sie den zu formatierenden Text ein:");
     input.value = input.value.substr(0, pos) + aTag + insText + eTag + input.value.substr(pos);
   }

@@ -17,10 +17,10 @@ HTML;
 
 $tpl = new tpl($suchtpl, 3);
 $tpl->set('size', 16);
-if (isset($_GET[ 'search' ]))
-    $tpl->set('search', escape($_GET[ 'search' ], 'string'));
-else
-    $tpl->set('search', '');
-$tpl->out(0);
+if (isset($_GET[ 'search' ])){
+  $tpl->set('search', escape($_GET[ 'search' ], 'string'));
+}else{
+  $tpl->set('search', '');
+}
 
-?>
+$tpl->out(0);

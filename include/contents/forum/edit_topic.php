@@ -40,8 +40,8 @@ switch ($uum) {
                 $uid = db_result(db_query("SELECT `erstid` FROM `prefix_posts` WHERE `tid` = " . $tid . " ORDER BY `id` ASC LIMIT 1"), 0);
                 $top = db_result(db_query("SELECT `name` FROM `prefix_topics` WHERE `id` = " . $tid), 0);
                 $page = $_SERVER[ "HTTP_HOST" ] . $_SERVER[ "SCRIPT_NAME" ];
-                $txt = "Dein Thema \"" . $top . "\" wurde gelöscht Begründung:\n\n" . $_POST[ 'reason' ];
-                sendpm($_SESSION[ 'authid' ], $uid, 'Theme gelöscht', escape($txt, 'textarea'));
+                $txt = "Dein Thema \"" . $top . "\" wurde gelÃ¶scht BegrÃ¼ndung:\n\n" . $_POST[ 'reason' ];
+                sendpm($_SESSION[ 'authid' ], $uid, 'Theme gelÃ¶scht', escape($txt, 'textarea'));
             }
             $postsMinus = $aktTopicRow[ 'rep' ] + 1;
             db_query("DELETE FROM `prefix_topics` WHERE `id` = '" . $tid . "' LIMIT 1");
@@ -120,8 +120,8 @@ switch ($uum) {
             }
 
             wd(array(
-                    'neue Themen Übersicht' => 'index.php?forum-showtopics-' . $_POST[ 'nfid' ],
-                    'alte Themen Übersicht' => 'index.php?forum-showtopics-' . $_POST[ 'afid' ],
+                    'neue Themen Ãœbersicht' => 'index.php?forum-showtopics-' . $_POST[ 'nfid' ],
+                    'alte Themen Ãœbersicht' => 'index.php?forum-showtopics-' . $_POST[ 'afid' ],
                     'Zum Thema' => 'index.php?forum-showposts-' . $tid
                     ), 'Thema erfolgreich verschoben', 3);
         }

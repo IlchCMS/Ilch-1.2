@@ -37,5 +37,3 @@ if (empty($_POST[ 'NEWSLETTER' ])) {?>
         echo $lang[ 'insertsuccessful' ];
     }
 }
-
-?>

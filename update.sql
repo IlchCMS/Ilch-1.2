@@ -26,7 +26,7 @@ INSERT INTO `prefix_modules` (`url`, `name`, `gshow`, `ashow`, `fright`, `menu`,
 ('kalender', 'Kalender', 1, 0, 1, 'Content', 7),
 ('wars', 'Wars', 0, 0, 1, '', 0),
 ('kasse', 'Kasse', 1, 0, 1, 'Clanbox', 4),
-('gbook', 'Gästebuch', 1, 0, 1, 'Content', 5),
+('gbook', 'GÃ¤stebuch', 1, 0, 1, 'Content', 5),
 ('awaycal', 'Awaycal', 0, 0, 0, '', 0),
 ('news', 'News', 1, 0, 1, 'Content', 0),
 ('allg', 'Konfiguration', 1, 0, 0, 'Admin', 0),
@@ -51,12 +51,12 @@ INSERT INTO `prefix_modules` (`url`, `name`, `gshow`, `ashow`, `fright`, `menu`,
 ('picofx', 'Pic of X', 1, 0, 0, 'Boxen', 1),
 ('modules', 'Modulverwaltung', 1, 0, 0, 'Admin', 8),
 ('smtpconf', 'SMTP', 1, 0, 0, 'Admin', 1),
-('puser', 'Nicht bestätigte Registrierungen', 0, 0, 0, '', 0),
+('puser', 'Nicht bestÃ¤tigte Registrierungen', 0, 0, 0, '', 0),
 ('bbcode', 'BBcode 2.0', 1, 0, 1, 'Content', 11);
 
 
 /* -----> Rev. 32 <----- */
-INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('menu_anz', 'input', 'Allgemeine Optionen', 'Wie viele Menüs sollen verwaltet werden?', '5');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('menu_anz', 'input', 'Allgemeine Optionen', 'Wie viele MenÃ¼s sollen verwaltet werden?', '5');
 
 
 /* -----> Rev. 31 <----- */
@@ -101,11 +101,11 @@ INSERT INTO `prefix_loader` (`pos`, `task`, `file`, `description`) VALUES
 (6, 'func', 'debug.php', 'Ilch-Debugger'),
 (7, 'func', 'bbcode.php', 'BB-Code Buttons und Funktionen'),
 (8, 'func', 'profilefields.php', 'Profilfelder Funktionen'),
-(9, 'func', 'statistic.php', 'Statistiken über den Besucher speichern'),
+(9, 'func', 'statistic.php', 'Statistiken Ã¼ber den Besucher speichern'),
 (10, 'func', 'listen.php', 'Funktionen, zum Listen erstellen'),
-(11, 'func', 'forum.php', 'Alle Funktionen für das Forum'),
-(12, 'func', 'warsys.php', 'Funktionen für das War-System'),
-(13, 'func', 'ic_mime_type.php', 'Funktionen für den Umgang mit Dateiuploads'),
+(11, 'func', 'forum.php', 'Alle Funktionen fÃ¼r das Forum'),
+(12, 'func', 'warsys.php', 'Funktionen fÃ¼r das War-System'),
+(13, 'func', 'ic_mime_type.php', 'Funktionen fÃ¼r den Umgang mit Dateiuploads'),
 (14, 'func', 'lang.php', 'Funktionen zum Aufrufen der Sprachdateien');
 
 -- Nur, wenn BB-Code 2.0 nicht installiert ist --
@@ -204,4 +204,4 @@ CREATE TABLE `prefix_bbcode_design` (
 -- Beim Update darauf achten --
 -- Alle Nutzernamen und Email-Adressen mit get_lower als Array durchlaufen
 -- Nutzernamen als name_clean speichern und Email ersetzen
--- Doppelte Email-Adressen löschen
+-- Doppelte Email-Adressen lÃ¶schen

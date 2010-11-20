@@ -1,4 +1,9 @@
 <?php
+define('DEBUG',true);
+define('INSTALL_COMPLIANCE_MODE', true);
+if (defined('DEBUG')) {
+  define('SCRIPT_START_TIME', microtime(true));
+}
 /**
  * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
  * @copyright (C) 2000-2010 ilch.de

@@ -22,5 +22,3 @@ if (!empty($_POST[ 'lang_ch' ])) {
     }
     echo '</select></div></form>';
 }
-
-?>

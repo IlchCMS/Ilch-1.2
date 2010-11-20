@@ -60,5 +60,3 @@ foreach ($ma as $v) {
 if (!isset($php_load) AND !isset($ini_load)) {
     get_ini_menu('include/admin/inc/menu/admin.xml');
 }
-
-?>

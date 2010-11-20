@@ -27,5 +27,3 @@ while ($row = db_fetch_object($erg)) {
     echo $row->owp . ' ' . $lang[ 'at2' ] . ' ' . $row->opp . ' - ' . $row->tag . '</a></td><td><img src="' . $bild . '"></td></tr>';
 }
 echo '</table>';
-
-?>

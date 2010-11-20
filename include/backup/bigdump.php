@@ -1,5 +1,5 @@
 <?php
-//Auskommentieren der nächsten Zeilen hat zur Folge, dass das Script ohne Adminrechte aufgerufen werden kann
+//Auskommentieren der nÃ¤chsten Zeilen hat zur Folge, dass das Script ohne Adminrechte aufgerufen werden kann
 session_name  ('sid');
 session_start ();
 if ($_SESSION['authright'] != -9) die('only admin access');
@@ -804,7 +804,7 @@ else if ($file && $gzipmode) gzclose($file);
 
 ?>
 
-<p class="centr">© 2003-2009 <a href="mailto:alexey@ozerov.de">Alexey Ozerov</a></p>
+<p class="centr">Â© 2003-2009 <a href="mailto:alexey@ozerov.de">Alexey Ozerov</a></p>
 
 </td></tr></table>
 
@@ -1073,5 +1073,3 @@ global $linenumber, $foffset, $totalqueries, $delaypersession, $curfilename;
 	</script>
 	<?php
 }
-
-?>

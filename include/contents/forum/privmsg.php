@@ -17,10 +17,10 @@ $design->header($load);
 
 if ($allgAr[ 'Fpmf' ] != 1) {
     echo 'Private Nachrichten wurden von dem Administrator komplet gesperrt';
-    echo '<br/><a href="javascript:history.back(-1)">zurück</a>';
+    echo '<br/><a href="javascript:history.back(-1)">zurÃ¼ck</a>';
     $design->footer(1);
 } elseif (!loggedin()) {
-    echo '<br/>Gäste dürfen keine Privaten Nachrichten Verschicken!';
+    echo '<br/>G&auml;ste d&uuml;rfen keine Privaten Nachrichten Verschicken!';
     $tpl = new tpl('user/login');
     $tpl->set_out('WDLINK', 'index.php', 0);
     $design->footer(1);
@@ -123,7 +123,7 @@ switch ($uum) {
         $tpl->set_ar_out($row, 0);
         break;
     case 'delete':
-        // löschen von nachrichten
+        // lÃ¶schen von nachrichten
         if ($menu->get(3) != '' AND $menu->get(4) == '') {
             $_POST[ 'delids' ][ ] = $menu->get(3);
         } elseif ($menu->get(3) != '' AND $menu->get(4) == 's') {
@@ -148,7 +148,7 @@ switch ($uum) {
                 }
                 echo '<br/>Wollen Sie ';
                 echo ($i > 1 ? 'die (' . $i . ') Nachrichten ' : 'die Nachricht ');
-                echo 'wirklich löschen ?<br/><br/><input type="submit" value=" Ja " name="sub"> &nbsp; &nbsp; <input type="button" value="Nein" onclick="document.location.href =\'?forum-privmsg\'"></form>';
+                echo 'wirklich lÃ¶schen ?<br/><br/><input type="submit" value=" Ja " name="sub"> &nbsp; &nbsp; <input type="button" value="Nein" onclick="document.location.href =\'?forum-privmsg\'"></form>';
             } else {
                 $delids = (empty($_POST[ 'delids' ]) ? $_POST[ 'delsids' ] : $_POST[ 'delids' ]);
                 $s = (empty($_POST[ 'delids' ]) ? '' : 's');
@@ -169,7 +169,7 @@ switch ($uum) {
                 }
                 echo 'Es wurd';
                 echo ($i > 1 ? 'en (' . $i . ') Nachrichten ' : 'e eine Nachricht ');
-                echo 'erfolgreich gelöscht <br /><br /><a href="index.php?forum-privmsg">zum Nachrichten Eingang</a>';
+                echo 'erfolgreich gelÃ¶scht <br /><br /><a href="index.php?forum-privmsg">zum Nachrichten Eingang</a>';
             }
         }
         break;
@@ -203,7 +203,7 @@ switch ($uum) {
         $tpl->out(2);
         break;
     default:
-        // message übersicht.
+        // message Ã¼bersicht.
         $tpl = new tpl('forum/pm/show');
         $ad = $menu->getA(2) == 'a' ? 'ASC' : 'DESC';
         $tpl->set_out('ad', $ad == 'ASC' ? 'd' : 'a', 0);

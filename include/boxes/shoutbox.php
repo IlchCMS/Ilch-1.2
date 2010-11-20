@@ -46,5 +46,3 @@ while ($row = db_fetch_object($erg)) {
     echo '<tr class="' . $class . '"><td><b>' . $row->nickname . ':</b> ' . preg_replace('/([^\s]{' . $allgAr[ 'sb_maxwordlength' ] . '})(?=[^\s])/', "$1\n", $row->textarea) . '</td></tr>';
 }
 echo '</table><a class="box" href="index.php?shoutbox">' . $lang[ 'archiv' ] . '</a>';
-
-?>

@@ -7,7 +7,7 @@ Copyright (c) 2005 by Manuel
 
 i n s t a l l a t i o n
   - alle Dateien hochladen.
-  - update.php ausführen und danach wieder löschen
+  - update.php ausfÃ¼hren und danach wieder lÃ¶schen
   - changelog lesen ;)
 
 s u p p o r t
@@ -15,15 +15,15 @@ s u p p o r t
 
 d a n k e
   - Mairu fuer die viele Weiterentwicklung
-  - Meiner Freundin für die Zeit ;-)
-  - Scarfhogg für die Design Anpassung und die Icons im Adminbereich und vieles mehr!
-  - Scorp für die super Hilfe bei den Templates.
-  - jihi für die Hilfe zwischendurch.
-  - fanguro für das neue Standard Design
-  - Rock@Wulf für sein AwayCalender und Kassen Modul.
-  - Nickel für sein Kalender Modul.
-  - s_down für die Geburtstagsbox
-  - ilch.de Team für die gute Hilfe.
+  - Meiner Freundin fÃ¼r die Zeit ;-)
+  - Scarfhogg fÃ¼r die Design Anpassung und die Icons im Adminbereich und vieles mehr!
+  - Scorp fÃ¼r die super Hilfe bei den Templates.
+  - jihi fÃ¼r die Hilfe zwischendurch.
+  - fanguro fÃ¼r das neue Standard Design
+  - Rock@Wulf fÃ¼r sein AwayCalender und Kassen Modul.
+  - Nickel fÃ¼r sein Kalender Modul.
+  - s_down fÃ¼r die Geburtstagsbox
+  - ilch.de Team fÃ¼r die gute Hilfe.
 
 L i z e n z
 		    GNU GENERAL PUBLIC LICENSE

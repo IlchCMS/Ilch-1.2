@@ -52,5 +52,3 @@ if (is_coadmin()) {
             'title' => 'Module'
             ), 0);
 }
-
-?>

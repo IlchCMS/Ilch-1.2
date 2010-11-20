@@ -32,7 +32,7 @@ if (loggedin()) {
         $_POST[ 'login_email' ] = $lang['email_name'];
     }
     if (empty($_POST[ 'login_pw' ])) {
-        $_POST[ 'login_pw' ] = 'ääääääää';
+        $_POST[ 'login_pw' ] = 'Ã¤Ã¤Ã¤Ã¤Ã¤Ã¤Ã¤Ã¤';
     }
     $regist = '';
     if ($allgAr[ 'forum_regist' ] == 1) {
@@ -46,5 +46,3 @@ if (loggedin()) {
             ), 1);
 }
 unset($tpl);
-
-?>

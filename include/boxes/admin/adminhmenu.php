@@ -21,5 +21,3 @@ if (empty($modulname)) {
 }
 
 echo $modulname;
-
-?>

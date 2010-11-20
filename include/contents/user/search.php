@@ -9,7 +9,7 @@ defined('main') or die('no direct access');
 // Wert escapen und umwandeln
 $_POST = get_lower($_POST);
 $name_clean = escape($_POST[ 'value' ], 'string');
-// Abbrechen, wenn keine Übergabe stattgefunden hat
+// Abbrechen, wenn keine Ãœbergabe stattgefunden hat
 if (!isset($name_clean) || $name_clean == '')
     exit;
 // Datenbank nach Nutzer durchsuchen

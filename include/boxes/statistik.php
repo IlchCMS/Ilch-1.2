@@ -70,5 +70,3 @@ if (empty($_GET[ 'sum' ])) {
 
     $design->footer();
 }
-
-?>

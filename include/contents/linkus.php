@@ -12,19 +12,19 @@ $design = new design($title, $hmenu);
 // Variablen
 $dir = 'include/images/linkus/';
 $host = 'http://' . $_SERVER['SERVER_NAME'] . '/';
-// Menüklasse escapen
+// MenÃ¼klasse escapen
 $menu_1 = escape($menu->get(1), 'string');
 $menu_2 = escape($menu->get(2), 'integer');
 $menu_3 = escape($menu->get(3), 'string');
 // SeitenFunktionen
 switch ($menu_1) {
     case 'view':
-        // prüfen ob ID + Datei vorhanden
+        // prÃ¼fen ob ID + Datei vorhanden
         $checkid = db_count_query("SELECT COUNT(id) FROM `prefix_linkus` WHERE id = " . $menu_2 . "");
         if ($checkid != 0) {
             // auslesen des banner-namens
             $banner = db_result(db_query("SELECT datei FROM `prefix_linkus` WHERE id = " . $menu_2 . ""));
-            // prüfen ob banner lesbar und existent
+            // prÃ¼fen ob banner lesbar und existent
             if (is_readable($dir . $banner)) {
                 if ($menu_3 == 'true') {
                     // views-wert +1
@@ -43,7 +43,7 @@ switch ($menu_1) {
         break;
     // ################################################################
     case 'click':
-        // prüfen ob ID + Datei vorhanden
+        // prÃ¼fen ob ID + Datei vorhanden
         $checkid = db_count_query("SELECT COUNT(id) FROM `prefix_linkus` WHERE id = " . $menu_2 . "");
         if ($checkid != 0) {
             // Auslesen der Ziel-URL

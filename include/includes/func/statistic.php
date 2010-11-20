@@ -202,7 +202,7 @@ function site_statistic_get_referer($referer) {
     if (!empty($referer)) {
         $refzar = parse_url($referer);
         $refspa = $refzar[ 'scheme' ] . '://' . $refzar[ 'host' ] . $refzar[ 'path' ];
-        return preg_replace('=[^a-z0-9öäüß_/:\-\.\\\\]=i', '', $refspa);
+        return preg_replace('=[^a-z0-9Ã¶Ã¤Ã¼ÃŸ_/:\-\.\\\\]=i', '', $refspa);
     } else {
         return 0;
     }

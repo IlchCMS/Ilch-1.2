@@ -58,5 +58,3 @@ while ($row = db_fetch_object($erg)) {
 }
 
 echo '</table>';
-
-?>

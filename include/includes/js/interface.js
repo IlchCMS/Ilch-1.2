@@ -1,4 +1,4 @@
-// Interface für Formulare.
+// Interface fÃ¼r Formulare.
 // Copyright 2004 by Thomas Bowe
 // erweitert von Mairu und boehserdavid
 
@@ -35,7 +35,7 @@ function hide_color() {
 	}
 }
 
-//Textarea in die für BBcode genutzt wird
+//Textarea in die fÃ¼r BBcode genutzt wird
 var bbcode_textarea = ['form', 'txt'];
 
 function bbcode_insert_into_textarea(text){
@@ -49,9 +49,9 @@ function bbcode_insert_into_textarea(text){
 		var pos = -1;
 	}
 
-	// Für UserAgent IE.
+	// FÃ¼r UserAgent IE.
 	if(typeof document.selection != 'undefined')  {
-	 	// Einfügen der Tags.
+	 	// EinfÃ¼gen der Tags.
 		var range = document.selection.createRange();
 
 		if(text != null && text !='') {
@@ -67,9 +67,9 @@ function bbcode_insert_into_textarea(text){
 
 			range.select();
 		}
-	// Für UserAgents die auf Gecko basieren.
+	// FÃ¼r UserAgents die auf Gecko basieren.
 	} else if(typeof formular.selectionStart != 'undefined') {
-	 	// Einfügen der Tags
+	 	// EinfÃ¼gen der Tags
 		var start = formular.selectionStart;
     	var end = formular.selectionEnd;
 
@@ -88,14 +88,14 @@ function bbcode_get_selection(){
 	var formular = document.forms[bbcode_textarea[0]].elements[bbcode_textarea[1]];
 	formular.focus();
 	var text;
-	// Für UserAgent IE.
+	// FÃ¼r UserAgent IE.
 	if(typeof document.selection !='undefined')  {
-	 	// Einfügen der Tags.
+	 	// EinfÃ¼gen der Tags.
 		var range = document.selection.createRange();
 		text = range.text;
-	// Für UserAgents die auf Gecko basieren.
+	// FÃ¼r UserAgents die auf Gecko basieren.
 	} else if(typeof formular.selectionStart != 'undefined') {
-	 	// Einfügen der Tags
+	 	// EinfÃ¼gen der Tags
 		var start = formular.selectionStart;
     	var end = formular.selectionEnd;
     	text = formular.value.substring(start, end);
@@ -103,7 +103,7 @@ function bbcode_get_selection(){
     return text;
 }
 
-// BB-Code ins Textarea einfügen.
+// BB-Code ins Textarea einfÃ¼gen.
 function bbcode_insert(tag, boxtext) {
 	var formular = document.forms[bbcode_textarea[0]].elements[bbcode_textarea[1]];
 	formular.focus();
@@ -158,7 +158,7 @@ function bbcode_insert(tag, boxtext) {
 	bbcode_insert_into_textarea(begin_tag + prompt_box + end_tag, pos);
 }
 
-// BBCode mit Werte Einfügen.
+// BBCode mit Werte EinfÃ¼gen.
 function bbcode_insert_with_value(tag, boxtext1, boxtext2) {
 	var default_text;
 	var selection = bbcode_get_selection();
@@ -167,7 +167,7 @@ function bbcode_insert_with_value(tag, boxtext1, boxtext2) {
 	var prompt_box;
 	var pos = -1;
 
-	// Alternativen Text für die Box ausgeben.
+	// Alternativen Text fÃ¼r die Box ausgeben.
 	if(tag == 'url') {
 		default_text = "http://";
 	} else if(tag == 'size') {
@@ -186,12 +186,12 @@ function bbcode_insert_with_value(tag, boxtext1, boxtext2) {
 	// Ausgabe der 2ten Box.
 	prompt_text2 = prompt(boxtext2, default_text);
 
-	// Überprüfen ob prompt_text1 nicht Leer ist. Wenn True dann Format [XXX=XXX]XXX[/XXX]
+	// ÃœberprÃ¼fen ob prompt_text1 nicht Leer ist. Wenn True dann Format [XXX=XXX]XXX[/XXX]
 	if(prompt_text1 != null && prompt_text1 !='') {
 		if(prompt_text2 != null && prompt_text2 !='') {
 			prompt_box = "["+tag+"="+prompt_text2+"]"+prompt_text1+"[/"+tag+"]";
 		}
-	// Wenn promptText1 Leer ist dann Format [XXX]XXX[/XXX] (Aber nur bei Gewünschten Tags)
+	// Wenn promptText1 Leer ist dann Format [XXX]XXX[/XXX] (Aber nur bei GewÃ¼nschten Tags)
 	} else if(tag == 'url' || tag == 'email') {
 		if(prompt_text2 != null && prompt_text2 !='') {
 			prompt_box = "["+tag+"]"+prompt_text2+"[/"+tag+"]";
@@ -208,9 +208,9 @@ function bbcode_insert_with_value(tag, boxtext1, boxtext2) {
 	bbcode_insert_into_textarea(prompt_box, pos);
 }
 
-// BBCode mit vielen Werten einfügen
+// BBCode mit vielen Werten einfÃ¼gen
 /* options = {tag:[question, default],  <-- tag:['Pfad zu ...', '']
-	option1:[question, default],    <-- Bsp width:['Geben sie die Höhe an', 300]
+	option1:[question, default],    <-- Bsp width:['Geben sie die HÃ¶he an', 300]
 	option2:[question, default],
 	}
 */
@@ -230,12 +230,12 @@ function bbcode_insert_with_multiple_values(tag, options){
 	bbcode_insert_into_textarea(text + ']' + endtext);
 }
 
-// BBCode mit Werte Einfügen (andere Art).
+// BBCode mit Werte EinfÃ¼gen (andere Art).
 function bbcode_insert_with_value_2(tag, boxtext1, boxtext2) {
 
 	var default_text;
 
-	// Alternativen Text für die Box ausgeben.
+	// Alternativen Text fÃ¼r die Box ausgeben.
 	if(tag == 'video') {
 		default_text = "YouTube";
 	} else {
@@ -258,25 +258,25 @@ function bbcode_insert_with_value_2(tag, boxtext1, boxtext2) {
 		prompt_text1 = prompt(boxtext1, selection);
 	}
 
-	// Überprüfen ob prompt_text1 nicht Leer ist. Wenn True dann Format [XXX=XXX]XXX[/XXX]
+	// ÃœberprÃ¼fen ob prompt_text1 nicht Leer ist. Wenn True dann Format [XXX=XXX]XXX[/XXX]
 	if(prompt_text1 != null && prompt_text1 !='') {
 		if(prompt_text2 != null && prompt_text2 !='') {
 			prompt_box = "["+tag+"="+prompt_text2+"]"+prompt_text1+"[/"+tag+"]";
 		}
-	// Wenn promptText1 Leer ist dann Format [XXX]XXX[/XXX] (Aber nur bei Gewünschten Tags)
+	// Wenn promptText1 Leer ist dann Format [XXX]XXX[/XXX] (Aber nur bei GewÃ¼nschten Tags)
 	} else if(tag == 'url' || tag == 'email') {
 		if(prompt_text2 != null && prompt_text2 !='') {
 			prompt_box = "["+tag+"]"+prompt_text2+"[/"+tag+"]";
 		}
 	}
 
-	// Wenn insText nicht Leer ist dann Tags Einfügen.
+	// Wenn insText nicht Leer ist dann Tags EinfÃ¼gen.
 	if(prompt_box != null && prompt_box !='') {
 		bbcode_insert_into_textarea(prompt_box);
 	}
 }
 
-// Simples einfügen der Tags :-)
+// Simples einfÃ¼gen der Tags :-)
 function bbcode_code_insert(tag, color) {
     
     // Tags Definieren
@@ -284,10 +284,10 @@ function bbcode_code_insert(tag, color) {
 		var begin_tag = "["+tag+"]";
 		var end_tag = "[/"+tag+"]";
 		if (document.form.code != undefined) {
-			document.form.code.options['0'].selected = true; // selectiert immer <Code einfügen>
+			document.form.code.options['0'].selected = true; // selectiert immer <Code einfÃ¼gen>
 		}
 	} else if (tag == "code" || tag == "php" || tag == "html" || tag == "css") {
-		var prompt_text1 = prompt("Format: dateiname;5  (Im Beispiel ist die Startzeile 5)\nSie können hier nun einen Dateinamen und eine Startzeile mit angeben,\nwobei die Startzeile optional ist und auch das komplette Feld leer gelassen werden kann.)","");
+		var prompt_text1 = prompt("Format: dateiname;5  (Im Beispiel ist die Startzeile 5)\nSie kÃ¶nnen hier nun einen Dateinamen und eine Startzeile mit angeben,\nwobei die Startzeile optional ist und auch das komplette Feld leer gelassen werden kann.)","");
 		if (prompt_text1 != "" && prompt_text1 != null) {
 			var begin_tag = "["+tag+"="+prompt_text1+"]";
 		} else {

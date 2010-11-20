@@ -95,7 +95,7 @@ if (!empty($_FILES[ 'file' ][ 'name' ]) AND is_writeable('include/images/usergal
 // bilder abfragen
 $limit = $img_per_site;
 $page = ($menu->getA(3) == 'p' ? $menu->getE(3) : 1);
-$MPL = db_make_sites($page, '', $limit, 'index.php?user-usergallery-' . $uid, "usergallery WHERE uid = " . $uid);
+$MPL = db_make_sites($page, '', $limit, 'index.php?user-usergallery-' . $uid, "usergallery` WHERE uid = " . $uid);
 $anfang = ($page - 1) * $limit;
 $erg = db_query("SELECT `name`, `besch`, `endung`, `id` FROM `prefix_usergallery` WHERE `uid` = " . $uid . " ORDER BY `id` DESC LIMIT " . $anfang . "," . $limit);
 

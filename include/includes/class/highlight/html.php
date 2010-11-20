@@ -23,34 +23,34 @@
 						    "tbody" => "#009999",
 					        "tfoot" => "#009999");
 
-		//> Restliche Htmlelemente f‰rben
-		$parse_elements = array(//> F¸r Format: &xxxx;
+		//> Restliche Htmlelemente f√§rben
+		$parse_elements = array(//> F√ºr Format: &xxxx;
 								"#000000",
-								//> F¸r Format: 'xxxx' und "xxxx"
+								//> F√ºr Format: 'xxxx' und "xxxx"
 								"#0000ff",
 								//> Tags die keine definition haben.
 								"#000099",
-								//> Farbe f¸r Kommentare.
+								//> Farbe f√ºr Kommentare.
 								"#999999",
-								//> Farbe in style tags f¸r den Anf¸hrungszeichen
+								//> Farbe in style tags f√ºr den Anf√ºhrungszeichen
 								"#006600",
-								//> Farbe in script Tags f¸r die Anf¸hrungszeichen
+								//> Farbe in script Tags f√ºr die Anf√ºhrungszeichen
 								"#000000",
-								//> Default farbe f¸r nicht definierten Code.
+								//> Default farbe f√ºr nicht definierten Code.
 								$CodeColor);
 
 		//> Tags farblich hervorheben!
 		while(list($tag,$color) = each($parse_tags)) {
 			if(substr($tag,0,1) == "*" && $tag != "#") {
-				//> Offene Tags f‰rben(f¸r die Tags die keine end- Tags besitzen!)
+				//> Offene Tags f√§rben(f√ºr die Tags die keine end- Tags besitzen!)
 				$pattern[] = "%&lt;".substr($tag,1)."(.+)&gt;%Uis";
 				$replace[] = "<font color=\"".$color."\">&lt;".substr($tag,1)."$1&gt;</font>";
 			} else {
-				//> Offene Tags f‰rben!
+				//> Offene Tags f√§rben!
 				$pattern[] = "%&lt;".$tag."(.+)&gt;%Uis";
 				$replace[] = "<font color=\"".$color."\">&lt;".$tag."$1&gt;</font>";
 
-				//> Geschlossene Tags f‰rben!
+				//> Geschlossene Tags f√§rben!
 				$pattern[] = "%&lt;/".$tag."&gt;%Uis";
 				$replace[] = "<font color=\"".$color."\">&lt;/".$tag."&gt;</font>";
 			}
@@ -72,11 +72,11 @@
 		$pattern[] = "%&lt;!--(.*)--&gt;%esiU";
 		$replace[] = "_html_comments('\$1','".$parse_elements[3]."')";
 
-		//> Ausf¸hrungszeichen in style- Tags farblich hervorheben.
+		//> Ausf√ºhrungszeichen in style- Tags farblich hervorheben.
 		$pattern[] = "%&lt;style(.*)&gt;%esiU";
 		$replace[] = "_html_styletag('\$1','".$parse_elements[4]."')";
 
-		//> Ausf¸hrungszeichen in script- Tags farblich hervorheben.
+		//> Ausf√ºhrungszeichen in script- Tags farblich hervorheben.
 		$pattern[] = "%&lt;script(.*)&gt;%esiU";
 		$replace[] = "_html_scripttag('\$1','".$parse_elements[5]."')";
 
@@ -103,9 +103,9 @@
 		return stripslashes($string);
 	}
 
-//> Sub funktion f¸r die Funktion "xxxx" und 'xxxx'
+//> Sub funktion f√ºr die Funktion "xxxx" und 'xxxx'
 	function _html_quotes($string,$type,$color) {
-		//> Farb- Tags (<font>) und Formatierungs- Tags (<b><i>) Lˆschen.
+		//> Farb- Tags (<font>) und Formatierungs- Tags (<b><i>) L√∂schen.
 		$pattern = array("%<font(.*)>%siU",
 						 "%</font>%siU",
 						 "%<(i|b)>%siU",
@@ -118,7 +118,7 @@
 
 //> Sub Funktion um CSS Code inerhalb eines Tags entsprechend hervorheben.
 	function _html_style($string) {
-		//> Farb- Tags (<font>) Lˆschen.
+		//> Farb- Tags (<font>) L√∂schen.
 		$pattern = array("%<font(.*)>%siU",
 						 "%</font>%siU");
 
@@ -137,9 +137,9 @@
 
 	}
 
-//> Sub Funktion um in <style...> die Anf¸hrungszeichen anders farblich hervorzuheben.
+//> Sub Funktion um in <style...> die Anf√ºhrungszeichen anders farblich hervorzuheben.
 	function _html_styletag($string,$color) {
-		//> Farb- Tags (<font>) und Formatierungs- Tags (<b><i>) Lˆschen.
+		//> Farb- Tags (<font>) und Formatierungs- Tags (<b><i>) L√∂schen.
 		$pattern = array("%<font(.*)>%siU",
 						 "%</font>%siU");
 
@@ -157,9 +157,9 @@
 		return "&lt;style".$string."&gt;";
 	}
 
-//> Sub Funktion um in <script...> die Anf¸hrungszeichen anders farblich hervorzuheben.
+//> Sub Funktion um in <script...> die Anf√ºhrungszeichen anders farblich hervorzuheben.
 	function _html_scripttag($string,$color) {
-		//> Farb- Tags (<font>) und Formatierungs- Tags (<b><i>) Lˆschen.
+		//> Farb- Tags (<font>) und Formatierungs- Tags (<b><i>) L√∂schen.
 		$pattern = array("%<font(.*)>%siU",
 						 "%</font>%siU");
 
@@ -179,7 +179,7 @@
 
 //> Sub Funktion um Kommentare Farblich hervorzuheben.
 	function _html_comments($string,$color) {
-		//> Farb- Tags (<font>) und Formatierungs- Tags (<b><i>) Lˆschen.
+		//> Farb- Tags (<font>) und Formatierungs- Tags (<b><i>) L√∂schen.
 		$pattern = array("%<font(.*)>%siU",
 						 "%</font>%siU",
 						 "%<(i|b)>%siU",
@@ -190,9 +190,9 @@
 		return "<font color=\"".$color."\">&lt;!--".$string."--&gt;</font>";
 	}
 
-//> Sub Funktion um Farben zu lˆschen und text in anderer Farbe darzustellen.
+//> Sub Funktion um Farben zu l√∂schen und text in anderer Farbe darzustellen.
 	function _html_defaultcode($string,$stag,$etag,$color) {
-		//> Farb- Tags (<font>) und Formatierungs- Tags (<b><i>) Lˆschen.
+		//> Farb- Tags (<font>) und Formatierungs- Tags (<b><i>) L√∂schen.
 		$pattern = array("%<font(.*)>%siU",
 						 "%</font>%siU",
 						 "%<(i|b)>%siU",

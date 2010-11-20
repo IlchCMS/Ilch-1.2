@@ -9,7 +9,7 @@ defined ('main') or die ( 'no direct access' );
 // DEVELOPERS PLEASE NOTE
 //
 // Some characters you may want to copy&paste:
-// ’ » „ “ — …
+// â€™ Â» â€ž â€œ â€” â€¦
 
 $lang = array_merge($lang, array (
 	'top' => 'top'

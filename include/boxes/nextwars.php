@@ -19,5 +19,3 @@ if (@db_num_rows($erg) == 0) {
     }
 }
 echo '</table>';
-
-?>

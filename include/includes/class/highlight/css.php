@@ -7,32 +7,32 @@
 //> CSS farblich darstellen.
 	function highlight_css($string,$stag=NULL,$etag=NULL) {
 		//> Array mit den Farbinhalten.
-		$parse_elements = array(//> Farbe f¸r die Kommentare.
+		$parse_elements = array(//> Farbe f√ºr die Kommentare.
 								"#999999",
-								//> farbe f¸r den Klassennamen.
+								//> farbe f√ºr den Klassennamen.
 								"#ff00ff",
-								//> Allgemeine Farbe f¸r die Funktionen.
+								//> Allgemeine Farbe f√ºr die Funktionen.
 								"#000099",
 								//> Formatierungen farbe
 								"#0000ff");
 
 
-		//> farben inerhalb des Codes erstmal lˆschen.
+		//> farben inerhalb des Codes erstmal l√∂schen.
 		$pattern[] = "%<font(.*)>%siU";
 		$replace[] = "";
 
 		$pattern[] = "%<\/font>%siU";
 		$replace[] = "";
 
-		//> CSS Funktionen einf‰rben.
+		//> CSS Funktionen einf√§rben.
 		$pattern[] = "%(\{)(.*)(\})%siU";
 		$replace[] = "$1<font color=\"".$parse_elements[2]."\">$2</font>$3";
 
-		//> Doppelpunkt oder Semikolon einf‰rben;
+		//> Doppelpunkt oder Semikolon einf√§rben;
 		$pattern[] = "%:([A-Za-z0-9\-_ #,]*);%siU";
 		$replace[] = "<font color=\"".$parse_elements[1]."\">:</font><font color=\"".$parse_elements[3]."\">$1</font><font color=\"".$parse_elements[1]."\">;</font>";
 
-		//> Kommentare einf‰rben
+		//> Kommentare einf√§rben
 		$pattern[] = "%\/\*(.*)\*\/%esiU";
 		$replace[] = "_css_comments('\$1','".$parse_elements[0]."')";
 
@@ -52,7 +52,7 @@
 
 //> Sub Funktion um Kommentare farblich hervorzuheben.
 	function _css_comments($string,$color) {
-		//> Farb- Tags (<font>) und Formatierungs- Tags (<b><i>) Lˆschen.
+		//> Farb- Tags (<font>) und Formatierungs- Tags (<b><i>) L√∂schen.
 		$pattern = array("%<font(.*)>%siU",
 						 "%</font>%siU",
 						 "%<(i|b)>%siU",

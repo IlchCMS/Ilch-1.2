@@ -65,12 +65,12 @@ if (!empty($such)) {
         }
     }
     if ($i > 0) {
-        echo $i . ' Treffer für die suche nach: ' . $such;
+        echo $i . ' Treffer fÃ¼r die suche nach: ' . $such;
         echo '<table width="100%" cellpadding="10" border="0" cellspacing="1" class="border"><tr><td class="Cnorm" v>';
         echo $such_string;
         echo '</td></tr></table>';
     } else {
-        echo 'Leider wurde keine übereinstimmung mit dem Suchbegriff ' . $such . ' gefunden';
+        echo 'Leider wurde keine Ã¼bereinstimmung mit dem Suchbegriff ' . $such . ' gefunden';
     }
 }
 

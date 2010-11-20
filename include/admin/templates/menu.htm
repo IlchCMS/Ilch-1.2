@@ -7,7 +7,9 @@
     </td>
     <td width="90">&nbsp;</td>
     <td valign="top">
-      <form action="admin.php?menu--an" method="POST" name="form">
+    	<table cellspacing="0" cellpadding="0" width="100%">
+    			<tr>
+    					<td><form action="admin.php?menu--an" method="POST" name="form">
 			  <input type="hidden" name="awo"  value="{awo}"  />
         <input type="hidden" name="apos" value="{apos}" />
 				<table cellpadding="3" cellspacing="1" border="0" class="border">
@@ -26,7 +28,10 @@
 					<tr><td class="Cmite">sichtbar&nbsp;ab</td><td class="Cnorm"><select name="grecht">{_list_getfuerB@<option%1 value="%2">%3</option>}</select></td></tr>
           <tr class="Cdark"><td></td><td><input class="sub" type="submit" value="Absenden"></td></tr>
         </table>
-      </form>
+      </form></td><td width="28"></td>
+    					<td valign="top" align="right"><a href="admin.php?menu-reparieren"><div style="padding:1px" class="border"><div style="padding:10px;" class="Cmite" align="center">Men&uuml;s reparieren</div></div></a></td>
+      			</tr>
+      		</table>
       
       
       <br /><br />
@@ -47,7 +52,6 @@
 </table>
 
     </td><td width="90">&nbsp;<td>
-		<td valign="top"><a href="admin.php?menu-reparieren">Men&uuml;s reparieren</a></td>
   </tr>
 </table>   
 <br /><br />
@@ -55,7 +59,7 @@
 <script language="JavaScript" type="text/javascript">
   <!--
 	  function delcheck(l1,l2) {
-	    var x = confirm ( 'Wirklich löschen?' );
+	    var x = confirm ( 'Wirklich lÃ¶schen?' );
 	    if ( x ) {
 		    document.location.href="admin.php?menu-"+l2+"-delete-"+l1;
 		  }

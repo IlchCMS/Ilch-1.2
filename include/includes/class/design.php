@@ -131,40 +131,38 @@ class design extends tpl {
     }
 
     public function addtobodyend($text) {
-        if (isset($this->html[ 1 ])) {
-            $this->html[ 1 ] = str_replace('</body>', $text . "\n</body>", $this->html[ 1 ]);
-            return true;
-        } else {
-            return false;
-        }
+      if (isset($this->html[ 1 ])) {
+        $this->html[ 1 ] = str_replace('</body>', $text . "\n</body>", $this->html[ 1 ]);
+        return true;
+      } else {
+        return false;
+      }
     }
 
     public function footer($exit = 0) {
-		global $allgAr;
-			echo $this->html[ 1 ];
-        	unset($this->html[ 1 ]);
-
-		if ($allgAr['modrewrite'] == '0') {
-			global $ILCH_BODYEND_ADDITIONS;
-        	$this->addtobodyend($ILCH_BODYEND_ADDITIONS);
-
-
-		} else
-		if ($allgAr['modrewrite'] == '1') {
-			$c = ob_get_clean();
-			$c = preg_replace ('%href=\"\?([^\"]+)\"%Uis',"href=\"index.php?\\1\"",$c);
-			$c = preg_replace ('%href=\"index.php\?([-0-9A-Z_]+)#([a-zA-Z0-9]+)\">%Uis',"href=\"\\1.html#\\2\">",$c);
-			$c = preg_replace ('%href=\"index.php\?([-0-9A-Z_]+)\">%Uis',"href=\"\\1.html\">",$c);
-			$c = preg_replace ('%action=\"\?([^\"]+)\"%Uis',"action=\"index.php?\\1\"",$c);
-			$c = preg_replace ('%URL=\?([^\"]+)\"%Uis',"URL=index.php?\\1\"",$c);
-			echo $c;
-		}
-		if ($exit == 1) {
-		    if (DEBUG) {
-		        debug_out();
-		    }
-			exit();
-		}
+  		global $allgAr;
+  			echo $this->html[ 1 ];
+          	unset($this->html[ 1 ]);
+      if (array_key_exists('modrewrite', $allgAr)) {
+    		if ($allgAr['modrewrite'] == '0') {
+    			global $ILCH_BODYEND_ADDITIONS;
+            	$this->addtobodyend($ILCH_BODYEND_ADDITIONS);
+    		} else if ($allgAr['modrewrite'] == '1') {
+    			$c = ob_get_clean();
+    			$c = preg_replace ('%href=\"\?([^\"]+)\"%Uis',"href=\"index.php?\\1\"",$c);
+    			$c = preg_replace ('%href=\"index.php\?([-0-9A-Z_]+)#([a-zA-Z0-9]+)\">%Uis',"href=\"\\1.html#\\2\">",$c);
+    			$c = preg_replace ('%href=\"index.php\?([-0-9A-Z_]+)\">%Uis',"href=\"\\1.html\">",$c);
+    			$c = preg_replace ('%action=\"\?([^\"]+)\"%Uis',"action=\"index.php?\\1\"",$c);
+    			$c = preg_replace ('%URL=\?([^\"]+)\"%Uis',"URL=index.php?\\1\"",$c);
+    			echo $c;
+    		}
+    	}
+  		if ($exit == 1) {
+  		    if (DEBUG) {
+  		        debug_out();
+  		    }
+  			exit();
+  		}
     }
 
     protected function escape_explode($s) {
@@ -267,8 +265,8 @@ class design extends tpl {
                 break;
             }
         }
-//        //Punkte löschen, die nicht angezeigt werden sollen
-//        //so dass Untermenüpunkte nur vom aktiven Menüpunkt angezeigt werden
+//        //Punkte lÃ¶schen, die nicht angezeigt werden sollen
+//        //so dass UntermenÃ¼punkte nur vom aktiven MenÃ¼punkt angezeigt werden
 //        $todel = array();
 //        //Punkte davor
 //        for($i = $act_pos; $i > -1; $i--){
@@ -332,6 +330,7 @@ class design extends tpl {
                 // menupunkt wird generiert
                 $ebene = $row[ 'ebene' ];
                 $menuTarget = ($subhauptx == 8 ? '_blank' : '_self');
+                $act_pos = null;
                 list($wmpA, $wmpE, $wmpTE, $wmpTEE) = explode('|', $tpl->list_get($hovmenup, array($menuTarget,
                             ($subhauptx == 8 ? '' : 'index.php?') . $row[ 'path' ],
                             $row[ 'name' ], ($row['pos'] ==  $act_pos ? 'active' : 'inactive')

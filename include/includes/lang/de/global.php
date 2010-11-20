@@ -209,7 +209,7 @@ $lang = array_merge($lang, array
 'regsince' => 'Dabei seit',
 'regtime' => 'Anmeldedatum',
 'reject' => 'ablehnen',
-'realydelete' => 'wirklich löschen?',
+'realydelete' => 'wirklich lÃ¶schen?',
 'rejected' => 'abgelehnt',
 'removeaccount' => 'Account l&ouml;schen',
 'remark' => 'Bemerkung',
@@ -288,7 +288,7 @@ $lang = array_merge($lang, array
 'verybad' => 'sehr schlecht',
 
 
-## Forum - Buttons für Textformatierungen
+## Forum - Buttons fÃ¼r Textformatierungen
 
 
 
@@ -298,10 +298,10 @@ $lang = array_merge($lang, array
 'amailhasbeensenttoyouwithmailandpass' => 'Dir wurde eine E-Mail mit dem Passwort und allem weiteren geschickt',
 'avatarisnopicture' => 'Bitte nur Bilder als Avatar hochladen.',
 'avatarcannotupload' => 'Das Bild ist entweder zu hoch zu breit oder zu gro&szlig;.',
-'awaycalnewenquiry' => 'Es ist ein neuer Away-Termin eingetragen worden, bitte prüfen!!!',
-'awaycalchangedenquiry' => 'Ein Away Termin wurde bearbeitet, bitte prüfen',
-'awaycalstatuschanged' => 'Der Status deines Antrags wurde geändert, bitte prüfen!',
-'changedthemail' => "Hallo,\nSie haben gerade Ihre eMail-Adresse geändert. Diese bitte mit dem nachfolgenden Link bestätigen...\n\n",
+'awaycalnewenquiry' => 'Es ist ein neuer Away-Termin eingetragen worden, bitte prÃ¼fen!!!',
+'awaycalchangedenquiry' => 'Ein Away Termin wurde bearbeitet, bitte prÃ¼fen',
+'awaycalstatuschanged' => 'Der Status deines Antrags wurde geÃ¤ndert, bitte prÃ¼fen!',
+'changedthemail' => "Hallo,\nSie haben gerade Ihre eMail-Adresse geÃ¤ndert. Diese bitte mit dem nachfolgenden Link bestÃ¤tigen...\n\n",
 'confirmfailure' => 'Kein Eintrag gefunden. Evtl. ist es schon zu lange her und der Eintrag wurde gel&ouml;scht oder du bist einfach zweimal mit dem selben Link auf diese Seite gekommen.',
 'confirmpassword' => 'Das neue Passwort wurde erfolgreich best&auml;tigt, du kannst dich jetzt damit <a href="index.php?user-login">einloggen</a>.',
 'confirmemail' => 'Die eMail wurde erfolgreich best&auml;tigt...',
@@ -317,7 +317,7 @@ $lang = array_merge($lang, array
 'edityoutpost' => 'deinen Beitrag ver&auml;ndern',
 'emailsuccessfullsend' => 'Die E-Mail wurde erfolgreich versendet.',
 'emailcouldnotsend' => 'Die eMail konnte nicht verschickt werden. Die Angaben werden ganz simpel gep&uuml;eft, stimmt irgendwas nicht wird die eMail nicht verschickt.',
-'fightusrequest' => "\n\ndie Anfrage kannst du im Adminbereich, als Nextwar übernehmen... Vergiss aber nicht, Kontakt mit dem Clan aufzunehmen ;)",
+'fightusrequest' => "\n\ndie Anfrage kannst du im Adminbereich, als Nextwar Ã¼bernehmen... Vergiss aber nicht, Kontakt mit dem Clan aufzunehmen ;)",
 'guestsonline,ofthem' => 'Besucher online, davon',
 'wholevisitor' => 'Besucher gesamt',
 'weeksum' => 'Wochen Summe',
@@ -352,11 +352,11 @@ $lang = array_merge($lang, array
 'postsin' => 'Beitr&auml;ge in',
 'readandok' => 'gelesen und einverstanden',
 'readwholenews' => 'ganzen Artikel lesen',
-'registconfirm' => 'Damit Sie sich endgültig anmelden können müssen Sie noch den folgenden Link bestätigen:',
+'registconfirm' => 'Damit Sie sich endgÃ¼ltig anmelden kÃ¶nnen mÃ¼ssen Sie noch den folgenden Link bestÃ¤tigen:',
 'registconfirmlink' => 'http://%s?user-confirm&check=%s',
 'registredand' => 'registrierter und',
 'registrededand' => 'registrierte und',
-'removeconfirm' => "Hallo,\nWillst du deinen Account wirklich von der Seite entfernen? Dies bitte mit dem nachfolgenden Link bestätigen...\n\n",
+'removeconfirm' => "Hallo,\nWillst du deinen Account wirklich von der Seite entfernen? Dies bitte mit dem nachfolgenden Link bestÃ¤tigen...\n\n",
 'sitemapforboard' => 'Sitemap f&uuml;r Forum',
 'sitemapfordownloads' => 'Sitemap f&uuml;r Downloads',
 'sitemapforlinks' => 'Sitemap f&uuml;r Links',
@@ -379,9 +379,9 @@ $lang = array_merge($lang, array
 'youhavereceivedaemail' => 'Ihnen wurde soeben eine eMail mit dem Link gesendet um das neue Passwort zu best&auml;tigen.',
 'yourareloged' => 'Du bist eingeloggt',
 'yourregistrationwassuccessful' => 'Deine Anmeldung war erfolgreich',
-'topicalertmessage' => "Hallo %s\n\nIm Thema \"%s\" ist gerade ein neuer Beitrag geschrieben worden...\n\nLink zum Thema: http://%s?forum-showposts-%s-topicalert\n\nWenn du keine neuen eMails bei einer Antwort erhalten möchtest kannst du dich in dem Beitrag ganz unten austragen (wenn du eingeloggt bist)",
-'registemail' => "Hallo %s,\n\nWillkommen auf dieser Seite!\n\n%s\n\nIhre Zugangsdaten:\n- - - - - - - -\nName     : %s\nPassword : %s\n- - - - - - - -\n\nDa Ihr Passwort nur verschlüsselt in der Datenbank gespeichert wurde, heben Sie es bitte gut auf.\n\nMit freundlichen Grüssen\nAdministrator",
-'newpasswordmail' => "Hallo %s,\n\num das neue Passwort zu bestätigen einfach auf den folgenden Link klicken\n\n%s\n\nDein neues Passwort: %s\n\nWenn das Passwort nicht gewünscht ist, kann diese eMail einfach ignoriert werden.\n\nAdministrator",
+'topicalertmessage' => "Hallo %s\n\nIm Thema \"%s\" ist gerade ein neuer Beitrag geschrieben worden...\n\nLink zum Thema: http://%s?forum-showposts-%s-topicalert\n\nWenn du keine neuen eMails bei einer Antwort erhalten mÃ¶chtest kannst du dich in dem Beitrag ganz unten austragen (wenn du eingeloggt bist)",
+'registemail' => "Hallo %s,\n\nWillkommen auf dieser Seite!\n\n%s\n\nIhre Zugangsdaten:\n- - - - - - - -\nName     : %s\nPassword : %s\n- - - - - - - -\n\nDa Ihr Passwort nur verschlÃ¼sselt in der Datenbank gespeichert wurde, heben Sie es bitte gut auf.\n\nMit freundlichen GrÃ¼ssen\nAdministrator",
+'newpasswordmail' => "Hallo %s,\n\num das neue Passwort zu bestÃ¤tigen einfach auf den folgenden Link klicken\n\n%s\n\nDein neues Passwort: %s\n\nWenn das Passwort nicht gewÃ¼nscht ist, kann diese eMail einfach ignoriert werden.\n\nAdministrator",
 'nowvoteavailable' => 'keine Umfrage vorhanden',
 'vote' => 'Umfrage',
 'newtopic' => 'neues Thema erstellen',
@@ -405,7 +405,7 @@ $lang = array_merge($lang, array
 'otherinfo'=>'Sonstige Informationen',
 'clantag'=>'Clank&uuml;rzel',
 
-'joinusprivmsg' => "Hallo,\n%s möchte %s beitreten.\n\nFolgende Angaben hat er gemacht:\nSkill: %s\neMail: %s\nWohnort: %s\nAlter: %s\nICQ: %s\nFav.Map: %s\nGrund: %s\n\nEr hat die Regeln akzeptiert: %s\n\nWurde direkt als User registriert: %s\nWenn dort nein steht dann war er zum Zeitpunkt der Anfrage schon User.\n\nIm Adminmenu unter Teams kannst du ihn freischalten, oder die Anfrage löschen. Wenn er als User registriert wurde, muss er die Registrierung jenach Einstellung erst bestätigen.",
+'joinusprivmsg' => "Hallo,\n%s mÃ¶chte %s beitreten.\n\nFolgende Angaben hat er gemacht:\nSkill: %s\neMail: %s\nWohnort: %s\nAlter: %s\nICQ: %s\nFav.Map: %s\nGrund: %s\n\nEr hat die Regeln akzeptiert: %s\n\nWurde direkt als User registriert: %s\nWenn dort nein steht dann war er zum Zeitpunkt der Anfrage schon User.\n\nIm Adminmenu unter Teams kannst du ihn freischalten, oder die Anfrage lÃ¶schen. Wenn er als User registriert wurde, muss er die Registrierung jenach Einstellung erst bestÃ¤tigen.",
 
 'ende' => 'ende',
 

@@ -32,7 +32,7 @@ if ($menu->getA(1) == 'W') {
 // #
 // ##
 // ###
-// #### V o t e    Ü b e r s i c h t
+// #### V o t e    Ãœ b e r s i c h t
 $title = $allgAr[ 'title' ] . ' :: ' . $lang[ 'vote' ];
 $hmenu = $lang[ 'vote' ];
 $design = new design($title, $hmenu);

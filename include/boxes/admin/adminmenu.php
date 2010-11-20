@@ -46,5 +46,3 @@ if (is_coadmin()) {
 if (!empty($kat)) {
     $tpl->out(3);
 }
-
-?>

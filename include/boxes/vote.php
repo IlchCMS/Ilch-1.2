@@ -66,5 +66,3 @@ if (db_num_rows($fraErg) > 0) {
 } else {
     echo $lang[ 'nowvoteavailable' ];
 }
-
-?>

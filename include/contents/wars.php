@@ -96,7 +96,7 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
     if (isset($_POST['tid']) and !empty($_POST['tid'])) {
         $teams = dblistee ($_POST['tid'], "SELECT `id`, `name` FROM `prefix_groups` WHERE `zeigen` = 1 ORDER BY `name`");
         $wheres[] = 'tid = ' . escape($_POST['tid'], 'integer');
-        // wlps einschr‰nken
+        // wlps einschr√§nken
         $qry = db_query('SELECT DISTINCT wlp FROM prefix_wars ' . (count($wheres) ? $sqla . implode(' AND ', $wheres) : ''));
         $dbwlps = array();
         while ($r = db_fetch_assoc($qry)) {

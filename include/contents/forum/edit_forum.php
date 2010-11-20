@@ -102,8 +102,8 @@ if ((isset($_POST[ 'del' ]) OR isset($_POST[ 'shift' ]) OR isset($_POST[ 'status
     db_query("UPDATE `prefix_forums` SET `last_post_id` = " . $npid . ", `posts` = `posts` + " . $pmin . ", `topics` = `topics` + " . $tmin . " WHERE `id` = " . $_POST[ 'nfid' ]);
 
     wd(array(
-            'neue Themen Übersicht' => 'index.php?forum-showtopics-' . $_POST[ 'nfid' ],
-            'alte Themen Übersicht' => 'index.php?forum-showtopics-' . $_POST[ 'afid' ]
+            'neue Themen Ãœbersicht' => 'index.php?forum-showtopics-' . $_POST[ 'nfid' ],
+            'alte Themen Ãœbersicht' => 'index.php?forum-showtopics-' . $_POST[ 'afid' ]
             ), 'Thema erfolgreich verschoben', 3);
 } elseif (isset($_POST[ 'del' ]) OR isset($_POST[ 'shift' ])) {
     echo '<form action="index.php?forum-editforum-' . $fid . '" method="POST">';

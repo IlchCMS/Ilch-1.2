@@ -130,7 +130,7 @@ if ($menu->get(1) == 'showOrig') {
             } else {
                 $name = escape($_POST['name'], 'string');
                 if (db_count_query('SELECT COUNT(*) FROM prefix_user WHERE name = "' . $name . '"')) {
-                    $insertmsg .= 'Der Name ist bereits für einen registrierten User vergeben';
+                    $insertmsg .= 'Der Name ist bereits fÃ¼r einen registrierten User vergeben';
                 }
             }
             if (empty($insertmsg)) {

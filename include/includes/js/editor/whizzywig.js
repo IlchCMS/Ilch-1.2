@@ -1,5 +1,5 @@
 var whizzywig_version = 'Whizzywig v55i'; //IE color palette bug; idTa!=TA?x HTML + hidden; row/col bug; link form bugs;Enter = <P>; fix user but bug; 
-//Copyright © 2005-2007 John Goodman - john.goodman(at)unverse.net  *date 070324
+//Copyright ¬© 2005-2007 John Goodman - john.goodman(at)unverse.net  *date 070324
 //Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 //The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
@@ -331,9 +331,9 @@ function cleanUp(){  //clean up crud inserted by Micro$oft Orifice
  if(!o('fontname'+idTa) || !o('fontsize'+idTa)) h=h.replace(/<\?FONT[^>]*>/gi, "");
  h=h.replace(/<\/?(FONT|SPAN|COL|XML|ST1|SHAPE|V:|O:|F:|F |PATH|LOCK|IMAGEDATA|STROKE|FORMULAS)[^>]*>/gi, "")
  .replace(/\bCLASS=\"?MSO\w*\"?/gi, "")
- .replace(/[ñ]/g,'-') //long ñ
- .replace(/[ëí]/g, "'") //single smartquotes ëí 
- .replace(/[ìî]/g, '"') //double smartquotes ìî
+ .replace(/[‚Äì]/g,'-') //long ‚Äì
+ .replace(/[‚Äò‚Äô]/g, "'") //single smartquotes ‚Äò‚Äô 
+ .replace(/[‚Äú‚Äù]/g, '"') //double smartquotes ‚Äú‚Äù
  .replace(/align="?justify"?/gi, "") //justify sends some browsers mad
  .replace(/<(TABLE|TD|TH|COL)(.*)(WIDTH|HEIGHT)=["'0-9A-Z]*/gi, "<$1$2") //no fixed size tables (%OK) [^A-Za-z>]
  .replace(/<([^>]+)>\s*<\/\1>/gi, ""); //empty tag

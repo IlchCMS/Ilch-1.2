@@ -17,73 +17,73 @@ $strDesign = db_fetch_assoc($DesignSql);
 $ConfigSql = db_query("SELECT * FROM `prefix_bbcode_config` WHERE `fnConfigNr` = '1'");
 $objConfig = db_fetch_assoc($ConfigSql);
 // -------------------------------------------------------------------------------------------------------------
-// > Konfiguration für Zitat- Funktion (Quote)
+// > Konfiguration fÃ¼r Zitat- Funktion (Quote)
 $info[ 'QuoteRandFarbe' ] = $strDesign[ 'fcQuoteRandFarbe' ]; //--> Rand (Border) Farbe.
 $info[ 'QuoteTabelleBreite' ] = $strDesign[ 'fcQuoteTabelleBreite' ]; //--> Tabellenbreite.
-$info[ 'QuoteSchriftfarbe' ] = $strDesign[ 'fcQuoteSchriftfarbe' ]; //--> Schriftfarbe für die Überschrift.
-$info[ 'QuoteHintergrundfarbe' ] = $strDesign[ 'fcQuoteHintergrundfarbe' ]; //--> Hintergrundfarbe für die Überschrift.
-$info[ 'QuoteHintergrundfarbeIT' ] = $strDesign[ 'fcQuoteHintergrundfarbeIT' ]; //--> Hintergrundfabre für den Inhalt.
-$info[ 'QuoteSchriftformatIT' ] = $strDesign[ 'fcQuoteSchriftformatIT' ]; //--> Font-Style für den Inhalt. (Italic = Kursiv)
-$info[ 'QuoteSchriftfarbeIT' ] = $strDesign[ 'fcQuoteSchriftfarbeIT' ]; //--> Schriftfarbe für den Inhalt.
+$info[ 'QuoteSchriftfarbe' ] = $strDesign[ 'fcQuoteSchriftfarbe' ]; //--> Schriftfarbe fÃ¼r die Ãœberschrift.
+$info[ 'QuoteHintergrundfarbe' ] = $strDesign[ 'fcQuoteHintergrundfarbe' ]; //--> Hintergrundfarbe fÃ¼r die Ãœberschrift.
+$info[ 'QuoteHintergrundfarbeIT' ] = $strDesign[ 'fcQuoteHintergrundfarbeIT' ]; //--> Hintergrundfabre fÃ¼r den Inhalt.
+$info[ 'QuoteSchriftformatIT' ] = $strDesign[ 'fcQuoteSchriftformatIT' ]; //--> Font-Style fÃ¼r den Inhalt. (Italic = Kursiv)
+$info[ 'QuoteSchriftfarbeIT' ] = $strDesign[ 'fcQuoteSchriftfarbeIT' ]; //--> Schriftfarbe fÃ¼r den Inhalt.
 // -------------------------------------------------------------------------------------------------------------
-// > Konfiguration für die Code- Blocks (Code, Html CSS und PHP)
+// > Konfiguration fÃ¼r die Code- Blocks (Code, Html CSS und PHP)
 $info[ 'BlockRandFarbe' ] = $strDesign[ 'fcBlockRandFarbe' ]; //--> Rand (Border) Farbe.
 $info[ 'BlockTabelleBreite' ] = $strDesign[ 'fcBlockTabelleBreite' ]; //--> Tabellenbreite.
-$info[ 'BlockSchriftfarbe' ] = $strDesign[ 'fcBlockSchriftfarbe' ]; //--> Schriftfarbe für die Überschrift.
-$info[ 'BlockHintergrundfarbe' ] = $strDesign[ 'fcBlockHintergrundfarbe' ]; //--> Hintergrundfarbe für die Überschrift.
-$info[ 'BlockHintergrundfarbeIT' ] = $strDesign[ 'fcBlockHintergrundfarbeIT' ]; //--> Hintergrundfabre für den Inhalt.
-$info[ 'BlockCodeFarbe' ] = $strDesign[ 'fcBlockSchriftfarbeIT' ]; //--> Code Farbe. (Nur für [Code] !!!)
+$info[ 'BlockSchriftfarbe' ] = $strDesign[ 'fcBlockSchriftfarbe' ]; //--> Schriftfarbe fÃ¼r die Ãœberschrift.
+$info[ 'BlockHintergrundfarbe' ] = $strDesign[ 'fcBlockHintergrundfarbe' ]; //--> Hintergrundfarbe fÃ¼r die Ãœberschrift.
+$info[ 'BlockHintergrundfarbeIT' ] = $strDesign[ 'fcBlockHintergrundfarbeIT' ]; //--> Hintergrundfabre fÃ¼r den Inhalt.
+$info[ 'BlockCodeFarbe' ] = $strDesign[ 'fcBlockSchriftfarbeIT' ]; //--> Code Farbe. (Nur fÃ¼r [Code] !!!)
 // -------------------------------------------------------------------------------------------------------------
-// > Konfiguration für die Klappfunktion
+// > Konfiguration fÃ¼r die Klappfunktion
 $info[ 'KtextRandFarbe' ] = $strDesign[ 'fcKtextRandFarbe' ]; //--> Rand (Border) Farbe.
 $info[ 'KtextTabelleBreite' ] = $strDesign[ 'fcKtextTabelleBreite' ]; //--> Tabellenbreite.
 $info[ 'KtextRandFormat' ] = $strDesign[ 'fcKtextRandFormat' ]; //--> Rand Format (Dotted,Dashed,Solid)
 // -------------------------------------------------------------------------------------------------------------
-// > Konfiguration für die Hervorhebung eines Textes
+// > Konfiguration fÃ¼r die Hervorhebung eines Textes
 $info[ 'EmphHintergrundfarbe' ] = $strDesign[ 'fcEmphHintergrundfarbe' ]; //--> Hintergrundfarbe um den Text.
-$info[ 'EmphSchriftfarbe' ] = $strDesign[ 'fcEmphSchriftfarbe' ]; //--> Schriftfarbe für den Text
+$info[ 'EmphSchriftfarbe' ] = $strDesign[ 'fcEmphSchriftfarbe' ]; //--> Schriftfarbe fÃ¼r den Text
 // -------------------------------------------------------------------------------------------------------------
-// > Konfiguration für die Videos von Youtube
+// > Konfiguration fÃ¼r die Videos von Youtube
 $info[ 'YoutubeBreite' ] = $objConfig[ 'fnYoutubeBreite' ]; //--> Breite der Videos.
-$info[ 'YoutubeHoehe' ] = $objConfig[ 'fnYoutubeHoehe' ]; //--> Höhe der Videos.
+$info[ 'YoutubeHoehe' ] = $objConfig[ 'fnYoutubeHoehe' ]; //--> HÃ¶he der Videos.
 $info[ 'YoutubeHintergrundfarbe' ] = $objConfig[ 'fcYoutubeHintergrundfarbe' ]; //--> Hintergrundfarbe.
 // -------------------------------------------------------------------------------------------------------------
-// > Konfiguration für die Videos von Google
+// > Konfiguration fÃ¼r die Videos von Google
 $info[ 'GoogleBreite' ] = $objConfig[ 'fnGoogleBreite' ]; //--> Breite des Videos.
 $info[ 'GoogleHoehe' ] = $objConfig[ 'fnGoogleHoehe' ]; //--> Hoehe des Videos.
 $info[ 'GoogleHintergrundfarbe' ] = $objConfig[ 'fcGoogleHintergrundfarbe' ]; //--> Hintergurndfarbe.
 // -------------------------------------------------------------------------------------------------------------
-// > Konfiguration für die Videosvon MyVideo
+// > Konfiguration fÃ¼r die Videosvon MyVideo
 $info[ 'MyvideoBreite' ] = $objConfig[ 'fnMyvideoBreite' ]; //--> Breite des Videos.
 $info[ 'MyvideoHoehe' ] = $objConfig[ 'fnMyvideoHoehe' ]; //--> Hoehe des Videos.
 $info[ 'MyvideoHintergrundfarbe' ] = $objConfig[ 'fcMyvideoHintergrundfarbe' ]; //--> Hintergurndfarbe.
 // -------------------------------------------------------------------------------------------------------------
-// > Konfiguration für die Videosvon MyVideo
+// > Konfiguration fÃ¼r die Videosvon MyVideo
 $info[ 'FlashBreite' ] = $objConfig[ 'fnFlashBreite' ]; //--> Breite des Videos.
 $info[ 'FlashHoehe' ] = $objConfig[ 'fnFlashHoehe' ]; //--> Hoehe des Videos.
 $info[ 'FlashHintergrundfarbe' ] = $objConfig[ 'fcFlashHintergrundfarbe' ]; //--> Hintergurndfarbe.
 // -------------------------------------------------------------------------------------------------------------
-// > Konfiguration der Schriftgröße
-$info[ 'SizeMax' ] = $objConfig[ 'fnSizeMax' ]; //--> Maximale Schriftgröße in Pixel.
+// > Konfiguration der SchriftgrÃ¶ÃŸe
+$info[ 'SizeMax' ] = $objConfig[ 'fnSizeMax' ]; //--> Maximale SchriftgrÃ¶ÃŸe in Pixel.
 // -------------------------------------------------------------------------------------------------------------
-// > Konfiguration für Bilder
+// > Konfiguration fÃ¼r Bilder
 $info[ 'ImgMaxBreite' ] = $objConfig[ 'fnImgMaxBreite' ]; //--> Maximale breite des Bildes.
-$info[ 'ImgMaxHoehe' ] = $objConfig[ 'fnImgMaxHoehe' ]; //--> Maximale Höhe des Bildes.
+$info[ 'ImgMaxHoehe' ] = $objConfig[ 'fnImgMaxHoehe' ]; //--> Maximale HÃ¶he des Bildes.
 // -------------------------------------------------------------------------------------------------------------
-// > Konfiguration für Screenshots
+// > Konfiguration fÃ¼r Screenshots
 $info[ 'ScreenMaxBreite' ] = $objConfig[ 'fnScreenMaxBreite' ]; //--> Maximale breite des Bildes.
-$info[ 'ScreenMaxHoehe' ] = $objConfig[ 'fnScreenMaxHoehe' ]; //--> Maximale Höhe des Bildes.
+$info[ 'ScreenMaxHoehe' ] = $objConfig[ 'fnScreenMaxHoehe' ]; //--> Maximale HÃ¶he des Bildes.
 // -------------------------------------------------------------------------------------------------------------
-// > Konfiguration von Textlängen
-$info[ 'UrlMaxLaenge' ] = $objConfig[ 'fnUrlMaxLaenge' ]; //--> Maiximale Länge des Links.
-$info[ 'WortMaxLaenge' ] = $objConfig[ 'fnWortMaxLaenge' ]; //--> Maxiamle Länge eines Wortes (Muss länger sein wie Url/Links)
+// > Konfiguration von TextlÃ¤ngen
+$info[ 'UrlMaxLaenge' ] = $objConfig[ 'fnUrlMaxLaenge' ]; //--> Maiximale LÃ¤nge des Links.
+$info[ 'WortMaxLaenge' ] = $objConfig[ 'fnWortMaxLaenge' ]; //--> Maxiamle LÃ¤nge eines Wortes (Muss lÃ¤nger sein wie Url/Links)
 // -------------------------------------------------------------------------------------------------------------
 // > Konfiguration von Countdown
 $info[ 'CountdownRandFarbe' ] = $strDesign[ 'fcCountdownRandFarbe' ]; //--> Rand (Border) Farbe.
 $info[ 'CountdownTabelleBreite' ] = $strDesign[ 'fcCountdownTabelleBreite' ]; //--> Tabellenbreite.
 $info[ 'CountdownSchriftfarbe' ] = $strDesign[ 'fcCountdownSchriftfarbe' ]; //--> Schriftfarbe.
 $info[ 'CountdownSchriftformat' ] = $strDesign[ 'fcCountdownSchriftformat' ]; //--> Schriftformat.
-$info[ 'CountdownSchriftsize' ] = $strDesign[ 'fnCountdownSchriftsize' ]; //--> Schriftgröße.
+$info[ 'CountdownSchriftsize' ] = $strDesign[ 'fnCountdownSchriftsize' ]; //--> SchriftgrÃ¶ÃŸe.
 
 // -------------------------------------------------------------------------------------------------------------
 // > Smileys umwandeln ja oder nein?
@@ -113,7 +113,7 @@ $permitted[ 'list' ] = $boolButton[ 'fnFormatList' ];
 $permitted[ 'emph' ] = $boolButton[ 'fnFormatEmph' ];
 // > Textfarbe?
 $permitted[ 'color' ] = $boolButton[ 'fnFormatColor' ];
-// > Schriftgröße?
+// > SchriftgrÃ¶ÃŸe?
 $permitted[ 'size' ] = $boolButton[ 'fnFormatSize' ];
 // > Klapptext?
 $permitted[ 'ktext' ] = $boolButton[ 'fnFormatKtext' ];

@@ -11,10 +11,10 @@ if (window['loadFirebugConsole']) {
 	}
 }
 
-//ic Objekt, f¸r ilch eigene Funktionen, um Konflikte zu vermeiden
+//ic Objekt, f√ºr ilch eigene Funktionen, um Konflikte zu vermeiden
 var ic = {}
 
-//Ein Konfiguration von Dialog von jqueryui f¸r die Nutzung mit Iframes
+//Ein Konfiguration von Dialog von jqueryui f√ºr die Nutzung mit Iframes
 ic.modalDialogContainer = [];
 ic.modalDialog = function (options) {
     if (typeof options == 'string') {
@@ -23,7 +23,7 @@ ic.modalDialog = function (options) {
     var settings = {
         width: 400,
         height: 300,
-        realiframe: true, //true -> nutzt <iframe> ; false -> l‰d inhalt in ein <div>
+        realiframe: true, //true -> nutzt <iframe> ; false -> l√§d inhalt in ein <div>
         resizable: true,
         title: 'Modal Dialog',
         url: ''

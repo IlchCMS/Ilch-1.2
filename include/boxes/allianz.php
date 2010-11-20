@@ -48,5 +48,3 @@ if (db_num_rows($allyErg) > 0) {
     }
     $tpl->out(1);
 }
-
-?>

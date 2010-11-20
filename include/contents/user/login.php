@@ -28,5 +28,3 @@ if (loggedin()) {
     $tpl->set_out('WDLINK', 'index.php?' . $allgAr[ 'smodul' ], 1);
     $design->footer();
 }
-
-?>

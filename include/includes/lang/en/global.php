@@ -287,7 +287,7 @@ $lang = array_merge($lang, array
 'verybad' => 'very bad',
 
 
-## Forum - Buttons für Textformatierungen
+## Forum - Buttons fÃ¼r Textformatierungen
 
 
 

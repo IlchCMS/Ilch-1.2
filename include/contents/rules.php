@@ -20,5 +20,3 @@ while ($row = db_fetch_row($erg)) {
 }
 
 $design->footer();
-
-?>

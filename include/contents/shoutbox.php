@@ -31,9 +31,9 @@ if (is_siteadmin()) {
 
 echo '<script type="text/javascript">
   function del() {
-    if (anz = prompt("Wie viele Einträge sollen erhalten bleiben?\n(Es werden die zuletzt geschriebenen erhalten)", "0")) {
+    if (anz = prompt("Wie viele EintrÃ¤ge sollen erhalten bleiben?\n(Es werden die zuletzt geschriebenen erhalten)", "0")) {
       if (anz >= 0) { window.location.href = "index.php?shoutbox-delall-"+anz; }
-      else alert("Du musst eine Zahl größer gleich 0 eingeben");
+      else alert("Du musst eine Zahl grÃ¶ÃŸer gleich 0 eingeben");
     }
   }
 </script>';

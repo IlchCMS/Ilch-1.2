@@ -8,7 +8,7 @@ defined('main') or die('no direct access');
 
 /**
  *
- * @todo bei UPDATE/INSERT/DELETE true oder false zur�ckgeben um einen fehler im script sachgem�� dem user pr�sentieren zu k�nnen
+ * @todo bei UPDATE/INSERT/DELETE true oder false zurückgeben um einen fehler im script sachgemäß dem user präsentieren zu können
  */
 
 $count_query_xyzXYZ = 0;
@@ -44,33 +44,76 @@ if (defined('DEBUG') and DEBUG) {
         return '';
     }
 
+    /*
+      TODO funktion flexibel machen und nicht nur in die decode falle laufen lassen, für den umstieg auf eine utf8 datenbank oder um schreiben in utf8 zu erzwingen
+    */
+    function is_utf8($string) {
+        
+        // From http://w3.org/International/questions/qa-forms-utf-8.html
+        $var = preg_match('%^(?:
+              [\x09\x0A\x0D\x20-\x7E]            # ASCII
+            | [\xC2-\xDF][\x80-\xBF]             # non-overlong 2-byte
+            |  \xE0[\xA0-\xBF][\x80-\xBF]        # excluding overlongs
+            | [\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}  # straight 3-byte
+            |  \xED[\x80-\x9F][\x80-\xBF]        # excluding surrogates
+            |  \xF0[\x90-\xBF][\x80-\xBF]{2}     # planes 1-3
+            | [\xF1-\xF3][\x80-\xBF]{3}          # planes 4-15
+            |  \xF4[\x80-\x8F][\x80-\xBF]{2}     # plane 16
+        )*$%xs', $string);
+            if ($var) {
+                #$string = preg_replace("/\x93{1}|\x84{1}/i", "\x22", $string);
+                #$string = preg_replace("/\x96{1}/i", "-", $string);
+                #$string = preg_replace("/\x82|\x94|\x91|\x94/i", "'", $string);
+                #$string = preg_replace("/\x9F/i", "Ã", $string);
+                #$string = preg_replace("/\x96/i", "¶", $string);
+                #$string = preg_replace("/\x96/i", "¶", $string);
+                #return iconv("ISO-8859-1", "UTF-8",  $string);
+                return utf8_decode($string);
+            }
+            return $string;
+    } 
+
     function db_query ($q) {
         global $ILCH_DEBUG_DB_COUNT_QUERIES, $ILCH_DEBUG_DB_QUERIES;
         $ILCH_DEBUG_DB_COUNT_QUERIES++;
 
+        // Hilfsmodus zum einspielen von utf8 Installationsdatensätzen in die veraltete datenbank *yawn*
+        if (defined('INSTALL_COMPLIANCE_MODE')) {
+          $q = is_utf8($q);
+        }
+        
         if (preg_match ("/^UPDATE `?prefix_\S+`?\s+SET/is", $q)) {
             $q = preg_replace("/^UPDATE `?prefix_(\S+?)`?([\s\.,]|$)/i","UPDATE `".DBPREF."\\1`\\2", $q);
         } elseif (preg_match ("/^INSERT INTO `?prefix_\S+`?\s+[a-z0-9\s,\)\(]*?VALUES/is", $q)) {
             $q = preg_replace("/^INSERT INTO `?prefix_(\S+?)`?([\s\.,]|$)/i", "INSERT INTO `".DBPREF."\\1`\\2", $q);
         } else {
             $q = preg_replace("/prefix_(\S+?)([\s\.,]|$)/", DBPREF."\\1\\2", $q);
+            $q = is_utf8($q);
         }
-
+        
+        if (!function_exists('debug_bt')) {
+          function debug_bt(){
+            return debug_backtrace();
+          }
+        }
+        
         $tmp = array();
         $vor = microtime(true);
         $qry = @mysql_query($q, CONN);
         $nach = microtime(true);
+        $res = is_resource($qry);
+        $tmp['is_valid_result_resource'] = $res;
         $tmp['duration'] = $nach - $vor;
         $tmp['time'] = $nach - SCRIPT_START_TIME;
         $tmp['query'] = $q;
-        $tmp['affected rows'] = mysql_affected_rows(CONN);
-        $tmp['result index'] = (int)$qry;
+        $tmp['affected_rows'] = mysql_affected_rows(CONN);
+        $tmp['result_index'] = (int)$qry;
         $tmp['call'] = debug_bt();
         $error = db_check_error($qry);
         if (!empty($error)) {
             $tmp['error'] = $error;
         }
-
+        
         $ILCH_DEBUG_DB_QUERIES[] = $tmp;
         return ($qry);
     }
@@ -146,7 +189,7 @@ function db_make_sites($page, $where, $limit, $link, $table, $anzahl = null) {
     }
     if (is_null($anzahl)) {
         $resultID = db_query("SELECT COUNT(*) FROM `prefix_" . $table . "` " . $where);
-        $total = db_result($resultID, 0);
+        $total = (is_resource($resultID)) ? db_result($resultID, 0) : 0;
     } else {
         $total = $anzahl;
     }

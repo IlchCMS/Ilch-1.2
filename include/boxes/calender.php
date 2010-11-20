@@ -29,5 +29,3 @@ while ($row = db_fetch_assoc($result)) {
 }
 
 echo getCalendar($m, $j, '?kalender-v1-m{mon}-y{jahr}-d{tag}', '?kalender-v0-m{mon}-y{jahr}', $data, 1);
-
-?>

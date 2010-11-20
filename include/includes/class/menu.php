@@ -146,7 +146,7 @@ class menu {
             if (loggedin()) {
                 if (is_coadmin()) {
                     echo 'Diese Seite ist nicht in der Navigation verlinkt und die Option
-<strong>Zugriff auf nicht im Menü verlinkte Module für alle?<strong> steht auf nein, deswegen kommt diese Meldung.<br />
+<strong>Zugriff auf nicht im MenÃ¼ verlinkte Module fÃ¼r alle?<strong> steht auf nein, deswegen kommt diese Meldung.<br />
 Also entweder die Seite ' . $this->get(0) . ' in der Navigation verlinken, oder die Option umstellen, ersteres wird empfohlen.';
                 } else {
                     echo 'Du hast leider nicht die n&ouml;tigen Rechte, um diese Seite zu betrachten.';
@@ -188,7 +188,7 @@ Also entweder die Seite ' . $this->get(0) . ' in der Navigation verlinken, oder 
         }
         return false;
     }
-    // Prüft ob ein Eintrag vorhanden ist
+    // PrÃ¼ft ob ein Eintrag vorhanden ist
     public function exists($x) {
         return in_array($x, $this->menu_ar);
     }

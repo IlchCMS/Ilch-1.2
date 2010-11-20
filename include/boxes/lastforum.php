@@ -30,5 +30,3 @@ while ($row = db_fetch_assoc($resultID)) {
     echo '<tr><td v><b> &raquo; </b></td><td><a href="?forum-showposts-' . $row[ 'id' ] . '-p' . $row[ 'page' ] . '#' . $row[ 'pid' ] . '" title="' . $row[ 'date' ] . '">' . ((strlen($row[ 'name' ]) < 18) ? $row[ 'name' ] : substr($row[ 'name' ], 0, 15) . '...') . '<br /><span class="smalfont"> von ' . $row[ 'last' ] . '</span></a></td></tr>';
 }
 echo '</table>';
-
-?>
