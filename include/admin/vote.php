@@ -9,10 +9,10 @@ defined('admin') or die('only admin access');
 
 $design = new design('Ilch Admin-Control-Panel :: Umfragen', '', 2);
 $design->header();
-
-$_GET[ 'del' ] = escape($_GET[ 'del' ], 'integer');
-$_GET[ 'ak' ] = escape($_GET[ 'ak' ], 'integer');
-$_GET[ 'id' ] = escape($_GET[ 'id' ], 'integer');
+ (array_key_exists('mid',$_REQUEST)) ? escape($_REQUEST[ 'mid' ], 'integer'):'';
+$_GET[ 'del' ] = (array_key_exists('del',$_GET)) ? escape($_GET[ 'del' ], 'integer'):'';
+$_GET[ 'ak' ] = (array_key_exists('ak',$_GET)) ? escape($_GET[ 'ak' ], 'integer'):'';
+$_GET[ 'id' ] = (array_key_exists('id',$_GET)) ? escape($_GET[ 'id' ], 'integer'):'';
 
 function showVote($id) {
     $maxRow = db_fetch_object(db_query('SELECT MAX(`res`) as `res` FROM `prefix_poll_res` WHERE `poll_id` = "' . $id . '"'));
@@ -145,7 +145,7 @@ echo '<tr class="Chead"><td colspan="5"><b>Vote verwalten</b></td></tr>';
     <!--
 
 			function delcheck ( DELID ) {
-			  var frage = confirm ( "Willst du diesen Eintrag wirklich löschen?" );
+			  var frage = confirm ( "Willst du diesen Eintrag wirklich lÃ¶schen?" );
 				if ( frage == true ) {
 				  document.location.href="?vote-del&del="+DELID;
 				}
