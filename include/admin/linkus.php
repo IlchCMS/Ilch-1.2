@@ -13,6 +13,8 @@ $design->header();
 $menu_1 = escape($menu->get(1), 'string');
 $menu_2 = escape($menu->get(2), 'integer');
 $updir = 'include/images/linkus/';
+$topbanner = '';
+$bannerlist = '';
 // dateiupload
 if (isset($_POST['setnewbanner'])) {
     // Escapes

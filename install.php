@@ -678,8 +678,8 @@ if (DBPREF.'allg' == @db_result(@db_query("SHOW TABLES LIKE 'prefix_allg'"),0)) 
           Die Installation wurde vermutlich schon ausgef&uuml;hrt.
           <br />Auf jeden Fall ist die allgemeine Tabelle schon vorhanden...
           <br />Bitte ersteinmal den Status der <a href="index.php">Seite</a> checken.
-          <br />- Wenn es die Version 1.0.5 ist, dann bitte das update ausf&uuml;hren.
-          <br />- Ansonsten wurde die Version 1.1 offenbar schon installiert.
+          <br />- Wenn es die Version 1.1 ist, dann bitte das Update ausf&uuml;hren.
+          <br />- Ansonsten wurde die Version 1.2 offenbar schon installiert.
           <br /><br />Bei Fragen bitte auf <a href="http://www.ilch.de/">ilch.de</a> nachfragen.
         </td>
       </tr>
