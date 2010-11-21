@@ -12,9 +12,9 @@ $tpl = new tpl('linkus', 1);
 $design->header();
 $menu_1 = escape($menu->get(1), 'string');
 $menu_2 = escape($menu->get(2), 'integer');
-$updir = 'include/images/linkus/';
-$topbanner = '';
 $bannerlist = '';
+$topbanner = '';
+$updir = 'include/images/linkus/';
 // dateiupload
 if (isset($_POST['setnewbanner'])) {
     // Escapes
@@ -186,5 +186,3 @@ if (isset($_POST['setnewbanner'])) {
     $tpl->set('topbannerlist', $topbanner);
     $tpl->out(0);
     $design->footer();
-
-    ?>
