@@ -11,7 +11,7 @@ $title = $allgAr[ 'title' ] . ' :: Kalender';
 $hmenu = 'Kalender';
 $design = new design($title, $hmenu);
 $design->header();
-
+$tooltips = '';
 $tpl = new tpl('kalender.htm');
 // -----------------------------------------------------------|
 // Daten
