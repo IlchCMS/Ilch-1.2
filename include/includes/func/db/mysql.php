@@ -44,9 +44,12 @@ if (defined('DEBUG') and DEBUG) {
         return '';
     }
 
-    /*
-      TODO funktion flexibel machen und nicht nur in die decode falle laufen lassen, für den umstieg auf eine utf8 datenbank oder um schreiben in utf8 zu erzwingen
-    */
+    /**
+     * schlägt an falls der übergebene string utf8 kodierte zeichen enthält
+     *
+     * @return bool
+     * @author annemarie
+     **/
     function is_utf8($string) {
         
         // From http://w3.org/International/questions/qa-forms-utf-8.html
@@ -68,9 +71,10 @@ if (defined('DEBUG') and DEBUG) {
                 #$string = preg_replace("/\x96/i", "¶", $string);
                 #$string = preg_replace("/\x96/i", "¶", $string);
                 #return iconv("ISO-8859-1", "UTF-8",  $string);
-                return utf8_decode($string);
+                #return utf8_decode($string);
+                return true;
             }
-            return $string;
+            return false;
     } 
 
     function db_query ($q) {
@@ -79,7 +83,9 @@ if (defined('DEBUG') and DEBUG) {
 
         // Hilfsmodus zum einspielen von utf8 Installationsdatensätzen in die veraltete datenbank *yawn*
         if (defined('INSTALL_COMPLIANCE_MODE')) {
-          $q = is_utf8($q);
+            if (is_utf8($q)) {
+              $q = utf8_decode($q);
+            }
         }
         
         if (preg_match ("/^UPDATE `?prefix_\S+`?\s+SET/is", $q)) {
@@ -88,7 +94,9 @@ if (defined('DEBUG') and DEBUG) {
             $q = preg_replace("/^INSERT INTO `?prefix_(\S+?)`?([\s\.,]|$)/i", "INSERT INTO `".DBPREF."\\1`\\2", $q);
         } else {
             $q = preg_replace("/prefix_(\S+?)([\s\.,]|$)/", DBPREF."\\1\\2", $q);
-            $q = is_utf8($q);
+            if (is_utf8($q)) {
+              $q = utf8_decode($q);
+            }
         }
         
         if (!function_exists('debug_bt')) {
