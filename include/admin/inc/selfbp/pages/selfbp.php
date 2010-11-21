@@ -37,7 +37,7 @@ if (isset($_POST[ 'bbwy' ]) AND isset($_POST[ 'filename' ]) AND isset($_POST[ 'a
 
     if ($_POST[ 'toggle' ] == 0) {
         $design->header();
-        wd('admin.php?selfbp=0&akl=' . $a . $filename, 'Ihre Änderungen wurden gespeichert...', 3);
+        wd('admin.php?selfbp=0&akl=' . $a . $filename, 'Ihre &Auml;nderungen wurden gespeichert...', 3);
         $design->footer(1);
     }
 }

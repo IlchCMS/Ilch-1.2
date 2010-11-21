@@ -10,7 +10,7 @@ function get_properties($t) {
 
     $properties = array();
     foreach ($out as $x) {
-        $properties[ $x[ name ] ] = htmlspecialchars($x[ value ]);
+        $properties[ $x[ 'name' ] ] = htmlspecialchars($x[ 'value' ]);
     }
     unset($out);
     return $properties;
