@@ -34,6 +34,8 @@ function forum_admin_selectcats($id, $stufe, &$output, $sel = 0) {
 }
 
 $show = true;
+$r = null;
+$cid = null;
 $um = $menu->get(1);
 
 if ($um == 'choosemods') {
@@ -353,17 +355,21 @@ if ($show) {
     $tpl->out(3);
 
     forum_admin_showcats(0, '');
-    $topcid = (is_numeric($r->topcid) ? $r->topcid : 0);
+    if (is_object($r)) {
+      $topcid = (is_numeric($r->topcid) ? $r->topcid : 0);
+    }elseif(is_numeric($r)) {
+      $topcid = $r;
+    }else{
+      $topcid = 0;
+    }
     $Cout = array();
     $Cout[ 'cid' ] = $cid;
     $Cout[ 'ak' ] = ($um == 'changeCategorie' ? 'change' : 'new');
     $Cout[ 'sub' ] = ($um == 'changeCategorie' ? '&auml;ndern' : 'erstellen');
-    $Cout[ 'name' ] = ($um == 'changeCategorie' ? $r->name : '');
+    $Cout[ 'name' ] = is_object($r) ? ($um == 'changeCategorie' ? $r->name : '') : '';
     forum_admin_selectcats('0', '', $Cout[ 'cat' ], $topcid);
     $Cout[ 'cat' ] = '<option value="0">Keine</option>' . $Cout[ 'cat' ];
     $tpl->set_ar_out($Cout, 4);
 }
 // -----------------------------------------------------------|
 $design->footer();
-
-?>
