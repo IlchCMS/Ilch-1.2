@@ -160,19 +160,21 @@ function getsmilies($zeilen = 3) {
     $b = '<script language="JavaScript" type="text/javascript">function moreSmilies () { var x = window.open("about:blank", "moreSmilies", "width=250,height=200,status=no,scrollbars=yes,resizable=yes"); ';
     $a = '';
     $erg = db_query('SELECT `emo`, `ent`, `url` FROM `prefix_smilies` ORDER BY `pos` ASC');
-    while ($row = db_fetch_object($erg)) {
-        $b .= 'x.document.write ("<a href=\"javascript:opener.put(\'' . addslashes(addslashes($row->ent)) . '\')\">");';
-        $b .= 'x.document.write ("<img style=\"border: 0px; padding: 5px;\" src=\"include/images/smiles/' . $row->url . '\" title=\"' . $row->emo . '\"></a>");';
-
-        if ($i < 12) {
-            // float einbauen
-            if ($i % $zeilen == 0 AND $i != 0) {
-                $a .= '<br /><br />';
-            }
-            $a .= '<a href="javascript:put(\'' . addslashes($row->ent) . '\')">';
-            $a .= '<img style="margin: 2px;" src="include/images/smiles/' . $row->url . '" border="0" title="' . $row->emo . '"></a>';
-        }
-        $i++;
+    if(@mysql_num_rows($erg)){
+      while ($row = db_fetch_object($erg)) {
+          $b .= 'x.document.write ("<a href=\"javascript:opener.put(\'' . addslashes(addslashes($row->ent)) . '\')\">");';
+          $b .= 'x.document.write ("<img style=\"border: 0px; padding: 5px;\" src=\"include/images/smiles/' . $row->url . '\" title=\"' . $row->emo . '\"></a>");';
+  
+          if ($i < 12) {
+              // float einbauen
+              if ($i % $zeilen == 0 AND $i != 0) {
+                  $a .= '<br /><br />';
+              }
+              $a .= '<a href="javascript:put(\'' . addslashes($row->ent) . '\')">';
+              $a .= '<img style="margin: 2px;" src="include/images/smiles/' . $row->url . '" border="0" title="' . $row->emo . '"></a>';
+          }
+          $i++;
+      }
     }
     $b .= ' x.document.write("<br /><br /><center><a href=\"javascript:window.close();\">' . $lang[ 'close' ] . '</a></center>"); x.document.close(); }</script>';
     if ($i > 12) {
