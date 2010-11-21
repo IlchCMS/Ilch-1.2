@@ -9,12 +9,13 @@ defined('admin') or die('only admin access');
 
 $um = $menu->get(1);
 
-$_REQUEST[ 'mid' ] = escape($_REQUEST[ 'mid' ], 'integer');
-$_REQUEST[ 'wid' ] = escape($_REQUEST[ 'wid' ], 'integer');
-$_POST[ 'add_uid' ] = escape($_POST[ 'add_uid' ], 'integer');
-$_GET[ 'delete_uid' ] = escape($_GET[ 'delete_uid' ], 'integer');
-$_GET[ 'delete' ] = escape($_GET[ 'delete' ], 'integer');
-$_GET[ 'pkey' ] = escape($_GET[ 'pkey' ], 'integer');
+
+$_REQUEST[ 'mid' ] = (array_key_exists('mid',$_REQUEST)) ? escape($_REQUEST[ 'mid' ], 'integer'):'';
+$_REQUEST[ 'wid' ] = (array_key_exists('wid',$_REQUEST)) ? escape($_REQUEST[ 'wid' ], 'integer'):'';
+$_POST[ 'add_uid' ] = (array_key_exists('add_uid',$_POST)) ? escape($_POST[ 'add_uid' ], 'integer'):'';
+$_GET[ 'delete_uid' ] = (array_key_exists('delete_uid',$_GET)) ? escape($_GET[ 'delete_uid' ], 'integer'):'';
+$_GET[ 'delete' ] = (array_key_exists('delete',$_GET)) ? escape($_GET[ 'delete' ], 'integer'):'';
+$_GET[ 'pkey' ] = (array_key_exists('pkey',$_GET)) ? escape($_GET[ 'pkey' ], 'integer'):'';
 // get Flag list
 // 1 akt flag
 function get_wlp_array() {
