@@ -26,7 +26,7 @@ switch ($menu_1) {
             $banner = db_result(db_query("SELECT datei FROM `prefix_linkus` WHERE id = " . $menu_2 . ""));
             // prüfen ob banner lesbar und existent
             if (is_readable($dir . $banner)) {
-                if ($menu_3 == 'true') {
+                if ($menu_3 == 'true' or $menu_3 == 1) {
                     // views-wert +1
                     db_query("UPDATE `prefix_linkus` SET views = views + 1 WHERE id = " . $menu_2 . "");
                 }
@@ -71,11 +71,24 @@ switch ($menu_1) {
         $tpl->out(0);
 
         if (is_readable($dir)) {
+
             // alle Banner ausgeben die in der DB stehen
-            $qry = db_query("SELECT id,name FROM `prefix_linkus` ORDER BY breit ASC");
-            while ($row = db_fetch_assoc($qry)) {
+            $qry = db_query("SELECT id,name,datei FROM `prefix_linkus` ORDER BY breit ASC");
+			
+			// maximale Bildbreite vom BB-Code auslesen
+			$maxwidth = db_result(db_query("SELECT fnImgMaxBreite FROM `prefix_bbcode_config` WHERE fnConfigNr = 1 LIMIT 1"));
+			
+			while ($row = db_fetch_assoc($qry)) {
+				
+				$imgsize = getimagesize($dir . $row['datei']);
+				if ( $imgsize[0] > $maxwidth) {
+					$row['maxbildbreite'] = $maxwidth;
+				} else {
+					$row['maxbildbreite'] = '';
+				}
+				
                 $row['host'] = $host;
-                $row['bb-link'] = '[url=' . $host . 'index.php=linkus-click-' . $row['id'] . '-true]
+                $row['bb-link'] = '[url=' . $host . 'index.php?linkus-click-' . $row['id'] . '-true]
 									[img]' . $host . 'index.php?linkus-view-' . $row['id'] . '-true[/img]
 								[/url]';
                 $row['html-link'] = htmlentities('<a href="' . $host . 'index.php?linkus-click-' . $row['id'] . '-true">
