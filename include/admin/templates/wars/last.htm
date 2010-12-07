@@ -1,7 +1,7 @@
 <table cellpadding="0" cellspacing="0" border="0" width="100%">
 <tr>
 	<td width="60%" valign="top">
-		<form action="admin.php?wars-last" method="POST" name="form">
+		<form action="admin.php?wars-last" method="POST" name="form" id="new_nextwar">
 		<input type="hidden" name="pkey" value="{pkey}" />
 		<input type="hidden" name="status" value="3" />
 		<table class="border" cellpadding="3" cellspacing="1" border="0">
@@ -32,7 +32,7 @@
 			<td colspan="2"><b>Matchinfo</b></td>
 		</tr><tr>
 			<td class="Cmite">Datum | Zeit</td>
-			<td class="Cnorm"><table cellpadding="0" cellspacing="0" border="0"><tr><td><input type="text" name="day" value="{day}" size="2"><b>.</b><input type="text" name="mon" value="{mon}" size="2"><b>.</b><input type="text" name="jahr" value="{jahr}" size="4">&nbsp;<b>-</b>&nbsp;<input type="text" name="stu" value="{stu}" size="2"><b>:</b><input type="text" name="min" value="{min}" size="2"><b>:</b><input type="text" name="sek" value="{sek}" size="2">&nbsp;&nbsp;</td><td><input type="checkbox" id="kalender"{kalck} value="yes" name="kalender" /></td><td><label for="kalender" style="cursor: pointer"><span class="smalfont">Kalender eintragen / &auml;ndern.</span></label></td></tr></table></td>
+			<td class="Cnorm"><input type="text" id="datepicker" name="datum" value="{jahr}-{day}-{mon}" class=".ui-helper-hidden"/><table cellpadding="0" cellspacing="0" border="0"><tr><b>-</b>&nbsp;<input type="text" name="stu" value="{stu}" size="2"><b>:</b><input type="text" name="min" value="{min}" size="2"><b>:</b><input type="text" name="sek" value="{sek}" size="2">&nbsp;&nbsp;</td><td><input type="checkbox"{kalck} id="kalender" value="yes" name="kalender" /></td><td><label for="kalender" style="cursor: pointer"><span class="smalfont">Kalender eintragen / &auml;ndern.</span></label></td></tr></table></td>
 		</tr><tr>
 			<td class="Cmite">Treffpunkt</td>
 			<td class="Cnorm"><input type="Text" name="wo" value="{wo}" size="46" ></td>
@@ -41,13 +41,13 @@
 			<td class="Cnorm"><select name="tid">{tid}</select></td>
 		</tr><tr>
 			<td class="Cmite">XonX</td>
-			<td class="Cnorm"><select onchange="sichtbarA()" name="mod">{mod}<option value="neu">Neu:</option></select>&nbsp;<input type="text" name="newmod" /></td>
+			<td class="Cnorm"><select id="mod" name="mod">{mod}<option value="neu">Neu:</option></select>&nbsp;<input id="newmod" type="text" name="newmod" /></td>
 		</tr><tr>
 			<td class="Cmite">Game</td>
-			<td class="Cnorm"><select onchange="sichtbarB()" name="game">{game}<option value="neu">Neu:</option></select>&nbsp;<input type="text" name="newgame" /></td>
+			<td class="Cnorm"><select id="game" name="game">{game}<option value="neu">Neu:</option></select>&nbsp;<input id="newgame" type="text" name="newgame" /></td>
 		</tr><tr>
 			<td class="Cmite">Matchtyp</td>
-			<td class="Cnorm"><select onchange="sichtbarC()" name="mtyp">{mtyp}<option value="neu">Neu:</option></select>&nbsp;<input type="text" name="newmtyp" /></td>
+			<td class="Cnorm"><select id="mtyp" name="mtyp">{mtyp}<option value="neu">Neu:</option></select>&nbsp;<input id="newmtyp" type="text" name="newmtyp" /></td>
 		</tr><tr>
 			<td class="Cmite">Member</td>
 			<td class="Cnorm"><a href="javascript:manageMember()">Member die gespielt haben verwalten.</a></td>
@@ -166,27 +166,7 @@
     summe = summe + ( document.getElementsByName('owp[5]')[0].value * 1);
     document.form.sumowp.value = summe;
   }
-	function sichtbarA(){
-	  if(document.form.mod.value=="neu"){
-		  document.form.newmod.style.visibility="visible";
-		} else {
-		  document.form.newmod.style.visibility="hidden";
-		}
-	}
-  function sichtbarB() {
-	  if(document.form.game.value=="neu"){
-		  document.form.newgame.style.visibility="visible";
-		} else {
-		  document.form.newgame.style.visibility="hidden";
-		}
-  }
-	function sichtbarC() {
-	  if(document.form.mtyp.value=="neu"){
-		  document.form.newmtyp.style.visibility="visible";
-		} else {
-		  document.form.newmtyp.style.visibility="hidden";
-		}
-  }
+
   function visitpage () {
     var page = document.form.page.value;
     var n = 'page';
@@ -194,9 +174,15 @@
     var f = window.open (page, n, o);
     f.focus();
   }
-	sichtbarB();
-	sichtbarC();
-	sichtbarA();
+  // toggle new inputfield
+  function checkForNewOption(arg){
+    if ($(arg).val() == 'neu') {
+      $('#new' + arg.id).css('display', 'inline');
+    }else{
+      $('#new' + arg.id).css('display', 'none');
+    }
+  }
+
 	
 	var flagpath = 'include/images/flags/';
   $(document).ready(function() {
@@ -206,6 +192,14 @@
     .change(function(){
       $('#opponent_nation_flag').attr('src',flagpath + $(this).val());
     });
+    $("#datepicker").datepicker({ dateFormat: 'yy-dd-mm' });
+    
+    var selects = new Array($('#new_nextwar #mtyp'), $('#new_nextwar #game'), $('#new_nextwar #mod'));
+    $(selects).each(function(){
+      this.change(function(){
+        checkForNewOption(this);
+      });
+    })
   });
 //-->
 </script>

@@ -28,9 +28,10 @@ function get_wlp_array() {
 
 function get_datime() {
     $own = true;
-    $_POST[ 'day' ] = escape($_POST[ 'day' ], 'integer');
-    $_POST[ 'mon' ] = escape($_POST[ 'mon' ], 'integer');
-    $_POST[ 'jahr' ] = escape($_POST[ 'jahr' ], 'integer');
+    $_POST['datum'] = explode('-',$_POST['datum']);
+    $_POST[ 'day' ] = escape($_POST['datum'][1], 'integer');
+    $_POST[ 'mon' ] = escape($_POST['datum'][2], 'integer');
+    $_POST[ 'jahr' ] = escape($_POST['datum'][0], 'integer');
     $_POST[ 'stu' ] = escape($_POST[ 'stu' ], 'integer');
     $_POST[ 'min' ] = escape($_POST[ 'min' ], 'integer');
     $_POST[ 'sek' ] = escape($_POST[ 'sek' ], 'integer');
@@ -51,7 +52,7 @@ switch ($um) {
         $design = new design('Ilch Admin-Control-Panel :: Wars', '', 2);
         $design->header();
 
-        ?>
+    ?>
     Folgende Auswahlm&ouml;glichkeiten:
     <ul>
     <li><a href="admin.php?wars-last">Lastwars</a></li>
@@ -207,7 +208,8 @@ switch ($um) {
             $_POST[ 'email' ] = escape($_POST[ 'email' ], 'string');
             $_POST[ 'icq' ] = escape($_POST[ 'icq' ], 'string');
             $_POST[ 'wo' ] = escape($_POST[ 'wo' ], 'string');
-
+            
+            // Neuen Datensatz anlegen
             if (empty($_POST[ 'pkey' ])) {
                 db_query("INSERT INTO `prefix_wars` (`datime`,`status`,wlp,`owp`,`opp`,`gegner`,`tag`,`page`,`mail`,`icq`,`wo`,`tid`,`mod`,`game`,`mtyp`,`land`,`txt`) VALUES ('" . get_datime() . "',3,'" . $_POST[ 'wlp' ] . "','" . $_POST[ 'sumowp' ] . "','" . $_POST[ 'sumopp' ] . "','" . $_POST[ 'gegner' ] . "','" . $_POST[ 'tag' ] . "','" . $_POST[ 'page' ] . "','" . $_POST[ 'email' ] . "','" . $_POST[ 'icq' ] . "','" . $_POST[ 'wo' ] . "','" . $_POST[ 'tid' ] . "','" . $_POST[ 'mod' ] . "','" . $_POST[ 'game' ] . "','" . $_POST[ 'mtyp' ] . "','" . $_POST[ 'land' ] . "','" . $_POST[ 'txt' ] . "')");
                 $wid = db_last_id();
@@ -223,7 +225,7 @@ switch ($um) {
                     db_query("INSERT INTO `prefix_kalender` (`time`, `title`, `text`, `recht`) VALUES (" . $timestamp . ",'Lastwar gegen " . $_POST[ 'gegner' ] . "', '" . $_POST[ 'mtyp' ] . " " . $_POST[ 'mod' ] . " in " . $_POST[ 'game' ] . " gegen [url=" . $_POST[ 'page' ] . "]" . $_POST[ 'gegner' ] . "[/url]\n\n[url=http://" . $page . "?wars-more-" . $wid . "]details des Wars[/url]', 0)");
                 }
                 $msg = '<tr class="Cmite"><td colspan="2">Erfolgreich eingetragen</td></tr>';
-            } else {
+            } else { //
                 db_query("UPDATE `prefix_wars` SET `datime` = '" . get_datime() . "', `status` = 3,`wlp` = '" . $_POST[ 'wlp' ] . "',`owp` = '" . $_POST[ 'sumowp' ] . "',`opp` = '" . $_POST[ 'sumopp' ] . "',`gegner` = '" . $_POST[ 'gegner' ] . "',`tag` = '" . $_POST[ 'tag' ] . "',`page` = '" . $_POST[ 'page' ] . "',`mail` = '" . $_POST[ 'email' ] . "',`icq` = '" . $_POST[ 'icq' ] . "',`wo` = '" . $_POST[ 'wo' ] . "',`tid` = '" . $_POST[ 'tid' ] . "',`mod` = '" . $_POST[ 'mod' ] . "',`game` = '" . $_POST[ 'game' ] . "',`mtyp` = '" . $_POST[ 'mtyp' ] . "',`land` = '" . $_POST[ 'land' ] . "',`txt` = '" . $_POST[ 'txt' ] . "' WHERE `id` = '" . $_POST[ 'pkey' ] . "'");
                 $wid = $_POST[ 'pkey' ];
                 for ($i = 1; $i <= 5; $i++) {
@@ -379,6 +381,7 @@ switch ($um) {
             $_POST[ 'email' ] = escape($_POST[ 'email' ], 'string');
             $_POST[ 'icq' ] = escape($_POST[ 'icq' ], 'string');
             $_POST[ 'wo' ] = escape($_POST[ 'wo' ], 'string');
+
             if (empty($_POST[ 'pkey' ])) {
                 db_query("INSERT INTO `prefix_wars` (`datime`,`status`,`gegner`,`tag`,`page`,`mail`,`icq`,`wo`,`tid`,`mod`,`game`,`mtyp`,`land`,`txt`) VALUES ('" . get_datime() . "',2,'" . $_POST[ 'gegner' ] . "','" . $_POST[ 'tag' ] . "','" . $_POST[ 'page' ] . "','" . $_POST[ 'email' ] . "','" . $_POST[ 'icq' ] . "','" . $_POST[ 'wo' ] . "','" . $_POST[ 'tid' ] . "','" . $_POST[ 'mod' ] . "','" . $_POST[ 'game' ] . "','" . $_POST[ 'mtyp' ] . "','" . $_POST[ 'land' ] . "','" . $_POST[ 'txt' ] . "')");
                 $wid = db_last_id();
@@ -488,5 +491,3 @@ switch ($um) {
         $design->footer();
         break;
 }
-
-?>

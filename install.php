@@ -756,7 +756,6 @@ db_query ("UPDATE prefix_config SET wert = '".$_POST['admin_email']."' WHERE sch
 ?>
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function() {
-    var container = $('div.container');
     $('#installform').validate({
       rules: {
 			confirm_mysql_password: {
