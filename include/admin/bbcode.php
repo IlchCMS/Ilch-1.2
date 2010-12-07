@@ -90,7 +90,7 @@ switch ($menu->get(1)) {
 							`fnFormatQuote` = '" . $_POST[ 'BBCode_QUOTE' ] . "',
                             `fnFormatFlash` = '" . $_POST[ 'BBCode_FLASH' ] . "'");
 
-            $tpl->set('Message', 'Zustände wurden erfolgreich gespeichert!');
+            $tpl->set('Message', 'ZustÃ¤nde wurden erfolgreich gespeichert!');
 
             $Formate = array(
                 "BBCode_B" => "Selected_B_",
@@ -171,7 +171,7 @@ switch ($menu->get(1)) {
             }
             $tpl->set('BBCode_QuoteSchriftformatIT', $BB_Design[ 'fcQuoteSchriftformatIT' ]);
             $tpl->set('BBCode_QuoteSchriftfarbeIT', $BB_Design[ 'fcQuoteSchriftfarbeIT' ]);
-            // > Zuweisung Code- Blöcke (PHP,CSS,HTML)
+            // > Zuweisung Code- BlÃ¶cke (PHP,CSS,HTML)
             $tpl->set('BBCode_BlockRandFarbe', $BB_Design[ 'fcBlockRandFarbe' ]);
             $tpl->set('BBCode_BlockTabelleBreite', $BB_Design[ 'fcBlockTabelleBreite' ]);
             $tpl->set('BBCode_BlockSchriftfarbe', $BB_Design[ 'fcBlockSchriftfarbe' ]);
@@ -274,7 +274,7 @@ switch ($menu->get(1)) {
             }
             $tpl->set('BBCode_QuoteSchriftformatIT', $_POST[ 'BBCode_QuoteSchriftformatIT' ]);
             $tpl->set('BBCode_QuoteSchriftfarbeIT', $_POST[ 'BBCode_QuoteSchriftfarbeIT' ]);
-            // > Zuweisung Code- Blöcke (PHP,CSS,HTML)
+            // > Zuweisung Code- BlÃ¶cke (PHP,CSS,HTML)
             $tpl->set('BBCode_BlockRandFarbe', $_POST[ 'BBCode_BlockRandFarbe' ]);
             $tpl->set('BBCode_BlockTabelleBreite', $_POST[ 'BBCode_BlockTabelleBreite' ]);
             $tpl->set('BBCode_BlockSchriftfarbe', $_POST[ 'BBCode_BlockSchriftfarbe' ]);
@@ -449,7 +449,7 @@ switch ($menu->get(1)) {
                 $tpl->set('Message', 'Badword wurde erfolgreich gespeichert!');
             }
         }
-        // > Badword Löschen!
+        // > Badword LÃ¶schen!
         if ($menu->get(2) == "delete") {
             db_query('DELETE FROM  `prefix_bbcode_badword` WHERE `fnBadwordNr` = "' . $menu->get(3) . '"');
         }
@@ -493,7 +493,7 @@ switch ($menu->get(1)) {
 
 if (!isset($design)) {
     // > Design ausgeben!
-    $design = new design('Ilch Admin-Control-Panel :: BBcode', '- Bitte Menüpunkt wählen!', 2);
+    $design = new design('Ilch Admin-Control-Panel :: BBcode', '- Bitte MenÃ¼punkt wÃ¤hlen!', 2);
     $design->header();
 }
 

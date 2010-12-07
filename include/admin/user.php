@@ -292,7 +292,7 @@ switch ($um) {
                 if (isset($_POST[ 'passw' ])) {
                     $newPass = genkey(8);
                     $newPassMD5 = md5($newPass);
-                    icmail($row->email, 'neues Password', "Hallo\n\nDein Password wurde soeben von einem Administrator ge‰ndert es ist nun:\n\n" . $newPass . "\n\nGruﬂ der Administrator");
+                    icmail($row->email, 'neues Password', "Hallo\n\nDein Password wurde soeben von einem Administrator ge√§ndert es ist nun:\n\n" . $newPass . "\n\nGru√ü der Administrator");
                     db_query('UPDATE `prefix_user` SET `pass` = "' . $newPassMD5 . '" WHERE `id` = "' . escape($_POST[ 'uID' ], 'integer') . '"');
                 }
                 if ($_POST['setnewpw'] != '') {
@@ -348,7 +348,7 @@ switch ($um) {
                 $opt_pm_popup = escape($_POST[ 'opt_pm_popup' ], 'integer');
                 $gebdatum = escape($_POST[ 'gebdatum' ], 'string');
                 $sig = escape($_POST[ 'sig' ], 'string');
-                // Name im Forum ‰ndern
+                // Name im Forum √§ndern
                 if ($_POST[ 'forumname' ] == 'on') {
                     $oldname = db_count_query("SELECT `name` FROM `prefix_user` WHERE `id` =" . $uid);
                     if ($oldname != $usaName1) {
@@ -420,7 +420,7 @@ switch ($um) {
                     unset($tpl);
                     icmail($_POST[ 'email' ], 'Admin hat dich angelegt', $txt);
                 }
-                $msg = 'Benutzer angelegt <a href="javascript:self.parent.ic.modalDialogClose();">Fenster schlieﬂen</a>';
+                $msg = 'Benutzer angelegt <a href="javascript:self.parent.ic.modalDialogClose();">Fenster schlie√üen</a>';
             }
         } elseif (isset($_POST['sub'])) {
             $msg = 'Du musst Name, Passwort und eine Emailadresse angeben!<br />';

@@ -21,7 +21,7 @@ $mr['infotype']			= 'info';
 $default_on_file 		= "RewriteEngine On\nRewriteRule ^(.*).html$ ./index.php?$1";
 $default_off_file 		= "RewriteEngine Off\nRewriteRule ^(.*).html$ ./index.php?$1";
 
-# Benötigte Funktionen überprüfen
+# BenÃ¶tigte Funktionen Ã¼berprÃ¼fen
 if (function_exists('apache_get_modules')) {
 	if (false === apache_get_modules('mod_rewrite')) {
 		$mr['infotype']		= 'warning';

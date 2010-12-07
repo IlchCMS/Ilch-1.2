@@ -138,7 +138,7 @@ switch ($um) {
             if (isset($_FILES[ 'file' ][ 'name' ])) {
                 $pathinfo = pathinfo($_FILES[ 'file' ][ 'name' ]);
                 if (substr($pathinfo[ 'extension' ], 0, 3) == 'php') {
-                    $msg = '<font color="#FF0000">Es können keine PHP Dateien hochgeladen werden.</font><br />';
+                    $msg = '<font color="#FF0000">Es kÃ¶nnen keine PHP Dateien hochgeladen werden.</font><br />';
                 } elseif (move_uploaded_file($_FILES[ 'file' ][ 'tmp_name' ], $_REQUEST[ 'f' ] . '/' . $_FILES[ 'file' ][ 'name' ])) {
                     @chmod($_REQUEST[ 'f' ] . '/' . $_FILES[ 'file' ][ 'name' ], 0777);
                     $msg = 'Datei (' . $_FILES[ 'file' ][ 'name' ] . ' ) <font color="#00FF00">erfolgreich hochgeladen</font><br />';
@@ -154,7 +154,7 @@ switch ($um) {
             if (isset($_REQUEST[ 'r' ])) {
                 $pathinfo = pathinfo($_REQUEST[ 'r' ]);
                 if (substr($pathinfo[ 'extension' ], 0, 3) == 'php') {
-                    $msg = '<font color="#FF0000">Es können keine PHP Dateien erzeugt werden.</font><br />';
+                    $msg = '<font color="#FF0000">Es kÃ¶nnen keine PHP Dateien erzeugt werden.</font><br />';
                 } elseif (@rename($_REQUEST[ 'f' ] . '/' . $_REQUEST[ 'v' ], $_REQUEST[ 'f' ] . '/' . $_REQUEST[ 'r' ])) {
                     db_query("UPDATE prefix_downloads SET url = '" . $_REQUEST[ 'f' ] . '/' . $_REQUEST[ 'r' ] . "' WHERE url = '" . $_REQUEST[ 'f' ] . '/' . $_REQUEST[ 'v' ] . "'");
                     db_query("UPDATE prefix_downloads SET surl = '" . $_REQUEST[ 'f' ] . '/' . $_REQUEST[ 'r' ] . "' WHERE surl = '" . $_REQUEST[ 'f' ] . '/' . $_REQUEST[ 'v' ] . "'");

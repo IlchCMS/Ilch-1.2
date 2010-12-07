@@ -172,7 +172,7 @@ if ($menu->get(3) == 'userchange' AND ($gid = escape($menu->get(2), 'integer') A
 }
 
 if ($um == 'addusers') {
-    $design = new design('Ilch Admin-Control-Panel :: Neuen Nutzer hinzufügen', '', 0);
+    $design = new design('Ilch Admin-Control-Panel :: Neuen Nutzer hinzufÃ¼gen', '', 0);
     $design->header();
     $gid = $menu->get(2);
     $tpl = new tpl('groups/users', 1);

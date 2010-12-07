@@ -1,6 +1,6 @@
 <script type="text/javascript">
     function delete_user ( gid , uid ) {
-        var x = confirm ( "Wollen Sie diesen User löschen?", "" );
+        var x = confirm ( "Wollen Sie diesen User lÃ¶schen?", "" );
         if ( x ) {
             document.location.href="?groups-addusers-"+gid+"-user_delete-"+uid;
         }
@@ -13,7 +13,7 @@
         self.parent.ic.modalDialog({title:'User suchen', url:'index.php?search-finduser', width: 400, height: 250});
     }
     function change_user ( gid, uid, fid , ofid, selname) {
-        var x = confirm ( "Wollen Sie die Funktion des Users wirklich ändern?", "" );
+        var x = confirm ( "Wollen Sie die Funktion des Users wirklich Ã¤ndern?", "" );
         if ( x ) {
             document.location.href="admin.php?groups-addusers-"+gid+"-userchange-"+uid+"-"+fid;
         } else {

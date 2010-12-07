@@ -4,7 +4,7 @@
  * @copyright (C) 2000-2010 ilch.de
  * @version $Id$
  *
- * Kalender Script © by Nickel
+ * Kalender Script Â© by Nickel
  * ueberarbeitet von Manuel
  */
 defined('main') or die('no direct access');

@@ -14,7 +14,7 @@ $tpl->out(1);
 for ($i = 1; $i <= $allgAr[ 'menu_anz' ]; $i++) {
     $tpl->set_ar_out(Array(
             'url' => 'admin.php?menu-' . $i,
-            'title' => 'Men¸ ' . $i
+            'title' => 'Men√º ' . $i
             ), 2);
 }
 

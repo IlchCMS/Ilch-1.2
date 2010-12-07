@@ -62,7 +62,7 @@ END;
                     {$listeG}
             </select>
 			<input type="checkbox" name="andhigher" id="cb_andhigher" value="1" />
-			<label for="cb_andhigher">und für alle höheren Rechte</label>
+			<label for="cb_andhigher">und fÃ¼r alle hÃ¶heren Rechte</label>
 END;
     }
 

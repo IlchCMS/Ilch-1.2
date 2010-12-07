@@ -30,7 +30,7 @@
   </tr><tr class="Cdark">
     <td></td>
     <td><input class="sub" type="submit" name="submit_form" value="Speichern">&nbsp;
-    <input class="sub" type="button" value="Löschen" onclick="confirmDel()">&nbsp;
+    <input class="sub" type="button" value="LÃ¶schen" onclick="confirmDel()">&nbsp;
     <input class="sub" type="button" value="Toggle WYSIWYG" name="toggleBtn" onclick="toggleWYSIWYG();" style="display:none;" />
     </td>
   </tr>
@@ -47,9 +47,9 @@
           <ul>
             <li><b>Dateiname:</b> Unter diesem Namen wird die Datei gespeichert und kann sie auch in der Navigation wiedergefunden werden. <br/>Unbedingt auch <b>4.</b> Punkt beachten!</li>
             <li><b>Titel</b> wird oben in der Programmleiste angezeigt</li>
-            <li><b>Hmenu</b> wird unter dem Banner angezeigt [Design abhängig]</li>
-            <li><b>Anzeige</b> Hier kann man auswählen, ob die Seite ganz <u>normal</u>, <u>Vollbild</u> (, also ohne Men&uuml;,)
-            oder in einem <u>neuen Fenster</u> angezeigt werden soll. <br/>Für ein neues Fenster kann man die <u>Fenster Eigenschaften</u> noch in dem Eingabefeld dahinter festlegen. Bsp.:<br/>
+            <li><b>Hmenu</b> wird unter dem Banner angezeigt [Design abhÃ¤ngig]</li>
+            <li><b>Anzeige</b> Hier kann man auswÃ¤hlen, ob die Seite ganz <u>normal</u>, <u>Vollbild</u> (, also ohne Men&uuml;,)
+            oder in einem <u>neuen Fenster</u> angezeigt werden soll. <br/>FÃ¼r ein neues Fenster kann man die <u>Fenster Eigenschaften</u> noch in dem Eingabefeld dahinter festlegen. Bsp.:<br/>
             <div style="background-color:#FFFFFF">
             menubar=yes, toolbar=yes, status=yes, scrollbars=yes, resizable=yes, top=50, left=300, height=500, width=350</li>
             </div>
@@ -99,7 +99,7 @@ function changeAktion () {
 }
 function confirmDel(){
   var akl = document.getElementById('akl').value;
-	var frage = confirm ( "Willst du " + akl.substr(1) + " wirklich löschen?" );
+	var frage = confirm ( "Willst du " + akl.substr(1) + " wirklich lÃ¶schen?" );
 	if ( frage == true ) {
     document.location.href="?selfbp=0&del=" + akl;
   }

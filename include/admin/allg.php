@@ -30,7 +30,7 @@ if (empty($_POST[ 'submit' ])) {
     // Kategorien-ID und NAME
     $katid = 0;
     $katname = '';
-    // Abfrage für Menü und admin/allg.php starten
+    // Abfrage fÃ¼r MenÃ¼ und admin/allg.php starten
     $abf = 'SELECT * FROM `prefix_config` WHERE hide = 0 ORDER BY `kat`,`pos`,`typ` ASC';
     $erg = db_query($abf);
     while ($row = db_fetch_assoc($erg)) {
@@ -62,7 +62,7 @@ if (empty($_POST[ 'submit' ])) {
     foreach ($cache AS $row) {
         // Kategorie ausgeben, falls neu
         if ($katname != $row[ 'kat' ]) {
-            // Kategorien-Ende ausgeben, falls nötig
+            // Kategorien-Ende ausgeben, falls nÃ¶tig
             if ($katid != 0) {
                 $tpl->out(5);
             }
@@ -108,7 +108,7 @@ if (empty($_POST[ 'submit' ])) {
                 'input' => $input
                 ), 4);
     }
-    // Kategorien-Ende ausgeben, falls nötig
+    // Kategorien-Ende ausgeben, falls nÃ¶tig
     if ($katid != 0) {
         $tpl->out(5);
     }

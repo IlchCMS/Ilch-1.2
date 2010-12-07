@@ -7,7 +7,7 @@
 defined('main') or die('no direct access');
 defined('admin') or die('only admin access');
 
-$design = new design('Ilch Admin-Control-Panel :: Gästebuch', '', 2);
+$design = new design('Ilch Admin-Control-Panel :: GÃ¤stebuch', '', 2);
 $design->header();
 // #
 // ##

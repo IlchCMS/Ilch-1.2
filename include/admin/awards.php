@@ -19,7 +19,7 @@ function getTeams() {
     return ($squads);
 }
 // #### A k t i o n e n
-// Löschen
+// LÃ¶schen
 if ($menu->getA(1) == 'd' AND is_numeric($menu->getE(1))) {
     db_query('DELETE FROM `prefix_awards` WHERE `id` = "' . $menu->getE(1) . '" LIMIT 1');
 }
@@ -47,7 +47,7 @@ if (isset($_POST[ 'ins' ])) {
     ('" . $datum . "', '" . $platz . "', '" . $team . "', '" . $wofur . "', '" . $bild . "', '" . $text . "')");
     }
 }
-// Ändern/Ausgabearray füllen
+// Ã„ndern/Ausgabearray fÃ¼llen
 if ($menu->getA(1) == 'e' AND is_numeric($menu->getE(1))) {
     $r = db_fetch_assoc(db_query("SELECT * FROM `prefix_awards` WHERE `id` = " . $menu->getE(1)));
     $r[ 'id' ] = '-e' . $r[ 'id' ];

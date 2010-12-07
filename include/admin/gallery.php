@@ -166,11 +166,11 @@ if ($menu->get(1) == 'uploadImages') {
     $tpl->out(2);
     exit();
 }
-// Kategorie löschen
+// Kategorie lÃ¶schen
 if ($menu->getA(1) == 'D') {
     $tpl = new tpl('gallery/delkat', 1);
     $tpl->out(0);
-    // Kategorie und alle Bilder löschen
+    // Kategorie und alle Bilder lÃ¶schen
     if ($menu->get(2) == 'delall') {
         $r = db_fetch_assoc(db_query("SELECT `id`, `pos`, `cat` FROM `prefix_gallery_cats` WHERE `id` = '" . $menu->getE(1) . "'"));
         db_query("DELETE FROM `prefix_gallery_cats` WHERE `id` = '" . $menu->getE(1) . "'");

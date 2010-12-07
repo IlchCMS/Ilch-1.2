@@ -91,7 +91,7 @@
     Fenster.focus();
   }
   function del ( id1 ) {
-    var x = confirm ( "Dieses Bild wirklich löschen?" );
+    var x = confirm ( "Dieses Bild wirklich lÃ¶schen?" );
 		if ( x ) {
 		  document.location.href="?gallery-d"+id1;
 		}
@@ -113,7 +113,7 @@
     Fenster.focus();
   }
   function uploadImages (kid) {
-    var x = prompt ( "Wie viele Bilder möchten Sie hochladen?", "5");
+    var x = prompt ( "Wie viele Bilder mÃ¶chten Sie hochladen?", "5");
     if ( x ) {
       ic.modalDialog({title:'Bilder hochladen',url:'admin.php?gallery-uploadImages-' + kid + '=0&anzb=' + x,width: 400, height: 150 + x * 75});
     }
