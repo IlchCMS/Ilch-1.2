@@ -10,7 +10,7 @@
 			<td colspan="2"><b>Basis Informationen</b></td>
 		</tr><tr>
 			<td class="Cmite">Gegner Nation</td>
-			<td class="Cnorm"><select name="land">{land}</select></td>
+			<td class="Cnorm"><select name="land" id="opponent_nation">{land}</select> <img id="opponent_nation_flag" src="" alt="L&auml;nderflagge"/></td>
 		</tr><tr>
 			<td class="Cmite">Gegner Name</td>
 			<td class="Cnorm"><input size="46" type="text" name="gegner" value="{gegner}"></td>
@@ -197,5 +197,15 @@
 	sichtbarB();
 	sichtbarC();
 	sichtbarA();
+	
+	var flagpath = 'include/images/flags/';
+  $(document).ready(function() {
+    $('#opponent_nation_flag')
+    .attr('src',flagpath + $('#opponent_nation').val());
+    $('#opponent_nation')
+    .change(function(){
+      $('#opponent_nation_flag').attr('src',flagpath + $(this).val());
+    });
+  });
 //-->
 </script>
