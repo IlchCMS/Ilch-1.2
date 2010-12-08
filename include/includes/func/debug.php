@@ -104,7 +104,7 @@ if (DEBUG) {
       if ((preg_match('/(javascript:)(FUNCTION)(;)/i',$href, $match) AND !is_NULL($function)) OR preg_match('/(javascript:)(FUNCTION)(;)/i',$href, $match)) {
         $href = $match[1] . 'alert(' . $key . ')' . $match[3];
       }
-      (string)$new_query;
+      $new_query = '';
       $new_query = '<a href="';
       $new_query .= $href;
       $new_query .= '" title="Query ausf&uuml;hren">QUERY #'.$key.' ' . $old_query;

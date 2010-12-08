@@ -324,7 +324,7 @@ function icmail($mail, $bet, $txt, $from = '', $html = false) {
         // $mailer->SMTPDebug = true;
     }
     if (is_array($mail)) {
-        if ($mail[ 0 ] != 'bcc') {
+        if ($mail[ 0 ] == 'bcc') {
             array_shift($mail);
             foreach ($mail as $m) {
                 $mailer->AddBCC(escape_for_email($m));
@@ -516,7 +516,7 @@ function get_lower($value) {
 }
 
 /**
- * Gib alle Dateien des angegeben Ordners mit der gegebenen Endung uas
+ * Gib alle Dateien des angegeben Ordners mit der gegebenen Endung aus
  *
  * @param  $dir der Ordner (z.B. "include/admin")
  * @param  $ext die Extension (z.B. "php" oder array("php","html","htm"))

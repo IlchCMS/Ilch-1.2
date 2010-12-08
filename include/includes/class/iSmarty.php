@@ -30,7 +30,6 @@ class iSmarty extends Smarty {
         } else {
             $this->template_dir = 'include/templates';
         }
-        $this->template_dir = 'include/templates';
         $this->compile_dir = 'include/cache/smarty_compile';
         $this->chosenDesign = tpl::get_design();
     }
@@ -46,7 +45,7 @@ class iSmarty extends Smarty {
      * @return string rendered template output
      */
     public function fetch($template, $cache_id = null, $compile_id = null, $parent = null, $display = false) {
-        if (is_string($template) and file_exists('include/designs/' . $this->chosenDesign . '/templates/' . $template)) {
+        if (!defined('admin') and is_string($template) and file_exists('include/designs/' . $this->chosenDesign . '/templates/' . $template)) {
             $changeback = true;
             $this->template_dir = 'include/designs/' . $this->chosenDesign . '/templates';
         } else {

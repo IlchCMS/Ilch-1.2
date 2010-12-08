@@ -61,3 +61,20 @@ ic.modalDialogClose = function() {
     ic.modalDialogContainer[ic.modalDialogContainer.length-1].dialog('close').dialog('destroy');
     ic.modalDialogContainer.pop();
 }
+
+
+$(document).ready(function() {
+    //ajaxlinks
+    $('a.ajaxload').click(function() {
+        $.ajax({
+            url: $(this).attr('href') + '&ajax=true',
+            dataType: 'json',
+            success: function(data) {
+                $('#icHmenu').html(data.hmenu);
+                $('#icContent').html(data.content);
+                document.title = data.title;
+            }
+        });
+        return false;
+    });
+});

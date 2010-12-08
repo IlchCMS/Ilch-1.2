@@ -493,7 +493,7 @@ class bbcode {
             if (strlen($word) > $this->info['WortMaxLaenge'] && $this->_checkpatterns($pattern, $word)) {
                 // Auskommentiert also Variante mit 'zulanges...Wort' zu gunsten von 'zulanges allesdazwischen Wort' (ohne ...)
                 // $maxd2 = sprintf("%00d",($this->info['WortMaxLaenge']/2));
-                $string = wordwrap($string, $this->info['WortMaxLaenge']);
+                $string = wordwrap($string, $this->info['WortMaxLaenge'],' ', true);
             }
         }
         return $string;
@@ -882,7 +882,7 @@ class bbcode {
         // > Darf BB Code [SIZE] dekodiert werden?
         if ($this->permitted['size'] == true) {
             // > Format: [size=xx]xxx[/size]
-            $this->pattern[] = "%\[size=([0-9]+?)\](.+)\[\/size\]%eUi";
+            $this->pattern[] = "%\[size=([0-9]+?)\](.+)\[\/size\]%eUis";
             $this->replace[] = "\$this->_size('\$1','\$2')";
         }
         // > Darf BB Code [KTEXT] decodiert werden?

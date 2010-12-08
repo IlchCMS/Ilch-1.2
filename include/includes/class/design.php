@@ -1,5 +1,6 @@
 <?php
 /**
+ *
  * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
  * @copyright (C) 2000-2010 ilch.de
  * @version $Id$
@@ -18,80 +19,95 @@ class design extends tpl {
     protected $vars;
     protected $was;
     protected $file;
+    protected $ajax;
+    protected $headerAdds;
+    protected $bodyendAdds;
+    protected $json;
 
     public function __construct($title, $hmenu, $was = 1, $file = null) {
-        global $allgAr;
+        global $allgAr, $menu;
 
         header('Content-Type: text/html;charset=ISO-8859-1');
 
-        if (!is_null($file)) {
-            echo '<div style="display: block; background-color: #FFFFFF; border: 2px solid #ff0000;">!!Man konnte in einer PHP Datei eine spezielle Index angeben. Damit das Design fuer diese Datei anders aussieht. Diese Funktion wurde ersetzt. Weitere Informationen im Forum auf ilch.de ... Thema: <a href="http://www.ilch.de/forum-showposts-13758-p1.html#108812">http://www.ilch.de/forum-showposts-13758-p1.html#108812</a></div>';
-        }
+        if (isset($_GET['ajax']) and $_GET['ajax'] == 'true') {
+            $this->ajax = true;
+            $this->json = array('title' => $title,
+                                'hmenu' => $hmenu);
+        } else {
+            $this->ajax = false;
 
-        $this->vars = array();
-        $this->file = $file; // setzte das file standard 0 weil durch was definiert
-        $this->was = $was; // 0 = smalindex, 1 = normal index , 2 = admin
-        $this->design = tpl::get_design();
-        $link = $this->htmlfile();
-
-        $tpl = new tpl($link, 2);
-        if ($tpl->list_exists('boxleft')) {
-            $tpl->set('boxleft', $this->get_boxes('l', $tpl));
-        }
-        if ($tpl->list_exists('boxright')) {
-            $tpl->set('boxright', $this->get_boxes('r', $tpl));
-        }
-        // ab 0.6 =  ... menu listen moeglich
-        for ($i = 1; $i <= $allgAr[ 'menu_anz' ]; $i++) {
-            if ($tpl->list_exists('menunr' . $i)) {
-                $tpl->set('menunr' . $i, $this->get_boxes($i, $tpl));
+            if (!is_null($file)) {
+                echo '<div style="display: block; background-color: #FFFFFF; border: 2px solid #ff0000;">!!Man konnte in einer PHP Datei eine spezielle Index angeben. Damit das Design fuer diese Datei anders aussieht. Diese Funktion wurde ersetzt. Weitere Informationen im Forum auf ilch.de ... Thema: <a href="http://www.ilch.de/forum-showposts-13758-p1.html#108812">http://www.ilch.de/forum-showposts-13758-p1.html#108812</a></div>';
             }
+
+            $this->vars = array();
+            $this->file = $file; // setzte das file standard 0 weil durch was definiert
+            $this->was = $was; // 0 = smalindex, 1 = normal index , 2 = admin
+            $this->design = tpl::get_design();
+            $link = $this->htmlfile();
+            $this->headerAdds = '';
+            $this->bodyendAdds = '';
+
+
+            $tpl = new tpl($link, 2);
+            if ($tpl->list_exists('boxleft')) {
+                $tpl->set('boxleft', $this->get_boxes('l', $tpl));
+            }
+            if ($tpl->list_exists('boxright')) {
+                $tpl->set('boxright', $this->get_boxes('r', $tpl));
+            }
+            // ab 0.6 =  ... menu listen moeglich
+            for ($i = 1; $i <= $allgAr[ 'menu_anz' ]; $i++) {
+                if ($tpl->list_exists('menunr' . $i)) {
+                    $tpl->set('menunr' . $i, $this->get_boxes($i, $tpl));
+                }
+            }
+
+            $ar = array(
+                'TITLE' => $this->escape_explode($title),
+                'HMENU' => '<span id="icHmenu">' . $this->escape_explode($hmenu) . '</span>',
+                'SITENAME' => $this->escape_explode($allgAr[ 'title' ]),
+                'hmenuende' => '',
+                'vmenuende' => '',
+                'hmenubegi' => '',
+                'vmenubegi' => '',
+                'hmenupoint' => '',
+                'vmenupoint' => '',
+                'DESIGN' => $this->design
+                );
+            $tpl->set_ar($ar);
+            $this->html = $tpl->get(0);
+            $this->html .= '{EXPLODE}';
+            $this->html .= $tpl->get(1);
+            unset($tpl);
+
+            $zsave0 = array();
+            preg_match_all("/\{_boxes_([^\{\}]+)\}/", $this->html, $zsave0);
+
+            $this->replace_boxes($zsave0[1]);
+            unset($zsave0);
+            $this->vars_replace();
+            unset($this->vars);
+
+            $this->html = explode('{EXPLODE}', $this->html);
         }
-
-        $ar = array(
-            'TITLE' => $this->escape_explode($title),
-            'HMENU' => $this->escape_explode($hmenu),
-            'SITENAME' => $this->escape_explode($allgAr[ 'title' ]),
-            'hmenuende' => '',
-            'vmenuende' => '',
-            'hmenubegi' => '',
-            'vmenubegi' => '',
-            'hmenupoint' => '',
-            'vmenupoint' => '',
-            'DESIGN' => $this->design
-            );
-        $tpl->set_ar($ar);
-        $this->html = $tpl->get(0);
-        $this->html .= '{EXPLODE}';
-        $this->html .= $tpl->get(1);
-        unset($tpl);
-
-        $zsave0 = array();
-        preg_match_all("/\{_boxes_([^\{\}]+)\}/", $this->html, $zsave0);
-
-        $this->replace_boxes($zsave0[ 1 ]);
-        unset($zsave0);
-        $this->vars_replace();
-        unset($this->vars);
-
-        $this->html = explode('{EXPLODE}', $this->html);
     }
 
     public function addheader($text) {
-        if (isset($this->html[ 0 ])) {
-            $this->html[ 0 ] = str_replace('</head>', $text . "\n</head>", $this->html[ 0 ]);
-            return true;
-        } else {
-            return false;
-        }
+        $this->headerAdds .= $text;
     }
 
     public function header($addons = '') {
         global $ILCH_HEADER_ADDITIONS;
         $ILCH_HEADER_ADDITIONS .= $this->load_addons($addons);
         $this->addheader($ILCH_HEADER_ADDITIONS);
-        echo $this->html[ 0 ];
-        unset($this->html[ 0 ]);
+        if (isset($this->html[0]) and !$this->ajax) {
+            $this->html[0] = str_replace('</head>', $this->headerAdds . "\n</head>", $this->html[ 0 ]);
+            echo $this->html[0] . '<div id="icContent">';
+            unset($this->html[0]);
+        } else {
+            ob_start();
+        }
     }
     // Fuegt Dynamische und Statische *.js und *.css Dateien in den Header ein
     // Kann jedoch nur uerber die header-Funktion aufgerufen werden
@@ -104,13 +120,22 @@ class design extends tpl {
         // Ordner nach dynamischen Dateien durchsuchen
         $js = read_ext('include/includes/js/global', 'js');
         $css = read_ext('include/includes/css/global', 'css');
-        // Dynamisches Javascript laden
-        foreach ($js as $file) {
-            $buffer .= "\n<script type=\"text/javascript\" src=\"include/includes/js/global/" . $file . "\"></script>";
-        }
-        // Dynamisches CSS laden
+        // Dynamisches CSS laden (css vor js laden!)
         foreach ($css as $file) {
             $buffer .= "\n<link rel=\"stylesheet\" type=\"text/css\" href=\"include/includes/css/global/" . $file . "\" />";
+        }
+        // Dynamisches Javascript laden
+        // sort jquery Top -- should be removed later by Olox
+        usort($js, function($a, $b){
+            if (preg_match('%jquery-\d\.\d+(\.\d+)?\.js%', $a) == 1) {
+                return -1;
+            } elseif (preg_match('%jquery-\d\.\d+(\.\d+)?\.js%', $b) == 1) {
+                return 1;
+            }
+            return 0;
+        });
+        foreach ($js as $file) {
+            $buffer .= "\n<script type=\"text/javascript\" src=\"include/includes/js/global/" . $file . "\"></script>";
         }
         // Alle statischen Inhalte pruefen
         foreach ($addons as $addon) {
@@ -131,38 +156,39 @@ class design extends tpl {
     }
 
     public function addtobodyend($text) {
-      if (isset($this->html[ 1 ])) {
-        $this->html[ 1 ] = str_replace('</body>', $text . "\n</body>", $this->html[ 1 ]);
-        return true;
-      } else {
-        return false;
-      }
+        $this->bodyendAdds .= $text;
     }
 
     public function footer($exit = 0) {
-  		global $allgAr;
-  			echo $this->html[ 1 ];
-          	unset($this->html[ 1 ]);
-      if (array_key_exists('modrewrite', $allgAr)) {
-    		if ($allgAr['modrewrite'] == '0') {
-    			global $ILCH_BODYEND_ADDITIONS;
-            	$this->addtobodyend($ILCH_BODYEND_ADDITIONS);
-    		} else if ($allgAr['modrewrite'] == '1') {
-    			$c = ob_get_clean();
-    			$c = preg_replace ('%href=\"\?([^\"]+)\"%Uis',"href=\"index.php?\\1\"",$c);
-    			$c = preg_replace ('%href=\"index.php\?([-0-9A-Z_]+)#([a-zA-Z0-9]+)\">%Uis',"href=\"\\1.html#\\2\">",$c);
-    			$c = preg_replace ('%href=\"index.php\?([-0-9A-Z_]+)\">%Uis',"href=\"\\1.html\">",$c);
-    			$c = preg_replace ('%action=\"\?([^\"]+)\"%Uis',"action=\"index.php?\\1\"",$c);
-    			$c = preg_replace ('%URL=\?([^\"]+)\"%Uis',"URL=index.php?\\1\"",$c);
-    			echo $c;
-    		}
-    	}
-  		if ($exit == 1) {
-  		    if (DEBUG) {
-  		        debug_out();
-  		    }
-  			exit();
-  		}
+        global $allgAr;
+        if ($this->ajax) {
+            $this->json['content'] = ob_get_clean();
+            echo json_encode($this->json);
+            exit;
+        }
+        $this->html[1] = str_replace('</body>', $this->bodyendAdds . "\n</body>", $this->html[1]);
+        echo '</div>' . $this->html[1];
+        unset($this->html[1]);
+        if (array_key_exists('modrewrite', $allgAr)) {
+            if ($allgAr['modrewrite'] == '0') {
+                global $ILCH_BODYEND_ADDITIONS;
+                $this->addtobodyend($ILCH_BODYEND_ADDITIONS);
+            } else if ($allgAr['modrewrite'] == '1') {
+                $c = ob_get_clean();
+                $c = preg_replace ('%href=\"\?([^\"]+)\"%Uis', "href=\"index.php?\\1\"", $c);
+                $c = preg_replace ('%href=\"index.php\?([-0-9A-Z_]+)#([a-zA-Z0-9]+)\">%Uis', "href=\"\\1.html#\\2\">", $c);
+                $c = preg_replace ('%href=\"index.php\?([-0-9A-Z_]+)\">%Uis', "href=\"\\1.html\">", $c);
+                $c = preg_replace ('%action=\"\?([^\"]+)\"%Uis', "action=\"index.php?\\1\"", $c);
+                $c = preg_replace ('%URL=\?([^\"]+)\"%Uis', "URL=index.php?\\1\"", $c);
+                echo $c;
+            }
+        }
+        if ($exit == 1) {
+            if (DEBUG) {
+                debug_out();
+            }
+            exit();
+        }
     }
 
     protected function escape_explode($s) {
@@ -253,39 +279,39 @@ class design extends tpl {
         $abf = "SELECT * FROM `prefix_menu` WHERE wo = " . $wo . " AND ( recht >= " . $_SESSION[ 'authright' ] . " OR recht = 0 ) ORDER by pos";
         $erg = db_query($abf);
         $menuar = $menupaths = array();
-        while ($r =  db_fetch_assoc($erg)) {
+        while ($r = db_fetch_assoc($erg)) {
             $menuar[$r['pos']] = $r;
             $menupaths[$r['path']] = $r['pos'];
         }
-        //Aktiven Punkt herausfinden
-        foreach(array_reverse($menu->get_string_ar()) as $path){
-            $path = str_replace('self-','',$path);
+        // Aktiven Punkt herausfinden
+        foreach(array_reverse($menu->get_string_ar()) as $path) {
+            $path = str_replace('self-', '', $path);
             if (isset($menupaths[$path])) {
                 $act_pos = $menupaths[$path];
                 break;
             }
         }
-//        //Punkte löschen, die nicht angezeigt werden sollen
-//        //so dass Untermenüpunkte nur vom aktiven Menüpunkt angezeigt werden
-//        $todel = array();
-//        //Punkte davor
-//        for($i = $act_pos; $i > -1; $i--){
-//            if (isset($menuar[$i]) and $menuar[$i]['ebene'] == 0) {
-//                $todel_before = $i;
-//                break;
-//            }
-//        }
-//        $todel_after = count($menuar);
-//        for($i = $act_pos+1; $i < $todel_after; $i++){
-//            if (isset($menuar[$i]) and $menuar[$i]['ebene'] == 0) {
-//                $todel_after = $i;
-//                break;
-//            }
-//        }
+        // //Punkte löschen, die nicht angezeigt werden sollen
+        // //so dass Untermenüpunkte nur vom aktiven Menüpunkt angezeigt werden
+        // $todel = array();
+        // //Punkte davor
+        // for($i = $act_pos; $i > -1; $i--){
+        // if (isset($menuar[$i]) and $menuar[$i]['ebene'] == 0) {
+        // $todel_before = $i;
+        // break;
+        // }
+        // }
+        // $todel_after = count($menuar);
+        // for($i = $act_pos+1; $i < $todel_after; $i++){
+        // if (isset($menuar[$i]) and $menuar[$i]['ebene'] == 0) {
+        // $todel_after = $i;
+        // break;
+        // }
+        // }
         foreach ($menuar as $pos => $row) {
-//            if ($row['ebene'] >  0 and ($pos < $todel_before  or $pos > $todel_after)) {
-//                continue;
-//            }
+            // if ($row['ebene'] >  0 and ($pos < $todel_before  or $pos > $todel_after)) {
+            // continue;
+            // }
             $subhauptx = $row[ 'was' ];
             $whileMenP = ($subhauptx >= 7 ? true : false);
             if (($row[ 'was' ] >= 7 AND $ex_was == 1) OR ($ex_ebene < ($row[ 'ebene' ] - 1)) OR ($ex_was <= 4 AND $row[ 'ebene' ] != 0) OR ($row[ 'was' ] >= 7 AND !$tpl->list_exists($hovmenup))) {
@@ -333,7 +359,7 @@ class design extends tpl {
                 $act_pos = null;
                 list($wmpA, $wmpE, $wmpTE, $wmpTEE) = explode('|', $tpl->list_get($hovmenup, array($menuTarget,
                             ($subhauptx == 8 ? '' : 'index.php?') . $row[ 'path' ],
-                            $row[ 'name' ], ($row['pos'] ==  $act_pos ? 'active' : 'inactive')
+                            $row[ 'name' ], ($row['pos'] == $act_pos ? 'active' : 'inactive')
                             )));
                 if (!empty($menuzw) AND $firstmep === false) {
                     $menuzw .= $this->get_boxes_get_menu_close($ex_ebene, $ebene, $menuzw, $wmpE, $wmpTE, $wmpTEE);
