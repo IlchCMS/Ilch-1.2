@@ -29,7 +29,7 @@ class design extends tpl {
 
         header('Content-Type: text/html;charset=ISO-8859-1');
 
-        if (isset($_GET['ajax']) and $_GET['ajax'] == 'true') {
+        if (AJAXCALL) {
             $this->ajax = true;
             $this->json = array('title' => $title,
                                 'hmenu' => $hmenu);

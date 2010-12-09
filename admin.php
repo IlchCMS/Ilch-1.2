@@ -8,6 +8,7 @@ define('main', true);
 define('admin', true);
 define('DEBUG', true);
 define('SCRIPT_START_TIME', microtime(true));
+define('AJAXCALL', isset($_GET['ajax']) and $_GET['ajax'] == 'true');
 // Konfiguration zur Anzeige von Fehlern
 // Auf http://www.php.net/manual/de/function.error-reporting.php sind die verf�gbaren Modi aufgelistet
 // Seit php-5.3 ist eine Angabe der TimeZone Pflicht

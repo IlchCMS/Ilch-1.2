@@ -6,6 +6,7 @@
  */
 defined('main') or die('no direct access');
 
+echo '<div id="icShoutbox">';
 if (!isset($_SESSION[ 'last_shoutbox' ])) {
     $_SESSION[ 'last_shoutbox' ] = '';
 }
@@ -26,7 +27,8 @@ if (has_right($allgAr[ 'sb_recht' ])) {
             db_query('INSERT INTO `prefix_shoutbox` (`nickname`,`textarea`) VALUES ( "' . $shoutbox_nickname . '" , "' . $shoutbox_textarea . '" ) ');
         }
     }
-    echo '<form action="index.php?' . $menu->get_complete() . '" method="post">';
+    echo '<form action="index.php?' . $menu->get_complete() . '" method="post" id="shoutboxform">';
+    echo '<input type="hidden" name="shoutbox_submit" value="1" />'; //Für ajax
     echo '<input type="text" size="15" name="shoutbox_nickname" value="' . $_SESSION[ 'authname' ] . '"/>';
     echo '<br /><textarea style="width: 80%" cols="15" rows="2" name="shoutbox_textarea"></textarea><br />';
     $antispam = get_antispam ('shoutbox', 0);
@@ -45,4 +47,6 @@ while ($row = db_fetch_object($erg)) {
     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
     echo '<tr class="' . $class . '"><td><b>' . $row->nickname . ':</b> ' . preg_replace('/([^\s]{' . $allgAr[ 'sb_maxwordlength' ] . '})(?=[^\s])/', "$1\n", $row->textarea) . '</td></tr>';
 }
-echo '</table><a class="box" href="index.php?shoutbox">' . $lang[ 'archiv' ] . '</a>';
+echo '</table><a class="box" href="index.php?shoutbox">' . $lang[ 'archiv' ] . '</a>
+<script>$(document).ready(function() { $(\'#shoutboxform\').icAjaxload(\'icShoutbox\').attr(\'action\', \'index.php?shoutbox\'); });</script>
+</div>';

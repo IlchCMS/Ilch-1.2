@@ -80,6 +80,9 @@ class menu {
         if ($w == 'contents') {
             $pfad = 'include/contents';
             $smod = $allgAr[ 'smodul' ];
+        } elseif ($w == 'box') {
+            $file = 'include/boxes/' . $this->get(0) . '.php';
+            return file_exists($file) ? $file : false;
         } else {
             $pfad = 'include/admin';
             $smod = 'admin';

@@ -62,19 +62,87 @@ ic.modalDialogClose = function() {
     ic.modalDialogContainer.pop();
 }
 
+//Möglichkeit Funktionen für DocumentReady, Ajaxload oder beides einzuhängen
+//Aufruf:   ic.documentReadyAdd(func, type);
+//          func: Funktion
+//          type (String): both, domready, ajaxload
+//          Gibt an, wann die Funktion geladen wird
+//Array in das man Funktionen einhängen kann die bei DocumentReady und Ajaxreload aufgerufen werden
+ic.documentReadyFuncs = {count: 0};
+ic.documentReadyAdd = function(func) {
+    if ($.isFunction(func)) {
+        var type = 'both';
+        if (arguments[1] == 'ajax' || arguments[1] == 'domready') {
+            type = arguments[1];
+        }
+        ic.documentReadyFuncs[ic.documentReadyFuncs.count] = {
+            'func': func,
+            'type': type
+        }
+        ic.documentReadyFuncs.count++;
+    }
+}
+ic.documentReady = function() {
+    for (var i in ic.documentReadyFuncs) {
+        if ($.isFunction(ic.documentReadyFuncs[i].func)) {
 
-$(document).ready(function() {
-    //ajaxlinks
-    $('a.ajaxload').click(function() {
-        $.ajax({
-            url: $(this).attr('href') + '&ajax=true',
-            dataType: 'json',
-            success: function(data) {
-                $('#icHmenu').html(data.hmenu);
-                $('#icContent').html(data.content);
-                document.title = data.title;
-            }
-        });
-        return false;
+            ic.documentReadyFuncs[i].func();
+        }
+    }
+}
+
+//icAjaxload, Möglichkeit Links oder Forumlare als Ajaxload zu konfigurieren, Links (oder src des form) müssen relativ sein, als z.B. index.php?forum
+//Aufruf:   $('a.ajaxload').icAjaxload();
+//Zum Reload eines einzelnen Containers, im Grunde für Boxen (kann aber auch anders verwendet werden),
+//kann die Id des Elements angegeben werden, dessen Inhalt verändert werden soll, dabei wird dann aber automatisch die Box geladen,
+//also aus dem includes/boxes Ordnder -> index.php?shoutbox -> include/boxes/shoutbox.php
+$.fn.icAjaxload = function() {
+    var BoxLoad = arguments.length == 1 ? arguments[0] : false;
+    return this.each(function(arg) {
+        console.lo
+        var tag = this.tagName.toLowerCase();
+        var linkadd = '&ajax=true';
+        var successFunc = function(data) {
+            $('#icHmenu').html(data.hmenu);
+            $('#icContent').html(data.content);
+            document.title = data.title;
+            ic.documentReady();
+        };
+
+        if (BoxLoad !== false) {
+            successFunc = function(data) {
+                $('#' + BoxLoad).html(data.content);
+            };
+            linkadd = linkadd + '&boxreload=true';
+        }
+        if (tag == 'a') {
+            $(this).click(function() {
+                $.ajax({
+                    url: $(this).attr('href') + linkadd,
+                    dataType: 'json',
+                    success: successFunc
+                });
+                return false;
+            });
+        } else if (tag == 'form') {
+            $(this).submit(function() {
+                $.ajax({
+                    url: $(this).attr('action') + linkadd,
+                    dataType: 'json',
+                    type: $(this).attr('method').toLowerCase() == 'post' ? 'post' : 'get',
+                    data: $(this).serialize(),
+                    success: successFunc
+                });
+                return false;
+            });
+        }
     });
+}
+
+
+ic.documentReadyAdd(function() {
+    //ajaxlinks und ajaxforms
+    $('a.ajaxload').icAjaxload();
+    $('form.ajaxload').icAjaxload();
 });
+$(document).ready(ic.documentReady);

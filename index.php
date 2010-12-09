@@ -6,6 +6,7 @@ ob_start();
 define('main', true);
 define('DEBUG', true);
 define('SCRIPT_START_TIME', microtime(true));
+define('AJAXCALL', isset($_GET['ajax']) and $_GET['ajax'] == 'true');
 // Konfiguration zur Anzeige von Fehlern
 // Auf http://www.php.net/manual/de/function.error-reporting.php sind die verf�gbaren Modi aufgelistet
 // Seit php-5.3 ist eine Angabe der TimeZone Pflicht
@@ -32,15 +33,27 @@ $allgAr = getAllgAr();
 // Menu, Nutzerverwaltung und Seitenstatistik laden
 $menu = new menu();
 user_identification();
-site_statistic();
 // Sprachdateien oeffnen
 load_global_lang();
 load_modul_lang();
+if (AJAXCALL and isset($_GET['boxreload']) and $_GET['boxreload'] == 'true') {
+    ob_start();
+    $file = $menu->get_url('box');
+    if ($file !== false) {
+        require $file;
+    }
+    $tmp = array('content'=> ob_get_clean());
+    echo json_encode($tmp);
+    db_close();
+    exit;
+}
+
+site_statistic();
 // Wartungsmodus
 if ($allgAr['wartung'] == 1 and is_admin()) {
 	@define('DEBUG', true);
 	debug ('Wartungsmodus aktiv !');
-} else 
+} else
 if ($allgAr['wartung'] == 1 and !is_admin()) {
 	die ($allgAr['wartungstext']);
 }
