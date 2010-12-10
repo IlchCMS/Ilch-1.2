@@ -20,7 +20,7 @@
 #bannerlist {
 	float: left;
 	width:auto;
-	
+
 }
 #newbannerdiv form p label {
 	font-weight: bold;
@@ -29,49 +29,41 @@
 	font-weight: bold;
 }
 </style>
-<script>
-function newbanner() {
-	$('#newbannerdiv').css('display','block');
-	var showcontent = document.getElementById('newbannerdiv')
-	var $dialog = $('<div></div>')
-		.html(showcontent)
-		.dialog({
-			autoOpen: true,
-			title: 'Neuer Banner',
-			width: 338
-	});
-}
-function editbanner($bid, $name, $link) {	
-	$('#editbannerdiv').css('display','block');	
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#newbanner').click(function() {
+    	$dialog = $('#newbannerdiv')
+    		.dialog({
+    			autoOpen: true,
+    			title: 'Neuer Banner',
+    			width: 338
+    	    });
+    });
+    $('#topbanner').click(function() {
+    	$dialog = $('#topbannerdiv')
+    		.dialog({
+    			autoOpen: true,
+    			title: 'Erfolgskontrolle',
+    			width: 'auto'
+    	    });
+    });
+});
+function editbanner($bid, $name, $link) {
 	$('#hiddeneditid').val($bid);
 	$('#editbannername').val($name);
-	$('#editlink').val($link);	
-	var showeditcontent = document.getElementById('editbannerdiv')
-	var $dialog = $('<div></div>')
-		.html(showeditcontent)
+	$('#editlink').val($link);
+	$dialog = $('#editbannerdiv')
 		.dialog({
 			autoOpen: true,
 			title: 'Banner ' + $bid + ' &auml;ndern',
 			width: 338
 	});
-	
-}
-function topbanner() {
-	$('#topbannerdiv').css('display','block');
-	var showcontent = document.getElementById('topbannerdiv')
-	var $dialog = $('<div></div>')
-		.html(showcontent)
-		.dialog({
-			autoOpen: true,
-			title: 'Erfolgskontrolle',
-			width: 'auto'
-	});
 }
 </script>
 <div id="maindiv">
 <!-- kleines Menü :) -->
-	<a style="cursor:pointer;" onClick="newbanner();">Neuer Banner</a> | 
-	<a style="cursor:pointer;" onClick="topbanner();">Erfolgskontrolle</a>
+	<a style="cursor:pointer;" id="newbanner">Neuer Banner</a> |
+	<a style="cursor:pointer;" id="topbanner">Erfolgskontrolle</a>
 
 
 <!-- neuer Banner  -->
@@ -172,5 +164,5 @@ function topbanner() {
 </table>
   </div>
   <p>&nbsp;</p>
-  
+
 </div>

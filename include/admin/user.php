@@ -66,6 +66,7 @@ if (isset($_POST[ 'action' ])) {
     $design = new design('Ilch Admin-Control-Panel :: User', '', 0);
     $design->header();
     $wdtext = 'Es ist ein Fehler aufgetreten.';
+    $jsadd = '';
     if (chk_antispam('adminuser_action', true) and isset($_POST[ 'uid' ])) {
         $uid = escape($_POST[ 'uid' ], 'integer');
         switch ($_POST[ 'action' ]) {
@@ -84,6 +85,8 @@ if (isset($_POST[ 'action' ])) {
                 if (($neues_recht > $_SESSION[ 'authright' ] AND $altes_recht > $_SESSION[ 'authright' ]) OR ($_SESSION[ 'authid' ] == 1 AND $uid != 1)) {
                     $q = "UPDATE prefix_user SET recht = " . $neues_recht . " WHERE id = " . $uid;
                     db_query($q);
+                } else {
+                    $jsadd .= 'parent.resetUserRight('. $uid.','.$altes_recht.'); parent.alert(unescape(\'Es ist ein Fehler beim %C4ndern des Rechts aufgetreten\')); ';
                 }
                 $wdtext = false;
                 break;
@@ -104,7 +107,7 @@ if (isset($_POST[ 'action' ])) {
         $antispam = get_antispam('adminuser_action', 0, true);
 
         ?><script type="text/javascript"><!--
-		    function updateParent() { parent.setNewAntispam(document.getElementById('tmp').childNodes[0]);}
+		    function updateParent() { parent.setNewAntispam(document.getElementById('tmp').childNodes[0].value); <?php echo $jsadd; ?>}
 		    window.onload = function() { updateParent(); };
 		    //--></script>
 		    <div id="tmp"><?php
@@ -279,7 +282,7 @@ switch ($um) {
         if (($neues_recht <= $_SESSION[ 'authright' ] OR $altes_recht <= $_SESSION[ 'authright' ]) AND $_SESSION[ 'authid' ] > 1) {
             $changeok = false;
         }
-
+        $sperrinfo = '';
         if ($changeok and chk_antispam('adminuser', true)) {
             if (isset($_POST[ 'userdel' ])) {
                 user_remove($uid);
@@ -380,12 +383,10 @@ switch ($um) {
 		          ' . $avatar_sql_update . '
 				WHERE `id` = "' . $uid . '"');
             }
-        }
-        if ($sperre == 1) {
-            @db_query("DELETE FROM `prefix_online` WHERE uid = '" . $uid . "' ");
-            $sperrinfo = ' und User wurde ausgeloggt';
-        } else {
-            $sperrinfo = '';
+            if ($sperre == 1) {
+                @db_query("DELETE FROM `prefix_online` WHERE uid = '" . $uid . "' ");
+                $sperrinfo = ' und User wurde ausgeloggt';
+            }
         }
         wd('admin.php?user-1-' . $uid, 'Das Profil wurde erfolgreich geaendert' . $sperrinfo, 2);
         $design->footer();

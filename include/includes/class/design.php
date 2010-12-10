@@ -28,11 +28,10 @@ class design extends tpl {
         global $allgAr, $menu;
 
         header('Content-Type: text/html;charset=ISO-8859-1');
-
         if (AJAXCALL) {
             $this->ajax = true;
-            $this->json = array('title' => $title,
-                                'hmenu' => $hmenu);
+            $this->json = array('title' => utf8_encode($title),
+                                'hmenu' => utf8_encode($hmenu));
         } else {
             $this->ajax = false;
 
@@ -162,7 +161,7 @@ class design extends tpl {
     public function footer($exit = 0) {
         global $allgAr;
         if ($this->ajax) {
-            $this->json['content'] = ob_get_clean();
+            $this->json['content'] = utf8_encode(ob_get_clean());
             echo json_encode($this->json);
             exit;
         }

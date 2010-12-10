@@ -93,13 +93,16 @@ ic.documentReady = function() {
 
 //icAjaxload, Möglichkeit Links oder Forumlare als Ajaxload zu konfigurieren, Links (oder src des form) müssen relativ sein, als z.B. index.php?forum
 //Aufruf:   $('a.ajaxload').icAjaxload();
-//Zum Reload eines einzelnen Containers, im Grunde für Boxen (kann aber auch anders verwendet werden),
-//kann die Id des Elements angegeben werden, dessen Inhalt verändert werden soll, dabei wird dann aber automatisch die Box geladen,
-//also aus dem includes/boxes Ordnder -> index.php?shoutbox -> include/boxes/shoutbox.php
+//Zum Reload eines einzelnen Containers kann man die ElementId des Containers angeben
+//Aufruf:   $('a#meinlink').icAjaxload('meindiv');
+//Für Boxen gibts noch eine spezielle Möglichkeit, damit der Inhalt der Box neugeladen werden kann ohne Extra Dateien im include/contents Ordner anlegen zu müssen
+//es wird mit folgender Option eine Datei im include/boxes Ordner geladen, also bei index.php?shoutbox z.B. die include/boxes/shoutbox.php
+//Aufruf:   $('#shoutboxlink').icAjaxload('shoutbox', 'box');
+//          Im Container mit der Id shoutbox wird der Inhalt der include/boxes/shoutbox.php geladen
 $.fn.icAjaxload = function() {
-    var BoxLoad = arguments.length == 1 ? arguments[0] : false;
+    var elementId = arguments.length >= 1 ? arguments[0] : false;
+    var BoxLoad = arguments.length >= 2 ? arguments[1] : false;
     return this.each(function(arg) {
-        console.lo
         var tag = this.tagName.toLowerCase();
         var linkadd = '&ajax=true';
         var successFunc = function(data) {
@@ -109,11 +112,13 @@ $.fn.icAjaxload = function() {
             ic.documentReady();
         };
 
-        if (BoxLoad !== false) {
+        if (elementId !== false) {
             successFunc = function(data) {
-                $('#' + BoxLoad).html(data.content);
+                $('#' + elementId).html(data.content);
             };
-            linkadd = linkadd + '&boxreload=true';
+            if (BoxLoad !== false && BoxLoad == 'box') {
+                linkadd = linkadd + '&boxreload=true';
+            }
         }
         if (tag == 'a') {
             $(this).click(function() {
@@ -138,7 +143,40 @@ $.fn.icAjaxload = function() {
         }
     });
 }
-
+//Möglichkeit Ajaxload ohne Link/Form aufzurufen
+//Aufruf:   ic.Ajaxload('index.php?news-2');   -> Wie bei einem Link mit ajaxload Klasse
+//          ic.Ajaxload({url:'index.php?shoutbox', elementId: 'icShoutbox', type: 'box'});  -> Wie beim Laden einer Box, siehe weiter oben
+ic.Ajaxload = function(options) {
+    if (typeof options == 'string') {
+        options = {url: options};
+    }
+    var settings = {
+        url: '',        //Url von wo Inhalt geladen wird z.B. index.php?forum
+        elementId: '',  //Id eines Elements dessen Inhalt neu geladen wird, wenn nicht angegeben wird Content neu geladen, title und hmenu neu gesetzt
+        type: 'content' //content oder box, bei box wird bei index.php?shoutbox, die include/boxes/shoutbox.php geladen
+    };
+    $.extend(settings, options);
+    var linkadd = '&ajax=true';
+    var successFunc = function(data) {
+        $('#icHmenu').html(data.hmenu);
+        $('#icContent').html(data.content);
+        document.title = data.title;
+        ic.documentReady();
+    };
+    if (options.elementId != undefined && options.elementId != '') {
+        successFunc = function(data) {
+            $('#' + options.elementId).html(data.content);
+        };
+    }
+    if (options.type == 'box') {
+        linkadd = linkadd + '&boxreload=true';
+    }
+    $.ajax({
+        url: options.url + linkadd,
+        dataType: 'json',
+        success: successFunc
+    });
+}
 
 ic.documentReadyAdd(function() {
     //ajaxlinks und ajaxforms

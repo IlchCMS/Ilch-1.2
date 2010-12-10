@@ -55,6 +55,10 @@ function createNamedElement(type, name) {
 	  frm.submit();
     }
   }
+
+  function resetUserRight(id, recht){
+       document.getElementById('recht'+id).value = recht;
+  }
   function changeGruppen (id1) {
 	  ic.modalDialog({title:'Gruppen',url:'admin.php?user-gruppen-' + id1,height:300,width:250});
   }
@@ -103,8 +107,8 @@ function createNamedElement(type, name) {
 	}
 	return frm2;
   }
-  function setNewAntispam(element){
-  	document.getElementById('actionForm').elements['antispam_id'].value = element.value;
+  function setNewAntispam(value){
+  	document.getElementById('actionForm').elements['antispam_id'].value = value;
   }
 //-->
 </script>

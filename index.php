@@ -42,7 +42,7 @@ if (AJAXCALL and isset($_GET['boxreload']) and $_GET['boxreload'] == 'true') {
     if ($file !== false) {
         require $file;
     }
-    $tmp = array('content'=> ob_get_clean());
+    $tmp = array('content'=> utf8_encode(ob_get_clean()));
     echo json_encode($tmp);
     db_close();
     exit;

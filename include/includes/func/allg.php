@@ -164,7 +164,7 @@ function getsmilies($zeilen = 3) {
       while ($row = db_fetch_object($erg)) {
           $b .= 'x.document.write ("<a href=\"javascript:opener.put(\'' . addslashes(addslashes($row->ent)) . '\')\">");';
           $b .= 'x.document.write ("<img style=\"border: 0px; padding: 5px;\" src=\"include/images/smiles/' . $row->url . '\" title=\"' . $row->emo . '\"></a>");';
-  
+
           if ($i < 12) {
               // float einbauen
               if ($i % $zeilen == 0 AND $i != 0) {
@@ -444,8 +444,13 @@ function iurlencode($s) {
 // ##
 // ###
 // #### antispam
-function chk_antispam($m) {
+// NopictureMode ist zum Schutz vor Cross Site Request Forgery, und kann in jedem Formular eingesetzt werden
+function chk_antispam($m, $nopictures = false) {
     global $allgAr;
+
+    if ($nopictures) {
+        return (bool) (isset($_POST['antispam_id']) and isset($_SESSION['antispam'][$_POST['antispam_id']]));
+    }
 
     if (is_numeric($allgAr[ 'antispam' ]) AND has_right($allgAr[ 'antispam' ])) {
         return (true);
@@ -461,8 +466,19 @@ function chk_antispam($m) {
     return (true);
 }
 
-function get_antispam($m, $t) {
-    global $allgAr;
+function get_antispam($m, $t, $nopictures = false) {
+    global $allgAr, $antispamId;
+
+    if ($nopictures) {
+        if (isset($antispamId)) {
+            $id = $antispamId;
+        } else {
+            $id = $antispamId = uniqid($m, true);
+        }
+
+        $_SESSION['antispam'][$id] = true;
+        return '<input type="hidden" name="antispam_id" value="'.$id.'" />';
+    }
 
     if (is_numeric($allgAr[ 'antispam' ]) AND has_right($allgAr[ 'antispam' ])) {
         return ('');

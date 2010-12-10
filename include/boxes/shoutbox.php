@@ -47,6 +47,6 @@ while ($row = db_fetch_object($erg)) {
     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
     echo '<tr class="' . $class . '"><td><b>' . $row->nickname . ':</b> ' . preg_replace('/([^\s]{' . $allgAr[ 'sb_maxwordlength' ] . '})(?=[^\s])/', "$1\n", $row->textarea) . '</td></tr>';
 }
-echo '</table><a class="box" href="index.php?shoutbox">' . $lang[ 'archiv' ] . '</a>
-<script>$(document).ready(function() { $(\'#shoutboxform\').icAjaxload(\'icShoutbox\').attr(\'action\', \'index.php?shoutbox\'); });</script>
+echo '</table><a class="box" href="index.php?shoutbox" onclick="ic.Ajaxload(\'index.php?shoutbox\'); return false;">' . $lang[ 'archiv' ] . '</a>
+<script>$(document).ready(function() { $(\'#shoutboxform\').icAjaxload(\'icShoutbox\', \'box\').attr(\'action\', \'index.php?shoutbox\'); });</script>
 </div>';
