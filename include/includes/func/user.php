@@ -113,7 +113,7 @@ function user_login_check($auto=false) {
         debug(' id ' . $id);
         $erg = db_query("SELECT `name`,`id`,`recht`,`pass`,`llogin`,`sperre` FROM `prefix_user` WHERE `id` = " . $id);
     }
-	
+
     if (isset($erg) and db_num_rows($erg) == 1) {
         $row = db_fetch_assoc($erg);
 		debug('user gefunden... ' . $row['name']);
@@ -179,19 +179,26 @@ function user_logout() {
 }
 
 function user_set_grps_and_modules() {
-    $_SESSION[ 'authgrp' ] = array();
-    $_SESSION[ 'authmod' ] = array();
+    $_SESSION['authgrp'] = array();
+    $_SESSION['authmod'] = array();
     if (loggedin()) {
-        $erg = db_query("SELECT `gid` FROM `prefix_groupusers` WHERE `uid` = " . $_SESSION[ 'authid' ]);
+        $erg = db_query("SELECT `gid` FROM `prefix_groupusers` WHERE `uid` = " . $_SESSION['authid']);
         while ($row = db_fetch_assoc($erg)) {
-            $_SESSION[ 'authgrp' ][ $row[ 'gid' ] ] = true;
+            $_SESSION['authgrp'][$row['gid']] = true;
         }
-        $erg = db_query("SELECT DISTINCT `url`
-    FROM `prefix_modulerights`
-    LEFT JOIN `prefix_modules` ON `prefix_modules`.`id` = `prefix_modulerights`.`mid`
-    WHERE `uid` = " . $_SESSION[ 'authid' ]);
+        $erg = db_query('SELECT m.`url` FROM `prefix_modules` m
+        LEFT JOIN `prefix_modulerights` grmr ON m.id = grmr.mid AND grmr.uid = ' . $_SESSION['authright'] . '
+        LEFT JOIN `prefix_modulerights` umr ON m.id = umr.mid AND umr.uid = ' . $_SESSION['authid'] . '
+        WHERE m.fright = 1 AND (ISNULL(grmr.mid)+ISNULL(umr.mid))%2 = 1');
         while ($row = db_fetch_assoc($erg)) {
-            $_SESSION[ 'authmod' ][ $row[ 'url' ] ] = true;
+            $_SESSION['authmod'][$row['url']] = true;
+        }
+    } else {
+        $erg = db_query('SELECT m.`url` FROM `prefix_modules` m
+        INNER JOIN `prefix_modulerights` grmr ON m.id = grmr.mid AND grmr.uid = 0
+        WHERE m.fright = 1');
+        while ($row = db_fetch_assoc($erg)) {
+            $_SESSION['authmod'][$row['url']] = true;
         }
     }
 }

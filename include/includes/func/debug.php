@@ -70,7 +70,7 @@ if (DEBUG) {
             $ILCH_DEBUG_OUTPUT .= '<div>' . $time . $d . '</div>';
         }
     }
-    
+
     /**
      * Funktion parst den backtrace output und kann seine ausgabe verändern
      *
@@ -79,8 +79,10 @@ if (DEBUG) {
      **/
     function manipulate_debug_output($d)
     {
-      
       foreach ($d as $key => $rvalue) {
+        if (!isset($rvalue['query'])) {
+            return $d;
+        }
         $q  = $rvalue['query'];
         if (!empty($q)) {
           if (preg_match('/(SELECT){1}/i',$q,$match)) {
@@ -92,7 +94,7 @@ if (DEBUG) {
       }
       return $d;
     }
-    
+
     /**
      * soll später einen mysql query verlinken um seine ergebnisse angezeigt zu bekommen
      *
@@ -111,7 +113,7 @@ if (DEBUG) {
       $new_query .= '</a>';
       return $new_query;
     }
-    
+
     /**
      * debug_bt()
      * from php.net
@@ -124,9 +126,9 @@ if (DEBUG) {
         }
         $r = 'Debug backtrace:' . "\r\n";
         $i = 0;
-        
+
         foreach (debug_backtrace() as $t) {
-          
+
             $i++;
             if ($i == 1) {
                 continue;

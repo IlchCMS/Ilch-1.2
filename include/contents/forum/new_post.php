@@ -113,15 +113,15 @@ if (($_SESSION[ 'klicktime' ] + 15) > $dppk_time OR empty($txt) OR !empty($_POST
     WHERE `prefix_topic_alerts`.`tid` = " . $tid;
 
     $topic_alerts_erg = db_query($topic_alerts_abf);
+    $page = $_SERVER[ "HTTP_HOST" ] . $_SERVER[ "SCRIPT_NAME" ];
     while ($topic_alerts_row = db_fetch_assoc($topic_alerts_erg)) {
         if ($uid == $topic_alerts_row[ 'uid' ])
             continue;
-        $page = $_SERVER[ "HTTP_HOST" ] . $_SERVER[ "SCRIPT_NAME" ];
         $text = sprintf($lang[ 'topicalertmessage' ], $topic_alerts_row[ 'user' ], $topic_alerts_row[ 'topic' ], $page, $tid);
         icmail($topic_alerts_row[ 'email' ], 'neue Antwort im Thema: "' . $topic_alerts_row[ 'topic' ] . '"', $text);
         debug($topic_alerts_row[ 'email' ]);
     }
-    db_query("DELETE FROM `prefix_topic_alerts` WHERE `tid` = " . $tid);
+    db_query("DELETE FROM `prefix_topic_alerts` WHERE `tid` = " . $tid . " AND `uid` != " . $uid);
     // topic alert insert wenn gewaehlt.
     if (!empty($_POST[ 'topic_alert' ]) AND $_POST[ 'topic_alert' ] == 'yes' AND loggedin()) {
         if (0 == db_result(db_query("SELECT COUNT(*) FROM prefix_topic_alerts WHERE uid = " . $_SESSION[ 'authid' ] . " AND tid = " . $tid), 0)) {

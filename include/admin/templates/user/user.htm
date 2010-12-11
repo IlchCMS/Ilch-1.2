@@ -110,6 +110,14 @@ function createNamedElement(type, name) {
   function setNewAntispam(value){
   	document.getElementById('actionForm').elements['antispam_id'].value = value;
   }
+  function changeModuleRights(uid){
+    ic.modalDialog({
+        url: 'admin.php?user-cmr-' + uid,
+        title: 'Modulrechte ändern',
+        width: 450,
+        height: 500
+    });
+  }
 //-->
 </script>
 <div style="float:right"><a href="admin.php?puser">Noch nicht best&auml;tigte Registrierungen verwalten</a></div>
@@ -133,23 +141,15 @@ function createNamedElement(type, name) {
 <br />
 <br />
 <table cellpadding="3" cellspacing="1" border="0" class="border">
-  <tr>
-    <td colspan="6"></td>
-    <td class="Cmite" colspan="{anzmods}"><b>Modulrechte:</b></td>
-  </tr>
   <tr class="Chead">
     <th>Name</th>
     <th>Recht</th>
     <th>Gruppe</th>
     <th></th>
     <th></th>
-    <th class="border">&nbsp;&nbsp;</th>
-    {modlall}
+    <th>Modulrechte</th>
   </tr>
  {EXPLODE}
-
-
-
   <tr class="{class}">
     <td><div onMouseOver="hiddpos('groupdiv{id}')" id="groupdiv{id}" style="position:absolute; top:50px; left:50px; display:none; width:200px;">
 <table width="100%" class="border" border="0" cellspacing="1" cellpadding="4">
@@ -160,10 +160,9 @@ function createNamedElement(type, name) {
 </div><strong>{name}</strong></td>
     <td><select id="recht{id}" onChange="changeUserRight({id})">{recht}</select></td>
     <td style="text-align: center;"><a onMouseOut="hiddpos('groupdiv{id}')" onMouseOver="alertpos('groupdiv{id}')" href="javascript:changeGruppen({id})" title="hier die Gruppenzugeh&ouml;rigkeit &auml;ndern">Gruppen</a></td>
-    <td>&nbsp;<a href="admin.php?user-1-{id}"><img src="include/images/icons/edit.png" border="0" title="&auml;ndern" alt="&auml;ndern" /></a>&nbsp;</td>
+    <td>&nbsp;<a href="admin.php?user-1-{id}"><img src="include/images/icons/edit.png" border="0" title="Userdetails bearbeiten" alt="&auml;ndern" /></a>&nbsp;</td>
     <td>&nbsp;<a href="javascript:deleteUser({id})"><img src="include/images/icons/del.png" border="0" title="l&ouml;schen" alt="l&ouml;schen" /></a>&nbsp;</td>
-    <td class="border"></td>
-    {modslist}
+    <td>{modslist} <a href="javascript:void();" onclick="changeModuleRights({id});"><img src="include/images/icons/edit.png" border="0" title="Modulrechte &auml;ndern" alt="mods &auml;ndern" /></a></td>
   </tr>
  {EXPLODE}
 </table>

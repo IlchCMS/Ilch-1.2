@@ -32,6 +32,7 @@ class iSmarty extends Smarty {
         }
         $this->compile_dir = 'include/cache/smarty_compile';
         $this->chosenDesign = tpl::get_design();
+        $this->addPluginsDir('include/includes/libs/smarty/plugins');
     }
 
     /**

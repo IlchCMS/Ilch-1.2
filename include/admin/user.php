@@ -16,37 +16,20 @@ function user_get_group_list($uid) {
     return ($l);
 }
 
-function user_get_all_mod_list() {
-    $l = '';
-    $erg = db_query("SELECT DISTINCT `name` FROM `prefix_modules` WHERE `fright` = 1 ORDER BY `prefix_modules`.`name`");
-    while ($r = db_fetch_assoc($erg)) {
-        $x = $r[ 'name' ];
-        $l .= '<th style="font-size: 9px; font-weight: normal;" title="' . $r[ 'name' ] . '" valign="bottom">' . $x . '</th>';
-    }
-    return ($l);
-}
-
-function user_get_mod_change_list($uid) {
-    $l = '';
-    $erg = db_query("SELECT `prefix_modules`.`id`, `uid` FROM `prefix_modules` LEFT JOIN `prefix_modulerights` ON `prefix_modulerights`.`mid` = `prefix_modules`.`id` AND `prefix_modulerights`.`uid` = " . $uid . " WHERE `fright` = 1 ORDER BY `prefix_modules`.`name`");
-    while ($r = db_fetch_assoc($erg)) {
-        if ($r[ 'uid' ] == '') {
-            $c = '';
-        } else {
-            $c = ' checked';
+function user_get_mod_list($uid, $recht, $modulenames, $modulerights) {
+    $mods = $mr = $gr = array();
+    foreach ($modulerights as $row){
+        if ($row['uid'] == $recht) {
+            $gr[] = $modulenames[$row['mid']];
+        } elseif ($row['uid'] == $uid) {
+            $mr[] = $modulenames[$row['mid']];
+        } elseif($row['uid'] > $uid) {
+            break;
         }
-        $l .= '<td align="center"><input onclick="changeModulRecht(' . $r[ 'id' ] . ',' . $uid . ')" type="checkbox" id="MN' . $r[ 'id' ] . '-' . $uid . '" name="MN' . $r[ 'id' ] . '-' . $uid . '" ' . $c . ' /></td>';
     }
-    return ($l);
-}
-
-function user_get_mod_list($uid) {
-    $l = 'Modulrechte:<br />';
-    $erg = db_query("SELECT DISTINCT `module` FROM `prefix_modulerights` WHERE `uid` = " . $uid);
-    while ($r = db_fetch_assoc($erg)) {
-        $l .= '- ' . $r[ 'module' ] . '<br />';
-    }
-    return ($l);
+    $mods = array_merge(array_diff($gr, $mr), array_diff($mr, $gr));
+    natsort($mods);
+    return implode(', ', $mods);
 }
 
 function getfl($gid) {
@@ -131,7 +114,6 @@ switch ($um) {
             $q = escape($_REQUEST[ 'q' ], 'string');
         }
         $tpl = new tpl('user/user', 1);
-        $tpl->set('modlall', user_get_all_mod_list());
         $tpl->set('anzmods', db_result(db_query("SELECT COUNT(*) FROM `prefix_modules` WHERE `fright` = 1"), 0));
         $tpl->set('action_antispam', get_antispam('adminuser_action', 0, true));
         $tpl->set_out('q', unescape($q), 0);
@@ -146,24 +128,21 @@ switch ($um) {
         $MPL = db_make_sites($page, "WHERE `name` LIKE '" . $q . "'", $limit, '?user', 'user');
         $anfang = ($page - 1) * $limit;
         $class = '';
-        $q = "SELECT `name`,`recht`,`id` FROM `prefix_user` WHERE `name` LIKE '" . $q . "' ORDER BY `recht`,`posts` DESC LIMIT " . $anfang . "," . $limit;
-        $erg = db_query($q);
-        while ($row = db_fetch_object($erg)) {
-            if ($class == 'Cmite') {
-                $class = 'Cnorm';
-            } else {
-                $class = 'Cmite';
+        $grundrechte = simpleArrayFromQuery('SELECT `id`,`name` FROM `prefix_grundrechte` ORDER BY `id` ASC');
+        $users = allRowsFromQuery('SELECT `name`,`recht`,`id` FROM `prefix_user` WHERE `name` LIKE "' . $q . '" ORDER BY `recht`,`posts` DESC LIMIT ' . $anfang . ',' . $limit, 'id');
+        $userids = array_keys($users);
+        $modulerights = allRowsFromQuery('SELECT * FROM `prefix_modulerights` WHERE `uid` < 1 OR `uid` IN ('.implode(',', $userids).') ORDER BY `uid`');
+        $modulenames = simpleArrayFromQuery('SELECT `id`, `name` FROM `prefix_modules` WHERE `fright` = 1');
+        foreach ($users as $row){
+            $class = $class == 'Cmite' ? 'Cnorm' : 'Cmite';
+            $row['class']       = $class;
+            $row['grouplist']   = user_get_group_list($row['id']);
+            $row['modslist']    = user_get_mod_list($row['id'], $row['recht'], $modulenames, $modulerights);
+            if (strlen($row['modslist']) > 90) {
+                $row['modslist']    = substr($row['modslist'], 0, 87).'...';
             }
-            $ar = array(
-                'name' => $row->name,
-                'class' => $class,
-                'id' => $row->id,
-                'grouplist' => user_get_group_list($row->id),
-                'recht' => dblistee($row->recht, "SELECT `id`,`name` FROM `prefix_grundrechte` ORDER BY `id` ASC"),
-                'modslist' => user_get_mod_change_list($row->id)
-                );
-
-            $tpl->set_ar_out($ar, 1);
+            $row['recht']       = arlistee($row['recht'], $grundrechte);
+            $tpl->set_ar_out($row, 1);
         }
         $tpl->set_out('MPL', $MPL, 2);
         $design->footer();
@@ -454,6 +433,65 @@ switch ($um) {
         $tpl->set('antispam', get_antispam('adminuser_create', 0, true));
         $tpl->out(1);
         $design->footer();
+        break;
+    case 'cmr':
+        require_once 'include/includes/class/iSmarty.php';
+        $id = (int)$menu->get(2);
+        list($name, $recht) = db_fetch_row(db_query('SELECT `name`, `recht` FROM `prefix_user` WHERE `id` = ' . $id));
+        $data = allRowsFromQuery('SELECT m.*, (ISNULL(grmr.mid)+ISNULL(umr.mid))%2 AS hasright, IF(ISNULL(grmr.mid),2,1) AS rightfrom FROM `prefix_modules` m
+        LEFT JOIN `prefix_modulerights` grmr ON m.id = grmr.mid AND grmr.uid = ' . $recht . '
+        LEFT JOIN `prefix_modulerights` umr ON m.id = umr.mid AND umr.uid = ' . $id . '
+        WHERE m.fright = 1
+        ORDER BY hasright DESC, m.name', 'id');
+
+        $design = new design('', '', 0);
+        $design->header();
+
+        $smarty = new iSmarty();
+        $smarty->assign('site', $menu->get(0));
+        $smarty->assign('id', $id);
+        $smarty->assign('name', $name);
+
+        if (isset($_POST['subCMR'])) {
+            if (isset($_POST['mid']) and is_array($_POST['mid'])) {
+                //Änderungen vornehmen
+                foreach ($_POST['mid'] as $mid) {
+                    if ($data[$mid]['hasright'] == 1) {
+                        continue; //Recht schon gesetzt
+                    } else {
+                        //Recht setzen
+                        db_query('INSERT INTO `prefix_modulerights` (`uid`, `mid`) VALUE ('.$id.','.$mid.')');
+                    }
+                }
+            }
+            //Prüfe auf gelöschte Rechte
+            foreach ($data as $row){
+                if ($row['hasright'] == 1) {
+                    if (isset($_POST['mid']) and !in_array($row['id'], $_POST['mid'])) {
+                        //Recht entfernen
+                        if ($row['rightfrom'] == 1) { //Entfernen, wenn vom Grundrecht gegeben (einfügen als Modulrecht)
+                            db_query('INSERT INTO `prefix_modulerights` (`uid`, `mid`) VALUE ('.$id.','.$mid.')');
+                        } else { //Entfernen, wenn als Modulrecht
+                            db_query('DELETE FROM `prefix_modulerights` WHERE `mid` = ' . $row['id'] . ' AND `uid` = ' . $id);
+                        }
+                    }
+                } else {
+                    break;
+                }
+            }
+            //Neu auslesen
+            $data = allRowsFromQuery('SELECT m.*, (ISNULL(grmr.mid)+ISNULL(umr.mid))%2 AS hasright FROM `prefix_modules` m
+            LEFT JOIN `prefix_modulerights` grmr ON m.id = grmr.mid AND grmr.uid = ' . $recht . '
+            LEFT JOIN `prefix_modulerights` umr ON m.id = umr.mid AND umr.uid = ' . $id . '
+            WHERE m.fright = 1
+            ORDER BY hasright DESC, m.name', 'id');
+            $smarty->assign('info', 'Änderungen wurden gespeichert.');
+        }
+
+        $smarty->assign('data', $data);
+
+        $smarty->display('modulrechte.tpl');
+        $design->footer(1);
         break;
 }
 
