@@ -108,6 +108,16 @@ class design extends tpl {
             ob_start();
         }
     }
+    
+    protected function getJqueryThingy($a, $b){
+        if (preg_match('%jquery-\d\.\d+(\.\d+)?\.js%', $a) == 1) {
+            return -1;
+        } elseif (preg_match('%jquery-\d\.\d+(\.\d+)?\.js%', $b) == 1) {
+            return 1;
+        }
+        return 0;
+    }
+    
     // Fuegt Dynamische und Statische *.js und *.css Dateien in den Header ein
     // Kann jedoch nur uerber die header-Funktion aufgerufen werden
     protected function load_addons($addons = '') {
@@ -121,20 +131,14 @@ class design extends tpl {
         $css = read_ext('include/includes/css/global', 'css');
         // Dynamisches CSS laden (css vor js laden!)
         foreach ($css as $file) {
-            $buffer .= "\n<link rel=\"stylesheet\" type=\"text/css\" href=\"include/includes/css/global/" . $file . "\" />";
+            $buffer .= "\n" . '<link rel="stylesheet" type="text/css" href="include/includes/css/global/' . $file . '" />';
         }
         // Dynamisches Javascript laden
         // sort jquery Top -- should be removed later by Olox
-        usort($js, function($a, $b){
-            if (preg_match('%jquery-\d\.\d+(\.\d+)?\.js%', $a) == 1) {
-                return -1;
-            } elseif (preg_match('%jquery-\d\.\d+(\.\d+)?\.js%', $b) == 1) {
-                return 1;
-            }
-            return 0;
-        });
+        usort($js, array($this, "getJqueryThingy"));
+        
         foreach ($js as $file) {
-            $buffer .= "\n<script type=\"text/javascript\" src=\"include/includes/js/global/" . $file . "\"></script>";
+            $buffer .= "\n" . '<script type="text/javascript" src="include/includes/js/global/' . $file . '"></script>';
         }
         // Alle statischen Inhalte pruefen
         foreach ($addons as $addon) {
@@ -142,15 +146,14 @@ class design extends tpl {
             $dir = end($dir);
             if (file_exists('include/includes/' . $dir . '/' . $addon)) {
                 if ($dir == 'js') {
-                    $buffer .= "\n<script type=\"text/javascript\" src=\"include/includes/" . $dir . "/" . $addon . "\"></script>";
+                    $buffer .= "\n" . '<script type="text/javascript" src="include/includes/' . $dir . '/' . $addon . '"></script>';
                 } else if ($dir == 'css') {
-                    $buffer .= "\n<link rel=\"stylesheet\" type=\"text/css\" href=\"include/includes/" . $dir . "/" . $addon . "\" />";
+                    $buffer .= "\n" . '<link rel="stylesheet" type="text/css" href="include/includes/' . $dir . '/' . $addon . '" />';
                 }
             } else {
-                $buffer = "\n<script language='javascript'>" . "\nalert('Couldn\'t find the file \"include/includes/" . $dir . "/" . $addon . "\"!');" . "\n</script>";
+                $buffer = "\n" . '<script language="javascript">' . "\nalert('Couldn\'t find the file \"include/includes/" . $dir . "/" . $addon . "\"!');" . "\n</script>";
             }
         }
-
         return $buffer;
     }
 
@@ -420,5 +423,3 @@ class design extends tpl {
         return ($buffer);
     }
 }
-
-?>
