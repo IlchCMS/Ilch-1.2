@@ -429,7 +429,8 @@ INSERT INTO `prefix_loader` (`pos`, `task`, `file`, `description`) VALUES
 (10, 'func', 'forum.php', 'Alle Funktionen für das Forum'),
 (11, 'func', 'warsys.php', 'Funktionen für das War-System'),
 (12, 'func', 'ic_mime_type.php', 'Funktionen für den Umgang mit Dateiuploads'),
-(13, 'func', 'lang.php', 'Funktionen zum Aufrufen der Sprachdateien');
+(13, 'func', 'lang.php', 'Funktionen zum Aufrufen der Sprachdateien'),
+(14, 'func', 'statistic_content.php', 'Wer-Ist-Wo und ContentStats');
 
 CREATE TABLE `prefix_menu` (
   `wo` tinyint(1) NOT NULL default '0',
@@ -818,3 +819,12 @@ CREATE TABLE `prefix_wars` (
   `txt` text NOT NULL,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
+
+ALTER TABLE `prefix_online` ADD `content` VARCHAR( 255 ) NOT NULL
+  
+CREATE TABLE `prefix_stats_content` (
+		`id` INT NOT NULL AUTO_INCREMENT ,
+		`content` VARCHAR( 255 ) NOT NULL ,
+		`counter` INT NOT NULL ,
+		PRIMARY KEY ( `id` )
+)

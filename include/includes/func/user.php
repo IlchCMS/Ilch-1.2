@@ -4,6 +4,7 @@
  * @copyright (C) 2000-2010 ilch.de
  * @version $Id$
  */
+
 // hier werden alle user spezifischen funktionen
 // definert..
 function user_identification($m) {
@@ -52,7 +53,10 @@ function user_update_database($m) {
 	}
     db_query('UPDATE `prefix_online` SET `uptime` = "' . date('Y-m-d H:i:s') . '",
 										`content` = "'.$m.'"  WHERE `sid` = "' . session_id() . '"');
-	content_stats($m);
+	
+	if (function_exists('content_stats')) {
+	  content_stats($m);
+	}
 	debug('"'.$m.'" als Aufenthaltsort erkannt');
     db_query('DELETE FROM `prefix_online` WHERE `uptime` < "' . $dif . '"');
     if (loggedin()) {
