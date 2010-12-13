@@ -5,11 +5,11 @@
  * @version $Id$
  */
 // hier werden alle user spezifischen funktionen
-// definert...
-function user_identification() {
+// definert..
+function user_identification($m) {
     user_auth();
     user_login_check();
-    user_update_database();
+    user_update_database($m);
     user_check_url_rewrite();
 }
 
@@ -44,9 +44,16 @@ function user_check_url_rewrite() {
     }
 }
 
-function user_update_database() {
+function user_update_database($m) {
     $dif = date('Y-m-d H:i:s', time() - 7200);
-    db_query('UPDATE `prefix_online` SET `uptime` = "' . date('Y-m-d H:i:s') . '" WHERE `sid` = "' . session_id() . '"');
+	global $allgAr;
+	if (empty($m)) {
+		$m = $allgAr['smodul']. ' (Startseite)';
+	}
+    db_query('UPDATE `prefix_online` SET `uptime` = "' . date('Y-m-d H:i:s') . '",
+										`content` = "'.$m.'"  WHERE `sid` = "' . session_id() . '"');
+	content_stats($m);
+	debug('"'.$m.'" als Aufenthaltsort erkannt');
     db_query('DELETE FROM `prefix_online` WHERE `uptime` < "' . $dif . '"');
     if (loggedin()) {
         db_query("UPDATE `prefix_user` SET `llogin` = '" . time() . "' WHERE `id` = '" . $_SESSION[ 'authid' ] . "'");

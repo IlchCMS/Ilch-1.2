@@ -32,7 +32,8 @@ require_once('include/includes/loader.php');
 $allgAr = getAllgAr();
 // Menu, Nutzerverwaltung und Seitenstatistik laden
 $menu = new menu();
-user_identification();
+$m = $menu->get_complete();
+user_identification($m);
 // Sprachdateien oeffnen
 load_global_lang();
 load_modul_lang();
@@ -47,7 +48,6 @@ if (AJAXCALL and isset($_GET['boxreload']) and $_GET['boxreload'] == 'true') {
     db_close();
     exit;
 }
-
 site_statistic();
 // Wartungsmodus
 if ($allgAr['wartung'] == 1 and is_admin()) {

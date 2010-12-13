@@ -60,7 +60,7 @@ function user_admin_online_liste() {
     $OnListe = '';
     $class = '';
     $dif = date('Y-m-d H:i:s', time() - USERUPTIME);
-    $erg = db_query("SELECT DISTINCT `uid`, DATE_FORMAT(`uptime`, '%d.%m.%Y - %H:%i:%s') as `datum`, `ipa`, `name` FROM `prefix_online` LEFT JOIN `prefix_user` on `prefix_user`.`id` = `prefix_online`.`uid` WHERE `uptime` > '" . $dif . "' ORDER BY `uid` DESC");
+    $erg = db_query("SELECT DISTINCT `uid`, DATE_FORMAT(`uptime`, '%d.%m.%Y - %H:%i:%s') as `datum`, `ipa`, `name`, `content` as aufenthalt FROM `prefix_online` LEFT JOIN `prefix_user` on `prefix_user`.`id` = `prefix_online`.`uid` WHERE `uptime` > '" . $dif . "' ORDER BY `uid` DESC");
     while ($row = db_fetch_object($erg)) {
         $name = $row->name;
         if ($row->uid == 0) {
@@ -94,6 +94,7 @@ function user_admin_online_liste() {
         $OnListe .= '<td>' . $row->datum . '</td>';
         $OnListe .= '<td>' . $row->ipa . '</td>';
         $OnListe .= '<td>' . preg_replace($host_patterns, $host_names, @gethostbyaddr($row->ipa)) . '</td>';
+		$OnListe .= '<td>' . $row->aufenthalt . '</td>';
         $OnListe .= '</tr>';
     }
     // $OnListe = substr($OnListe,0,strlen($OnListe) - 3);

@@ -152,6 +152,7 @@ switch ($um) {
             <th>Letzte aktivitaet</th>
             <th>IP-Adresse</th>
             <th>Anbieter</th>
+            <th>Aufenthalt</th>
           </tr>
           <?php
         echo user_admin_online_liste();
@@ -235,7 +236,10 @@ switch ($um) {
             echo '<table border="0" cellpadding="0" cellspacing="0">';
             while ($r = db_fetch_row($erg)) {
                 // str_repeat('|',abs($row['regs'] / 2))
-                echo '<tr><td>' . $r[ 1 ] . '</td><td>' . str_repeat('|', $r[ 0 ]) . ' ' . $r[ 0 ] . '</td></tr>';
+				$sum = db_result(db_query("SELECT SUM(counter) FROM `prefix_stats_content`"));
+				
+				$proz = $r[ 0 ] / $sum * 100;
+                echo '<tr><td>' . $r[ 1 ] . '</td><td>' . str_repeat('|', $proz) . ' ' . $r[ 0 ] . ' (' . number_format($proz, 2).' %)</td></tr>';
             }
             echo '</table>';
         }
@@ -285,9 +289,15 @@ switch ($um) {
         $sql = "SELECT COUNT(*) as `kk` , `name` as `vv` FROM `prefix_user` WHERE `regist` >= " . $heute1 . " AND `regist` <= " . $heute . " GROUP BY `vv` ORDER BY `kk` DESC LIMIT 10";
         echo '<hr><b>Neue User gestern</b><br />';
         forum_statistic_show($sql, $gsh);
+
         echo '</td></tr></table>';
 
-        echo '<h1>Es ist ganz ehrlich noch mehr geplant :P</h1>';
+		// meist besuchte Seiten
+        $gsh = db_result(db_query("SELECT COUNT(*) FROM `prefix_stats_content` ORDER BY counter DESC LIMIT 25"),0 ,0);
+        $sql = "SELECT counter, content FROM `prefix_stats_content` ORDER BY counter DESC LIMIT 25";
+        echo '<hr><b>meist besuchter Content</b><br />';
+        forum_statistic_show($sql, $anzheute);
+
         // #########################################
         break;
 }
