@@ -31,7 +31,8 @@ if ($allgAr['wartung'] == 1) {
 }
 // Menu, Nutzerverwaltung und Seitenstatistik laden
 $menu = new menu();
-user_identification();
+$m = $menu->get_complete().' (Adminbereich)';
+user_identification($m);
 site_statistic();
 // Sprachdateien oeffnen
 load_global_lang(2);
