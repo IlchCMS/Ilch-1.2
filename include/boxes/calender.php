@@ -7,7 +7,6 @@ $(function() {
 			monthNamesShort: ['Jan','Feb','M&auml;r','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],
 			dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
 			showWeek: true,
-			buttonText: 'Choose',
 			changeMonth: true,
 			changeYear: true,
 			firstDay: 1,
@@ -16,7 +15,7 @@ $(function() {
 			buttonText: 'Choose',
 			onSelect: function(dateText, inst) { 
 							document.form1.submit();
-							var loc = location.href;
+							var loc = '';
 							var datesplit = dateText.split('.');
 							location.href = loc+'?kalender-v1-m'+datesplit[1]+'-y'+datesplit[2]+'-d'+datesplit[0];
 					}

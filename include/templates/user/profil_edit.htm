@@ -3,6 +3,26 @@ $(function() {
 $('.password').pstrength();
 });
 </script>
+<script>
+$(function() {
+	
+	$( "#datepicker" ).datepicker({ 
+			autoSize: true,
+			monthNames: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+			monthNamesShort: ['Jan','Feb','M&auml;r','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],
+			dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+			showWeek: true,
+			changeMonth: true,
+			changeYear: true,
+			firstDay: 1,
+			dateFormat: 'yy-mm-dd',
+			autoSize: true,
+		});
+});
+</script>
+<noscript>
+Bitte JavaScript aktivieren
+</noscript>
 <form action="index.php?user-profil" method="POST" enctype="multipart/form-data">
 	<fieldset>
 	  <legend>Persönliche Daten ändern</legend>
@@ -14,7 +34,10 @@ $('.password').pstrength();
 			<label style="float:left; width:35%;">{_lang_msn}</label><input style="margin-bottom:2px;" name="msn" value="{msn}" /><br style="clear:both;" />
 			<label style="float:left; width:35%;">{_lang_yahoo}</label><input style="margin-bottom:2px;" name="yahoo" value="{yahoo}" /><br style="clear:both;" />
 			<label style="float:left; width:35%;">{_lang_aim}</label><input style="margin-bottom:2px;" name="aim" value="{aim}" /><br style="clear:both;" />
-			<label style="float:left; width:35%;">{_lang_birthday}</label><input style="margin-bottom:2px;" name="gebdatum" value="{gebdatum}" /><font class="smalfont">{_lang_dateformat}</font><br style="clear:both;" />
+			<div class="datepicker">
+            	<label style="float:left; width:35%;">{_lang_birthday}</label><input style="margin-bottom:2px;" id="datepicker" name="gebdatum" value="{gebdatum}" />
+                </div>
+                <font class="smalfont">{_lang_dateformat}</font><br style="clear:both;" />
 			<label style="float:left; width:35%;">{_lang_state}</label><select style="margin-bottom:2px;" name="staat">{_list_staat@<option%1 value="%2">%3</option>}</select><br style="clear:both;" />
 			<label style="float:left; width:35%;">{_lang_sex}</label><input style="margin-bottom:2px;" type="radio" value="1" id="geschlecht1" name="geschlecht" {geschlecht1} /><label for="geschlecht1"> {_lang_male}</label>, <input id="geschlecht2" type="radio" value="2" name="geschlecht" {geschlecht2} /><label for="geschlecht2"> {_lang_female}</label>, <input id="geschlecht0" type="radio" value="0" name="geschlecht" {geschlecht0} /><label for="geschlecht0"> {_lang_itdoesntmatter}</label><br style="clear:both;" />
 			<label style="float:left; width:35%;">{_lang_status}</label><input id="status_aktiv" type="radio" value="1" name="status" {status1} /><label for="status_aktiv"> {_lang_active}</label>, <input id="status_inaktiv" type="radio" value="0" name="status" {status0} /><label for="status_inaktiv"> {_lang_inactive}</label><br style="clear:both;" />
