@@ -6,7 +6,7 @@ $('.password').pstrength();
 <script>
 $(function() {
 	
-	$( "#datepicker" ).datepicker({ 
+	$( "#datepickerProfil" ).datepicker({ 
 			autoSize: true,
 			monthNames: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
 			monthNamesShort: ['Jan','Feb','M&auml;r','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],
@@ -17,6 +17,7 @@ $(function() {
 			firstDay: 1,
 			dateFormat: 'yy-mm-dd',
 			autoSize: true,
+			yearRange: 'c-99:c+5',
 		});
 });
 </script>
@@ -34,8 +35,8 @@ Bitte JavaScript aktivieren
 			<label style="float:left; width:35%;">{_lang_msn}</label><input style="margin-bottom:2px;" name="msn" value="{msn}" /><br style="clear:both;" />
 			<label style="float:left; width:35%;">{_lang_yahoo}</label><input style="margin-bottom:2px;" name="yahoo" value="{yahoo}" /><br style="clear:both;" />
 			<label style="float:left; width:35%;">{_lang_aim}</label><input style="margin-bottom:2px;" name="aim" value="{aim}" /><br style="clear:both;" />
-			<div class="datepicker">
-            	<label style="float:left; width:35%;">{_lang_birthday}</label><input style="margin-bottom:2px;" id="datepicker" name="gebdatum" value="{gebdatum}" />
+			<div class="datepickerProfil">
+            	<label style="float:left; width:35%;">{_lang_birthday}</label><input style="margin-bottom:2px;" id="datepickerProfil" name="gebdatum" value="{gebdatum}" />
                 </div>
                 <font class="smalfont">{_lang_dateformat}</font><br style="clear:both;" />
 			<label style="float:left; width:35%;">{_lang_state}</label><select style="margin-bottom:2px;" name="staat">{_list_staat@<option%1 value="%2">%3</option>}</select><br style="clear:both;" />

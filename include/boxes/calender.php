@@ -13,6 +13,7 @@ $(function() {
 			dateFormat: 'dd.mm.yy',
 			autoSize: true,
 			buttonText: 'Choose',
+			yearRange: 'c-10:c+10',
 			onSelect: function(dateText, inst) { 
 							document.form1.submit();
 							var loc = '';
