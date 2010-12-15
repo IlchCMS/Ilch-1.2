@@ -1,3 +1,31 @@
+<script>
+$(function() {
+	
+	$( "#datepickercontent" ).datepicker({ 
+			autoSize: true,
+			monthNames: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+			monthNamesShort: ['Jan','Feb','M&auml;r','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],
+			dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+			showWeek: true,
+			buttonText: 'Choose',
+			changeMonth: true,
+			changeYear: true,
+			firstDay: 1,
+			dateFormat: 'dd.mm.yy',
+			autoSize: true,
+			buttonText: 'Choose',
+			onSelect: function(dateText, inst) { 
+							document.form1.submit();
+							var loc = ''
+							var datesplit = dateText.split('.');
+							location.href = loc+'?kalender-v1-m'+datesplit[1]+'-y'+datesplit[2]+'-d'+datesplit[0];
+					}
+		});
+});
+</script>
+<noscript>
+Bitte JavaScript aktivieren
+</noscript>
 <!-- Kalender Script � by Nickel -->
 <table width="100%" cellpadding="0" border="0" cellspacing="0">
 <tr>
@@ -26,9 +54,7 @@
 		</table>
 	</td>
 	<td width="10" nowrap="nowrap">&nbsp;</td>
-	<td width="175" valign="top" nowrap="nowrap">
-{calender}
-<center><a href="index.php?kalender-v1">{_lang_listview}</a> | <a href="index.php?kalender-v0">{_lang_monthsview}</a></center>
+	<td width="175" valign="top" nowrap="nowrap"><div id="datepickercontent"></div><center><a href="index.php?kalender-v1">{_lang_listview}</a> | <a href="index.php?kalender-v0">{_lang_monthsview}</a></center>
 	</td>
 </tr>
 </table>

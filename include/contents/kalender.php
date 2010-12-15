@@ -18,7 +18,7 @@ $tpl = new tpl('kalender.htm');
 $month = date('n');
 $year = date('Y');
 $gday = 0;
-$view = 0;
+$view = 1;
 $eid = 0;
 if ($menu->getA(1) == 'v' AND is_numeric($menu->getE(1))) {
     $view = $menu->getE(1);

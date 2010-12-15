@@ -1,31 +1,41 @@
-<?php
-/**
- * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
- * @copyright (C) 2000-2010 ilch.de
- * @version $Id$
- */
-defined('main') or die('no direct access');
+<script>
+$(function() {
+	
+	$( "#datepicker" ).datepicker({ 
+			autoSize: true,
+			monthNames: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+			monthNamesShort: ['Jan','Feb','M&auml;r','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],
+			dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+			showWeek: true,
+			buttonText: 'Choose',
+			changeMonth: true,
+			changeYear: true,
+			firstDay: 1,
+			dateFormat: 'dd.mm.yy',
+			autoSize: true,
+			buttonText: 'Choose',
+			onSelect: function(dateText, inst) { 
+							document.form1.submit();
+							var loc = location.href;
+							var datesplit = dateText.split('.');
+							location.href = loc+'?kalender-v1-m'+datesplit[1]+'-y'+datesplit[2]+'-d'+datesplit[0];
+					}
+		});
+});
+</script>
+<noscript>
+Bitte JavaScript aktivieren
+</noscript>
+<div class="datepicker">
 
-$m = date('n');
-$j = date('Y');
+<p><form id="form1" name="form1" action="">
+<!--
+<div id="datepicker"></div>
+-->
+	Datum: <input type="text" id="datepicker" size="10" maxlength="15" onChange="document.datepicker.submit();">
+    <div style="display: none;"><input type="submit" value="absenden" id="datepicker"/></div>
+    </form></p>
 
-$where1 = mktime(0, 0, 0, $m, 1, $j);
-$where2 = mktime(24, 0, 0, $m, date('t', $where1), $j);
+</div>
 
-$data = array();
-
-$result = db_query('SELECT *
-	FROM `prefix_kalender`
-	WHERE (`time` > ' . $where1 . ' AND `time` < ' . $where2 . ')
-		AND ' . $_SESSION[ 'authright' ] . ' <= `recht`
-	ORDER BY `time` LIMIT 50');
-while ($row = db_fetch_assoc($result)) {
-    $t_id = $row[ 'id' ];
-    $t_d = date('j', $row[ 'time' ]);
-    $t_m = date('n', $row[ 'time' ]);
-    $t_y = date('Y', $row[ 'time' ]);
-    $date = mktime(0, 0, 0, $t_m, $t_d, $t_y);
-    $data[ $date ][ ] = $row;
-}
-
-echo getCalendar($m, $j, '?kalender-v1-m{mon}-y{jahr}-d{tag}', '?kalender-v0-m{mon}-y{jahr}', $data, 1);
+<p></p>
