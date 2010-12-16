@@ -1,0 +1,35 @@
+<b>Inaktive User erkennen und entfernen</b><br />
+<hr>
+<table>
+<tr>
+	<td>
+		<p><b>Grundeinstellung</b></p>
+		<p><b> Ab wie viele Wochen soll ein User inaktiv gelten?</b></p>
+	</td>
+</tr>
+<tr>
+	<td>
+		<form method="post">
+			<input name="inaktivset" type="text" id="inaktivset" value="{ANZAHLINAKTIV}" size="5" maxlength="5">
+			<input type="submit" name="saveinaktiv" value="speichern" />
+		</form>
+	</td>
+</tr>
+</table>
+<hr>
+<b>{ANSICHTSMODUS}</b>
+<form method="post" style="display:inline-block; margin-left:10px;">
+	{MODUS_SWITCH}
+</form>
+<br>
+<table width="414">
+	<tr>
+		<td width="70"><b>ID</b></td>
+		<td width="200"><b>Username</b></td>
+		<td width="128"><b>User l&ouml;schen</b></td>
+		<td width="100"><b>Tage inaktiv</b></td>
+	</tr>
+{USERIST}
+</table>
+
+
