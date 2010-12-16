@@ -25,9 +25,9 @@ if ($menu->get(1) == "loadtype") {
 $design = new design('Ilch Admin-Control-Panel :: Profilfelder', '', 2);
 $design->header();
 
-$_POST[ 'show' ] = escape($_POST[ 'show' ], 'string');
-$_POST[ 'func' ] = escape($_POST[ 'func' ], 'integer');
-$_POST[ 'sid' ] = escape($_POST[ 'sid' ], 'integer');
+$_POST[ 'show' ] = @escape($_POST[ 'show' ], 'string');
+$_POST[ 'func' ] = @escape($_POST[ 'func' ], 'integer');
+$_POST[ 'sid' ] = @escape($_POST[ 'sid' ], 'integer');
 
 $show = true;
 if (isset($_POST[ 'sub' ])) {

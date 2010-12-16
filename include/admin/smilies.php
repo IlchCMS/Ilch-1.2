@@ -128,7 +128,7 @@ $class = 'Cnorm';
 $o = opendir('include/images/smiles');
 while ($f = readdir($o)) {
     // TODO optimize efficiency. einfach einmal alle smilies holen sollte schneller gehen
-    if ($f == '.' OR $f == '..' OR 0 != db_result(db_query("SELECT COUNT(*) FROM `prefix_smilies` WHERE `url` = '" . $f . "'"), 0)) {
+    if ($f == '.' OR $f == '..' OR $f == '.svn' OR 0 != db_result(db_query("SELECT COUNT(*) FROM `prefix_smilies` WHERE `url` = '" . $f . "'"), 0)) {
         continue;
     }
     // eintrage wenn vorhanden...

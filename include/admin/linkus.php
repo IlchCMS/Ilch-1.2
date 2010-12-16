@@ -151,7 +151,7 @@ if (isset($_POST['setnewbanner'])) {
             // banner auflisten mit edit/lösch-funktionen
             if (is_readable($updir)) {
                 // alle Banner ausgeben die in der DB stehen
-                $qry = db_query("SELECT id, name, views, klicks, link FROM `prefix_linkus` ORDER BY id ASC");
+                $qry = db_query("SELECT id, name, views, klicks, link FROM `prefix_linkus` ORDER BY klicks DESC");
                 while ($row = db_fetch_assoc($qry)) {
                     $bannerlist .= '<tr>
 								<td>' . $row['id'] . '</td>
