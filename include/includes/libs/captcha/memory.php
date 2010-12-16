@@ -1,6 +1,7 @@
 <?php
-//   Copyright by: T0P0LIN0
-//   Support: www.honklords.de
+# www.ilch.de
+# Author: T0P0LIN0                                                     
+# thanks to uwe slick! http://www.deruwe.de/captcha.html - his thoughts
 
 class Memory
 {

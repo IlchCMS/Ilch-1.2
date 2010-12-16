@@ -1,8 +1,7 @@
 <?php
-//########################################################################
-// Author: T0P0LIN0                                                      #
-// thanks to uwe slick! http://www.deruwe.de/captcha.html - his thoughts #
-//########################################################################
+# www.ilch.de
+# Author: T0P0LIN0                                                     
+# thanks to uwe slick! http://www.deruwe.de/captcha.html - his thoughts
 class Captcha
 {
     var $memory;
