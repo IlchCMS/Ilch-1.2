@@ -18,7 +18,7 @@ $(function() {
 							document.form1.submit();
 							var loc = ''
 							var datesplit = dateText.split('.');
-							location.href = loc+'?kalender-v1-m'+datesplit[1]+'-y'+datesplit[2]+'-d'+datesplit[0];
+							location.href = loc+'index.php?kalender-v1-m'+datesplit[1]+'-y'+datesplit[2]+'-d'+datesplit[0];
 					}
 		});
 });
@@ -93,4 +93,4 @@ Bitte JavaScript aktivieren
 		});
 </script>
 {EXPLODE "event link"}
-<a class="calender-event" rel="calender-event-details-{id}" href="?kalender-v{view}-e{id}">{title}</a>;&nbsp;
+<a class="calender-event" rel="calender-event-details-{id}" href="index.php?kalender-v{view}-e{id}">{title}</a>;&nbsp;

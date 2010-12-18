@@ -20,6 +20,9 @@ $year = date('Y');
 $gday = 0;
 $view = 1;
 $eid = 0;
+
+$addyrs = 25; # Anzahl der Jahre die vorrausberechnet werden sollen
+
 if ($menu->getA(1) == 'v' AND is_numeric($menu->getE(1))) {
     $view = $menu->getE(1);
 }
@@ -29,7 +32,7 @@ if ($menu->getA(2) == 'm' AND is_numeric($menu->getE(2)) AND $menu->getE(2) > 0 
 if ($menu->getA(4) == 'd' AND is_numeric($menu->getE(4)) AND $menu->getE(4) > 0 AND $menu->getE(4) < 32) {
     $gday = $menu->getE(4);
 }
-if ($menu->getA(3) == 'y' AND is_numeric($menu->getE(3)) AND $menu->getE(3) > 2000 AND $menu->getE(3) < date('Y', (time() + pow(8, 9)))) {
+if ($menu->getA(3) == 'y' AND is_numeric($menu->getE(3)) AND $menu->getE(3) >= 2000 AND $menu->getE(3) <= date('Y') + $addyrs) {
     $year = $menu->getE(3);
 }
 if ($menu->getA(2) == 'e' AND is_numeric($menu->getE(1))) {
@@ -37,9 +40,10 @@ if ($menu->getA(2) == 'e' AND is_numeric($menu->getE(1))) {
 }
 
 $arr_month = array(
-    '1' => 'Januar',
+    '1' => 
+	'Januar',
     'Februar',
-    'M�rz',
+    'M&auml;rz',
     'April',
     'Mai',
     'Juni',
