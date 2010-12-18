@@ -1,8 +1,8 @@
 <script>
 $(function() {
-			var dertag 		= document.getElementById("dertag").value;
-			var dermonat	= document.getElementById("dermonat").value;
-			var dasjahr		= document.getElementById("dasjahr").value;
+			var dertag 		= '{TAG}';
+			var dermonat	= '{MONAT}';
+			var dasjahr		= '{YEAR}'
 			var current		= dertag+'.'+dermonat+'.'+dasjahr;
 			
 	$( "#datepickercontent" ).datepicker({ 
@@ -38,7 +38,7 @@ $(function() {
 -->
 <div style="display:none;">
 	<input id="dertag" value="{TAG}" />
-    <input id="dermonat" value="{MONAT}" />
+  <input id="dermonat" value="{MONAT}" />
 	<input id="dasjahr" value="{YEAR}" />
 </div>
 <!-- -->
