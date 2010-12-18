@@ -32,4 +32,4 @@ VALUES (
 )");
 
 $rev='213';
-$update_messages[$rev][] = 'Zeile zum Speichern der Inaktiv-Zeit für das inavtive-modul hinzugefugt und im UserMenu verankert';
+$update_messages[$rev][] = 'Zeile zum Speichern der Inaktiv-Zeit f&uuml;r das inavtive-modul hinzugef&uuml;gt und im UserMenu verankert';
