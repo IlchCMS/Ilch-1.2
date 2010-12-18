@@ -123,6 +123,8 @@ if ($view == 0) {
 }
 // Template Ausgabe
 $aus[ 'MONTH' ] = $arr_month[ $month ];
+$aus[ 'MONAT'] = $month;
+$aus[ 'TAG'] = $gday;
 $aus[ 'YEAR' ] = $year;
 $aus[ 'TITLE' ] = ($eid) ? $data_id[ $eid ][ 'title' ] : $title_liste;
 $aus[ 'TITLE_ALIGN' ] = ($eid) ? '' : ' align="center"';

@@ -1,6 +1,10 @@
 <script>
 $(function() {
-	
+			var dertag 		= document.getElementById("dertag").value;
+			var dermonat	= document.getElementById("dermonat").value;
+			var dasjahr		= document.getElementById("dasjahr").value;
+			var current		= dertag+'.'+dermonat+'.'+dasjahr;
+			
 	$( "#datepickercontent" ).datepicker({ 
 			autoSize: true,
 			monthNames: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
@@ -14,17 +18,33 @@ $(function() {
 			dateFormat: 'dd.mm.yy',
 			autoSize: true,
 			buttonText: 'Choose',
+			showButtonPanel: false,
+			gotoCurrent: true,
+			currentText: 'Heute',
 			onSelect: function(dateText, inst) { 
 							document.form1.submit();
 							var loc = ''
 							var datesplit = dateText.split('.');
 							location.href = loc+'index.php?kalender-v1-m'+datesplit[1]+'-y'+datesplit[2]+'-d'+datesplit[0];
 					}
+				
 		});
+		
+	$( "#datepickercontent" ).datepicker( "setDate" , current);
 });
 </script>
+<!-- 
+	Divs zum Zwischenspeichern vom ausgewählten Datum
+-->
+<div style="display:none;">
+	<input id="dertag" value="{TAG}" />
+    <input id="dermonat" value="{MONAT}" />
+	<input id="dasjahr" value="{YEAR}" />
+</div>
+<!-- -->
+	
 <noscript>
-Bitte JavaScript aktivieren
+	Bitte JavaScript aktivieren
 </noscript>
 <!-- Kalender Script � by Nickel -->
 <table width="100%" cellpadding="0" border="0" cellspacing="0">
