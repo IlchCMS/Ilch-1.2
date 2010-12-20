@@ -67,12 +67,18 @@ ic.modalDialogClose = function() {
 //          func: Funktion
 //          type (String): both, domready, ajaxload
 //          Gibt an, wann die Funktion geladen wird
+//Der Funktion werden 2 Paramenter übergeben, der erste gibt an, welcher Art der Reload war:
+// 1. Parameter (string): domready, ajaxcontent, ajaxelement, ajaxbox
+// ajaxcontent ist ein Ajaxreload ohne spezielle Parameter,
+// ajaxelement ist der Reload eines Elments und ajaxbox bei einem Boxreload
+// 2. Parameter gibt im Falle von ajaxelement und ajaxbox die ElementId des neugeladenen Containers
+
 //Array in das man Funktionen einhängen kann die bei DocumentReady und Ajaxreload aufgerufen werden
 ic.documentReadyFuncs = {count: 0};
 ic.documentReadyAdd = function(func) {
     if ($.isFunction(func)) {
         var type = 'both';
-        if (arguments[1] == 'ajax' || arguments[1] == 'domready') {
+        if (arguments[1] == 'ajaxload' || arguments[1] == 'domready') {
             type = arguments[1];
         }
         ic.documentReadyFuncs[ic.documentReadyFuncs.count] = {
@@ -83,10 +89,19 @@ ic.documentReadyAdd = function(func) {
     }
 }
 ic.documentReady = function() {
+    var type = 'domready';
+    var ftype = 'domready';
+    var elemid = null;
+    if (arguments.length > 0 && $.inArray(arguments[0], ['ajaxcontent', 'ajaxelement', 'ajaxbox']) != -1) {
+        type = 'ajaxload';
+        ftype = arguments[0];
+        if (arguments.length > 1) {
+            elemid = arguments[1];
+        }
+    }
     for (var i in ic.documentReadyFuncs) {
-        if ($.isFunction(ic.documentReadyFuncs[i].func)) {
-
-            ic.documentReadyFuncs[i].func();
+        if ($.isFunction(ic.documentReadyFuncs[i].func) && (ic.documentReadyFuncs[i].type == 'both' || ic.documentReadyFuncs[i].type == type)) {
+            ic.documentReadyFuncs[i].func(ftype, elemid);
         }
     }
 }
@@ -109,16 +124,20 @@ $.fn.icAjaxload = function() {
             $('#icHmenu').html(data.hmenu);
             $('#icContent').html(data.content);
             document.title = data.title;
-            ic.documentReady();
+            ic.documentReady('ajaxcontent');
         };
 
         if (elementId !== false) {
-            successFunc = function(data) {
-                $('#' + elementId).html(data.content);
-            };
+            var type = 'ajaxelement';
             if (BoxLoad !== false && BoxLoad == 'box') {
                 linkadd = linkadd + '&boxreload=true';
+                type = 'ajaxbox';
             }
+            successFunc = function(data) {
+                $('#' + elementId).html(data.content);
+                ic.documentReady(type, elementId);
+            };
+
         }
         if (tag == 'a') {
             $(this).click(function() {
@@ -161,16 +180,20 @@ ic.Ajaxload = function(options) {
         $('#icHmenu').html(data.hmenu);
         $('#icContent').html(data.content);
         document.title = data.title;
-        ic.documentReady();
+        ic.documentReady('ajaxcontent');
     };
+    var type = 'ajaxelement';
+    if (options.type == 'box') {
+        linkadd = linkadd + '&boxreload=true';
+        type = 'ajaxbox';
+    }
     if (options.elementId != undefined && options.elementId != '') {
         successFunc = function(data) {
             $('#' + options.elementId).html(data.content);
+            ic.documentReady(type, options.elementId);
         };
     }
-    if (options.type == 'box') {
-        linkadd = linkadd + '&boxreload=true';
-    }
+
     $.ajax({
         url: options.url + linkadd,
         dataType: 'json',
@@ -178,9 +201,14 @@ ic.Ajaxload = function(options) {
     });
 }
 
-ic.documentReadyAdd(function() {
+ic.documentReadyAdd(function(type, elemid) {
     //ajaxlinks und ajaxforms
-    $('a.ajaxload').icAjaxload();
-    $('form.ajaxload').icAjaxload();
+    if (type != 'domready') {
+        elemid = '#' + elemid + ' ';
+    } else {
+        elemid = '';
+    }
+    $(elemid + 'a.ajaxload').icAjaxload();
+    $(elemid + 'form.ajaxload').icAjaxload();
 });
 $(document).ready(ic.documentReady);
