@@ -21,7 +21,7 @@ include_once('include/includes/func/gallery.php');
 	$outar['nationen'] = '';
 	$selectedNation = '';
 	$flagsar = get_nationality_array();
-	
+
 	foreach ( $flagsar as $key => $value ) {
 		
 		$outar['nationen'] .= '<option value="'.$key.'" selected="'.$selectedNation.'">'.$value.'</option>';
@@ -72,7 +72,9 @@ include_once('include/includes/func/gallery.php');
 		$newnation			= escape($_POST['newnation'], 'string');
 		$newicq				= escape($_POST['newicq'], 'integer');
 		$newemail			= escape_for_email($_POST['newemail']);
-		
+		$updir			= 'include/images/opponents/';
+		$outar['thumbwidth']	= 100;
+		$uploadname = '';
 		//file up
 		if(!empty($_FILES['newlogo']['tmp_name'])) {
 			debug('File Selected... generating filename');
