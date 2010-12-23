@@ -160,7 +160,7 @@ include_once('include/includes/func/gallery.php');
 		case 'delok':
 			if($getid != 0 and !empty($getid)) {
 				$getpicname = db_result(db_query("SELECT logo FROM `prefix_opponents` WHERE id = ".$getid.""));
-				$countpicname = db_num_rows(db_query("SELECT COUNT(name) FROM `prefix_opponents` WHERE name = ".$getpicname.""));
+				$countpicname = db_result(db_query("SELECT COUNT(name) FROM `prefix_opponents` WHERE name = '".$getpicname."'"));
 				if($countpicname >= 2) {
 					debug("Bild wird nicht gel&ouml;scht da es von einem weiteren DB-Eintrag genutzt wird");				
 					
