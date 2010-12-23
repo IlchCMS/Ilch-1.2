@@ -67,6 +67,7 @@ if ($menu->get(1) == "phpinfo") {
         'include/images/usergallery',
         'include/downs/downloads',
         'include/downs/downloads/user_upload',
+		'include/images/opponents',
         'include/images/wars',
         'include/contents/selfbp/selfp',
         'include/contents/selfbp/selfb',
@@ -108,7 +109,8 @@ if ($menu->get(1) == "phpinfo") {
         'Linkusordnergr&ouml;&szlig;e' => nicebytes(dirsize('include/images/linkus/')),
         'Avatarordnergr&ouml;&szlig;e' => nicebytes(dirsize('include/images/avatars/')),
         'Galleryordnergr&ouml;&szlig;e' => nicebytes(dirsize('include/images/gallery/')),
-        'Usergalleryordnergr&ouml;&szlig;e' => nicebytes(dirsize('include/images/usergallery/'))
+        'Usergalleryordnergr&ouml;&szlig;e' => nicebytes(dirsize('include/images/usergallery/')),
+		'Gegnerordnergr&ouml;&szlig;e' => nicebytes(dirsize('include/images/opponents/'))
         );
     foreach ($infos as $k => $str) {
         if ($class == 'Cmite') {
