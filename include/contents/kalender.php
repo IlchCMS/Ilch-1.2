@@ -19,7 +19,7 @@ $tpl = new tpl('kalender.htm');
 $month = date('n');
 $year = date('Y');
 $gday = 0;
-$view = 1;
+$view = $allgAr['kalender_standard_list'];
 $eid = 0;
 
 $addyrs = 25; # Anzahl der Jahre die vorrausberechnet werden sollen
@@ -119,7 +119,7 @@ if ($view == 0) {
 }
 
 function kalender_listoutput() {
-    global $tpl, $eid, $data, $data_id, $gday, $month, $year, $days, $arr_day, $title_liste, $view;
+    global $tpl, $eid, $data, $data_id, $gday, $month, $year, $days, $arr_day, $title_liste, $view, $allgAr;
     //Listbegin
     $tpl->set_ar_out(array(
             'TITLE' => ($eid) ? $data_id[ $eid ][ 'title' ] : $title_liste,
@@ -130,7 +130,7 @@ function kalender_listoutput() {
         $aus[ 'DETAIL_DATE' ] = date('d.m.Y', $data_id[ $eid ][ 'time' ]);
         $aus[ 'DETAIL_TIME' ] = date('H:i', $data_id[ $eid ][ 'time' ]);
         $aus[ 'DETAIL_TEXT' ] = BBcode($data_id[ $eid ][ 'text' ]);
-        $viewl = 1;
+        $viewl = $allgAr['kalender_standard_list'];
         if (preg_match('%\?kalender-v([0|1])%i', $_SERVER['HTTP_REFERER'], $match)) {
             $viewl = $match[1];
         }

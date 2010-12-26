@@ -467,15 +467,10 @@ function chk_antispam($m, $nopictures = false) {
 }
 
 function get_antispam($m, $t, $nopictures = false) {
-    global $allgAr, $antispamId;
+    global $allgAr;
 
     if ($nopictures) {
-        if (isset($antispamId)) {
-            $id = $antispamId;
-        } else {
-            $id = $antispamId = uniqid($m, true);
-        }
-
+        $id = uniqid($m, true);
         $_SESSION['antispam'][$id] = true;
         return '<input type="hidden" name="antispam_id" value="'.$id.'" />';
     }

@@ -26,7 +26,7 @@ function dblistee($aka, $q) {
     $l = '';
     $e = db_query($q);
     while ($r = db_fetch_row($e)) {
-        $s = ($aka == $r[ 0 ] ? ' selected' : '');
+        $s = ($aka == $r[ 0 ] ? ' selected="selected"' : '');
         $l .= '<option value="' . $r[ 0 ] . '"' . $s . '>' . $r[ 1 ] . '</option>';
     }
     return ($l);
@@ -47,7 +47,7 @@ function arliste($aka, $ar, $tpl, $n) {
 function arlistee($aka, $ar) {
     $l = '';
     foreach ($ar as $k => $v) {
-        $s = ($aka == $k ? ' selected' : '');
+        $s = ($aka == $k ? ' selected="selected"' : '');
         $l .= '<option value="' . $k . '"' . $s . '>' . $v . '</option>';
     }
     return ($l);

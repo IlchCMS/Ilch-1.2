@@ -1,10 +1,27 @@
 <script type="text/javascript">
-	$(function() {
+	$(document).ready(function() {
 		$("#tabs").tabs();
+		$('img.helpimg').hover(function() {
+            $helpdialog.html($(this).next('div').html());
+            var p = $(this).offset();
+            $helpdialog.dialog('option', {
+                position: [p.left + 25, p.top]
+            });
+            $helpdialog.dialog('open');
+		}, function() {
+		    $helpdialog.dialog('close');
+		}).css('float', 'right');
+		$helpdialog = $('<div />').dialog({
+		    autoOpen: false,
+			title: 'Info',
+			resizable: false,
+			width: 338
+	    });
+
+	    $("div#con_menu").hide();
+	    // die breite des inhalts auf 94% setzen
+	    set_width(94);
 	});
-	$("div#con_menu").hide();
-	// die breite des inhalts auf 94% setzen
-	set_width(94);
 </script>
 
 <form action="admin.php?allg" method="POST">
@@ -26,6 +43,10 @@
         <tr>
 		  <td class="Cmite" width="50%">
 		    {frage}
+		    {_if_{help}=='1'}
+		    <img src="include/images/icons/dialog-what.png" width="16" class="helpimg" alt="help" />
+		    <div style="display:none;">{helptext}</div>
+		    {/_endif}
 		  </td>
           <td class="Cnorm">
 		    {input}
@@ -41,6 +62,7 @@
 	    <td colspan="2" style="text-align: right;">
 		  <input class="sub" type="submit" value="Alle &Auml;nderungen speichern" name="submit">
 		  <input class="sub" type="reset" value="Zur&uuml;cksetzen">
+		  {antispam}
 		</td>
       </tr>
 	</table>

@@ -35,14 +35,7 @@ if (empty($_POST[ 'submit' ])) {
     $erg = db_query($abf);
     while ($row = db_fetch_assoc($erg)) {
         // Werte in Array speichern
-        $cache[ ] = Array(
-            'schl' => $row[ 'schl' ],
-            'typ' => $row[ 'typ' ],
-            'kat' => $row[ 'kat' ],
-            'frage' => $row[ 'frage' ],
-            'wert' => $row[ 'wert' ],
-            'pos' => $row[ 'pos' ]
-            );
+        $cache[] = $row;
         // Kategorie ausgeben, falls neu
         if ($katname != $row[ 'kat' ]) {
             $katid++;
@@ -101,11 +94,27 @@ if (empty($_POST[ 'submit' ])) {
             $input = '<select name="' . $row[ 'schl' ] . '">' . $grl . '</select>';
         } elseif ($row[ 'typ' ] == 'password') {
             $input = '<input size="50" type="password" name="' . $row[ 'schl' ] . '" value="***" />';
+        } elseif ($row['typ'] == 'select' and !is_null($row['typextra'])) {
+            $typextra = json_decode($row['typextra'], true);
+            if (isset($typextra['values'])) {
+                if (isset($typextra['keys'])) {
+                    $teAr = array_combine($typextra['keys'], $typextra['values']);
+                } else {
+                    $teAr = array_combine($typextra['values'], $typextra['values']);
+                }
+                $grl = arlistee($allgAr[$row['schl']], $teAr);
+                $input = '<select name="' . $row[ 'schl' ] . '">' . $grl . '</select>';
+            } else {
+                $input = 'Fehler in Datenbank!';
+            }
         }
 
         $tpl->set_ar_out(Array(
                 'frage' => $row[ 'frage' ],
-                'input' => $input
+                'input' => $input,
+                'schl' => $row['schl'],
+                'help' => is_null($row['helptext']) ? 0 : 1,
+                'helptext' => $row['helptext']
                 ), 4);
     }
     // Kategorien-Ende ausgeben, falls nötig
@@ -113,8 +122,9 @@ if (empty($_POST[ 'submit' ])) {
         $tpl->out(5);
     }
     // Template-Footer ausgeben
+    $tpl->set('antispam', get_antispam('admin_allg', 1, true));
     $tpl->out(6);
-} else {
+} elseif (chk_antispam('admin_allg', true)) {
     $abf = 'SELECT * FROM `prefix_config` WHERE hide = 0 ORDER BY `kat` ';
     $erg = db_query($abf);
     while ($row = db_fetch_assoc($erg)) {
