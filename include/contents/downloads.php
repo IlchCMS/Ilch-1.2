@@ -310,6 +310,7 @@ switch ($menu->get(1)) {
             if (file_exists($row[ 'url' ])) {
                 header('Content-type: application/octet-stream');
                 header('Content-Disposition: attachment; filename="' . basename($row[ 'url' ]) . '"');
+                header('Content-Length: ' . filesize($row[ 'url' ]));
                 readfile($row[ 'url' ]);
                 exit;
             } else {

@@ -74,6 +74,7 @@ class tpl {
         // Sprachdateien einfügen
         global $lang;
         $this->lang = $lang;
+        $inhalt = $this->replace_comments($inhalt);
         $inhalt = $this->replace_lang($inhalt);
         // Listen einfügen
         $inhalt = $this->replace_list($inhalt);
@@ -134,6 +135,10 @@ class tpl {
             $var = str_replace('{_list_' . $v . '}', '{' . $key . '}', $var);
         }
         return ($var);
+    }
+
+    protected function replace_comments($var) {
+        return DEBUG ? preg_replace('%{!--(.*)--}%Us', '<!-- $1 -->', $var) : preg_replace('%{!--.*--}%Us', '', $var);
     }
 
     public function list_get($key, $ar) {

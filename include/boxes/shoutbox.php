@@ -28,7 +28,7 @@ if (has_right($allgAr[ 'sb_recht' ])) {
         }
     }
     echo '<form action="index.php?' . $menu->get_complete() . '" method="post" id="shoutboxform">';
-    echo '<input type="hidden" name="shoutbox_submit" value="1" />'; //Für ajax
+    echo '<input type="hidden" name="shoutbox_submit" value="1" />'; //FÃ¼r ajax
     echo '<input type="text" size="15" name="shoutbox_nickname" value="' . $_SESSION[ 'authname' ] . '"/>';
     echo '<br /><textarea style="width: 80%" cols="15" rows="2" name="shoutbox_textarea"></textarea><br />';
     $antispam = get_antispam ('shoutbox', 0);

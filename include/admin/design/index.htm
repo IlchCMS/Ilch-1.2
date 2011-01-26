@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>{TITLE}</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="robots" content="index,follow" />
 <meta name="author" content="OloX - www.ilch.de" />
 <link rel="stylesheet" type="text/css" href="include/admin/design/style.css" media="all" />
@@ -53,32 +53,30 @@
 <br class="clear" />
 </div>
 <script language="javascript" type="text/javascript">
-  //<![CDATA[
-  function set_width(width) {
-       var div_con = document.getElementById('con_main');
-	   div_con.style.width =  width + '%'
-  }
+//<![CDATA[
+function set_width(width) {
+   var div_con = document.getElementById('con_main');
+    div_con.style.width =  width + '%'
+}
 
-  $(document).ready(function(){
-       var div = document.getElementById('con_menu');
-       var div_con = document.getElementById('con_main');
-       var pic = document.getElementById('toggle');
+//Adminmenu links
+$(document).ready(function(){
+    var div = document.getElementById('con_menu');
+    var div_con = document.getElementById('con_main');
+    var pic = document.getElementById('toggle');
     $("span#toggle").click(function () {
-
-	  if (div.style.display == 'none') {
-	   $("div#con_menu").fadeIn("slow");
-		 pic.className = 'toggle-off';
-		 set_width(74);
-      } else {
-	   $("div#con_menu").fadeOut("slow");
-		 pic.className = 'toggle-on';
-		 window.setTimeout("set_width(94)",700);
-      }
-
+        if (div.style.display == 'none') {
+            $("div#con_menu").fadeIn("slow");
+            pic.className = 'toggle-off';
+            set_width(74);
+        } else {
+            $("div#con_menu").fadeOut("slow");
+            pic.className = 'toggle-on';
+            window.setTimeout("set_width(94)",700);
+        }
     });
-
-  });
-  //]]>
+});
+//]]>
 </script>
 </body>
 </html>

@@ -27,11 +27,11 @@ class design extends tpl {
     public function __construct($title, $hmenu, $was = 1, $file = null) {
         global $allgAr, $menu;
 
-        header('Content-Type: text/html;charset=ISO-8859-1');
+        header('Content-Type: text/html;charset=UTF-8');
         if (AJAXCALL) {
             $this->ajax = true;
-            $this->json = array('title' => utf8_encode($title),
-                                'hmenu' => utf8_encode($hmenu));
+            $this->json = array('title' => $title,
+                                'hmenu' => $hmenu);
         } else {
             $this->ajax = false;
 
@@ -108,7 +108,7 @@ class design extends tpl {
             ob_start();
         }
     }
-    
+
     protected function getJqueryThingy($a, $b){
         if (preg_match('%jquery-\d\.\d+(\.\d+)?\.js%', $a) == 1) {
             return -1;
@@ -117,7 +117,7 @@ class design extends tpl {
         }
         return 0;
     }
-    
+
     // Fuegt Dynamische und Statische *.js und *.css Dateien in den Header ein
     // Kann jedoch nur uerber die header-Funktion aufgerufen werden
     protected function load_addons($addons = '') {
@@ -136,7 +136,7 @@ class design extends tpl {
         // Dynamisches Javascript laden
         // sort jquery Top -- should be removed later by Olox
         usort($js, array($this, "getJqueryThingy"));
-        
+
         foreach ($js as $file) {
             $buffer .= "\n" . '<script type="text/javascript" src="include/includes/js/global/' . $file . '"></script>';
         }
@@ -164,7 +164,7 @@ class design extends tpl {
     public function footer($exit = 0) {
         global $allgAr;
         if ($this->ajax) {
-            $this->json['content'] = utf8_encode(ob_get_clean());
+            $this->json['content'] = ob_get_clean();
             echo json_encode($this->json);
             exit;
         }
@@ -324,7 +324,7 @@ class design extends tpl {
             if (($whileMenP === false) AND !empty($menuzw)) {
                 $menuzw .= $this->get_boxes_get_menu_close($ex_ebene, 0, $menuzw, $wmpE, $wmpTE, $wmpTEE);
                 $retur .= $tpl->list_get($datei, array(
-                        htmlentities($boxname),
+                        /*htmlentities(*/$boxname/*)*/,
                         $menuzw . $menuzwE
                         ));
                 $menuzw = '';
@@ -376,7 +376,7 @@ class design extends tpl {
         if (!empty($menuzw)) {
             $menuzw .= $this->get_boxes_get_menu_close($ex_ebene, 0, $menuzw, $wmpE, $wmpTE, $wmpTEE);
             $retur .= $tpl->list_get($datei, array(
-                    htmlentities($boxname),
+                    /*htmlentities(*/$boxname/*)*/,
                     $menuzw . $menuzwE
                     ));
         }

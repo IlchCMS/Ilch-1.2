@@ -20,6 +20,9 @@ function db_connect() {
     define('CONN', @mysql_pconnect(DBHOST, DBUSER, DBPASS));
     $db = @mysql_select_db(DBDATE, CONN);
 
+    //UTF8 setzen (mysql 5.0.7+ erforderlich)
+    mysql_set_charset('utf8', CONN);
+
     if (!CONN) {
         die('Verbindung nicht m&ouml;glich, bitte pr&uuml;fen Sie ihre mySQL Daten wie Passwort, Username und Host<br />');
     }
@@ -51,7 +54,7 @@ if (defined('DEBUG') and DEBUG) {
      * @author annemarie
      **/
     function is_utf8($string) {
-        
+
         // From http://w3.org/International/questions/qa-forms-utf-8.html
         $var = preg_match('%^(?:
               [\x09\x0A\x0D\x20-\x7E]            # ASCII
@@ -75,7 +78,7 @@ if (defined('DEBUG') and DEBUG) {
                 return true;
             }
             return false;
-    } 
+    }
 
     function db_query ($q) {
         global $ILCH_DEBUG_DB_COUNT_QUERIES, $ILCH_DEBUG_DB_QUERIES;
@@ -87,24 +90,24 @@ if (defined('DEBUG') and DEBUG) {
               $q = utf8_decode($q);
             }
         }
-        
+
         if (preg_match ("/^UPDATE `?prefix_\S+`?\s+SET/is", $q)) {
             $q = preg_replace("/^UPDATE `?prefix_(\S+?)`?([\s\.,]|$)/i","UPDATE `".DBPREF."\\1`\\2", $q);
         } elseif (preg_match ("/^INSERT INTO `?prefix_\S+`?\s+[a-z0-9\s,\)\(]*?VALUES/is", $q)) {
             $q = preg_replace("/^INSERT INTO `?prefix_(\S+?)`?([\s\.,]|$)/i", "INSERT INTO `".DBPREF."\\1`\\2", $q);
         } else {
             $q = preg_replace("/prefix_(\S+?)([\s\.,]|$)/", DBPREF."\\1\\2", $q);
-            if (is_utf8($q)) {
-              $q = utf8_decode($q);
-            }
+//            if (is_utf8($q)) {
+//              $q = utf8_decode($q);
+//            }
         }
-        
+
         if (!function_exists('debug_bt')) {
           function debug_bt(){
             return debug_backtrace();
           }
         }
-        
+
         $tmp = array();
         $vor = microtime(true);
         $qry = @mysql_query($q, CONN);
@@ -121,7 +124,7 @@ if (defined('DEBUG') and DEBUG) {
         if (!empty($error)) {
             $tmp['error'] = $error;
         }
-        
+
         $ILCH_DEBUG_DB_QUERIES[] = $tmp;
         return ($qry);
     }

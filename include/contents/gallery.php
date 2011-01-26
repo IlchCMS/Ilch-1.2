@@ -58,7 +58,7 @@ function get_cats_array($cid, $ar) {
 if ($menu->get(1) == 'showOrig') {
     $tpl = new tpl('gallery_show');
     $tpl->set('id', escape($menu->get(2), 'integer'));
-    $tpl->set('endung', htmlentities($menu->get(3)));
+    $tpl->set('endung', $menu->get(3));
     $tpl->out(4);
     // normale groesse anzeigen
 } elseif ($menu->get(1) == 'show') {

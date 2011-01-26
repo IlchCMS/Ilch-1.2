@@ -359,7 +359,7 @@ function icmail($mail, $bet, $txt, $from = '', $html = false) {
 function html_enc_substr($text, $start, $length) {
     $trans_tbl = get_html_translation_table(HTML_ENTITIES);
     $trans_tbl = array_flip($trans_tbl);
-    return (htmlentities(substr(strtr($text, $trans_tbl), $start, $length)));
+    return (substr(strtr($text, $trans_tbl), $start, $length));
 }
 
 function get_datum($d) {
@@ -460,7 +460,7 @@ function chk_antispam($m, $nopictures = false) {
         include_once 'include/includes/libs/captcha/captcha.php';
         $controller = new Captcha();
     }
-    if ($captcha && !($controller->isValid(htmlentities($_POST[ 'number' ])))) {
+    if ($captcha && !($controller->isValid($_POST[ 'number' ]))) {
         return (false);
     }
     return (true);

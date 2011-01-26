@@ -17,6 +17,11 @@ function get_ini_menu($file) {
 
     $tpl = new tpl('adminsubmenu', 1);
 
+    if ($menus->attributes()->hide == 'true') {
+        $tpl->out(4);
+        return $umenu;
+    }
+
     foreach ($menus->list AS $liste) {
         $tpl->set_out('headline', $liste->attributes()->title, 0);
         $tpl->out(1);

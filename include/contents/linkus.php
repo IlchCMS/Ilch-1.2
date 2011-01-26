@@ -74,26 +74,26 @@ switch ($menu_1) {
 
             // alle Banner ausgeben die in der DB stehen
             $qry = db_query("SELECT id,name,datei FROM `prefix_linkus` ORDER BY breit ASC");
-			
+
 			// maximale Bildbreite vom BB-Code auslesen
 			$maxwidth = db_result(db_query("SELECT fnImgMaxBreite FROM `prefix_bbcode_config` WHERE fnConfigNr = 1 LIMIT 1"));
-			
+
 			while ($row = db_fetch_assoc($qry)) {
-				
+
 				$imgsize = getimagesize($dir . $row['datei']);
 				if ( $imgsize[0] > $maxwidth) {
 					$row['maxbildbreite'] = $maxwidth;
 				} else {
 					$row['maxbildbreite'] = '';
 				}
-				
+
                 $row['host'] = $host;
                 $row['bb-link'] = '[url=' . $host . 'index.php?linkus-click-' . $row['id'] . '-true]
 									[img]' . $host . 'index.php?linkus-view-' . $row['id'] . '-true[/img]
 								[/url]';
-                $row['html-link'] = htmlentities('<a href="' . $host . 'index.php?linkus-click-' . $row['id'] . '-true">
+                $row['html-link'] = '<a href="' . $host . 'index.php?linkus-click-' . $row['id'] . '-true">
 					<img src="' . $host . 'index.php?linkus-view-' . $row['id'] . '-true" alt="' . $row['name'] . '" border="0">
-					</a>');
+					</a>';
 
                 $tpl->set_ar_out($row, 1);
             }
