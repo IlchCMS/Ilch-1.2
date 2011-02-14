@@ -15,8 +15,12 @@
 	</modul>
     <modul>
     	<title>Server Konfiguration</title>
-    	<url>admin.php?checkconf</url></modul>
-
+    	<url>admin.php?checkconf</url>
+	</modul>
+    <modul>
+    	<title>Credits</title>
+    	<url>admin.php?credits</url>
+	</modul>
   </list>
   
    <list title="Statistik">
