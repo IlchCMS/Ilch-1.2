@@ -28,15 +28,7 @@ if (is_siteadmin()) {
         }
     }
 }
-
-echo '<script type="text/javascript">
-  function del() {
-    if (anz = prompt("Wie viele Einträge sollen erhalten bleiben?\n(Es werden die zuletzt geschriebenen erhalten)", "0")) {
-      if (anz >= 0) { window.location.href = "index.php?shoutbox-delall-"+anz; }
-      else alert("Du musst eine Zahl größer gleich 0 eingeben");
-    }
-  }
-</script>';
+echo '<script type="text/javascript" src="include/includes/js/shoutbox.js"></script>';
 
 $class = 'Cnorm';
 echo '<table width="100%" align="center" class="border" cellpadding="2" cellspacing="1" border="0"><tr class="Chead"><td><b>Shoutbox ' . $lang[ 'archiv' ] . '</b></td></tr>';
