@@ -6,6 +6,17 @@
  */
 defined('main') or die('no direct access');
 
+echo '<script type="text/javascript" src="include/includes/js/shoutbox.js"></script>';
+$zeilen = 5; $i = 0; $s = '';
+$erg = db_query('SELECT emo, ent, url FROM `prefix_smilies`');
+	while ($row = db_fetch_object($erg) ) 
+	{
+    $s .= '<a href="javascript:insert_sb(\''.addslashes($row->ent).'\', \'\')">';
+    $s .= '<img style="border: 0px; padding: 5px;" src="include/images/smiles/'.$row->url.'" title="'.$row->emo.'"></a>';
+	$i++; if($i%$zeilen == 0 AND $i <> 0) { $s .= '<br /><br />'; }
+	}
+echo '<div style="display:none;" id="smiliesdiv" name="smiliesdiv">' . $s . '</div>';
+
 echo '<div id="icShoutbox">';
 if (!isset($_SESSION[ 'last_shoutbox' ])) {
     $_SESSION[ 'last_shoutbox' ] = '';
@@ -29,14 +40,15 @@ if (has_right($allgAr[ 'sb_recht' ])) {
     }
     echo '<form action="index.php?' . $menu->get_complete() . '" method="post" id="shoutboxform">';
     echo '<input type="hidden" name="shoutbox_submit" value="1" />'; //Für ajax
-    echo '<input type="text" size="15" name="shoutbox_nickname" value="' . $_SESSION[ 'authname' ] . '"/>';
-    echo '<br /><textarea style="width: 80%" cols="15" rows="2" name="shoutbox_textarea"></textarea><br />';
+	if ($_SESSION['authid'] == 0) { $opt=''; } else { $opt='disabled'; }
+    echo '<input type="text" style="width: 90%" maxlength="15" name="shoutbox_nickname" ' . $opt . ' value="' . $_SESSION[ 'authname' ] . '"/>';
+    echo '<br /><textarea style="width: 90%" cols="15" rows="2" name="shoutbox_textarea"></textarea><br />';
     $antispam = get_antispam ('shoutbox', 0);
     echo $antispam;
     if (!empty($antispam)) {
         echo '<br />';
     }
-    echo '<input type="submit" value="' . $lang[ 'formsub' ] . '" name="shoutbox_submit" />';
+    echo '<input type="submit" value="' . $lang[ 'formsub' ] . '" name="shoutbox_submit" /><input id="smilies" type="button" value="Smilies" />';
     echo '</form>';
 }
 
@@ -45,7 +57,7 @@ $erg = db_query('SELECT * FROM `prefix_shoutbox` ORDER BY `id` DESC LIMIT ' . (i
 $class = 'Cnorm';
 while ($row = db_fetch_object($erg)) {
     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
-    echo '<tr class="' . $class . '"><td><b>' . $row->nickname . ':</b> ' . preg_replace('/([^\s]{' . $allgAr[ 'sb_maxwordlength' ] . '})(?=[^\s])/', "$1\n", $row->textarea) . '</td></tr>';
+    echo '<tr class="' . $class . '"><td><b>' . $row->nickname . ':</b> ' . preg_replace('/([^\s]{' . $allgAr[ 'sb_maxwordlength' ] . '})(?=[^\s])/', "$1\n", bbcode($row->textarea)) . '</td></tr>';
 }
 echo '</table><a class="box" href="index.php?shoutbox" onclick="ic.Ajaxload(\'index.php?shoutbox\'); return false;">' . $lang[ 'archiv' ] . '</a>
 <script>$(document).ready(function() { $(\'#shoutboxform\').icAjaxload(\'icShoutbox\', \'box\').attr(\'action\', \'index.php?shoutbox\'); });</script>
