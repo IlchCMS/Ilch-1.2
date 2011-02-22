@@ -242,7 +242,7 @@ switch ($menu->get(1)) {
     case 'show':
 
         $fid = escape($menu->get(2), 'integer');
-        $erg = db_query("SELECT `prefix_downloads`.`cat`,`ssurl`,`surl`,`url`,`hits`,`vote_klicks`,`vote_wertung`,`prefix_downloads`.`name`,`version`,`creater`,`downs`,`descl`,`prefix_downloads`.`id`,DATE_FORMAT(time,'%d.%m.%Y') as `datum` FROM `prefix_downloads` LEFT JOIN `prefix_downcats` ON `prefix_downcats`.`id` = `prefix_downloads`.`cat` WHERE `prefix_downloads`.`id` = " . $fid . " AND (" . $_SESSION[ 'authright' ] . " <= `prefix_downcats`.`recht` OR (`prefix_downloads`.`cat` = 0 AND `prefix_downcats`.`recht` IS NULL))");
+        $erg = db_query("SELECT `prefix_downloads`.`cat`,`ssurl`,`surl`,`url`,`hits`,`vote_klicks`,`vote_wertung`,`prefix_downloads`.`name`,`version`,`creater`,`downs`,`descl`,`drecht`,`prefix_downloads`.`id`,DATE_FORMAT(time,'%d.%m.%Y') as `datum` FROM `prefix_downloads` LEFT JOIN `prefix_downcats` ON `prefix_downcats`.`id` = `prefix_downloads`.`cat` WHERE `prefix_downloads`.`id` = " . $fid . " AND (" . $_SESSION[ 'authright' ] . " <= `prefix_downcats`.`recht` OR (`prefix_downloads`.`cat` = 0 AND `prefix_downcats`.`recht` IS NULL))");
         if (@db_num_rows($erg) != 1) {
             $title = $allgAr[ 'title' ] . ' :: Downloads ';
             $hmenu = '<a class="smalfont" href="?downloads">Downloads</a>';
@@ -284,6 +284,12 @@ switch ($menu->get(1)) {
             $catname = '';
         }
         $tpl = new tpl('downloads_show');
+		$drecht = $row['drecht'];    
+		if ( $_SESSION['authright'] <= $drecht ) {
+		$row['downlink'] = '<a href="index.php?downloads-down-'.$row['id'].'">'.$lang['download'].'</a>';
+		} else {
+		$row['downlink'] = '<a href="index.php?downloads-error">'.$lang['download'].'</a>'; 
+		}
         $row[ 'ssurl' ] = ($row[ 'ssurl' ] != '' ? '<img src="' . $row[ 'ssurl' ] . '" alt="' . $row[ 'name' ] . ' ' . $row[ 'version' ] . '" title="' . $row[ 'name' ] . ' ' . $row[ 'version' ] . '" style="float:left; border: none; padding-right:5px;" />' : '');
         $row[ 'surl' ] = (empty($row[ 'surl' ]) ? '' : '&nbsp;&nbsp;&nbsp; <a href="' . $row[ 'surl' ] . '" target="_blank">Demo/Screenshot</a>');
         $row[ 'size' ] = get_download_size($row[ 'url' ]);
@@ -297,7 +303,16 @@ switch ($menu->get(1)) {
         $design->footer();
         break;
     case 'down':
-        $fid = intval($menu->get(2));
+	    $fid = intval($menu->get(2));   
+        $erg = db_query("SELECT `drecht` FROM `prefix_downloads` LEFT JOIN `prefix_downcats` ON `prefix_downcats`.`id` = `prefix_downloads`.`cat` WHERE `prefix_downloads`.`id` = ".$fid." AND (".$_SESSION['authright']." <= `prefix_downloads`.`drecht` OR (`prefix_downloads`.`cat` = 0 AND `prefix_downcats`.`recht` = 0))");    
+        if (@db_num_rows($erg) != 1) {
+        $title = $allgAr['title'].' :: Downloads ';
+        $hmenu = '<a class="smalfont" href="?downloads">Downloads</a>';
+        $design = new design ( $title , $hmenu );
+        $design->header();
+        echo $lang['nopermission'];
+        $design->footer(1);
+        }
         if (!isset($_SESSION[ 'download' ][ $fid ])) {
             header('Location: ' . 'http://' . $_SERVER[ "HTTP_HOST" ] . dirname($_SERVER[ "SCRIPT_NAME" ]) . '/index.php?downloads');
             break;
@@ -337,4 +352,14 @@ switch ($menu->get(1)) {
             $design->footer();
         }
         break;
+	case 'error':
+      $title = $allgAr['title'].' :: Downloads Error';
+      $hmenu = '<a class="smalfont" href="?downloads">Downloads Error</a>';
+      $design = new design ( $title , $hmenu );
+      $design->header();
+      echo '<table width="100%" class="border" border="0" cellspacing="2" cellpadding="3" align="center">
+      <tr><td class="Chead" align="center"><b>Sie haben leider nicht die n&ouml;tigen Rechte um diesen Download nutzen zu k&ouml;nnen.</b></td>
+      </tr><tr class="Cdark"><td align="center"><a href="javascript:history.back();"><u>Zur&uuml;ck</u></a> oder <a href="/index.php"><u>Auf die Startseite</u></a></td></tr></table>';
+      $design->footer();
+      break;
 }

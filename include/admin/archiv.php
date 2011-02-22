@@ -315,10 +315,11 @@ switch ($um) {
             $_POST[ 'name' ] = escape($_POST[ 'name' ], 'string');
             $_POST[ 'desc' ] = escape($_POST[ 'desc' ], 'string');
             $_POST[ 'descl' ] = escape($_POST[ 'descl' ], 'string');
+			$_POST[ 'drecht' ] = escape($_POST[ 'drecht' ], 'string');
 
             if (empty($_POST[ 'pkey' ])) {
                 $pos = db_result(db_query("SELECT COUNT(*) FROM `prefix_downloads` WHERE `cat` = " . $_POST[ 'cat' ]), 0);
-                db_query("INSERT INTO `prefix_downloads` (`time`,`cat`,`creater`,`version`,`url`,surl,`ssurl`,`name`,`desc`,`descl`,`pos`) VALUES (NOW(),'" . $_POST[ 'cat' ] . "','" . $_POST[ 'creater' ] . "','" . $_POST[ 'version' ] . "','" . $_POST[ 'url' ] . "','" . $_POST[ 'surl' ] . "','" . $_POST[ 'ssurl' ] . "','" . $_POST[ 'name' ] . "','" . $_POST[ 'desc' ] . "','" . $_POST[ 'descl' ] . "','" . $pos . "')");
+                db_query("INSERT INTO `prefix_downloads` (`time`,`cat`,`creater`,`version`,`url`,surl,`ssurl`,`name`,`desc`,`descl`,`drecht`,`pos`) VALUES (NOW(),'" . $_POST[ 'cat' ] . "','" . $_POST[ 'creater' ] . "','" . $_POST[ 'version' ] . "','" . $_POST[ 'url' ] . "','" . $_POST[ 'surl' ] . "','" . $_POST[ 'ssurl' ] . "','" . $_POST[ 'name' ] . "','" . $_POST[ 'desc' ] . "','" . $_POST[ 'descl' ] . "','" . $_POST[ 'drecht' ] . "','" . $pos . "')");
             } else {
                 $alt_row = db_fetch_assoc(db_query("SELECT `cat`,`pos` FROM `prefix_downloads` WHERE `id` = " . $_POST[ 'pkey' ]));
                 if ($alt_row[ 'cat' ] != $_POST[ 'cat' ]) {
@@ -331,7 +332,7 @@ switch ($um) {
                 } else {
                     $datum = '';
                 }
-                db_query("UPDATE `prefix_downloads` SET " . $datum . "`pos` = " . $pos . ", `cat` = '" . $_POST[ 'cat' ] . "',`creater` = '" . $_POST[ 'creater' ] . "',`version` = '" . $_POST[ 'version' ] . "',`url` = '" . $_POST[ 'url' ] . "',`surl` = '" . $_POST[ 'surl' ] . "',`ssurl` = '" . $_POST[ 'ssurl' ] . "',`name` = '" . $_POST[ 'name' ] . "',`desc` = '" . $_POST[ 'desc' ] . "',`descl` = '" . $_POST[ 'descl' ] . "' WHERE `id` = '" . $_POST[ 'pkey' ] . "'");
+                db_query("UPDATE `prefix_downloads` SET " . $datum . "`pos` = " . $pos . ", `cat` = '" . $_POST[ 'cat' ] . "',`creater` = '" . $_POST[ 'creater' ] . "',`version` = '" . $_POST[ 'version' ] . "',`url` = '" . $_POST[ 'url' ] . "',`surl` = '" . $_POST[ 'surl' ] . "',`ssurl` = '" . $_POST[ 'ssurl' ] . "',`name` = '" . $_POST[ 'name' ] . "',`desc` = '" . $_POST[ 'desc' ] . "',`descl` = '" . $_POST[ 'descl' ] . "', `drecht` = '" . $_POST['drecht'] . "' WHERE `id` = '" . $_POST[ 'pkey' ] . "'");
                 if ($alt_row[ 'cat' ] != $_POST[ 'cat' ]) {
                     db_query("UPDATE `prefix_downloads` SET `pos` = `pos` - 1 WHERE `pos` > " . $alt_row[ 'pos' ] . " AND `cat` = " . $alt_row[ 'cat' ]);
                 }
@@ -416,7 +417,7 @@ switch ($um) {
         }
         // downs
         if ($menu->getA(2) == 'e') {
-            $erg = db_query("SELECT `id`,`cat`,`creater`,`surl`,`ssurl`,`pos`,`version`,`url`,`name`,`desc`,`descl` FROM `prefix_downloads` WHERE `id` = '" . $menu->getE(2) . "'");
+            $erg = db_query("SELECT `id`,`cat`,`creater`,`surl`,`ssurl`,`pos`,`version`,`url`,`name`,`desc`,`descl`,`drecht` FROM `prefix_downloads` WHERE `id` = '" . $menu->getE(2) . "'");
             $_ilch = db_fetch_assoc($erg);
             $_ilch[ 'pkey' ] = $menu->getE(2);
             $azk = $_ilch[ 'cat' ];
@@ -444,7 +445,8 @@ switch ($um) {
                 'datum' => ''
                 );
             unset($c);
-        }
+        }    
+		$_ilch['drecht'] = dblistee($_ilch['drecht'],"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
         // wenn der link von archiv upload kommt ist dllink gesetzt
         $dllink = '';
         if (isset($_REQUEST[ 'dllink' ])) {

@@ -229,6 +229,7 @@ CREATE TABLE `prefix_downloads` (
   `name` varchar(100) NOT NULL default '',
   `desc` varchar(255) default NULL,
   `descl` text,
+  `drecht` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 

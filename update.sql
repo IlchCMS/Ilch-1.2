@@ -1,3 +1,7 @@
+
+/* -----> Rev. 233 <----- */
+ALTER TABLE `prefix_downloads` ADD `drecht` tinyint(4) NOT NULL default 0;
+
 /* -----> Rev. 37 <----- */
 -- Dieser Eintrag muss beim "richtigen Update" noch verschoenert werden. Man kann ja nicht einfach die Tabelle loeschen :D
 
