@@ -1,15 +1,48 @@
+﻿<script src="include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#contact_form").validate({
+		rules: {
+			name: { required: true, minlength: 2 },
+			mail: { required: true, email: true },
+			subject: { required: true },
+			txt: { required: true },
+			number: { required: true }
+		},
+		messages: {
+			name: { required: "Bitte Name eingeben!", minlength: "Dein Name muss mindestens 2 Zeichen haben!" },
+			mail: "Bitte eine g&uuml;ltige Emailadresse eingeben!",
+			subject: "Bitte ein Betreff angeben!",			
+			txt: "Bitte eine Nachricht eingeben!",
+			number: "Bitte den Antispam ausfüllen"
+		}
+	});
+});
+</script>
+<style type="text/css">
+	#contact_form label.error { margin-left: 100px; width: auto; display: inline; color: #FF0000; font-size:9px }
+	#contact_form input.error { border: 1px #FF0000 dotted; background-color: #FFDDDD; }
+	#contact_form textarea.error { border: 1px #FF0000 dotted; background-color: #FFDDDD; }
+</style>
+
 <form action="?contact" method="POST" name="contact_form" id="contact_form">
   <fieldset id="contact">
     <legend class="_lang_whereyouwrite">{_lang_whereyouwrite}</legend>
-    {EXPLODE}
-      <input id="w{KEY}" {c} type="radio" name="wer" value="{KEY}" class="fleft input_radio" /><label for="w{KEY}"> &nbsp; {VAL}</label><br class="clear" />
-    {EXPLODE}
+      {EXPLODE}
+      <input id="w{KEY}" {c} type="radio" name="wer" value="{KEY}" class="fleft input_radio" />
+      <label for="w{KEY}"> &nbsp; {VAL}</label><br class="clear" />
+      {EXPLODE}
 	  <br class="clear" />
-	  <label class="contact_label _lang_name">{_lang_name}</label><input type="text" name="name" value="{name}" maxlength="30" class="input_text"><br />
-	  <label class="contact_label _lang_mail">{_lang_mail}</label><input type="text" name="mail" value="{mail}" maxlength="50" class="input_text"><br />
-    <label class="contact_label _lang_subject">{_lang_subject}</label><input type="text" name="subject" value="{subject}" maxlength="50" class="input_text"><br />
-	  <label class="contact_label _lang_message">{_lang_message}</label><textarea cols="40" rows="10" name="txt" class="input_textarea">{text}</textarea><br />
-	  {ANTISPAM}
-    <label class="contact_label">&nbsp;</label><input type="submit" value=" Absenden "><br class="clear" />
+	  <label class="contact_label _lang_name">{_lang_name}</label>
+	  <input type="text" name="name" value="{name}" maxlength="30" class="input_text"><br />
+	  <label class="contact_label _lang_mail">{_lang_mail}</label>
+	  <input type="text" name="mail" value="{mail}" maxlength="50" class="input_text"><br />
+      <label class="contact_label _lang_subject">{_lang_subject}</label>
+      <input type="text" name="subject" value="{subject}" maxlength="50" class="input_text"><br />
+	  <label class="contact_label _lang_message">{_lang_message}</label>
+	  <textarea cols="40" rows="10" name="txt" class="input_textarea">{text}</textarea><br />
+	  {stylefehler}{ANTISPAM}{spamfehler}
+    <label class="contact_label">&nbsp;</label>
+    <input name="submit" type="submit" value=" Absenden "><br class="clear" />
   </fieldset>
 </form>

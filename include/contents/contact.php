@@ -20,7 +20,16 @@ $mail = '';
 $subject = '';
 $wer = '';
 $text = '';
-if (!empty($_POST[ 'wer' ]) AND !empty($_POST[ 'mail' ]) AND !empty($_POST[ 'txt' ]) AND !empty($_POST[ 'name' ]) AND !empty($_POST[ 'subject' ]) AND chk_antispam('contact')) {
+$spamfehler = '';
+$stylefehler = '';
+
+if(isset($_POST['submit'])){ 
+  if(chk_antispam('contact') != true) { 
+  $spamfehler = '<span style="margin-left: 100px; width: auto; display: inline; color: #FF0000; font-size:9px">Die Antispam-Zeichen waren nicht korrekt!</span><br />'; 
+  $stylefehler = '<style type="text/css">#number { border: 1px #FF0000 dotted; background-color: #FFDDDD;}</style>'; 
+  }
+ 
+if (!empty($_POST[ 'wer' ]) AND !empty($_POST[ 'mail' ]) AND !empty($_POST[ 'txt' ]) AND !empty($_POST[ 'name' ]) AND !empty($_POST[ 'subject' ]) AND $spamfehler == '' ) {
     $name = escape_for_email($_POST[ 'name' ]);
     $mail = escape_for_email($_POST[ 'mail' ]);
     $subject = escape_for_email($_POST[ 'subject' ], true);
@@ -38,19 +47,28 @@ if (!empty($_POST[ 'wer' ]) AND !empty($_POST[ 'mail' ]) AND !empty($_POST[ 'txt
 
     if (strpos($text, 'Content-Type:') === false AND strpos($text, 'MIME-Version:') === false AND strpos($mail, '@') !== false AND $wero === true AND strlen($name) <= 30 AND strlen($mail) <= 30 AND strlen($text) <= 5000 AND $mail != $name AND $name != $text AND $text != $mail) {
         $subject = "Kontakt: " . $subject;
-        if (icmail($wer, $subject, $text, $name . " <" . $mail . ">")) {
-            echo $lang[ 'emailsuccessfullsend' ];
-        } else {
-            echo 'Der Server konnte die Mail nicht versenden, teilen sie dies ggf. einem Administrator mit.';
+		if (icmail($wer, $subject, $text, $name . " <" . $mail . ">")) {        
+		wd('index.php?contact', $lang[ 'emailsuccessfullsend' ]);
+		$design->footer();
+        } else {		
+		wd('index.php?contact', 'Der Server konnte die Mail nicht versenden, teilen sie dies ggf. einem Administrator mit.');
+		$design->footer();
         }
-        $name = '';
-        $mail = '';
-        $subject = '';
-        $wer = '';
-        $text = '';
-    } else {
+    } else {   
+		$name = $_POST['name']; 
+		$mail = $_POST['mail']; 
+		$subject = $_POST['subject']; 
+		$wer  = $_POST['wer']; 
+		$text = $_POST['txt'];
         echo $lang[ 'emailcouldnotsend' ];
-    }
+    }  
+} else {
+$name = $_POST['name']; 
+$mail = $_POST['mail']; 
+$subject = $_POST['subject']; 
+$wer  = $_POST['wer'];
+$text = $_POST['txt'];
+}
 }
 
 $tpl = new tpl('contact.htm');
@@ -79,6 +97,8 @@ $tpl->set('name', $name);
 $tpl->set('mail', $mail);
 $tpl->set('subject', $subject);
 $tpl->set('text', $text);
+$tpl->set('spamfehler', $spamfehler);
+$tpl->set('stylefehler', $stylefehler);
 $tpl->set('ANTISPAM', get_antispam('contact', 100));
 $tpl->out(2);
 

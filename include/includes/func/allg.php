@@ -479,7 +479,7 @@ function get_antispam($m, $t, $nopictures = false) {
         return ('');
     }
 
-    $rs = '<img class="Custom" src="include/includes/libs/captcha/captchaimg.php" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt darunter stehende Feld ein.">&nbsp;<input name="number" type="text" maxlength="5" size="8">';
+    $rs = '<img class="Custom" src="include/includes/libs/captcha/captchaimg.php" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt darunter stehende Feld ein.">&nbsp;<input id="number" name="number" type="text" maxlength="5" size="8">';
     if ($t == 0) {
         return ('<img class="Custom" src="include/includes/libs/captcha/captchaimg.php" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt darunter stehende Feld ein."><br/><input name="number" type="text" maxlength="5" size="8">');
     } elseif ($t == 1) {
