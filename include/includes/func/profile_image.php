@@ -6,7 +6,7 @@
  */
 defined('main') or die('no direct access');
 
-function image_create_transparent($width, $height) 
+function png_create_transparent($width, $height) 
 {
     $res = imagecreatetruecolor($width, $height);
     $transparency = imagecolorallocatealpha($res, 0, 0, 0, 127);
@@ -17,12 +17,21 @@ function image_create_transparent($width, $height)
     return $res;
 }
 
+function gif_create_transparent($neuesBild, $altesBild)
+{
+    $transparencyIndex = imagecolortransparent($altesBild);
+    $transparencyColor = array('red' => 255, 'green' => 255, 'blue' => 255);
+    if ($transparencyIndex >= 0) { $transparencyColor = imagecolorsforindex($altesBild, $transparencyIndex); }
+    $transparencyIndex = imagecolorallocate($neuesBild, $transparencyColor[ 'red' ], $transparencyColor[ 'green' ], $transparencyColor[ 'blue' ]);
+    imagefill($neuesBild, 0, 0, $transparencyIndex);
+    imagecolortransparent($neuesBild, $transparencyIndex);
+}
+
 function create_avatar($imgpath, $thumbpath, $neueBreite, $neueHoehe)
 {
     $size = getimagesize($imgpath);
     $breite = $size[ 0 ];
     $hoehe = $size[ 1 ];
-
     $RatioW = $neueBreite / $breite;
     $RatioH = $neueHoehe / $hoehe;
         
@@ -68,10 +77,16 @@ function create_avatar($imgpath, $thumbpath, $neueBreite, $neueHoehe)
 	
     if (function_exists('imagecreatetruecolor') AND $size[ 2 ] != 1)
 	{
-      $neuesBild = image_create_transparent($neueBreite, $neueHoehe);
+      $neuesBild = png_create_transparent($neueBreite, $neueHoehe);
       imagecopyresampled($neuesBild, $altesBild, 0, 0, 0, 0, $neueBreite, $neueHoehe, $breite, $hoehe);
     } 
-	else 
+	elseif (function_exists('imagecreatetruecolor') AND $size[ 2 ] == 1 )
+	{
+      $neuesBild = imageCreate($neueBreite, $neueHoehe);
+      gif_create_transparent($neuesBild, $altesBild);
+      imagecopyresampled($neuesBild, $altesBild, 0, 0, 0, 0, $neueBreite, $neueHoehe, $breite, $hoehe);
+	}
+	else
 	{
       $neuesBild = imageCreate($neueBreite, $neueHoehe);
       imageCopyResized($neuesBild, $altesBild, 0, 0, 0, 0, $neueBreite, $neueHoehe, $breite, $hoehe);
