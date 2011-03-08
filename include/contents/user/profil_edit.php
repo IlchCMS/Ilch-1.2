@@ -6,6 +6,8 @@
  */
 defined('main') or die('no direct access');
 
+require_once('include/includes/func/profile_image.php');
+
 $title = $allgAr[ 'title' ] . ' :: Users :: Profil';
 $hmenu = $extented_forum_menu . '<a class="smalfont" href="?user">Users</a><b> &raquo; </b> Profil' . $extented_forum_menu_sufix;
 $header = Array(
@@ -60,13 +62,10 @@ if ($_SESSION[ 'authright' ] <= - 1) {
             $row[ 'avatarbild' ] = (file_exists($row[ 'avatar' ]) ? '<img src="' . $row[ 'avatar' ] . '" alt=""><br />' : '');
             $row[ 'Fabreite' ] = $allgAr[ 'Fabreite' ];
             $row[ 'Fahohe' ] = $allgAr[ 'Fahohe' ];
-            $row[ 'Fasize' ] = $allgAr[ 'Fasize' ];
             // Userpic
             $row[ 'userpic' ] = (file_exists($row[ 'userpic' ]) ? '<img src="' . $row[ 'userpic' ] . '" alt=""><br />' : '');
             $row[ 'userpic_Fabreite' ] = $allgAr[ 'userpic_Fabreite' ];
             $row[ 'userpic_Fahohe' ] = $allgAr[ 'userpic_Fahohe' ];
-            $row[ 'userpic_Fasize' ] = $allgAr[ 'userpic_Fasize' ];
-
             $row[ 'forum_max_sig' ] = $allgAr[ 'forum_max_sig' ];
             $row[ 'uid' ] = $_SESSION[ 'authid' ];
             $row[ 'forum_usergallery' ] = $allgAr[ 'forum_usergallery' ];
@@ -97,72 +96,88 @@ if ($_SESSION[ 'authright' ] <= - 1) {
                 $fmsg = $lang[ 'passwortnotequal' ];
             }
         }
-        // avatar speichern START
+		// avatar START
         $avatar_sql_update = '';
-        if (!empty($_FILES[ 'avatarfile' ][ 'name' ]) AND $allgAr[ 'forum_avatar_upload' ]) {
-            $file_tmpe = $_FILES[ 'avatarfile' ][ 'tmp_name' ];
-            $rile_type = ic_mime_type($_FILES[ 'avatarfile' ][ 'tmp_name' ]);
-            $file_type = $_FILES[ 'avatarfile' ][ 'type' ];
-            $file_size = $_FILES[ 'avatarfile' ][ 'size' ];
-            $fmsg = $lang[ 'avatarisnopicture' ];
-            $size = @getimagesize($file_tmpe);
-            $endar = array(1 => 'gif',
-                2 => 'jpg',
-                3 => 'png'
-                );
-            if (($size[ 2 ] == 1 OR $size[ 2 ] == 2 OR $size[ 2 ] == 3) AND $size[ 0 ] > 10 AND $size[ 1 ] > 10 AND substr($file_type, 0, 6) == 'image/' AND substr($rile_type, 0, 6) == 'image/') {
-                $endung = $endar[ $size[ 2 ] ];
-                $breite = $size[ 0 ];
-                $hoehe = $size[ 1 ];
-                $fmsg = $lang[ 'avatarcannotupload' ];
-                if ($file_size <= $allgAr[ 'Fasize' ] AND $breite <= $allgAr[ 'Fabreite' ] AND $hoehe <= $allgAr[ 'Fahohe' ]) {
-                    $neuer_name = 'include/images/avatars/' . $_SESSION[ 'authid' ] . '.' . $endung;
-                    @unlink(db_result(db_query("SELECT `avatar` FROM `prefix_user` WHERE `id` = " . $_SESSION[ 'authid' ]), 0));
-                    move_uploaded_file($file_tmpe, $neuer_name);
-                    @chmod($neuer_name, 0777);
-                    $avatar_sql_update = "avatar = '" . $neuer_name . "',";
-                    $fmsg = $lang[ 'pictureuploaded' ];
-                }
+        if (!empty($_FILES[ 'avatarfile' ][ 'name' ]) AND $allgAr[ 'forum_avatar_upload' ]) 
+        {
+        $fende = preg_replace("/.+\.([a-zA-Z]+)$/", "\\1", $_FILES[ 'avatarfile' ][ 'name' ]); 
+        $fende = $endung = strtolower($fende); 
+        $name = substr($_FILES[ 'avatarfile' ][ 'name' ],0,-1*(strlen($fende)+1)); 
+        $size = @getimagesize ($_FILES[ 'avatarfile' ][ 'tmp_name' ]);	
+          if (!empty($_FILES[ 'avatarfile' ][ 'name' ]) AND $size[0] > 10 AND $size[1] > 10 
+          												AND ($size[2] == 2 OR $size[2] == 3 OR $size[2] == 1)
+          												AND ($fende == 'gif' OR $fende == 'jpg' OR $fende == 'jpeg' OR $fende == 'png'))
+          {
+          $bild_url = 'include/images/avatars/'.$_SESSION[ 'authid' ].'_org.'.$endung;
+          $bild_thumb = 'include/images/avatars/'.$_SESSION[ 'authid' ].'.'.$endung;
+          @unlink($bild_url); 
+		  @unlink(db_result(db_query("SELECT `avatar` FROM `prefix_user` WHERE `id` = " . $_SESSION[ 'authid' ]), 0));
+            if (@move_uploaded_file ($_FILES[ 'avatarfile' ][ 'tmp_name' ], $bild_url)) 
+            {
+            create_avatar ($bild_url, $bild_thumb, $allgAr[ 'Fabreite' ], $allgAr[ 'Fahohe' ] );
+            @chmod($bild_url, 0777); @chmod($bild_thumb, 0777);
+            $avatar_sql_update = "avatar = '" . $bild_thumb . "',";
+			@unlink($bild_url);
+            $fmsg = $lang[ 'pictureuploaded' ];
+            } 
+            else			
+            { 
+            $fmsg = $lang[ 'avatarcannotupload' ]; 
             }
-        } elseif (isset($_POST[ 'avatarloeschen' ])) {
-            $fmsg = $lang[ 'picturedelete' ];
-            @unlink(db_result(db_query("SELECT `avatar` FROM `prefix_user` WHERE `id` = " . $_SESSION[ 'authid' ]), 0));
-            $avatar_sql_update = "avatar = '',";
+          }
+          else
+          {
+          $fmsg = $lang[ 'avatarisnopicture' ];
+          }
+        } 
+        elseif (isset($_POST[ 'avatarloeschen' ])) 
+        {
+        $fmsg = $lang[ 'picturedelete' ];
+        @unlink(db_result(db_query("SELECT `avatar` FROM `prefix_user` WHERE `id` = " . $_SESSION[ 'authid' ]), 0));
+        $avatar_sql_update = "avatar = '',";
         }
-        // avatar speichern ENDE
-        // userpic speichern START
+		// avatar ENDE
+		// userpic START
         $userpic_sql_update = '';
-        if (!empty($_FILES[ 'userpicfile' ][ 'name' ]) AND $allgAr[ 'forum_avatar_upload' ]) {
-            $file_tmpe = $_FILES[ 'userpicfile' ][ 'tmp_name' ];
-            $rile_type = ic_mime_type($_FILES[ 'userpicfile' ][ 'tmp_name' ]);
-            $file_type = $_FILES[ 'userpicfile' ][ 'type' ];
-            $file_size = $_FILES[ 'userpicfile' ][ 'size' ];
-            $fmsg = $lang[ 'userpicisnopicture' ];
-            $size = @getimagesize($file_tmpe);
-            $endar = array(1 => 'gif',
-                2 => 'jpg',
-                3 => 'png'
-                );
-            if (($size[ 2 ] == 1 OR $size[ 2 ] == 2 OR $size[ 2 ] == 3) AND $size[ 0 ] > 10 AND $size[ 1 ] > 10 AND substr($file_type, 0, 6) == 'image/' AND substr($rile_type, 0, 6) == 'image/') {
-                $endung = $endar[ $size[ 2 ] ];
-                $breite = $size[ 0 ];
-                $hoehe = $size[ 1 ];
-                $fmsg = $lang[ 'userpiccannotupload' ];
-                if ($file_size <= $allgAr[ 'userpic_Fasize' ] AND $breite <= $allgAr[ 'userpic_Fabreite' ] AND $hoehe <= $allgAr[ 'userpic_Fahohe' ]) {
-                    $neuer_name = 'include/images/userpics/' . $_SESSION[ 'authid' ] . '.' . $endung;
-                    @unlink(db_result(db_query("SELECT `userpic` FROM `prefix_user` WHERE `id` = " . $_SESSION[ 'authid' ]), 0));
-                    move_uploaded_file($file_tmpe, $neuer_name);
-                    @chmod($neuer_name, 0777);
-                    $userpic_sql_update = "userpic = '" . $neuer_name . "',";
-                    $fmsg = $lang[ 'pictureuploaded' ];
-                }
+        if (!empty($_FILES[ 'userpicfile' ][ 'name' ]) AND $allgAr[ 'forum_avatar_upload' ]) 
+        {
+        $fende = preg_replace("/.+\.([a-zA-Z]+)$/", "\\1", $_FILES[ 'userpicfile' ][ 'name' ]); 
+        $fende = $endung = strtolower($fende); 
+        $name = substr($_FILES[ 'userpicfile' ][ 'name' ],0,-1*(strlen($fende)+1)); 
+        $size = @getimagesize ($_FILES[ 'userpicfile' ][ 'tmp_name' ]);	
+          if (!empty($_FILES[ 'userpicfile' ][ 'name' ]) AND $size[0] > 10 AND $size[1] > 10 
+          												AND ($size[2] == 2 OR $size[2] == 3 OR $size[2] == 1)
+          												AND ($fende == 'gif' OR $fende == 'jpg' OR $fende == 'jpeg' OR $fende == 'png'))
+          {
+          $bild_url = 'include/images/userpics/'.$_SESSION[ 'authid' ].'_org.'.$endung;
+          $bild_thumb = 'include/images/userpics/'.$_SESSION[ 'authid' ].'.'.$endung;
+          @unlink($bild_url);
+		  @unlink(db_result(db_query("SELECT `avatar` FROM `prefix_user` WHERE `id` = " . $_SESSION[ 'authid' ]), 0));
+            if (@move_uploaded_file ($_FILES[ 'userpicfile' ][ 'tmp_name' ], $bild_url)) 
+            {
+            create_avatar ($bild_url, $bild_thumb, $allgAr[ 'userpic_Fabreite' ], $allgAr[ 'userpic_Fahohe' ] );
+            @chmod($bild_url, 0777); @chmod($bild_thumb, 0777);
+            $userpic_sql_update = "userpic = '" . $bild_thumb . "',";
+			@unlink($bild_url);
+            $fmsg = $lang[ 'pictureuploaded' ];
+            } 
+            else			
+            { 
+            $fmsg = $lang[ 'userpiccannotupload' ]; 
             }
-        } elseif (isset($_POST[ 'userpicloeschen' ])) {
-            $fmsg = $lang[ 'picturedelete' ];
-            @unlink(db_result(db_query("SELECT `userpic` FROM `prefix_user` WHERE `id` = " . $_SESSION[ 'authid' ]), 0));
-            $userpic_sql_update = "userpic = '',";
+          }
+          else
+          {
+          $fmsg = $lang[ 'userpicisnopicture' ];
+          }
+        } 
+        elseif (isset($_POST[ 'userpicloeschen' ])) 
+        {
+        $fmsg = $lang[ 'picturedelete' ];
+        @unlink(db_result(db_query("SELECT `userpic` FROM `prefix_user` WHERE `id` = " . $_SESSION[ 'authid' ]), 0));
+        $userpic_sql_update = "userpic = '',";
         }
-        // userpic speichern ENDE
+		// userpic ENDE
         // email aendern
         if ($_POST[ 'email' ] != $_POST[ 'aemail' ]) {
             $id = $_SESSION[ 'authid' ] . '||' . md5(uniqid(rand()));

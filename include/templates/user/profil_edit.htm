@@ -1,4 +1,4 @@
-<script type="text/javascript">
+﻿<script type="text/javascript">
 $(function() {
 $('.password').pstrength();
 });
@@ -8,7 +8,7 @@ $(function() {
 	
 	$( "#datepickerProfil" ).datepicker({ 
 			autoSize: true,
-			monthNames: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+			monthNames: ['Januar','Februar','M&auml;rz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
 			monthNamesShort: ['Jan','Feb','M&auml;r','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],
 			dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
 			showWeek: true,
@@ -26,7 +26,7 @@ Bitte JavaScript aktivieren
 </noscript>
 <form action="index.php?user-profil" method="POST" enctype="multipart/form-data">
 	<fieldset>
-	  <legend>Persönliche Daten ändern</legend>
+	  <legend>Pers&ouml;nliche Daten &Auml;ndern</legend>
 		  <br />
 		  <label style="float:left; width:35%;">{_lang_mail}</label><input style="margin-bottom:2px;" name="email" value="{email}" /><input type="hidden" name="aemail" value="{email}" /><font class="smalfont">{_lang_mustbeentered}</font><br />
 			<label style="float:left; width:35%;">{_lang_homepage}</label><input style="margin-bottom:2px;" name="homepage" value="{homepage}" /><br style="clear:both;" />
@@ -57,13 +57,13 @@ Bitte JavaScript aktivieren
       <fieldset>
 			  <legend>{_lang_avatar}</legend>
 			    <label style="float:left; width:35%;">&nbsp;</label>{avatarbild}<input type="checkbox" value="yes" name="avatarloeschen" /> {_lang_delete}?<br /><br />
-			    <label style="float:left; width:35%;">&nbsp;</label><input style="margin-bottom:2px;" type="file" name="avatarfile" /><br /><font class="smalfont"><br />{_lang_criterions}: {_lang_maxwidth} {Fabreite}px, {_lang_maxheight} {Fahohe}px {_lang_and} max size {Fasize} bytes.  {_lang_otherwisenoaction}.</font><br />
+			    <label style="float:left; width:35%;">&nbsp;</label><input style="margin-bottom:2px;" type="file" name="avatarfile" /><br /><font class="smalfont"><br />{_lang_info}: {_lang_picturereduce}: {_lang_maxwidth} {Fabreite}px {_lang_or} {_lang_maxheight} {Fahohe}px.</font><br />
 			</fieldset>
 			<br />
       <fieldset>
 			  <legend>{_lang_userpic}</legend>
 			    <label style="float:left; width:35%;">&nbsp;</label>{userpic}<input type="checkbox" value="yes" name="userpicloeschen" /> {_lang_delete}?<br /><br />
-			    <label style="float:left; width:35%;">&nbsp;</label><input style="margin-bottom:2px;" type="file" name="userpicfile" /><br /><font class="smalfont"><br />{_lang_criterions}: {_lang_maxwidth} {userpic_Fabreite}px, {_lang_maxheight} {userpic_Fahohe}px {_lang_and} max size {userpic_Fasize} bytes.  {_lang_otherwisenoaction}.</font><br />
+			    <label style="float:left; width:35%;">&nbsp;</label><input style="margin-bottom:2px;" type="file" name="userpicfile" /><br /><font class="smalfont"><br />{_lang_info}: {_lang_picturereduce}: {_lang_maxwidth} {userpic_Fabreite}px {_lang_or} {_lang_maxheight} {userpic_Fahohe}px.</font><br />
 	  </fieldset>
 			<br />
 			{EXPLODE}
