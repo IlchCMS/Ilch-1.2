@@ -1,11 +1,11 @@
-<script type="text/javascript">
+﻿<script type="text/javascript">
 var icCalenderView = {VIEW};
 var icCalenderMonth = {MONAT};
 var icCalenderYear = {YEAR};
 $(document).ready(function() {
-	$( "#datepickercontent" ).datepicker({
+  $( "#datepickercontent" ).datepicker({
 			autoSize: true,
-			monthNames: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+			monthNames: ['Januar','Februar','M&auml;rz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
 			monthNamesShort: ['Jan','Feb','M&auml;r','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],
 			dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
 			showWeek: true,
@@ -42,58 +42,56 @@ ic.documentReadyAdd(function(type, elemid) {
     }
 }, 'ajaxload');
 </script>
-<noscript>
-	Bitte JavaScript aktivieren
-</noscript>
-<!-- Kalender Script � by Nickel -->
+<noscript>Bitte JavaScript aktivieren</noscript>
+<!-- Kalender Script by Nickel -->
 <table width="100%" cellpadding="0" border="0" cellspacing="0">
-<tr>
-	<td width="100%" valign="top" id="kalendercontent">
-	    {EXPLODE "listbegin"}
-		<table width="100%" cellpadding="3" border="0" cellspacing="1" class="border">
-		<tr class="Chead">
-			<td {TITLE_ALIGN} colspan="3"><b>{TITLE}</b></td>
-		</tr>
-		{EXPLODE "listitem"}
-		<tr class="{LIST_CLASS}">
-			<td align="center" valign="top" width="25" nowrap="nowrap">{LIST_I}</td>
-			<td align="center" valign="top" width="25" nowrap="nowrap">{LIST_D}</td>
-			<td width="100%">{LIST_T}</td>
-		</tr>
-		{EXPLODE "detail"}
-		<tr class="Cmite">
-			<td colspan="3"><font style="font-size: 10px">{DETAIL_DATE} - {DETAIL_TIME} Uhr</font></td>
-		</tr>
-		<tr class="Cnorm">
-			<td colspan="3">{DETAIL_TEXT}</td>
-		</tr>
-		<tr class="Cnorm">
-			<td colspan="3" align="center">
-			{_if_{BACK_LINK}=='1'}
+  <tr>
+    <td width="100%" valign="top" id="kalendercontent">
+    {EXPLODE "listbegin"}
+      <table width="100%" cellpadding="3" border="0" cellspacing="1" class="border">
+        <tr class="Chead">
+          <td {TITLE_ALIGN} colspan="3"><b>{TITLE}</b></td>
+        </tr>
+        {EXPLODE "listitem"}
+        <tr class="{LIST_CLASS}">
+          <td align="center" valign="top" width="25" nowrap="nowrap">{LIST_I}</td>
+          <td align="center" valign="top" width="25" nowrap="nowrap">{LIST_D}</td>
+          <td width="100%">{LIST_T}</td>
+        </tr>
+        {EXPLODE "detail"}
+        <tr class="Cmite">
+          <td colspan="3"><font style="font-size: 10px">{DETAIL_DATE} - {DETAIL_TIME} Uhr</font></td>
+        </tr>
+        <tr class="Cnorm">
+          <td colspan="3">{DETAIL_TEXT}</td>
+        </tr>
+        <tr class="Cnorm">
+          <td colspan="3" align="center">
+          {_if_{BACK_LINK}=='1'}
             <a href="javascript:history.back()">{_lang_back}</a>
-            {_else_}
+          {_else_}
             <a href="{BACK_LINK}" class="calajax">{_lang_back}</a>
-            {/_endif}
-			</td>
-		</tr>
-		{EXPLODE "listend"}
-		</table>
-	{EXPLODE "kalenderend"}
-	</td>
-	<td width="10" nowrap="nowrap">&nbsp;</td>
-	<td width="175" valign="top" nowrap="nowrap" align="center"><div id="datepickercontent"></div>
-	<a class="calajax" href="index.php?kalender-v1" id="listviewlink">{_lang_listview}</a> |
-	 <a class="calajax" href="index.php?kalender-v0" id="monthviewlink">{_lang_monthsview}</a>
-	</td>
-</tr>
+          {/_endif}
+          </td>
+        </tr>
+        {EXPLODE "listend"}
+      </table>
+      {EXPLODE "kalenderend"}
+    </td>
+    <td width="10" nowrap="nowrap">&nbsp;</td>
+    <td width="175" valign="top" nowrap="nowrap" align="center">
+      <div id="datepickercontent"></div>
+      <a class="calajax" href="index.php?kalender-v1" id="listviewlink">{_lang_listview}</a> | <a class="calajax" href="index.php?kalender-v0" id="monthviewlink">{_lang_monthsview}</a>
+    </td>
+  </tr>
 </table>
-<!-- Kalender Script � by Nickel -->
+<!-- Kalender Script by Nickel -->
 {EXPLODE "tooltips start"}
 <div class="kalender-event-tooltips" style="display: none">
 {EXPLODE "tooltip"}
-	<div id="calender-event-details-{id}" title="{title}">
-		{text}
-	</div>
+<div id="calender-event-details-{id}" title="{title}">
+{text}
+</div>
 {EXPLODE "tooltips end"}
 </div>
 {EXPLODE "tooltips javascript"}
@@ -117,4 +115,4 @@ ic.documentReadyAdd(function(type, elemid) {
     });
 </script>
 {EXPLODE "event link"}
-<a class="calender-event calajax" rel="calender-event-details-{id}" href="index.php?kalender-v{view}-e{id}">{title}</a>;&nbsp;
+<a class="calender-event calajax" rel="calender-event-details-{id}" href="index.php?kalender-v{view}-e{id}">{title}</a>

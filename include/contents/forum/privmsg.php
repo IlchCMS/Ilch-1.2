@@ -11,7 +11,9 @@ $hmenu = $extented_forum_menu . '<a class="smalfont" href="index.php?forum">Foru
 $design = new design($title, $hmenu, 1);
 $load = Array(
     'jquery/auto-complete.js',
-    'jquery/auto-complete.css'
+    'jquery/auto-complete.css',
+	'jquery/jquery.validate.js',
+	'forms/newpm.js'
     );
 $design->header($load);
 

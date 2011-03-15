@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 <head>
 <link rel="stylesheet" type="text/css" href="include/admin/templates/style.css">
 {diashow_html}
@@ -32,78 +32,84 @@
 <table width="100%" class="border" border="0" cellspacing="1" cellpadding="3">
   <tr>
     <td class="Callg">
-
-    <div class="layer" id="diashowDiv" style="position:absolute; top:25px; left:25px; display:none; width:85px; height:15px;">
-    <table onmouseover="showDiashowDiv()" onmouseout="closeDiashowDiv()" width="85" class="border" border="0" cellspacing="1" cellpadding="4">
-      <tr>
-        <td class="Cdark" title="Bilder alle 3 Sekunden wechseln" width="15" onClick="startDiashow(3)" style="cursor:pointer">&nbsp;3&nbsp;</td>
-        <td class="Cmite" title="Bilder alle 5 Sekunden wechseln" width="15" onClick="startDiashow(5)" style="cursor:pointer">&nbsp;5&nbsp;</td>
-        <td class="Cdark" title="Bilder alle 10 Sekunden wechseln" width="15" onClick="startDiashow(10)" style="cursor:pointer">&nbsp;10&nbsp;</td>
-        <td class="Cmite" title="Bilder alle 20 Sekunden wechseln" width="15" onClick="startDiashow(20)" style="cursor:pointer">&nbsp;20&nbsp;</td>
-        <td class="Cdark" title="Bilder alle 30 Sekunden wechseln" width="15" onClick="startDiashow(30)" style="cursor:pointer">&nbsp;30&nbsp;</td>
-      </tr>
-    </table>
-    </div>
-
-    <table class="border" border="0" cellspacing="1" cellpadding="3" width="100%">
-      <tr>
-        <td class="Cnorm" align="center" width="15"><a href="javascript:closeThisWindow()"><img src="include/images/icons/del.gif" alt="{_lang_close}" title="{_lang_close}" border="0"></a></td>
-        <td class="Cmite" align="center" width="15"><a href="index.php?gallery-show-{cid}-p{last}"><img src="include/images/icons/pfeill.gif" alt="{_lang_back}" title="{_lang_back}" border="0"></a></td>
-        <td class="Cmite" align="center" width="15"><a href="index.php?gallery-show-{cid}-p{next}"><img src="include/images/icons/pfeilr.gif" alt="{_lang_forward}" title="{_lang_forward}" border="0"></a></td>
-        <td class="Cnorm" align="center" width="15" onmouseout="closeDiashowDiv()" onmouseover="showDiashowDiv()"><a href="index.php?gallery-show-{cid}-p{diashow}"><img src="include/images/icons/diashow.gif" alt="{_lang_diashowstartstop}" title="{_lang_diashowstartstop}" border="0"></a></td>
-        <td title="{_lang_participant}: {vote_klicks}" class="Cnorm" align="right">
-    <table class="border" border="0" cellspacing="1" cellpadding="0">
-      <tr>
-        <td class="Cdark" onClick="doVote(1)" style="cursor:pointer">&nbsp;1&nbsp;</td>
-        <td class="Cmite" onClick="doVote(2)" style="cursor:pointer">&nbsp;2&nbsp;</td>
-        <td class="Cdark" onClick="doVote(3)" style="cursor:pointer">&nbsp;3&nbsp;</td>
-        <td class="Cmite" onClick="doVote(4)" style="cursor:pointer">&nbsp;4&nbsp;</td>
-        <td class="Cdark" onClick="doVote(5)" style="cursor:pointer">&nbsp;5&nbsp;</td>
-        <td class="Cmite" onClick="doVote(6)" style="cursor:pointer">&nbsp;6&nbsp;</td>
-        <td class="Cdark" onClick="doVote(7)" style="cursor:pointer">&nbsp;7&nbsp;</td>
-        <td class="Cmite" onClick="doVote(8)" style="cursor:pointer">&nbsp;8&nbsp;</td>
-        <td class="Cdark" onClick="doVote(9)" style="cursor:pointer">&nbsp;9&nbsp;</td>
-        <td class="Cmite" onClick="doVote(10)" style="cursor:pointer">&nbsp;10&nbsp;</td>
-        <td class="Cnorm" align="right">&nbsp; &nbsp; {_lang_rating}: {vote_wertung}&nbsp;</td>
-      </tr>
-    </table>
-        </td>
-      </tr>
-    </table>
-    <br />
-<center><table class="border" border="0" cellspacing="1" cellpadding="0"><tr><td><a href="index.php?gallery-showOrig-{id}-{endung}" onClick="return openWindow();" target="_blank"><img id="bild1" style="progid:DXImageTransform.Microsoft.{bild_style}" src="include/images/gallery/img_norm_{id}.{endung}" border="0" /></a></td></tr></table></center>
-
-    <br />
-    <table class="border" border="0" cellspacing="1" cellpadding="3" width="100%">
-      <tr>
-        <td class="Cmite"><strong>{_lang_desc}:</strong>: {besch}</td>
-      </tr>
-    </table>
-    {EXPLODE}
-    <br />
-    <table class="border" border="0" cellspacing="1" cellpadding="3" width="100%">
-      <tr>
-        <td class="Cdark"><strong>{_lang_comments}:</strong></td>
-      </tr>
-        <td class="Cnorm">
-    <form action="index.php?gallery-show-{cid}-p{bildr}" method="POST">
-      {insertmsg}<input type="text" name="name" value="{uname}" /><br />
-      <textarea cols="50" rows="2" name="text"></textarea><br />
-      {antispam}<input type="submit" name="subgalkom" value="{_lang_formsub}">
-    </form>
-        </td>
-      </tr>
-    </table>
-    <br />
-    <table class="border" border="0" cellspacing="1" cellpadding="3">
-      {EXPLODE}<tr>
-        <td class="{class}"><b>{name}:</b> &nbsp; {text}</td>
-      </tr>{EXPLODE}
-    </table>
+      <div class="layer" id="diashowDiv" style="position:absolute; top:25px; left:25px; display:none; width:85px; height:15px;">
+        <table onmouseover="showDiashowDiv()" onmouseout="closeDiashowDiv()" width="85" class="border" border="0" cellspacing="1" cellpadding="4">
+          <tr>
+            <td class="Cdark" title="Bilder alle 3 Sekunden wechseln" width="15" onClick="startDiashow(3)" style="cursor:pointer">&nbsp;3&nbsp;</td>
+            <td class="Cmite" title="Bilder alle 5 Sekunden wechseln" width="15" onClick="startDiashow(5)" style="cursor:pointer">&nbsp;5&nbsp;</td>
+            <td class="Cdark" title="Bilder alle 10 Sekunden wechseln" width="15" onClick="startDiashow(10)" style="cursor:pointer">&nbsp;10&nbsp;</td>
+            <td class="Cmite" title="Bilder alle 20 Sekunden wechseln" width="15" onClick="startDiashow(20)" style="cursor:pointer">&nbsp;20&nbsp;</td>
+            <td class="Cdark" title="Bilder alle 30 Sekunden wechseln" width="15" onClick="startDiashow(30)" style="cursor:pointer">&nbsp;30&nbsp;</td>
+          </tr>
+        </table>
+      </div>
+      <table class="border" border="0" cellspacing="1" cellpadding="3" width="100%">
+        <tr>
+          <td class="Cnorm" align="center" width="15"><a href="javascript:closeThisWindow()"><img src="include/images/icons/del.gif" alt="{_lang_close}" title="{_lang_close}" border="0"></a></td>
+          <td class="Cmite" align="center" width="15"><a href="index.php?gallery-show-{cid}-p{last}"><img src="include/images/icons/pfeill.gif" alt="{_lang_back}" title="{_lang_back}" border="0"></a></td>
+          <td class="Cmite" align="center" width="15"><a href="index.php?gallery-show-{cid}-p{next}"><img src="include/images/icons/pfeilr.gif" alt="{_lang_forward}" title="{_lang_forward}" border="0"></a></td>
+          <td class="Cnorm" align="center" width="15" onmouseout="closeDiashowDiv()" onmouseover="showDiashowDiv()"><a href="index.php?gallery-show-{cid}-p{diashow}"><img src="include/images/icons/diashow.gif" alt="{_lang_diashowstartstop}" title="{_lang_diashowstartstop}" border="0"></a></td>
+          <td title="{_lang_participant}: {vote_klicks}" class="Cnorm" align="right">
+            <table class="border" border="0" cellspacing="1" cellpadding="0">
+              <tr>
+                <td class="Cdark" onClick="doVote(1)" style="cursor:pointer">&nbsp;1&nbsp;</td>
+                <td class="Cmite" onClick="doVote(2)" style="cursor:pointer">&nbsp;2&nbsp;</td>
+                <td class="Cdark" onClick="doVote(3)" style="cursor:pointer">&nbsp;3&nbsp;</td>
+                <td class="Cmite" onClick="doVote(4)" style="cursor:pointer">&nbsp;4&nbsp;</td>
+                <td class="Cdark" onClick="doVote(5)" style="cursor:pointer">&nbsp;5&nbsp;</td>
+                <td class="Cmite" onClick="doVote(6)" style="cursor:pointer">&nbsp;6&nbsp;</td>
+                <td class="Cdark" onClick="doVote(7)" style="cursor:pointer">&nbsp;7&nbsp;</td>
+                <td class="Cmite" onClick="doVote(8)" style="cursor:pointer">&nbsp;8&nbsp;</td>
+                <td class="Cdark" onClick="doVote(9)" style="cursor:pointer">&nbsp;9&nbsp;</td>
+                <td class="Cmite" onClick="doVote(10)" style="cursor:pointer">&nbsp;10&nbsp;</td>
+                <td class="Cnorm" align="right">&nbsp; &nbsp; {_lang_rating}: {vote_wertung}&nbsp;</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <br />
+      <center>
+      <table class="border" border="0" cellspacing="1" cellpadding="0">
+        <tr>
+          <td><a href="index.php?gallery-showOrig-{id}-{endung}" onClick="return openWindow();" target="_blank"><img id="bild1" style="progid:DXImageTransform.Microsoft.{bild_style}" src="include/images/gallery/img_norm_{id}.{endung}" border="0" /></a></td>
+        </tr>
+      </table>
+      </center>
+      <br />
+      <table class="border" border="0" cellspacing="1" cellpadding="3" width="100%">
+        <tr>
+          <td class="Cmite"><strong>{_lang_desc}:</strong>: {besch}</td>
+        </tr>
+      </table>
+      {EXPLODE}
+      <br />
+      <table class="border" border="0" cellspacing="1" cellpadding="3" width="100%">
+        <tr>
+          <td class="Cdark"><strong>{_lang_comments}:</strong></td>
+        </tr><tr>
+          <td class="Cnorm">
+            <form action="index.php?gallery-show-{cid}-p{bildr}" method="POST">
+              {insertmsg}
+              <input type="text" name="name" value="{uname}" /><br />
+              <textarea cols="50" rows="2" name="text"></textarea><br />
+              {antispam}
+              <input type="submit" name="subgalkom" value="{_lang_formsub}">
+            </form>
+          </td>
+        </tr>
+      </table>
+      <br />
+      <table class="border" border="0" cellspacing="1" cellpadding="3">
+      {EXPLODE}
+        <tr>
+          <td class="{class}"><b>{name}:</b> &nbsp; {text}</td>
+        </tr>
+      {EXPLODE}
+      </table>
     </td>
   </tr>
 </table>
-
 </body>
 </html>
 {EXPLODE}
@@ -115,7 +121,6 @@
 <!--
 function adjust_popup() {
         var w, h, fixedW, fixedH, diffW, diffH;
-
         if (document.all) {
                 fixedW = document.body.clientWidth;
                 fixedH = document.body.clientHeight;
@@ -129,7 +134,6 @@ function adjust_popup() {
                 diffW = fixedW - window.innerWidth;
                 diffH = fixedH - window.innerHeight;
         }
-
         w = fixedW + diffW;
         h = fixedH + diffH;
         if (h >= screen.availHeight) w += 16;
@@ -138,11 +142,8 @@ function adjust_popup() {
         h = Math.min(h,screen.availHeight);
         window.resizeTo(w,h);
         window.moveTo((screen.availWidth-w)/2, (screen.availHeight-h)/2);
-
 }
-
 adjust_popup();
-
 //-->
 </script>
 </head>

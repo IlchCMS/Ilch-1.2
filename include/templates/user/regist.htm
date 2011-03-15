@@ -1,41 +1,33 @@
-<!-- REGELN -->
+﻿<!-- REGELN -->
 <form action="index.php?user-regist-2" method="POST">
-
 {_lang_attentionplease}:
 <br />
 {regeln}
-
-
 <br /><br /><input type="submit" value="{_lang_readandok}" name="Yes">
-
 </form>
 {EXPLODE}
-<script type="text/javascript">
-$(function() {
-$('.password').pstrength();
-});
-</script>
-<form action="index.php?user-regist-2" method="POST">
-<input type="hidden" value="Gelesen und einverstanden" name="checked">
-	<table width="100%" border="0" cellspacing="1" cellpadding="3" class="border">
-    <tr class="Chead"> 
-    <th colspan="2"><b>{_lang_REGISTER}</b></th>
-  </tr><tr>
-	<td colspan="2" class="Cdark">{FEHLER}</td>
-	</tr><tr>
-          <td class="Cmite" width="60">{_lang_nickname}</td>
-					<td class="Cnorm"><input type="text" name="nutz" value="{name}" maxlength="15"></td>
-        </tr><tr>
-          <td class="Cmite">{_lang_mail}</td>
-					<td class="Cnorm"><input type="text" maxlength="100" value="{email}" name="email"></td>
-        </tr>{EXPLODE}<tr>
-          <td class="Cmite">{_lang_password}</td>
-					<td class="Cnorm"><input class="password" type="password" name="pass"></td>
-        </tr>{EXPLODE}<tr class="Cdark">
-          <td></td>
-					<td><input type="submit" value="{_lang_register}"></td>
-        </tr>
-      </table>
+<noscript>Bitte JavaScript aktivieren</noscript>
+<form action="index.php?user-regist-2" method="POST" name="form" id="regist_form">
+  <input type="hidden" value="Gelesen und einverstanden" name="checked">
+    <table width="100%" border="0" cellspacing="1" cellpadding="3" class="border">
+      <tr class="Chead"> 
+        <th colspan="2"><b>{_lang_REGISTER}</b></th>
+      </tr><tr>
+        <td colspan="2" class="Cdark">{FEHLER}</td>
+      </tr><tr>
+        <td class="Cmite" width="60">{_lang_nickname}</td>
+        <td class="Cnorm"><input type="text" name="nutz" value="{name}" maxlength="15"></td>
+      </tr><tr>
+        <td class="Cmite">{_lang_mail}</td>
+        <td class="Cnorm"><input type="text" maxlength="100" value="{email}" name="email"></td>
+      </tr>{EXPLODE}<tr>
+        <td class="Cmite">{_lang_password}</td>
+        <td class="Cnorm"><input class="password" type="password" name="pass"></td>
+      </tr>{EXPLODE}<tr class="Cdark">
+        <td></td>
+        <td><input type="submit" value="{_lang_register}"></td>
+      </tr>
+    </table>
 </form>
 {EXPLODE}
 {_lang_hello} {NAME}<br/>

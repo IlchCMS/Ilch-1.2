@@ -1,4 +1,4 @@
-<table cellpadding="2" cellspacing="1" border="0" class="border">
+﻿<table cellpadding="2" cellspacing="1" border="0" class="border">
   <tr class="Chead">
     <td colspan="2"><b>Clankasse</b></td>
   </tr>
@@ -7,19 +7,19 @@
       {_lang_balance} {_lang_whole}: {saldo}, Plus: {plus}, Minus: {minus}<br />
       {_lang_balance} {jahr}: {Jsaldo}, Plus: {Jplus}, Minus: {Jminus}<br />
       {_lang_balance} {month}: {Msaldo}, Plus: {Mplus}, Minus: {Mminus}
-      </td>
-      
+    </td> 
   </tr><tr class="Chead">
     <td width="50%"><b><a href="index.php?kasse-m{pm}-y{py}">&laquo;</a>&nbsp;<a href="index.php?kasse-m{nm}-y{ny}">&raquo;</a>&nbsp;&nbsp;Buchungen {month}</b></td>
     <td width="50%"><b>Kontodaten</b></td>
   </tr><tr>
     <td class="Cnorm" valign="top">
-    <table width="100%" cellpadding="2" cellspacing="1" border="0" class="border">
-    {EXPLODE}<tr class="{class}">
-      <td><span style="float: left">{betrag}</span>
-      <span style="float: right">{name}</span><br />{verwendung}</td>
-    </tr>{EXPLODE}
-    </table>
+      <table width="100%" cellpadding="2" cellspacing="1" border="0" class="border">
+      {EXPLODE}
+        <tr class="{class}">
+          <td><span style="float: left">{betrag}</span><span style="float: right">{name}</span><br />{verwendung}</td>
+        </tr>
+      {EXPLODE}
+      </table>
     </td>
     <td class="Cmite" valign="top">{kontodaten}</td>
   </tr>

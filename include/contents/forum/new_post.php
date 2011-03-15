@@ -6,6 +6,11 @@
  */
 defined('main') or die('no direct access');
 
+$load = Array(
+	'jquery/jquery.validate.js',
+	'forms/newpost.js'
+    );
+
 if ($aktTopicRow[ 'stat' ] == 0 OR $forum_rights[ 'reply' ] == false) {
     if ($aktTopicRow[ 'stat' ] == 0 AND $_SESSION[ 'authright' ] > '-7') {
         if ($forum_rights[ 'mods' ] == false)
@@ -39,8 +44,9 @@ if (isset($_POST[ 'Gname' ])) {
 }
 
 if (($_SESSION[ 'klicktime' ] + 15) > $dppk_time OR empty($txt) OR !empty($_POST[ 'priview' ]) OR (empty($_POST[ 'Gname' ]) AND !loggedin()) OR !chk_antispam('newpost')) {
-    $design = new design($title, $hmenu, 1);
-    $design->header();
+    
+	$design = new design($title, $hmenu, 1);
+    $design->header($load);
 
     $name = '';
     if (!loggedin()) {
@@ -89,9 +95,9 @@ if (($_SESSION[ 'klicktime' ] + 15) > $dppk_time OR empty($txt) OR !empty($_POST
 } else {
     // save post
     $_SESSION[ 'klicktime' ] = $dppk_time;
-
+	
     $design = new design($title, $hmenu, 1);
-    $design->header();
+    $design->header($load);
 
     if (loggedin()) {
         $uid = $_SESSION[ 'authid' ];

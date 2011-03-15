@@ -12,7 +12,9 @@ $title = $allgAr[ 'title' ] . ' :: Users :: Profil';
 $hmenu = $extented_forum_menu . '<a class="smalfont" href="?user">Users</a><b> &raquo; </b> Profil' . $extented_forum_menu_sufix;
 $header = Array(
     'jquery/pstrength-min.1.2.js',
-    'jquery/pstrength.css'
+    'jquery/pstrength.css',
+	'jquery/jquery.validate.js',
+	'forms/profiledit.js'
     );
 $design = new design($title, $hmenu, 1);
 

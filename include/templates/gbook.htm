@@ -1,10 +1,10 @@
-  <table width="100%">
+﻿  <table width="100%">
 	  <tr>
 		  <td width="50%" align="right">
 			  {EINTRAGE} {_lang_entries}
 			</td>
 		  <td width="50%" align="center">
-			  <a href="index.php?gbook-1">{_lang_insert}</a>
+			  <a href="index.php?gbook-insert">{_lang_insert}</a>
 			</td>
 		</tr>
 	 </table>
@@ -36,37 +36,10 @@
 {EXPLODE "formular_eintrag"}
 
 <!-- G &auml; S T E B U C H   E N T E R   F O R M U L A R -->
-
-
+<noscript>Bitte JavaScript aktivieren</noscript>
 <script language="JavaScript" type="text/javascript">
 <!--
-  
-	var ErlaubteAnzahl={TXTL};
-	
-	
-	function checkg ( ) {
-	  if ( document.form.txt.value.length > ErlaubteAnzahl ) {
-		  alert('Du hast mehr als ' + ErlaubteAnzahl + ' Zeichen verwendet');
-			return false;
-		} else {
-		  var fehler = '';
-			if ( document.form.txt.value.length == 0 ) {
-			  fehler += 'Bitte einen Text eingeben';
-			}
-			if ( document.form.name.value.length == 0 ) {
-			  if ( fehler != '' ) {
-				  fehler += "\n";
-				}
-				fehler += 'Bitte einen Namen eingeben';
-			}
-			if ( fehler != '' ) {
-			  alert ( fehler );
-				return false;
-			} else {
-			  return true;
-			}
-		}
-	}
+var ErlaubteAnzahl={TXTL};
 
 function RestlicheZeichenErmitteln(d)
 {
@@ -82,13 +55,12 @@ function RestlicheZeichenErmitteln(d)
 	}
 	document.form.Laenge.value=RestlicheZeichen;
 }
-
 //-->
 </script>
 
 <script type="text/javascript" src="include/includes/js/bbcode.js"></script>
-<form action="index.php?gbook-2" onsubmit="return checkg()" method="POST" name="form">
-
+<form action="index.php?gbook-insert" onsubmit="return checkg()" method="POST" name="form" id="gbook_form">
+{FEHLER}
 <table width="100%" class="border" cellspacing="1" border="0" cellpadding="5">
   <tr>
     <td class="Chead" colspan="2"><b>{_lang_insert}</b></td>
@@ -96,10 +68,10 @@ function RestlicheZeichenErmitteln(d)
     <td class="Cmite" width="100"><b>{_lang_name}</b></td>
 		<td class="Cnorm"><input type="text" value="{uname}" tabindex="1" name="name"></td>
 	</tr><tr>
-    <td class="Cmite"><b>{_lang_mail}</b> *</td>
+    <td class="Cmite"><b>{_lang_mail}</b></td>
 		<td class="Cnorm"><input type="text" name="mail" tabindex="2" value="{MAIL}"></td>
 	</tr><tr>
-    <td class="Cmite"><b>{_lang_homepage}</b> *</td>
+    <td class="Cmite"><b>{_lang_homepage}</b></td>
 		<td class="Cnorm"><input type="text" name="page" tabindex="3" value="{PAGE}"></td>
 	</tr><tr>
   <td class="Cmite"><b>{_lang_message}</b><br/><br/>{SMILIES}</td>
@@ -114,7 +86,7 @@ function RestlicheZeichenErmitteln(d)
       </tr>
     </table></td>
 	</tr>{ANTISPAM}<tr class="Cdark">
-  <td></td><td><input type="submit" value="{_lang_formsub}" tabindex="5" accesskey="s">  &nbsp; <input name="preview" type="submit" value="{_lang_preview}" /></td>
+  <td></td><td><input name="submit" type="submit" value="{_lang_formsub}" tabindex="5" accesskey="s">  &nbsp; <input name="preview" type="submit" value="{_lang_preview}" /></td>
 	</tr></table></form>
 
 {EXPLODE}

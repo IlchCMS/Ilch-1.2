@@ -1,120 +1,73 @@
-﻿<script type="text/javascript">
-$(function() {
-$('.password').pstrength();
-});
-</script>
-<script>
-$(function() {
-	
-	$( "#datepickerProfil" ).datepicker({ 
-			autoSize: true,
-			monthNames: ['Januar','Februar','M&auml;rz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
-			monthNamesShort: ['Jan','Feb','M&auml;r','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],
-			dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-			showWeek: true,
-			changeMonth: true,
-			changeYear: true,
-			firstDay: 1,
-			dateFormat: 'yy-mm-dd',
-			autoSize: true,
-			yearRange: 'c-99:c+5',
-		});
-});
-</script>
-<noscript>
-Bitte JavaScript aktivieren
-</noscript>
-<form action="index.php?user-profil" method="POST" enctype="multipart/form-data">
-	<fieldset>
-	  <legend>Pers&ouml;nliche Daten &Auml;ndern</legend>
-		  <br />
-		  <label style="float:left; width:35%;">{_lang_mail}</label><input style="margin-bottom:2px;" name="email" value="{email}" /><input type="hidden" name="aemail" value="{email}" /><font class="smalfont">{_lang_mustbeentered}</font><br />
-			<label style="float:left; width:35%;">{_lang_homepage}</label><input style="margin-bottom:2px;" name="homepage" value="{homepage}" /><br style="clear:both;" />
-			<label style="float:left; width:35%;">{_lang_hometown}</label><input style="margin-bottom:2px;" name="wohnort" value="{wohnort}" /><br style="clear:both;" />
-			<label style="float:left; width:35%;">{_lang_icq}</label><input style="margin-bottom:2px;" name="icq" value="{icq}" /><br style="clear:both;" />
-			<label style="float:left; width:35%;">{_lang_msn}</label><input style="margin-bottom:2px;" name="msn" value="{msn}" /><br style="clear:both;" />
-			<label style="float:left; width:35%;">{_lang_yahoo}</label><input style="margin-bottom:2px;" name="yahoo" value="{yahoo}" /><br style="clear:both;" />
-			<label style="float:left; width:35%;">{_lang_aim}</label><input style="margin-bottom:2px;" name="aim" value="{aim}" /><br style="clear:both;" />
-			<div class="datepickerProfil">
-            	<label style="float:left; width:35%;">{_lang_birthday}</label><input style="margin-bottom:2px;" id="datepickerProfil" name="gebdatum" value="{gebdatum}" />
-                </div>
-                <font class="smalfont">{_lang_dateformat}</font><br style="clear:both;" />
-			<label style="float:left; width:35%;">{_lang_state}</label><select style="margin-bottom:2px;" name="staat">{_list_staat@<option%1 value="%2">%3</option>}</select><br style="clear:both;" />
-			<label style="float:left; width:35%;">{_lang_sex}</label><input style="margin-bottom:2px;" type="radio" value="1" id="geschlecht1" name="geschlecht" {geschlecht1} /><label for="geschlecht1"> {_lang_male}</label>, <input id="geschlecht2" type="radio" value="2" name="geschlecht" {geschlecht2} /><label for="geschlecht2"> {_lang_female}</label>, <input id="geschlecht0" type="radio" value="0" name="geschlecht" {geschlecht0} /><label for="geschlecht0"> {_lang_itdoesntmatter}</label><br style="clear:both;" />
-			<label style="float:left; width:35%;">{_lang_status}</label><input id="status_aktiv" type="radio" value="1" name="status" {status1} /><label for="status_aktiv"> {_lang_active}</label>, <input id="status_inaktiv" type="radio" value="0" name="status" {status0} /><label for="status_inaktiv"> {_lang_inactive}</label><br style="clear:both;" />
-			<label style="float:left; width:35%;">{_lang_mails}<span class="smalfont"> {_lang_fromotherusers}?</span></label><input id="opt_mail1" type="radio" value="1" name="opt_mail" {opt_mail1} /><label for="opt_mail1"> {_lang_yes}</label>, <input id="opt_mail0" type="radio" value="0" name="opt_mail" {opt_mail0} /><label for="opt_mail0"> {_lang_no}</label><br style="clear:both;" />
-			<label style="float:left; width:35%;">{_lang_privatemessages}<span class="smalfont"> {_lang_fromotherusers}?</span></label><input id="opt_pm1" type="radio" value="1" name="opt_pm" {opt_pm1} /><label for="opt_pm1"> {_lang_yes}</label>, <input id="opt_pm0" type="radio" value="0" name="opt_pm" {opt_pm0} /><label for="opt_pm0"> {_lang_no}</label><br style="clear:both;" />
-			<label style="float:left; width:35%;">{_lang_privatemessages}<span class="smalfont"> {_lang_popupbynewmsg}?</span></label><input id="opt_pm_popup1" type="radio" value="1" name="opt_pm_popup" {opt_pm_popup1} /><label for="opt_pm_popup1"> {_lang_yes}</label>, <input id="opt_pm_popup0" type="radio" value="0" name="opt_pm_popup" {opt_pm_popup0} /><label for="opt_pm_popup0"> {_lang_no}</label><br  style="fclear:both;" /><br />
-			{_if_{forum_usergallery}=='1'}<div align="center">
-                <a href="index.php?user-usergallery-{uid}">Usergallery</a> &nbsp; <a href="index.php?user-remove"/></a>
-            </div>{/_endif}<br />
-            {EXPLODE}
-      <fieldset>
-      <legend>{_lang_removeaccount}</legend>
-      <label style="float:left; width:35%;">&nbsp;</label><input type="checkbox" value="yes" name="removeaccount" /> {_lang_delete}? &nbsp; <font class="smalfont">{_lang_mustbeentered}</font>
-      </fieldset>
-	  <br />
-      <fieldset>
-			  <legend>{_lang_avatar}</legend>
-			    <label style="float:left; width:35%;">&nbsp;</label>{avatarbild}<input type="checkbox" value="yes" name="avatarloeschen" /> {_lang_delete}?<br /><br />
-			    <label style="float:left; width:35%;">&nbsp;</label><input style="margin-bottom:2px;" type="file" name="avatarfile" /><br /><font class="smalfont"><br />{_lang_info}: {_lang_picturereduce}: {_lang_maxwidth} {Fabreite}px {_lang_or} {_lang_maxheight} {Fahohe}px.</font><br />
-			</fieldset>
-			<br />
-      <fieldset>
-			  <legend>{_lang_userpic}</legend>
-			    <label style="float:left; width:35%;">&nbsp;</label>{userpic}<input type="checkbox" value="yes" name="userpicloeschen" /> {_lang_delete}?<br /><br />
-			    <label style="float:left; width:35%;">&nbsp;</label><input style="margin-bottom:2px;" type="file" name="userpicfile" /><br /><font class="smalfont"><br />{_lang_info}: {_lang_picturereduce}: {_lang_maxwidth} {userpic_Fabreite}px {_lang_or} {_lang_maxheight} {userpic_Fahohe}px.</font><br />
-	  </fieldset>
-			<br />
-			{EXPLODE}
-			<fieldset>
-			  <legend>{_lang_signature}</legend>
-			    <label style="float:left; width:35%;"><font class="smalfont">{_lang_max} {forum_max_sig} {_lang_signs}.</font></label><textarea style="margin-bottom:2px;" cols="60" rows="2" name="sig">{sig}</textarea><br />
-			</fieldset>
-			<br />
-			<fieldset>
-			  <legend>{_lang_editpassword}</legend>
-			    <br />
-				<table border="0" cellpadding="0" cellspacing="2">
-					<tr>
-						<td width="140px">
-							{_lang_current}
-						</td>
-						<td>
-							<input style="margin-bottom:2px;" type="password" name="op" maxlength="20">
-						</td>
-					</tr>
-					<tr>
-						<td width="140px">
-							{_lang_new}
-						</td>
-						<td>
-							<input class="password "style="margin-bottom:2px;" type="password" name="np1" maxlength="20">
-						</td>
-					</tr>
-					<tr>
-						<td width="140px">
-							{_lang_repeat}
-						</td>
-						<td>
-							<input style="margin-bottom:2px;" type="password" name="np2" maxlength="20">
-						</td>
-					</tr>
-				</table>
-			</fieldset>
-      <br />
-      <fieldset>
-        <br />
+﻿<noscript>Bitte JavaScript aktivieren</noscript>
+<form action="index.php?user-profil" method="POST" enctype="multipart/form-data" name="form" id="profiledit_form">
+  <fieldset>
+    <legend>Pers&ouml;nliche Daten &auml;ndern</legend>
+    <br />
+    <label style="float:left; width:150px;">{_lang_mail}</label><input style="margin-bottom:2px;" name="email" value="{email}" /><input type="hidden" name="aemail" value="{email}" /><font class="smalfont">{_lang_mustbeentered}</font><br />   
+    <label style="float:left; width:150px;">{_lang_homepage}</label><input style="margin-bottom:2px;" name="homepage" value="{homepage}" /><br style="clear:both;" />
+    <label style="float:left; width:150px;">{_lang_hometown}</label><input style="margin-bottom:2px;" name="wohnort" value="{wohnort}" /><br style="clear:both;" />
+    <label style="float:left; width:150px;">{_lang_icq}</label><input style="margin-bottom:2px;" name="icq" value="{icq}" /><br style="clear:both;" />
+    <label style="float:left; width:150px;">{_lang_msn}</label><input style="margin-bottom:2px;" name="msn" value="{msn}" /><br style="clear:both;" />
+    <label style="float:left; width:150px;">{_lang_yahoo}</label><input style="margin-bottom:2px;" name="yahoo" value="{yahoo}" /><br style="clear:both;" />
+    <label style="float:left; width:150px;">{_lang_aim}</label><input style="margin-bottom:2px;" name="aim" value="{aim}" /><br style="clear:both;" />
+    <div class="datepickerProfil"><label style="float:left; width:150px;">{_lang_birthday}</label><input style="margin-bottom:2px;" id="datepickerProfil" name="gebdatum" value="{gebdatum}" /><font class="smalfont">{_lang_dateformat}</font><br /></div>
+    <label style="float:left; width:150px;">{_lang_state}</label><select style="margin-bottom:2px;" name="staat">{_list_staat@<option%1 value="%2">%3</option>}</select><br style="clear:both;" />
+    <label style="float:left; width:150px;">{_lang_sex}</label><input style="margin-bottom:2px;" type="radio" value="1" id="geschlecht1" name="geschlecht" {geschlecht1} /><label for="geschlecht1"> {_lang_male}</label>, <input id="geschlecht2" type="radio" value="2" name="geschlecht" {geschlecht2} /><label for="geschlecht2"> {_lang_female}</label>, <input id="geschlecht0" type="radio" value="0" name="geschlecht" {geschlecht0} /><label for="geschlecht0"> {_lang_itdoesntmatter}</label><br style="clear:both;" />
+    <label style="float:left; width:150px;">{_lang_status}</label><input id="status_aktiv" type="radio" value="1" name="status" {status1} /><label for="status_aktiv"> {_lang_active}</label>, <input id="status_inaktiv" type="radio" value="0" name="status" {status0} /><label for="status_inaktiv"> {_lang_inactive}</label><br style="clear:both;" />
+    <label style="float:left; width:150px;">{_lang_mails}<span class="smalfont"> {_lang_fromotherusers2}?</span></label><input id="opt_mail1" type="radio" value="1" name="opt_mail" {opt_mail1} /><label for="opt_mail1"> {_lang_yes}</label>, <input id="opt_mail0" type="radio" value="0" name="opt_mail" {opt_mail0} /><label for="opt_mail0"> {_lang_no}</label><br style="clear:both;" />
+    <label style="float:left; width:150px;">{_lang_privatemessages}<span class="smalfont"> {_lang_fromotherusers}?</span></label><input id="opt_pm1" type="radio" value="1" name="opt_pm" {opt_pm1} /><label for="opt_pm1"> {_lang_yes}</label>, <input id="opt_pm0" type="radio" value="0" name="opt_pm" {opt_pm0} /><label for="opt_pm0"> {_lang_no}</label><br style="clear:both;" />
+    <label style="float:left; width:150px;">{_lang_privatemessages}<span class="smalfont"> {_lang_popupbynewmsg}?</span></label><input id="opt_pm_popup1" type="radio" value="1" name="opt_pm_popup" {opt_pm_popup1} /><label for="opt_pm_popup1"> {_lang_yes}</label>, <input id="opt_pm_popup0" type="radio" value="0" name="opt_pm_popup" {opt_pm_popup0} /><label for="opt_pm_popup0"> {_lang_no}</label><br  style="fclear:both;" /><br />
+    {_if_{forum_usergallery}=='1'}<div align="center"><a href="index.php?user-usergallery-{uid}">Usergallery</a> &nbsp; <a href="index.php?user-remove"></a></div>{/_endif}<br />
     {EXPLODE}
-      </fieldset>
-      <br />
-      <div align="center">
-      <input style="margin-bottom:2px;" type="submit" value="{_lang_send2}" name="submit">
-      </div>
-	</fieldset>
+  <fieldset>
+  <legend>{_lang_removeaccount}</legend>
+    <label style="float:left; width:150px;">&nbsp;</label><input type="checkbox" value="yes" name="removeaccount" /> {_lang_delete}? &nbsp; <font class="smalfont">{_lang_mustbeentered}</font>
+  </fieldset>
+  <br />
+  <fieldset>
+    <legend>{_lang_avatar}</legend>
+    <label style="float:left; width:150px;">&nbsp;</label>{avatarbild}<input type="checkbox" value="yes" name="avatarloeschen" /> {_lang_delete}?<br /><br />
+    <label style="float:left; width:150px;">&nbsp;</label><input style="margin-bottom:2px;" type="file" name="avatarfile" /><br /><font class="smalfont"><br />{_lang_info}: {_lang_picturereduce}: {_lang_maxwidth} {Fabreite}px {_lang_or} {_lang_maxheight} {Fahohe}px.</font><br />
+  </fieldset>
+  <br />
+  <fieldset>
+    <legend>{_lang_userpic}</legend>
+    <label style="float:left; width:150px;">&nbsp;</label>{userpic}<input type="checkbox" value="yes" name="userpicloeschen" /> {_lang_delete}?<br /><br />
+    <label style="float:left; width:150px;">&nbsp;</label><input style="margin-bottom:2px;" type="file" name="userpicfile" /><br /><font class="smalfont"><br />{_lang_info}: {_lang_picturereduce}: {_lang_maxwidth} {userpic_Fabreite}px {_lang_or} {_lang_maxheight} {userpic_Fahohe}px.</font><br />
+  </fieldset>
+  <br />
+  {EXPLODE}
+  <fieldset>
+    <legend>{_lang_signature}</legend>
+    <label style="float:left; width:150px;"><font class="smalfont">{_lang_max} {forum_max_sig} {_lang_signs}.</font></label><textarea style="margin-bottom:2px;" cols="60" rows="2" name="sig">{sig}</textarea><br />
+  </fieldset>
+  <br />
+  <fieldset>
+    <legend>{_lang_editpassword}</legend>
+    <br />
+    <table border="0" cellpadding="0" cellspacing="2">
+      <tr>
+        <td width="140px">{_lang_current}</td>
+        <td><input style="margin-bottom:2px;" type="password" name="op" maxlength="20"></td>
+      </tr><tr>
+        <td width="140px">{_lang_new}</td>
+        <td><input class="password "style="margin-bottom:2px;" type="password" name="np1" maxlength="20"></td>
+      </tr><tr>
+        <td width="140px">{_lang_repeat}</td>
+        <td><input style="margin-bottom:2px;" type="password" name="np2" maxlength="20"></td>
+      </tr>
+    </table>
+  </fieldset>
+  <br />
+  <fieldset>
+  <br />
+  {EXPLODE}
+</fieldset>
+<br />
+<div align="center"><input style="margin-bottom:2px;" type="submit" value="{_lang_send2}" name="submit"></div>
+</fieldset>
 </form>
 {EXPLODE "profilefield"}
 <div style="margin-bottom: 5px;">
-	<label style="float:left; width:35%;">{show}</label>
-	<input type="text" name="profilefields[{id}]" value="{val}">
+  <label style="float:left; width:150px;">{show}</label><input type="text" name="profilefields[{id}]" value="{val}">
 </div>

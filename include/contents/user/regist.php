@@ -61,7 +61,9 @@ switch ($menu->get(2)) {
             $hmenu = $extented_forum_menu . '<a class="smalfont" href="?user">User</a><b> &raquo; </b><a class="smalfont" href="?user-regist">Registrieren</a><b> &raquo; </b>Step 2 von 3' . $extented_forum_menu_sufix;
             $header = Array(
                 'jquery/pstrength-min.1.2.js',
-                'jquery/pstrength.css'
+                'jquery/pstrength.css',
+				'jquery/jquery.validate.js',
+				'forms/regist.js'
                 );
             $design = new design($title, $hmenu, 1);
             $design->header($header);

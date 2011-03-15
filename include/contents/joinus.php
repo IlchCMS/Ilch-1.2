@@ -8,8 +8,12 @@ defined('main') or die('no direct access');
 // -----------------------------------------------------------|
 $title = $allgAr[ 'title' ] . ' :: Joinus';
 $hmenu = 'Joinus';
+$header = Array(
+	'jquery/jquery.validate.js',
+	'forms/joinus.js'
+    );
 $design = new design($title, $hmenu);
-$design->header();
+$design->header($header);
 
 if (0 == db_count_query("SELECT COUNT(*) FROM `prefix_groups` WHERE `show_joinus` = 1")) {
     echo $lang[ 'noteamthere' ];
@@ -47,34 +51,39 @@ foreach ($far as $v) {
 }
 
 $xname = escape_nickname($name);
-$ch_name = false;
+$ch_name = false; $joinusspam = true;
 if (loggedin()) {
     $ch_name = true;
 } elseif (isset($_POST[ 'sub' ]) AND $name == $xname AND !empty($name) AND 0 == db_result(db_query("SELECT COUNT(*) FROM `prefix_user` WHERE `name_clean` = BINARY '" . get_lower($name) . "'"), 0)) {
     $ch_name = true;
 }
+if (isset($_POST['sub'])){ 
+	if(chk_antispam('joinus') != true) {$fehler .= '&middot;&nbsp;'.$lang[ 'incorrectspam' ].'<br/>'; $joinusspam = false;}
+	}
 
-if (count($far) != $x OR $ch_name == false OR !chk_antispam('joinus')) {
+if (count($far) != $x OR $ch_name == false OR $joinusspam == false) {
     $tpl = new tpl('joinus.htm');
-    $skill = arlistee($skill, $skill_ar);
-    $squad = '<option value="0">choose</option>';
+	$skill = '<option></option>';
+    $skill .= arlistee($skill, $skill_ar);
+    $squad = '<option></option>';
     $squad .= dblistee($squad, "SELECT `id`,`name` FROM `prefix_groups` WHERE `show_joinus` = 1 ORDER BY `pos`");
     if (loggedin()) {
         $name = $_SESSION[ 'authname' ];
     }
     foreach ($far as $v) {
         if ($x > 0 AND empty($_POST[ $v ])) {
-            echo 'missing: ' . $lang[ $v ] . '<br />';
+            $fehler .= '&middot;&nbsp;'.'Bitte '. $lang[ $v ] . ' angeben!<br />';
         }
         $tpl->set($v, $$v);
     }
     if ($x > 0 AND $name != $xname) {
-        echo $lang[ 'wrongnickname' ] . '<br />';
+	  $fehler .= '&middot;&nbsp;'.$lang[ 'wrongnickname' ] . '<br />';
     } elseif ($x > 0 AND $ch_name == false) {
-        echo $lang[ 'namealreadyinuse' ] . '<br />';
+	  $fehler .= '&middot;&nbsp;'.$lang[ 'namealreadyinuse' ] . '<br />';
     }
     $name = $xname;
     $tpl->set('readonly', (loggedin() ? ' readonly' : ''));
+	$tpl->set('FEHLER', '<div id="formfehler">'.$fehler.'</div>');
     $tpl->out(0);
     if ($allgAr[ 'joinus_rules' ] != 1) {
         $tpl->out(1);

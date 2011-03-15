@@ -11,7 +11,7 @@ $design = new design('Ilch Admin-Control-Panel :: Konfiguration', '', 2);
 $design->header();
 
 if (!is_admin()) {
-    echo 'Dieser Bereich ist nicht fuer dich...';
+    echo 'Dieser Bereich ist nicht f&uuml;r dich...';
     $design->footer();
     exit();
 }

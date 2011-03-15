@@ -1,92 +1,92 @@
-<table border="0" cellspacing="1" cellpadding="5" class="border">
-<tr class="Chead">
+﻿<table border="0" cellspacing="1" cellpadding="5" class="border">
+  <tr class="Chead">
 	<td colspan="2"><b>{_lang_war} {_lang_against}: {tag}</b></td>
-</tr><tr>
+  </tr><tr>
 	<td class="Cdark" colspan="2" align="left"><b>&nbsp;{_lang_opponent} {_lang_info}</b></td>
-</tr><tr>
+  </tr><tr>
 	<td class="Cmite">{_lang_clancountry}:</td>
 	<td class="Cnorm"><img src="include/images/flags/{land}" alt="" border="0"></td>
-</tr><tr>
+  </tr><tr>
 	<td class="Cmite">{_lang_name}:</td>
 	<td class="Cnorm">{gegner}</td>
-</tr><tr>
+  </tr><tr>
 	<td class="Cmite">{_lang_homepage}</td>
 	<td class="Cnorm"><a href="{page}" target="_blank">{page}</a></td>
-</tr><tr>
+  </tr><tr>
 	<td class="Cmite">{_lang_mail}</td>
 	<td class="Cnorm">{mail}</td>
-</tr><tr>
+  </tr><tr>
 	<td class="Cmite">{_lang_icq}</td>
 	<td class="Cnorm">{icq}</td>
-</tr><tr>
+  </tr><tr>
 	<td class="Cdark" colspan="2" align="left"><b>&nbsp;{_lang_match} {_lang_info}</b></td>
-</tr><tr>
+  </tr><tr>
 	<td class="Cmite">{_lang_date}</td>
 	<td class="Cnorm"><strong>{datum} {_lang_at} {zeit} {_lang_oclock}</strong></td>
-</tr><tr>
+  </tr><tr>
 	<td class="Cmite">{_lang_squad}</td>
 	<td class="Cnorm"><u><i><b>{team}</b></i></u></td>
-</tr><tr>
+  </tr><tr>
 	<td class="Cmite">{_lang_member}</td>
 	<td class="Cnorm">{memberliste}</td>
-</tr><tr>
+  </tr><tr>
 	<td class="Cmite">{_lang_xonx}</td>
 	<td class="Cnorm">{mod}</td>
-</tr><tr>
+  </tr><tr>
 	<td class="Cmite">{_lang_matchtype}:</td>
 	<td class="Cnorm">{mtyp}</td>
-</tr><tr>
+  </tr><tr>
 	<td class="Cmite">{_lang_game}:</td>
 	<td class="Cnorm">{game}</td>
-</tr><tr>
+  </tr><tr>
 	<td class="Cmite">{_lang_report}:</td>
 	<td class="Cnorm">{txt}</td>
-</tr><tr>
+  </tr><tr>
 	<td class="Cdark" colspan="2" align="left"><b>&nbsp;{_lang_result}</b></td>
-</tr><tr>
+  </tr><tr>
 	<td class="Cmite">{_lang_the} {team} {_lang_had}:</td>
 	<td class="Cnorm">{wlp}</td>
-</tr><tr>
+  </tr><tr>
 	<td class="Cmite">{_lang_round} {_lang_info}</td>
 	<td class="Cnorm">
-		<table border="0" cellpadding="2" cellspacing="1" class="border">
+      <table border="0" cellpadding="2" cellspacing="1" class="border">
 		<tr class="Cmite">
-			<td width="100">{_lang_map}/{_lang_round}</td>
-			<td width="70">{gegner}</td>
-			<td width="70">{team}</td>
-		</tr>
+          <td width="100">{_lang_map}/{_lang_round}</td>
+          <td width="70">{gegner}</td>
+          <td width="70">{team}</td>
+        </tr>
 		{ergliste}
-		<tr class="Cnorm">
-			<td width="100">{_lang_whole}</td>
-			<td width="70">{opp}</td>
-			<td width="70">{owp}</td>
-		</tr>
-		</table>
-	</td>
-</tr>
+        <tr class="Cnorm">
+          <td width="100">{_lang_whole}</td>
+          <td width="70">{opp}</td>
+          <td width="70">{owp}</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
 </table>
 {EXPLODE}
 <br />
 <form action="index.php?wars-more-{id}" method="POST">
 <input type="hidden" name="kommentar_fuer_last_wars" value="yes" />
 <table border="0" cellpadding="2" cellspacing="1" class="border">
-<tr>
-	<td class="Chead">{_lang_addcomment}</td>
-</tr><tr>
-	<td class="Cmite"><textarea cols="60" rows="2" name="text"></textarea></td>
-</tr><tr>
-	<td class="Cdark"><input type="submit" value="{_lang_formsub}" /></td>
-</tr>
+  <tr>
+    <td class="Chead">{_lang_addcomment}</td>
+  </tr><tr>
+    <td class="Cmite"><textarea cols="60" rows="2" name="text"></textarea></td>
+  </tr><tr>
+    <td class="Cdark"><input type="submit" value="{_lang_formsub}" /></td>
+  </tr>
 </table>
 <br />
 <table border="0" cellpadding="2" cellspacing="1" class="border">
-<tr>
-	<td class="Chead">{_lang_comments}</td>
-</tr>
-{EXPLODE}
-<tr>
-	<td class="{class}"><b>{name}</b>:&nbsp;{text}</td>
-</tr>
-{EXPLODE}
+  <tr>
+    <td class="Chead">{_lang_comments}</td>
+  </tr>
+  {EXPLODE}
+  <tr>
+    <td class="{class}"><b>{name}</b>:&nbsp;{text}</td>
+  </tr>
+  {EXPLODE}
 </table>
 </form>

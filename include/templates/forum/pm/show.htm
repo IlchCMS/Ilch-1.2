@@ -1,49 +1,48 @@
-<SCRIPT LANGUAGE="JavaScript">
+﻿<SCRIPT LANGUAGE="JavaScript">
 <!--
-function CheckAll(){
-	if(document.form.ALL){
-		var c = document.form.ALL.checked;
+  function CheckAll()
+  {
+    if(document.form.ALL) { var c = document.form.ALL.checked; }
+	for (var i=0;i<document.form.elements.length;i++)
+	{
+    var e = document.form.elements[i];
+      if(e.name != 'ALL') 
+      {
+        if((e.checked!=c)&&(e.type=="checkbox")){ e.click(); e.checked = c; }
+	  }
 	}
-	for (var i=0;i<document.form.elements.length;i++){
-		var e = document.form.elements[i];
-		if(e.name != 'ALL') {
-			if((e.checked!=c)&&(e.type=="checkbox")){
-			 e.click();
-			 e.checked = c;
-			}
-		}
-	}
-}
+  }
 //-->
 </SCRIPT>
 <br />
-<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td width="50%">
-<b>[</b> <a href="index.php?forum-privmsg-showsend">{_lang_outbox}</a> <b>]</b></td><td width="50%" align="right">
-<b>[</b> <a href="index.php?forum-privmsg-new">{_lang_writemessage}</a> <b>]</b></td></tr></table>
-
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%">
+      <b>[</b> <a href="index.php?forum-privmsg-showsend">{_lang_outbox}</a> <b>]</b>
+    </td>
+    <td width="50%" align="right">
+      <b>[</b> <a href="index.php?forum-privmsg-new">{_lang_writemessage}</a> <b>]</b>
+    </td>
+  </tr>
+</table>
 <form action="index.php?forum-privmsg-delete" method="POST" name="form">
-
 <table width="100%" class="border" border="0" cellspacing="1" cellpadding="3">
   <tr class="Chead">
-	  <th width="50%"><a href="index.php?forum-privmsg-{ad}1"><b>{_lang_messagetitle}</b></a></th>
-		<th width="25%"><a href="index.php?forum-privmsg-{ad}2"><b>{_lang_sender}</b></a></th>
-		<th><a href="index.php?forum-privmsg-{ad}3"><b>{_lang_time}</b></a></th>
-		<th width="15" style="text-align: right;"><input name="ALL" type="checkbox" value="CHECK ALL" onClick="CheckAll();" /></th>
-	</tr>
-
-	{EXPLODE}
+    <th width="50%"><a href="index.php?forum-privmsg-{ad}1"><b>{_lang_messagetitle}</b></a></th>
+    <th width="25%"><a href="index.php?forum-privmsg-{ad}2"><b>{_lang_sender}</b></a></th>
+    <th><a href="index.php?forum-privmsg-{ad}3"><b>{_lang_time}</b></a></th>
+    <th width="15" style="text-align: right;"><input name="ALL" type="checkbox" value="CHECK ALL" onClick="CheckAll();" /></th>
+  </tr>
+  {EXPLODE}
   <tr class="{CLASS}">
-	  <td><a href="index.php?forum-privmsg-showmsg-{ID}">{BET}</a></td>
+    <td><a href="index.php?forum-privmsg-showmsg-{ID}">{BET}</a></td>
     <td>von {ABS} &nbsp; {NEW}</td>
     <td title="{time}">{date}</td>
     <td style="text-align: right;"><input type="checkbox" name="delids[]" value="{ID}"></td>
   </tr>
-	{EXPLODE}
+  {EXPLODE}
   <tr class="Cdark">
-	  <td colspan="4" style="text-align: right;">
-      <input type="submit" value="{_lang_delete}" />
-      <img src="include/images/icons/pfeil_nach_rechts_unten.jpg">
-		</td>
+    <td colspan="4" style="text-align: right;"><input type="submit" value="{_lang_delete}" /><img src="include/images/icons/pfeil_nach_rechts_unten.jpg"></td>
   </tr>
 </table>
 </form>

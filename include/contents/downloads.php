@@ -5,7 +5,7 @@
  * @version $Id$
  */
 defined('main') or die('no direct access');
-
+	
 function get_cats_title($catsar) {
     $l = '';
     foreach ($catsar as $k => $v) {
@@ -170,7 +170,11 @@ switch ($menu->get(1)) {
         $title = $allgAr[ 'title' ] . ' :: Downloads ' . $cattitle;
         $hmenu = '<a class="smalfont" href="?downloads">Downloads</a>' . $catname;
         $design = new design($title, $hmenu);
-        $design->header();
+		$load = Array(
+		'jquery/jquery.validate.js',
+		'forms/upload.js'
+		);
+        $design->header($load);
         $tpl = new tpl('downloads');
         $tpl->set('cid', $cid);
         $erg = db_query("SELECT `id`,`name`,`desc` FROM `prefix_downcats` WHERE `cat` = " . $cid . " AND `recht` >= " . $_SESSION[ 'authright' ] . " ORDER BY `pos`");
@@ -297,7 +301,7 @@ switch ($menu->get(1)) {
         $row[ 'version_kl' ] = (empty($row[ 'version' ]) ? '' : '(' . $row[ 'version' ] . ')');
         $title = $allgAr[ 'title' ] . ' :: Downloads ' . $cattitle;
         $hmenu = '<a class="smalfont" href="?downloads">Downloads</a>' . $catname;
-        $design = new design($title, $hmenu);
+        $design = new design($title, $hmenu);		
         $design->header();
         $tpl->set_ar_out($row, 0);
         $design->footer();

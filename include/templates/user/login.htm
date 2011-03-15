@@ -1,25 +1,23 @@
-<style type="text/css">
-#loginform {width: 440px; display:block;}
-#loginform div.title {float: left; width: 150px;}
-#loginform div.input {float: left; width: 250px;}
-#loginform span {clear:both;}
-#loginform div.input2, #loginform div.links {margin-left: 150px;}
+﻿<style type="text/css">
+ #loginform {width: 440px; display:block;}
+ #loginform div.title {float: left; width: 150px;}
+ #loginform div.input {float: left; width: 250px;}
+ #loginform span {clear:both;}
+ #loginform div.input2, #loginform div.links {margin-left: 150px;}
 </style>
 {EXPLODE}
 <form action="index.php?user-login" method="post" id="loginform">
-<input type="hidden" name="wdlink" value="{WDLINK}" />
-<fieldset>
-<legend><b>{_lang_login}</b></legend>
-<div class="title">{_lang_mail_name}:</div>
-<div class="input"><input type="text" tabindex="1" name="email" /></div>
-<span></span>
-<div class="title">{_lang_password}:</div>
-<div class="input"><input type="password" tabindex="2" maxlength="20" name="pass" /></div>
-<span></span>
-<div class="input2"><input type="checkbox" tabindex="3" name="cookie" id="logincookie" />
-<label for="logincookie">{_lang_savecookie}</label>
-</div>
-<div class="input2"><input type="submit" tabindex="4" value="{_lang_login}" name="user_login_sub" /></div>
-<div class="links"><a href="index.php?user-regist">{_lang_registernow}</a>
-<a href="index.php?user-remind">{_lang_forgottenpassword}?</a></div>
+  <input type="hidden" name="wdlink" value="{WDLINK}" />
+  <fieldset>
+  <legend><b>{_lang_login}</b></legend>
+    <div class="title">{_lang_mail_name}:</div>
+    <div class="input"><input type="text" tabindex="1" name="email" /></div>
+    <span></span>
+    <div class="title">{_lang_password}:</div>
+    <div class="input"><input type="password" tabindex="2" maxlength="20" name="pass" /></div>
+    <span></span>
+    <div class="input2"><input type="checkbox" tabindex="3" name="cookie" id="logincookie" /><label for="logincookie">{_lang_savecookie}</label></div>
+    <div class="input2"><input type="submit" tabindex="4" value="{_lang_login}" name="user_login_sub" /></div>
+    <div class="links"><a href="index.php?user-regist">{_lang_registernow}</a><a href="index.php?user-remind">{_lang_forgottenpassword}?</a></div>
+  </fieldset>
 </form>

@@ -8,8 +8,12 @@ defined('main') or die('no direct access');
 
 $title = $allgAr[ 'title' ] . ' :: G&auml;stebuch';
 $hmenu = 'G&auml;stebuch';
+$header = Array(
+	'jquery/jquery.validate.js',
+	'forms/gbook.js'
+    );
 $design = new design($title, $hmenu);
-$design->header();
+$design->header($header);
 // time sperre in sekunden
 $timeSperre = $allgAr[ 'Gsperre' ];
 
@@ -35,7 +39,7 @@ function showPreview() {
  * @param  $mail Vorbelegung für die Emailadresse
  * @param  $page Vorbelegung für die Homepage
  */
-function showForm($text = "", $mail = "", $page = "") {
+function showForm($text = "", $mail = "", $page = "", $fehler = "") {
     global $allgAr;
 
     $tpl = new tpl('gbook.htm');
@@ -46,7 +50,8 @@ function showForm($text = "", $mail = "", $page = "") {
         'TXTL' => $allgAr[ 'Gtxtl' ] ,
         'TEXT' => $text,
         'PAGE' => $page,
-        'MAIL' => $mail
+        'MAIL' => $mail,
+		'FEHLER' => $fehler
         );
     $tpl->set_ar_out($ar, "formular_eintrag");
 
@@ -56,18 +61,27 @@ function showForm($text = "", $mail = "", $page = "") {
 }
 
 switch ($menu->get(1)) {
-    case 1:
-        showForm();
-        break;
-    case 2:
-        // vorschau
-        if (isset($_POST["preview"])) {
+	case 'insert':
+        if (isset($_POST["preview"])) 
+		{
             showPreview();
             showForm($_POST["txt"], $_POST["mail"], $_POST["page"]);
-        } else {
+        } 
+		elseif (isset($_POST['submit'])){ 
             $dppk_time = time();
-
-            if (($_SESSION[ 'klicktime_gbook' ] + $timeSperre) < $dppk_time AND isset($_POST[ 'name' ]) AND isset($_POST[ 'txt' ]) AND trim($_POST[ 'name' ]) != "" AND trim($_POST[ 'txt' ]) != "" AND chk_antispam('gbook') AND strlen($_POST[ 'txt' ]) <= $allgAr[ 'Gtxtl' ]) {
+			// Fehlerabfrage
+			if(($_SESSION[ 'klicktime_gbook' ] + $timeSperre) < $dppk_time AND isset($_POST[ 'name' ])) 
+			  {$fehler .= '&middot;&nbsp;'.$lang[ 'donotpostsofast' ].'<br/>';}
+			if(trim($_POST[ 'name' ]) == '') 
+			  {$fehler .= '&middot;&nbsp;'.$lang[ 'emptyname' ].'<br/>';}
+			if(strlen($_POST[ 'txt' ]) > $allgAr[ 'Gtxtl' ]) 
+			  {$fehler .= '&middot;&nbsp;'.sprintf($lang[ 'gbooktexttolong' ], $allgAr[ 'Gtxtl' ]).'<br/>';}
+			if(trim($_POST[ 'txt' ]) == '') 
+			  {$fehler .= '&middot;&nbsp;'.$lang[ 'emptymessage' ].'<br/>';}
+			if(chk_antispam('gbook') != true) 
+			  {$fehler .= '&middot;&nbsp;'.$lang[ 'incorrectspam' ].'<br/>';}
+			//
+            if ($fehler == '') {
                 $txt = escape($_POST[ 'txt' ], 'textarea');
                 if ($_SESSION['authid'] == 0) {
                     $name = escape_nickname($_POST[ 'name' ], 'string') . ' (Gast)';
@@ -81,13 +95,18 @@ switch ($menu->get(1)) {
 
                 $_SESSION[ 'klicktime_gbook' ] = $dppk_time;
                 wd('index.php?gbook', $lang[ 'insertsuccessful' ]);
-            } else {
-                echo '- ' . $lang[ 'donotpostsofast' ];
-                echo '<br />- ' . sprintf($lang[ 'gbooktexttolong' ], $allgAr[ 'Gtxtl' ]);
-                echo '<br />- ' . $lang[ 'plsfilloutallfields' ];
+            } 
+			else 
+			{
+            	showForm($_POST["txt"], $_POST["mail"], $_POST["page"], '<div id="formfehler">'.$fehler.'</div>');
             }
         }
-        break;
+		else
+		{   
+			showForm();
+			break;
+		}
+		break;
     case 'show':
         if ($allgAr[ 'gbook_koms_for_inserts' ] == 1) {
             $id = escape($menu->get(2), 'integer');

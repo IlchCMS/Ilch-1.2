@@ -483,7 +483,7 @@ function get_antispam($m, $t, $nopictures = false) {
     if ($t == 0) {
         return ('<img class="Custom" src="include/includes/libs/captcha/captchaimg.php" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt darunter stehende Feld ein."><br/><input name="number" type="text" maxlength="5" size="8">');
     } elseif ($t == 1) {
-        return ('<tr><td class="Cmite" v><b>Antispam</b></td><td class="Cnorm">' . $rs . '</td></tr>');
+        return ('<tr><td class="Cmite"><b>Antispam</b></td><td class="Cnorm">' . $rs . '</td></tr>');
     } elseif ($t > 10) {
         return ('<label style="float:left; width: ' . $t . 'px; ">Antispam</label>' . $rs . '<br/>');
     } else {

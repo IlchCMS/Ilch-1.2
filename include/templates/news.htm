@@ -1,28 +1,23 @@
-<div class="newsitem" id="news-{id}">
+﻿<div class="newsitem" id="news-{id}">
   <div class="newsdate">{datum}</div>
   {kate}
   <div class="newstitle">
-        <h3><a href="index.php?news-{id}">{title}</a></h3>
-        <span class="smalfont">{_lang_from} {username}</span>
+    <h3><a href="index.php?news-{id}">{title}</a></h3>
+    <span class="smalfont">{_lang_from} {username}</span>
   </div>
-  <div class="newscontentwrapper">
-    {text}
-    <div>
-      <p><a class="floatleft ajaxload" href="index.php?news-{id}">{kom} {_if_{kom}=='1'}{_lang_comment}{_else_}{_lang_comments}{/_endif}</a>
-        <span class="floatright">{readwholenews}</span>
-      </p>
-          <!-- START der sozial networks -->
-  		<iframe align="right" src="http://www.facebook.com/plugins/like.php?href={newslink}&amp;layout=button_count&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light" scrolling="no" frameborder="0" allowTransparency="true" style="border:none; overflow:hidden; width:127px; height:50px">
-        </iframe>
-  		<!-- ENDE der sozial networks -->
-    </div>
-  </div>
+  <div class="newscontentwrapper">{text}<div>
+  <p>
+    <a class="floatleft ajaxload" href="index.php?news-{id}">{kom} {_if_{kom}=='1'}{_lang_comment}{_else_}{_lang_comments}{/_endif}</a>
+    <span class="floatright">{readwholenews}</span>
+  </p>
+  <!-- START der sozial networks -->
+  <iframe align="right" src="http://www.facebook.com/plugins/like.php?href={newslink}&amp;layout=button_count&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light" scrolling="no" frameborder="0" allowTransparency="true" style="border:none; overflow:hidden; width:127px; height:50px"></iframe>
+  <!-- ENDE der sozial networks -->
 </div>
-
 {EXPLODE}
 <br />
-<br /><center>{SITELINK}</center>
-
+<br />
+<center>{SITELINK}</center>
 {EXPLODE}
 <!-- News Kommentare und Mehr lesen -->
 <table class="border" width="100%" cellpadding="5" cellspacing="1" border="0">
@@ -35,43 +30,38 @@
   <tr>
     <td class="Cnorm">
       <div style="float:left; ">{KATE}</div>
-	    <div style="float:left; padding-left:10px; ">{TEXT}</div><br style="clear:both; " />
+      <div style="float:left; padding-left:10px; ">{TEXT}</div>
+      <br style="clear:both; " />
       <p></p>
-      <a href="index.php?news"><b>&laquo;</b> {_lang_back}</a></td>
+      <a href="index.php?news"><b>&laquo;</b> {_lang_back}</a>
+    </td>
   </tr>
-
   <tr>
     <td height="25" class="Cmite">{_lang_commentsfor} {NAME}</td>
   </tr>
   <tr>
     <td class="Cnorm">
-
-	    {EXPLODE}
-	    <form action="index.php?news-{NID}" method="POST" class="ajaxload">
+    {EXPLODE}
+      <form action="index.php?news-{NID}" method="POST" class="ajaxload">
         <fieldset>
           <legend>{_lang_writecomment}</legend>
           <label style="float:left; width:100px;">{_lang_name}</label><input type="text" name="name" value="{uname}" /><br />
-<label style="float:left; width:100px; ">{_lang_comment}</label><textarea cols="40" rows="5" name="txt"></textarea><br />
-{ANTISPAM}
- <label style="float:left; width:100px;">&nbsp;</label><input type="submit" value="{_lang_enter}"><br />
+          <label style="float:left; width:100px; ">{_lang_comment}</label><textarea cols="40" rows="5" name="txt"></textarea><br />
+          {ANTISPAM}
+          <label style="float:left; width:100px;">&nbsp;</label><input type="submit" value="{_lang_enter}"><br />
         </fieldset>
       </form>
       <br />
       {EXPLODE}
-
       <span class="Cmite"># <b>{ZAHL}</b> von {NAME}</span>
       <br />{TEXT}<br /><br />
-
       {EXPLODE}
       <br />
       <a href="index.php?news"><b>&laquo;</b> {_lang_back}</a>
-
     </td>
   </tr>
 </table>
-
 {EXPLODE}
-
 <table width="100%" border="0" cellspacing="0" cellpadding="5" class="rand">
   <tr class="mite">
     <td width="65%"><b>{NAME}</b></td>

@@ -1,32 +1,32 @@
-{EXPLODE "slider"}
+﻿{EXPLODE "slider"}
 <div style="margin-bottom: 5px; margin-top: 10px;">
-	<label style="float:left; width:35%;">{show}</label>
-	<div style="float: left; padding-right: 20px";>{textlinks}</div>
-	<div style="float: left; width: 30%;" class="profilefield_slider"></div>
-	<input type="hidden" name="profilefields[{id}]" value="{val}">
-	<div style="float: left; padding-left: 17px"> {textrechts} </div>
-	<div style="clear:both;"></div>
+  <label style="float:left; width:35%;">{show}</label>
+  <div style="float: left; padding-right: 20px">{textlinks}</div>
+  <div style="float: left; width: 30%;" class="profilefield_slider"></div>
+  <input type="hidden" name="profilefields[{id}]" value="{val}">
+  <div style="float: left; padding-left: 17px"> {textrechts} </div>
+  <div style="clear:both;"></div>
 </div>
 {EXPLODE "slider javascript"}
 <script type="text/javascript" language="Javascript">
- $(function() {
-	 $(".profilefield_slider").each(function(index,elem) {
-			$(elem).slider( {
-				change: function(event,ui) {
-					// TODO: next ist hier sehr fragil
-					$(this).next().attr("value", $(this).slider("option", "value"));
-				},
-				value: $(this).next().attr("value")
-			});
-	 });
+  $(function() {
+    $(".profilefield_slider").each(function(index,elem) {
+      $(elem).slider( {
+        change: function(event,ui) {
+        // TODO: next ist hier sehr fragil
+        $(this).next().attr("value", $(this).slider("option", "value"));
+        },
+        value: $(this).next().attr("value")
+        });
+    });
  });
 </script>
 {EXPLODE "slider admin"}
-<tr>
-<td class="Cmite">Text links</td>
-<td class="Cnorm"><input type="text" name="textlinks" value="{textlinks}"></td>
-</tr>
-<tr>
-<td class="Cmite">Text rechts</td>
-<td class="Cnorm"><input type="text" name="textrechts" value="{textrechts}"></td>
-</tr>
+  <tr>
+    <td class="Cmite">Text links</td>
+    <td class="Cnorm"><input type="text" name="textlinks" value="{textlinks}"></td>
+  </tr>
+  <tr>
+    <td class="Cmite">Text rechts</td>
+    <td class="Cnorm"><input type="text" name="textrechts" value="{textrechts}"></td>
+  </tr>

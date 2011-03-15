@@ -32,7 +32,11 @@ function away_sendpmtoleaders($m, $uid, $a) {
 $title = $allgAr[ 'title' ] . ' :: Awaycalender';
 $hmenu = 'Awaycalender';
 $design = new design($title, $hmenu);
-$design->header();
+$header = Array(
+	'jquery/jquery.validate.js',
+	'forms/awaycal.js'
+    );
+$design->header($header);
 
 $tpl = new tpl('awaycal.htm');
 

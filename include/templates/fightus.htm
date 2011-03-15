@@ -1,35 +1,35 @@
-<form action="index.php?fightus" method="POST">
+﻿<noscript>Bitte JavaScript aktivieren</noscript>
+<form action="index.php?fightus" method="POST" name="form" id="fightus_form">
 <fieldset>
-	<legend>{_lang_basicinfo}</legend>
+  <legend><b>{_lang_fightusinfo}</b></legend>
+	{FEHLER}
+	<br />
 	<label style="float:left; width:120px;">{_lang_joininfo}</label>{_lang_plsfilloutallfields}<br />
+	<br />
+	<b>{_lang_basicinfo}</b>
+	<br /><br />
 	<label style="float:left; width:120px;">{_lang_clanname}</label><input type="text" name="clanname" value="{clanname}"><br />
 	<label style="float:left; width:120px;">{_lang_clantag}</label><input type="text" name="clantag" value="{clantag}"><br />
 	<label style="float:left; width:120px;">{_lang_clanpage}</label><input type="text" name="clanpage" value="{clanpage}"><br />
 	<label style="float:left; width:120px;">{_lang_clancountry}</label><select name="clancountry">{clancountry}</select><br />
 	<label style="float:left; width:120px;">{_lang_mailaddy}</label><input type="text" name="mailaddy" value="{mailaddy}"><br />
 	<label style="float:left; width:120px;">{_lang_icqnumber}</label><input type="text" name="icqnumber" value="{icqnumber}"><br />
-
-  
-  <br />
-  
-  {_lang_matchinfo}
-  
-  <br />
-  
+    <br />
+    <b>{_lang_matchinfo}</b>
+    <br /><br />
 	<label style="float:left; width:120px;">{_lang_meetingplace}</label><input type="text" name="meetingplace" value="{meetingplace}"><br />
-	<label style="float:left; width:120px;">{_lang_meetingtime}</label><input type="text" name="meetingtime" value="{meetingtime}"><br />
+    <div class="datepickerProfil"><label style="float:left; width:120px;">{_lang_date}</label><input style="margin-bottom:2px;" id="datepickerProfil" name="date" value="{date}" /><font class="smalfont">{_lang_dateformat2}</font></div>
+	<label style="float:left; width:120px;">{_lang_time}</label><label style="float:left; width:60px;">{_lang_hour}:</label><input type="text" name="stunde" value="{stunde}" size="4" maxlength="2"><br />
+	<label style="float:left; width:120px;">&nbsp;</label><label style="float:left; width:60px;">{_lang_minute}:</label><input type="text" name="minute" value="{minute}" size="4" maxlength="2"><br />
 	<label style="float:left; width:120px;">{_lang_squad}</label><select name="squad">{squad}</select><br />
 	<label style="float:left; width:120px;">{_lang_xonx}</label><input type="text" name="xonx" value="{xonx}"><br />
 	<label style="float:left; width:120px;">{_lang_game}</label><input type="text" name="game" value="{game}"><br />
 	<label style="float:left; width:120px;">{_lang_matchtype}</label><input type="text" name="matchtype" value="{matchtype}"><br />
-  <br />
-  
-  {_lang_otherinfo}
-  
-  <br />
+    <br />
+    <b>{_lang_otherinfo}</b>
+    <br /><br />
 	<label style="float:left; width:120px;">{_lang_message}</label><textarea cols="40" rows="5" name="message">{message}</textarea><br />
-
-  {ANTISPAM}
-	<label style="float:left; width:120px;">&nbsp;</label><input type="submit" value="{_lang_send2}"><br />
+    {ANTISPAM}
+	<label style="float:left; width:120px;">&nbsp;</label><input type="submit" name="submit" value="{_lang_send2}"><br />
 </fieldset>
 </form>

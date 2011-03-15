@@ -1,19 +1,23 @@
-<table width="100%" border="0" cellpadding="3" cellspacing="1" class="border">
+﻿<table width="100%" border="0" cellpadding="3" cellspacing="1" class="border">
   <tr class="Chead" >
     <th height="30" width="30%">{_lang_name}</th>
-		<th align="center" width="20%">{_lang_rank}</th>
-		<th align="center" width="20%">{_lang_group}</th>
-		<th width="15%">{_lang_regtime}</th>
-		<th width="15%" align="center">{_lang_posts}</th>
+    <th align="center" width="20%">{_lang_rank}</th>
+    <th align="center" width="20%">{_lang_group}</th>
+    <th width="15%">{_lang_regtime}</th>
+    <th width="15%" align="center">{_lang_posts}</th>
   </tr>{EXPLODE}<tr class="{CLASS}">
     <td><a href="index.php?user-details-{UID}">{NAME}</a></td>
-		<td align="center"><font style="font-size: 10px">{RANG}</font></td>
-		<td align="center">{GRUPE}</td>
-		<td>{DATE}</td>
-		<td align="center">{POSTS}</td>
-  </tr>{EXPLODE}
+    <td align="center"><font style="font-size: 10px">{RANG}</font></td>
+    <td align="center">{GRUPE}</td>
+    <td>{DATE}</td>
+    <td align="center">{POSTS}</td>
+  </tr>
+  {EXPLODE}
 </table>
 <br />
-<div align="center">{SITELINK}
-<form method="GET" action="index.php"><input type="hidden" name="user" value="" /><input type="text" name="filtername" size="15" value="{filtername}" /> <input type="submit" value="{_lang_filter}" /></form>
+<div align="center">
+  {SITELINK}
+  <form method="GET" action="index.php">
+    <input type="hidden" name="user" value="" /><input type="text" name="filtername" size="15" value="{filtername}" /> <input type="submit" value="{_lang_filter}" />
+  </form>
 </div>

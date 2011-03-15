@@ -1,14 +1,11 @@
-<script language="javascript" type="text/javascript">
+﻿<script language="javascript" type="text/javascript">
 <!--
-
 function set_user_name ()
 {
-
-	var user_name = document.user_form.user_name.value;
-
-    if (opener == undefined) {
-        var no = Number(self.name.replace(/icModalIframe/i,'')) - 1;
-        var opener = self.parent.frames['icModalIframe'+no];
+  var user_name = document.user_form.user_name.value;
+  if (opener == undefined) {
+    var no = Number(self.name.replace(/icModalIframe/i,'')) - 1;
+    var opener = self.parent.frames['icModalIframe'+no];
         opener.document.form.name.value = user_name;
         self.parent.ic.modalDialogClose();
     } else {
@@ -17,8 +14,6 @@ function set_user_name ()
     	window.close();
     }
 }
-
-
 //-->
 </script>
 <form action="index.php?search-finduser" method="POST">
@@ -26,23 +21,19 @@ function set_user_name ()
     <tr class="Chead">
       <td colspan="3"><b>{_lang_finduser}</b></td>
     </tr><tr class="Cmite">
-		  <td class="smalfont">
-			  {_lang_inserthereaname}
-			</td>
-		</tr><tr class="Cnorm">
-		<td>
-		  <input type="text" name="name" value="" /> <input type="submit" value="{_lang_search}" name="sub" />
-		</td>
-	</tr>
+      <td class="smalfont">{_lang_inserthereaname}</td>
+    </tr><tr class="Cnorm">
+      <td><input type="text" name="name" value="" /> <input type="submit" value="{_lang_search}" name="sub" /></td>
+    </tr>
 </form>
 {EXPLODE}
 <form name="user_form">
 	<tr>
 	  <td class="Cnorm">
-		  <select name="user_name">{_list_username@<option%1 value="%2">%3</option>}</select>
-			<input type="button" value="Set" onClick="set_user_name()">
-		</td>
-	</tr>
+        <select name="user_name">{_list_username@<option%1 value="%2">%3</option>}</select>
+          <input type="button" value="Set" onClick="set_user_name()">
+      </td>
+    </tr>
 </form>
 {EXPLODE}
 </table>

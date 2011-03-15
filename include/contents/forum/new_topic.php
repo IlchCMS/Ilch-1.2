@@ -6,6 +6,11 @@
  */
 defined('main') or die('no direct access');
 
+$load = Array(
+	'jquery/jquery.validate.js',
+	'forms/newtopic.js'
+    );
+	
 if ($forum_rights[ 'start' ] == false) {
     $forum_failure[ ] = $lang[ 'nopermission' ];
     check_forum_failure($forum_failure);
@@ -36,7 +41,7 @@ if (isset($_POST[ 'Gname' ])) {
 
 if (($_SESSION[ 'klicktime' ] + 15) > $dppk_time OR empty($topic) OR empty($txt) OR !empty($_POST[ 'priview' ]) OR (empty($_POST[ 'Gname' ]) AND !loggedin()) OR !chk_antispam('newtopic')) {
     $design = new design($title, $hmenu, 1);
-    $design->header();
+    $design->header($load);
 
     $tpl = new tpl('forum/newtopic');
 
@@ -64,7 +69,7 @@ if (($_SESSION[ 'klicktime' ] + 15) > $dppk_time OR empty($topic) OR empty($txt)
     $_SESSION[ 'klicktime' ] = $dppk_time;
 
     $design = new design($title, $hmenu, 0);
-    $design->header();
+    $design->header($load);
 
     if (loggedin()) {
         $uid = $_SESSION[ 'authid' ];

@@ -6,6 +6,11 @@
  */
 defined('main') or die('no direct access');
 
+$load = Array(
+	'jquery/jquery.validate.js',
+	'forms/postedit.js'
+    );
+
 if ($forum_rights[ 'reply' ] == false) {
     $forum_failure[ ] = $lang[ 'nopermission' ];
     check_forum_failure($forum_failure);
@@ -17,7 +22,7 @@ $title = $allgAr[ 'title' ] . ' :: Forum :: ' . aktForumCats($aktForumRow[ 'kat'
 $hmenu = $extented_forum_menu . '<a class="smalfont" href="index.php?forum">Forum</a><b> &raquo; </b>' . aktForumCats($aktForumRow[ 'kat' ]) . '<b> &raquo; </b><a class="smalfont" href="index.php?forum-showtopics-' . $fid . '">' . $aktForumRow[ 'name' ] . '</a><b> &raquo; </b>';
 $hmenu .= '<a class="smalfont" href="index.php?forum-showposts-' . $tid . '">' . $aktTopicRow[ 'name' ] . '</a>' . $extented_forum_menu_sufix;
 $design = new design($title, $hmenu, 1);
-$design->header();
+$design->header($load);
 
 if (!loggedin()) {
     echo 'Gäste dürfen keine Beiträge editieren<br/><a href="index.php?user-regist">Registrieren</a> / <a href="index.php?user-login">Einloggen</a> um deine Beiträge editieren zu können';

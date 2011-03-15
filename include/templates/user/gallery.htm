@@ -1,27 +1,21 @@
-<script type="text/javascript">
-	$(function() {
-		$('#gallery a').lightBox();
-	});
-</script>
+﻿<script type="text/javascript">$(function() { $('#gallery a').lightBox(); });</script>
 <div id="gallery">
-<table width="100%" class="border" border="0" cellspacing="1" cellpadding="3">
-  <tr class="Chead">
-		<td colspan="{imgperline}" align="center"><b>{uname}</b></td>
-	</tr>
-  <tr>
-  {EXPLODE}
-     <td class="{class}" width="{width}%" v align="center">
-       <table border="0" cellspacing="1" cellpadding="0">
-         <tr>
-           <td>
-		   <a href="include/images/usergallery/img_{id}.{endung}" title="{besch}"><img src="include/images/usergallery/img_thumb_{id}.{endung}" border="0" alt="{name}" title="{name}" /></a>
-		   </td>
-         </tr>
-       </table>
-     </td>
-   {EXPLODE}
-  </tr>
-</table>
+  <table width="100%" class="border" border="0" cellspacing="1" cellpadding="3">
+    <tr class="Chead">
+      <td colspan="{imgperline}" align="center"><b>{uname}</b></td>
+    </tr>
+    <tr>
+    {EXPLODE}
+      <td class="{class}" width="{width}%" align="center">
+        <table border="0" cellspacing="1" cellpadding="0">
+          <tr>
+            <td><a href="include/images/usergallery/img_{id}.{endung}" title="{besch}"><img src="include/images/usergallery/img_thumb_{id}.{endung}" border="0" alt="{name}" title="{name}" /></a></td>
+          </tr>
+        </table>
+      </td>
+    {EXPLODE}
+    </tr>
+  </table>
 </div>
 <center>{MPL}</center>
 {EXPLODE}
@@ -29,12 +23,11 @@
 <form action="index.php?user-usergallery-{uid}" method="POST" enctype="multipart/form-data">
   <input type="hidden" name="gesendet" value="yes" />
   <fieldset>
-    <legend><b>{_lang_pictureupload}</b></legend>
-	    <input type="file" size="40" name="file" style="margin-top:5px;" />
-      <input size="60" name="text" maxlength="255" style="margin-top:5px;" /><br />
-      <input type="submit" value="{_lang_formsub}" style="margin-top:5px;" />
+  <legend><b>{_lang_pictureupload}</b></legend>
+    <input type="file" size="40" name="file" style="margin-top:5px;" />
+    <input size="60" name="text" maxlength="255" style="margin-top:5px;" /><br />
+    <input type="submit" value="{_lang_formsub}" style="margin-top:5px;" />
   </fieldset>
 </form>
-
 {EXPLODE}
 {x}

@@ -8,8 +8,12 @@ defined('main') or die('no direct access');
 
 $title = $allgAr[ 'title' ] . ' :: Fightus';
 $hmenu = 'Fightus';
+$header = Array(
+	'jquery/jquery.validate.js',
+	'forms/fightus.js'
+    );
 $design = new design($title, $hmenu);
-$design->header();
+$design->header($header);
 
 if (0 == db_count_query("SELECT COUNT(*) FROM `prefix_groups` WHERE `show_fightus` = 1")) {
     echo $lang[ 'noteamthere' ];
@@ -28,11 +32,15 @@ $far = array(
     'meetingplace',
     'message',
     'xonx',
+	'game',
     'matchtype',
-    'game',
-    'meetingtime'
+    'date',
+	'stunde',
+	'minute'
     );
 $x = 0;
+$fightusspam = false;
+$fehler='';
 foreach ($far as $v) {
     if (!empty($_POST[ $v ])) {
         $$v = escape($_POST[ $v ], 'string');
@@ -41,15 +49,20 @@ foreach ($far as $v) {
         $$v = '';
     }
 }
-if (count($far) == $x AND chk_antispam('fightus')) {
+if (isset($_POST['submit']))
+{ 
+	if (chk_antispam('fightus') != true) 
+	{$fehler .= '&middot;&nbsp;'.$lang[ 'incorrectspam' ].'<br/>'; $fightusspam = false;} else { $fightusspam = true; }
+}
+	
+if (count($far) == $x AND $fightusspam == true) {
     $squad = escape($squad, 'integer');
     $abf = "SELECT `mod1`,`mod2`, `mod3`,`name` FROM `prefix_groups` WHERE `id` = " . $squad;
     $erg = db_query($abf);
     $row = db_fetch_assoc($erg);
     $txt = $lang[ 'fightusrequest' ];
-    list($datum, $zeit) = explode(' - ', $meetingtime);
-    $datum = get_datum($datum);
-    $datum = $datum . " " . $zeit;
+	$sekunde = '00';
+	$datum = get_datum($date). ' - ' .$stunde. ':' .$minute. ':' .$sekunde;
     $clanpage = get_homepage($clanpage);
     // als upcoming war vormerken (kategorie 1)
     db_query("INSERT INTO `prefix_wars` (`datime`,`status`,`gegner`,`tag`,`page`,`mail`,`icq`,`wo`,`tid`,`mod`,`game`,`mtyp`,`land`,`txt`) VALUES ('" . $datum . "','1','" . $clanname . "','" . $clantag . "','" . $clanpage . "','" . $mailaddy . "','" . $icqnumber . "','" . $meetingplace . "','" . $squad . "','" . $xonx . "','" . $game . "','" . $matchtype . "','" . $clancountry . "','" . $message . "')");
@@ -65,19 +78,19 @@ if (count($far) == $x AND chk_antispam('fightus')) {
     // informieren
     echo sprintf($lang[ 'leaderofxalert' ], $row[ 'name' ]);
 } else {
-    $clancountry = arlistee($clancountry, get_nationality_array());
-    $squad = '<option value="0">choose</option>';
+    $clancountry = '<option></option>';
+	$clancountry .= arlistee($clancountry, get_nationality_array());
+    $squad = '<option></option>';
     $squad .= dblistee($squad, "SELECT `id`,`name` FROM `prefix_groups` WHERE `show_fightus` = 1 ORDER BY pos");
-    if (empty($meetingtime)) {
-        $meetingtime = date('d.m.Y - H:i:s');
-    }
+
     $tpl = new tpl('fightus.htm');
     foreach ($far as $v) {
         if ($x > 0 AND empty($_POST[ $v ])) {
-            echo 'missing: ' . $lang[ $v ] . '<br />';
+			$fehler .= '&middot;&nbsp;'.'Bitte '. $lang[ $v ] . ' angeben!<br />';
         }
         $tpl->set($v, $$v);
     }
+	$tpl->set('FEHLER', '<div id="formfehler">'.$fehler.'</div>');
     $tpl->set('ANTISPAM', get_antispam('fightus', 120));
     $tpl->out(0);
 }

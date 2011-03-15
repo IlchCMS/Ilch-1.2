@@ -1,20 +1,20 @@
-<div style="margin:0 5px;">
-    {_lang_hello} &nbsp;<b>{NAME}</b>
-    <br />
-    <br />
-    {NACHRICHTEN}
-    <a class="box" href="index.php?user-3">{_lang_logout}</a> | <a class="box" href="index.php?ucp">{_lang_userpanel}</a> | <a class="box" href="index.php?user-8">{_lang_profil}</a>
-    <br />
-    {ADMIN}
+﻿<div style="margin:0 5px;">
+  {_lang_hello} &nbsp;<b>{NAME}</b>
+  <br />
+  <br />
+  {NACHRICHTEN}
+  <a class="box" href="index.php?user-3">{_lang_logout}</a> | <a class="box" href="index.php?ucp">{_lang_userpanel}</a> | <a class="box" href="index.php?user-8">{_lang_profil}</a>
+  <br />
+  {ADMIN}
 </div>
 {EXPLODE}
 <div style="margin:0 5px;">
-    <form method="post">
+  <form method="post">
     <input type="hidden" name="wdlink" value="{wdlink}" />
-        <input type="text" name="email" size="13" value="{EMAIL}" onFocus="if (value == '{EMAIL}') {value = ''}" onBlur="if (value == '') {value = '{EMAIL}'}" style="margin-top:5px; " /><br />
-        <input type="password" size="13" value="{PASS}" onFocus="if (value == '{PASS}') {value = ''}" onBlur="if (value == '') {value = '{PASS}'}" maxlength="20" name="pass" style="margin-top:5px; " /><br />
-        <input type="checkbox" name="cookie" id="loginboxcookie" /><label for="loginboxcookie">{_lang_savecookie}</label>
-        <input type="submit" name="user_login_sub" value="Login" style="margin-top:5px; " />
-        {regist}
-    </form>
+    <input type="text" name="email" size="13" value="{EMAIL}" onFocus="if (value == '{EMAIL}') {value = ''}" onBlur="if (value == '') {value = '{EMAIL}'}" style="margin-top:5px; " /><br />
+    <input type="password" size="13" value="{PASS}" onFocus="if (value == '{PASS}') {value = ''}" onBlur="if (value == '') {value = '{PASS}'}" maxlength="20" name="pass" style="margin-top:5px; " /><br />
+    <input type="checkbox" name="cookie" id="loginboxcookie" /><label for="loginboxcookie">{_lang_savecookie}</label>
+    <input type="submit" name="user_login_sub" value="Login" style="margin-top:5px; " />
+    {regist}
+  </form>
 </div>
