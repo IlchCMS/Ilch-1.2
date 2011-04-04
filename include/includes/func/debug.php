@@ -59,9 +59,9 @@ if (DEBUG) {
             $filename = debug_nice_filename($array[0]['file']);
             $ILCH_DEBUG_OUTPUT .= '<div>' . $time . $filename . ' - Line: ' . $array[0]['line'] . '</div>';
         } elseif (is_array($d) or is_object($d)) {
-            if (DEVELOPER_MODE) {
-              $d = manipulate_debug_output($d);
-            }
+//            if (DEVELOPER_MODE) {
+//              $d = manipulate_debug_output($d);
+//            }
             $ILCH_DEBUG_OUTPUT .= '<div style="white-space:pre">' . $time . var_export($d, true) . '</div>';
         } else {
             if (is_bool($d)) {

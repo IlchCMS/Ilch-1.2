@@ -121,6 +121,7 @@ if (!is_numeric($menu->get(1))) {
                 $row[ 'readwholenews' ] = '';
             }
             $row[ 'text' ] = bbcode($row[ 'text' ]);
+            $row[ 'social' ] = $allgAr['news_social'];
             $tpl->set_ar_out($row, 0);
         }
         if (strlen($MPL) > 0) {

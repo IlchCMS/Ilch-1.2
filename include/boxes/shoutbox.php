@@ -6,23 +6,29 @@
  */
 defined('main') or die('no direct access');
 
-echo '<script type="text/javascript" src="include/includes/js/shoutbox.js"></script>';
-$zeilen = 5; $i = 0; $s = '';
-$erg = db_query('SELECT emo, ent, url FROM `prefix_smilies`');
-	while ($row = db_fetch_object($erg) ) 
-	{
-    $s .= '<a href="javascript:insert_sb(\''.addslashes($row->ent).'\', \'\')">';
-    $s .= '<img style="border: 0px; padding: 5px;" src="include/images/smiles/'.$row->url.'" title="'.$row->emo.'"></a>';
-	$i++; if($i%$zeilen == 0 AND $i <> 0) { $s .= '<br /><br />'; }
-	}
-echo '<div style="display:none;" id="smiliesdiv" name="smiliesdiv">' . $s . '</div>';
+$tpl = new tpl('boxes/shoutbox');
 
-echo '<div id="icShoutbox">';
+if (!AJAXCALL) {
+    echo '<div id="icShoutbox">';
+
+    //Smilies
+    $zeilen = 5; $i = 0; $s = '';
+    $erg = db_query('SELECT `emo`, `ent`, `url` FROM `prefix_smilies`');
+    while ($row = db_fetch_object($erg) )
+    {
+        $s .= '<a href="javascript:ic.shoutboxInsert(\''.addslashes($row->ent).'\', \'\')">';
+        $s .= '<img style="border: 0px; padding: 5px;" src="include/images/smiles/'.$row->url.'" title="'.$row->emo.'"></a>';
+        $i++; if($i%$zeilen == 0 AND $i <> 0) { $s .= '<br /><br />'; }
+    }
+    $tpl->set_out('smilies', $s, 4);
+}
+
 if (!isset($_SESSION[ 'last_shoutbox' ])) {
     $_SESSION[ 'last_shoutbox' ] = '';
 }
 
 if (has_right($allgAr[ 'sb_recht' ])) {
+    //Formular
     if (!empty($_POST[ 'shoutbox_submit' ]) AND chk_antispam('shoutbox')) {
         if ($_SESSION['authid'] == 0) {
             $shoutbox_nickname = substr(escape_nickname($_POST[ 'shoutbox_nickname' ]), 0, 8) . ' (Gast)';
@@ -34,31 +40,40 @@ if (has_right($allgAr[ 'sb_recht' ])) {
         $shoutbox_textarea = strip_tags($shoutbox_textarea);
         if (!empty($shoutbox_textarea) AND $_SESSION[ 'last_shoutbox' ] != $shoutbox_textarea) {
             $_SESSION[ 'last_shoutbox' ] = $shoutbox_textarea;
-            $shoutbox_textarea = $shoutbox_textarea . '<br /> <i> ' . date('d.m. H:i') . ' h </i>';
-            db_query('INSERT INTO `prefix_shoutbox` (`nickname`,`textarea`) VALUES ( "' . $shoutbox_nickname . '" , "' . $shoutbox_textarea . '" ) ');
+            db_query('INSERT INTO `prefix_shoutbox` (`uid`,`nickname`,`textarea`,`time`) VALUES ('.$_SESSION['authid'].', "' . $shoutbox_nickname . '" , "' . $shoutbox_textarea . '", "'.date('Y-m-d H:i:s').'" ) ');
         }
     }
-    echo '<form action="index.php?' . $menu->get_complete() . '" method="post" id="shoutboxform">';
-    echo '<input type="hidden" name="shoutbox_submit" value="1" />'; //Für ajax
-	if ($_SESSION['authid'] == 0) { $opt=''; } else { $opt='disabled'; }
-    echo '<input type="text" style="width: 90%" maxlength="15" name="shoutbox_nickname" ' . $opt . ' value="' . $_SESSION[ 'authname' ] . '"/>';
-    echo '<br /><textarea style="width: 90%" cols="15" rows="2" name="shoutbox_textarea"></textarea><br />';
     $antispam = get_antispam ('shoutbox', 0);
-    echo $antispam;
     if (!empty($antispam)) {
-        echo '<br />';
+        $antispam .= '<br />';
     }
-    echo '<input type="submit" value="' . $lang[ 'formsub' ] . '" name="shoutbox_submit" /><input id="smilies" type="button" value="Smilies" />';
-    echo '</form>';
+    $tpl->set_ar_out(array(
+        'action' => $menu->get_complete(),
+        'nickname' => $_SESSION['authname'],
+        'antispam' => $antispam
+    ), 0);
 }
 
-echo '<table width="90%" class="border" cellpadding="2" cellspacing="1" border="0">';
+//Einträge
 $erg = db_query('SELECT * FROM `prefix_shoutbox` ORDER BY `id` DESC LIMIT ' . (is_numeric($allgAr[ 'sb_limit' ]) ? $allgAr[ 'sb_limit' ] : 5));
 $class = 'Cnorm';
-while ($row = db_fetch_object($erg)) {
+$tpl->out(1);
+while ($row = db_fetch_assoc($erg)) {
     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
-    echo '<tr class="' . $class . '"><td><b>' . $row->nickname . ':</b> ' . preg_replace('/([^\s]{' . $allgAr[ 'sb_maxwordlength' ] . '})(?=[^\s])/', "$1\n", bbcode($row->textarea)) . '</td></tr>';
+    $row['class'] = $class;
+    $time = strtotime($row['time']);
+    if ($time != 0) {
+        $dateformat = (date('d.m.Y') == date('d.m.Y', $time)) ? 'H:i' : 'd.m. - H:i';
+        $row['time'] = date($dateformat, $time);
+    } else {
+        $row['time'] = 0;
+    }
+    $row['text'] = BBCode_onlySmileys($row[ 'textarea' ], $allgAr[ 'sb_maxwordlength' ]);
+    $tpl->set_ar_out($row, 2);
 }
-echo '</table><a class="box" href="index.php?shoutbox" onclick="ic.Ajaxload(\'index.php?shoutbox\'); return false;">' . $lang[ 'archiv' ] . '</a>
-<script>$(document).ready(function() { $(\'#shoutboxform\').icAjaxload(\'icShoutbox\', \'box\').attr(\'action\', \'index.php?shoutbox\'); });</script>
-</div>';
+$tpl->out(3);
+
+if (!AJAXCALL) {
+    echo '</div>';
+}
+?>

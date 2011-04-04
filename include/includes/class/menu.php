@@ -8,9 +8,11 @@ defined('main') or die('no direct access');
 
 class menu {
     private $menu_ar;
+    private $type;
 
-    public function __construct() {
+    public function __construct($type = 'contents') {
         $this->set_menu_ar();
+        $this->type = $type;
     }
     // menustring suchen und finden und zerteilen
     // in die richtige reihenfolge usw. blahhh :)
@@ -58,10 +60,15 @@ class menu {
     }
 
     // gibt ein array mit strings aus was alle sinnvollen kombinationen des menu_ar enthaelt
-    public function get_string_ar() {
+    public function get_string_ar($remove_self = false) {
         $s = '';
         $a = array();
-        foreach ($this->menu_ar as $k => $v) {
+        if ($remove_self) {
+            $menu_ar = array_slice($this->menu_ar, 1);
+        } else {
+            $menu_ar =& $this->menu_ar;
+        }
+        foreach ($menu_ar as $k => $v) {
             if ($s == '') {
                 $s .= $v;
             } else {
@@ -71,18 +78,81 @@ class menu {
         }
         return ($a);
     }
+
+    //prüft ob der User das Recht hat die Seite zu betrachten,
+    //gibt true zurück wenn das Recht vorhanden ist
+    private function check_rights() {
+        global $allgAr;
+        $has_right = false;
+        if ($this->type == 'contents') {
+            $paths = array();
+            foreach ($this->get_string_ar() as $path){
+                $paths[] = '\'' . $path . '\'';
+            }
+            if ($this->get(0) == 'self') {
+                foreach ($this->get_string_ar(true) as $path){
+                    $paths[] = '\'' . $path . '\'';
+                }
+            }
+            $qry = db_query('SELECT `recht`, `recht_type` FROM `prefix_menu` WHERE `was` IN (7,9) AND `path` IN ('.implode(',', $paths).') ORDER BY LENGTH(`path`), `recht_type`, `recht`');
+            $lastlength = 0;
+            while($row = db_fetch_assoc($qry)){
+                $pathlength = strlen($row['path']);
+                if ($has_right or ($lastlength != 0 and $lastlength != $pathlength)) {
+                    break;
+                } else {
+                    $lastlength = $pathlength;
+                }
+                switch($row['recht_type']){
+                    case 0: case 3: default:
+                        $has_right = has_right($row['recht'], '', true);
+                        break;
+                    case 1:
+                        $has_right = $row['recht'] == $_SESSION['authright'];
+                        break;
+                    case 2:
+                        $has_right = $row['recht'] <= $_SESSION['authright'];
+                        break;
+                }
+            }
+        } elseif ($this->type == 'box') {
+            $qry = db_query('SELECT `recht`, `recht_type` FROM `prefix_menu` WHERE `was` = 1 AND `path` = "' . $this->get(0) . '.php"');
+            while($row = db_fetch_assoc($qry)){
+                $pathlength = strlen($row['path']);
+                if ($has_right) {
+                    break;
+                }
+                switch($row['recht_type']){
+                    case 0: case 3: default:
+                        $has_right = has_right($row['recht'], '', true);
+                        break;
+                    case 1:
+                        $has_right = $row['recht'] == $_SESSION['authright'];
+                        break;
+                    case 2:
+                        $has_right = $row['recht'] <= $_SESSION['authright'];
+                        break;
+                }
+            }
+        }
+        return $this->type == 'admin' || $has_right || $allgAr['allg_menupoint_access'] == 1;
+    }
+
     // diese funktion wird nur im admin.php und index.php
     // aufgerufen. is aber relativ zentral gell weil ohne
     // deren ok und rueckgabe laueft gar nix :)...
-    public function get_url($w = 'contents') {
+    public function get_url($w = '') {
         global $allgAr;
+        if ($w != '') {
+            $this->type = $w;
+        }
         // startwert und pfad zum pruefen raustuefteln.
-        if ($w == 'contents') {
+        if ($this->type == 'contents') {
             $pfad = 'include/contents';
             $smod = $allgAr[ 'smodul' ];
-        } elseif ($w == 'box') {
+        } elseif ($this->type == 'box') {
             $file = 'include/boxes/' . $this->get(0) . '.php';
-            return file_exists($file) ? $file : false;
+            return (file_exists($file) and $this->check_rights()) ? $file : false;
         } else {
             $pfad = 'include/admin';
             $smod = 'admin';
@@ -109,17 +179,7 @@ class menu {
         }
         // pruefen ob der client die noetigen rechte hat
         // das modul zu sehen.. bzw. den menupunkt zu sehen
-        $exit = false;
-        if ($w == 'contents') {
-            $where = "(path = '" . $this->get(0) . "' OR path = '" . $this->get(0) . "-" . $this->get(1) . "')";
-            if ($this->get(0) == 'self') {
-                $where = "(path = '" . $this->get(0) . "-" . $this->get(1) . "' OR path = '" . $this->get(1) . "')";
-            }
-            $r = @db_result(@db_query("SELECT recht FROM prefix_menu WHERE " . $where . " ORDER BY LENGTH(path) DESC"), 0);
-            if (($r != '' AND !has_right($r)) OR ($r == '' AND $allgAr[ 'allg_menupoint_access' ] == 0)) {
-                $exit = true;
-            }
-        }
+        $exit = ! $this->check_rights();
         // das usermodul kann aus eigener sicherheit nicht
         // gesperrt werden, sonst koennen sich member
         // usw. nicht mehr einloggen, bzw. es kann
@@ -145,18 +205,21 @@ class menu {
             $title = $allgAr[ 'title' ] . ' :: Keine Berechtigung';
             $hmenu = 'Keine Berechtigung';
             $design = new design($title, $hmenu);
-            $design->header();
+
             if (loggedin()) {
+                $design->header();
                 if (is_coadmin()) {
-                    echo 'Diese Seite ist nicht in der Navigation verlinkt und die Option
-<strong>Zugriff auf nicht im Menü verlinkte Module für alle?<strong> steht auf nein, deswegen kommt diese Meldung.<br />
-Also entweder die Seite ' . $this->get(0) . ' in der Navigation verlinken, oder die Option umstellen, ersteres wird empfohlen.';
+                    echo 'Entweder diese Seite ist nicht in der Navigation verlinkt und die Option
+<strong>Zugriff auf nicht im Menü verlinkte Module für alle?</strong> steht auf <strong>nein</strong> oder aber du hast kein Recht sie zu betrachten, deswegen kommt diese Meldung.<br />
+Also entweder die Seite <strong>' . $this->get(0) . '</strong> in der <a href="admin.php?menu">Navigation</a> verlinken, oder die Option umstellen, ersteres wird empfohlen.';
                 } else {
                     echo 'Du hast leider nicht die n&ouml;tigen Rechte, um diese Seite zu betrachten.';
                 }
             } else {
                 $tpl = new tpl('user/login');
-                $tpl->set_out('WDLINK', 'index.php', 0);
+                $design->addheader($tpl->get(0));
+                $design->header();
+                $tpl->set_out('WDLINK', 'index.php', 1);
             }
             $design->footer();
             exit();

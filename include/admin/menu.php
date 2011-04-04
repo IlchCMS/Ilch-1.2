@@ -136,6 +136,7 @@ if ($aktion == 'an') {
     $link2 = escape($_REQUEST[ 'link2' ], 'string');
     $grecht = escape($_REQUEST[ 'grecht' ], 'integer');
     $menutyp = escape($_REQUEST[ 'menutyp' ], 'integer');
+    $recht_type = escape($_REQUEST['recht_type'], 'integer');
 
     if ($was == 7) {
         $link = $link1;
@@ -147,6 +148,12 @@ if ($aktion == 'an') {
         } elseif ($menutyp == 3) {
             $was = 4;
         }
+        $link = '';
+    }
+
+    //Für Teamrecht
+    if ($recht_type == 3) {
+        $grecht = escape($_REQUEST['teams'], 'integer');
     }
 
     if ($apos == '' AND $awo == '') {
@@ -160,8 +167,8 @@ if ($aktion == 'an') {
             }
         }
 
-        $q = "INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`)
-    VALUES (" . $wo . "," . $posi . "," . $was . "," . $ebene . "," . $grecht . ",'" . $name . "','" . $link . "')";
+        $q = "INSERT INTO prefix_menu (wo,pos,was,ebene,recht,recht_type,name,path)
+    VALUES (" . $wo . "," . $posi . "," . $was . "," . $ebene . "," . $grecht . ", ".$recht_type." ,'" . $name . "','" . $link . "')";
         db_query($q);
     } else {
         // aendern
@@ -180,7 +187,7 @@ if ($aktion == 'an') {
             $posi = $apos;
         }
 
-        $q = "UPDATE `prefix_menu` SET `wo` = " . $wo . ", `name` = '" . $name . "', `path` = '" . $link . "', `pos` = " . $posi . ", `recht` = " . $grecht . ", `was` = " . $was . ", `ebene` = " . $ebene . " WHERE `pos` = " . $apos . " AND `wo` = " . $awo;
+        $q = "UPDATE `prefix_menu` SET `wo` = " . $wo . ", `name` = '" . $name . "', `path` = '" . $link . "', `pos` = " . $posi . ", `recht` = " . $grecht . ", `recht_type` = " . $recht_type . ", `was` = " . $was . ", `ebene` = " . $ebene . " WHERE `pos` = " . $apos . " AND `wo` = " . $awo;
         db_query($q);
         if ($awo != $wo) {
             if (!@db_query("UPDATE `prefix_menu` SET `pos` = `pos` - 1 WHERE `pos` > " . $apos . " AND `wo` = " . $awo . " ORDER BY `pos` ASC")) {
@@ -263,7 +270,9 @@ if ($aktion == 'edit') {
         'was' => $row[ 'was' ],
         'apos' => $row[ 'pos' ],
         'alllinkss' => $row[ 'path' ],
-        'menutyp' => 1
+        'menutyp' => 1,
+        'recht_type' => $row['recht_type'],
+        'team' => $row['recht_type'] == 3 ? $row[ 'recht' ] : 0
         );
     if ($ar[ 'was' ] == 3) {
         $ar[ 'menutyp' ] = 2;
@@ -286,7 +295,9 @@ if ($aktion == 'edit') {
         'awo' => '',
         'link2' => '',
         'alllinkss' => '',
-        'menutyp' => ''
+        'menutyp' => '',
+        'recht_type' => 0,
+        'team' => 0
         );
 }
 
@@ -310,6 +321,7 @@ $ar_cwwas = array(1 => 'Box',
 $ar_menutyp = array(2 => 'Vertikal',
     1 => 'Horizontal'
     );
+$ar_rechttypes = array('ab', 'für', 'bis', 'für Team');
 $ar[ 'allboxes' ] = arliste($ar[ 'allboxes' ], $boxenArNav, $tpl, 'allboxes');
 $ar[ 'alllinkss' ] = arliste($ar[ 'alllinkss' ], $menuArNav, $tpl, 'alllinkss');
 $ar[ 'getfuerB' ] = dbliste($ar[ 'getfuerB' ], $tpl, 'getfuerB', "SELECT `id`,`name` FROM `prefix_grundrechte` ORDER BY `id` DESC");
@@ -317,6 +329,9 @@ $ar[ 'cwmenu' ] = arliste($ar[ 'cwmenu' ], $ar_cwmenu, $tpl, 'cwmenu');
 $ar[ 'cwebene' ] = arliste($ar[ 'cwebene' ], $ar_cwebene, $tpl, 'cwebene');
 $ar[ 'cwwas' ] = arliste($ar[ 'was' ], $ar_cwwas, $tpl, 'cwwas');
 $ar[ 'menutyp' ] = arliste($ar[ 'menutyp' ], $ar_menutyp, $tpl, 'menutyp');
+$ar[ 'rechttype' ] = arliste($ar['recht_type'], $ar_rechttypes, $tpl, 'rechttype');
+$ar[ 'teams' ] = dbliste( $ar['team'], $tpl, 'teams', 'SELECT `id`, `name` FROM `prefix_groups` ORDER BY `pos`');
+
 // ausgabe
 $tpl->out(0);
 show_menu($wo);

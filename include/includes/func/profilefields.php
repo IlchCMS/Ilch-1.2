@@ -26,6 +26,11 @@ function profilefields_functions() {
         3 => 'Angezeigt',
         4 => 'Versteckt'
         );
+    foreach(ProfilefieldRegistry::getAllTypes() as $key => $type) {
+        if ($key > 4) {
+            $ar[$key] = $type;
+        }
+    }
     return ($ar);
 }
 // Felder zum aendern anzeigen.

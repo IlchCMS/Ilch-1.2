@@ -47,7 +47,7 @@ function escape_email_to_show($str) {
 
 /**
  * escape()
- * erweiterte escape Funktion
+ * Filtert Daten aus Usereingaben, um Fehler bei Datenbankabfragen zu verhindern
  *
  * @param mixed $var
  * @param string $type [optional] string|integer|textarea|checkbox|form (oder den ersten Buchstaben), string ist Standard
@@ -55,6 +55,13 @@ function escape_email_to_show($str) {
  * @return mixed escaped input $var oder false, wenn $var nicht gesetzt
  */
 function escape ($var, $type = 's') {
+    if (is_array($var)) { //Für Array escape für jeden Eintrag durchführen
+        $newar = array();
+        foreach ($var as $key => $val){
+            $newar[$key] = escape($val, $type);
+        }
+        return $newar;
+    }
     if (!isset($var) AND ($type != 'c' OR $type != 'checkbox')) {
         return false;
     }

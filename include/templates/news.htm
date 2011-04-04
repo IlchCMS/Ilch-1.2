@@ -5,14 +5,14 @@
     <h3><a href="index.php?news-{id}">{title}</a></h3>
     <span class="smalfont">{_lang_from} {username}</span>
   </div>
-  <div class="newscontentwrapper">{text}<div>
+  <div class="newscontentwrapper">{text}</div>
   <p>
     <a class="floatleft ajaxload" href="index.php?news-{id}">{kom} {_if_{kom}=='1'}{_lang_comment}{_else_}{_lang_comments}{/_endif}</a>
     <span class="floatright">{readwholenews}</span>
   </p>
-  <!-- START der sozial networks -->
+  {_if_{social}=='1'}{!-- sozial networks --}
   <iframe align="right" src="http://www.facebook.com/plugins/like.php?href={newslink}&amp;layout=button_count&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light" scrolling="no" frameborder="0" allowTransparency="true" style="border:none; overflow:hidden; width:127px; height:50px"></iframe>
-  <!-- ENDE der sozial networks -->
+  {/_endif}
 </div>
 {EXPLODE}
 <br />

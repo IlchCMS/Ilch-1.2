@@ -20,7 +20,7 @@ if (version_compare(phpversion(), '5.3') != - 1) {
 } else {
     @error_reporting(E_ALL ^ E_NOTICE);
 }
-
+//header('Content-Type: text/html;charset=UTF-8');
 @ini_set('display_errors', 'On');
 // Session starten
 session_name('sid');
@@ -34,28 +34,22 @@ $allgAr = getAllgAr();
 $menu = new menu();
 $m = $menu->get_complete();
 user_identification($m);
+
 // Sprachdateien oeffnen
 load_global_lang();
 load_modul_lang();
-if (AJAXCALL and isset($_GET['boxreload']) and $_GET['boxreload'] == 'true') {
-    ob_start();
-    $file = $menu->get_url('box');
-    if ($file !== false) {
-        require $file;
-    }
-    $tmp = array('content'=> ob_get_clean());
-    echo json_encode($tmp);
-    db_close();
-    exit;
-}
+//Ajaxreload für Boxen
+design::ajax_boxload();
+
 site_statistic();
 // Wartungsmodus
-if ($allgAr['wartung'] == 1 and is_admin()) {
-	@define('DEBUG', true);
-	debug ('Wartungsmodus aktiv !');
-} else
-if ($allgAr['wartung'] == 1 and !is_admin()) {
-	die ($allgAr['wartungstext']);
+if ($allgAr['wartung'] == 1) {
+	if (is_admin()) {
+	    @define('DEBUG', true);
+	    debug ('Wartungsmodus aktiv !');
+	} else {
+	    die ($allgAr['wartungstext']);
+	}
 }
 
 /* ENTWICKLUNGSVERSION SQL UPDATES */

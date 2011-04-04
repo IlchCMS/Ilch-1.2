@@ -53,7 +53,7 @@ function user_update_database($m) {
 	}
     db_query('UPDATE `prefix_online` SET `uptime` = "' . date('Y-m-d H:i:s') . '",
 										`content` = "'.$m.'"  WHERE `sid` = "' . session_id() . '"');
-	
+
 	if (function_exists('content_stats')) {
 	  content_stats($m);
 	}
@@ -238,12 +238,13 @@ function is_siteadmin($m = null) {
 // gruppe ist. oder ob er fals angegben das modulrecht hat.
 // wenn eines von diesen 3 kriterien stimmt wird true ansonsten
 // wenn keins uebereinstimmt false zurueck gegeben.
-function has_right($recht, $modul = '') {
+// wenn $strict true übergeben wird, erhält auch ein Admin nicht automatisch das Recht (nur bei Teams und Modulen relevant)
+function has_right($recht, $modul = '', $strict = false) {
     if (!is_array($recht) AND !is_null($recht)) {
         $recht = array($recht);
     }
 
-    if ($_SESSION['authright'] == - 9) {
+    if (! $strict and $_SESSION['authright'] == - 9) {
         return true;
     }
 

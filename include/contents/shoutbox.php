@@ -6,45 +6,76 @@
  */
 defined('main') or die('no direct access');
 
+if (is_siteadmin()) {
+    //Einträge löschen (ajax)
+    if (isset($_POST['del'])) {
+        if (chk_antispam('shoutboxarchive', true)) {
+            if (isset($_POST['all'])) {
+                //alle
+                $save = escape($_POST['all'], 'i');
+                $anz = db_result(db_query("SELECT COUNT(*) FROM `prefix_shoutbox`"), 0) - $save;
+                if ($anz > 0) {
+                    db_query("DELETE FROM `prefix_shoutbox` ORDER BY `id` LIMIT " . $anz);
+                }
+                echo '"reload"';
+            } else {
+                //einzeln oder ausgewählte
+                $ids = escape($_POST['chk'], 'i');
+                if (is_int($ids) and $ids > 0) {
+                    $ids = array($ids);
+                }
+                if (!empty($ids)) {
+                    db_query('DELETE FROM `prefix_shoutbox` WHERE `id` IN ('.implode(',', $ids).')');
+                    echo json_encode($ids);
+                } else {
+                    echo '"error"';
+                }
+            }
+        } else {
+            echo 'antihack';
+        }
+        exit;
+    }
+}
+
+
 $title = $allgAr[ 'title' ] . ' :: Shoutbox ' . $lang[ 'archiv' ];
 $hmenu = 'Shoutbox ' . $lang[ 'archiv' ];
 $design = new design($title, $hmenu);
 $design->header();
 
-if (is_siteadmin()) {
-    // delete
-    if ($menu->getA(1) == 'd' AND is_numeric($menu->getE(1))) {
-        db_query("DELETE FROM prefix_shoutbox WHERE id = " . $menu->getE(1));
-    }
-    // delete all
-    if ($menu->get(1) == 'delall') {
-        if (is_numeric($menu->get(2))) {
-            $anz = db_result(db_query("SELECT COUNT(*) FROM `prefix_shoutbox`"), 0) - $menu->get(2);
-            if ($anz > 0) {
-                db_query("DELETE FROM `prefix_shoutbox` ORDER BY `id` LIMIT " . $anz);
-            }
-        } else {
-            db_query("DELETE FROM `prefix_shoutbox`");
-        }
-    }
-}
-echo '<script type="text/javascript" src="include/includes/js/shoutbox.js"></script>';
+$data = array();
 
-$class = 'Cnorm';
-echo '<table width="100%" align="center" class="border" cellpadding="2" cellspacing="1" border="0"><tr class="Chead"><td><b>Shoutbox ' . $lang[ 'archiv' ] . '</b></td></tr>';
-$erg = db_query('SELECT * FROM `prefix_shoutbox` ORDER BY id DESC');
+$page = $menu->getA(1) == 'p' ? $menu->getE(1) : 1;
+$limit = $allgAr['sb_archive_limit'];
+$mpl = db_make_sites($page, '', $limit, 'index.php?shoutbox', 'shoutbox');
+
+$erg = db_query('SELECT * FROM `prefix_shoutbox` ORDER BY id DESC LIMIT '
+       . (($page - 1) * $limit) . ', ' . $limit);
 while ($row = db_fetch_assoc($erg)) {
-    $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
-    echo '<tr class="' . $class . '"><td>';
-    if (is_siteadmin()) {
-        echo '<a href="index.php?shoutbox-d' . $row[ 'id' ] . '"><img src="include/images/icons/del.gif" alt="' . $lang[ 'delete' ] . '" title="' . $lang[ 'delete' ] . '" border="0"></a>&nbsp;';
+    $row['textarea'] = BBCode_onlySmileys($row[ 'textarea' ], $allgAr[ 'sb_maxwordlength' ]);
+    $time = strtotime($row['time']);
+    if ($time != 0) {
+        $dateformat = (date('d.m.Y') == date('d.m.Y', $time)) ? 'H:i' : 'd.m. - H:i';
+        $row['time'] = date($dateformat, $time);
+    } else {
+        $row['time'] = 0;
     }
-    echo '<b>' . $row[ 'nickname' ] . ':</b> ' . preg_replace('/([^\s]{' . $allgAr[ 'sb_maxwordlength' ] . '})(?=[^\s])/', "$1\n", bbcode($row[ 'textarea' ])) . '</td></tr>';
+    $data[$row['id']] = $row;
 }
-echo '</table>';
-if (is_siteadmin()) {
-    echo '<a href="javascript:del();">' . $lang[ 'clearshoutbox' ] . '</a>';
-}
+
+require_once 'include/includes/class/iSmarty.php';
+
+$smarty = new iSmarty();
+$smarty->assign(array(
+    'data' => $data,
+    'lang' => $lang,
+    'siteadmin' => is_siteadmin(),
+    'antihack' => get_antispam('shoutboxarchive', 0, true),
+    'multipages' => $mpl
+));
+$smarty->display('shoutbox.tpl');
+
 $design->footer();
 
 ?>

@@ -748,6 +748,25 @@ class bbcode {
         '</object>';
     }
 
+    public function onlySmileys($string, $maxLength) {
+        //Optionen setzen
+        if ($maxLength != 0) {
+            $resetMaxLength = $this->info['fnWortMaxLaenge'];
+            $this->info['fnWortMaxLaenge'] = $maxLength;
+        }
+
+        $string = $this->_shortwords($string);
+        $string = nl2br($string);
+        $string = $this->_smileys($string);
+
+        //Optionen rückgängig machen
+        if (isset($resetMaxLength)) {
+            $this->info['fnWortMaxLaenge'] = $resetMaxLength;
+        }
+
+        return $string;
+    }
+
     public function parse($string, $maxLength, $maxImgWidth, $maxImgHeight) {
         //Optionen setzen
         if ($maxLength != 0) {

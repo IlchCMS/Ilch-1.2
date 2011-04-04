@@ -7,6 +7,8 @@
  */
 defined('main') or die('no direct access');
 
+//TODO headeradd + bodyend bei ajax mit hinzufügen
+
 if (!isset($ILCH_HEADER_ADDITIONS)) {
     $ILCH_HEADER_ADDITIONS = '';
 }
@@ -98,10 +100,9 @@ class design extends tpl {
 
     public function header($addons = '') {
         global $ILCH_HEADER_ADDITIONS;
-        $ILCH_HEADER_ADDITIONS .= $this->load_addons($addons);
         $this->addheader($ILCH_HEADER_ADDITIONS);
         if (isset($this->html[0]) and !$this->ajax) {
-            $this->html[0] = str_replace('</head>', $this->headerAdds . "\n</head>", $this->html[ 0 ]);
+            $this->html[0] = str_replace('</head>', $this->load_addons($addons) . $this->headerAdds . "\n</head>", $this->html[ 0 ]);
             echo $this->html[0] . '<div id="icContent">';
             unset($this->html[0]);
         } else {
@@ -164,26 +165,20 @@ class design extends tpl {
     public function footer($exit = 0) {
         global $allgAr;
         if ($this->ajax) {
+            $this->json['headerAdds'] = $this->headerAdds;
+            $this->json['bodyendAdds'] = $this->bodyendAdds;
             $this->json['content'] = ob_get_clean();
+            if (isset($allgAr['modrewrite']) and $allgAr['modrewrite'] == 1) {
+                $this->json['content'] = self::rewriteLinks( $this->json['content'] );
+            }
             echo json_encode($this->json);
             exit;
         }
         $this->html[1] = str_replace('</body>', $this->bodyendAdds . "\n</body>", $this->html[1]);
         echo '</div>' . $this->html[1];
         unset($this->html[1]);
-        if (array_key_exists('modrewrite', $allgAr)) {
-            if ($allgAr['modrewrite'] == '0') {
-                global $ILCH_BODYEND_ADDITIONS;
-                $this->addtobodyend($ILCH_BODYEND_ADDITIONS);
-            } else if ($allgAr['modrewrite'] == '1') {
-                $c = ob_get_clean();
-                $c = preg_replace ('%href=\"\?([^\"]+)\"%Uis', "href=\"index.php?\\1\"", $c);
-                $c = preg_replace ('%href=\"index.php\?([-0-9A-Z_]+)#([a-zA-Z0-9]+)\">%Uis', "href=\"\\1.html#\\2\">", $c);
-                $c = preg_replace ('%href=\"index.php\?([-0-9A-Z_]+)\">%Uis', "href=\"\\1.html\">", $c);
-                $c = preg_replace ('%action=\"\?([^\"]+)\"%Uis', "action=\"index.php?\\1\"", $c);
-                $c = preg_replace ('%URL=\?([^\"]+)\"%Uis', "URL=index.php?\\1\"", $c);
-                echo $c;
-            }
+        if (isset($allgAr['modrewrite']) and $allgAr['modrewrite'] == 1) {
+            echo self::rewriteLinks( ob_get_clean() );
         }
         if ($exit == 1) {
             if (DEBUG) {
@@ -191,6 +186,49 @@ class design extends tpl {
             }
             exit();
         }
+    }
+
+    public static function ajax_boxload() {
+        global $allgAr, $menu;
+        if (AJAXCALL and isset($_GET['boxreload']) and $_GET['boxreload'] == 'true') {
+            ob_start();
+            $file = $menu->get_url('box');
+            if ($file !== false) {
+                require $file;
+            }
+            $obcontent = ob_get_clean();
+            if (isset($allgAr['modrewrite']) and $allgAr['modrewrite'] == 1) {
+                $obcontent = self::rewriteLinks($obcontent);
+            }
+            /* Debug kann später gelöscht werden
+               $obcontent = ob_get_clean();
+               $enc = mb_detect_encoding($obcontent);
+               //$obcontent = utf8_encode($obcontent);
+               $array = array('content' => $obcontent, 'stringenc' => $enc);
+               $json = json_encode($array);
+               if (strlen($json)) {
+               echo $json;
+               } else {
+               echo 'mb_check_encoding: ' . $enc ."\n";
+               echo "\nJSON ERROR CODE: " . json_last_error();
+               echo "\npossible Errors\nJSON_ERROR_DEPTH: ", JSON_ERROR_DEPTH, " - Maximale Stacktiefe überschritten",
+               "\nJSON_ERROR_CTRL_CHAR: ", JSON_ERROR_CTRL_CHAR, ' - Unerwartetes Steuerzeichen gefunden',
+               "\nJSON_ERROR_SYNTAX: ", JSON_ERROR_SYNTAX, ' - Syntaxfehler, ungültiges JSON',
+               "\nJSON_ERROR_NONE: ", JSON_ERROR_NONE, ' - Keine Fehler', "\n Array vor json_encode:\n";
+               print_r($array);
+               }*/
+            echo json_encode( array('content'=> $obcontent ) );
+            exit;
+        }
+    }
+
+    public static function rewriteLinks($html) {
+        $html = preg_replace ('%href=\"\?([^\"]+)\"%Uis', "href=\"index.php?\\1\"", $html);
+        $html = preg_replace ('%href=\"index.php\?([-0-9A-Z_]+)#([a-zA-Z0-9]+)\">%Uis', "href=\"\\1.html#\\2\">", $html);
+        $html = preg_replace ('%href=\"index.php\?([-0-9A-Z_]+)\">%Uis', "href=\"\\1.html\">", $html);
+        $html = preg_replace ('%action=\"\?([^\"]+)\"%Uis', "action=\"index.php?\\1\"", $html);
+        $html = preg_replace ('%URL=\?([^\"]+)\"%Uis', "URL=index.php?\\1\"", $html);
+        return $html;
     }
 
     protected function escape_explode($s) {
@@ -278,10 +316,18 @@ class design extends tpl {
         $ex_was = 1;
         $firstmep = false;
         $hovmenup = '';
-        $abf = "SELECT * FROM `prefix_menu` WHERE wo = " . $wo . " AND ( recht >= " . $_SESSION[ 'authright' ] . " OR recht = 0 ) ORDER by pos";
+        $abf = "SELECT * FROM `prefix_menu` WHERE wo = " . $wo . " ORDER by pos";
         $erg = db_query($abf);
         $menuar = $menupaths = array();
         while ($r = db_fetch_assoc($erg)) {
+            //Nur Menüpunkte für die Rechte bestehen anzeigen
+            if (($r['recht_type'] == 0 or $r['recht_type'] == 3) and ! has_right($r['recht'],'', true)) {
+                continue;
+            } elseif ($r['recht_type'] == 1 and $r['recht'] != $_SESSION['authright']) {
+                continue;
+            } elseif ($r['recht_type'] == 2 and $r['recht'] > $_SESSION['authright']) {
+                continue;
+            }
             $menuar[$r['pos']] = $r;
             $menupaths[$r['path']] = $r['pos'];
         }

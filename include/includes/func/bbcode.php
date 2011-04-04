@@ -16,11 +16,15 @@ function colorliste ($ar) {
     return ($l);
 }
 function getBBCodeButtons() {
-    bbcode::getBBCodeButtons();
+    return bbcode::getBBCodeButtons();
 }
 function BBcode($s, $maxLength = 0, $maxImgWidth = 0, $maxImgHeight = 0) {
     $bbcode = bbcode::getInstance();
     return $bbcode->parse($s, $maxLength, $maxImgWidth, $maxImgHeight);
+}
+function BBCode_onlySmileys($text, $maxLength = 0){
+    $bbcode = bbcode::getInstance();
+    return $bbcode->onlySmileys($text, $maxLength);
 }
 
 ?>
