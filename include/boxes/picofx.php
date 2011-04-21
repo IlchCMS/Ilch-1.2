@@ -47,24 +47,26 @@ if ($picofxOpts[ 'pic' ] != '' AND file_exists('include/images/gallery/' . $pico
 
     $weite = $allgAr[ 'gallery_normal_width' ] + 30;
 
-    ?>
-<script language="JavaScript" type="text/javascript">
-<!--
-  function picOfxOeffneFenster (bildr, cat) {
-    var fenster = window.open ('index.php?gallery-show-'+cat+'-p'+bildr,'showBild','scrollbars=yes,height=600,width=<?php
-    echo $weite;
+    ?>    
 
-    ?>,left=200,status=yes');
-    fenster.focus();
-    return (false);
-  }
-//-->
+<script language="Javascript" type="text/javascript">
+$(document).ready(function() {
+      	$("a#fancyframepicofx").fancybox({
+				'overlayShow'		: true,				
+				'width'				: '100%',
+				'height'			: '100%',
+				'autoScale'			: false,
+				'transitionIn'		: 'elastic',
+				'transitionOut'		: 'elastic',
+				'type'				: 'iframe'
+			});
+      	});
 </script>
 
     <?php
 
     echo '<table width="100%" border="0" cellpadding="2" cellspacing="0"><tr><td align="center">';
-    echo '<a target="_blank" href="index.php?gallery-show-' . $cid . '-p' . $anz . '" onClick="return picOfxOeffneFenster(' . $anz . ',' . $cid . ');"><img src="include/images/gallery/' . $picofxThumb . '" width="' . $picofxImg[ 0 ] . '" height="' . $picofxImg[ 1 ] . '" alt=""></a>';
+    echo '<a id="fancyframepicofx" href="index.php?gallery-show-' . $cid . '-p' . $anz . '"><img src="include/images/gallery/' . $picofxThumb . '" width="' . $picofxImg[ 0 ] . '" height="' . $picofxImg[ 1 ] . '" alt=""></a>';
     echo '</td></tr></table>';
 } else {
     echo $lang[ 'nothingavailable' ];

@@ -294,19 +294,3 @@ input, textarea, select
 	text-align: center;
 	vertical-align: middle;
 }
-
-input.error, select.error, textarea.error { border: 1px #FF0000 dotted; background-color: #FFDDDD; }
-#formfehler { padding: 5px 0px 5px 0px; width: auto; color: #FF0000; }
-
-#awaycal_form label.error 		{ margin-left: 0px; width: auto; display: inline; color: #FF0000; font-size:9px }
-#contact_form label.error 		{ margin-left: 100px; width: auto; display: inline; color: #FF0000; font-size:9px }
-#fightus_form label.error 		{ margin-left: 120px; width: auto; display: inline; color: #FF0000; font-size:9px }
-#gbook_form label.error 		{ margin-left: 0px; width: auto; display: inline; color: #FF0000; font-size:9px }
-#joinus_form label.error 		{ margin-left: 100px; width: auto; display: inline; color: #FF0000; font-size:9px }
-#newpm_form label.error 		{ margin-left: 0px; width: auto; display: inline; color: #FF0000; font-size:9px }
-#newpost_form label.error 		{ margin-left: 0px; width: auto; display: inline; color: #FF0000; font-size:9px }
-#newtopic_form label.error 		{ margin-left: 0px; width: auto; display: inline; color: #FF0000; font-size:9px }
-#postedit_form label.error 		{ margin-left: 0px; width: auto; display: inline; color: #FF0000; font-size:9px }
-#profiledit_form label.error 	{ margin-left: 150px; width: auto; display: inline; color: #FF0000; font-size:9px }
-#regist_form label.error 		{ margin-left: 0px; width: auto; display: inline; color: #FF0000; font-size:9px }
-#upload_form label.error 		{ margin-left: 100px; width: auto; display: inline; color: #FF0000; font-size:9px }

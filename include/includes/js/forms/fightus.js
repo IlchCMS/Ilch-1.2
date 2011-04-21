@@ -24,7 +24,7 @@ $(document).ready(function() {
 			clanname: { required: "Bitte euren Clannamen eingeben!", minlength: "Der Clanname muss mindestens 2 Zeichen haben!" },
 			clantag: "Bitte euer Clank&uuml;rzel eingeben!",
 			clanpage: "Bitte eine g&uuml;ltige Internetadresse eingeben!",
-			clancountry: "Bitte euer Herkunftsland ausw&auml;en!",	
+			clancountry: "Bitte euer Herkunftsland ausw&auml;hlen!",	
 			mailaddy: "Bitte eine g&uuml;ltige Emailadresse eingeben!",
 			icqnumber: "Bitte deine ICQ-Nummer angeben!",
 			meetingplace: "Bitte den Treffpunkt angeben!",
@@ -39,7 +39,7 @@ $(document).ready(function() {
 			xonx: "Bitte das gew&uuml;nschte XonX ausw&auml;hlen!",
 			game: "Bitte das gew&uuml;nschte Spiel ausw&auml;hlen!",
 			matchtype: "Bitte den gew&uuml;nschten Spieltyp ausw&auml;hlen!",
-			message: "Bitte eine Nachricht oder zust&auml;tzliche Infos angeben!",
+			message: "Bitte eine Nachricht oder zus&auml;tzliche Infos angeben!",
 			number: "Bitte den Antispam ausf&uuml;llen!"
 		}
 	});	

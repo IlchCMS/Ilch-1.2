@@ -1,4 +1,16 @@
-﻿<script type="text/javascript">$(function() { $('#gallery a').lightBox(); });</script>
+﻿<script type="text/javascript">
+    $(document).ready(function() {      	
+			$("a[rel=fancygroup]").fancybox({
+				'overlayShow'		: true,
+				'transitionIn'		: 'elastic',
+				'transitionOut'		: 'elastic',
+				'titlePosition' 	: 'over',
+				'titleFormat'		: function(title, currentArray, currentIndex, currentOpts) {
+					return '<span id="fancybox-title-over">Bild ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
+				}
+			});
+      	});
+</script>
 <div id="gallery">
   <table width="100%" class="border" border="0" cellspacing="1" cellpadding="3">
     <tr class="Chead">
@@ -9,7 +21,7 @@
       <td class="{class}" width="{width}%" align="center">
         <table border="0" cellspacing="1" cellpadding="0">
           <tr>
-            <td><a href="include/images/usergallery/img_{id}.{endung}" title="{besch}"><img src="include/images/usergallery/img_thumb_{id}.{endung}" border="0" alt="{name}" title="{name}" /></a></td>
+            <td><a rel="fancygroup" href="include/images/usergallery/img_{id}.{endung}" title="{besch}"><img src="include/images/usergallery/img_thumb_{id}.{endung}" border="0" alt="{name}" title="{name}" /></a></td>
           </tr>
         </table>
       </td>

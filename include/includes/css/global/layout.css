@@ -1,4 +1,4 @@
-/* STANDARD */
+﻿/* STANDARD */
 .bold { font-weight:bold !important; }
 .underlined { text-decoration:underline; }
 .hidden { display:none !important; }
@@ -15,6 +15,23 @@
 .input_radio {}
 
 .required_alert { background-color:#e44850; border:2px dotted #0000FF; }
+
+/* FORM ERROR */
+input.error, select.error, textarea.error { border: 1px #FF0000 dotted; background-color: #FFDDDD; }
+#formfehler { padding: 5px 0px 5px 0px; width: auto; color: #FF0000; }
+
+#awaycal_form label.error 		{ margin-left: 0px; width: auto; display: inline; color: #FF0000; font-size:9px }
+#contact_form label.error 		{ margin-left: 100px; width: auto; display: inline; color: #FF0000; font-size:9px }
+#fightus_form label.error 		{ margin-left: 120px; width: auto; display: inline; color: #FF0000; font-size:9px }
+#gbook_form label.error 		{ margin-left: 0px; width: auto; display: inline; color: #FF0000; font-size:9px }
+#joinus_form label.error 		{ margin-left: 100px; width: auto; display: inline; color: #FF0000; font-size:9px }
+#newpm_form label.error 		{ margin-left: 0px; width: auto; display: inline; color: #FF0000; font-size:9px }
+#newpost_form label.error 		{ margin-left: 0px; width: auto; display: inline; color: #FF0000; font-size:9px }
+#newtopic_form label.error 		{ margin-left: 0px; width: auto; display: inline; color: #FF0000; font-size:9px }
+#postedit_form label.error 		{ margin-left: 0px; width: auto; display: inline; color: #FF0000; font-size:9px }
+#profiledit_form label.error 	{ margin-left: 150px; width: auto; display: inline; color: #FF0000; font-size:9px }
+#regist_form label.error 		{ margin-left: 0px; width: auto; display: inline; color: #FF0000; font-size:9px }
+#upload_form label.error 		{ margin-left: 100px; width: auto; display: inline; color: #FF0000; font-size:9px }
 
 /* AWARDS */
 #awards {}
