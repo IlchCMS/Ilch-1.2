@@ -1,17 +1,19 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="include/admin/templates/style.css">
-<script language="JavaScript" type="text/javascript"><!--
-  function MoveDirTo () {
-    var val = document.getElementById('dirs').value;
-    opener.document.location.href="admin.php?archiv-downloads-upload=0&f={f}&v={v}&n=" + val;
-    closeThisWindow ();
+<script language="JavaScript" type="text/javascript">
+<!--
+function MoveDirTo () {
+  var val = document.getElementById('dirs').value;
+  opener.document.location.href="admin.php?archiv-downloads-upload=0&f={f}&v={v}&n=" + val;
+  closeThisWindow ();
   }
-  function closeThisWindow() {
-    opener.focus();
-    window.close();
+function closeThisWindow() {
+  opener.focus();
+  window.close();
   }
---></script>
+//-->
+</script>
 </head>
 <body>
 <table border="0" cellpadding="5" cellspacing="1" class="border">

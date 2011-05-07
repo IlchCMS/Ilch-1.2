@@ -63,7 +63,7 @@ include_once('include/includes/func/gallery.php');
 						</script>';
 
 	// Formular für Neue Gegner absenden
-	if (isset($_POST['newsubmit'])) {
+	if (isset($_POST['newsubmit']) and chk_antispam('adminuser_action', true)) {
 		debug('########## FormUpload-Log Start ##########');
 
 		$newclantag			= escape($_POST['newgegnertag'], 'string');
@@ -205,7 +205,7 @@ include_once('include/includes/func/gallery.php');
 
 				$outar['aktuellesLogo'] = '<img src="include/images/opponents/thumb_'.$outar['logo'].'"/>';
 
-				if (isset($_POST['editsubmit'])) {
+				if (isset($_POST['editsubmit']) and chk_antispam('adminuser_action', true)) {
 							$editclantag			= @escape($_POST['editgegnertag'], 'string');
 							$editclanname			= @escape($_POST['editclanname'], 'string');
 							$editurl				= escape($_POST['editwebsite'], 'url');
@@ -246,6 +246,7 @@ include_once('include/includes/func/gallery.php');
 								wd('admin.php?opponents', 'Daten gespeichert', 3);
 								$design->footer(1);
 				}
+				$outar['ANTISPAM'] = get_antispam('adminuser_action', 0, true);
 				$tpl->set_ar_out($outar, 1);
 				$design->footer();
 			}
@@ -283,14 +284,11 @@ include_once('include/includes/func/gallery.php');
 				';
 
 			}
-
+			$outar['ANTISPAM'] = get_antispam('adminuser_action', 0, true);
 			$tpl->set_ar_out($outar, 0);
-
     		$design->footer();
 		break;
 
 	}
-
-
 
 ?>

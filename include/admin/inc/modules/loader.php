@@ -30,7 +30,7 @@ $aid = $menu->get(2);
 switch ($aid) {
     default:
         // Modul aendern oder hinzufuegen
-        if (isset($_POST[ 'submit' ])) {
+        if (isset($_POST[ 'submit' ]) and chk_antispam('adminuser_action', true)) {
             // POST-daten escapen
             $lid = $menu->get(3);
             $task = escape($_POST[ 'task' ], 'string');
@@ -99,7 +99,8 @@ switch ($aid) {
                     'aname' => 'Eintrag bearbeiten',
                     'task' => $task,
                     'file' => $row[ 'file' ],
-                    'description' => $row[ 'description' ]
+                    'description' => $row[ 'description' ],
+					'ANTISPAM' => get_antispam('adminuser_action', 0, true)
                     ), 5);
         } else {
             $task = getTasks('');
@@ -107,7 +108,8 @@ switch ($aid) {
                     'aname' => 'Eintrag hinzuf&uuml;gen',
                     'task' => $task,
                     'file' => '',
-                    'description' => ''
+                    'description' => '',
+					'ANTISPAM' => get_antispam('adminuser_action', 0, true)
                     ), 5);
         }
         // Template-Footer

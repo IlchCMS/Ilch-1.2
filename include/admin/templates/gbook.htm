@@ -1,49 +1,61 @@
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {		   
+	$("#validate").validate({
+		rules: {			
+			name: { required: true, minlength: 2 },
+			mail: { required: true, email: true },
+			page: { required: true, url: true },
+			text: { required: true }
+		},
+		messages: {
+			name: { required: "Bitte Name eingeben!", minlength: "Der Name muss mindestens 2 Zeichen haben!" },
+			mail: "Bitte eine g&uuml;ltige Emailadresse eingeben!",
+			page: "Bitte eine g&uuml;ltige Internetadresse eingeben!",
+			text: "Bitte gib ein Text ein!"
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
 <script language="JavaScript" type="text/javascript">
-    <!--
-      
-			function delcheck ( DELID ) {
-			  var frage = confirm ( "Willst du diesen Eintrag wirklich löschen?" );
-				if ( frage == true ) {
-				  document.location.href="admin.php?gbook&del="+DELID;
-				}
-			}
-		//-->
+<!--
+function delcheck ( DELID ) {
+  var frage = confirm ( unescape ( "Willst%20du%20diesen%20Eintrag%20wirklich%20l%F6schen%3F" ));
+  if ( frage == true ) { document.location.href="admin.php?gbook&del="+DELID; }
+}
+//-->
 </script>
 <table width="100%" border="0" cellpadding="2" cellspacing="1" class="border">
   <tr class="Chead">
-	  <td colspan="2"><b>Gbook</b></td>
-	</tr><tr>
-	  <td width="40%" valign="top" class="Cnorm">
-		  <form action="admin.php?gbook" method="POST">
-			<input type="hidden" name="gid" value="{id}" />
-      
-			<table width="100%" border="0" cellpadding="2" cellspacing="1" class="border">
-			  <tr>
-				  <td class="Cmite">Name</td>
-					<td class="Cnorm"><input size="40" name="name" value="{name}" /></td>
-				</tr><tr>
-				  <td class="Cmite">eMail</td>
-					<td class="Cnorm"><input size="40" name="mail" value="{mail}" /></td>
-				</tr><tr>
-				  <td class="Cmite">Page</td>
-					<td class="Cnorm"><input size="40" name="page" value="{page}" /></td>
-				</tr><tr>
-				  <td class="Cmite">Text</td>
-					<td class="Cnorm"><textarea cols="40" rows="6" name="text">{text}</textarea></td>
-				</tr><tr>
-				  <td class="Cmite"></td>
-					<td class="Cnorm"><input class="sub" type="submit" value="Absenden" name="sub"></td>
-				</tr>
-			</table>
-			
-			</form>
+    <td colspan="2"><b>Gbook</b></td>
+  </tr><tr>
+    <td width="40%" valign="top" class="Cnorm">
+      <form action="admin.php?gbook" method="POST" id="validate">
+      {ANTISPAM}
+        <input type="hidden" name="gid" value="{id}" />
+		<table width="100%" border="0" cellpadding="2" cellspacing="1" class="border">
+		  <tr>
+		    <td class="Cmite">Name</td>
+		    <td class="Cnorm"><input size="40" name="name" value="{name}" /></td>
+		  </tr><tr>
+		    <td class="Cmite">eMail</td>
+		    <td class="Cnorm"><input size="40" name="mail" value="{mail}" /></td>
+		  </tr><tr>
+		    <td class="Cmite">Page</td>
+		    <td class="Cnorm"><input size="40" name="page" value="{page}" /></td>
+		  </tr><tr>
+		    <td class="Cmite">Text</td>
+		    <td class="Cnorm"><textarea cols="40" rows="6" name="text">{text}</textarea></td>
+		  </tr><tr>
+		    <td class="Cmite"></td>
+		    <td class="Cnorm"><input class="sub" type="submit" value="Absenden" name="sub"></td>
+		  </tr>
+		</table>
+      </form>
     </td>
-		<td width="60%" valign="top" class="Cmite">
-      <table width="100%" border="0" cellpadding="5" cellspacing="0">
-      
-{EXPLODE}
-
-      </table>
-		</td>
-	</tr>
+    <td width="60%" valign="top" class="Cmite">
+      <table width="100%" border="0" cellpadding="5" cellspacing="0">{EXPLODE}</table>
+    </td>
+  </tr>
 </table>

@@ -49,7 +49,7 @@ if ($um == 'choosemods') {
 switch ($um) {
     case 'choosemods':
         $fid = escape($_REQUEST[ 'fid' ], 'integer');
-        if (isset($_POST[ 's' ]) AND $_POST[ 's' ] == 'Add') {
+        if (isset($_POST[ 's' ]) AND $_POST[ 's' ] == 'Add' and (chk_antispam('adminuser_action', true))) {
             // find user id
             $name = escape($_POST[ 'name' ], 'string');
             $uid = @db_result(@db_query("SELECT `id` FROM `prefix_user` WHERE `name` = BINARY '" . $name . "'"), 0, 0);
@@ -66,15 +66,16 @@ switch ($um) {
 
         $tpl = new tpl('forum/mods', 1);
         $tpl->set('fid', $fid);
+		$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
         $tpl->out(0);
         $class = '';
         $erg = db_query("SELECT `name`, `uid` FROM `prefix_forummods` LEFT JOIN `prefix_user` ON `prefix_user`.`id` = `prefix_forummods`.`uid` WHERE `prefix_forummods`.`fid` = " . $fid);
         while ($r = db_fetch_assoc($erg)) {
             $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
-            $r[ 'class' ] = $class;
+            $r[ 'class' ] = $class;		
             $tpl->set_ar_out($r, 1);
         }
-        $tpl->out(2);
+		$tpl->out(2);
         $show = false;
         break;
     case 'newForum':
@@ -120,10 +121,11 @@ switch ($um) {
             $ar[ 'start' ] .= '<optgroup label="Gruppen">';
             $ar[ 'start' ] .= dbliste('', $tpl, 'start', "SELECT `id`, `name` FROM `prefix_groups` ORDER BY `id` DESC");
             $ar[ 'start' ] .= '</optgroup>';
-            $tpl->set_ar_out($ar, 0);
+			$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
+			$tpl->set_ar_out($ar, 0);
             unset($tpl);
             $show = false;
-        } else {
+        } elseif (chk_antispam('adminuser_action', true)) { 
             $cid = escape($_POST[ 'cid' ], 'integer');
             $name = escape($_POST[ 'name' ], 'string');
             $text = escape($_POST[ 'text' ], 'string');
@@ -133,7 +135,7 @@ switch ($um) {
             $a = db_count_query("SELECT COUNT(`id`) as `anz` FROM `prefix_forums` WHERE `cid` = " . $cid);
             db_query("INSERT INTO `prefix_forums` (`cid`,`view`,`start`,`reply`,`pos`,`name`,`besch`) VALUES (" . $cid . "," . $view . "," . $start . "," . $reply . "," . $a . ",'" . $name . "','" . $text . "')");
         }
-        break;
+        break; 
     case 'changeForum':
         if (empty($_POST[ 'sub' ])) {
             $fid = escape($menu->get(2), 'integer');
@@ -147,7 +149,6 @@ switch ($um) {
                 );
             $tpl = new tpl('forum/eforum', 1);
             $ar[ 'kats' ] = dbliste($row->cid, $tpl, 'kats', "SELECT `id`, `name` FROM `prefix_forumcats` ORDER BY `name`");
-
             $ar[ 'view' ] = '<optgroup label="Grundrechte">';
             $ar[ 'view' ] .= dbliste($row->view, $tpl, 'view', "SELECT `id`, `name` FROM `prefix_grundrechte` ORDER BY `id` DESC");
             $ar[ 'view' ] .= '</optgroup>';
@@ -166,10 +167,11 @@ switch ($um) {
             $ar[ 'start' ] .= '<optgroup label="Gruppen">';
             $ar[ 'start' ] .= dbliste($row->start, $tpl, 'start', "SELECT `id`, `name` FROM `prefix_groups` ORDER BY `id` DESC");
             $ar[ 'start' ] .= '</optgroup>';
+			$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
             $tpl->set_ar_out($ar, 0);
             unset($tpl);
             $show = false;
-        } else {
+        } elseif (chk_antispam('adminuser_action', true)) {
             $cid = escape($_POST[ 'cid' ], 'integer');
             $name = escape($_POST[ 'name' ], 'string');
             $text = escape($_POST[ 'text' ], 'string');
@@ -212,11 +214,12 @@ switch ($um) {
         if (empty($_POST[ 'cat_sub' ])) {
             $show = true;
         } else {
+			if (chk_antispam('adminuser_action', true)) {
             $name = escape($_POST[ 'name' ], 'string');
             $cid = escape($_POST[ 'Ccat' ], 'integer');
             $a = db_count_query("SELECT COUNT(*) as `anz` FROM `prefix_forumcats` WHERE `cid` = " . $cid);
             db_query("INSERT INTO `prefix_forumcats` (`name`,`pos`,`cid`) VALUES ('" . $name . "'," . $a . "," . $cid . ")");
-        }
+        }}
         break;
     case 'changeCategorie':
         if (empty($_POST[ 'cat_sub' ])) {
@@ -224,6 +227,7 @@ switch ($um) {
             $r = db_fetch_object(db_query("SELECT `name`,`cid` as `topcid` FROM `prefix_forumcats` WHERE `id` = " . $cid));
             $show = true;
         } else {
+			if (chk_antispam('adminuser_action', true)) {
             $name = escape($_POST[ 'name' ], 'string');
             $cid = escape($_POST[ 'cid' ], 'integer');
             $Ccat = escape($_POST[ 'Ccat' ], 'integer');
@@ -244,7 +248,7 @@ switch ($um) {
                 }
                 db_query("UPDATE `prefix_forumcats` SET `name` = '" . $name . "', `cid` = " . $Ccat . ", `pos` = " . $pos . " WHERE `id` = " . $cid);
             }
-        }
+        }}
         break;
     case 'deleteCategorie':
         $cid = escape($menu->get(2), 'integer');
@@ -272,7 +276,8 @@ switch ($um) {
         break;
     case 'repair':
         $tpl = new tpl('forum/repair', 1);
-        if (isset($_POST[ 'sub' ])) {
+		$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
+        if (isset($_POST[ 'sub' ]) AND (chk_antispam('adminuser_action', true))) {
             // Kategorien
             if ($_POST[ 'cb_repc' ] == 'on') {
                 $cats_sql = db_query("SELECT `cid` FROM `prefix_forumcats`");
@@ -323,6 +328,7 @@ if ($show) {
     } else {
         $id = ($menu->getA(1) == 'S' ? $menu->getE(1) : (is_numeric($firstcat) ? $firstcat : 0));
     }
+	
     $tpl->set_out('cid', $id, 0);
     $class = '';
     $erg = db_query("SELECT `id`, `cid`, `name` as `cname`, `pos` as `cpos` FROM `prefix_forumcats` WHERE `id` = " . $id . " ORDER BY `pos`");
@@ -369,6 +375,7 @@ if ($show) {
     $Cout[ 'name' ] = is_object($r) ? ($um == 'changeCategorie' ? $r->name : '') : '';
     forum_admin_selectcats('0', '', $Cout[ 'cat' ], $topcid);
     $Cout[ 'cat' ] = '<option value="0">Keine</option>' . $Cout[ 'cat' ];
+	$Cout[ 'ANTISPAM' ] = get_antispam('adminuser_action', 0, true);
     $tpl->set_ar_out($Cout, 4);
 }
 // -----------------------------------------------------------|

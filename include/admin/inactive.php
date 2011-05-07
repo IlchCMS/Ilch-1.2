@@ -49,16 +49,16 @@ $tpl = new tpl ( 'inactive.htm', 1 );
 		$woche = $setinaktivinput<=1?' woche':' wochen';
 		
 		// statusmeldung
-		wd ('admin.php?inactive', 'inaktive user werden nun ab '.$setinaktivinput.$woche.' inaktivit&auml;t angezeigt',  '5' );
+		wd ('admin.php?inactive', 'Inaktive User werden nun ab '.$setinaktivinput.$woche.' als inaktiv angezeigt',  '5' );
 		$design->footer(1);
 		
 	} else if (isset($_POST['saveinaktiv']) && !is_numeric($_POST['inaktivset'])){ // Es wurde versucht einen nicht numerischen wert zu speichern
 		// statusmeldung
-		wd ('admin.php?inactive', 'Speichern nicht m&ouml;glich, wert f&uuml;r wochen muss eine Zahl sein!',  '5' ); 
+		wd ('admin.php?inactive', 'Speichern nicht m&ouml;glich, Wert f&uuml;r Wochen muss eine Zahl sein!',  '5' ); 
 		$design->footer(1);
 	} else if (isset($_POST['saveinaktiv']) && (!is_numeric(substr($_POST['inaktivset'],0,1)) || $_POST['inaktivset'] == 0)){ // Es wurde versucht einen nicht numerischen wert zu speichern
 		// statusmeldung
-		wd ('admin.php?inactive', 'Speichern nicht m&ouml;glich, wert f&uuml;r wochen muss eine positive Zahl sein!',  '5' ); 
+		wd ('admin.php?inactive', 'Speichern nicht m&ouml;glich, Wert f&uuml;r Wochen muss eine positive Zahl sein!',  '5' ); 
 		$design->footer(1);
 	} else if (isset($_POST['banid']) && is_numeric($_POST['delete_user_id'])) { // alle daten sind valide
 	// Wenn ein user gelöscht werden soll + Prüfen ob zu speichernder wert eine Zahl ist
@@ -69,7 +69,7 @@ $tpl = new tpl ( 'inactive.htm', 1 );
 		$design->footer(1);
 	} else if (isset($_POST['banid']) && !is_numeric($_POST['delete_user_id'])) {  // Es wurde versucht einen nicht numerischen wert zu speichern
 		// statusmeldung
-		wd ('admin.php?inactive', 'es wurde eine Fehlerhafte user ID übergeben ...',  '5' ); 
+		wd ('admin.php?inactive', 'Es wurde eine fehlerhafte User ID &uuml;bergeben ...',  '5' ); 
 		$design->footer(1);
 	}
 

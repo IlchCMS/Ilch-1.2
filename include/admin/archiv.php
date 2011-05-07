@@ -135,10 +135,10 @@ switch ($um) {
                 $msg = '<b>Bevor du hier eine Datei hochladen/verwalten kannst muss der Ordner include/downs/<b>downloads</b>/ erstellt werden und er muss Schreibrechte ( chmod 777 ) erhalten !!! Wenn das geschehen ist einfach nochmal hier auf aktualisieren klicken</b>';
             }
             // file hochladen
-            if (isset($_FILES[ 'file' ][ 'name' ])) {
+            if (isset($_FILES[ 'file' ][ 'name' ]) and chk_antispam('adminuser_action', true)) {
                 $pathinfo = pathinfo($_FILES[ 'file' ][ 'name' ]);
                 if (substr($pathinfo[ 'extension' ], 0, 3) == 'php') {
-                    $msg = '<font color="#FF0000">Es können keine PHP Dateien hochgeladen werden.</font><br />';
+                    $msg = '<font color="#FF0000">Es k&ouml;nnen keine PHP Dateien hochgeladen werden.</font><br />';
                 } elseif (move_uploaded_file($_FILES[ 'file' ][ 'tmp_name' ], $_REQUEST[ 'f' ] . '/' . $_FILES[ 'file' ][ 'name' ])) {
                     @chmod($_REQUEST[ 'f' ] . '/' . $_FILES[ 'file' ][ 'name' ], 0777);
                     $msg = 'Datei (' . $_FILES[ 'file' ][ 'name' ] . ' ) <font color="#00FF00">erfolgreich hochgeladen</font><br />';
@@ -154,14 +154,14 @@ switch ($um) {
             if (isset($_REQUEST[ 'r' ])) {
                 $pathinfo = pathinfo($_REQUEST[ 'r' ]);
                 if (substr($pathinfo[ 'extension' ], 0, 3) == 'php') {
-                    $msg = '<font color="#FF0000">Es können keine PHP Dateien erzeugt werden.</font><br />';
+                    $msg = '<font color="#FF0000">Es k&ouml;nnen keine PHP Dateien erzeugt werden.</font><br />';
                 } elseif (@rename($_REQUEST[ 'f' ] . '/' . $_REQUEST[ 'v' ], $_REQUEST[ 'f' ] . '/' . $_REQUEST[ 'r' ])) {
                     db_query("UPDATE prefix_downloads SET url = '" . $_REQUEST[ 'f' ] . '/' . $_REQUEST[ 'r' ] . "' WHERE url = '" . $_REQUEST[ 'f' ] . '/' . $_REQUEST[ 'v' ] . "'");
                     db_query("UPDATE prefix_downloads SET surl = '" . $_REQUEST[ 'f' ] . '/' . $_REQUEST[ 'r' ] . "' WHERE surl = '" . $_REQUEST[ 'f' ] . '/' . $_REQUEST[ 'v' ] . "'");
                     db_query("UPDATE prefix_downloads SET ssurl = '" . $_REQUEST[ 'f' ] . '/' . $_REQUEST[ 'r' ] . "' WHERE ssurl = '" . $_REQUEST[ 'f' ] . '/' . $_REQUEST[ 'v' ] . "'");
-                    $msg = '<font color="#00FF00">Erfolgreich umbenannt...</font><br />';
+                    $msg = '<font color="#00FF00">Datei wurde erfolgreich umbenannt</font><br />';
                 } else {
-                    $msg = '<font color="#FF0000">Konnte Datei nicht umbennen</font></br />';
+                    $msg = '<font color="#FF0000">Die Datei konnte nicht umbennen werden</font></br />';
                 }
             }
 
@@ -175,13 +175,13 @@ switch ($um) {
                         db_query("UPDATE prefix_downloads SET url = '" . $neudir . '/' . $_REQUEST[ 'v' ] . "' WHERE url = '" . $_REQUEST[ 'f' ] . '/' . $_REQUEST[ 'v' ] . "'");
                         db_query("UPDATE prefix_downloads SET surl = '" . $neudir . '/' . $_REQUEST[ 'v' ] . "' WHERE surl = '" . $_REQUEST[ 'f' ] . '/' . $_REQUEST[ 'v' ] . "'");
                         db_query("UPDATE prefix_downloads SET ssurl = '" . $neudir . '/' . $_REQUEST[ 'v' ] . "' WHERE ssurl = '" . $_REQUEST[ 'f' ] . '/' . $_REQUEST[ 'v' ] . "'");
-                        $msg = '<font color="#00FF00">Erfolgreich verschoben...</font><br />';
+                        $msg = '<font color="#00FF00">Die Datei wurde Erfolgreich verschoben</font><br />';
                         $_REQUEST[ 'f' ] = $neudir;
                     } else {
-                        $msg = '<font color="#FF0000">Konnte Datei nicht verschieben</font></br />';
+                        $msg = '<font color="#FF0000">Die Datei konnte nicht verschoben werden</font></br />';
                     }
                 } else {
-                    $msg = '<font color="#FF0000">Der angegebene Ordner ist nicht vorhanden...</font><br />';
+                    $msg = '<font color="#FF0000">Der angegebene Ordner ist nicht vorhanden</font><br />';
                 }
             }
             // files anzeigen von ordner X... wenn x nicht definiert nimm downs/downloads...
@@ -207,7 +207,8 @@ switch ($um) {
             $tpl = new tpl('archiv/upload', 1);
             $tpl->set_ar_out(array(
                     'posi' => $str_fl,
-                    'msg' => $msg
+                    'msg' => $msg,
+					'ANTISPAM' => get_antispam('adminuser_action', 0, true)
                     ), 0);
 
             if (is_dir($f)) {
@@ -242,13 +243,13 @@ switch ($um) {
                     echo '<tr class="' . $class . '">';
                     echo '<td>' . $v . '</td>';
                     echo '<td><a href="javascript:deleteFile(\'' . $f . '\',\'' . $v . '\')"><img src="include/images/icons/del.png" title="l&ouml;schen" border="0" /></a></td>';
-                    echo '<td><a href="javascript:moveFile(\'' . $f . '\',\'' . $v . '\')"><img src="include/images/icons/pfeila.png" title="verschieben" border="0" /></a></td>';
+                    echo '<td><a href="javascript:moveFile(\'' . $f . '\',\'' . $v . '\')"><img src="include/images/icons/pfeila.gif" title="verschieben" border="0" /></a></td>';
                     echo '<td><a href="javascript:renFile(\'' . $f . '\',\'' . $v . '\')"><img src="include/images/icons/edit.png" title="umbennen" border="0" /></a></td>';
                     echo '<td>' . get_upload_linked($f . '/' . $v) . '<a href="javascript:waehleThisFile(\'' . $f . '/' . $v . '\')">w&auml;hlen</a></td>';
                     echo '</tr>';
                 }
             } else {
-                echo '<tr><td colspan="5" class="Cmite">Verzeichnis nicht gefunden... <a href="?archiv-downloads-upload">&Uuml;bersicht</a></td></tr>';
+                echo '<tr><td colspan="5" class="Cmite">Das Verzeichnis wurde nicht gefunden <a href="?archiv-downloads-upload">&Uuml;bersicht</a></td></tr>';
             }
 
             $tpl->set('f', $f);
@@ -303,9 +304,8 @@ switch ($um) {
             db_query("UPDATE `prefix_downloads` SET `pos` = `pos` - 1 WHERE `pos` > " . $pos . " AND `cat` = " . $azk);
         }
         // download eintraege speichern oder aendern.
-        if (!empty($_POST[ 'sub' ])) {
+        if (!empty($_POST[ 'sub' ]) and chk_antispam('adminuser_action', true) ) {
             $_POST[ 'url' ] = $_POST[ 'newurl' ];
-
             $_POST[ 'cat' ] = escape($_POST[ 'cat' ], 'integer');
             $_POST[ 'creater' ] = escape($_POST[ 'creater' ], 'string');
             $_POST[ 'version' ] = escape($_POST[ 'version' ], 'string');
@@ -340,7 +340,7 @@ switch ($um) {
             $azk = $_POST[ 'cat' ];
         }
         // kategorie eintrage speichern oder aendern.
-        if (isset($_POST[ 'Csub' ])) {
+        if (isset($_POST[ 'Csub' ]) and chk_antispam('adminuser_action', true)) {
             if (empty($_POST[ 'Ccat' ])) {
                 $_POST[ 'Ccat' ] = 0;
             }
@@ -447,6 +447,7 @@ switch ($um) {
             unset($c);
         }    
 		$_ilch['drecht'] = dblistee($_ilch['drecht'],"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
+		$_ilch['ANTISPAM'] = get_antispam('adminuser_action', 0, true);
         // wenn der link von archiv upload kommt ist dllink gesetzt
         $dllink = '';
         if (isset($_REQUEST[ 'dllink' ])) {
@@ -509,7 +510,7 @@ switch ($um) {
         $_Cilch[ 'Crecht' ] = dblistee($_Cilch[ 'Crecht' ], "SELECT `id`,`name` FROM `prefix_grundrechte` ORDER BY `id` DESC");
         archiv_downs_admin_selectcats('0', '', $_Cilch[ 'Ccat' ], $_Cilch[ 'Ccat' ]);
         $_Cilch[ 'Ccat' ] = '<option value="0">Keine</option>' . $_Cilch[ 'Ccat' ];
-
+		$_Cilch['ANTISPAM'] = get_antispam('adminuser_action', 0, true);
         archiv_downs_admin_showcats(0, '');
 
         $tpl->set_ar($_ilch);
@@ -540,7 +541,7 @@ switch ($um) {
             db_query("UPDATE `prefix_links` SET `pos` = `pos` - 1 WHERE `pos` > " . $pos . " AND `cat` = " . $azk);
         }
         // link eintraege speichern oder aendern.
-        if (!empty($_POST[ 'sub' ])) {
+        if (!empty($_POST[ 'sub' ]) and chk_antispam('adminuser_action', true)) {
             $_POST[ 'cat' ] = escape($_POST[ 'cat' ], 'integer');
             $_POST[ 'name' ] = escape($_POST[ 'name' ], 'string');
             $_POST[ 'banner' ] = escape($_POST[ 'banner' ], 'string');
@@ -565,7 +566,7 @@ switch ($um) {
             $azk = $_POST[ 'cat' ];
         }
         // kategorie eintrage speichern oder aendern.
-        if (isset($_POST[ 'Csub' ])) {
+        if (isset($_POST[ 'Csub' ]) and chk_antispam('adminuser_action', true)) {
             if (empty($_POST[ 'Ccat' ])) {
                 $_POST[ 'Ccat' ] = 0;
             }
@@ -664,7 +665,7 @@ switch ($um) {
                 );
             unset($c);
         }
-
+		$_ilch[ 'ANTISPAM' ] = get_antispam('adminuser_action', 0, true);
         archiv_links_admin_selectcats('0', '', $_ilch[ 'cat' ], $_ilch[ 'cat' ]);
         $_ilch[ 'cat' ] = '<option value="0">Keine</option>' . $_ilch[ 'cat' ];
 
@@ -703,7 +704,7 @@ switch ($um) {
         }
         archiv_links_admin_selectcats('0', '', $_Cilch[ 'Ccat' ], $_Cilch[ 'Ccat' ]);
         $_Cilch[ 'Ccat' ] = '<option value="0">Keine</option>' . $_Cilch[ 'Ccat' ];
-
+		$_Cilch[ 'ANTISPAM' ] = get_antispam('adminuser_action', 0, true);
         archiv_links_admin_showcats(0, '');
 
         $tpl->set_ar($_ilch);
@@ -726,7 +727,7 @@ switch ($um) {
             db_query("UPDATE `prefix_partners` SET `pos` = `pos` -1 WHERE `pos` > " . $pos);
         }
         // aendern / eintragen
-        if (isset($_POST[ 'sub' ])) {
+        if (isset($_POST[ 'sub' ]) and chk_antispam('adminuser_action', true)) {
             $_POST[ 'name' ] = escape($_POST[ 'name' ], 'string');
             $_POST[ 'banner' ] = escape($_POST[ 'banner' ], 'string');
             $_POST[ 'link' ] = get_homepage(escape($_POST[ 'link' ], 'string'));
@@ -773,7 +774,7 @@ switch ($um) {
                 'link' => ''
                 );
         }
-
+		$_ilch[ 'ANTISPAM' ] = get_antispam('adminuser_action', 0, true); 
         $tpl->set_ar_out($_ilch, 0);
         $page = ($menu->getA(2) == 'p' ? $menu->getE(2) : 1);
         $limit = 20;

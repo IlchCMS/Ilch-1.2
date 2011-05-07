@@ -1,152 +1,187 @@
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {		   
+	$("#new_nextwar").validate({
+		rules: {			
+			gegner: { required: true, minlength: 2 },
+			tag: { required: true },
+			page: { required: true, url: true },
+			email: { required: true, email: true },
+			//icq: { required: true },
+			wo: { required: true },
+			//txt: { required: true }
+		},
+		messages: {
+			gegner: { required: "Bitte Gegner Name eingeben!", minlength: "Der Name muss mindestens 2 Zeichen haben!" },
+			tag: { required: "Bitte Gegner Tag eingeben!" },
+			page: "Bitte eine g&uuml;ltige Internetadresse eingeben!",
+			email: "Bitte eine g&uuml;ltige Emailadresse eingeben!",
+			//icq: "Bitte gib die ICQ Nummer an!",
+			wo: "Bitte gib den Treffpunkt an!",
+			//txt: "Bitte gib eine Nachricht an!"
+		}
+	});
+});
+</script>
+<style type="text/css">#new_nextwar label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }</style>
+<noscript>Bitte JavaScript aktivieren</noscript>
 <table cellpadding="0" cellspacing="0" border="0" width="100%">
-<tr>
-	<td width="60%" valign="top">
-		<form action="admin.php?wars-last" method="POST" name="form" id="new_nextwar">
-		<input type="hidden" name="pkey" value="{pkey}" />
-		<input type="hidden" name="status" value="3" />
-		<table class="border" cellpadding="3" cellspacing="1" border="0">
-		{msg}
-    <tr class="Cdark">
-			<td colspan="2"><b>Basis Informationen</b></td>
-		</tr><tr>
-			<td class="Cmite">Gegner Nation</td>
-			<td class="Cnorm"><select name="land" id="opponent_nation">{land}</select> <img id="opponent_nation_flag" src="" alt="L&auml;nderflagge"/></td>
-		</tr><tr>
-			<td class="Cmite">Gegner Name</td>
-			<td class="Cnorm"><input size="46" type="text" name="gegner" value="{gegner}"></td>
-		</tr><tr>
-			<td class="Cmite">Gegner Tag</td>
-			<td class="Cnorm"><input size="46" type="text" name="tag" value="{tag}"></td>
-		</tr><tr>
-			<td class="Cmite">Gegner Page</td>
-			<td class="Cnorm"><input size="40" type="text" name="page" value="{page}"> <input type="button" class="sub" onclick="javascript:visitpage()" value="Visit" /></td>
-		</tr><tr class="Cdark">
-			<td colspan="2"><b>Ansprechpartner</b></td>
-		</tr><tr>
-			<td class="Cmite">Gegner Email</td>
-			<td class="Cnorm"><input size="47" type="text" name="email" value="{mail}"></td>
-		</tr><tr>
-			<td class="Cmite">Gegner ICQ</td>
-			<td class="Cnorm"><input size="47" type="text" name="icq" value="{icq}"></td>
-		</tr><tr class="Cdark">
-			<td colspan="2"><b>Matchinfo</b></td>
-		</tr><tr>
-			<td class="Cmite">Datum | Zeit</td>
-			<td class="Cnorm"><input type="text" id="datepicker" name="datum" value="{jahr}-{day}-{mon}" class=".ui-helper-hidden"/><table cellpadding="0" cellspacing="0" border="0"><tr><b>-</b>&nbsp;<input type="text" name="stu" value="{stu}" size="2"><b>:</b><input type="text" name="min" value="{min}" size="2"><b>:</b><input type="text" name="sek" value="{sek}" size="2">&nbsp;&nbsp;</td><td><input type="checkbox"{kalck} id="kalender" value="yes" name="kalender" /></td><td><label for="kalender" style="cursor: pointer"><span class="smalfont">Kalender eintragen / &auml;ndern.</span></label></td></tr></table></td>
-		</tr><tr>
-			<td class="Cmite">Treffpunkt</td>
-			<td class="Cnorm"><input type="Text" name="wo" value="{wo}" size="46" ></td>
-		</tr><tr>
-			<td class="Cmite">Team</td>
-			<td class="Cnorm"><select name="tid">{tid}</select></td>
-		</tr><tr>
-			<td class="Cmite">XonX</td>
-			<td class="Cnorm"><select id="mod" name="mod">{mod}<option value="neu">Neu:</option></select>&nbsp;<input id="newmod" type="text" name="newmod" /></td>
-		</tr><tr>
-			<td class="Cmite">Game</td>
-			<td class="Cnorm"><select id="game" name="game">{game}<option value="neu">Neu:</option></select>&nbsp;<input id="newgame" type="text" name="newgame" /></td>
-		</tr><tr>
-			<td class="Cmite">Matchtyp</td>
-			<td class="Cnorm"><select id="mtyp" name="mtyp">{mtyp}<option value="neu">Neu:</option></select>&nbsp;<input id="newmtyp" type="text" name="newmtyp" /></td>
-		</tr><tr>
-			<td class="Cmite">Member</td>
-			<td class="Cnorm"><a href="javascript:manageMember()">Member die gespielt haben verwalten.</a></td>
-		</tr><tr>
-			<td class="Cmite">Ergebnis</td>
-			<td class="Cnorm"><select name="wlp">{wlp}</select></td>
-		</tr><tr>
-			<td class="Cmite"></td>
-			<td class="Cnorm">
-			<table cellpadding="0" cellspacing="0" border="0">
-			<tr>
-				<td>Map/Runde</td>
-				<td>Gegner&nbsp;&nbsp;</td>
-				<td>Eigene</td>
-			</tr><tr>
-				<td><input type="text" name="map[1]" value="{map1}" />&nbsp;&nbsp;</td>
-				<td><input type="text" size="3" onKeyUp="setOPPsum()" name="opp[1]" value="{opp1}" /></td>
-				<td><input type="text" size="3" onKeyUp="setOWPsum()" name="owp[1]" value="{owp1}" /></td>
-				<td><a href="javascript:manageMap({pkey},1)">Bild</a></td>
-			</tr><tr>
-				<td><input type="text" name="map[2]" value="{map2}" /></td>
-				<td><input type="text" size="3" onKeyUp="setOPPsum()" name="opp[2]" value="{opp2}" /></td>
-				<td><input type="text" size="3" onKeyUp="setOWPsum()" name="owp[2]" value="{owp2}" /></td>
-				<td><a href="javascript:manageMap({pkey},2)">Bild</a></td>
-			</tr><tr>
-				<td><input type="text" name="map[3]" value="{map3}" /></td>
-				<td><input type="text" size="3" onKeyUp="setOPPsum()" name="opp[3]" value="{opp3}" /></td>
-				<td><input type="text" size="3" onKeyUp="setOWPsum()" name="owp[3]" value="{owp3}" /></td>
-				<td><a href="javascript:manageMap({pkey},3)">Bild</a></td>
-			</tr><tr>
-				<td><input type="text" name="map[4]" value="{map4}" /></td>
-				<td><input type="text" size="3" onKeyUp="setOPPsum()" name="opp[4]" value="{opp4}" /></td>
-				<td><input type="text" size="3" onKeyUp="setOWPsum()" name="owp[4]" value="{owp4}" /></td>
-				<td><a href="javascript:manageMap({pkey},4)">Bild</a></td>
-			</tr><tr>
-				<td><input type="text" name="map[5]" value="{map5}" /></td>
-				<td><input type="text" size="3" onKeyUp="setOPPsum()" name="opp[5]" value="{opp5}" /></td>
-				<td><input type="text" size="3" onKeyUp="setOWPsum()" name="owp[5]" value="{owp5}" /></td>
-				<td><a href="javascript:manageMap({pkey},5)">Bild</a></td>
-			</tr><tr>
-				<td align="right">Summe:&nbsp;&nbsp;</td>
-				<td><input type="text" size="3" name="sumopp" value="{opp}" /></td>
-				<td><input type="text" size="3" name="sumowp" value="{owp}" /></td>
-			</tr>
-			</table>
-			</td>
-		</tr><tr>
-			<td class="Cmite">Nachricht</td>
-			<td class="Cnorm"><textarea cols="47" rows="2" name="txt">{txt}</textarea></td>
-		</tr><tr class="Cdark">
-			<td></td>
-			<td><input class="sub" type="submit" value="Absenden" name="sub" /></td>
-		</tr>
-		</table>
-		</form>
-	</td>
-	<td width="40%" valign="top">
-		<table class="border" cellpadding="3" cellspacing="1" border="0">
-		<tr class="Chead">
-			<td colspan="3">&Uuml;bersicht</td>
-		</tr>
-{EXPLODE}
-		<tr class="{class}">
-			<td>{game} {gegner}</td>
-			<td align="center"><a href="javascript:del('{id}')"><img src="include/images/icons/del.png" alt="{_lang_delete}" title="{_lang_delete}" /></a></td>
-			<td align="center"><a href="admin.php?wars-last&amp;pkey={id}"><img src="include/images/icons/edit.png" alt="{_lang_change}" title="{_lang_change}" /></a></td>
-		</tr>
-{EXPLODE}
-		</table>
-{MPL}
-	</td>
-</tr>
+  <tr>
+    <td width="60%" valign="top">
+      <form action="admin.php?wars-last" method="POST" name="form" id="new_nextwar">
+      {ANTISPAM}
+      <input type="hidden" name="pkey" value="{pkey}" />
+      <input type="hidden" name="status" value="3" />
+        <table class="border" cellpadding="3" cellspacing="1" border="0">
+        {msg}
+          <tr class="Cdark">
+            <td colspan="2"><b>Basis Informationen</b></td>
+          </tr><tr>
+            <td class="Cmite">Gegner Nation</td>
+            <td class="Cnorm"><select name="land" id="opponent_nation">{land}</select> <img id="opponent_nation_flag" src="" alt="L&auml;nderflagge"/></td>
+          </tr><tr>
+            <td class="Cmite">Gegner Name</td>
+            <td class="Cnorm"><input size="46" type="text" name="gegner" value="{gegner}"></td>
+          </tr><tr>
+            <td class="Cmite">Gegner Tag</td>
+            <td class="Cnorm"><input size="46" type="text" name="tag" value="{tag}"></td>
+          </tr><tr>
+            <td class="Cmite">Gegner Page</td>
+            <td class="Cnorm"><input size="40" type="text" name="page" value="{page}"> <input type="button" class="sub" onclick="javascript:visitpage()" value="Visit" /></td>
+          </tr><tr class="Cdark">
+            <td colspan="2"><b>Ansprechpartner</b></td>
+          </tr><tr>
+            <td class="Cmite">Gegner Email</td>
+            <td class="Cnorm"><input size="47" type="text" name="email" value="{mail}"></td>
+          </tr><tr>
+            <td class="Cmite">Gegner ICQ</td>
+            <td class="Cnorm"><input size="47" type="text" name="icq" value="{icq}"></td>
+          </tr><tr class="Cdark">
+            <td colspan="2"><b>Matchinfo</b></td>
+          </tr><tr>
+            <td class="Cmite">Datum | Zeit</td>
+            <td class="Cnorm">
+              <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td colspan="2"><input type="text" id="datepicker" name="datum" value="{jahr}-{day}-{mon}" class=".ui-helper-hidden"/>&nbsp;<b>-</b>&nbsp;<input type="text" name="stu" value="{stu}" size="2"><b>:</b><input type="text" name="min" value="{min}" size="2"><b>:</b><input type="text" name="sek" value="{sek}" size="2">&nbsp;&nbsp;</td>
+                </tr><tr>
+                  <td><input type="checkbox"{kalck} id="kalender" value="yes" name="kalender" /></td>
+                  <td><label for="kalender" style="cursor: pointer"><span class="smalfont">Kalender eintragen / &auml;ndern.</span></label></td>
+                </tr>
+              </table>
+            </td>
+          </tr><tr>
+            <td class="Cmite">Treffpunkt</td>
+            <td class="Cnorm"><input type="Text" name="wo" value="{wo}" size="46"></td>
+          </tr><tr>
+            <td class="Cmite">Team</td>
+            <td class="Cnorm"><select name="tid">{tid}</select></td>
+          </tr><tr>
+            <td class="Cmite">XonX</td>
+            <td class="Cnorm"><select id="mod" name="mod">{mod}<option value="neu">Neu:</option></select>&nbsp;<input id="newmod" type="text" name="newmod" /></td>
+          </tr><tr>
+            <td class="Cmite">Game</td>
+            <td class="Cnorm"><select id="game" name="game">{game}<option value="neu">Neu:</option></select>&nbsp;<input id="newgame" type="text" name="newgame" /></td>
+          </tr><tr>
+            <td class="Cmite">Matchtyp</td>
+            <td class="Cnorm"><select id="mtyp" name="mtyp">{mtyp}<option value="neu">Neu:</option></select>&nbsp;<input id="newmtyp" type="text" name="newmtyp" /></td>
+          </tr><tr>
+            <td class="Cmite">Member</td>
+            <td class="Cnorm"><a href="javascript:manageMember()">Member die gespielt haben verwalten.</a></td>
+          </tr><tr>
+            <td class="Cmite">Ergebnis</td>
+            <td class="Cnorm"><select name="wlp">{wlp}</select></td>
+          </tr><tr>
+            <td class="Cmite"></td>
+            <td class="Cnorm">
+              <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td>Map/Runde</td>
+                  <td>Gegner&nbsp;&nbsp;</td>
+                  <td>Eigene</td>
+                </tr><tr>
+                  <td><input type="text" name="map[1]" value="{map1}" />&nbsp;&nbsp;</td>
+                  <td><input type="text" size="3" onKeyUp="setOPPsum()" name="opp[1]" value="{opp1}" /></td>
+                  <td><input type="text" size="3" onKeyUp="setOWPsum()" name="owp[1]" value="{owp1}" /></td>
+                  <td><a href="javascript:manageMap({pkey},1)">Bild</a></td>
+                </tr><tr>
+                  <td><input type="text" name="map[2]" value="{map2}" /></td>
+                  <td><input type="text" size="3" onKeyUp="setOPPsum()" name="opp[2]" value="{opp2}" /></td>
+                  <td><input type="text" size="3" onKeyUp="setOWPsum()" name="owp[2]" value="{owp2}" /></td>
+                  <td><a href="javascript:manageMap({pkey},2)">Bild</a></td>
+                </tr><tr>
+                  <td><input type="text" name="map[3]" value="{map3}" /></td>
+                  <td><input type="text" size="3" onKeyUp="setOPPsum()" name="opp[3]" value="{opp3}" /></td>
+                  <td><input type="text" size="3" onKeyUp="setOWPsum()" name="owp[3]" value="{owp3}" /></td>
+                  <td><a href="javascript:manageMap({pkey},3)">Bild</a></td>
+                </tr><tr>
+                  <td><input type="text" name="map[4]" value="{map4}" /></td>
+                  <td><input type="text" size="3" onKeyUp="setOPPsum()" name="opp[4]" value="{opp4}" /></td>
+                  <td><input type="text" size="3" onKeyUp="setOWPsum()" name="owp[4]" value="{owp4}" /></td>
+                  <td><a href="javascript:manageMap({pkey},4)">Bild</a></td>
+                </tr><tr>
+                  <td><input type="text" name="map[5]" value="{map5}" /></td>
+                  <td><input type="text" size="3" onKeyUp="setOPPsum()" name="opp[5]" value="{opp5}" /></td>
+                  <td><input type="text" size="3" onKeyUp="setOWPsum()" name="owp[5]" value="{owp5}" /></td>
+                  <td><a href="javascript:manageMap({pkey},5)">Bild</a></td>
+                </tr><tr>
+                  <td align="right">Summe:&nbsp;&nbsp;</td>
+                  <td><input type="text" size="3" name="sumopp" value="{opp}" /></td>
+                  <td><input type="text" size="3" name="sumowp" value="{owp}" /></td>
+                </tr>
+              </table>
+            </td>
+          </tr><tr>
+            <td class="Cmite">Nachricht</td>
+            <td class="Cnorm"><textarea cols="47" rows="2" name="txt">{txt}</textarea></td>
+          </tr><tr class="Cdark">
+            <td></td>
+            <td><input class="sub" type="submit" value="Absenden" name="sub" /></td>
+          </tr>
+        </table>
+      </form>
+    </td>
+    <td width="40%" valign="top">
+      <table class="border" cellpadding="3" cellspacing="1" border="0">
+        <tr class="Chead">
+          <td colspan="3">&Uuml;bersicht</td>
+        </tr>
+        {EXPLODE}
+        <tr class="{class}">
+          <td>{game} {gegner}</td>
+          <td align="center"><a href="javascript:del('{id}')"><img src="include/images/icons/del.png" alt="{_lang_delete}" title="{_lang_delete}" /></a></td>
+          <td align="center"><a href="admin.php?wars-last&amp;pkey={id}"><img src="include/images/icons/edit.png" alt="{_lang_change}" title="{_lang_change}" /></a></td>
+        </tr>
+        {EXPLODE}
+      </table>
+      {MPL}
+    </td>
+  </tr>
 </table>
 
 <script language="JavaScript" type="text/javascript">
 <!--
-  function del ( id1 ) {
-    var x = confirm ( "do you really want to delete?" );
-		if ( x ) {
-		  document.location.href="admin.php?wars-last&delete="+id1;
-		}
-	}
-  function manageMap ( wid, mid ) {
-    if ( wid == 0 ) {
-      alert ( 'Bitte den Lastwar erst speichern und dann hier das Bild einfuegen!...' );
-    } else if (document.getElementsByName('opp['+mid+']')[0].value == '' || document.getElementsByName('owp['+mid+']')[0].value == '' || document.getElementsByName('map['+mid+']')[0].value == '') {
-      alert ( 'Bitte erstmal den Namen und die Ergebnisse dieser Runde/Map eintragen!..' );
-    } else {
-      var Fenster = window.open ('admin.php?wars-last-upload=0&wid=' + wid + '&mid=' + mid, 'managemap', 'scrollbars=yes,height=150,width=325,left=300,top=50');
-      Fenster.focus();
-    }
+function del ( id1 ) {
+  var x = confirm ( unescape ( "Willst%20du%20diesen%20Eintrag%20wirklich%20l%F6schen%3F" ));
+  if ( x ) { document.location.href="admin.php?wars-last&delete="+id1; }
+}
+function manageMap ( wid, mid ) {
+  if ( wid == 0 ) {
+  alert ( unescape ('Bitte%20den%20Lastwar%20erst%20speichern%20und%20dann%20hier%20das%20Bild%20einf%FCgen%21' ));
+  } else if (document.getElementsByName('opp['+mid+']')[0].value == '' || document.getElementsByName('owp['+mid+']')[0].value == '' || document.getElementsByName('map['+mid+']')[0].value == '') {
+  alert ( unescape ('Bitte%20erstmal%20den%20Namen%20und%20die%20Ergebnisse%20dieser%20Runde/Map%20eintragen%21' ));
+  } else {
+  var Fenster = window.open ('admin.php?wars-last-upload=0&wid=' + wid + '&mid=' + mid, 'managemap', 'scrollbars=yes,height=150,width=325,left=300,top=50');
+  Fenster.focus();
+  }
   }
   function manageMember () {
-    if ( document.form.pkey.value == 0 ) {
-      alert ( 'Bitte den Lastwar erst speichern und dann hier die Member bearbeiten!...' );
-    } else {
-      var Fenster = window.open ('admin.php?wars-last-members&wid={pkey}', 'manageMember', 'scrollbars=yes,height=300,width=250,left=300,top=50');
-      Fenster.focus();
-    }
+  if ( document.form.pkey.value == 0 ) {
+  alert ( unescape ('Bitte%20den%20Lastwar%20erst%20speichern%20und%20dann%20hier%20die%20Member%20bearbeiten%21' ));
+  } else {
+  var Fenster = window.open ('admin.php?wars-last-members&wid={pkey}', 'manageMember', 'scrollbars=yes,height=300,width=250,left=300,top=50');
+  Fenster.focus();
+  }
   }
   function setOPPsum () {
     var summe = 0;
@@ -166,7 +201,6 @@
     summe = summe + ( document.getElementsByName('owp[5]')[0].value * 1);
     document.form.sumowp.value = summe;
   }
-
   function visitpage () {
     var page = document.form.page.value;
     var n = 'page';
@@ -182,9 +216,7 @@
       $('#new' + arg.id).css('display', 'none');
     }
   }
-
-	
-	var flagpath = 'include/images/flags/';
+  var flagpath = 'include/images/flags/';
   $(document).ready(function() {
     $('#opponent_nation_flag')
     .attr('src',flagpath + $('#opponent_nation').val());

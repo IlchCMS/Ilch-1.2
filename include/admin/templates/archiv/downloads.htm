@@ -1,25 +1,62 @@
-﻿<table width="100%">
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {		   
+	$("#validate").validate({
+		rules: {
+			name: { required: true, minlength: 2 },
+			version: { required: true },
+			creater: { required: true },
+			newurl:  { required: true },
+			//surl: { required: true },
+			//ssurl: { required: true },
+			desc: { required: true },
+			descl: { required: true }
+		},
+		messages: {
+			name: { required: "Bitte Name eingeben!", minlength: "Dein Name muss mindestens 2 Zeichen haben!" },
+			version: "Bitte Version angeben!",
+			creater: "Bitte Autor angeben!",
+			newurl: "Bitte ein Link ausw&auml;hlen!",
+			//surl: "Bitte einen Demolink angeben!",
+			//ssurl: "Bitte ein Link zur Vorschau angeben!",
+			desc: "Bitte eine kurze Beschreibung angeben!",
+			descl: "Bitte eine ausf&uuml;hrliche Beschreibung eingeben!"
+		}
+	});
+	$("#validate2").validate({
+		rules: {
+			Cname: { required: true, minlength: 2 },
+			Cdesc: { required: true }
+		},
+		messages: {
+			Cname: { required: "Bitte Name eingeben!", minlength: "Dein Name muss mindestens 2 Zeichen haben!" },
+			Cdesc: "Bitte eine Beschreibung angeben!"
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
+<table width="100%">
   <tr>
-	  <td valign="top" width="60%">
+    <td valign="top" width="60%">
 
 <table cellpadding="3" border="0" cellspacing="1" class="border">
   <tr class="Chead">
-		<td><b>Name</b></td>
-
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
-{EXPLODE}
+    <td><b>Name</b></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  {EXPLODE}
   <tr class="{class}">
-	  <td>{name} {version}</td>
-		<td><a href="?archiv-downloads-e{id}#edit"><img src="include/images/icons/edit.png" border="0" title="&auml;ndern" alt="&auml;ndern"></a></td>
-		<td><a href="javascript:del('{id}')"><img src="include/images/icons/del.png" border="0" title="l&ouml;schen" alt="l&ouml;schen"></a></td>
+    <td>{name} {version}</td>
+    <td><a href="?archiv-downloads-e{id}#edit"><img src="include/images/icons/edit.png" border="0" title="&auml;ndern" alt="&auml;ndern"></a></td>
+    <td><a href="javascript:del('{id}')"><img src="include/images/icons/del.png" border="0" title="l&ouml;schen" alt="l&ouml;schen"></a></td>
     <td><a href="?archiv-downloads-S{cat}-o{id}-{pos}"><img src="include/images/icons/pfeilo.png" border="0" title="oben" alt="oben"></a></td>
     <td><a href="?archiv-downloads-S{cat}-u{id}-{pos}"><img src="include/images/icons/pfeilu.png" border="0" title="unten" alt="unten"></a></td>
-	</tr>
-{EXPLODE}
+  </tr>
+  {EXPLODE}
 </table>
 <br />
 
@@ -27,7 +64,7 @@
 
 <table cellpadding="3" border="0" cellspacing="1" class="border">
   <tr class="Chead">
-		<td colspan="5"><b>Kategorien</b></td>
+    <td colspan="5"><b>Kategorien</b></td>
   </tr>{frei}<tr class="Cmite">
     <td><a href="?archiv-downloads-S0">Keine</a></td>
     <td></td>
@@ -37,83 +74,83 @@
   </tr>{EXPLODE}
 </table>
 <br />
+
 </td></tr><tr><td><a href="#" name="edit"></a>
 
-<form action="admin.php?archiv-downloads" method="POST" name="form">
-	<input type="hidden" name="pkey" value="{pkey}">
-
-	<table class="border" cellpadding="3" cellspacing="1" border="0">
-    <tr class="Chead">
-		  <td colspan="2"><b>Downloads</b></td>
-		</tr><tr>
-      <td class="Cmite">Name</td>
-			<td class="Cnorm"><input type="text" name="name" value="{name}" /></td>
-    </tr><tr>
-      <td class="Cmite">Version</td>
-			<td class="Cnorm"><input type="text" name="version" value="{version}" /></td>
-    </tr><tr>
-      <td class="Cmite">Kategorie</td>
-			<td class="Cnorm"><select name="cat">{cat}</select></td>
-    </tr><tr>
-      <td class="Cmite">Autor</td>
-			<td class="Cnorm"><input type="text" name="creater" value="{creater}" /></td>
-    </tr><tr>
-      <td class="Cmite">Download ab</td>
-			<td class="Cnorm"><select name="drecht">{drecht}</select></td>
-    </tr><tr>
-      <td class="Cmite">Url</td>
-			<td class="Cnorm"><input type="text" size="35" name="newurl" value="{newurl}" />&nbsp;
+<form action="admin.php?archiv-downloads" method="POST" name="form" id="validate">
+{ANTISPAM}
+<input type="hidden" name="pkey" value="{pkey}">
+<table class="border" cellpadding="3" cellspacing="1" border="0">
+  <tr class="Chead">
+    <td colspan="2"><b>Downloads</b></td>
+  </tr><tr>
+    <td class="Cmite">Name</td>
+    <td class="Cnorm"><input type="text" name="name" value="{name}" /></td>
+  </tr><tr>
+    <td class="Cmite">Version</td>
+    <td class="Cnorm"><input type="text" name="version" value="{version}" /></td>
+  </tr><tr>
+    <td class="Cmite">Kategorie</td>
+    <td class="Cnorm"><select name="cat">{cat}</select></td>
+  </tr><tr>
+    <td class="Cmite">Autor</td>
+    <td class="Cnorm"><input type="text" name="creater" value="{creater}" /></td>
+  </tr><tr>
+    <td class="Cmite">Download ab</td>
+    <td class="Cnorm"><select name="drecht">{drecht}</select></td>
+  </tr><tr>
+    <td class="Cmite">Url</td>
+    <td class="Cnorm"><input type="text" size="35" name="newurl" value="{newurl}" />&nbsp;
       <input class="sub" type="button" value="Verwalten" title="Files verwalten" onClick="javascript:openFiles()" />
-      </td>
-    </tr><tr>
-      <td class="Cmite">Screenshot Url</td>
-			<td class="Cnorm"><input type="text" size="50" name="surl" value="{surl}" /></td>
-    </tr><tr>
-      <td class="Cmite">Vorschau Url</td>
-			<td class="Cnorm"><input type="text" size="50" name="ssurl" value="{ssurl}" /></td>
-    </tr><tr>
-      <td class="Cmite">Vorschau Text</td>
-			<td class="Cnorm"><input type="text" size="50" name="desc" value="{desc}" /></td>
-    </tr><tr>
-      <td class="Cmite">Text lang</td>
-			<td class="Cnorm"><textarea cols="47" rows="3" name="descl">{descl}</textarea></td>
-    </tr>
-		<tr class="Cdark">
-		  <td></td>
-			<td><input class="sub" type="submit" value="Absenden" name="sub" />{datum}</td>
-		</tr>
-  </table>
+    </td>
+  </tr><tr>
+    <td class="Cmite">Screenshot Url</td>
+    <td class="Cnorm"><input type="text" size="50" name="surl" value="{surl}" /></td>
+  </tr><tr>
+    <td class="Cmite">Vorschau Url</td>
+    <td class="Cnorm"><input type="text" size="50" name="ssurl" value="{ssurl}" /></td>
+  </tr><tr>
+    <td class="Cmite">Vorschau Text</td>
+    <td class="Cnorm"><input type="text" size="50" name="desc" value="{desc}" /></td>
+  </tr><tr>
+    <td class="Cmite">Text lang</td>
+    <td class="Cnorm"><textarea cols="47" rows="3" name="descl">{descl}</textarea></td>
+  </tr><tr class="Cdark">
+    <td></td>
+    <td><input class="sub" type="submit" value="Absenden" name="sub" />{datum}</td>
+  </tr>
+</table>
 </form>
 
 </td><td valign="top">
 
-<form action="admin.php?archiv-downloads" method="POST">
-	<input type="hidden" name="Cpkey" value="{Cpkey}">
-
-	<table class="border" cellpadding="3" cellspacing="1" border="0">
-    <tr class="Chead">
-		  <td colspan="2"><b>Download Kategorien</b></td>
-		</tr>
-      <td class="Cmite">Kategorie</td>
-			<td class="Cnorm"><select name="Ccat">{Ccat}</select></td>
-    </tr></tr>
-      <td class="Cmite">Sichtbar ab</td>
-			<td class="Cnorm"><select name="Crecht">{Crecht}</select></td>
-    </tr><tr>
-      <td class="Cmite">Name</td>
-			<td class="Cnorm"><input type="text" name="Cname" value="{Cname}" /></td>
-    </tr><tr>
-      <td class="Cmite">Text</td>
-			<td class="Cnorm"><textarea cols="35" rows="3" name="Cdesc">{Cdesc}</textarea></td>
-    </tr>
-		<tr class="Cdark">
-		  <td></td>
-			<td><input class="sub" type="submit" value="Absenden" name="Csub" /></td>
-		</tr>
-  </table>
+<form action="admin.php?archiv-downloads" method="POST" id="validate2">
+{ANTISPAM}
+<input type="hidden" name="Cpkey" value="{Cpkey}">
+<table class="border" cellpadding="3" cellspacing="1" border="0">
+  <tr class="Chead">
+    <td colspan="2"><b>Download Kategorien</b></td>
+  </tr><tr>
+    <td class="Cmite">Kategorie</td>
+    <td class="Cnorm"><select name="Ccat">{Ccat}</select></td>
+  </tr><tr>
+    <td class="Cmite">Sichtbar ab</td>
+    <td class="Cnorm"><select name="Crecht">{Crecht}</select></td>
+  </tr><tr>
+    <td class="Cmite">Name</td>
+    <td class="Cnorm"><input type="text" name="Cname" value="{Cname}" /></td>
+  </tr><tr>
+    <td class="Cmite">Text</td>
+    <td class="Cnorm"><textarea cols="35" rows="3" name="Cdesc">{Cdesc}</textarea></td>
+  </tr><tr class="Cdark">
+    <td></td>
+    <td><input class="sub" type="submit" value="Absenden" name="Csub" /></td>
+  </tr>
+</table>
 </form>
 
-</td></td></table>
+</td></tr></table>
+
 <script language="JavaScript" type="text/javascript">
 <!--
   function openFiles () {
@@ -126,19 +163,18 @@
   }
   
   function Kdel ( id1 ) {
-	
-    var x = confirm ( "do you really want to delete?" );
+    var x = confirm ( unescape ( "Willst%20du%20diese%20Kategorie%20wirklich%20l%F6schen%3F" ));
 		if ( x ) {
 		  document.location.href="?archiv-downloads-D"+id1;
 		}
 	}
+	
   function del ( id1 ) {
-    var x = confirm ( "do you really want to delete?" );
+    var x = confirm ( unescape ( "Willst%20du%20diesen%20Download%20wirklich%20l%F6schen%3F" ));
 		if ( x ) {
 		  document.location.href="?archiv-downloads-d"+id1;
 		}
 	}
-  
 //-->
 </script>
 <p></p>

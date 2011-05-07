@@ -14,7 +14,7 @@ if (isset($_REQUEST[ 'um' ])) {
     $um = $_REQUEST[ 'um' ];
 }
 
-if (!empty($_POST[ 'sub' ])) {
+if (!empty($_POST[ 'sub' ]) and chk_antispam('adminuser_action', true)) {
     $text = escape($_POST[ 'text' ], 'string');
     $titel = escape($_POST[ 'titel' ], 'string');
     $zahl = escape($_POST[ 'zahl' ], 'integer');
@@ -45,6 +45,7 @@ if (empty($_GET[ 'sid' ])) {
 
 $clas = '';
 $tpl = new tpl('rules', 1);
+$row[ 'ANTISPAM' ] =  get_antispam('adminuser_action', 0, true);
 $tpl->set_ar_out($row, 0);
 $erg = db_query('SELECT * FROM `prefix_rules` ORDER BY `zahl`');
 while ($row = db_fetch_assoc($erg)) {

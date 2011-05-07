@@ -1,34 +1,52 @@
-<form action="admin.php?kasse{id}" method="POST">
-<table cellpadding="2" cellspacing="1" border="0" class="border">
-  <tr class="Chead">
-    <td width="50%" colspan="2"><b>Buchen</b></td>
-    <td width="50"><b>Kontodaten</b></td>
-  </tr><tr class="Cmite">
-    <td colspan="2">hier k&ouml;nnen Sie f&uuml;r das Konto eine Buchung durchf&uuml;hren.
-    Falsche Buchungen k&ouml;nnen Sie auf der Seite wieder l&ouml;schen.</td>
-    <td>geben Sie in dieses Feld bitte ihre Kontodaten ein, damit die Member diese
-    einsehen k&ouml;nnen. Wichtige Daten sind: Kontoinhaber, Bankname, Kontonummer, Bankleitzahl,
-    BIC und IBAN f&uuml;r Auslands&uuml;berwerweisungen und vergessen Sie nicht einen
-    Verwendungszweck fest zu legen.</td>
-  </tr><tr>
-    <td width="20%" class="Cmite">Name</td>
-    <td width="30%" class="Cnorm"><input name="name" value="{name}"/></td>
-    <td width="50%" rowspan="5" valign="top" class="Cnorm">
-      <textarea cols="60" rows="10" name="kontodaten">{kontodaten}</textarea>
-      <br /><input class="sub" type="submit" value="Kontodaten speichern" name="ksub" />
-    </td>
-  </tr><tr>
-    <td class="Cmite" valign="top">Datum<br /></td>
-    <td class="Cnorm" valign="top"><input name="datum" value="{datum}" /></td>
-  </tr><tr>
-    <td class="Cmite" valign="top">Betrag<br /><font class="smalfont">bitte mit + oder - Zeichen eingeben jenachdem ob es eben eine Ausgabe (-) oder eine Einnahme (+) ist..Wenn das nicht richtig gemacht wird kann ich da f&uuml;r nichts garantien ;)</font></td>
-    <td class="Cnorm" valign="top"><input name="betrag" value="{betrag}" /> €<br /><font class="smalfont">z.B. -30 f&uuml;r eine Ausgabe die 30€ gekostet hat. Oder eben +30 f&uuml;r eine Einnhabe &uuml;ber 30€. Bitte <u>keine</u> 1000der Trennzeichen einbauen. Also nicht 10.000 sondern 10000.</td>
-  </tr><tr>
-    <td class="Cmite">Verwendung</td>
-    <td class="Cnorm"><input name="verwendung" value="{verwendung}" /></td>
-  </tr><tr class="Cdark">
-    <td></td>
-    <td><input class="sub" type="submit" value="Absenden" name="sub" /></td>
-  </tr>
-</table>
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {		   
+	$("#validate").validate({
+		rules: {			
+			name: { required: true, minlength: 2 },
+			kontodaten: { required: true },
+			datum: { required: true },
+			betrag: { required: true },
+			verwendung: { required: true }
+		},
+		messages: {
+			name: { required: "Bitte Name eingeben!", minlength: "Der Name muss mindestens 2 Zeichen haben!" },
+			kontodaten: "Bitte Kontodaten angeben!",
+			datum: "Bitte ein Buchungsdatum angeben!",
+			betrag: "Bitte den Betrag angeben!",
+			verwendung: "Bitte die Verwendung angeben!"
+		}
+	});
+	$("#datepicker").datepicker({ dateFormat: 'dd.mm.yy' });
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
+<form action="admin.php?kasse{id}" method="POST" id="validate">
+  {ANTISPAM}
+  <table cellpadding="2" cellspacing="1" border="0" class="border">
+    <tr class="Chead">
+      <td width="50%" colspan="2"><b>Buchen</b></td>
+      <td width="50"><b>Kontodaten</b></td>
+    </tr><tr class="Cmite">
+      <td colspan="2">Hier k&ouml;nnen Sie f&uuml;r das Konto eine Buchung durchf&uuml;hren.<br/>Falsche Buchungen k&ouml;nnen Sie auf der Seite wieder l&ouml;schen.</td>
+      <td>Geben Sie in dieses Feld bitte ihre Kontodaten ein, damit die Member diese einsehen k&ouml;nnen.<br>Wichtige Daten sind: Kontoinhaber, Bankname, Kontonummer, Bankleitzahl, BIC und IBAN f&uuml;r Auslands&uuml;berweisungen und vergessen Sie nicht einen Verwendungszweck einzugeben.</td>
+    </tr><tr>
+      <td width="20%" class="Cmite">Name</td>
+      <td width="30%" class="Cnorm"><input name="name" value="{name}"/></td>
+      <td width="50%" rowspan="4" valign="top" class="Cnorm"><textarea cols="50" rows="12" name="kontodaten">{kontodaten}</textarea></td>
+    </tr><tr>
+      <td class="Cmite">Datum<br /></td>
+      <td class="Cnorm"><input id="datepicker" name="datum" value="{datum}" /></td>
+    </tr><tr>
+      <td class="Cmite">Betrag<br /><font class="smalfont"><br />Bitte mit + oder - Zeichen eingeben je nachdem ob es eben eine Ausgabe (-) oder eine Einnahme (+) ist.</font></td>
+      <td class="Cnorm"><input name="betrag" value="{betrag}" /> &euro;<br /><font class="smalfont">z.B. -30 f&uuml;r eine Ausgabe die 30&euro; gekostet hat. Oder eben +30 f&uuml;r eine Gutschrift von 30&euro;.<br/>Bitte <u>keine</u> 1000er Trennzeichen einbauen.<br/>Also nicht 10.000 sondern 10000.</font></td>
+    </tr><tr>
+      <td class="Cmite">Verwendung</td>
+      <td class="Cnorm"><input name="verwendung" value="{verwendung}" /></td>
+    </tr><tr class="Cdark">
+      <td></td>
+      <td><input class="sub" type="submit" value="Absenden" name="sub" /></td>
+      <td><input class="sub" type="submit" value="Kontodaten speichern" name="ksub" /></td>
+    </tr>
+  </table>
 </form>

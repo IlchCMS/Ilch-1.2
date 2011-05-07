@@ -20,6 +20,7 @@ switch ($menu->get(1)) {
 
             $bool = db_fetch_assoc($sql);
             $tpl->set('Message', "");
+			$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
 
             $Formate = array(
                 "fnFormatB" => "Selected_B_",
@@ -60,6 +61,7 @@ switch ($menu->get(1)) {
                 }
             }
         } else {
+			if (chk_antispam('adminuser_action', true)) {
             db_query("UPDATE
 							`prefix_bbcode_buttons`
 						SET
@@ -90,7 +92,8 @@ switch ($menu->get(1)) {
 							`fnFormatQuote` = '" . $_POST[ 'BBCode_QUOTE' ] . "',
                             `fnFormatFlash` = '" . $_POST[ 'BBCode_FLASH' ] . "'");
 
-            $tpl->set('Message', 'Zustände wurden erfolgreich gespeichert!');
+            $tpl->set('Message', 'Zust&auml;nde wurden erfolgreich gespeichert!');
+			$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
 
             $Formate = array(
                 "BBCode_B" => "Selected_B_",
@@ -129,7 +132,7 @@ switch ($menu->get(1)) {
                     $tpl->set($Zustand . 'On', "");
                     $tpl->set($Zustand . 'Off', "selected");
                 }
-            }
+            }}
         }
 
         $tpl->out(0);
@@ -146,6 +149,7 @@ switch ($menu->get(1)) {
 
             $BB_Design = db_fetch_assoc($sql);
             $tpl->set('Message', '');
+			$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
             $tpl->set('NBSP', '');
             // > Zuweisung Quotes/Zitate
             $tpl->set('BBCode_QuoteRandFarbe', $BB_Design[ 'fcQuoteRandFarbe' ]);
@@ -221,6 +225,7 @@ switch ($menu->get(1)) {
             }
             $tpl->set('BBCode_CountdownSchriftformat', $BB_Design[ 'fcCountdownSchriftformat' ]);
         } else {
+			if (chk_antispam('adminuser_action', true)) {
             db_query("UPDATE
 							`prefix_bbcode_design`
 						SET
@@ -249,6 +254,7 @@ switch ($menu->get(1)) {
 							`fcCountdownSchriftformat` = '" . $_POST[ 'BBCode_CountdownSchriftformat' ] . "'");
 
             $tpl->set('Message', 'Design wurde erfolgreich gespeichert!');
+			$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
             $tpl->set('NBSP', '&nbsp;');
             // > Zuweisung Quotes/Zitate
             $tpl->set('BBCode_QuoteRandFarbe', $_POST[ 'BBCode_QuoteRandFarbe' ]);
@@ -323,7 +329,7 @@ switch ($menu->get(1)) {
                 $tpl->set('SelectedCountdownNormal', "selected");
             }
             $tpl->set('BBCode_CountdownSchriftformat', $_POST[ 'BBCode_CountdownSchriftformat' ]);
-        }
+        }}
 
         $tpl->out(0);
         break;
@@ -363,7 +369,10 @@ switch ($menu->get(1)) {
             $tpl->set('BBCode_ImgMaxHoehe', $BB_Config[ 'fnImgMaxHoehe' ]);
             $tpl->set('BBCode_ScreenMaxBreite', $BB_Config[ 'fnScreenMaxBreite' ]);
             $tpl->set('BBCode_ScreenMaxHoehe', $BB_Config[ 'fnScreenMaxHoehe' ]);
+			//
+			$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
         } else {
+			if (chk_antispam('adminuser_action', true)) {
             db_query("UPDATE
 							`prefix_bbcode_config`
 					  SET
@@ -388,6 +397,7 @@ switch ($menu->get(1)) {
 							`fnScreenMaxHoehe` = '" . $_POST[ 'BBCode_ScreenMaxHoehe' ] . "'");
 
             $tpl->set('Message', 'Konfiguration wurde erfolgreich gespeichert!');
+			$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
             // > Video "YouTube"
             $tpl->set('BBCode_YoutubeBreite', $_POST[ 'BBCode_YoutubeBreite' ]);
             $tpl->set('BBCode_YoutubeHoehe', $_POST[ 'BBCode_YoutubeHoehe' ]);
@@ -413,7 +423,7 @@ switch ($menu->get(1)) {
             $tpl->set('BBCode_ImgMaxHoehe', $_POST[ 'BBCode_ImgMaxHoehe' ]);
             $tpl->set('BBCode_ScreenMaxBreite', $_POST[ 'BBCode_ScreenMaxBreite' ]);
             $tpl->set('BBCode_ScreenMaxHoehe', $_POST[ 'BBCode_ScreenMaxHoehe' ]);
-        }
+        }}
         $tpl->out(0);
         break;
     // > Badwordlist
@@ -425,8 +435,9 @@ switch ($menu->get(1)) {
         $tpl = new tpl('bbcode/badword', 1);
         $tpl->set('msgColor', '#0033FF');
         $tpl->set('Message', '');
+		$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
 
-        if (isset($_POST[ 'BB_SubmitBadword' ]) && $_POST[ 'BBCode_BadPatter' ] != "" && $_POST[ 'BBCode_BadReplace' ] != "") {
+        if ((isset($_POST[ 'BB_SubmitBadword' ]) && $_POST[ 'BBCode_BadPatter' ] != "" && $_POST[ 'BBCode_BadReplace' ] != "") and chk_antispam('adminuser_action', true)) {
             $sql = db_query("SELECT
 								fcBadPatter,
 								fcBadReplace

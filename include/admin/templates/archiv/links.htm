@@ -1,133 +1,149 @@
-<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/archiv_links.png" /></td><td width="30"></td><td valign="bottom"><h1>Links</h1></td></tr></table>
-
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {		   
+	$("#validate").validate({
+		rules: {
+			name: { required: true, minlength: 2 },
+			banner: { required: true, url: true },
+			link: { required: true, url: true },
+			desc: { required: true }
+		},
+		messages: {
+			name: { required: "Bitte Name eingeben!", minlength: "Dein Name muss mindestens 2 Zeichen haben!" },
+			banner: "Bitte ein g&uuml;ltigen Bannerlink eingeben!",
+			link: "Bitte eine g&uuml;ltige Internetadresse eingeben!",
+			desc: "Bitte eine kurze Beschreibung angeben!"
+		}
+	});
+	$("#validate2").validate({
+		rules: {
+			Cname: { required: true, minlength: 2 },
+			Cdesc: { required: true }
+		},
+		messages: {
+			Cname: { required: "Bitte Name eingeben!", minlength: "Dein Name muss mindestens 2 Zeichen haben!" },
+			Cdesc: "Bitte eine Beschreibung angeben!"
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
 <table width="100%">
   <tr>
-	  <td valign="top" width="60%">
-
-<table cellpadding="3" border="0" cellspacing="1" class="border">
-  <tr class="Chead">
-		<td><b>Name</b></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
-{EXPLODE}
-  <tr class="{class}">
-	  <td>{name}</td>
-		<td><a href="?archiv-links-e{id}"><img src="include/images/icons/edit.png" border="0" title="&auml;ndern" alt="&auml;ndern"></a></td>
-		<td><a href="javascript:del('{id}')"><img src="include/images/icons/del.png" border="0" title="l&ouml;schen" alt="l&ouml;schen"></a></td>
-    <td><a href="?archiv-links-S{cat}-o{id}-{pos}"><img src="include/images/icons/pfeilo.png" border="0" title="oben" alt="oben"></a></td>
-    <td><a href="?archiv-links-S{cat}-u{id}-{pos}"><img src="include/images/icons/pfeilu.png" border="0" title="unten" alt="unten"></a></td>
-	</tr>
-{EXPLODE}
+    <td valign="top" width="60%">
+      <table cellpadding="3" border="0" cellspacing="1" class="border">
+        <tr class="Chead">
+          <td><b>Name</b></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        {EXPLODE}
+        <tr class="{class}">
+          <td>{name}</td>
+          <td><a href="?archiv-links-e{id}"><img src="include/images/icons/edit.png" border="0" title="&auml;ndern" alt="&auml;ndern"></a></td>
+          <td><a href="javascript:del('{id}')"><img src="include/images/icons/del.png" border="0" title="l&ouml;schen" alt="l&ouml;schen"></a></td>
+          <td><a href="?archiv-links-S{cat}-o{id}-{pos}"><img src="include/images/icons/pfeilo.png" border="0" title="oben" alt="oben"></a></td>
+          <td><a href="?archiv-links-S{cat}-u{id}-{pos}"><img src="include/images/icons/pfeilu.png" border="0" title="unten" alt="unten"></a></td>
+        </tr>
+        {EXPLODE}
+      </table>
+      <br />
+    </td>
+    <td valign="top" width="40%">
+      <table cellpadding="3" border="0" cellspacing="1" class="border">
+        <tr class="Chead">
+          <td colspan="5"><b>Kategorien</b></td>
+        </tr><tr class="Cmite">
+          <td><a href="?archiv-links-S0">Keine</a></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        {EXPLODE}
+      </table>
+      <br />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <form action="admin.php?archiv-links" method="POST" name="form" id="validate">
+      {ANTISPAM}
+	  <input type="hidden" name="pkey" value="{pkey}">
+	    <table class="border" cellpadding="3" cellspacing="1" border="0">
+	      <tr class="Chead">
+		    <td colspan="2"><b>Links</b></td>
+		  </tr><tr>
+		    <td class="Cmite">Name</td>
+		    <td class="Cnorm"><input type="text" name="name" value="{name}" /></td>
+		  </tr><tr>
+		    <td class="Cmite">Kategorie</td>
+		    <td class="Cnorm"><select name="cat">{cat}</select></td>
+		  </tr><tr>
+		    <td class="Cmite">Banner</td>
+		    <td class="Cnorm"><input type="text" size="50" name="banner" value="{banner}" /></td>
+		  </tr><tr>
+		    <td class="Cmite">Link</td>
+		    <td class="Cnorm"><input type="text" size="50" name="link" value="{link}" /></td>
+		  </tr><tr>
+		    <td class="Cmite">Text</td>
+		    <td class="Cnorm"><textarea cols="50" rows="2" name="desc">{desc}</textarea></td>
+		  </tr><tr class="Cdark">
+		    <td></td>
+		    <td><input type="submit" value="Absenden" name="sub" /></td>
+		  </tr>
+		</table>
+      </form>
+    </td>
+    <td valign="top">
+      <form action="admin.php?archiv-links" method="POST" id="validate2">
+      {ANTISPAM}
+      <input type="hidden" name="Cpkey" value="{Cpkey}">
+        <table class="border" cellpadding="3" cellspacing="1" border="0">
+          <tr class="Chead">
+            <td colspan="2"><b>Link Kategorien</b></td>
+          </tr><tr>
+            <td class="Cmite">Kategorie</td>
+            <td class="Cnorm"><select name="Ccat">{Ccat}</select></td>
+          </tr><tr>
+            <td class="Cmite">Name</td>
+            <td class="Cnorm"><input type="text" name="Cname" value="{Cname}" /></td>
+          </tr><tr>
+            <td class="Cmite">Text</td>
+            <td class="Cnorm"><textarea cols="35" rows="3" name="Cdesc">{Cdesc}</textarea></td>
+          </tr><tr class="Cdark">
+            <td></td>
+            <td><input type="submit" value="Absenden" name="Csub" /></td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
 </table>
-<br />
-
-</td><td valign="top" width="40%">
-
-<table cellpadding="3" border="0" cellspacing="1" class="border">
-  <tr class="Chead">
-		<td colspan="5"><b>Kategorien</b></td>
-  </tr><tr class="Cmite">
-    <td><a href="?archiv-links-S0">Keine</a></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>{EXPLODE}
-</table>
-<br />
-</td></tr><tr><td>
-
-<form action="admin.php?archiv-links" method="POST" name="form">
-	<input type="hidden" name="pkey" value="{pkey}">
-
-	<table class="border" cellpadding="3" cellspacing="1" border="0">
-    <tr class="Chead">
-		  <td colspan="2"><b>Links</b></td>
-		</tr>
-    		<tr>
-      <td class="Cmite">Name</td>
-			<td class="Cnorm"><input type="text" name="name" value="{name}" /></td>
-    </tr><tr>
-      <td class="Cmite">Kategorie</td>
-			<td class="Cnorm"><select name="cat">{cat}</select></td>
-    </tr>
-		<tr>
-      <td class="Cmite">Banner</td>
-			<td class="Cnorm"><input type="text" size="50" name="banner" value="{banner}" /></td>
-    </tr>
-		<tr>
-      <td class="Cmite">Link</td>
-			<td class="Cnorm"><input type="text" size="50" name="link" value="{link}" /></td>
-    </tr>
-		<tr>
-      <td class="Cmite">Text</td>
-			<td class="Cnorm"><textarea cols="50" rows="2" name="desc">{desc}</textarea></td>
-    </tr>
-		<tr class="Cdark">
-		  <td></td>
-			<td><input type="submit" value="Absenden" name="sub" /></td>
-		</tr>
-  </table>
-</form>
-
-</td><td valign="top">
-
-<form action="admin.php?archiv-links" method="POST">
-	<input type="hidden" name="Cpkey" value="{Cpkey}">
-
-	<table class="border" cellpadding="3" cellspacing="1" border="0">
-    <tr class="Chead">
-		  <td colspan="2"><b>Link Kategorien</b></td>
-		</tr>
-      <td class="Cmite">Kategorie</td>
-			<td class="Cnorm"><select name="Ccat">{Ccat}</select></td>
-    </tr><tr>
-      <td class="Cmite">Name</td>
-			<td class="Cnorm"><input type="text" name="Cname" value="{Cname}" /></td>
-    </tr><tr>
-      <td class="Cmite">Text</td>
-			<td class="Cnorm"><textarea cols="35" rows="3" name="Cdesc">{Cdesc}</textarea></td>
-    </tr>
-		<tr class="Cdark">
-		  <td></td>
-			<td><input type="submit" value="Absenden" name="Csub" /></td>
-		</tr>
-  </table>
-</form>
-
-</td></td></table>
 <script language="JavaScript" type="text/javascript">
 <!--
-  
-  function Kdel ( id1 ) {
-	
-    var x = confirm ( "do you really want to delete?" );
-		if ( x ) {
-		  document.location.href="?archiv-links-D"+id1;
-		}
-	}
-  function del ( id1 ) {
-    var x = confirm ( "do you really want to delete?" );
-		if ( x ) {
-		  document.location.href="?archiv-links-d"+id1;
-		}
-	}
-  function sichtbarA() {
-	  if(document.form.url.value=="neu"){
-		  document.form.newurl.style.visibility="visible";
-		} else {
-		  document.form.newurl.style.visibility="hidden";
-		}
+function Kdel ( id1 ) {
+  var x = confirm ( unescape ( "Kategorie%20wirklich%20l%F6schen%3F" ));  
+  if ( x ) { document.location.href="?archiv-links-D"+id1; }
   }
-	sichtbarA();
-  
+function del ( id1 ) {
+  var x = confirm ( unescape ( "Link%20wirklich%20l%F6schen%3F" ));
+  if ( x ) { document.location.href="?archiv-links-d"+id1; }
+  }
+function sichtbarA() {
+  if(document.form.url.value=="neu"){
+  document.form.newurl.style.visibility="visible";
+  } else {
+  document.form.newurl.style.visibility="hidden";
+  }
+  }
+  sichtbarA();
 //-->
 </script>
 <p></p>
 <div class="info_box">
-<p>Hier k&ouml;nnen Sie Links eintragen und Verwalten. Ausserdem k&ouml;nnen Sie hier die Kategorien der Links verwalten.</p>
-<p>Es werden alle Links einer Kategorie angezeigt, um Links einer Kategorie an zu zeigen bitte einfach Links auf den Namen der Kategorie klicken.</p>
+  <p>Hier k&ouml;nnen Sie Links eintragen und Verwalten. Ausserdem k&ouml;nnen Sie hier die Kategorien der Links verwalten.</p>
+  <p>Es werden alle Links einer Kategorie angezeigt, um Links einer Kategorie an zu zeigen bitte einfach Links auf den Namen der Kategorie klicken.</p>
 </div>

@@ -5,7 +5,7 @@
   <list title="Eigene Box/Page">
   
     <modul>
-	  <title>Übersicht</title>
+	  <title>&amp;Uuml;bersicht</title>
 	  <url>admin.php?selfbp-overview</url>
 	</modul>
 	

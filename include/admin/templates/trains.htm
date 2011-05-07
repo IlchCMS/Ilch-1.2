@@ -1,32 +1,59 @@
-<form action="admin.php?trains" method="POST">
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {		   
+	$("#validate").validate({
+		rules: {
+			mon: { required: true },		
+			die: { required: true },		
+			mit: { required: true },		
+			don: { required: true },		
+			fre: { required: true },		
+			sam: { required: true },		
+			son: { required: true }	
+		},
+		messages: {
+			mon: "Bitte Trainingsinformation angeben!",		
+			die: "Bitte Trainingsinformation angeben!",		
+			mit: "Bitte Trainingsinformation angeben!",		
+			don: "Bitte Trainingsinformation angeben!",		
+			fre: "Bitte Trainingsinformation angeben!",		
+			sam: "Bitte Trainingsinformation angeben!",		
+			son: "Bitte Trainingsinformation angeben!"	
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
+<form action="admin.php?trains" method="POST" id="validate">
+{ANTISPAM}
 <input type="hidden" name="send" value="1">
-<table cellspacing="1" cellpadding="2" broder="0" class="border">
-<tr class="Chead">
-	<td colspan="2"><b>Trainingszeiten - Administration</b></td>
-</tr><tr>
-	<td class="Cmite">Montag:</td>
-	<td class="Cnorm"><textarea cols="40" rows="3" name="mon">{MON}</textarea></td>
-</tr><tr>
-	<td class="Cmite">Dienstag:</td>
-	<td class="Cnorm"><textarea cols="40" rows="3" name="die">{DIE}</textarea></td>
-</tr><tr>
-	<td class="Cmite">Mittwoch:</td>
-	<td class="Cnorm"><textarea cols="40" rows="3" name="mit">{MIT}</textarea></td>
-</tr><tr>
-	<td class="Cmite">Donnerstag:</td>
-	<td class="Cnorm"><textarea cols="40" rows="3" name="don">{DON}</textarea></td>
-</tr><tr>
-	<td class="Cmite">Freitag:</td>
-	<td class="Cnorm"><textarea cols="40" rows="3" name="fre">{FRE}</textarea></td>
-</tr><tr>
-	<td class="Cmite">Samstag:</td>
-	<td class="Cnorm"><textarea cols="40" rows="3" name="sam">{SAM}</textarea></td>
-</tr><tr>
-	<td class="Cmite">Sonntag:</td>
-	<td class="Cnorm"><textarea cols="40" rows="3" name="son">{SON}</textarea></td>
-</tr><tr>
-	<td class="Cdark"></td>
-	<td class="Cdark"><input class="sub" type="submit" value="&Auml;ndern" name="sub"></td>
-</tr>
-</table>
+  <table cellspacing="1" cellpadding="2" border="0" class="border">
+    <tr class="Chead">
+      <td colspan="2"><b>Trainingszeiten - Administration</b></td>
+    </tr><tr>
+      <td class="Cmite">Montag:</td>
+      <td class="Cnorm"><textarea cols="40" rows="3" name="mon">{MON}</textarea></td>
+    </tr><tr>
+      <td class="Cmite">Dienstag:</td>
+      <td class="Cnorm"><textarea cols="40" rows="3" name="die">{DIE}</textarea></td>
+    </tr><tr>
+      <td class="Cmite">Mittwoch:</td>
+      <td class="Cnorm"><textarea cols="40" rows="3" name="mit">{MIT}</textarea></td>
+    </tr><tr>
+      <td class="Cmite">Donnerstag:</td>
+      <td class="Cnorm"><textarea cols="40" rows="3" name="don">{DON}</textarea></td>
+    </tr><tr>
+      <td class="Cmite">Freitag:</td>
+      <td class="Cnorm"><textarea cols="40" rows="3" name="fre">{FRE}</textarea></td>
+    </tr><tr>
+      <td class="Cmite">Samstag:</td>
+      <td class="Cnorm"><textarea cols="40" rows="3" name="sam">{SAM}</textarea></td>
+    </tr><tr>
+      <td class="Cmite">Sonntag:</td>
+      <td class="Cnorm"><textarea cols="40" rows="3" name="son">{SON}</textarea></td>
+    </tr><tr>
+      <td class="Cdark"></td>
+      <td class="Cdark"><input class="sub" type="submit" value="&Auml;ndern" name="sub"></td>
+    </tr>
+  </table>
 </form>

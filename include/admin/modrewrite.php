@@ -84,7 +84,7 @@ if (!file_exists('.htaccess')) {
 }
 
 # kk
-if (isset($_POST['submitmodrewrite'])) {
+if (isset($_POST['submitmodrewrite']) and chk_antispam('adminuser_action', true)) {
 
 	if ($_POST['aktivieremodrewrite'] == 'on') {
 		# aktiviere
@@ -153,7 +153,7 @@ if (isset($_POST['submitmodrewrite'])) {
 }
 
 # contentbox "putten"
-if (isset($_POST['submithtaccesscontentbox'])) {
+if (isset($_POST['submithtaccesscontentbox']) and chk_antispam('adminuser_action', true)) {
 	if(is_readable('.htaccess') and is_writeable('.htaccess')) {
 		
 		$newcontent = escape($_POST['htaccesscontentbox'], 'textarea');
@@ -175,6 +175,7 @@ if (isset($_POST['submithtaccesscontentbox'])) {
 	}
 }
 $tpl->set_ar($mr, 0);
+$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
 $tpl->out(0);
 $design->footer();
 ?>

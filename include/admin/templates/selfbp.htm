@@ -1,7 +1,25 @@
 <script language="JavaScript" type="text/javascript" src="include/includes/js/editor/whizzywig.js"></script>
 <script language="JavaScript" type="text/javascript" src="include/includes/js/editor/deutsch.js"></script>
-
-<form name="form" action="admin.php?selfbp" method="post" onsubmit="return checkfilename();">
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {		   
+	$("#validate").validate({
+		rules: {
+			filename: { required: true, minlength: 2 },
+			title: { required: true, minlength: 2 },
+			hmenu: { required: true, minlength: 2 }
+		},
+		messages: {
+			filename: { required: "Bitte gib den Dateiname an!", minlength: "Der Dateiname muss mindestens 2 Zeichen haben!" },
+			title: { required: "Bitte gib den Titel an!", minlength: "Der Titel muss mindestens 2 Zeichen haben!" },
+			hmenu: { required: "Bitte gib den Men&uuml;name an!", minlength: "Der Men&uuml;name muss mindestens 2 Zeichen haben!" },
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
+<form name="form" action="admin.php?selfbp" method="post" id="validate">
+{ANTISPAM}
 <input type="hidden" name="wysiwyg" value="{wysiwyg}" /><input type="hidden" name="toggle" value="0" />
 <table cellpadding="2" cellspacing="1" border="0" class="border">
   <tr>
@@ -18,79 +36,67 @@
     <td class="Cnorm"><input name="hmenu" size="50" value="{hmenu}" /></td>
   </tr><tr>
     <td class="Cmite">Anzeige</td>
-    <td class="Cnorm">
-      <select name="view">{view}</select>
-      <input name="viewoptions" size="50" value="{viewoptions}" />
-    </td>
+    <td class="Cnorm"><select name="view">{view}</select><input name="viewoptions" size="50" value="{viewoptions}" /></td>
   </tr><tr>
-    <td colspan="2" class="Cnorm">
-<textarea style="height:350px;width:750px;" name="bbwy" id="bbwy">{text}</textarea>
-{wysiwyg_editor}
-    </td>
+    <td colspan="2" class="Cnorm"><textarea style="height:350px;width:750px;" name="bbwy" id="bbwy">{text}</textarea>{wysiwyg_editor}</td>
   </tr><tr class="Cdark">
     <td></td>
-    <td><input class="sub" type="submit" name="submit_form" value="Speichern">&nbsp;
-    <input class="sub" type="button" value="Löschen" onclick="confirmDel()">&nbsp;
-    <input class="sub" type="button" value="Toggle WYSIWYG" name="toggleBtn" onclick="toggleWYSIWYG();" style="display:none;" />
+    <td>
+      <input class="sub" type="submit" name="submit_form" value="Speichern" />&nbsp;
+      <input class="sub" type="button" value="L&ouml;schen" onclick="confirmDel()" />&nbsp;
+      <input class="sub" type="button" value="Toggle WYSIWYG" name="toggleBtn" onclick="toggleWYSIWYG();" style="display:none;" />
     </td>
   </tr>
 </table>
 </form>
-
 <br /><br />
 <table width="100%" border="0" cellpadding="10" cellspacing="1" class="border">
   <tr>
-	  <td class="Cnorm">
-		  <b>Hilfe</b><br />
-			<ol>
-			  <li>
+    <td class="Cnorm"><b>Hilfe</b><br />
+      <ol>
+        <li>
           <ul>
-            <li><b>Dateiname:</b> Unter diesem Namen wird die Datei gespeichert und kann sie auch in der Navigation wiedergefunden werden. <br/>Unbedingt auch <b>4.</b> Punkt beachten!</li>
+            <li><b>Dateiname:</b> Unter diesem Namen wird die Datei gespeichert und kann sie auch in der Navigation wiedergefunden werden. Unbedingt auch <b>4.</b> Punkt beachten!</li>
             <li><b>Titel</b> wird oben in der Programmleiste angezeigt</li>
-            <li><b>Hmenu</b> wird unter dem Banner angezeigt [Design abhängig]</li>
-            <li><b>Anzeige</b> Hier kann man auswählen, ob die Seite ganz <u>normal</u>, <u>Vollbild</u> (, also ohne Men&uuml;,)
-            oder in einem <u>neuen Fenster</u> angezeigt werden soll. <br/>Für ein neues Fenster kann man die <u>Fenster Eigenschaften</u> noch in dem Eingabefeld dahinter festlegen. Bsp.:<br/>
-            <div style="background-color:#FFFFFF">
-            menubar=yes, toolbar=yes, status=yes, scrollbars=yes, resizable=yes, top=50, left=300, height=500, width=350</li>
-            </div>
+            <li><b>Hmenu</b> wird unter dem Banner angezeigt [Design abh&auml;ngig]</li>
+            <li><b>Anzeige</b> Hier kann man ausw&auml;hlen, ob die Seite ganz <u>normal</u>, <u>Vollbild</u> (, also ohne Men&uuml;,) oder in einem <u>neuen Fenster</u> angezeigt werden soll. <br/>F&uuml;r ein neues Fenster kann man die <u>Fenster Eigenschaften</u> noch in dem Eingabefeld dahinter festlegen. Bsp.:<br/><div style="background-color:#FFFFFF">menubar=yes, toolbar=yes, status=yes, scrollbars=yes, resizable=yes, top=50, left=300, height=500, width=350</div></li>
           </ul>
-				</li>
-				<br />
-        <li>Wie binde ich denn so eine eigene Page in das Men&uuml; ein?<br />
-				Einfach auf Navigation Klicken und den Namen aus&auml;hlen (er f&auml;ngt mit 'selfp_' an).
-				</li>
-				<br />
-				<li>Und eigene Boxen?<br />
-				Auch sehr einfach. Auf Navigation klicken und den Namen aus&auml;hlen (er f&auml;ngt mit 'selfb_' an).
-		    </li>
-				<br />
-				<li><b>Wichtig!</b><br />
-				Folgendes bitte beachten. Die Dateiamen m&uuml;ssen unterschiedlich sein!
-        Wenn Sie einen gleichen Namen verwenden, wird die schon bestehende Datei
-        einfach &uuml;berschrieben!
-        <br />
-        Ausserdem darf der Name einer neuen Seite nicht schon im include/contents
-        Ordner liegen, sonst kann die neue eigene Seite nicht angezeigt werden!
-        Bei eigenen Boxen ist dies egal, dort darf der Name im include/boxes
-        Ordner nicht schon vorhanden sein.
-        <br />
-        Bitte im Namen keine Sonderzeichen verwenden. Beschr&auml;nken Sie sich auf
-        die Buchstaben A-Z und a-z und auf die Zahlen 0-9 ...
-        <br />
-        Bitte unbedingt diese drei Punkte beachten, andernfalls kann es zu Datenverlust
-        oder sonstigem unerw&uuml;nstem Verhalten kommen.
-		    </li><br />
-		    <li>
-            <b>Toggle WYSIWYG</b><br />
-            Da der verwendete Editor bei komplexeren HTML Elementen wie iframes oder eingef&uuml;gten Videos einfach Sachen herausl&ouml;scht,
-            was zur Folge hat, dass die Elemente nicht funktionieren, kann man den Editor auch deaktivieren. In dem Modus kann man HTML eingeben,
-            ohne dass daran &Auml;nderungen vorgenommen werden.<br />
-            Ist erst nach Eingabe eines Namens verf&uuml;gbar, da beim Toggeln gespeichert wird.
-            </li>
-				<br /><br />
+        </li><br />
+        <li><b>Wie binde ich denn so eine eigene Page in das Men&uuml; ein?</b>
+          <br />
+          Einfach auf Navigation Klicken und den Namen aus&auml;hlen (er f&auml;ngt mit 'selfp_' an).
+        </li><br />
+        <li><b>Und eigene Boxen?</b>
+          <br />
+          Auch sehr einfach. Auf Navigation klicken und den Namen aus&auml;hlen (er f&auml;ngt mit 'selfb_' an).
+        </li><br />
+		<li><b>Wichtig!</b>
+		  <br />
+		  Folgendes bitte beachten. Die Dateiamen m&uuml;ssen unterschiedlich sein! 
+		  Wenn Sie einen gleichen Namen verwenden, wird die schon bestehende Datei einfach &uuml;berschrieben!
+          <br />
+          Ausserdem darf der Name einer neuen Seite nicht schon im include/contents
+          Ordner liegen, sonst kann die neue eigene Seite nicht angezeigt werden!
+          Bei eigenen Boxen ist dies egal, dort darf der Name im include/boxes
+          Ordner nicht schon vorhanden sein.
+          <br />
+          Bitte im Namen keine Sonderzeichen verwenden. Beschr&auml;nken Sie sich auf
+          die Buchstaben A-Z und a-z und auf die Zahlen 0-9 ...
+          <br />
+          Bitte unbedingt diese drei Punkte beachten, andernfalls kann es zu Datenverlust
+          oder sonstigem unerw&uuml;nstem Verhalten kommen.
+        </li><br />
+        <li><b>Toggle WYSIWYG</b>
+          <br />
+          Da der verwendete Editor bei komplexeren HTML Elementen wie Iframes oder eingef&uuml;gten Videos einfach Sachen herausl&ouml;scht,
+          was zur Folge hat, dass die Elemente nicht funktionieren, kann man den Editor auch deaktivieren. In dem Modus kann man HTML eingeben,
+          ohne dass daran &Auml;nderungen vorgenommen werden.
+          <br />
+          Ist erst nach Eingabe eines Namens verf&uuml;gbar, da beim Toggeln gespeichert wird.
+        </li><br /><br />
+      </ol>
     </td>
-
-	</tr>
+  </tr>
 </table>
 <script type="text/javascript">
 function changeAktion () {
@@ -99,21 +105,10 @@ function changeAktion () {
 }
 function confirmDel(){
   var akl = document.getElementById('akl').value;
-	var frage = confirm ( "Willst du " + akl.substr(1) + " wirklich löschen?" );
+	var frage = confirm ( unescape ( "Willst du " + akl.substr(1) + " wirklich%20l%F6schen%3F" ));
 	if ( frage == true ) {
     document.location.href="?selfbp=0&del=" + akl;
   }
-}
-function checkfilename () {
-  var filename = document.getElementById('filename');
-  if (filename.value != '') {
-    return (true);
-  }
-
-  alert ('Bitte einen Dateinamen eingeben.');
-  filename.style.backgroundColor="yellow";
-  filename.focus();
-  return (false);
 }
 function toggleWYSIWYG(){
     document.forms['form'].wysiwyg.value = document.forms['form'].wysiwyg.value == 1 ? 0 : 1;

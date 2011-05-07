@@ -115,7 +115,7 @@ switch ($um) {
         }
         $tpl = new tpl('user/user', 1);
         $tpl->set('anzmods', db_result(db_query("SELECT COUNT(*) FROM `prefix_modules` WHERE `fright` = 1"), 0));
-        $tpl->set('action_antispam', get_antispam('adminuser_action', 0, true));
+        $tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
         $tpl->set_out('q', unescape($q), 0);
 
         $q = str_replace('*', '%', $q);
@@ -150,7 +150,7 @@ switch ($um) {
     // gruppen zugehoerigkeiten eines users aendern
     case 'gruppen':
         $uid = $menu->get(2);
-        if (isset($_POST[ 'usergroups' ])) {
+        if (isset($_POST[ 'usergroups' ]) and chk_antispam('adminuser_action', true)) {
             $erg = db_query("SELECT `id` FROM `prefix_groups`");
             while ($row = db_fetch_assoc($erg)) {
                 $ck = db_count_query("SELECT COUNT(`uid`) FROM `prefix_groupusers` WHERE `uid` = " . $uid . " AND `gid` = " . $row[ 'id' ]);
@@ -166,7 +166,8 @@ switch ($um) {
         $tpl = new tpl('user/gruppen', 1);
         $tpl->set_ar_out(array(
                 'username' => $user_name,
-                'userid' => $uid
+                'userid' => $uid,
+				'ANTISPAM' => get_antispam('adminuser_action', 0, true)
                 ), 0);
         $class = 'Cnorm';
         $erg = db_query("SELECT `name`,`id` FROM `prefix_groups`");
@@ -240,7 +241,7 @@ switch ($um) {
             } else {
                 $row[ 'avatar' ] = '';
             }
-            $row[ 'antispam' ] = get_antispam('adminuser', 0, true);
+            $row[ 'ANTISPAM' ] = get_antispam('adminuser_action', 0, true);
             $tpl->set_ar_out($row, 0);
 
             profilefields_change($row[ 'id' ]);
@@ -262,7 +263,7 @@ switch ($um) {
             $changeok = false;
         }
         $sperrinfo = '';
-        if ($changeok and chk_antispam('adminuser', true)) {
+        if ($changeok and chk_antispam('adminuser_action', true)) {
             if (isset($_POST[ 'userdel' ])) {
                 user_remove($uid);
                 wd('?user', 'User wurde erfolgreich gel&ouml;scht');
@@ -330,7 +331,7 @@ switch ($um) {
                 $opt_pm_popup = escape($_POST[ 'opt_pm_popup' ], 'integer');
                 $gebdatum = escape($_POST[ 'gebdatum' ], 'string');
                 $sig = escape($_POST[ 'sig' ], 'string');
-                // Name im Forum ändern
+                // Name im Forum aendern
                 if ($_POST[ 'forumname' ] == 'on') {
                     $oldname = db_count_query("SELECT `name` FROM `prefix_user` WHERE `id` =" . $uid);
                     if ($oldname != $usaName1) {
@@ -367,13 +368,13 @@ switch ($um) {
                 $sperrinfo = ' und User wurde ausgeloggt';
             }
         }
-        wd('admin.php?user-1-' . $uid, 'Das Profil wurde erfolgreich geaendert' . $sperrinfo, 2);
+        wd('admin.php?user-1-' . $uid, 'Das Profil wurde erfolgreich ge&auml;ndert' . $sperrinfo, 2);
         $design->footer();
         break;
     // mal kurz nen neuen user anlegen
     case 'createNewUser':
         $msg = '';
-        if (!empty($_POST[ 'name' ]) and !empty($_POST[ 'pass' ]) and !empty($_POST[ 'email' ])) {
+        if (!empty($_POST[ 'name' ]) and !empty($_POST[ 'pass' ]) and !empty($_POST[ 'email' ]) and chk_antispam('adminuser_action', true)) {
             $_POST[ 'name' ] = escape($_POST[ 'name' ], 'string');
             $_POST[ 'recht' ] = escape($_POST[ 'recht' ], 'integer');
             $_POST[ 'email' ] = escape($_POST[ 'email' ], 'string');
@@ -400,9 +401,9 @@ switch ($um) {
                     unset($tpl);
                     icmail($_POST[ 'email' ], 'Admin hat dich angelegt', $txt);
                 }
-                $msg = 'Benutzer angelegt <a href="javascript:self.parent.ic.modalDialogClose();">Fenster schließen</a>';
+                $msg = 'Benutzer angelegt <a href="javascript:self.parent.ic.modalDialogClose();">Fenster schlie&szlig;en</a>';
             }
-        } elseif (isset($_POST['sub'])) {
+        } elseif (isset($_POST['sub']) and chk_antispam('adminuser_action', true)) {
             $msg = 'Du musst Name, Passwort und eine Emailadresse angeben!<br />';
         }
         $pass = '';
@@ -430,7 +431,7 @@ switch ($um) {
         $tpl->set('pass', $pass);
         $tpl->set('email', $email);
         $tpl->set('recht', dblistee($recht, "SELECT id,name FROM prefix_grundrechte ORDER BY id ASC"));
-        $tpl->set('antispam', get_antispam('adminuser_create', 0, true));
+		$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
         $tpl->out(1);
         $design->footer();
         break;
@@ -454,7 +455,7 @@ switch ($um) {
 
         if (isset($_POST['subCMR'])) {
             if (isset($_POST['mid']) and is_array($_POST['mid'])) {
-                //Änderungen vornehmen
+                //Aenderungen vornehmen
                 foreach ($_POST['mid'] as $mid) {
                     if ($data[$mid]['hasright'] == 1) {
                         continue; //Recht schon gesetzt
@@ -464,12 +465,12 @@ switch ($um) {
                     }
                 }
             }
-            //Prüfe auf gelöschte Rechte
+            //Prüfe auf geloeschte Rechte
             foreach ($data as $row){
                 if ($row['hasright'] == 1) {
                     if (isset($_POST['mid']) and !in_array($row['id'], $_POST['mid'])) {
                         //Recht entfernen
-                        if ($row['rightfrom'] == 1) { //Entfernen, wenn vom Grundrecht gegeben (einfügen als Modulrecht)
+                        if ($row['rightfrom'] == 1) { //Entfernen, wenn vom Grundrecht gegeben (einfuegen als Modulrecht)
                             db_query('INSERT INTO `prefix_modulerights` (`uid`, `mid`) VALUE ('.$id.','.$mid.')');
                         } else { //Entfernen, wenn als Modulrecht
                             db_query('DELETE FROM `prefix_modulerights` WHERE `mid` = ' . $row['id'] . ' AND `uid` = ' . $id);
@@ -485,7 +486,7 @@ switch ($um) {
             LEFT JOIN `prefix_modulerights` umr ON m.id = umr.mid AND umr.uid = ' . $id . '
             WHERE m.fright = 1
             ORDER BY hasright DESC, m.name', 'id');
-            $smarty->assign('info', 'Änderungen wurden gespeichert.');
+            $smarty->assign('info', '&Auml;nderungen wurden gespeichert.');
         }
 
         $smarty->assign('data', $data);

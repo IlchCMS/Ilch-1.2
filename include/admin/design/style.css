@@ -561,3 +561,8 @@ div.warning_box a {
 div.info_box, div.warning_box {
 	-moz-border-radius:3px; -webkit-border-radius:3px;
 }
+/* error validate */
+input.error, select.error, textarea.error { border: 1px #FF0000 dotted; background-color: #FFDDDD; }
+#formfehler { padding: 5px 0px 5px 0px; width: auto; color: #FF0000; }
+#validate label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+#validate2 label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }

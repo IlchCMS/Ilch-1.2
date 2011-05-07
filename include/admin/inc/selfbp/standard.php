@@ -41,7 +41,7 @@ function rteSafe($strText) {
 
     return $tmpString;
 }
-// gibt die  options f�r die Dateiauswahl zur�ck
+// gibt die  options fuer die Dateiauswahl zurueck
 function get_akl($ak) {
     $ar_l = array();
 
@@ -105,7 +105,7 @@ function get_filename($akl) {
     }
     return (basename($n));
 }
-// l�scht Sonderzeichen aus dem Dateinamen
+// loescht Sonderzeichen aus dem Dateinamen
 function get_nametosave($n) {
     $n = preg_replace("/[^a-zA-Z0-9\.]/", "", $n);
     if (substr($n, - 4) != ".php") {
@@ -113,7 +113,7 @@ function get_nametosave($n) {
     }
     return ($n);
 }
-// gibt den inhalt der ausgew�hlten Datei als String zur�ck
+// gibt den inhalt der ausgewaehlten Datei als String zurueck
 function get_text($akl) {
     $f = substr($akl, 0, 1);
     $n = basename(substr($akl, 1));
@@ -124,7 +124,7 @@ function get_text($akl) {
 
     return ('');
 }
-// f�gt defined('main') hinzu, oder entfernt es
+// fuegt defined('main') hinzu, oder entfernt es
 function edit_text($t, $add) {
     $erg = preg_match("/^\s*<\?php defined \('main'\) or die \('no direct access'\); \?>/s", $t);
     if (!$erg AND $add) {

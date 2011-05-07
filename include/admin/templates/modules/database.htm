@@ -1,77 +1,79 @@
-<script language="JavaScript" type="text/javascript"><!--
-	function delid ( DELID ) {
-		var frage = confirm ( "Bist Du Dir sicher, dass Du diesen Eintrag loeschen moechtest?" );
-		if ( frage == true ) {
-		  document.location.href="?modules-database-del-"+DELID;
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {		   
+	$("#validate").validate({
+		rules: {
+			name: { required: true },
+			url: { required: true }
+		},
+		messages: {
+			name: "Bitte ein Name angeben!",
+			url: "Bitte die Url angeben!"
 		}
-	}
-//--></script>
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
+<script language="JavaScript" type="text/javascript"><!--
+  function delid ( DELID ) {
+  var frage = confirm ( unescape ( "Diesen%20Eintrag%20wirklich%20l%F6schen%3F" ));
+  if ( frage == true ) { document.location.href="?modules-database-del-"+DELID; }
+}
+//-->
+</script>
 
-<table style="text-align: left;" border="0"
- cellpadding="5" cellspacing="0">
-  <tbody>
-    <tr>
-      <td style="width: 100%;" valign="top">
-			<table cellpadding="3" cellspacing="1" class="border" border="0" style="width: 100%;">
-{EXPLODE}
-</table>
-		</td>
-		<td width="30">
-			&nbsp;
-		</td>
-		<td valign="top">
-{EXPLODE}
-		</td>
-	</tr>
+<table style="text-align: left;" border="0" cellpadding="5" cellspacing="0">
+  <tr>
+    <td style="width: 100%;" valign="top">
+      <table cellpadding="3" cellspacing="1" class="border" border="0" style="width: 100%;">{EXPLODE}</table>
+    </td>
+    <td width="30">&nbsp;</td>
+    <td valign="top">{EXPLODE}</td>
+  </tr>
 </table>
 {EXPLODE}
-	<tr class="Chead">
-		<th></th>
-		<th></th>
-		<th>name</th>
-		<th>url</th>
-		<th>gshow</th>
-		<th>ashow</th>
-		<th>fright</th>
-	</tr>
+  <tr class="Chead">
+    <th></th>
+    <th></th>
+    <th>Name</th>
+    <th>Url</th>
+    <th>gshow</th>
+    <th>ashow</th>
+    <th>fright</th>
+  </tr>
 {EXPLODE}
-	<tr class="{class}" >
-		<td><a href="admin.php?modules-database-edit-{id}"><img src="include/images/icons/edit.png" border="0" title="&auml;ndern" alt="&auml;ndern" /></a></td>
-		<td><a href="javascript:delid({id})"><img src="include/images/icons/del.png" border="0" title="l&ouml;schen" alt="l&ouml;schen" /></a></td>
-		<td>{name}</td>
-		<td>{url}</td>
-		<td>{gshow}</td>
-		<td>{ashow}</td>
-		<td>{fright}</td>
-	</tr>
+  <tr class="{class}">
+    <td><a href="admin.php?modules-database-edit-{id}"><img src="include/images/icons/edit.png" border="0" title="&auml;ndern" alt="&auml;ndern" /></a></td>
+    <td><a href="javascript:delid({id})"><img src="include/images/icons/del.png" border="0" title="l&ouml;schen" alt="l&ouml;schen" /></a></td>
+    <td>{name}</td>
+    <td>{url}</td>
+    <td>{gshow}</td>
+    <td>{ashow}</td>
+    <td>{fright}</td>
+  </tr>
 {EXPLODE}
-<form name="form" method="post">
+<form name="form" method="post" id="validate">
+{ANTISPAM}
 <table cellpadding="3" cellspacing="1" class="border" border="0" style="width: 100%;">
   <tbody>
     <tr>
-      <th class="Chead" colspan="2" rowspan="1">{aname}</td>
-    </tr>
-    <tr>
-      <td class="Cmite">name:</td>
+      <th class="Chead" colspan="2" rowspan="1">{aname}</th>
+    </tr><tr>
+      <td class="Cmite">Name:</td>
       <td class="Cnorm"><input name="name" value="{name}" /></td>
-    </tr>
-    <tr>
-      <td class="Cmite">url:</td>
+    </tr><tr>
+      <td class="Cmite">Url:</td>
       <td class="Cnorm"><input name="url" value="{url}" /></td>
-    </tr>
-    <tr>
+    </tr><tr>
       <td class="Cmite">gshow:</td>
       <td class="Cnorm"><input name="gshow" value="1" {gshow_1}type="radio"> Ja &nbsp;&nbsp;<input name="gshow" value="0" {gshow_0}type="radio"> Nein</td>
-    </tr>
-    <tr>
+    </tr><tr>
       <td class="Cmite">ashow:</td>
       <td class="Cnorm"><input name="ashow" value="1" {ashow_1}type="radio"> Ja &nbsp;&nbsp;<input name="ashow" value="0" {ashow_0}type="radio"> Nein</td>
-    </tr>
-    <tr>
+    </tr><tr>
       <td class="Cmite">fright:</td>
       <td class="Cnorm"><input name="fright" value="1" {fright_1}type="radio"> Ja &nbsp;&nbsp;<input name="fright" value="0" {fright_0}type="radio"> Nein</td>
-    </tr>
-    <tr>
+    </tr><tr>
       <td class="Cdark" colspan="2" rowspan="1"><input type="submit" value="Speichern" name="submit"></td>
     </tr>
   </tbody>
@@ -79,38 +81,28 @@
 </form>
 <br />
 <div class="warning_box">
-				<b>Wichtige Hinweise</b>
-				<br />
-				<span class="smalfont">
-					Das bearbeiten der Eintr&auml;ge sollte nicht ohne gewisse
-					Vorkenntnisse oder Aufforderung geschehen. Bei falscher Bedienung kann es
-					zu Fehlern kommen.
-				</span>
+  <b>Wichtige Hinweise</b>
+  <br />
+  <span class="smalfont">
+  Das bearbeiten der Eintr&auml;ge sollte nicht ohne gewisse
+  Vorkenntnisse oder Aufforderung geschehen. Bei falscher Bedienung kann es zu Fehlern kommen.
+  </span>
 </div>
 <div class="info_box">
-				<b>Informationen zur Tabelle prefix_modules</b>
-				<br />
-				<span class="smalfont">
-					In dieser Tabelle sind alle Module eingetragen, f&uuml;r die es ein
-					Adminbereich gibt oder f&uuml;r die Rechte verteilt werden
-					m&uuml;ssen.<br/>
-					<br/>
-					<span style="font-weight: bold; font-style: italic;">name</span><br/>
-					Name, der im Adminbereich in der Navigation erscheint und bei der
-					Rechtvergabe<br/>
-					<br/>
-					<span style="font-weight: bold; font-style: italic;">url</span><br/>
-					Ist die URL zum Modul &uuml;ber den Adminbereich<br/>
-					<br/>
-					<span style="font-weight: bold; font-style: italic;">gshow</span><br/>
-					Definiert, ob User das Modul im Adminbereich sehen, wenn diese die
-					Rechte f&uuml;r das Modul besitzen<br/>
-					<br/>
-					<span style="font-weight: bold; font-style: italic;">ashow</span><br/>
-					Definiert, ob das Modul nachtr&auml;glich installiert worden ist<br/>
-					<br/>
-					<span style="font-weight: bold; font-style: italic;">fright</span><br/>
-					Stellt fest, ob Rechte f&uuml;r das Modul vergeben werden
-					k&ouml;nnen
-				</span>
+  <b>Informationen zur Tabelle prefix_modules</b><br />
+  <span class="smalfont">
+  In dieser Tabelle sind alle Module eingetragen, f&uuml;r die es ein
+  Adminbereich gibt oder f&uuml;r die Rechte verteilt werden m&uuml;ssen.
+  <br/><br/>
+  <span style="font-weight: bold; font-style: italic;">name</span><br/>
+  Name, der im Adminbereich in der Navigation erscheint und bei der Rechtvergabe<br/><br/>
+  <span style="font-weight: bold; font-style: italic;">url</span><br/>
+  Ist die URL zum Modul &uuml;ber den Adminbereich<br/><br/>
+  <span style="font-weight: bold; font-style: italic;">gshow</span><br/>
+  Definiert, ob User das Modul im Adminbereich sehen, wenn diese die Rechte f&uuml;r das Modul besitzen<br/><br/>
+  <span style="font-weight: bold; font-style: italic;">ashow</span><br/>
+  Definiert, ob das Modul nachtr&auml;glich installiert worden ist<br/><br/>
+  <span style="font-weight: bold; font-style: italic;">fright</span><br/>
+  Stellt fest, ob Rechte f&uuml;r das Modul vergeben werden k&ouml;nnen
+  </span>
 </div>

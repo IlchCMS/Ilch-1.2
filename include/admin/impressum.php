@@ -10,7 +10,7 @@ defined('admin') or die('only admin access');
 $design = new design('Ilch Admin-Control-Panel :: Impressum', '', 2);
 $design->header();
 
-if (isset($_POST[ 'sub' ])) {
+if (isset($_POST[ 'sub' ]) and chk_antispam('adminuser_action', true)) {
     $t1 = escape($_POST[ 't1' ], 'textarea');
     $v1 = escape($_POST[ 'v1' ], 'string');
     $v2 = escape($_POST[ 'v2' ], 'string');
@@ -29,39 +29,21 @@ if ($row[ 't1' ] == '') {
 } else {
     $t = $row[ 't1' ];
 }
-
 ?>
 
-	<form action="?impressum" method="POST">
-	<input type="text" name="v1" value="<?php
-echo $row[ 'v1' ];
+<form action="?impressum" method="POST">
+  <?php echo get_antispam('adminuser_action', 0, true); ?>
+  <input type="text" name="v1" value="<?php echo $row[ 'v1' ]; ?>" size="60">
+  <br />
+  <input type="text" name="v2" value="<?php echo $row[ 'v2' ]; ?>" size="60">
+  <br />
+  <input type="text" name="v3" value="<?php echo $row[ 'v3' ]; ?>" size="60">
+  <br />
+  <input type="text" name="v4" value="<?php echo $row[ 'v4' ]; ?>" size="60">
+  <br /><br /><br />
+  <textarea cols="60" rows="15" name="t1"><?php echo unescape($t); ?></textarea>
+  <br /><br />
+  <input class="sub" type="submit" name="sub" value="Absenden" />
+</form>
 
-?>" size="60">
-	<br />
-	<input type="text" name="v2" value="<?php
-echo $row[ 'v2' ];
-
-?>" size="60">
-	<br />
-	<input type="text" name="v3" value="<?php
-echo $row[ 'v3' ];
-
-?>" size="60">
-	<br /><br />
-	<input type="text" name="v4" value="<?php
-echo $row[ 'v4' ];
-
-?>" size="60">
-	<br /><br /><br />
-	<textarea cols="60" rows="15" name="t1"><?php
-echo unescape($t);
-
-?></textarea>
-	<br /><br />
-	<input class="sub" type="submit" name="sub" value="Absenden" />
-	</form>
-
-<?php
-$design->footer();
-
-?>
+<?php $design->footer(); ?>

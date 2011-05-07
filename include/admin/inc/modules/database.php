@@ -26,7 +26,7 @@ $aid = $menu->get(2);
 switch ($aid) {
     default:
         // Modul aendern oder hinzufuegen
-        if (isset($_POST[ 'submit' ])) {
+        if (isset($_POST[ 'submit' ]) and chk_antispam('adminuser_action', true)) {
             // POST-daten escapen
             $mid = $menu->get(3);
             $name = escape($_POST[ 'name' ], 'string');
@@ -78,7 +78,8 @@ switch ($aid) {
             $tpl->set_ar_out(Array(
                     'aname' => 'Eintrag bearbeiten',
                     'name' => $row[ 'name' ],
-                    'url' => $row[ 'url' ]
+                    'url' => $row[ 'url' ],
+					'ANTISPAM' => get_antispam('adminuser_action', 0, true)
                     ), 5);
         } else {
             select_radio('gshow', 0);
@@ -88,7 +89,8 @@ switch ($aid) {
             $tpl->set_ar_out(Array(
                     'aname' => 'Eintrag hinzuf&uuml;gen',
                     'name' => '',
-                    'url' => ''
+                    'url' => '',
+					'ANTISPAM' => get_antispam('adminuser_action', 0, true)
                     ), 5);
         }
         // Template-Footer

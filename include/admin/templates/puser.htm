@@ -1,20 +1,29 @@
-<div style="float:right"><a href="admin.php?user">Zur&uuml;ck zur Benutzerverwaltung</a></div>
+<div style="float:right">
+  <a href="admin.php?user">Zur&uuml;ck zur Benutzerverwaltung</a>
+</div>
 Benutzer, die ihre Registrierung oder &Auml;nderungen noch nicht best&auml;tigt haben:
 <table cellpadding="3" cellspacing="1" border="0" class="border">
-<tr class="Chead">
-  <td></td><td></td><td></td><td>Username</td><td>Email</td><td>Zeit</td><td>Art</td><td>Aktivierungslink</td>
-</tr>
-{EXPLODE}
-<tr class="{class}">
-  <td align="right">{c}</td>
-  <td><a href="admin.php?puser-confirm&check={check}"><img src="include/images/icons/ok.gif" border="0" title="&uuml;bernehmen" alt="&uuml;bernehmen" /></a></td>
-  <td><a href="admin.php?puser-del&check={check}"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" alt="l&ouml;schen" /></a></td>
-  <td>{name}</td><td><a href="mailto:{email}">{email}</a></td><td>{time}</td><td>{aktion}<td>index.php?user-confirm&check={check}</td>
-</tr>
-{EXPLODE}
+  <tr class="Chead">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Username</td>
+    <td>Email</td>
+    <td>Zeit</td>
+    <td>Art</td>
+    <td>Aktivierungslink</td>
+  </tr>
+  {EXPLODE}
+  <tr class="{class}">
+    <td align="right">{c}</td>
+    <td><a href="admin.php?puser-confirm&check={check}"><img src="include/images/icons/ok.gif" border="0" title="&uuml;bernehmen" alt="&uuml;bernehmen" /></a></td>
+    <td><a href="admin.php?puser-del&check={check}"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" alt="l&ouml;schen" /></a></td>
+    <td>{name}</td><td><a href="mailto:{email}">{email}</a></td><td>{time}</td><td>{aktion}<td>index.php?user-confirm&check={check}</td>
+  </tr>
+  {EXPLODE}
 </table>
-
 {EXPLODE}
 <div style="background:#ff0000;text-align:center;padding:5px;border:#000 solid 1px;width:50%">
 Fehler:{error}
-</div><br/>
+</div>
+<br />

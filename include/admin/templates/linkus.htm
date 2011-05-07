@@ -29,9 +29,34 @@
 	font-weight: bold;
 }
 </style>
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#newbanner').click(function() {
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {		   
+	$("#validate").validate({
+		rules: {			
+			bannerfield: { required: true },
+			setbannername: { required: true, minlength: 2 },
+			setlink: { required: true, url: true }
+		},
+		messages: {
+			bannerfield: "Bitte eine Datei ausw&auml;hlen!",
+			setbannername: { required: "Bitte Name eingeben!", minlength: "Der Name muss mindestens 2 Zeichen haben!" },
+			setlink: "Bitte eine g&uuml;ltige Internetadresse eingeben!",
+		}
+	});
+	$("#validate2").validate({
+		rules: {			
+			//editbannerfield: { required: true },
+			editbannername: { required: true, minlength: 2 },
+			editlink: { required: true, url: true }
+		},
+		messages: {
+			//editbannerfield: "Bitte eine Datei ausw&auml;hlen!",
+			editbannername: { required: "Bitte Name eingeben!", minlength: "Der Name muss mindestens 2 Zeichen haben!" },
+			editlink: "Bitte eine g&uuml;ltige Internetadresse eingeben!",
+		}
+	});
+	$('#newbanner').click(function() {
     	$dialog = $('#newbannerdiv')
     		.dialog({
     			autoOpen: true,
@@ -60,109 +85,95 @@ function editbanner($bid, $name, $link) {
 	});
 }
 </script>
+<noscript>Bitte JavaScript aktivieren</noscript>
 <div id="maindiv">
-<!-- kleines Menü :) -->
-	<a style="cursor:pointer;" id="newbanner">Neuer Banner</a> <!--|
-	<a style="cursor:pointer;" id="topbanner">Erfolgskontrolle</a>-->
-
+<!-- kleines Menue :) -->
+	<a style="cursor:pointer;" id="newbanner">Neuer Banner</a> 
+	<!--<a style="cursor:pointer;" id="topbanner">Erfolgskontrolle</a>-->
 
 <!-- neuer Banner  -->
-  <div id="newbannerdiv" name="newbannerdiv">
-    <p></p>
-    <form action="" method="post" enctype="multipart/form-data" name="form1">
-      <p><label>Datei<br>
-          <input type="file" name="bannerfield" id="bannerfield">
-		 </label>
-        <br>
-        <label>Name<br>
-          <input name="setbannername" type="text" id="setbannername" size="50" maxlength="250">
-        </label>
-      </p>
-      <p>
-        <label>Link<br>
-          <input name="setlink" type="text" id="setlink" value="http://" size="50" maxlength="250">
-        </label>
-      </p>
-      <p>
-        <input type="submit" name="setnewbanner" id="setnewbanner" value="hochladen">
-      </p>
-    </form>
-  </div>
-
+<div id="newbannerdiv" name="newbannerdiv">
+<p></p>
+  <form action="" method="post" enctype="multipart/form-data" name="form1" id="validate">
+  {ANTISPAM}
+    <p>
+    <label>Datei<br><input type="file" name="bannerfield" id="bannerfield"></label>
+    <br>
+    <label>Name<br><input name="setbannername" type="text" id="setbannername" size="50" maxlength="250"></label>
+    </p><p>
+    <label>Link<br><input name="setlink" type="text" id="setlink" value="http://" size="50" maxlength="250"></label>
+    </p><p>
+    <input type="submit" name="setnewbanner" id="setnewbanner" value="hochladen">
+    </p>
+  </form>
+</div>
 
 <!-- Banner editieren -->
-  <div id="editbannerdiv" name="editbannerdiv">
-    <p></p>
-    <form action="" method="post" enctype="multipart/form-data" name="form1">
-      <p><label>Datei<br>
-          <input type="file" name="editbannerfield" id="editbannerfield">
-		 </label>
-        <br>
-        <label>Name<br>
-          <input type="text" name="editbannername" id="editbannername" size="50" maxlength="250">
-        </label>
-      </p>
-      <p>
-        <label>Link<br>
-          <input name="editlink" type="text" id="editlink" value="" size="50" maxlength="250">
-        </label>
-      </p>
-      	<input id="hiddeneditid" name="hiddeneditid" type="hidden" value="" />
-      <p>
-        <input type="submit" name="seteditbanner" id="seteditbanner" value="&auml;ndern">
-      </p>
-    </form>
-  </div>
+<div id="editbannerdiv" name="editbannerdiv">
+<p></p>
+  <form action="" method="post" enctype="multipart/form-data" name="form1" id="validate2">
+  {ANTISPAM}
+    <p>
+    <label>Datei<br><input type="file" name="editbannerfield" id="editbannerfield"></label>
+    <br>
+    <label>Name<br><input type="text" name="editbannername" id="editbannername" size="50" maxlength="250"></label>
+    </p><p>
+    <label>Link<br><input name="editlink" type="text" id="editlink" value="" size="50" maxlength="250"></label>
+    </p>
+    <input id="hiddeneditid" name="hiddeneditid" type="hidden" value="" />
+    <p>
+    <input type="submit" name="seteditbanner" id="seteditbanner" value="&auml;ndern">
+    </p>
+  </form>
+</div>
 
 <!-- Top Banner -->
 <div id="topbannerdiv" name="topbannerdiv">
-	<table border="0" align="center">
-      <tr>
-        <th nowrap="nowrap" align="right">ID&nbsp;</th>
-        <th nowrap="nowrap" align="left">&nbsp;Name</th>
-        <th nowrap="nowrap" align="right">views&nbsp;</th>
-        <th nowrap="nowrap" align="right">&nbsp;klicks</th>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-  	  </tr>
-      {topbannerlist}
-    </table>
+  <table border="0" align="center">
+    <tr>
+      <th nowrap="nowrap" align="right">ID&nbsp;</th>
+      <th nowrap="nowrap" align="left">&nbsp;Name</th>
+      <th nowrap="nowrap" align="right">views&nbsp;</th>
+      <th nowrap="nowrap" align="right">&nbsp;klicks</th>
+    </tr><tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    {topbannerlist}
+  </table>
 </div>
-<!-- main content -->
-  <p>&nbsp;</p>
-  <div id="bannerlist">
-  <table width="80%" border="0">
-  <tr>
-    <th nowrap="nowrap" align="right">ID</th>
-    <th nowrap="nowrap" align="center">Banner</th>
-    <th nowrap="nowrap" align="right">views&nbsp;</th>
-    <th nowrap="nowrap" align="right">&nbsp;klicks</th>
-    <th nowrap="nowrap" align="right">&nbsp;&nbsp;</th>
-    <th nowrap="nowrap" align="right">&nbsp;&nbsp;</th>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-{bannerlist}
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-</table>
-  </div>
-  <p>&nbsp;</p>
 
+<!-- main content -->
+<p>&nbsp;</p>
+<div id="bannerlist">
+  <table width="80%" border="0">
+    <tr>
+      <th nowrap="nowrap" align="right">ID</th>
+      <th nowrap="nowrap" align="center">Banner</th>
+      <th nowrap="nowrap" align="right">views&nbsp;</th>
+      <th nowrap="nowrap" align="right">&nbsp;klicks</th>
+      <th nowrap="nowrap" align="right">&nbsp;&nbsp;</th>
+      <th nowrap="nowrap" align="right">&nbsp;&nbsp;</th>
+    </tr><tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    {bannerlist}
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+</div>
+<p>&nbsp;</p>
 </div>

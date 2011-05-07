@@ -1,122 +1,128 @@
-<form action="admin.php?gallery" method="POST">
-<table width="100%">
-  <tr>
-	  <td valign="top" width="60%" rowspan="2">
-
-      <table cellpadding="3" border="0" cellspacing="5" class="border">
-        <tr>
-        {EXPLODE}
-        <td class="{class}" valign="top">
-          <table cellpadding="2" border="0" cellspacing="1" class="border">
-            <tr>
-              <td valign="top" class="{class}">
-
-          <table cellpadding="1" border="0" cellspacing="0" class="border">
-            <tr>
-              <td class="Cmite"><a href="javascript:del({id})"><img src="include/images/icons/del.png" border="0" title="l&ouml;schen" alt="l&ouml;schen"></a></td>
-            </tr><tr>
-              <td class="Cnorm"><a href="javascript:edit('{besch}',{id})"><img src="include/images/icons/edit.png" title="&auml;ndern" border="0" alt="&auml;ndern"></a></td>
-            </tr><tr>
-              <td class="Cmite"><a href="javascript:reload({id})"><img src="include/images/icons/reload.png" border="0" title="erneuern" alt="erneuern"></a></td>
-            </tr><tr>
-              <td class="Cnorm"><input type="checkbox" name="img[]" value="{id}" style="margin:0px; padding: 0px;" title="Bild f&uuml;r Verschieben markieren" /></td>
-            </tr>
-          </table>
-              </td><td valign="top" class="{class}">
-                <img title="{datei_name} |---| {besch}" alt="{datei_name}" src="include/images/gallery/img_thumb_{id}.{endung}" />
-              </td>
-            </tr>
-          </table>
-        </td>
-        {EXPLODE}
-        </tr>
-      </table>
-    </td>
-    <td valign="top" width="40%">
-
-<table cellpadding="3" border="0" cellspacing="1" class="border">
-  <tr class="Chead">
-		<td colspan="9"><b>Kategorien</b></td>
-  </tr><tr class="Cmite">
-    <td><a href="?gallery-S0">Keine</a></td>
-    <td><a href="javascript:uploadImages(0)"><img src="include/images/icons/upload.png" title="Bilder in diese Kategorie hochladen" alt="Bilder in diese Kategorie hochladen" border="0"></a></td>
-    <td><a href="javascript:reloadImages(0)"><img src="include/images/icons/reload.png" title="Bilder in diese Kategorie erneuern / einlesen" alt="Bilder in diese Kategorie erneuern / einlesen" border="0"></a></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>{EXPLODE}
-</table>
-<br />
-<table cellpadding="3" border="0" cellspacing="1" class="border">
-  <tr class="Chead">
-		<td colspan="9"><b>Bilder verschieben</b></td>
-  </tr><tr class="Cmite"><td>nach:</td><td><select name="movecat">{Ccat}</select></td>
-  </tr><tr class="Cdark">
-        <td colspan="2"><input class="sub" type="submit" value="markierte Bilder verschieben" name="movepics" /></td>
-  </tr>
-</table>
-<br />
-	<input type="hidden" name="Cpkey" value="{Cpkey}">
-
-	<table class="border" cellpadding="3" cellspacing="1" border="0">
-    <tr class="Chead">
-		  <td colspan="2"><b>Gallery Kategorien</b></td>
-		</tr>
-      <td class="Cmite">Kategorie</td>
-			<td class="Cnorm"><select name="Ccat">{Ccat}</select></td>
-    </tr><tr>
-      <td class="Cmite">Sichtbar&nbsp;ab</td>
-			<td class="Cnorm"><select name="Crecht">{Crecht}</select></td>
-    </tr><tr>
-      <td class="Cmite">Name</td>
-			<td class="Cnorm"><input type="text" name="Cname" value="{Cname}" /></td>
-    </tr><tr>
-      <td class="Cmite">Beschreibung</td>
-			<td class="Cnorm"><textarea cols="30" rows="3" name="Cdesc">{Cdesc}</textarea></td>
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {		   
+	$("#validate").validate({
+		rules: {
+			Cname: { required: true },
+			Cdesc: { required: true }
+		},
+		messages: {
+			Cname: "Bitte ein Name angeben!",
+			Cdesc: "Bitte eine Beschreibung angeben!"
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
+<form action="admin.php?gallery" method="POST" id="validate">
+{ANTISPAM}
+  <table width="100%">
+    <tr>
+      <td valign="top" width="60%" rowspan="2">
+        <table cellpadding="3" border="0" cellspacing="5" class="border">
+          <tr>
+          {EXPLODE}
+            <td class="{class}" valign="top">
+              <table cellpadding="2" border="0" cellspacing="1" class="border">
+                <tr>
+                  <td valign="top" class="{class}">
+                    <table cellpadding="1" border="0" cellspacing="0" class="border">
+                      <tr>
+                        <td class="Cmite"><a href="javascript:del({id})"><img src="include/images/icons/del.png" border="0" title="l&ouml;schen" alt="l&ouml;schen"></a></td>
+                      </tr><tr>
+                        <td class="Cnorm"><a href="javascript:edit('{besch}',{id})"><img src="include/images/icons/edit.png" title="&auml;ndern" border="0" alt="&auml;ndern"></a></td>
+                      </tr><tr>
+                        <td class="Cmite"><a href="javascript:reload({id})"><img src="include/images/icons/reload.png" border="0" title="erneuern" alt="erneuern"></a></td>
+                      </tr><tr>
+                        <td class="Cnorm"><input type="checkbox" name="img[]" value="{id}" style="margin:0px; padding: 0px;" title="Bild f&uuml;r Verschieben markieren" /></td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td valign="top" class="{class}"><img title="{datei_name} |---| {besch}" alt="{datei_name}" src="include/images/gallery/img_thumb_{id}.{endung}" /></td>
+                </tr>
+              </table>
+            </td>
+            {EXPLODE}
+          </tr>
+        </table>
+      </td>
+      <td valign="top" width="40%">
+        <table cellpadding="3" border="0" cellspacing="1" class="border">
+          <tr class="Chead">
+            <td colspan="9"><b>Kategorien</b></td>
+          </tr><tr class="Cmite">
+            <td><a href="?gallery-S0">Keine</a></td>
+            <td><a href="javascript:uploadImages(0)"><img src="include/images/icons/upload.png" title="Bilder in diese Kategorie hochladen" alt="Bilder in diese Kategorie hochladen" border="0"></a></td>
+            <td><a href="javascript:reloadImages(0)"><img src="include/images/icons/reload.png" title="Bilder in diese Kategorie erneuern / einlesen" alt="Bilder in diese Kategorie erneuern / einlesen" border="0"></a></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          {EXPLODE}
+        </table>
+        <br />
+        <table cellpadding="3" border="0" cellspacing="1" class="border">
+          <tr class="Chead">
+            <td colspan="9"><b>Bilder verschieben</b></td>
+          </tr><tr class="Cmite">
+            <td>nach:</td>
+            <td><select name="movecat">{Ccat}</select></td>
+          </tr><tr class="Cdark">
+            <td colspan="2"><input class="sub" type="submit" value="markierte Bilder verschieben" name="movepics" /></td>
+          </tr>
+        </table>
+        <br />
+        <input type="hidden" name="Cpkey" value="{Cpkey}">
+        <table class="border" cellpadding="3" cellspacing="1" border="0">
+          <tr class="Chead">
+            <td colspan="2"><b>Gallery Kategorien</b></td>
+          </tr><tr>
+            <td class="Cmite">Kategorie</td>
+            <td class="Cnorm"><select name="Ccat">{Ccat}</select></td>
+          </tr><tr>
+            <td class="Cmite">Sichtbar&nbsp;ab</td>
+            <td class="Cnorm"><select name="Crecht">{Crecht}</select></td>
+          </tr><tr>
+            <td class="Cmite">Name</td>
+            <td class="Cnorm"><input type="text" name="Cname" value="{Cname}" /></td>
+          </tr><tr>
+            <td class="Cmite">Beschreibung</td>
+            <td class="Cnorm"><textarea cols="30" rows="3" name="Cdesc">{Cdesc}</textarea></td>
+          </tr><tr class="Cdark">
+            <td></td>
+            <td><input class="sub" type="submit" value="Absenden" name="Csub" /></td>
+          </tr>
+        </table>
+      </td>
     </tr>
-		<tr class="Cdark">
-		  <td></td>
-			<td><input class="sub" type="submit" value="Absenden" name="Csub" /></td>
-		</tr>
   </table>
 </form>
-
-</td></td></table>
 <script language="JavaScript" type="text/javascript">
 <!--
-
-  function Kdel ( id1 ) {
-    var Fenster = window.open ('admin.php?gallery-D' + id1, 'delKat', 'status=yes,scrollbars=yes,height=150,width=550,left=300,top=50');
-    Fenster.focus();
+function Kdel ( id1 ) {
+  var Fenster = window.open ('admin.php?gallery-D' + id1, 'delKat', 'status=yes,scrollbars=yes,height=150,width=550,left=300,top=50');
+  Fenster.focus();
   }
-  function del ( id1 ) {
-    var x = confirm ( "Dieses Bild wirklich löschen?" );
-		if ( x ) {
-		  document.location.href="?gallery-d"+id1;
-		}
-	}
-  function edit ( besch, id1 ) {
-    var x = prompt ( "Bitte die neue Beschreibung eingeben!", besch);
-    if ( x ) {
-      document.location.href="?gallery-e"+id1+"=0&besch=" + x;
-    }
+function del ( id1 ) {
+  var x = confirm ( unescape ( "Dieses%20Bild%20wirklich%20l%F6schen%3F" ));
+  if ( x ) { document.location.href="?gallery-d"+id1; }
   }
-  function reload ( id1 ) {
-    var x = confirm ( "Dieses Bild wirklich erneuern?" );
-    if ( x ) {
-      document.location.href="?gallery-r"+id1;
-    }
+function edit ( besch, id1 ) {
+  var x = prompt ( unescape ( "Bitte%20die%20neue%20Beschreibung%20eingeben%21", besch));
+  if ( x ) { document.location.href="?gallery-e"+id1+"=0&besch=" + x; }
   }
-  function reloadImages (kid) {
-    var Fenster = window.open ('admin.php?gallery-reloadImages-' + kid, 'reloadImages', 'status=yes,scrollbars=yes,height=500,width=350,left=300,top=50');
-    Fenster.focus();
+function reload ( id1 ) {
+  var x = confirm ( unescape ( "Dieses%20Bild%20wirklich%20erneuern%3F" ));
+  if ( x ) { document.location.href="?gallery-r"+id1; }
   }
-  function uploadImages (kid) {
-    var x = prompt ( "Wie viele Bilder möchten Sie hochladen?", "5");
-    if ( x ) {
-      ic.modalDialog({title:'Bilder hochladen',url:'admin.php?gallery-uploadImages-' + kid + '=0&anzb=' + x,width: 400, height: 150 + x * 75});
-    }
+function reloadImages (kid) {
+  var Fenster = window.open ('admin.php?gallery-reloadImages-' + kid, 'reloadImages', 'status=yes,scrollbars=yes,height=500,width=350,left=300,top=50');
+  Fenster.focus();
+  }
+function uploadImages (kid) {
+  var x = prompt ( unescape ( "Wie%20viele%20Bilder%20m%F6chten%20Sie%20hochladen%3F", "5"));
+  if ( x ) { ic.modalDialog({title:'Bilder hochladen',url:'admin.php?gallery-uploadImages-' + kid + '=0&anzb=' + x,width: 400, height: 150 + x * 75});}
   }
 //-->
 </script>

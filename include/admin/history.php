@@ -20,7 +20,7 @@ if (isset($_REQUEST[ 'pkey' ])) {
     $_REQUEST[ 'pkey' ] = escape($_REQUEST[ 'pkey' ], 'integer');
 }
 
-if (!empty($_POST[ 'sub' ])) {
+if (!empty($_POST[ 'sub' ]) and chk_antispam('adminuser_action', true)) {
     list($d, $m, $y) = explode('.', $_POST[ 'date' ]);
     if (@checkdate($m, $d, $y)) {
         $date = $y . '-' . $m . '-' . $d;
@@ -48,7 +48,7 @@ if (!empty($_REQUEST[ 'pkey' ])) {
         'txt' => ''
         );
 }
-
+$_ilch[ 'ANTISPAM' ] = get_antispam('adminuser_action', 0, true);
 $tpl->set_ar_out($_ilch, 0);
 
 if (empty($_GET[ 'page' ])) {

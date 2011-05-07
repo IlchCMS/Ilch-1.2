@@ -62,7 +62,7 @@ if ($menu->get(1) == 5) {
     db_query('UPDATE `prefix_poll` SET `stat` = "' . $_GET[ 'ak' ] . '" WHERE `poll_id` = "' . $_GET[ 'id' ] . '"');
 }
 // A L L E   V O T E S   W E R D E N   A N G E Z E I G T
-if (isset($_POST[ 'sub' ])) {
+if (isset($_POST[ 'sub' ]) and chk_antispam('adminuser_action', true)) {
     $_POST[ 'frage' ] = escape($_POST[ 'frage' ], 'string');
     $_POST[ 'poll_recht' ] = escape($_POST[ 'poll_recht' ], 'integer');
     $_POST[ 'vid' ] = escape($_POST[ 'vid' ], 'integer');
@@ -119,8 +119,9 @@ if (isset($_POST[ 'add' ])) {
     $anzFeld++;
     $_POST[ 'antw' ][ ] = '';
 }
-
-echo '<form action="admin.php?vote" method="POST">';
+echo '<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script><script>$(document).ready(function() { $("#validate").validate({ rules: { frage: { required: true } }, messages: { frage: "Bitte eine Frage angeben!" } }); }); </script><noscript>Bitte JavaScript aktivieren</noscript>';
+echo '<form action="admin.php?vote" method="POST" id="validate">';
+echo get_antispam('adminuser_action', 0, true);
 echo '<input type="hidden" name="vid" value="' . $_POST[ 'vid' ] . '" />';
 echo '<table width="100%" cellpadding="2" cellspacing="1" border="0" class="border">';
 echo '<tr><td width="100" class="Cmite">Frage</td>';
@@ -143,16 +144,13 @@ echo '<tr class="Chead"><td colspan="5"><b>Vote verwalten</b></td></tr>';
 ?>
 <script language="JavaScript" type="text/javascript">
     <!--
-
-			function delcheck ( DELID ) {
-			  var frage = confirm ( "Willst du diesen Eintrag wirklich löschen?" );
-				if ( frage == true ) {
-				  document.location.href="?vote-del&del="+DELID;
-				}
-			}
-		//-->
+	function delcheck ( DELID ) {
+		var frage = confirm ( unescape ( "Willst%20du%20diesen%20Eintrag%20wirklich%20l%F6schen%3F" ));
+		if ( frage == true ) { document.location.href="?vote-del&del="+DELID; }
+		}
+	//-->
 </script>
-			<?php
+<?php
 
 $abf = 'SELECT * FROM `prefix_poll` ORDER BY `poll_id` DESC';
 $erg = db_query($abf);
@@ -185,7 +183,6 @@ while ($row = db_fetch_object($erg)) {
     }
 }
 echo '</table>';
-
 $design->footer();
 
 ?>

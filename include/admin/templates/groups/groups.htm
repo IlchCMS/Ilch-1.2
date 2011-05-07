@@ -1,110 +1,112 @@
-<script type="text/javascript">
-  function change_group ( gid ) {
-		var x = prompt ( "Bitte den neuen Namen der Gruppe eingeben", "" );
-		if ( x ) {
-		  document.location.href="?groups&group_change="+gid+"&group_name="+x;
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {		   
+	$("#validate").validate({
+		rules: {
+			group_name: { required: true }
+		},
+		messages: {
+			group_name: "Bitte ein Name angeben!"
 		}
-	}
-  function delete_group ( gid ) {
-		var x = confirm ( "Wollen Sie diese Gruppe l�schen?", "" );
-		if ( x ) {
-		  document.location.href="admin.php?groups&group_delete="+gid;
-		}
-	}
-$(document).ready(function() {
-    $('a.manageUsers').click(function() {
-        ic.modalDialog({title:'User verwalten',height:500, width:600, url: $(this).attr('href')});
-        return false;
-    });
+	});
 });
 </script>
-
+<noscript>Bitte JavaScript aktivieren</noscript>
+<script type="text/javascript">
+function change_group ( gid ) {
+  var x = prompt ( unescape ( "Bitte%20den%20neuen%20Namen%20der%20Gruppe%20eingeben%21", "" ));
+  if ( x ) { document.location.href="?groups&group_change="+gid+"&group_name="+x; }
+  }
+function delete_group ( gid ) {
+  var x = confirm ( unescape ( "Wollen%20Sie%20diese%20Gruppe%20l%F6schen%3F", "" ));
+  if ( x ) { document.location.href="admin.php?groups&group_delete="+gid; }
+  }
+$(document).ready(function() {
+  $('a.manageUsers').click(function() {
+  ic.modalDialog({title:'User verwalten',height:500, width:600, url: $(this).attr('href')});
+  return false; });
+});
+</script>
 {msg}
-
-
-<table width="100%"><tr><td valign="top" width="50%">
-<tr>
-	<td>
-	<form action="admin.php?groups-{ak}" method="POST">
+<table width="100%">
+  <tr>
+    <td valign="top" width="50%">
+	<form action="admin.php?groups-{ak}" method="POST" id="validate">
+	{ANTISPAM}
 	<input type="hidden" name="gid" value="{gid}" />
-		<table cellpadding="3" cellspacing="1" border="0" class="border">
-		<tr class="Chead">
-			<td colspan="2"><b>Gruppe</b></td>
+	  <table cellpadding="3" cellspacing="1" border="0" class="border">
+	    <tr class="Chead">
+	      <td colspan="2"><b>Gruppe</b></td>
+	    </tr><tr>
+	      <td class="Cmite">Name</td>
+	      <td class="Cnorm"><input type="text" name="group_name" value="{name}" /></td>
+	    </tr><tr>
+	      <td class="Cmite">Bild<br /><font class="smalfont">(Einfach ein Bild in den Ordner<br />include/images/teams packen und ausw&auml;hlen)</font></td>
+	      <td class="Cnorm"><select onchange="" name="img">{pic}</select></td>
+	    </tr><tr>
+	      <td class="Cmite">Leader<br /><font class="smalfont">(Bekommt automatisch die Modulrechte:<br />wars, groups, awards, awaycal)</font></td>
+	      <td class="Cnorm"><select name="mod1">{_list_mods1@<option%1 value="%2">%3</option>}</select></td>
 		</tr><tr>
-			<td class="Cmite">Name</td>
-			<td class="Cnorm"><input type="text" name="group_name" value="{name}" /></td>
+		  <td class="Cmite">Co-Leader<br /><font class="smalfont">(Bekommt automatisch die Modulrechte:<br />wars, groups, awards, awaycal)</font></td>
+		  <td class="Cnorm"><select name="mod2">{_list_mods2@<option%1 value="%2">%3</option>}</select></td>
 		</tr><tr>
-			<td class="Cmite">Bild&nbsp;<font class="smalfont">Einfach ein Bild in den ordner include/images/teams packen und ausw&auml;hlen)</font></td>
-			<td class="Cnorm"><select onchange="" name="img">{pic}</select></td>
+		  <td class="Cmite">Warorga<br /><font class="smalfont">(Bekommt automatisch die Modulrechte:<br />wars, awaycal)</font></td>
+		  <td class="Cnorm"><select name="mod3">{_list_mods3@<option%1 value="%2">%3</option>}</select></td>
 		</tr><tr>
-			<td class="Cmite">Leader&nbsp;<font class="smalfont">(bekommt automatisch die Modulrechte: (wars, groups, awards, awaycal))</font></td>
-			<td class="Cnorm"><select name="mod1">{_list_mods1@<option%1 value="%2">%3</option>}</select></td>
+		  <td class="Cmite">Memberorga<br /><font class="smalfont">(Bekommt automatisch die Modulrechte:<br />groups, awaycal)</font></td>
+		  <td class="Cnorm"><select name="mod4">{_list_mods4@<option%1 value="%2">%3</option>}</select></td>
 		</tr><tr>
-			<td class="Cmite">Co-Leader&nbsp;<font class="smalfont">(bekommt automatisch die Modulrechte: (wars, groups, awards, awaycal))</font></td>
-			<td class="Cnorm"><select name="mod2">{_list_mods2@<option%1 value="%2">%3</option>}</select></td>
+		  <td class="Cmite">Joinus<br /><font class="smalfont">(Kann diesem Team beigetreten werden?)</font></td>
+		  <td class="Cnorm"><input id="joinusja" type="radio" {joinusja} name="joinus" value="1" /><label for="joinusja"> ja</label>, <input id="joinusno" type="radio" {joinusno} name="joinus" value="0" /><label for="joinusno"> nein</label></td>
 		</tr><tr>
-			<td class="Cmite">Warorga&nbsp;<font class="smalfont">(bekommt automatisch die Modulrechte: (wars, awaycal))</font></td>
-			<td class="Cnorm"><select name="mod3">{_list_mods3@<option%1 value="%2">%3</option>}</select></td>
+		  <td class="Cmite">Fightus<br /><font class="smalfont">(Darf gegen das Team gespielt werden?)</font></td>
+		  <td class="Cnorm"><input id="fightusja" type="radio" {fightusja} name="fightus" value="1" /><label for="fightusja"> ja</label>, <input id="fightusno" type="radio" {fightusno} name="fightus" value="0" /><label for="fightusno"> nein</label></td>
 		</tr><tr>
-			<td class="Cmite">Memberorga&nbsp;<font class="smalfont">(bekommt automatisch die Modulrechte: (groups, awaycal))</font></td>
-			<td class="Cnorm"><select name="mod4">{_list_mods4@<option%1 value="%2">%3</option>}</select></td>
-		</tr><tr>
-			<td class="Cmite">Joinus&nbsp;<font class="smalfont">(Kann diesem Team beigetreten werden?)</font></td>
-			<td class="Cnorm"><input id="joinusja" type="radio" {joinusja} name="joinus" value="1" /><label for="joinusja"> ja</label>, <input id="joinusno" type="radio" {joinusno} name="joinus" value="0" /><label for="joinusno"> nein</label></td>
-		</tr><tr>
-			<td class="Cmite">Fightus&nbsp;<font class="smalfont">(Darf gegen das Team gespielt werden?)</font></td>
-			<td class="Cnorm"><input id="fightusja" type="radio" {fightusja} name="fightus" value="1" /><label for="fightusja"> ja</label>, <input id="fightusno" type="radio" {fightusno} name="fightus" value="0" /><label for="fightusno"> nein</label></td>
-			</tr><tr>
-			<td class="Cmite">Squads&nbsp;<font class="smalfont">(Soll das Team unter Squads aufgelistet werden?)</font></td>
-			<td class="Cnorm"><input id="zeigenja" type="radio" {zeigenja} name="zeigen" value="1" /><label for="zeigenja"> ja</label>, <input id="zeigenno" type="radio" {zeigenno} name="zeigen" value="0" /><label for="zeigenno"> nein</label></td>
+		  <td class="Cmite">Squads<br /><font class="smalfont">(Soll das Team unter Squads aufgelistet werden?)</font></td>
+		  <td class="Cnorm"><input id="zeigenja" type="radio" {zeigenja} name="zeigen" value="1" /><label for="zeigenja"> ja</label>, <input id="zeigenno" type="radio" {zeigenno} name="zeigen" value="0" /><label for="zeigenno"> nein</label></td>
 		</tr><tr class="Cdark">
-			<td></td>
-			<td><input class="sub" type="submit" value="Absenden" name="sub"></td>
+		  <td></td>
+		  <td><input class="sub" type="submit" value="Absenden" name="sub"></td>
 		</tr>
-		</table>
-	</form>
+      </table>
+    </form>
 	</td>
 	<td>&nbsp;</td>
 	<td valign="top" width="50%">
-		{joinu}
-    <table cellpadding="2" cellspacing="1" border="0" class="border">
-		<tr class="Chead">
-			<td colspan="6"><b>Gruppen &Uuml;bersicht</b></td>
-		</tr>
-		<tr class="Cdark">
-			<td>Name</td>
-			<td>Users (Anzahl)</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-{EXPLODE}
-		<tr class="{class}">
-			<td>{name}</td>
-			<td><a class="manageUsers" href="admin.php?groups-addusers-{id}" title="manage Users">manage Users</a> ({useranz})</td>
-			<td><a href="?groups-edit-{id}"><img src="include/images/icons/edit.png" alt="&auml;ndern" title="&auml;ndern" /></a></td>
-			<td><a href="javascript:delete_group('{id}')"><img src="include/images/icons/del.png" alt="l&ouml;schen" title="l&ouml;schen" /></a></td>
-			<td><a href="?groups-move-o{id}"><img src="include/images/icons/pfeilo.png" alt="hoch" title="hoch" /></a></td>
-			<td><a href="?groups-move-u{id}"><img src="include/images/icons/pfeilu.png" alt="runter" title="runter" /></a></td>
-		</tr>
-{EXPLODE}
-		</table>
+	{joinu}
+	  <table cellpadding="2" cellspacing="1" border="0" class="border">
+	    <tr class="Chead">
+	      <td colspan="6"><b>Gruppen &Uuml;bersicht</b></td>
+	    </tr>
+	    <tr class="Cdark">
+	      <td>Name</td>
+	      <td>Users (Anzahl)</td>
+	      <td></td>
+	      <td></td>
+	      <td></td>
+	      <td></td>
+	    </tr>
+	    {EXPLODE}
+	    <tr class="{class}">
+	      <td>{name}</td>
+	      <td><a class="manageUsers" href="admin.php?groups-addusers-{id}" title="manage Users">manage Users</a> ({useranz})</td>
+	      <td><a href="?groups-edit-{id}"><img src="include/images/icons/edit.png" alt="&auml;ndern" title="&auml;ndern" /></a></td>
+	      <td><a href="javascript:delete_group('{id}')"><img src="include/images/icons/del.png" alt="l&ouml;schen" title="l&ouml;schen" /></a></td>
+	      <td><a href="?groups-move-o{id}"><img src="include/images/icons/pfeilo.png" alt="hoch" title="hoch" /></a></td>
+	      <td><a href="?groups-move-u{id}"><img src="include/images/icons/pfeilu.png" alt="runter" title="runter" /></a></td>
+	    </tr>
+	    {EXPLODE}
+	  </table>
 	</td>
-</tr>
-{EXPLODE}
-<tr><td colspan="3">
-  <div class="info_box">
-  				<b>ACHTUNG!</b>
-  				<br />
-  				<span class="smalfont">
-          Volle Rechte in diesem Bereich haben nur Admins und Co-Admins, User mit Modulrechten k&ouml;nnen nur ihre Gruppe betreffende Dinge
-          &auml;ndern, wenn du also etwas nicht &auml;ndern kannst, wende dich an einen Admin.
-          Achte auch darauf, dir nicht selbst die Rechte f�r deine Gruppe wegzunehmen, sie k&ouml;nnen dir nur von einem Admin oder (Co-)Leader
-          der Gruppe wiedergegeben werden.<br />
-          Gruppen l&ouml;schen k&ouml;nnen auch nur Admins und Co-Admins.
-  				</span>
-  </div>
-</td></tr>
+  </tr>
+  {EXPLODE}
+  <tr>
+    <td colspan="3">
+      <div class="info_box">
+  	    <b>ACHTUNG!</b><br />
+  	    <span class="smalfont">Volle Rechte in diesem Bereich haben nur Admins und Co-Admins, User mit Modulrechten k&ouml;nnen nur ihre Gruppe betreffende Dinge &auml;ndern, wenn du also etwas nicht &auml;ndern kannst, wende dich an einen Admin. Achte auch darauf, dir nicht selbst die Rechte f&uuml;r deine Gruppe wegzunehmen, sie k&ouml;nnen dir nur von einem Admin oder (Co-)Leader der Gruppe wiedergegeben werden.<br />Gruppen l&ouml;schen k&ouml;nnen auch nur Admins und Co-Admins.</span>
+  	  </div>
+  	</td>
+  </tr>
 {EXPLODE}
 </table>

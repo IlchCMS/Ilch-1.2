@@ -1,68 +1,62 @@
-<form action="?forum-{ak}Forum" method="POST" name="form">
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {		   
+	$("#validate").validate({
+		rules: {
+			name: { required: true },
+			text: { required: true }
+		},
+		messages: {
+			name: "Bitte ein Name angeben!",
+			text: "Bitte eine Beschreibung angeben!"
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
+<form action="?forum-{ak}Forum" method="POST" name="form" id="validate">
+{ANTISPAM}
 <input type="hidden" name="fid" value="{fid}" />					
-		  <table cellpadding="3" cellspacing="1" border="0" class="border">
-<tr class="Chead">
-<td colspan="2"><b>Neues Forum erstellen</b></td>
-</tr><tr>
-			  <td width="120" class="Cmite">Name</td>
-			  <td width="250" class="Cnorm"><input type="text" name="name" value="{name}"></td>
-			</tr><tr class="Cdark">
-<td colspan="2"><b>Forum Rechte</b></td>
-</tr><tr class="Cnorm">
-<td colspan="2">
 <table cellpadding="3" cellspacing="1" border="0" class="border">
-  <tr class="Cmite">
-	  <td>lesen/sehen</td>
-		<td>antworten</td>
-		<td>themen erstellen</td>
-	</tr>
-	<tr class="Cnorm">
-				<td>
-				  <select name="view">
-					  {_list_view@<option%1 value="%2">%3</option>}
-					 </select>
-				</td>
-				<td class="Cnorm">
-				  <select name="reply">
-					  {_list_reply@<option%1 value="%2">%3</option>}
-					 </select>
-				</td>
-				<td class="Cnorm">
-				  <select name="start">
-					  {_list_start@<option%1 value="%2">%3</option>}
-					 </select>
-				</td>
-	</tr>
+  <tr class="Chead">
+    <td colspan="2"><b>Neues Forum erstellen</b></td>
+  </tr><tr>
+    <td width="120" class="Cmite">Name</td>
+    <td width="250" class="Cnorm"><input type="text" name="name" value="{name}"></td>
+  </tr><tr class="Cdark">
+    <td colspan="2"><b>Forum Rechte</b></td>
+  </tr><tr class="Cnorm">
+    <td colspan="2">
+      <table cellpadding="3" cellspacing="1" border="0" class="border">
+        <tr class="Cmite">
+          <td>lesen/sehen</td>
+          <td>antworten</td>
+          <td>themen erstellen</td>
+        </tr><tr class="Cnorm">
+          <td><select name="view">{_list_view@<option%1 value="%2">%3</option>}</select></td>
+          <td class="Cnorm"><select name="reply">{_list_reply@<option%1 value="%2">%3</option>}</select></td>
+          <td class="Cnorm"><select name="start">{_list_start@<option%1 value="%2">%3</option>}</select></td>
+        </tr>
+      </table>
+    </td>
+  </tr><tr>
+    <td class="Cmite">Kategorie</td>
+    <td class="Cnorm"><select name="cid" onchange="sichtbar()"><!--{_list_kats@<option%1 value="%2">%3</option>}-->{kats}</select></td>
+  </tr><tr>
+    <td class="Cmite">Beschreibung</td>
+    <td class="Cnorm"><textarea cols="40" rows="2" name="text">{text}</textarea></td>
+  </tr><tr>
+    <td class="Cdark"></td>
+    <td class="Cdark"><input class="sub" type="submit" value="{sub}" name="sub"></td>
+  </tr>
 </table>
-</td>
-</tr><tr>
-			  <td class="Cmite">Kategorie</td>
-				<td class="Cnorm">
-				  <select name="cid" onchange="sichtbar()">
-					  <!--{_list_kats@<option%1 value="%2">%3</option>}-->
-					  {kats}
-					 </select>
-				</td>
-			</tr><tr>
-			  <td class="Cmite">Beschreibung</td>
-				<td class="Cnorm"><textarea cols="40" rows="2" name="text">{text}</textarea></td>
-			</tr><tr>
-			  <td class="Cdark"></td>
-				<td class="Cdark"><input class="sub" type="submit" value="{sub}" name="sub"></td>
-			</tr>
-		</table>
- 
 </form>
 
 
 <br /><br />
 <div class="info_box">
 <p>Hier k&ouml;nnen Sie ein Forum &auml;ndern oder ein neues erstellen.</p>
-<p>Bitte stellen Sie die Rechte des Forums sorgf&auml;lltig ein und
-      beachten Sie dabei bitte das die Rechte sich absteigend vererben.
-      Wenn also alle Leader ein Thema erstellen d&uuml;rfen k&ouml;nnen
-      die nat&uuml;rlich auch das Forum sehen/lesen und antworten. usw...
-      </p>
-      <p>
+<p>Bitte stellen Sie die Rechte des Forums sorgf&auml;lltig ein und beachten Sie dabei bitte das die Rechte sich absteigend vererben. Wenn also alle Leader ein Thema erstellen d&uuml;rfen k&ouml;nnen die nat&uuml;rlich auch das Forum sehen/lesen und antworten. usw...</p>
+<p>
 <p>Benutzer mit dem Recht "siteAdmin" oder h&ouml;her k&ouml;nnen in allen Foren moderieren.</p>
 </div>

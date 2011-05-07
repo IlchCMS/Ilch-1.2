@@ -24,7 +24,7 @@ if ($menu->getA(1) == 'd' AND is_numeric($menu->getE(1))) {
     db_query('DELETE FROM `prefix_awards` WHERE `id` = "' . $menu->getE(1) . '" LIMIT 1');
 }
 // Eintragen
-if (isset($_POST[ 'ins' ])) {
+if (isset($_POST[ 'ins' ]) and chk_antispam('adminuser_action', true)) {
     $datum = get_datum($_POST[ 'datum' ]);
     $wofur = escape($_POST[ 'wofur' ], 'string');
     $text = escape($_POST[ 'text' ], 'string');
@@ -61,6 +61,7 @@ if ($menu->getA(1) == 'e' AND is_numeric($menu->getE(1))) {
         'wofur' => '',
         'bild' => '',
         'text' => '',
+		'ANTISPAM' => get_antispam('adminuser_action', 0, true),
         'teams' => getTeams()
         );
 }

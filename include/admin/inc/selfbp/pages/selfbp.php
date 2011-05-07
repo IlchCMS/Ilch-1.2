@@ -7,7 +7,7 @@
 defined('main') or die('no direct access');
 defined('admin') or die('only admin access');
 
-if (isset($_POST[ 'bbwy' ]) AND isset($_POST[ 'filename' ]) AND isset($_POST[ 'akl' ])) {
+if (isset($_POST[ 'bbwy' ]) AND isset($_POST[ 'filename' ]) AND isset($_POST[ 'akl' ]) and chk_antispam('adminuser_action', true)) {
     // speichern
     $akl = $_POST['akl'];
     $text = $_POST['bbwy'];
@@ -49,7 +49,7 @@ $akl = '';
 if (isset($_REQUEST['akl'])) {
     $akl = $_REQUEST['akl'];
 }
-// l�schen
+// loeschen
 if (isset($_REQUEST['del'])) {
     $del = $_REQUEST['del'];
     $a = substr($del, 0, 1);
@@ -80,7 +80,8 @@ $tpl->set_ar_out(array(
         'hmenu' => isset($properties['hmenu']) ? $properties['hmenu'] : '',
         'view' => $view,
         'viewoptions' => isset($properties['viewoptions']) ? $properties['viewoptions'] : '',
-        'wysiwyg_editor' => $properties['wysiwyg'] == 1 ? '<script type="text/javascript">buttonPath = "include/images/icons/editor/"; imageBrowse = "admin.php?selfbp-imagebrowser"; makeWhizzyWig("bbwy", "all");</script>' : ''
+        'wysiwyg_editor' => $properties['wysiwyg'] == 1 ? '<script type="text/javascript">buttonPath = "include/images/icons/editor/"; imageBrowse = "admin.php?selfbp-imagebrowser"; makeWhizzyWig("bbwy", "all");</script>' : '',
+		'ANTISPAM' => get_antispam('adminuser_action', 0, true)
         ), 0);
 $design->footer();
 ?>

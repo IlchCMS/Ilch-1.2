@@ -19,12 +19,13 @@ if (isset($_POST[ 'mail' ])) {
 
 switch ($menu->get(1)) {
     case 1:
+		if (chk_antispam('adminuser_action', true)) {	    
         $row = db_fetch_object(db_query("SELECT `t1` FROM `prefix_allg` WHERE `k` = 'kontakt'"));
         $k = explode('#', $row->t1);
         $k[ $_GET[ 'wo' ] ] = $_POST[ 'mail' ] . '|' . $_POST[ 'name' ];
         $nk = implode('#', $k);
         db_query("UPDATE `prefix_allg` SET `t1` = '" . $nk . "' WHERE `k` = 'kontakt'");
-        break;
+        break; }
     case 2:
         $row = db_fetch_object(db_query("SELECT `t1` FROM `prefix_allg` WHERE `k` = 'kontakt'"));
         $k = explode('#', $row->t1);
@@ -33,16 +34,18 @@ switch ($menu->get(1)) {
         db_query("UPDATE `prefix_allg` SET `t1` = '" . $nk . "' WHERE `k` = 'kontakt'");
         break;
     case 3:
+		if (chk_antispam('adminuser_action', true)) {
         $row = db_fetch_object(db_query("SELECT `t1` FROM `prefix_allg` WHERE `k` = 'kontakt'"));
         $nk = $row->t1 . '#' . $_POST[ 'mail' ] . '|' . $_POST[ 'name' ];
         db_query("UPDATE `prefix_allg` SET `t1` = '" . $nk . "' WHERE `k` = 'kontakt'");
-        break;
+        break; }
     case 5:
         db_query('UPDATE `prefix_allg` SET ' . $feld . ' = "' . $ak . '" WHERE `k` = "kontakt"');
         break;
 }
 
 $tpl = new tpl('contact', 1);
+$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
 $tpl->out(0);
 
 $row = db_fetch_object(db_query("SELECT `t1`,`v2`,`v1` FROM `prefix_allg` WHERE `k` = 'kontakt'"));

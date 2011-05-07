@@ -11,7 +11,7 @@ $design = new design('Ilch Admin-Control-Panel :: Trainzeiten', '', 2);
 $design->header();
 $tpl = new tpl('trains', 1);
 
-if (!empty($_POST[ 'send' ])) {
+if (!empty($_POST[ 'send' ]) and chk_antispam('adminuser_action', true)) {
     $mon = str_replace('#', '', escape($_POST[ 'mon' ], 'textarea'));
     $die = str_replace('#', '', escape($_POST[ 'die' ], 'textarea'));
     $mit = str_replace('#', '', escape($_POST[ 'mit' ], 'textarea'));
@@ -21,7 +21,7 @@ if (!empty($_POST[ 'send' ])) {
     $son = str_replace('#', '', escape($_POST[ 'son' ], 'textarea'));
     $new = $mon . '#' . $die . '#' . $mit . '#' . $don . '#' . $fre . '#' . $sam . '#' . $son;
     db_query("UPDATE `prefix_allg` SET `t1` = '" . $new . "' WHERE `k` = 'trainzeiten'");
-    wd('?trains', 'Daten erfolgreich geändert', 2);
+    wd('?trains', 'Daten erfolgreich ge&auml;ndert', 2);
 } else {
     $row = db_fetch_object(db_query("SELECT `t1` FROM `prefix_allg` WHERE `k` = 'trainzeiten'"));
     $dbe = explode('#', $row->t1);
@@ -32,7 +32,8 @@ if (!empty($_POST[ 'send' ])) {
         'DON' => $dbe[ 3 ],
         'FRE' => $dbe[ 4 ],
         'SAM' => $dbe[ 5 ],
-        'SON' => $dbe[ 6 ]
+        'SON' => $dbe[ 6 ],
+		'ANTISPAM' => get_antispam('adminuser_action', 0, true)
         );
     $tpl->set_ar_out($ar, 0);
 }

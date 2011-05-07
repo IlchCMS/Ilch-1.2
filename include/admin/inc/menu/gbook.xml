@@ -2,10 +2,10 @@
 
 <menu>
 
-  <list title="Gaestebuch">
+  <list title="G&amp;auml;stebuch">
   
     <modul>
-	  <title>Einträge verwalten</title>
+	  <title>Eintr&amp;auml;ge verwalten</title>
 	  <url>admin.php?gbook</url>
 	</modul>
 	

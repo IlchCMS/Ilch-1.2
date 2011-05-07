@@ -1,17 +1,28 @@
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {		   
+	$("#validate").validate({
+		rules: {			
+			show: { required: true, minlength: 2 }
+		},
+		messages: {
+			show: { required: "Bitte gib ein Name an!", minlength: "Der Name muss mindestens 2 Zeichen haben!" }
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
 <script language="JavaScript" type="text/javascript">
 <!--
   function delcheck ( DID ) {
-    var frage = confirm ( "Willst du dieses Feld und die Werte der User wirklich unwiederbringlich l�schen?" );
-    if ( frage ) {
-      document.location.href="?profilefields-delete-"+DID;
-    }
+    var frage = confirm ( unescape ( "Willst%20du%20dieses%20Feld%20und%20die%20Werte%20der%20User%20wirklich%20unwiederbringlich%20l%F6schen%3F" ));
+    if ( frage ) { document.location.href="?profilefields-delete-"+DID; }
   }
-
+  
 	$(function() {
 			$("#profilefieldtype").change(function() {
 				loadType();
 			});
-
 			loadType();
 	});
 
@@ -35,42 +46,52 @@
 //-->
 </script>
 
-<table><tr><td valign="top">
-<form action="admin.php?profilefields" method="POST">
-  <input id="sid" type="hidden" name="sid" value="{sid}" />
-  <table cellspacing="1" cellpadding="3" class="border">
-    	<tr>
-	    <th class="Chead" colspan="2"><b>neues Profilefeld</b></th>
-		</tr><tr>
-	    <td class="Cmite">Name</td>
-			<td class="Cnorm"><input type="text" name="show" value="{show}"></td>
-		</tr><tr>
-	    <td class="Cmite">Funktion</td>
-			<td class="Cnorm"><select id="profilefieldtype" name="func">{_list_func@<option%1 value="%2">%3</option>}</select></td>
-		</tr>
-		<tbody id="profilefieldtype_load">
-			<tr><td></td><td></td></tr>
-		</tbody>
-		<tr>
-		  		<td class="Cdark" align="center"><div style="display:none;" id="ajaxloader"><img src="include/images/icons/ajax-loader-arrows.gif"></img></div></td>
-				<td class="Cdark"><input class="sub" type="submit" value="{sub}" name="sub"></td>
-	  	</tr>
-  </table>
-</form>
-</td><td>&nbsp;&nbsp;&nbsp;</td><td valign="top">
-<table cellspacing="1" cellpadding="3" class="border">
-  <tr class="Chead">
-		<th colspan="7">Profilfelder verwalten
-	</tr>
-	{EXPLODE}
-	<tr class="{CLASS}">
-		<td>{show}</td>
-		<td align="center">{func}</td>
-		<td><a href="?profilefields-edit-{id}">&auml;ndern</a></td>
-		<td><a href="javascript:delcheck({id})">l&ouml;schen</a></td>
-		<td><a href="?profilefields-o-{id}-{pos}"><img src="include/images/icons/pfeilo.png" border="0"></a></td>
-		<td><a href="?profilefields-u-{id}-{pos}"><img src="include/images/icons/pfeilu.png" border="0"></a></td>
-	</tr>
-{EXPLODE}
+<table>
+  <tr>
+    <td valign="top">
+      <form action="admin.php?profilefields" method="POST" id="validate">
+      {ANTISPAM}
+      <input id="sid" type="hidden" name="sid" value="{sid}" />
+        <table cellspacing="1" cellpadding="3" class="border">
+          <tr>
+            <th class="Chead" colspan="2"><b>neues Profilefeld</b></th>
+          </tr><tr>
+            <td class="Cmite">Name</td>
+            <td class="Cnorm"><input type="text" name="show" value="{show}"></td>
+          </tr><tr>
+            <td class="Cmite">Funktion</td>
+            <td class="Cnorm"><select id="profilefieldtype" name="func">{_list_func@<option%1 value="%2">%3</option>}</select></td>
+          </tr>
+            <tbody id="profilefieldtype_load">
+              <tr>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          <tr>
+            <td class="Cdark" align="center"><div style="display:none;" id="ajaxloader"><img src="include/images/icons/ajax-loader-arrows.gif"></div></td>
+            <td class="Cdark"><input class="sub" type="submit" value="{sub}" name="sub"></td>
+          </tr>
+        </table>
+      </form>
+    </td>
+    <td>&nbsp;&nbsp;&nbsp;</td>
+    <td valign="top">
+      <table cellspacing="1" cellpadding="3" class="border">
+        <tr class="Chead">
+          <th colspan="7">Profilfelder verwalten</th>
+        </tr>
+        {EXPLODE}
+        <tr class="{CLASS}">
+          <td>{show}</td>
+          <td align="center">{func}</td>
+          <td><a href="?profilefields-edit-{id}">&auml;ndern</a></td>
+          <td><a href="javascript:delcheck({id})">l&ouml;schen</a></td>
+          <td><a href="?profilefields-o-{id}-{pos}"><img src="include/images/icons/pfeilo.png" border="0"></a></td>
+          <td><a href="?profilefields-u-{id}-{pos}"><img src="include/images/icons/pfeilu.png" border="0"></a></td>
+        </tr>
+        {EXPLODE}
+      </table>
+    </td>
+  </tr>
 </table>
-</td></tr></table>

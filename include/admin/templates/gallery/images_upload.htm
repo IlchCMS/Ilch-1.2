@@ -12,10 +12,8 @@ function openImgWindow(v,hoehe,breite) {
   fenster.focus();
 }
 function deleteMap(v) {
-  var x = confirm ( "Bild wirklich loeschen?" );
-  if ( x ) {
-    document.location.href="admin.php?wars-last-upload=0&d=include/images/wars/{wid}_{mid}."+v+"&wid={wid}&mid={mid}";
-  }
+  var x = confirm ( unescape ( "Bild%20wirklich%20l%F6schen%3F" ));
+  if ( x ) { document.location.href="admin.php?wars-last-upload=0&d=include/images/wars/{wid}_{mid}."+v+"&wid={wid}&mid={mid}"; }
 }
 //-->
 </script>
@@ -25,7 +23,8 @@ function deleteMap(v) {
   <tr>
     <td class="Callg">{msg}
       <form id="picupload" action="admin.php?gallery-uploadImages-{cat}" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="hochladen" value="yes" />
+      {ANTISPAM}
+      <input type="hidden" name="hochladen" value="yes" />
       <table border="0" cellpadding="5" cellspacing="1" class="border" width="100%">
         {EXPLODE}<tr>
           <td class="{class}">
@@ -39,7 +38,7 @@ function deleteMap(v) {
           </td>
         </tr>
       </table>
-
+      </form>
     </td>
   </tr>
 </table>

@@ -10,16 +10,16 @@ defined('admin') or die('only admin access');
 $design = new design('Ilch Admin-Control-Panel :: Kasse', '', 2);
 $design->header();
 
-if (isset($_POST[ 'ksub' ]) AND !empty($_POST[ 'kontodaten' ])) {
+if (isset($_POST[ 'ksub' ]) AND !empty($_POST[ 'kontodaten' ]) and chk_antispam('adminuser_action', true)) {
     $kontodaten = escape($_POST[ 'kontodaten' ], 'textarea');
     db_query("UPDATE prefix_allg SET t1 = '" . $kontodaten . "' WHERE k = 'kasse_kontodaten'");
-} elseif (isset($_POST[ 'sub' ])) {
+} elseif (isset($_POST[ 'sub' ]) and chk_antispam('adminuser_action', true)) {
     $name = escape($_POST[ 'name' ], 'string');
     $verwendung = escape($_POST[ 'verwendung' ], 'string');
     $betrag = str_replace(',', '.', $_POST[ 'betrag' ]);
     $datum = get_datum($_POST[ 'datum' ]);
     if (!is_numeric($betrag)) {
-        echo 'der Betrag is keine Nummer?.. !!';
+        echo 'Der Betrag is keine Zahl!';
     } elseif (is_numeric($menu->get(1))) {
         if (db_query("UPDATE `prefix_kasse` SET `name` = '" . $name . "', `datum` = '" . $datum . "', `betrag` = '" . $betrag . "', `verwendung` = '" . $verwendung . "' WHERE `id` = " . $menu->get(1)))
             echo 'Buchung wurde ge&auml;ndert ... ';
@@ -27,7 +27,7 @@ if (isset($_POST[ 'ksub' ]) AND !empty($_POST[ 'kontodaten' ])) {
             echo 'Es ist ein Fehler aufgetreten, Buchung nicht ge&auml;ndert';
         $menu->set_url(1, '');
     } else {
-        db_query("INSERT INTO `prefix_kasse` (`datum`,`name`,``verwendung`,`betrag`) VALUES ('" . $datum . "','" . $name . "','" . $verwendung . "'," . $betrag . ")");
+        db_query("INSERT INTO `prefix_kasse` (`datum`,`name`,`verwendung`,`betrag`) VALUES ('" . $datum . "','" . $name . "','" . $verwendung . "','" . $betrag . "')");
         echo 'Buchung wurde gespeichert ... ';
     }
 }
@@ -48,6 +48,7 @@ if (is_numeric($menu->get(1))) {
         );
 }
 $tpl = new tpl('kasse', 1);
+$r[ 'ANTISPAM' ] = get_antispam('adminuser_action', 0, true);
 $r[ 'kontodaten' ] = $kontodaten;
 $tpl->set_ar_out($r, 0);
 

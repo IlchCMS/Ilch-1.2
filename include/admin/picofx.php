@@ -27,6 +27,7 @@ if (empty($um)) {
 
     ?>
     <form action="admin.php?picofx-update" method="POST">
+    <?php echo get_antispam('adminuser_action', 0, true); ?>
     <table cellspacing="1" border="0" cellpadding="10" class="border">
       <tr class="Chead">
         <td colspan="2">
@@ -91,7 +92,7 @@ if (empty($um)) {
 
 <?php
 
-} elseif ($um == 'update') {
+} elseif ($um == 'update' and chk_antispam('adminuser_action', true)) {
     $directory = '';
     $change = 'x';
     $picofxPicWidth = '100';

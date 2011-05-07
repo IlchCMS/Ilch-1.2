@@ -16,7 +16,7 @@ $bannerlist = '';
 $topbanner = '';
 $updir = 'include/images/linkus/';
 // dateiupload
-if (isset($_POST['setnewbanner'])) {
+if (isset($_POST['setnewbanner']) and chk_antispam('adminuser_action', true)) {
     // Escapes
     $upload_name = escape($_POST['setbannername'], 'string');
     $upload_link = escape($_POST['setlink'], 'string');
@@ -79,7 +79,7 @@ if (isset($_POST['setnewbanner'])) {
         }
     }
     // Banner Update
-    if (isset($_POST['seteditbanner'])) {
+    if (isset($_POST['seteditbanner']) and chk_antispam('adminuser_action', true)) {
         // escapes
         $edit_id = escape($_POST['hiddeneditid'], 'integer');
         $edit_name = escape($_POST['editbannername'], 'string');
@@ -160,7 +160,7 @@ if (isset($_POST['setnewbanner'])) {
 								<td align="right">' . $row['klicks'] . '&nbsp;&nbsp;</td>
 								<td><a onClick="editbanner(' . $row['id'] . ',\'' . $row['name'] . '\',\'' . $row['link'] . '\');" style="cursor:pointer;">
 								<img src="include/images/icons/edit.png" /></a></td>
-								<td><a href="admin.php?linkus-del-' . $row['id'] . '" onClick="return confirm(\'Diesen Banner wirklich l&ouml;schen ? \n Danach ist der Banner nicht mehr erreichbar und alle Statistiken gehen verloren\')">
+								<td><a href="admin.php?linkus-del-' . $row['id'] . '" onClick="return confirm(\' Diesen Banner wirklich l&ouml;schen ? \n Danach ist der Banner nicht mehr erreichbar und alle Statistiken gehen verloren\')">
 								<img src="include/images/icons/del.png" /></a></td>
 							  </tr>';
                 }
@@ -181,7 +181,7 @@ if (isset($_POST['setnewbanner'])) {
             }
             break;
     }
-
+	$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
     $tpl->set('bannerlist', $bannerlist);
     $tpl->set('topbannerlist', $topbanner);
     $tpl->out(0);

@@ -45,7 +45,7 @@ if (db_num_rows($qry) == 0 or ($smtpser = db_result($qry)) == '') {
     $smtp = unserialize($smtpser);
 }
 // Formular verabeiten
-if (isset($_POST[ 'subform' ]) and chk_antispam('smtpconf', true)) {
+if (isset($_POST[ 'subform' ]) and chk_antispam('adminuser_action', true)) {
     if (!empty($_POST[ 'smtp_pass' ])) {
         require_once('include/includes/class/AzDGCrypt.class.inc.php');
         $cr64 = new AzDGCrypt(DBDATE . DBUSER . DBPREF);
@@ -75,7 +75,7 @@ $tpl = new tpl('smtpconf', 1);
 $smtp[ 'smtp' ] = $allgAr[ 'mail_smtp' ] ? 1 : 0;
 $smtp[ 'smtp_selauth' ] = arlistee($smtp[ 'smtp_auth' ], $authMethods);
 $smtp[ 'smtp_pass' ] = (isset($smtp[ 'smtp_pass' ]) and !empty($smtp[ 'smtp_pass' ])) ? 1 : 0;
-$smtp[ 'antispam' ] = get_antispam('smtpconf', 0, true);
+$smtp[ 'ANTISPAM' ] = get_antispam('adminuser_action', 0, true);
 $tpl->set_ar_out($smtp, 0);
 $design->footer();
 

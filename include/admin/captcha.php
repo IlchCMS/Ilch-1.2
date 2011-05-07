@@ -8,7 +8,7 @@
 defined('main') or die('no direct access');
 defined('admin') or die('administrative access only - nur administrativer Zugang');
 
-if (isset($_POST[ 'sub' ])) {
+if (isset($_POST[ 'sub' ]) and chk_antispam('adminuser_action', true)) {
     extract($_POST);
     $ximagewidth = intval($ximagewidth);
     $ximageheight = intval($ximageheight);
@@ -102,7 +102,8 @@ $r = array(
     'addhorizontallinesja' => $addhorizontallinesja,
     'addhorizontallinesno' => $addhorizontallinesno,
     'scratchesja' => $scratchesja,
-    'scratchesno' => $scratchesno
+    'scratchesno' => $scratchesno,
+	'ANTISPAM' => get_antispam('adminuser_action', 0, true)
     );
 $tpl->set_ar_out($r, 0);
 $design->footer();

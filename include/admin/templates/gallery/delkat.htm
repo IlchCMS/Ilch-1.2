@@ -1,23 +1,26 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
 <head>
-    <title>Gallery - Kategorie l&ouml;schen</title>
-    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-    <link rel="stylesheet" type="text/css" href="include/admin/templates/style.css" />
+  <title>Gallery - Kategorie l&ouml;schen</title>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" type="text/css" href="include/admin/templates/style.css" />
 </head>
-<body><div style="padding: 10px" class="Callg">
+<body>
+<div style="padding: 10px" class="Callg">
 {EXPLODE}
-    <form action="admin.php?gallery-D{id}" method="post">
+  <form action="admin.php?gallery-D{id}" method="post">
+  {ANTISPAM}
     <a href="admin.php?gallery-D{id}-delall">Kategorie mit allen Bildern l&ouml;schen</a><br />
     <a href="admin.php?gallery-D{id}-delkat">Kategorie l&ouml;schen, aber Bilder auf dem FTP-Server lassen</a><br />
     Kategorie l&ouml;schen und Bilder nach: <select name="cat">{cats}</select> <input type="submit" value="verschieben" name="move" /><br />
-    </form>
+  </form>
 {EXPLODE}
 <script type="text/javascript">
-opener.location.href = opener.location.href;
-window.setTimeout("window.close();",5000);
+  opener.location.href = opener.location.href;
+  window.setTimeout("window.close();",5000);
 </script>
 {EXPLODE}
-    <a href="javascript:window.close();">Fenster schlie&szlig;en</a><br />
-</div></body>
+  <a href="javascript:window.close();">Fenster schlie&szlig;en</a><br />
+</div>
+</body>
 </html>

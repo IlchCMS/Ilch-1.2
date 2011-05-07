@@ -30,7 +30,7 @@ $_POST[ 'func' ] = @escape($_POST[ 'func' ], 'integer');
 $_POST[ 'sid' ] = @escape($_POST[ 'sid' ], 'integer');
 
 $show = true;
-if (isset($_POST[ 'sub' ])) {
+if (isset($_POST[ 'sub' ]) and chk_antispam('adminuser_action', true)) {
     if (empty($_POST[ 'sid' ])) {
         ProfilefieldRegistry::insert($_POST);
     } else {
@@ -72,7 +72,8 @@ if ($show) {
             'pos' => '',
             'show' => '',
             'func' => arliste('', profilefields_functions2(), $tpl, 'func'),
-            'sid' => ''
+            'sid' => '',
+			'ANTISPAM' => get_antispam('adminuser_action', 0, true)
             );
     } else {
         $sid = $menu->get(2);
@@ -81,6 +82,7 @@ if ($show) {
         $row = db_fetch_assoc($erg);
         $row[ 'func' ] = arliste($row[ 'func' ], profilefields_functions2(), $tpl, 'func');
         $row[ 'sub' ] = '&Auml;ndern';
+		$row[ 'ANTISPAM' ] = get_antispam('adminuser_action', 0, true);
     }
 
     $tpl->set_ar_out($row, 0);

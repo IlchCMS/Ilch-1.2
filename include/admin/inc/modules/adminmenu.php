@@ -30,7 +30,7 @@ $aid = $menu->get(2);
 switch ($aid) {
     default:
         // Modul aendern
-        if (isset($_POST[ 'submit' ])) {
+        if (isset($_POST[ 'submit' ]) and chk_antispam('adminuser_action', true)) {
             // POST-daten escapen
             $mid = escape($_POST[ 'modul' ], 'integer');
             $kat = escape($_POST[ 'kat' ], 'string');
@@ -123,7 +123,8 @@ switch ($aid) {
                     'aname' => 'Eintrag bearbeiten',
                     'modul' => $modul,
                     'kat' => $kat,
-                    'pos' => $row[ 'pos' ]
+                    'pos' => $row[ 'pos' ],
+					'ANTISPAM' => get_antispam('adminuser_action', 0, true)
                     ), 5);
         } else {
             $kat = getKats();
@@ -132,7 +133,8 @@ switch ($aid) {
                     'aname' => 'Eintrag hinzuf&uuml;gen',
                     'modul' => $modul,
                     'kat' => $kat,
-                    'pos' => $row[ 'pos' ]
+                    'pos' => $row[ 'pos' ],
+					'ANTISPAM' => get_antispam('adminuser_action', 0, true)
                     ), 5);
         }
         // Template-Footer

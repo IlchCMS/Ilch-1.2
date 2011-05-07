@@ -1,44 +1,50 @@
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {		   
+	$("#validate").validate({
+		rules: {
+			name: { required: true }
+		},
+		messages: {
+			name: "Bitte ein Name angeben!"
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
 <script type="text/javascript">
-    function delete_user ( gid , uid ) {
-        var x = confirm ( "Wollen Sie diesen User löschen?", "" );
-        if ( x ) {
-            document.location.href="?groups-addusers-"+gid+"-user_delete-"+uid;
-        }
-    }
-    function userfuncs () {
-        var Fenster = window.open ('admin.php?groups-funcs', 'groupfuncs', 'status=no,scrollbars=yes,height=400,width=300');
-        Fenster.focus();
-    }
-    function finduser () {
-        self.parent.ic.modalDialog({title:'User suchen', url:'index.php?search-finduser', width: 400, height: 250});
-    }
-    function change_user ( gid, uid, fid , ofid, selname) {
-        var x = confirm ( "Wollen Sie die Funktion des Users wirklich ändern?", "" );
-        if ( x ) {
-            document.location.href="admin.php?groups-addusers-"+gid+"-userchange-"+uid+"-"+fid;
-        } else {
-            document.getElementById(selname).value = ofid;
-        }
-    }
+function delete_user ( gid , uid ) {
+  var x = confirm ( unescape ( "Wollen%20Sie%20diesen%20User%20l%F6schen%3F", "" ));
+  if ( x ) { document.location.href="?groups-addusers-"+gid+"-user_delete-"+uid; }
+  }
+function userfuncs () {
+  var Fenster = window.open ('admin.php?groups-funcs', 'groupfuncs', 'status=no,scrollbars=yes,height=400,width=300');
+  Fenster.focus(); 
+  }
+function finduser () {
+  self.parent.ic.modalDialog({title:'User suchen', url:'index.php?search-finduser', width: 400, height: 250});
+  }
+function change_user ( gid, uid, fid , ofid, selname) {
+  var x = confirm ( unescape ( "Wollen%20Sie%20die%20Funktion%20des%20Users%20wirklich%20%E4ndern%3F", "" ));
+  if ( x ) { document.location.href="admin.php?groups-addusers-"+gid+"-userchange-"+uid+"-"+fid; } else { document.getElementById(selname).value = ofid; }
+  }
 </script>
 
-<form action="admin.php?groups-adduser-{gid}" method="POST" name="form">
-
-<table cellpadding="3" cellspacing="1" border="0" class="border">
-<tr class="Chead">
-<td colspan="3"><b>User zur Gruppe "{gruppe}" hinzuf&uuml;gen</b></td>
-</tr>
-{fehler}
-<tr class="Cmite">
-<td valign="top"><input name="name" /><br /><a href="javascript:finduser();">User finden</a></td>
-<td valign="top"><select name="fid">{_list_funcs@<option%1 value="%2">%3</option>}</select><br /><a href="javascript:userfuncs()">Funktion hinzuf&uuml;gen</a></td>
-<td valign="top"><input class="sub" type="submit" value="Eintragen" name="ins_user" /></td>
-</tr>
-</table>
-
+<form action="admin.php?groups-adduser-{gid}" method="POST" name="form" id="validate">
+{ANTISPAM}
+  <table cellpadding="3" cellspacing="1" border="0" class="border">
+    <tr class="Chead">
+      <td colspan="3"><b>User zur Gruppe "{gruppe}" hinzuf&uuml;gen</b></td>
+    </tr>
+    {fehler}
+    <tr class="Cmite">
+      <td valign="top"><input name="name" /><br /><a href="javascript:finduser();">User finden</a></td>
+      <td valign="top"><select name="fid">{_list_funcs@<option%1 value="%2">%3</option>}</select><br /><a href="javascript:userfuncs()">Funktion hinzuf&uuml;gen</a></td>
+      <td valign="top"><input class="sub" type="submit" value="Eintragen" name="ins_user" /></td>
+    </tr>
+  </table>
 </form>
 <br />
-
 <table cellpadding="3" cellspacing="1" border="0" class="border">
   <tr class="Chead">
     <td colspan="4"><b>Gruppen Users &Uuml;bersicht</b></td>
@@ -46,18 +52,17 @@
   <tr class="Cdark">
     <td>Name</td>
     <td>Funktion</td>
-		<td>L&ouml;schen</td>
+    <td>L&ouml;schen</td>
   </tr>
-{EXPLODE}
+  {EXPLODE}
   <tr class="{class}">
-	  <td>{username}</td>
-		<td>{funcname}</td>
-	  <td><a href="javascript:delete_user('{gid}','{uid}')">L&ouml;schen</a></td>
-	</tr>
-{EXPLODE}
+    <td>{username}</td>
+    <td>{funcname}</td>
+    <td><a href="javascript:delete_user('{gid}','{uid}')">L&ouml;schen</a></td>
+  </tr>
+  {EXPLODE}
 </table>
-
 <br /><br />
-<div class="info_box">
-<p>Die Funktion eines Users ist seine Stellung in der Gruppe. Dies ist haupts&auml;chlich dann wichtig, wenn die Gruppe unter Teams auf der Seite angezeigt wird. Damit hier Funktionen zur Auswahl stehen m&uuml;ssen diese erst eingetragen werden. Die User in einem Team werden beim Anzeigen nach ihrer Funktion sortiert, dass heisst wenn die Funktion "Leader" nach ganz oben geschoben wurde ist der User mit der Funktion "Leader" sp&auml;ter auch ganz oben... Ansonsten einfach mal testen ;-)</p>
+<div class="info_box" style="text-align:justify">
+  <p>Die Funktion eines Users ist seine Stellung in der Gruppe. Dies ist haupts&auml;chlich dann wichtig, wenn die Gruppe unter Teams auf der Seite angezeigt wird. Damit hier Funktionen zur Auswahl stehen m&uuml;ssen diese erst eingetragen werden. Die User in einem Team werden beim Anzeigen nach ihrer Funktion sortiert, dass heisst wenn die Funktion "Leader" nach ganz oben geschoben wurde ist der User mit der Funktion "Leader" sp&auml;ter auch ganz oben... Ansonsten einfach mal testen ;-)</p>
 </div>

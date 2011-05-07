@@ -19,7 +19,7 @@ if (!empty($_GET[ 'del' ])) {
     db_query("DELETE FROM `prefix_koms` WHERE `uid` = " . $id . " AND `cat` = 'GBOOK'");
 }
 
-if (isset($_POST[ 'sub' ])) {
+if (isset($_POST[ 'sub' ]) and chk_antispam('adminuser_action', true)) {
     $name = escape($_POST[ 'name' ], 'string');
     $mail = escape($_POST[ 'mail' ], 'string');
     $page = escape($_POST[ 'page' ], 'string');
@@ -37,7 +37,8 @@ $r = array(
     'mail' => '',
     'page' => '',
     'text' => '',
-    'id' => ''
+    'id' => '',
+	'ANTISPAM' => get_antispam('adminuser_action', 0, true)
     );
 if (isset($_GET[ 'edit' ])) {
     $id = escape($_GET[ 'edit' ], 'integer');
@@ -45,6 +46,7 @@ if (isset($_GET[ 'edit' ])) {
 }
 
 $tpl = new tpl('gbook', 1);
+$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
 $tpl->set_ar_out($r, 0);
 
 $class = '';

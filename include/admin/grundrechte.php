@@ -102,7 +102,7 @@ if (isset($_POST['subchange'])) {
             db_query("UPDATE `prefix_grundrechte` SET `name` = '" . escape($_POST[ 'gr' ][ $r[ 'id' ] ], 'string') . "' WHERE `id` = " . $r[ 'id' ]);
         }
     }
-    echo 'Die Aenderungen wurden gespeichert<br /><br />';
+    echo 'Die &Auml;nderungen wurden gespeichert<br /><br />';
 }
 
 //Templateausgabe

@@ -123,7 +123,7 @@ if ($wo == '' or !is_numeric($wo)) {
     $wo = 1;
 }
 // eintragen aendern
-if ($aktion == 'an') {
+if ($aktion == 'an' and chk_antispam('adminuser_action', true)) {
     $ebene = escape($_REQUEST[ 'cwebene' ], 'integer');
     $was = escape($_REQUEST[ 'was' ], 'integer');
     $wo = escape($_REQUEST[ 'cwmenu' ], 'integer');
@@ -272,7 +272,8 @@ if ($aktion == 'edit') {
         'alllinkss' => $row[ 'path' ],
         'menutyp' => 1,
         'recht_type' => $row['recht_type'],
-        'team' => $row['recht_type'] == 3 ? $row[ 'recht' ] : 0
+        'team' => $row['recht_type'] == 3 ? $row[ 'recht' ] : 0,
+		'ANTISPAM' => get_antispam('adminuser_action', 0, true)
         );
     if ($ar[ 'was' ] == 3) {
         $ar[ 'menutyp' ] = 2;
@@ -297,7 +298,8 @@ if ($aktion == 'edit') {
         'alllinkss' => '',
         'menutyp' => '',
         'recht_type' => 0,
-        'team' => 0
+        'team' => 0,
+		'ANTISPAM' => get_antispam('adminuser_action', 0, true)
         );
 }
 

@@ -1,6 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-      <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <html>
   <head>
     <title>ilch AdminMenu</title>
@@ -16,57 +15,42 @@
     <script type="text/javascript" src="include/includes/js/JSCookMenu.js"></script>
     <link rel="stylesheet" href="include/admin/templates/JSCookMenu/theme.css" type="text/css" />
     <script type="text/javascript" src="include/admin/templates/JSCookMenu/theme.js"></script>
-
     <style type="text/css">
-
-    ul.admix  {list-style: none;}
-    ul.admix li ul { margin: 0; padding: 0; }
-
-    ul.admix li ul li { display:block; float: left; padding: 5px; height: 76px; width: 80px; text-align: center; outline: 0px solid #faa;}
-    ul.admix li ul li a {text-align:center;display: table-cell; display: inline-block; font-weight: bold; font-size: 11px; text-decoration: none;}
-    ul.admix li ul li a img {display:block; margin: 0 auto 4px auto; width: 48px; height: 48px; }
-
-    ul.admix  li.admix_box {width: 780px; font-size: 14px; font-weight: bold; border:1px solid #555753; text-align: center; margin-top: 10px; background: #eeeeec url(include/images/icons/admin/box_header.png) repeat-x left top; color: #ffffff;}
-
-    ul.admix_n li ul li a img {display:inline; width: 0px; height: 0px; }
-
-    ul.admix li ul br.admix_last {clear: both; }
-    ul.admix_n li ul br.admix_last {display: inline; margin:0; height:0; padding: 0;}
-
+      ul.admix  {list-style: none;}
+      ul.admix li ul { margin: 0; padding: 0; }
+      ul.admix li ul li { display:block; float: left; padding: 5px; height: 76px; width: 80px; text-align: center; outline: 0px solid #faa;}
+      ul.admix li ul li a {text-align:center;display: table-cell; display: inline-block; font-weight: bold; font-size: 11px; text-decoration: none;}
+      ul.admix li ul li a img {display:block; margin: 0 auto 4px auto; width: 48px; height: 48px; }
+      ul.admix  li.admix_box {width: 780px; font-size: 14px; font-weight: bold; border:1px solid #555753; text-align: center; margin-top: 10px; background: #eeeeec url(include/images/icons/admin/box_header.png) repeat-x left top; color: #ffffff;}
+      ul.admix_n li ul li a img {display:inline; width: 0px; height: 0px; }
+      ul.admix li ul br.admix_last {clear: both; }
+      ul.admix_n li ul br.admix_last {display: inline; margin:0; height:0; padding: 0;}
     </style>
-
-	</head>
+  </head>
   <body>
-	<div id="header" style="z-index:10;">
-		{_boxes_ADMINMENU}
-
-		<div class="Cmite" ID="myMenuID"></div>
+    <div id="header" style="z-index:10;">
+      {_boxes_ADMINMENU}
+      <div class="Cmite" ID="myMenuID"></div>
 	</div>
-
 	<div id="content">
-
-		<div id="leftcol" >
-			<div id="innerleftcol">
-				<div id="hmenu">
-					{_boxes_ADMINHMENU}
-				</div>
-				<div style="padding: 50px 10px 10px 10px;">
-					{_boxes_ADMINSUBMENU}
-				</div>
-			<div style="width: 100%; bottom:30px; position: absolute;">
-				<div style="text-align: center;"><a href="http://www.ilch.de" target="_blank" style="color: #FFFFFF; text-decoration:none; text-shadow:#000000 2px 2px 2px;">Bereitgestellt von ilch.de</a></div>
-			</div>
-			</div>
+	  <div id="leftcol">
+	    <div id="innerleftcol">
+	      <div id="hmenu">{_boxes_ADMINHMENU}</div>
+	      <div style="padding: 50px 10px 10px 10px;">{_boxes_ADMINSUBMENU}</div>
+	      <div style="width: 100%; bottom:30px; position: absolute;">
+	        <div style="text-align: center;"><a href="http://www.ilch.de" target="_blank" style="color: #FFFFFF; text-decoration:none; text-shadow:#000000 2px 2px 2px;">Bereitgestellt von ilch.de</a></div>
+	      </div>
+	    </div>
+	  </div>
+	  <div id="maincol" >
+	    <div style="padding: 10px;" class="Callg">{EXPLODE}</div>
+	    <a href="#" name="bot"></a>
+	    <SCRIPT LANGUAGE="JavaScript">
+	    <!--
+	    cmDraw ('myMenuID', myMenu, 'hbr', cmThemePanel, 'ThemePanel');
+	    -->
+	    </SCRIPT>
 		</div>
-
-		<div id="maincol" >
-			<div style="padding: 10px;" class="Callg">{EXPLODE}</div>
-
-			<a href="#" name="bot"></a>
-			<SCRIPT LANGUAGE="JavaScript"><!--
-				cmDraw ('myMenuID', myMenu, 'hbr', cmThemePanel, 'ThemePanel');
-			--></SCRIPT>
-		</div>
-	</div>
-  </body>
+      </div>
+   </body>
 </html>

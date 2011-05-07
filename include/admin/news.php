@@ -41,7 +41,7 @@ function getKats($akt) {
 // ##
 // ###
 // #### A k t i o n e n
-if (!empty($_REQUEST[ 'um' ])) {
+if (!empty($_REQUEST[ 'um' ]) and chk_antispam('adminuser_action', true) ) {
     $um = $_REQUEST[ 'um' ];
     $_POST[ 'titel' ] = escape($_POST[ 'titel' ], 'string');
     $_POST[ 'grecht' ] = escape($_POST[ 'grecht' ], 'integer');
@@ -127,8 +127,8 @@ if (empty($doNoIn)) {
         'SMILIS' => getsmilies(),
         'grecht' => dbliste($Fgrecht, $tpl, 'grecht', "SELECT `id`,`name` FROM `prefix_grundrechte` ORDER BY `id` DESC"),
         'KATS' => getKats($FkatLis),
-        'FSUB' => $Fsub
-
+        'FSUB' => $Fsub,
+		'ANTISPAM' => get_antispam('adminuser_action', 0, true)
         );
 
     $tpl->set_ar_out($ar, 0);

@@ -43,7 +43,7 @@ function gallery_admin_selectcats($id, $stufe, &$output, $sel = 0) {
 // Bilder einer Kategorie erneuern oder einlesen
 if ($menu->get(1) == 'reloadImages') {
     $msg = '';
-    if (isset($_POST[ 'do_aktion' ]) AND $_POST[ 'do_aktion' ] == 'yes') {
+    if (isset($_POST[ 'do_aktion' ]) AND $_POST[ 'do_aktion' ] == 'yes' and chk_antispam('adminuser_action', true)) {
         // wenn keine aktion gewaehlt wurde
         if (empty($_POST[ 'aktion' ])) {
             $msg = 'Bitte eine Aktion ausw&auml;hlen<br />';
@@ -115,13 +115,14 @@ if ($menu->get(1) == 'reloadImages') {
     $tpl->set('cat', $menu->get(2));
     $tpl->set('cname', $cname);
     $tpl->set('msg', $msg);
+	$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
     $tpl->out(0);
     exit();
 }
 // Bilder in eine Kategorie hochladen
 if ($menu->get(1) == 'uploadImages') {
     $msg = '';
-    if (isset($_POST[ 'hochladen' ]) AND $_POST[ 'hochladen' ] == 'yes') {
+    if (isset($_POST[ 'hochladen' ]) AND $_POST[ 'hochladen' ] == 'yes' and chk_antispam('adminuser_action', true)) {
         foreach ($_FILES[ 'file' ][ 'name' ] AS $k => $v) {
             if (!empty($_FILES[ 'file' ][ 'name' ][ $k ])) {
                 $name = $_FILES[ 'file' ][ 'name' ][ $k ];
@@ -157,6 +158,7 @@ if ($menu->get(1) == 'uploadImages') {
     $tpl = new tpl('gallery/images_upload', 1);
     $tpl->set('cat', $menu->get(2));
     $tpl->set('msg', $msg);
+	$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
     $tpl->out(0);
     $class = 'Cmite';
     for ($i = 1; $i <= $anzb; $i++) {
@@ -166,11 +168,12 @@ if ($menu->get(1) == 'uploadImages') {
     $tpl->out(2);
     exit();
 }
-// Kategorie löschen
+// Kategorie loeschen
 if ($menu->getA(1) == 'D') {
     $tpl = new tpl('gallery/delkat', 1);
+	$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
     $tpl->out(0);
-    // Kategorie und alle Bilder löschen
+    // Kategorie und alle Bilder loeschen
     if ($menu->get(2) == 'delall') {
         $r = db_fetch_assoc(db_query("SELECT `id`, `pos`, `cat` FROM `prefix_gallery_cats` WHERE `id` = '" . $menu->getE(1) . "'"));
         db_query("DELETE FROM `prefix_gallery_cats` WHERE `id` = '" . $menu->getE(1) . "'");
@@ -184,14 +187,14 @@ if ($menu->getA(1) == 'D') {
         db_query("DELETE FROM `prefix_gallery_imgs` WHERE `cat` = '" . $r[ 'id' ] . "'");
         echo 'Kategorie und Bilder gel&ouml;scht<br />';
         $tpl->out(2);
-    } elseif ($menu->get(2) == 'delkat') {
+    } elseif ($menu->get(2) == 'delkat' ) {
         $r = db_fetch_assoc(db_query("SELECT `id`, `pos`, `cat` FROM `prefix_gallery_cats` WHERE `id` = '" . $menu->getE(1) . "'"));
         db_query("DELETE FROM `prefix_gallery_cats` WHERE `id` = '" . $menu->getE(1) . "'");
         db_query("UPDATE `prefix_gallery_cats` SET `pos` = `pos` - 1 WHERE `pos` > " . $r[ 'pos' ] . " AND `cat` = " . $r[ 'cat' ]);
         db_query("DELETE FROM `prefix_gallery_imgs` WHERE `cat` = '" . $r[ 'id' ] . "'");
         echo 'Nur Kategorie gel&ouml;scht, Bilder noch auf dem FTP<br />';
         $tpl->out(2);
-    } elseif (isset($_POST[ 'move' ]) AND $_POST[ 'cat' ] != $menu->getE(1)) {
+    } elseif (isset($_POST[ 'move' ]) AND $_POST[ 'cat' ] != $menu->getE(1) and chk_antispam('adminuser_action', true)) {
         $_POST[ 'cat' ] = escape($_POST[ 'cat' ], 'integer');
         $r = db_fetch_assoc(db_query("SELECT `id`, `pos`, `cat` FROM `prefix_gallery_cats` WHERE `id` = '" . $menu->getE(1) . "'"));
         db_query("DELETE FROM `prefix_gallery_cats` WHERE `id` = '" . $menu->getE(1) . "'");
@@ -211,7 +214,7 @@ if ($menu->getA(1) == 'D') {
     exit();
 }
 // Bilder verschieben
-if (isset($_POST[ 'movepics' ])) {
+if (isset($_POST[ 'movepics' ]) and chk_antispam('adminuser_action', true)) {
     if (count($_POST[ 'img' ]) > 0) {
         $pics = implode(',', $_POST[ 'img' ]);
         $cat = escape($_POST[ 'movecat' ], 'integer');
@@ -279,7 +282,7 @@ if ($menu->getA(1) == 'M') {
     }
 }
 // kategorie eintrage speichern oder aendern.
-if (isset($_POST[ 'Csub' ])) {
+if (isset($_POST[ 'Csub' ]) and chk_antispam('adminuser_action', true)) {
     if (empty($_POST[ 'Ccat' ])) {
         $_POST[ 'Ccat' ] = 0;
     }
@@ -319,7 +322,7 @@ if (!isset($azk)) {
         $azk = $menu->getE(1);
     }
 }
-
+$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
 $tpl->out(0);
 $class = 0;
 $abf = "SELECT `id`,`besch`,`datei_name`,`endung` FROM `prefix_gallery_imgs` WHERE `cat` = " . $azk;

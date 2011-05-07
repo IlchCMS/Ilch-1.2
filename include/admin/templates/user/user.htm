@@ -1,3 +1,17 @@
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {		   
+	$("#validate").validate({
+		rules: {			
+			q: { required: true }
+		},
+		messages: {
+			q: { required: "Bitte Name eingeben!" },
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
 <script language="JavaScript" type="text/javascript">
 <!--
 function createNamedElement(type, name) {
@@ -15,7 +29,7 @@ function createNamedElement(type, name) {
    return element;
 }
 
-  function setufocus() {
+function setufocus() {
     document.f.q.focus();
   }
   // manage div ...
@@ -28,9 +42,9 @@ function createNamedElement(type, name) {
       mausX = e.pageX;
       mausY = e.pageY;
     }
-
   }
-  function alertpos(dname) {
+
+function alertpos(dname) {
   if (document.layers) {
     document.layers[0].left = mausX;
     document.layers[0].top = mausY;
@@ -44,7 +58,7 @@ function createNamedElement(type, name) {
     document.getElementById(dname).style.display = "none";
   }
   function changeUserRight (id1) {
-    var x = confirm ( 'Das Recht dieses Users wirklich aendern?' );
+    var x = confirm ( unescape ( 'Das%20Recht%20dieses%20Users%20wirklich%20%E4ndern%3F' ));
     if (x) {
       var options = {
         'action' : 'changeRight',
@@ -56,25 +70,29 @@ function createNamedElement(type, name) {
     }
   }
 
-  function resetUserRight(id, recht){
+function resetUserRight(id, recht){
        document.getElementById('recht'+id).value = recht;
   }
-  function changeGruppen (id1) {
+  
+function changeGruppen (id1) {
 	  ic.modalDialog({title:'Gruppen',url:'admin.php?user-gruppen-' + id1,height:300,width:250});
   }
-  function changeModulrecht (id1) {
+  
+function changeModulrecht (id1) {
     var Fenster = window.open ('admin.php?user-modulrecht-' + id1, 'changeModulrecht', 'status=yes,scrollbars=yes,height=500,width=250,left=300,top=50');
     Fenster.focus();
   }
-  function deleteUser (id1) {
-    var x = confirm ( 'Diesen User wirklich komplett entfernen?' );
+  
+function deleteUser (id1) {
+    var x = confirm ( unescape ( 'Diesen%20User%20wirklich%20komplett%20entfernen%3F' ));
     if (x) {
     	document.getElementById('af_action').value = 'deleteUser';
 		document.getElementById('af_uid').value = id1;
 		document.getElementById('actionForm').submit();
     }
   }
-  function changeModulRecht ( modul, uid ) {
+  
+function changeModulRecht ( modul, uid ) {
       var action = ( document.getElementById("MN" + modul + "-" + uid).checked == true ) ? 'give' : 'remove';
       var options = {
         'action' : 'changeModulRight',
@@ -85,7 +103,8 @@ function createNamedElement(type, name) {
 	  var frm = setIframe(options);
 	  frm.submit();
   }
-  function setIframe(fields){
+  
+function setIframe(fields){
   	var ifrm = window.frames['ifrm']; //document.getElementById('ifrm');
 	var frm2 = document.getElementById('actionForm').cloneNode(true);
 	frm2.setAttribute('action', 'admin.php?user');
@@ -107,35 +126,38 @@ function createNamedElement(type, name) {
 	}
 	return frm2;
   }
-  function setNewAntispam(value){
+
+function setNewAntispam(value){
   	document.getElementById('actionForm').elements['antispam_id'].value = value;
   }
-  function changeModuleRights(uid){
+
+function changeModuleRights(uid){
     ic.modalDialog({
         url: 'admin.php?user-cmr-' + uid,
-        title: 'Modulrechte ändern',
+        title: 'Modulrechte &auml;ndern',
         width: 450,
         height: 500
     });
   }
 //-->
 </script>
+
 <div style="float:right"><a href="admin.php?puser">Noch nicht best&auml;tigte Registrierungen verwalten</a></div>
-<form id="actionForm" id="actionForm" method="post">
-{action_antispam}
+<form id="actionForm" method="post">
+{ANTISPAM}
 <input type="hidden" name="action" id="af_action" value="" />
 <input type="hidden" name="uid" id="af_uid" value="0" />
 </form>
 <iframe name="ifrm" id="ifrm" style="display:none;"></iframe>
 <body onLoad="setufocus()">
-<form action="admin.php" name="f" method="GET" style="padding: 0px; margin:0px 0px 0px 0px;" >
-  <input type="hidden" name="user" value="" />
-<table cellpadding="3" cellspacing="1" border="0" class="border" style="float:left">
-  <tr>
-    <td class="Cmite"><input name="q" value="{q}" /></td>
-    <td class="Cdark"><input class="sub" type="submit" value="Suchen" /></td>
-  </tr>
-</table>
+<form action="admin.php" name="f" method="GET" style="padding: 0px; margin:0px 0px 0px 0px;" id="validate">
+<input type="hidden" name="user" value="" />
+  <table cellpadding="3" cellspacing="1" border="0" class="border" style="float:left">
+    <tr>
+      <td class="Cmite"><input name="q" value="{q}" /></td>
+      <td class="Cdark"><input class="sub" type="submit" value="Suchen" /></td>
+    </tr>
+  </table>
 </form>
 <br />
 <br />
@@ -151,13 +173,16 @@ function createNamedElement(type, name) {
   </tr>
  {EXPLODE}
   <tr class="{class}">
-    <td><div onMouseOver="hiddpos('groupdiv{id}')" id="groupdiv{id}" style="position:absolute; top:50px; left:50px; display:none; width:200px;">
-<table width="100%" class="border" border="0" cellspacing="1" cellpadding="4">
-  <tr>
-    <td class="{class}" align="left">{grouplist}</td>
-  </tr>
-</table>
-</div><strong>{name}</strong></td>
+    <td>
+      <div onMouseOver="hiddpos('groupdiv{id}')" id="groupdiv{id}" style="position:absolute; top:50px; left:50px; display:none; width:200px;">
+        <table width="100%" class="border" border="0" cellspacing="1" cellpadding="4">
+          <tr>
+            <td class="{class}" align="left">{grouplist}</td>
+          </tr>
+        </table>
+      </div>
+      <strong>{name}</strong>
+    </td>
     <td><select id="recht{id}" onChange="changeUserRight({id})">{recht}</select></td>
     <td style="text-align: center;"><a onMouseOut="hiddpos('groupdiv{id}')" onMouseOver="alertpos('groupdiv{id}')" href="javascript:changeGruppen({id})" title="hier die Gruppenzugeh&ouml;rigkeit &auml;ndern">Gruppen</a></td>
     <td>&nbsp;<a href="admin.php?user-1-{id}"><img src="include/images/icons/edit.png" border="0" title="Userdetails bearbeiten" alt="&auml;ndern" /></a>&nbsp;</td>

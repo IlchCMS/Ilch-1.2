@@ -70,7 +70,7 @@ $show = true;
 $msg = '';
 $um = $menu->get(1);
 
-if ($um == 'ins') {
+if ($um == 'ins' and chk_antispam('adminuser_action', true)) {
     $pos = db_result(db_query("SELECT COUNT(*) FROM `prefix_groups`"), 0);
     $name = escape($_POST[ 'group_name' ], 'string');
     $img = escape($_POST[ 'img' ], 'string');
@@ -94,7 +94,7 @@ if ($um == 'ins') {
     }
 }
 
-if (isset($_POST[ 'ins_user' ])) {
+if (isset($_POST[ 'ins_user' ]) and chk_antispam('adminuser_action', true)) {
     $gid = escape($menu->get(2), 'integer');
     if (may_changegroup($gid, 1)) {
         if (empty($_POST[ 'fid' ])) {
@@ -113,7 +113,7 @@ if (isset($_POST[ 'ins_user' ])) {
     $um = 'addusers';
 }
 
-if ($um == 'ch') {
+if ($um == 'ch' and chk_antispam('adminuser_action', true)) {
     $gid = escape($_POST[ 'gid' ], 'integer');
     $oldopts = db_fetch_object(db_query("SELECT * FROM `prefix_groups` WHERE `id` = '$gid'"));
     $name = escape($_POST[ 'group_name' ], 'string');
@@ -197,6 +197,7 @@ if ($um == 'addusers') {
     $tpl->set('fehler', (empty($fehler) ? '' : $fehler));
     $tpl->set('gid', $gid);
     $tpl->set('funcs', dbliste('', $tpl, 'funcs', "SELECT `id`,`name` FROM `prefix_groupfuncs` ORDER BY `pos`"));
+	$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
     $tpl->out(0);
     $class = 'Cnorm';
     $q = "SELECT
@@ -249,11 +250,11 @@ if ($um == 'funcs') {
     $design = new design('Ilch Admin-Control-Panel :: Gruppen', '', 0);
     $design->header();
 
-    if (isset($_POST[ 's' ]) AND $_POST[ 's' ] == 'Add') {
+    if (isset($_POST[ 's' ]) AND $_POST[ 's' ] == 'Add' and chk_antispam('adminuser_action', true)) {
         $pos = escape($_POST[ 'apos' ], 'integer');
         $name = escape($_POST[ 'aname' ], 'string');
         db_query("INSERT INTO `prefix_groupfuncs` (`pos`,`name`) VALUES ('$pos`', '$name')");
-    } elseif (isset($_POST[ 's' ]) AND $_POST[ 's' ] == 'Send') {
+    } elseif (isset($_POST[ 's' ]) AND $_POST[ 's' ] == 'Send' and chk_antispam('adminuser_action', true)) {
         $erg = db_query('SELECT * FROM `prefix_groupfuncs` ORDER BY `pos`');
         while ($row = db_fetch_assoc($erg)) {
             if ((!empty($_POST[ 'pos' ][ $row[ 'id' ] ]) AND !empty($_POST[ 'name' ][ $row[ 'id' ] ])) AND $_POST[ 'pos' ][ $row[ 'id' ] ] != $row[ 'pos' ] OR $_POST[ 'name' ][ $row[ 'id' ] ] != $row[ 'name' ]) {
@@ -269,6 +270,7 @@ if ($um == 'funcs') {
     }
 
     $tpl = new tpl('groups/funcs', 1);
+	$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
     $tpl->out(0);
     $class = '';
     $erg = db_query('SELECT * FROM `prefix_groupfuncs` ORDER BY `pos');
@@ -386,7 +388,7 @@ if ($show) {
     if (0 < db_result(db_query("SELECT COUNT(*) FROM prefix_usercheck WHERE ak = 4"), 0)) {
         $ar[ 'joinu' ] = '<a href="admin.php?groups-joinus"><b>Joinus Anfragen bearbeiten</b></a><br /><br />';
     }
-
+	$ar[ 'ANTISPAM' ] = get_antispam('adminuser_action', 0, true);
     $tpl->set_ar_out($ar, 0);
 
     $class = 'Cnorm';

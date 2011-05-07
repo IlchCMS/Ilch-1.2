@@ -1,40 +1,31 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="5" class="rand">
   <tr class="Chead">
-    <td>
-	  <b>Willkommen bei ilchClan - Administration!</b>
-	</td>
-  </tr>
-  <tr>
+    <td><b>Willkommen bei ilchClan - Administration!</b></td>
+  </tr><tr>
     <td class="Cnorm">
       <table width="100%">
-	    <tr>
-		  <td valign="top" width="100%">
+        <tr>
+          <td valign="top" width="100%">
             <br />
             <h3 style="display:inline;">Ein &Uuml;berblick &uuml;ber alle Inhalte</h3>
             <ul id="cpm" class="admix">
-{EXPLODE}
+            {EXPLODE}
               <li class="admix_box"><b>{kat}</b><br />
                 <ul style="padding-top: 20px">
-{EXPLODE}
+                {EXPLODE}
                   <li style="display:inline-block; padding-right: 20px; padding-bottom: 20px;">
-                  		<div style="text-align: center">
-                  		<a href="admin.php?{url}">	
-                  			<img src="{pic}" alt="">
-                  		</a>
-                  		</div>
-                  		<a href="admin.php?{url}" class="smalfont">
-                  			{name}
-                  		</a>
+                    <div style="text-align: center"><a href="admin.php?{url}"><img src="{pic}" alt=""></a></div>
+                    <a href="admin.php?{url}" class="smalfont">{name}</a>
                   </li>
-{EXPLODE}
+                  {EXPLODE}
                   <br class="admix_last"/>
                 </ul>
               </li>
-{EXPLODE}
-			</ul>
+              {EXPLODE}
+            </ul>
           </td>
-		</tr>
-	  </table>
+        </tr>
+      </table>
     </td>
   </tr>
 </table>

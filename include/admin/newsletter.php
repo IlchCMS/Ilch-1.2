@@ -62,7 +62,7 @@ END;
                     {$listeG}
             </select>
 			<input type="checkbox" name="andhigher" id="cb_andhigher" value="1" />
-			<label for="cb_andhigher">und für alle höheren Rechte</label>
+			<label for="cb_andhigher">und f&uuml;r alle h&ouml;heren Rechte</label>
 END;
     }
 
@@ -83,7 +83,7 @@ $xajax->processRequest();
 $design = new design('Ilch Admin-Control-Panel :: Newsletter', '', 2);
 $design->header();
 
-if (isset($_POST[ 'SEND' ]) and chk_antispam('newsletter', true)) {
+if (isset($_POST[ 'SEND' ]) and chk_antispam('adminuser_action', true)) {
     $mailopm = substr($_POST[ 'auswahl' ], 0, 1);
     $usrogrp = substr($_POST[ 'auswahl' ], 1, 1);
 
@@ -137,7 +137,7 @@ if (isset($_POST[ 'SEND' ]) and chk_antispam('newsletter', true)) {
 } else {
     echo $xajax->printJavascript();
     $tpl = new tpl('newsletter', 1);
-    $tpl->set_out('antispam', get_antispam('newsletter', 0, true), 0);
+    $tpl->set_out('ANTISPAM', get_antispam('adminuser_action', 0, true), 0);
 }
 
 $design->footer();

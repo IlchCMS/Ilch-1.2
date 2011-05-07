@@ -80,30 +80,28 @@ if (empty($um) AND empty($_GET[ 'um' ]) AND empty($_POST[ 'um' ])) {
             'JCH' => $Fjch,
             'NCH' => $Fnch,
             'RID' => $Frid,
-            'AKT' => $Fakt
+            'AKT' => $Fakt,
+			'ANTISPAM' => get_antispam('adminuser_action', 0, true)
             );
         $tpl->set_ar_out($ar, 3);
     } else {
-        $_POST[ 'bez' ] = escape($_POST[ 'bez' ], 'string');
-        $_POST[ 'min' ] = escape($_POST[ 'min' ], 'integer');
-        $_POST[ 'spez' ] = escape($_POST[ 'spez' ], 'integer');
-        $_POST[ 'rid' ] = escape($_POST[ 'rid' ], 'integer');
-        if (empty($_POST[ 'rid' ])) {
-            if ($_POST[ 'spez' ] == 1) {
-                $_POST[ 'min' ] = '0';
-            }
-            db_query('INSERT INTO `prefix_ranks` (`bez`,`min`,`spez`) VALUES ( "' . $_POST[ 'bez' ] . '","' . $_POST[ 'min' ] . '","' . $_POST[ 'spez' ] . '" ) ');
-            wd('admin.php?range', 'Erfolgreich eingetragen', 1);
-        } else {
-            if ($_POST[ 'spez' ] == 1) {
-                $_POST[ 'min' ] = '0';
-            }
-            db_query('UPDATE `prefix_ranks` SET `bez` = "' . $_POST[ 'bez' ] . '", `min` = "' . $_POST[ 'min' ] . '", `spez` = "' . $_POST[ 'spez' ] . '" WHERE `id` = "' . $_POST[ 'rid' ] . '"');
-            wd('admin.php?range', 'Erfolgreich ge&auml;ndert', 1);
-        }
-    }
+		if (chk_antispam('adminuser_action', true)) {
+        	$_POST[ 'bez' ] = escape($_POST[ 'bez' ], 'string');
+        	$_POST[ 'min' ] = escape($_POST[ 'min' ], 'integer');
+        	$_POST[ 'spez' ] = escape($_POST[ 'spez' ], 'integer');
+        	$_POST[ 'rid' ] = escape($_POST[ 'rid' ], 'integer');
+        	if (empty($_POST[ 'rid' ])) {
+           		if ($_POST[ 'spez' ] == 1) { $_POST[ 'min' ] = '0'; }
+				db_query('INSERT INTO `prefix_ranks` (`bez`,`min`,`spez`) VALUES ( "' . $_POST[ 'bez' ] . '","' . $_POST[ 'min' ] . '","' . $_POST[ 'spez' ] . '" ) ');
+				wd('admin.php?range', 'Erfolgreich eingetragen', 1);
+        	} else {
+            	if ($_POST[ 'spez' ] == 1) { $_POST[ 'min' ] = '0'; }
+            	db_query('UPDATE `prefix_ranks` SET `bez` = "' . $_POST[ 'bez' ] . '", `min` = "' . $_POST[ 'min' ] . '", `spez` = "' . $_POST[ 'spez' ] . '" WHERE `id` = "' . $_POST[ 'rid' ] . '"');
+            	wd('admin.php?range', 'Erfolgreich ge&auml;ndert', 1);
+        	}
+		} else { wd('admin.php?range', 'Fehler', 1); }
+	}
 }
 
 $design->footer();
-
 ?>

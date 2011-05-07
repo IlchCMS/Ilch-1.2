@@ -1,4 +1,3 @@
-
 <script type="text/javascript">
 function put(url) {
  window.opener.document.getElementById('if_urlbbwy').value = url;
@@ -8,25 +7,27 @@ function put(url) {
 <table border="0" cellpadding="5" cellspacing="1" class="border">
   <tr>
     <td class="Callg">
-<table cellpadding="4" cellspacing="1" border="0" class="border" width="100%">
-  <tr class="Chead">
-    <td colspan="2"><b>Gallery-Bild w&auml;hlen</b></td>
-  </tr><tr>
-		<td class="Cmite" valign="top">
-    <table cellpadding="0" cellspacing="0" border="0">
-    <tr class="Cmite"><td>- <a href="admin.php?selfbp-imagebrowser-0">Keine</a></td></tr>
-    {EXPLODE}
-    </table>
-    </td>
-    <td class="Cnorm" valign="top">
-    <table cellpadding="2" cellspacing="1" border="0" class="border">
-    {EXPLODE}
-       <td class="Cnorm" valign="top"><a href="javascript:put('{toput}')"><img src="{pfad}" border="0" /></a></td>
-    {EXPLODE}
-    </table>
-    </td>
-	</tr>
-</table>
+      <table cellpadding="4" cellspacing="1" border="0" class="border" width="100%">
+        <tr class="Chead">
+          <td colspan="2"><b>Gallery-Bild w&auml;hlen</b></td>
+        </tr><tr>
+          <td class="Cmite" valign="top">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tr class="Cmite">
+                <td>- <a href="admin.php?selfbp-imagebrowser-0">Keine</a></td>
+              </tr>
+              {EXPLODE}
+            </table>
+          </td>
+          <td class="Cnorm" valign="top">
+            <table cellpadding="2" cellspacing="1" border="0" class="border">
+            {EXPLODE}
+              <td class="Cnorm" valign="top"><a href="javascript:put('{toput}')"><img src="{pfad}" border="0" /></a></td>
+            {EXPLODE}
+            </table>
+          </td>
+        </tr>
+      </table>
     </td>
   </tr>
 </table>

@@ -1,58 +1,57 @@
 {EXPLODE "overview pages start"}
 <script type="text/javascript" language="Javascript">
-	function delCheck() {
-		return confirm("Willst du diese Box/Page wirklich löschen?");
-	}
+  function delCheck() {
+  return confirm ( unescape("Willst%20du%20diese%20Box/Page%20wirklich%20l%F6schen%3F"));
+  }
 </script>
 
 <table cellpadding="5" cellspacing="1" class="border">
-<tr class="Chead">
-	<td colspan="6"><b>Eigene Seiten</b></td>
-</tr>
- <tr class="Cdark">
-  	<td>Datei</td>
-	<td>Titel</td>
-    <td>Horizontales Menü</td>
+  <tr class="Chead">
+    <td colspan="6"><b>Eigene Seiten</b></td>
+  </tr>
+  <tr class="Cdark">
+    <td>Datei</td>
+    <td>Titel</td>
+    <td>Horizontales Men&uuml;</td>
     <td>Anzeige</td>
     <td colspan="2"><b>Aktionen</b></td>
-	</tr>
+  </tr>
 {EXPLODE "overview pages end"}
 <!-- no content -->
 {EXPLODE "overview boxes start"}
-<tr class="Chead">
-	<td colspan="6"><b>Eigene Boxen</b></td>
-</tr>
- <tr class="Cdark">
-  	<td>Datei</td>
+  <tr class="Chead">
+    <td colspan="6"><b>Eigene Boxen</b></td>
+  </tr>
+  <tr class="Cdark">
+    <td>Datei</td>
 	<td>Titel</td>
-    <td colspan="1">Horizontales Menü</td>
+    <td colspan="1">Horizontales Men&uuml;</td>
     <td></td>
     <td colspan="2"><b>Aktionen</b></td>
-	</tr>
+  </tr>
 {EXPLODE "overview boxes end"}
 </table>
 {EXPLODE "overview pages_item"}
-<tr class="Cmite">
-	<td><a href="admin.php?selfbp=0&akl=p{filename}">{filename}</a></td>
-	<td align="center">{title}</td>
-	<td align="center">&raquo; {hmenu}</td>
-	<td align="center">
+  <tr class="Cmite">
+    <td><a href="admin.php?selfbp=0&akl=p{filename}">{filename}</a></td>
+    <td align="center">{title}</td>
+    <td align="center">&raquo; {hmenu}</td>
+    <td align="center">
 	{_if_{view}=='fullscreen'}
-		<img src="include/images/icons/application.png" alt="Fullscreen"></img>
+	  <img src="include/images/icons/application.png" alt="Fullscreen">
 	{/_endif}
 	{_if_{view}=='popup'}
-		<img src="include/images/icons/application_add.png" alt="Neues Fenster"></img>
+	  <img src="include/images/icons/application_add.png" alt="Neues Fenster">
 	{/_endif}
 	{_if_{view}=='normal'}
-		<img src="include/images/icons/application_home.png" alt="Normal"></img>
+	  <img src="include/images/icons/application_home.png" alt="Normal">
 	{/_endif}
 	</td>
 	<td><a href="?selfbp=0&akl=p{filename}"><img src="include/images/icons/edit.png" border="0" /></a></td>
 	<td><a onClick="return delCheck();" href="?selfbp=0&del=p{filename}"><img src="include/images/icons/del.png" border="0" /></a></td>
   </tr>
-</tr>
 {EXPLODE "overview boxes_item"}
-<tr class="Cmite">
+  <tr class="Cmite">
 	<td><a href="admin.php?selfbp=0&akl=b{filename}">{filename}</a></td>
 	<td align="center">{title}</td>
 	<td align="center">&raquo; {hmenu}</td>
@@ -60,15 +59,14 @@
 	<td><a href="?selfbp=0&akl=b{filename}"><img src="include/images/icons/edit.png" border="0" /></a></td>
 	<td><a onClick="return delCheck();" href="?selfbp=0&del=b{filename}"><img src="include/images/icons/del.png" border="0" /></a></td>
   </tr>
-</tr>
 {EXPLODE "overview pages item"}
 {EXPLODE "overview no pages"}
-<tr class="Cmite">
-	<td colspan="6">Noch keine eigenen Seiten!</td>
-</tr>
+  <tr class="Cmite">
+    <td colspan="6">Noch keine eigenen Seiten!</td>
+  </tr>
 {EXPLODE "overview no boxes"}
-<tr class="Cmite">
+  <tr class="Cmite">
 	<td colspan="6">Noch keine eigenen Boxen!</td>
-</tr>
+  </tr>
 {EXPLODE "overview actions"}
 <!-- no content -->

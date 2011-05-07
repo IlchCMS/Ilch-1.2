@@ -1,133 +1,100 @@
 <table cellpadding="0" cellspacing="0" border="0" width="100%">
-	<tr>
-		<td width="100%" valign="top">
-			<form action="admin.php?bbcode-buttons" method="POST" name="form">
-			<div style="font-size:12px;font-weight:bold;color:#0033FF;width:389px;" align="center">{Message}</div>
-			<table width="389" border="0" cellpadding="3" cellspacing="1" class="border">
-			 	<tr class="Cdark">
-					<td colspan="2"><b>Zeichenformatierung<em></em></b></td>
-				</tr>
-				
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Text Fett formatieren!">[b]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_B"><option value="1" {Selected_B_On}>Ja</option><option value="0" {Selected_B_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Text Kursiv formatieren!">[i]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_I"><option value="1" {Selected_I_On}>Ja</option><option value="0" {Selected_I_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Text unterstrichen formatieren!">[u]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_U"><option value="1" {Selected_U_On}>Ja</option><option value="0" {Selected_U_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Text durchgestrichen formatieren!">[s]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_S"><option value="1" {Selected_S_On}>Ja</option><option value="0" {Selected_S_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Text hervorheben!">[emph]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_EMPH"><option value="1" {Selected_EMPH_On}>Ja</option><option value="0" {Selected_EMPH_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Schriftfarbe formatieren!">[color]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_COLOR"><option value="1" {Selected_COLOR_On}>Ja</option><option value="0" {Selected_COLOR_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Schriftgröße formatieren!">[size]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_SIZE"><option value="1" {Selected_SIZE_On}>Ja</option><option value="0" {Selected_SIZE_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="E-Mail!">[mail]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_MAIL"><option value="1" {Selected_MAIL_On}>Ja</option><option value="0" {Selected_MAIL_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Hyperlinks!">[url]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_URL"><option value="1" {Selected_URL_On}>Ja</option><option value="0" {Selected_URL_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite">URL Auto. umwandeln?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_AUTO_URL"><option value="1" {Selected_AUTO_URL_On}>Ja</option><option value="0" {Selected_AUTO_URL_Off}>Nein</option></select></td>
-				</tr>
-				<tr class="Cdark">
-					<td colspan="2"><b>Absatzformatierung<em></em></b></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Text links ausrichten!">[left]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_LEFT"><option value="1" {Selected_LEFT_On}>Ja</option><option value="0" {Selected_LEFT_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Text mittig ausrichten!">[center]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_CENTER"><option value="1" {Selected_CENTER_On}>Ja</option><option value="0" {Selected_CENTER_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Text rechts ausrichten!">[right]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_RIGHT"><option value="1" {Selected_RIGHT_On}>Ja</option><option value="0" {Selected_RIGHT_Off}>Nein</option></select></td>
-				</tr>
-				<tr class="Cdark">
-					<td colspan="2"><b>Sonderformatierung<em></em></b></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite">Smilies erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_SMILIES"><option value="1" {Selected_SMILIES_On}>Ja</option><option value="0" {Selected_SMILIES_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Aufzählung!">[list]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_LIST"><option value="1" {Selected_LIST_On}>Ja</option><option value="0" {Selected_LIST_Off}>Nein</option></select></td>
-				</tr>
-				
-				
-				
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Klapptext!">[ktext]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_KTEXT"><option value="1" {Selected_KTEXT_On}>Ja</option><option value="0" {Selected_KTEXT_Off}>Nein</option></select></td>
-				</tr>
-				
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Grafik!">[img]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_IMG"><option value="1" {Selected_IMG_On}>Ja</option><option value="0" {Selected_IMG_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="verkleinerte Grafik!">[screenshot]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_SCREEN"><option value="1" {Selected_SCREEN_On}>Ja</option><option value="0" {Selected_SCREEN_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Videos von YouTube,Google und MyVideo!">[video]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_VIDEO"><option value="1" {Selected_VIDEO_On}>Ja</option><option value="0" {Selected_VIDEO_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Countdown bis zum Datum [Tage, Stunden, Minuten und Sekunden]">[countdown]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_COUNTDOWN"><option value="1" {Selected_COUNTDOWN_On}>Ja</option><option value="0" {Selected_COUNTDOWN_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="PHP Code Highlight!">[php]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_PHP"><option value="1" {Selected_PHP_On}>Ja</option><option value="0" {Selected_PHP_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="CSS Code Highlight!">[css]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_CSS"><option value="1" {Selected_CSS_On}>Ja</option><option value="0" {Selected_CSS_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="HTML Code Highlight!">[html]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_HTML"><option value="1" {Selected_HTML_On}>Ja</option><option value="0" {Selected_HTML_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Code Box!">[code]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_CODE"><option value="1" {Selected_CODE_On}>Ja</option><option value="0" {Selected_CODE_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Kommentare!">[quote]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_QUOTE"><option value="1" {Selected_QUOTE_On}>Ja</option><option value="0" {Selected_QUOTE_Off}>Nein</option></select></td>
-				</tr>
-				<tr>
-					<td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Flash!">[flash]</span> erlauben?</td>
-					<td width="177" class="Cnorm"><select name="BBCode_FLASH"><option value="1" {Selected_FLASH_On}>Ja</option><option value="0" {Selected_FLASH_Off}>Nein</option></select></td>
-				</tr>
-				<tr class="Cdark">
-					<td></td>
-					<td><input type="submit" value="Speichern" name="BB_SubmitButtons" /></td>
-				</tr>
-		  	</table>
-			</form>
-		</td>
-	</tr>
+  <tr>
+    <td width="100%" valign="top">
+    <form action="admin.php?bbcode-buttons" method="POST" name="form">
+    {ANTISPAM}
+      <div style="font-size:12px;font-weight:bold;color:#0033FF;width:389px;" align="center">{Message}</div>
+      <table width="389" border="0" cellpadding="3" cellspacing="1" class="border">
+        <tr class="Cdark">
+          <td colspan="2"><b>Zeichenformatierung<em></em></b></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Text Fett formatieren!">[b]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_B"><option value="1" {Selected_B_On}>Ja</option><option value="0" {Selected_B_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Text Kursiv formatieren!">[i]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_I"><option value="1" {Selected_I_On}>Ja</option><option value="0" {Selected_I_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Text unterstrichen formatieren!">[u]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_U"><option value="1" {Selected_U_On}>Ja</option><option value="0" {Selected_U_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Text durchgestrichen formatieren!">[s]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_S"><option value="1" {Selected_S_On}>Ja</option><option value="0" {Selected_S_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Text hervorheben!">[emph]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_EMPH"><option value="1" {Selected_EMPH_On}>Ja</option><option value="0" {Selected_EMPH_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Schriftfarbe formatieren!">[color]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_COLOR"><option value="1" {Selected_COLOR_On}>Ja</option><option value="0" {Selected_COLOR_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="SchriftgrÃ¶ÃŸe formatieren!">[size]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_SIZE"><option value="1" {Selected_SIZE_On}>Ja</option><option value="0" {Selected_SIZE_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="E-Mail!">[mail]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_MAIL"><option value="1" {Selected_MAIL_On}>Ja</option><option value="0" {Selected_MAIL_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Hyperlinks!">[url]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_URL"><option value="1" {Selected_URL_On}>Ja</option><option value="0" {Selected_URL_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite">URL Auto. umwandeln?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_AUTO_URL"><option value="1" {Selected_AUTO_URL_On}>Ja</option><option value="0" {Selected_AUTO_URL_Off}>Nein</option></select></td>
+        </tr><tr class="Cdark">
+          <td colspan="2"><b>Absatzformatierung<em></em></b></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Text links ausrichten!">[left]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_LEFT"><option value="1" {Selected_LEFT_On}>Ja</option><option value="0" {Selected_LEFT_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Text mittig ausrichten!">[center]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_CENTER"><option value="1" {Selected_CENTER_On}>Ja</option><option value="0" {Selected_CENTER_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Text rechts ausrichten!">[right]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_RIGHT"><option value="1" {Selected_RIGHT_On}>Ja</option><option value="0" {Selected_RIGHT_Off}>Nein</option></select></td>
+        </tr><tr class="Cdark">
+          <td colspan="2"><b>Sonderformatierung<em></em></b></td>
+        </tr><tr>
+          <td width="197" class="Cmite">Smilies erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_SMILIES"><option value="1" {Selected_SMILIES_On}>Ja</option><option value="0" {Selected_SMILIES_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="AufzÃ¤hlung!">[list]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_LIST"><option value="1" {Selected_LIST_On}>Ja</option><option value="0" {Selected_LIST_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Klapptext!">[ktext]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_KTEXT"><option value="1" {Selected_KTEXT_On}>Ja</option><option value="0" {Selected_KTEXT_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Grafik!">[img]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_IMG"><option value="1" {Selected_IMG_On}>Ja</option><option value="0" {Selected_IMG_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="verkleinerte Grafik!">[screenshot]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_SCREEN"><option value="1" {Selected_SCREEN_On}>Ja</option><option value="0" {Selected_SCREEN_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Videos von YouTube,Google und MyVideo!">[video]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_VIDEO"><option value="1" {Selected_VIDEO_On}>Ja</option><option value="0" {Selected_VIDEO_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Countdown bis zum Datum [Tage, Stunden, Minuten und Sekunden]">[countdown]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_COUNTDOWN"><option value="1" {Selected_COUNTDOWN_On}>Ja</option><option value="0" {Selected_COUNTDOWN_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="PHP Code Highlight!">[php]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_PHP"><option value="1" {Selected_PHP_On}>Ja</option><option value="0" {Selected_PHP_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="CSS Code Highlight!">[css]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_CSS"><option value="1" {Selected_CSS_On}>Ja</option><option value="0" {Selected_CSS_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="HTML Code Highlight!">[html]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_HTML"><option value="1" {Selected_HTML_On}>Ja</option><option value="0" {Selected_HTML_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Code Box!">[code]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_CODE"><option value="1" {Selected_CODE_On}>Ja</option><option value="0" {Selected_CODE_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Kommentare!">[quote]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_QUOTE"><option value="1" {Selected_QUOTE_On}>Ja</option><option value="0" {Selected_QUOTE_Off}>Nein</option></select></td>
+        </tr><tr>
+          <td width="197" class="Cmite"><span style="padding-bottom:2px;border-bottom:2px dotted #0033FF;cursor:help;" title="Flash!">[flash]</span> erlauben?</td>
+          <td width="177" class="Cnorm"><select name="BBCode_FLASH"><option value="1" {Selected_FLASH_On}>Ja</option><option value="0" {Selected_FLASH_Off}>Nein</option></select></td>
+        </tr><tr class="Cdark">
+          <td></td>
+          <td><input type="submit" value="Speichern" name="BB_SubmitButtons" /></td>
+        </tr>
+      </table>
+    </form>
+    </td>
+  </tr>
 </table>

@@ -94,7 +94,7 @@ $design->header();
 // AJAX ausgabe
 echo $xajax->printJavascript();
 
-if (!empty($_REQUEST[ 'um' ])) {
+if (!empty($_REQUEST[ 'um' ]) and chk_antispam('adminuser_action', true)) {
     $sar = explode('-', $_POST[ 'begind' ]);
     if (!@checkdate($sar[ 1 ], $sar[ 2 ], $sar[ 0 ])) {
         echo 'Das eingegebene Datum ist nicht g&uuml;ltig ';
@@ -209,7 +209,8 @@ $aus = array(
     'zende' => $Fzende,
     'begind' => $Fbegind,
     'recht' => dbliste($Frecht, $tpl, 'recht', "SELECT `id`,`name` FROM `prefix_grundrechte` ORDER BY `id` DESC"),
-    'FSUB' => $Fsub
+    'FSUB' => $Fsub,
+	'ANTISPAM' => get_antispam('adminuser_action', 0, true)
     );
 
 $tpl->set_ar_out($aus, 0);

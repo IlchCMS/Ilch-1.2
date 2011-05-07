@@ -6,34 +6,27 @@
 function moveFile (f,v) {
   var Fenster = window.open ('admin.php?archiv-downloads-uploadMoveFile=0&f=' + f + "&v=" + v, 'movefile', 'scrollbars=yes,height=100,width=200,left=500,top=100');
   Fenster.focus();
-}
-function renFile (f,v) {
-  var x = prompt ( "Wie soll die neue Datei heissen?.", v);
-  if ( x ) {
-    document.location.href="admin.php?archiv-downloads-upload=0&f="+ f +"&v=" + v + "&r=" + x;
   }
-}
-
+function renFile (f,v) {
+  var x = prompt ( unescape ( "Wie%20soll%20die%20neue%20Datei%20hei%DFen%3F", v));
+  if ( x ) { document.location.href="admin.php?archiv-downloads-upload=0&f="+ f +"&v=" + v + "&r=" + x; }
+  }
 function closeThisWindow() {
   opener.focus();
   window.close();
-}
-
+  }
 function waehleThisFile ( fname ) {
   opener.document.form.newurl.value = fname;
   closeThisWindow();
-}
+  }
 function showDDetails ( eid ) {
   opener.document.location.href = 'admin.php?archiv-downloads-e' + eid;
   closeThisWindow();
-}
-function deleteFile (f,v) {
-  var x = confirm ( "Datei  \"" + v + "\"  wirklich l�schen?" );
-  if ( x ) {
-    document.location.href="admin.php?archiv-downloads-upload=0&f="+f+"&d="+v;
   }
-}
-
+function deleteFile (f,v) {
+  var x = confirm ( unescape ( "Datei  \"" + v + "\"  wirklich%20l%F6schen%3F" ));
+  if ( x ) { document.location.href="admin.php?archiv-downloads-upload=0&f="+f+"&d="+v; }
+  }
 //-->
 </script>
 </head>
@@ -41,60 +34,63 @@ function deleteFile (f,v) {
 <table border="0" cellpadding="5" cellspacing="1" class="border">
   <tr>
     <td class="Callg">
-{msg}
-<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td><h2>File Manager</h2></td><td align="right" valign="top"><a href="javascript:closeThisWindow()">Fenster schliessen</a></td></tr></table>
-<br />
-<b> &raquo; </b><a href="admin.php?archiv-downloads-upload">/</a>{posi}
-<table border="0" cellpadding="10" cellspacing="0" width="100%">
-  <tr>
-    <td valign="top" width="75%">
-<table border="0" cellpadding="3" cellspacing="1" class="border" width="100%">
-  <tr class="Chead">
-    <td>Dateiname</td>
-    <td colspan="4"></td>
-  </tr>
-  
-{EXPLODE}
-</table>
-    </td>
-    <td valign="top" width="25%">
-      <table border="0" cellpadding="3" cellspacing="1" class="border" width="100%" >
-        <tr class="Chead">
-          <td>Ordner</td>
-        </tr><tr>
-          <td class="Cnorm"><a href="admin.php?archiv-downloads-upload">/</a></td>
+    {msg}
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><h2>File Manager</h2></td>
+          <td align="right" valign="top"><a href="javascript:closeThisWindow()">Fenster schliessen</a></td>
         </tr>
-        {EXPLODE}
       </table>
-    </td>
-  </tr>
-</table>
-<p></p>
-<p></p>
-<b>Datei hochladen</b>
-<br /><br />
-<form action="admin.php?archiv-downloads-upload" method="POST" enctype="multipart/form-data">
-  <input type="hidden" name="f" value="{f}" />
-  <table border="0" cellspacing="1" cellpadding="3" class="border">
-  	<tr class="Cnorm">
-		  <td width="70">Datei</td>
-		  <td><input type="file" size="50" name="file"></td>
-		</tr>
-    <tr class="Cmite">
-		  <td></td>
-			<td><input type="submit" name="sub" value="Hochladen"></td>
-	  </tr>
+      <br />
+      <b> &raquo; </b><a href="admin.php?archiv-downloads-upload">/</a>{posi}
+      <table border="0" cellpadding="10" cellspacing="0" width="100%">
+        <tr>
+          <td valign="top" width="75%">
+            <table border="0" cellpadding="3" cellspacing="1" class="border" width="100%">
+              <tr class="Chead">
+                <td>Dateiname</td>
+                <td colspan="4"></td>
+              </tr>
+              {EXPLODE}
+            </table>
+          </td>
+          <td valign="top" width="25%">
+            <table border="0" cellpadding="3" cellspacing="1" class="border" width="100%">
+              <tr class="Chead">
+                <td>Ordner</td>
+              </tr><tr>
+                <td class="Cnorm"><a href="admin.php?archiv-downloads-upload">/</a></td>
+              </tr>
+              {EXPLODE}
+            </table>
+          </td>
+        </tr>
+      </table>
+      <p></p>
+      <p></p>
+      <b>Datei hochladen</b>
+      <br /><br />
+      <form action="admin.php?archiv-downloads-upload" method="POST" enctype="multipart/form-data" id="validate">
+      {ANTISPAM}
+      <input type="hidden" name="f" value="{f}" />
+        <table border="0" cellspacing="1" cellpadding="3" class="border">
+          <tr class="Cnorm">
+            <td width="70">Datei</td>
+              <td><input type="file" size="50" name="file"></td>
+            </tr><tr class="Cmite">
+              <td></td>
+              <td><input type="submit" name="sub" value="Hochladen"></td>
+            </tr>
+          </table>
+        </form>
+        <p></p>
+        <div class="info_box">
+          <p>Eine Datei wird immer in das aktuelle Verzeichnis geladen, befinden Sie sich z.B. gerade in einem Ordner 'Movies/Fun' wird die Datei dort rein geladen.</p>
+          <p>Neue Ordner anlegen k&ouml;nnen Sie nur indem Sie im Ordner include/downs/downloads eine neue Ordner Struktur erstellen und jedem Ordner CHMOD Recht 777 geben. Sie k&ouml;nnen dort z.B. den Ordner Movies anlegen m&uuml;ssen diesem aber die n&ouml;tigen Rechte geben. Sie m&uuml;ssen diese Ordner z.B. per FTP-Programm direkt auf Ihrem Webspace erstellen.</p>
+          <p>Die Spalte 'linked': Sie k&ouml;nnen der eben hochgeladenen Datei einen Download erstellen indem Sie auf 'neu' klicken. Die Zahlen in diesem Feld stellen bereits bestehende Downloads f&uuml;r diese Datei dar, Sie k&ouml;nnen diese Downloads &auml;ndern indem Sie auf die Zahl klicken.</p>
+        </div>
+      </td>
+    </tr>
   </table>
-</form>
-
-<p></p>
-<div class="info_box">
-<p>Eine Datei wird immer in das aktuelle Verzeichnis geladen, befinden Sie sich z.B. gerade in einem Ordner 'Movies/Fun' wird die Datei dort rein geladen.</p>
-<p>Neue Ordner anlegen k&ouml;nnen Sie nur indem Sie im Ordner include/downs/downloads eine neue Ordner Struktur erstellen und jedem Ordner CHMOD Recht 777 geben. Sie k&ouml;nnen dort z.B. den Ordner Movies anlegen m&uuml;ssen diesem aber die n&ouml;tigen Rechte geben. Sie m&uuml;ssen diese Ordner z.B. per FTP-Programm direkt auf Ihrem Webspace erstellen.</p>
-<p>Die Spalte 'linked': Sie k&ouml;nnen der eben hochgeladenen Datei einen Download erstellen indem Sie auf 'neu' klicken. Die Zahlen in diesem Feld stellen bereits bestehende Downloads f&uuml;r diese Datei dar, Sie k&ouml;nnen diese Downloads &auml;ndern indem Sie auf die Zahl klicken.</p>
-</div>
-</td>
-  </tr>
-</table>
 </body>
 </html>

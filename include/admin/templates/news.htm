@@ -1,13 +1,29 @@
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {		   
+	$("#validate").validate({
+		rules: {			
+			titel: { required: true, minlength: 2 },
+			txt: { required: true }
+		},
+		messages: {
+			titel: { required: "Bitte gib ein Titel an!", minlength: "Der Titel muss mindestens 2 Zeichen haben!" },
+			txt: "Bitte gib ein Text ein!"
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
 <script language="JavaScript" type="text/javascript"><!--
 function delcheck ( DELID ) {
-	var frage = confirm ( "Willst du diesen Eintrag wirklich l�schen?" );
+	var frage = confirm ( unescape ( "Willst%20du%20diesen%20Eintrag%20wirklich%20l%F6schen%3F " ) );
 	if ( frage == true ) {
 	  document.location.href="?news-del-"+DELID;
 	}
 }
 
 function delKcheck ( DELID , NID) {
-	var frage = confirm ( "Willst du dieses Kommentar wirklich l�schen?" );
+	var frage = confirm ( unescape ( "Willst%20du%20diesen%20Kommentar%20wirklich%20l%F6schen%3F "  ));
 	if ( frage == true ) {
 	  document.location.href="?news-sKoms-"+NID+"-Kdel-"+DELID+"#"+NID;
 	}
@@ -27,7 +43,8 @@ function sichtbar(){
 
 <table border="0" cellspacing="0" cellpadding="0"><tr><td valign="top">
 
-<form method="POST" name="form" action="?news">
+<form method="POST" name="form" action="?news" id="validate">
+{ANTISPAM}
   <input type="hidden" name="um"     value="{AKTION}">
   <input type="hidden" name="newsID" value="{NEWSID}">
 	<table cellpadding="2" cellspacing="1" border="0" class="border">

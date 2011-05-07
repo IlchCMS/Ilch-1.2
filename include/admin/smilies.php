@@ -131,7 +131,7 @@ while ($f = readdir($o)) {
     if ($f == '.' OR $f == '..' OR $f == '.svn' OR 0 != db_result(db_query("SELECT COUNT(*) FROM `prefix_smilies` WHERE `url` = '" . $f . "'"), 0)) {
         continue;
     }
-    // eintrage wenn vorhanden...
+    // eintraege wenn vorhanden...
     if (isset($_POST[ 'chk' ][ $f ])) {
         if ($_POST[ 'ak' ] == 1) {
             $ent = escape($_POST[ 'ent' ][ $f ], 'string');

@@ -1,32 +1,32 @@
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="include/admin/design/style.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="include/admin/design/style.css" media="all" />
 </head>
 <body>
 <table border="0" cellpadding="5" cellspacing="1" class="border" width="100%">
   <tr>
     <td class="Callg">
-<form id="grup-c" action="admin.php?user-gruppen-{userid}" method="POST">
-
-	<input type="hidden" name="usergroups" value="sub">
-  <table cellpadding="3" cellspacing="1" border="0" class="border">
-    <tr class="Chead">
-      <td colspan="2"><b>Gruppen f&uuml;r {username}</b></td>
-    </tr>
-    {EXPLODE}
-    <tr class="{class}">
-	    <td><label for="{id}ID">{name}</label></td>
-		  <td align="center"><input id="{id}ID" type="checkbox" name="grprhave[{id}][{userid}]" {ck} value="t"></td>
-	  </tr>
-    {EXPLODE}
-    <tr>
-	    <td colspan="2" class="Cdark"><input class="sub" type="submit" name="chuserr" value="Speichern">
-	    <input class="sub" type="button" value="Schlie&szlig;en" onClick="self.parent.ic.modalDialogClose();" /></td>
-		</tr>
-  </table>
-</form>
-
-
+      <form id="grup-c" action="admin.php?user-gruppen-{userid}" method="POST">
+      {ANTISPAM}
+      <input type="hidden" name="usergroups" value="sub">
+        <table cellpadding="3" cellspacing="1" border="0" class="border">
+          <tr class="Chead">
+            <td colspan="2"><b>Gruppen f&uuml;r {username}</b></td>
+          </tr>
+          {EXPLODE}
+          <tr class="{class}">
+            <td><label for="{id}ID">{name}</label></td>
+            <td align="center"><input id="{id}ID" type="checkbox" name="grprhave[{id}][{userid}]" {ck} value="t"></td>
+          </tr>
+          {EXPLODE}
+          <tr>
+            <td colspan="2" class="Cdark">
+              <input class="sub" type="submit" name="chuserr" value="Speichern">
+              <input class="sub" type="button" value="Schlie&szlig;en" onClick="self.parent.ic.modalDialogClose();" />
+            </td>
+          </tr>
+        </table>
+      </form>
     </td>
   </tr>
 </table>

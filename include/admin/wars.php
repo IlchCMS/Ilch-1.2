@@ -68,7 +68,7 @@ switch ($um) {
             $tpl = new tpl('wars/upload', 1);
             $msg = '';
             // aktion
-            if (isset($_FILES[ 'f' ][ 'name' ])) {
+            if (isset($_FILES[ 'f' ][ 'name' ]) and chk_antispam('adminuser_action', true)) {
                 $tmp = explode('.', $_FILES[ 'f' ][ 'name' ]);
                 if ($tmp[ 1 ] == 'gif' OR $tmp[ 1 ] == 'png' OR $tmp[ 1 ] == 'jpg' OR $tmp[ 1 ] == 'jpeg') {
                     $nname = $_REQUEST[ 'wid' ] . '_' . $_REQUEST[ 'mid' ] . '.' . $tmp[ 1 ];
@@ -126,6 +126,7 @@ switch ($um) {
             $tpl->set('mid', $mid);
             $tpl->set('file', $file);
             $tpl->set('msg', $msg);
+			$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
             $tpl->out(0);
             exit();
         }
@@ -134,7 +135,7 @@ switch ($um) {
             $tpl = new tpl('wars/last_member', 1);
             $msg = '';
             // aktion
-            if (isset($_POST[ 'add_uid' ]) AND !empty($_POST[ 'add_uid' ])) {
+            if (isset($_POST[ 'add_uid' ]) AND !empty($_POST[ 'add_uid' ]) and chk_antispam('adminuser_action', true)) {
                 db_query("INSERT INTO prefix_warmember (wid,uid,aktion) VALUES (" . $_REQUEST[ 'wid' ] . "," . $_POST[ 'add_uid' ] . ",1)");
             }
             if (isset($_GET[ 'delete_uid' ]) AND !empty($_GET[ 'delete_uid' ])) {
@@ -142,6 +143,7 @@ switch ($um) {
             }
             // anzeigen
             $tpl->set('msg', $msg);
+			$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
             $tpl->set('wid', $_REQUEST[ 'wid' ]);
             $tpl->set('liste', dblistee(0, "SELECT `prefix_user`.`id`,`name` FROM `prefix_user` LEFT JOIN `prefix_warmember` ON `prefix_warmember`.`uid` = `prefix_user`.`id` AND `prefix_warmember`.`wid` = " . $_REQUEST[ 'wid' ] . " WHERE `prefix_warmember`.`aktion` IS NULL AND `recht` <= -2 ORDER BY `name`"));
             $tpl->out(0);
@@ -181,7 +183,7 @@ switch ($um) {
             }
             $msg = '<tr class="Cmite"><td colspan="2">Erfolgreich gel&ouml;scht</td></tr>';
         }
-        if (!empty($_POST[ 'sub' ])) {
+        if (!empty($_POST[ 'sub' ]) and chk_antispam('adminuser_action', true)) {
             if (!empty($_POST[ 'newmod' ])) {
                 $_POST[ 'mod' ] = $_POST[ 'newmod' ];
             }
@@ -322,6 +324,7 @@ switch ($um) {
         $_ilch[ 'mtyp' ] = dblistee($_ilch[ 'mtyp' ], "SELECT DISTINCT `mtyp`,`mtyp` FROM `prefix_wars` ORDER BY `mtyp`");
         $_ilch[ 'land' ] = arlistee($_ilch[ 'land' ], get_nationality_array());
         $_ilch[ 'wlp' ] = arlistee($_ilch[ 'wlp' ], get_wlp_array());
+		$_ilch[ 'ANTISPAM' ] = get_antispam('adminuser_action', 0, true);
         $tpl->set_ar_out($_ilch, 0);
         $page = ($menu->getA(2) == 'p' ? $menu->getE(2) : 1);
         $limit = 20;
@@ -354,7 +357,7 @@ switch ($um) {
             db_query("DELETE FROM `prefix_wars` WHERE `id` = '" . $_GET[ 'delete' ] . "'");
             $msg = '<tr class="Cmite"><td colspan="2">Erfolgreich gel&ouml;scht</td></tr>';
         }
-        if (!empty($_POST[ 'sub' ])) {
+        if (!empty($_POST[ 'sub' ]) and chk_antispam('adminuser_action', true)) {
             if (!empty($_POST[ 'newmod' ])) {
                 $_POST[ 'mod' ] = $_POST[ 'newmod' ];
             }
@@ -447,6 +450,7 @@ switch ($um) {
         $_ilch[ 'game' ] = dblistee($_ilch[ 'game' ], "SELECT DISTINCT `game`,`game` FROM `prefix_wars` ORDER BY `game`");
         $_ilch[ 'mtyp' ] = dblistee($_ilch[ 'mtyp' ], "SELECT DISTINCT `mtyp`,`mtyp` FROM `prefix_wars` ORDER BY `mtyp`");
         $_ilch[ 'land' ] = arlistee($_ilch[ 'land' ], get_nationality_array());
+		$_ilch[ 'ANTISPAM' ] = get_antispam('adminuser_action', 0, true);
         $tpl->set_ar_out($_ilch, 0);
 
         $page = ($menu->getA(2) == 'p' ? $menu->getE(2) : 1);

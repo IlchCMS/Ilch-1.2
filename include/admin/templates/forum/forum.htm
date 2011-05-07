@@ -1,94 +1,102 @@
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {		   
+	$("#validate").validate({
+		rules: {
+			name: { required: true }
+		},
+		messages: {
+			name: "Bitte ein Name angeben!"
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
 <script language="JavaScript" type="text/javascript">
-    <!--
-
-			function delFcheck ( DELID, CID ) {
-			  var frage = confirm ( "Willst du dieses Forum wirklich löschen?\n\n Achtung es werden: \n - alle Themen \n - und alle Beiträge \n in diesem Forum unwiederbringlich gelöscht!!" );
-				if ( frage == true ) {
-				  document.location.href="?forum-deleteForum-"+DELID+"-"+CID;
-				}
-			}
-			function delCcheck ( DID ) {
-			  var frage = confirm ( "Willst du dieses Kategorie wirklich löschen?\n\n Achtung es werden: \n - alle Forum \n - alle Themen \n - und alle Beiträge \n in dieser Kategorie unwiederbringlich gelöscht!!" );
-				if ( frage ) {
-				  document.location.href="?forum-deleteCategorie-"+DID;
-				}
-			}
-		//-->
+<!--
+function delFcheck ( DELID, CID ) {
+  var frage = confirm ( unescape( "Willst%20du%20dieses%20Forum%20wirklich%20l%F6schen%3F%0A%0A%20Achtung%20es%20werden%3A%20%0A%20-%20alle%20Themen%20%0A%20-%20und%20alle%20Beitr%E4ge%20%0A%20in%20diesem%20Forum%20unwiederbringlich%20gel%F6scht%21%21 " ));
+  if ( frage == true ) { document.location.href="?forum-deleteForum-"+DELID+"-"+CID; }
+  }
+function delCcheck ( DID ) {
+  var frage = confirm ( unescape ( "Willst%20du%20dieses%20Kategorie%20wirklich%20l%F6schen%3F%0A%0A%20Achtung%20es%20werden%3A%20%0A%20-%20alle%20Forum%20%0A%20-%20alle%20Themen%20%0A%20-%20und%20alle%20Beitr%E4ge%20%0A%20in%20dieser%20Kategorie%20unwiederbringlich%20gel%F6scht%21%21 " ));
+  if ( frage ) { document.location.href="?forum-deleteCategorie-"+DID; }
+  }
+//-->
 </script>
 
 <a href="admin.php?forum-newForum-c{cid}">Neues Forum</a> &nbsp; <a href="admin.php?forum-repair">Foren und Kategorien reparieren</a>
 <br /><br />
-
-<table border="0"><tr valign="top"><td>
-<table cellpadding="5" cellspacing="1" class="border">
-  <tr class="Chead">
-    <td colspan="9"><b>Foren Administrieren</b></td>
-  </tr>
-	{EXPLODE}
-  <tr class="Cdark">
-    <td colspan="5"><b>{cname}</b></td>
-	<td>Moderator</td>
-    <td>lesen/sehen</td>
-    <td>antworten</td>
-    <td>Themen erstellen</td>
-	</tr>
-	{EXPLODE}
-  <tr class="Cmite">
-	<td><a href="?forum-changeForum-{fid}"><img src="include/images/icons/edit.png" border="0" /></a></td>
-	<td><a href="javascript:delFcheck({fid},{cid})"><img src="include/images/icons/del.png" border="0" /></a></td>
-	<td><a href="?forum-moveForum-0-{fid}-{fpos}-{cid}"><img src="include/images/icons/pfeilo.png" border="0"></a></td>
-	<td><a href="?forum-moveForum-1-{fid}-{fpos}-{cid}"><img src="include/images/icons/pfeilu.png" border="0"></a></td>
-	<td>&nbsp;&nbsp;{fname}</td>
-	<td><a href="javascript:ic.modalDialog({title:'Moderatoren',url:'admin.php?forum-choosemods&fid={fid}',height:265,width:300});">Moderatoren</a></td>
-    <td align="center">{view}</td>
-    <td align="center">{reply}</td>
-    <td align="center">{start}</td>
-  </tr>
-{EXPLODE}
-</table><td>
-<td width="40%">
-
-<table cellpadding="3" border="0" cellspacing="1" class="border">
-  <tr class="Chead">
-		<td colspan="9"><b>Kategorien</b></td>
-  </tr><tr class="Cmite">
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td><a href="?forum-S0">Keine</a></td>
-  </tr>{EXPLODE}
-</table>
-<br /><br />
-<form action="?forum-{ak}Categorie" method="post" name="form">
-<table class="border" cellpadding="3" cellspacing="1" border="0">
-    <tr class="Chead">
-		  <td colspan="2"><b>Foren Kategorien</b></td>
-		</tr>
-      <td class="Cmite">Kategorie</td>
-			<td class="Cnorm"><select name="Ccat">{cat}</select></td>
-    </tr><tr>
-			<td width="120" class="Cmite">Name</td>
-			<td width="250" class="Cnorm"><input type="text" name="name" value="{name}" /></td>
+<table border="0">
+  <tr valign="top">
+    <td>
+      <table cellpadding="5" cellspacing="1" class="border">
+        <tr class="Chead">
+          <td colspan="9"><b>Foren Administrieren</b></td>
+        </tr>
+        {EXPLODE}
+        <tr class="Cdark">
+          <td colspan="5"><b>{cname}</b></td>
+          <td>Moderator</td>
+          <td>lesen/sehen</td>
+          <td>antworten</td>
+          <td>Themen erstellen</td>
+        </tr>
+        {EXPLODE}
+        <tr class="Cmite">
+          <td><a href="?forum-changeForum-{fid}"><img src="include/images/icons/edit.png" border="0" /></a></td>
+          <td><a href="javascript:delFcheck({fid},{cid})"><img src="include/images/icons/del.png" border="0" /></a></td>
+          <td><a href="?forum-moveForum-0-{fid}-{fpos}-{cid}"><img src="include/images/icons/pfeilo.png" border="0"></a></td>
+          <td><a href="?forum-moveForum-1-{fid}-{fpos}-{cid}"><img src="include/images/icons/pfeilu.png" border="0"></a></td>
+          <td>&nbsp;&nbsp;{fname}</td>
+          <td><a href="javascript:ic.modalDialog({title:'Moderatoren',url:'admin.php?forum-choosemods&fid={fid}',height:265,width:300});">Moderatoren</a></td>
+          <td align="center">{view}</td>
+          <td align="center">{reply}</td>
+          <td align="center">{start}</td>
+        </tr>
+        {EXPLODE}
+        </table>
+      <td>
+      <td width="40%">
+        <table cellpadding="3" border="0" cellspacing="1" class="border">
+          <tr class="Chead">
+            <td colspan="9"><b>Kategorien</b></td>
+          </tr><tr class="Cmite">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a href="?forum-S0">Keine</a></td>
+          </tr>
+          {EXPLODE}
+        </table>
+        <br /><br />
+        <form action="?forum-{ak}Categorie" method="post" name="form" id="validate">
+        {ANTISPAM}
+        <table class="border" cellpadding="3" cellspacing="1" border="0">
+          <tr class="Chead">
+            <td colspan="2"><b>Foren Kategorien</b></td>
+          </tr><tr>
+            <td class="Cmite">Kategorie</td>
+            <td class="Cnorm"><select name="Ccat">{cat}</select></td>
+          </tr><tr>
+            <td width="120" class="Cmite">Name</td>
+            <td width="250" class="Cnorm"><input type="text" name="name" value="{name}" /></td>
+          </tr><tr class="Cdark">
+            <td></td>
+            <td><input type="hidden" name="cid" value="{cid}" /><input class="sub" type="submit" value="{sub}" name="cat_sub" /></td>
+          </tr>
+        </table>
+        </form>
+      </td>
     </tr>
-		<tr class="Cdark">
-		  <td></td>
-			<td><input type="hidden" name="cid" value="{cid}" /><input class="sub" type="submit" value="{sub}" name="cat_sub" /></td>
-		</tr>
   </table>
-</form>
-
-
-</td></tr></table>
-
-
-<br /><br />
+  <br /><br />
 <div class="info_box">
 <p>Hier k&ouml;nnen Sie neue Foren oder/und neue Kategorien anlegen, &auml;ndern und l&ouml;schen.</p>
 <p>Sie m&uuml;ssen immer zuerst eine Kategorie anlegen. Ohne Kategorie k&ouml;nnen Sie kein Forum anlegen.</p>
 <p>Um die Foren einer Kategorie zu sehen, rechts in der Kategorieansicht anklicken.</p>
 <p>Ausserdem ist es hier m&ouml;glich die Kategorien und Foren zu sortieren.</p>
-<p>Wenn das Sortieren nicht mehr richtig funktioniert, kann versucht werden das wieder zu reparieren,
-   allerdings gehen dabei die Positionierungen verloren, danach sollte das Sortieren aber wieder funktionieren</p>
+<p>Wenn das Sortieren nicht mehr richtig funktioniert, kann versucht werden das wieder zu reparieren, allerdings gehen dabei die Positionierungen verloren, danach sollte das Sortieren aber wieder funktionieren</p>
 </div>
 

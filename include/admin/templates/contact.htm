@@ -1,42 +1,51 @@
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {		   
+	$("#validate").validate({
+		rules: {			
+			name: { required: true, minlength: 2 },
+			mail: { required: true, email: true }
+		},
+		messages: {
+			name: { required: "Bitte Name eingeben!", minlength: "Der Name muss mindestens 2 Zeichen haben!" },
+			mail: "Bitte eine g&uuml;ltige Emailadresse eingeben!"
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
 <table width="500" class="border" cellpadding="5" cellspacing="1" border="0">
   <tr class="Cdark">
     <td colspan="2"><b>Verwalten</b></td>
-	</tr><tr>
-	  <td colspan="2" class="Cnorm">
-    {EXPLODE}
-			
-	
-		<form action="?contact-1&wo={WO}" method="POST">
-			<input type="text" name="mail" value="{MAIL}"> &nbsp; 
-			<input type="text" name="name" value="{NAME}"> &nbsp; 
-			<input class="sub" type="submit" value="&Auml;ndern"> &nbsp; 
-			<input class="sub" type="button" value="L&ouml;schen" onclick="document.location.href ='admin.php?contact-2&del={WO}'">
-		</form>
-			
-    {EXPLODE}
-	
-	  </td>	
+  </tr><tr>
+    <td colspan="2" class="Cnorm">
+      {EXPLODE}
+      <form action="?contact-1&wo={WO}" method="POST">
+      {ANTISPAM}
+        <input type="text" name="mail" value="{MAIL}"> &nbsp; 
+        <input type="text" name="name" value="{NAME}"> &nbsp; 
+        <input class="sub" type="submit" value="&Auml;ndern"> &nbsp; 
+        <input class="sub" type="button" value="L&ouml;schen" onclick="document.location.href ='admin.php?contact-2&del={WO}'">
+      </form>
+      {EXPLODE}
+    </td>
   <tr>
-	  <td colspan="2" height="20" class="Cnorm"></td>
-	</tr><tr>
-	  <td colspan="2" height="10" class="Cnorm"></td>
-	</tr><tr class="Cdark">
-	  <td colspan="2"><b>Eintragen</b></td>
-  </tr>
-
-<form action="?contact-3" method="POST">
-	
-  <tr class="Cnorm">
-    <td>eMail</td>
-		<td><input type="text" name="mail"></td>
-	</tr><tr class="Cnorm">
-	  <td>Name</td>
-		<td><input type="text" name="name"></td>
-	</tr><tr class="Cnorm">
-	  <td></td>
-		<td><input class="sub" type="submit" value="Eintragen"></td>
-	</tr>
-	
-</form>
 </table>
-
+<br /><br />
+<form action="?contact-3" method="POST" id="validate">
+{ANTISPAM}
+  <table width="500" class="border" cellpadding="5" cellspacing="1" border="0">
+    <tr class="Cdark">
+      <td colspan="2"><b>Eintragen</b></td>
+    </tr><tr class="Cnorm">
+      <td>eMail</td>
+      <td><input type="text" name="mail"></td>
+    </tr><tr class="Cnorm">
+      <td>Name</td>
+      <td><input type="text" name="name"></td>
+    </tr><tr class="Cnorm">
+      <td></td>
+      <td><input class="sub" type="submit" value="Eintragen"></td>
+    </tr>
+  </table>
+</form>
