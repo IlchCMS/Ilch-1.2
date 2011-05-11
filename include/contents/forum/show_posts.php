@@ -49,8 +49,9 @@ while ($row = db_fetch_assoc($erg)) {
     $row[ 'sig' ] = (empty($row[ 'sig' ]) ? '' : '<br /><hr style="width: 50%;" align="left">' . bbcode($row[ 'sig' ]));
     $row[ 'TID' ] = $tid;
     $row[ 'class' ] = $class;
-    $row[ 'date' ] = date('d.m.Y - H:i:s', $row[ 'time' ]);
-    $row[ 'delete' ] = '';
+    //$row[ 'date' ] = date('d.m.Y - H:i:s', $row[ 'time' ]);
+	$row[ 'date' ] =  post_date($row[ 'time' ],1);
+	$row[ 'delete' ] = '';
     $row[ 'change' ] = '';
 
     if ($row[ 'sperre' ] == 1) {

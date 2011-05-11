@@ -51,10 +51,9 @@ while ($r = db_fetch_assoc($erg1)) {
     $r[ 'topic' ] = html_enc_substr($r[ 'topic' ], 0, 23);
     $r[ 'ORD' ] = forum_get_ordner($r[ 'time' ], $r[ 'id' ]);
     $r[ 'mods' ] = getmods($r[ 'id' ]);
-    $r[ 'datum' ] = date('d.m.y - H:i', $r[ 'time' ]);
     $r[ 'page' ] = ceil(($r[ 'rep' ] + 1) / $allgAr[ 'Fpanz' ]);
-
-    $r['show_author'] = $allgAr['threadersteller_in_uebersicht'];
+    $r[ 'show_author' ] = $allgAr[ 'threadersteller_in_uebersicht' ];
+	$r[ 'datum' ] =  post_date($r[ 'time' ]);
 
     $tpl->set_ar($r);
 

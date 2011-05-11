@@ -186,7 +186,8 @@ switch ($menu->get(1)) {
 
             $ar = array(
                 'NAME' => $row->name,
-                'DATE' => date("d.m.Y", $row->time),
+                //'DATE' => date("d.m.Y", $row->time),
+				'DATE' => post_date($row->time),
                 'koms' => $koms,
                 'MAIL' => $mail,
                 'ID' => $row->id,

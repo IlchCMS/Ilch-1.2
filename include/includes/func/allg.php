@@ -99,6 +99,29 @@ function getDmon($mon) {
 // #
 // ##
 // ###
+// #### Postausgabe Heute|Gestern|Datum
+function post_date($posttime,$sec=false) {
+	if (!empty($posttime)) {
+		$akttime = mktime();
+		$jahr_jetzt = date( "y" , $akttime );
+		$jahr_post = date( "y" , $posttime );
+		$tag_jetzt = date( "z" , $akttime );
+		$tag_post = date( "z" , $posttime );
+		if ($sec == true) {
+			if ( $tag_post == $tag_jetzt and $jahr_post == $jahr_jetzt ) { return( "Heute um " . date( "G:i:s" , $posttime ) . " Uhr" ); }
+			elseif ( $tag_post == $tag_jetzt-1 and $jahr_post == $jahr_jetzt ) { return( "Gestern um " . date( "G:i:s" , $posttime ) . " Uhr" ); }
+			else { return( "Am " . date( "j.n.Y \u\m G:i:s" , $posttime ) . " Uhr" ); }
+		} else {
+			if ( $tag_post == $tag_jetzt and $jahr_post == $jahr_jetzt ) { return( "Heute um " . date( "G:i" , $posttime ) . " Uhr" ); }
+			elseif ( $tag_post == $tag_jetzt-1 and $jahr_post == $jahr_jetzt ) { return( "Gestern um " . date( "G:i" , $posttime ) . " Uhr" ); }
+			else { return( "Am " . date( "j.n.Y \u\m G:i" , $posttime ) . " Uhr" ); }
+		}
+	}
+	else { return( '' ); }
+} 
+// #
+// ##
+// ###
 // #### a l l g e m e i n e s   A r r a y
 function getAllgAr() {
     // v1 = schluessel

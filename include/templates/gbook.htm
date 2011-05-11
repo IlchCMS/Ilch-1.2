@@ -1,40 +1,29 @@
-  <table width="100%">
-	  <tr>
-		  <td width="50%" align="right">
-			  {EINTRAGE} {_lang_entries}
-			</td>
-		  <td width="50%" align="center">
-			  <a href="index.php?gbook-insert">{_lang_insert}</a>
-			</td>
-		</tr>
-	 </table>
-	
-	<br/>
+<table width="100%">
+  <tr>
+    <td width="50%" align="right">{EINTRAGE} {_lang_entries}</td>
+    <td width="50%" align="center"><a href="index.php?gbook-insert">{_lang_insert}</a></td>
+  </tr>
+</table>
+<br/>
 {EXPLODE}
-
 <table width="100%" cellpadding="4" cellspacing="0" border="0" class="rand">
-	<tr class="Cmite">
-	    <td width="40%"><b>{NAME}</b></td>
-			<td width="20%">{MAIL}{PAGE}</td>
-      <td width="30%" align="right">{DATE}</td>
- 	</tr>
-	<tr class="Cnorm">
-		  <td colspan="3">{TEXT}</td>
-	</tr>
+  <tr class="Cmite">
+    <td width="40%"><b>{NAME}</b></td>
+    <td width="20%">{MAIL}{PAGE}</td>
+    <td width="40%" align="right"><span class="smalfont">{DATE}</span></td>
+  </tr>
+  <tr class="Cnorm">
+    <td colspan="3">{TEXT}</td>
+  </tr>
 </table>
 {koms}
 <br />
 <br />
 {EXPLODE}
-
-
 <br />
 <br />
-
 <div align="center">{SITELINK}</div>
-
 {EXPLODE "formular_eintrag"}
-
 <!-- G &auml; S T E B U C H   E N T E R   F O R M U L A R -->
 <noscript>Bitte JavaScript aktivieren</noscript>
 <script language="JavaScript" type="text/javascript">
@@ -64,47 +53,47 @@ function RestlicheZeichenErmitteln(d)
 <table width="100%" class="border" cellspacing="1" border="0" cellpadding="5">
   <tr>
     <td class="Chead" colspan="2"><b>{_lang_insert}</b></td>
-	</tr><tr>
+  </tr><tr>
     <td class="Cmite" width="100"><b>{_lang_name}</b></td>
-		<td class="Cnorm"><input type="text" value="{uname}" tabindex="1" name="name"></td>
-	</tr><tr>
+	<td class="Cnorm"><input type="text" value="{uname}" tabindex="1" name="name"></td>
+  </tr><tr>
     <td class="Cmite"><b>{_lang_mail}</b></td>
-		<td class="Cnorm"><input type="text" name="mail" tabindex="2" value="{MAIL}"></td>
-	</tr><tr>
+	<td class="Cnorm"><input type="text" name="mail" tabindex="2" value="{MAIL}"></td>
+  </tr><tr>
     <td class="Cmite"><b>{_lang_homepage}</b></td>
-		<td class="Cnorm"><input type="text" name="page" tabindex="3" value="{PAGE}"></td>
-	</tr><tr>
-  <td class="Cmite"><b>{_lang_message}</b><br/><br/>{SMILIES}</td>
+	<td class="Cnorm"><input type="text" name="page" tabindex="3" value="{PAGE}"></td>
+  </tr><tr>
+    <td class="Cmite"><b>{_lang_message}</b><br/><br/>{SMILIES}</td>
 	<td class="Cnorm">
-    <table width="100%" border="0" cellpadding="0" cellspacing="0">
-      <tr>
-        <td width="100%">
-      <!-- BB Code START -->{__BBCodeButtons__}<!-- BB Code START -->
-				</td>
-      </tr><tr class="Cnorm">
-        <td width="100%"><textarea style="width: 98%" onblur="RestlicheZeichenErmitteln(this);" onchange="RestlicheZeichenErmitteln(this);" onfocus="RestlicheZeichenErmitteln(this);" onkeydown="RestlicheZeichenErmitteln(this);" onkeyup="RestlicheZeichenErmitteln(this);" cols="50" rows="10" tabindex="4" name="txt">{TEXT}</textarea><br />Noch <input size="3" name="Laenge" value="{TXTL}"> {_lang_signs}</td>
-      </tr>
-    </table></td>
-	</tr>{ANTISPAM}<tr class="Cdark">
-  <td></td><td><input name="submit" type="submit" value="{_lang_formsub}" tabindex="5" accesskey="s">  &nbsp; <input name="preview" type="submit" value="{_lang_preview}" /></td>
-	</tr></table></form>
-
+	  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+	    <tr>
+	      <td width="100%"><!-- BB Code START -->{__BBCodeButtons__}<!-- BB Code START --></td>
+	    </tr><tr class="Cnorm">
+	      <td width="100%"><textarea style="width: 98%" onblur="RestlicheZeichenErmitteln(this);" onchange="RestlicheZeichenErmitteln(this);" onfocus="RestlicheZeichenErmitteln(this);" onkeydown="RestlicheZeichenErmitteln(this);" onkeyup="RestlicheZeichenErmitteln(this);" cols="50" rows="10" tabindex="4" name="txt">{TEXT}</textarea><br />Noch <input size="3" name="Laenge" value="{TXTL}"> {_lang_signs}</td>
+	    </tr>
+	  </table>
+	</td>
+  </tr>{ANTISPAM}<tr class="Cdark">
+    <td></td>
+    <td><input name="submit" type="submit" value="{_lang_formsub}" tabindex="5" accesskey="s">  &nbsp; <input name="preview" type="submit" value="{_lang_preview}" /></td>
+  </tr>
+</table>
+</form>
 {EXPLODE}
 <table width="100%" cellpadding="4" cellspacing="0" border="0" class="rand">
-	<tr class="Cmite">
-	    <td width="40%"><b>{name}</b></td>
-			<td width="20%">{mail}{page}</td>
-      <td width="30%" align="right">{datum}</td>
- 	</tr>
-	<tr class="Cnorm">
-		  <td colspan="3">{text}</td>
-	</tr>
+  <tr class="Cmite">
+    <td width="40%"><b>{name}</b></td>
+    <td width="20%">{mail}{page}</td>
+    <td width="30%" align="right">{datum}</td>
+  </tr><tr class="Cnorm">
+    <td colspan="3">{text}</td>
+  </tr>
 </table>
 <br />
 <table width="100%" cellpadding="4" cellspacing="0" border="0" class="rand">
-	<tr class="Cnorm">
+  <tr class="Cnorm">
     <td>
-	    <form action="index.php?gbook-show-{id}" method="POST">
+      <form action="index.php?gbook-show-{id}" method="POST">
         <fieldset>
           <legend>{_lang_writecomment}</legend>
           <input type="text" name="name" value="{uname}" /> &nbsp; {ANTISPAM} &nbsp; <input type="submit" value="{_lang_enter}"><br />
@@ -113,20 +102,17 @@ function RestlicheZeichenErmitteln(d)
       </form>
       <br />
       {EXPLODE}
-     
       <span class="Cmite"># <b>{zahl}</b> von {name}</span>
       <br />{text}<br /><br />
-      
       {EXPLODE}
     </td>
   </tr>
 </table>
 {EXPLODE "preview"}
 <table class="border" width="100%">
-	<tr>
-		<td class="Chead"><b>{_lang_preview}</b></td>
-	</tr>
-	<tr class="Cnorm">
-		<td>{TEXT}</td>
-	</tr>
+  <tr>
+    <td class="Chead"><b>{_lang_preview}</b></td>
+  </tr><tr class="Cnorm">
+    <td>{TEXT}</td>
+  </tr>
 </table>

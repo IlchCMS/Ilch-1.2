@@ -43,7 +43,7 @@ if (db_num_rows($erg) > 0) {
             // $row['ORD'] = get_ordner($row['time']);
             $row[ 'ORD' ] = forum_get_ordner($row[ 'time' ], $row[ 'id' ], $fid);
         }
-        $row[ 'date' ] = date('d.m.y - H:i', $row[ 'time' ]);
+		$row[ 'datum' ] =  post_date($row[ 'time' ]);
         $row[ 'page' ] = ceil(($row[ 'rep' ] + 1) / $allgAr[ 'Fpanz' ]);
         $row[ 'VORT' ] = ($row[ 'art' ] == 1 ? 'Fest: ' : '');
         $tpl->set_ar_out($row, 1);

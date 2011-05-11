@@ -15,12 +15,12 @@
 	<td width="20%"><a name="{id}"></a>{erst}<br /><font class="smalfont">{rang}{sperre}{avatar}{posts}</font></td>
 	<td width="80%" valign="top">
 	    <div class="post_infos">
-		<div style="float: left; width:50%;" class="smalfont">
+		<div style="float: left; width: 60%;" class="smalfont">
 		    {_if_{NEW}=='true'}<img alt="Neu" src="include/images/icons/add.png" />{/_endif}
 		    <a href="index.php?forum-reportpost-{TID}-{id}" title="Diesen Post melden"><img style="border:none" src="include/images/icons/exclamation.png" alt="{_lang_report}" /></a>
 		    <a class="smallfont" href="index.php?forum-showposts-{TID}#{id}" title="{i}. Post in diesem Thema">#</a>&nbsp;{date}
 		</div>
-		<div style="float: right; width: 50%; text-align:right;">
+		<div style="float: right; width: 40%; text-align:right;">
 		    {_if_{change}=='true'}<a href="index.php?forum-editpost-{TID}-{id}" title="Diesen Post editieren"><img style="border:none" src="include/images/icons/edit.png" alt="{_lang_edit}" /></a>{/_endif}
 		    {_if_{delete}=='true'}<a href="index.php?forum-delpost-{TID}-{id}" title="Diesen Post l&ouml;schen"><img style="border:none" src="include/images/icons/del.png" alt="{_lang_delete}" /></a>&nbsp;{/_endif}
 		    <a href="index.php?forum-newpost-{TID}-z{id}" title="Diesen Post zitieren"><img style="border:none" src="include/images/icons/comment.png" alt="{_lang_quote}" /></a>
