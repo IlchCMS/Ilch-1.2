@@ -1,4 +1,4 @@
-﻿<script language="JavaScript" type="text/javascript">
+<script language="JavaScript" type="text/javascript">
 <!--
   function doVote(n1,did) { document.location.href="index.php?downloads-show-" + did + "-z"+n1; }
 //-->
@@ -75,7 +75,7 @@
  	  <form action="index.php?downloads-show-{id}" method="post" id="comments">
  	  {ANTISPAM}
  	    <br><br>
- 	    <label>{_lang_name}<br><input type="text" name="name" value="{uname}" {readonly} /></label>
+ 	    <label>{_lang_name}<br><input type="text" name="name" value="{uname}" maxlength="15" {readonly} /></label>
  	    <br><br>
  	    <label>{_lang_comment}<br><textarea style="width: 100%;" rows="2" name="text"></textarea></label>
  	    <br><br>

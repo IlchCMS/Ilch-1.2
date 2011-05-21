@@ -151,9 +151,10 @@ function kalender_listoutput() {
 		if (!$komsOK) { $tpl->set_ar_out($aus, 'detail'); } else {
 			
 			if ((loggedin() OR chk_antispam('kalender_komms')) AND $komsOK AND !empty($_POST[ 'name' ]) AND !empty($_POST[ 'text' ])) {
-            	if (loggedin()) { $name = $_SESSION['authname']; } else { $name = escape($_POST['name'], 'string').' (Gast)'; }
+            	if (loggedin()) { $name = $_SESSION['authname']; $userid = $_SESSION['authid']; } 
+				else { $name = escape($_POST['name'], 'string').' (Gast)'; $userid = 0; }
                 $text = escape($_POST[ 'text' ], 'string');
-                db_query("INSERT INTO `prefix_koms` (`name`,`text`,`time`,`uid`,`cat`) VALUES ('" . $name . "', '" . $text . "','" . time() . "', " . $eid . ", 'KALENDER')");
+                db_query("INSERT INTO `prefix_koms` (`name`,`userid`,`text`,`time`,`uid`,`cat`) VALUES ('" . $name . "', " . $userid . ", '" . $text . "','" . time() . "', " . $eid . ", 'KALENDER')");
             }
 			
 			if (loggedin()) { $aus[ 'uname' ] = $_SESSION[ 'authname' ]; $aus[ 'readonly' ] = 'readonly'; } else { $aus[ 'uname' ] = ''; $aus[ 'readonly' ] = ''; }
@@ -162,13 +163,13 @@ function kalender_listoutput() {
 			$aus[ 'text' ] = bbcode($aus[ 'text' ]);
 			$tpl->set_ar_out($aus, 'detail');
 			$tpl->set_ar_out($aus, 'commentstart');
-            $erg = db_query("SELECT `id`, `name`, `text`, `time` FROM `prefix_koms` WHERE `uid` = " . $eid . " AND `cat` = 'KALENDER' ORDER BY `id` DESC");
+            $erg = db_query("SELECT `id`, `name`, `userid`, `text`, `time` FROM `prefix_koms` WHERE `uid` = " . $eid . " AND `cat` = 'KALENDER' ORDER BY `id` DESC");
 			$anz = db_num_rows($erg);
 			if ($anz == 0) { echo 'Keine Kommentare vorhanden'; } else {
 				while ($r1 = db_fetch_assoc($erg)) {
 					if (has_right(- 7, 'kalender')) { $del = ' <a href="index.php?kalender-v1-e' . $eid . '-d' . $r1[ 'id' ] . '"><img src="include/images/icons/del.gif" alt="l&ouml;schen" border="0" title="l&ouml;schen" /></a>'; }
 				$r1[ 'zahl' ] = $anz;
-				$r1[ 'avatar' ] = get_komsavatar($r1[ 'name' ]);
+				$r1[ 'avatar' ] = get_avatar($r1[ 'userid' ]);
 				$r1[ 'time' ] = post_date($r1[ 'time' ],1).$del;
 				$r1[ 'text' ] = bbcode($r1[ 'text' ]);
 				$tpl->set_ar_out($r1, 'comments');

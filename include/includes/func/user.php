@@ -396,16 +396,17 @@ function sendpm($sid, $eid, $ti, $te, $status = 0) {
     }
 }
 
-function get_komsavatar($name) {
-	$gast = db_result(db_query('SELECT COUNT(*) FROM prefix_user WHERE name = "' . $name . '"'),0);
-    if ($gast==0) { 
-		$avatar = 'include/images/avatars/wurstegal.jpg'; 
-	} else { 		
-		$row = db_fetch_assoc(db_query('SELECT avatar, geschlecht FROM prefix_user WHERE name = "' . $name . '"'));
-		if 		(empty($row['avatar']) and $row['geschlecht'] == 0) { $avatar = 'include/images/avatars/wurstegal.jpg'; }
-		elseif 	(empty($row['avatar']) and $row['geschlecht'] == 1) { $avatar = 'include/images/avatars/maennlich.jpg'; }
-		elseif 	(empty($row['avatar']) and $row['geschlecht'] == 2) { $avatar = 'include/images/avatars/weiblich.jpg'; }
-		else														{ $avatar = $row['avatar']; }					
+function get_avatar($id) {
+	$pfad = 'include/images/avatars/';
+	if (is_numeric($id) and $id != 0) 
+	{
+		$row = db_fetch_assoc(db_query('SELECT `avatar`, `geschlecht` FROM `prefix_user` WHERE `id` = ' . $id));
+		if 		(isset($row['avatar']) and file_exists($row['avatar'])) { $avatar = $row['avatar']; }
+		elseif 	($row['geschlecht'] == 1) 								{ $avatar = $pfad . 'maennlich.jpg'; }
+		elseif 	($row['geschlecht'] == 2) 								{ $avatar = $pfad . 'weiblich.jpg'; }
+		else															{ $avatar = $pfad . 'wurstegal.jpg'; }					
+	} else { 
+		$avatar = $pfad . 'wurstegal.jpg';
 	}
 	return $avatar;
 }

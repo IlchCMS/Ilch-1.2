@@ -142,9 +142,10 @@ if ($menu->get(1) == 'showOrig') {
     if ($komsOK) {
         // eintragen
         if ((loggedin() or isset($_POST['name'])) and !empty($_POST['text']) and $antispam = chk_antispam('gallery')) {
-            if (loggedin()) { $name = $_SESSION['authname']; } else { $name = escape($_POST['name'], 'string').' (Gast)'; }
+            if (loggedin()) { $name = $_SESSION['authname']; $userid = $_SESSION['authid']; } 
+			else { $name = escape($_POST['name'], 'string').' (Gast)'; $userid = 0; }
             $text = escape($_POST['text'], 'string');
-            db_query("INSERT INTO prefix_koms (name,text,time,uid,cat) VALUES ('" . $name . "','" . $text . "','" . time() . "'," . $row['id'] . ",'GALLERYIMG')");
+            db_query("INSERT INTO prefix_koms (`name`,`userid`,`text`,`time`,`uid`,`cat`) VALUES ('" . $name . "'," . $userid . ",'" . $text . "','" . time() . "'," . $row['id'] . ",'GALLERYIMG')");
         }
         // loeschen
         if (isset($_GET['delete']) AND is_siteadmin()) {
@@ -165,13 +166,13 @@ if ($menu->get(1) == 'showOrig') {
         $tpl->set('readonly', $readonly);
         $tpl->set('antispam', get_antispam('gallery', 0));
         $tpl->out("koms_on");
-        $erg = db_query("SELECT `id`, `name`, `text`, `time` FROM `prefix_koms` WHERE `uid` = " . $row[ 'id' ] . " AND `cat` = 'GALLERYIMG' ORDER BY `id` DESC");
+        $erg = db_query("SELECT `id`, `name`, `userid`, `text`, `time` FROM `prefix_koms` WHERE `uid` = " . $row[ 'id' ] . " AND `cat` = 'GALLERYIMG' ORDER BY `id` DESC");
 		$anz = db_num_rows($erg);
 		if ($anz == 0) { echo $lang[ 'nocomments' ]; } else {
         while ($r = db_fetch_assoc($erg)) {
 			if (is_admin()) { $del = ' <a href="index.php?gallery-show-' . $cid . '-p' . $page . '=0&amp;delete=' . $r[ 'id' ] . '"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" alt="l&ouml;schen" /></a>'; }
 			$r[ 'zahl' ] = $anz;
-			$r[ 'avatar' ] = get_komsavatar($r[ 'name' ]);
+			$r[ 'avatar' ] = get_avatar($r[ 'userid' ]);
 			$r[ 'time' ] = post_date($r[ 'time' ],1).$del;
             $r[ 'text' ] = bbcode($r[ 'text' ]);
             $tpl->set_ar_out($r, "koms_self");

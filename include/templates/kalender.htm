@@ -1,4 +1,4 @@
-﻿<script type="text/javascript">
+<script type="text/javascript">
 var icCalenderView = {VIEW};
 var icCalenderMonth = {MONAT};
 var icCalenderYear = {YEAR};
@@ -85,7 +85,7 @@ ic.documentReadyAdd(function(type, elemid) {
             <form action="index.php?kalender-v1-e{ID}" method="post" id="comments">
             {ANTISPAM}
               <br><br>
-              <label>{_lang_name}<br><input type="text" name="name" value="{uname}" {readonly} /></label>
+              <label>{_lang_name}<br><input type="text" name="name" value="{uname}" maxlength="15" {readonly} /></label>
               <br><br>
               <label>{_lang_comment}<br><textarea style="width: 100%;" rows="2" name="text"></textarea></label>
               <br><br>

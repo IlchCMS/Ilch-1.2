@@ -152,9 +152,10 @@ if (!is_numeric($menu->get(1))) {
         }
         // kommentar add
         if ((loggedin() OR chk_antispam('newskom')) AND $komsOK AND !empty($_POST[ 'name' ]) AND !empty($_POST[ 'txt' ])) {
-            	if (loggedin()) { $name = $_SESSION['authname']; } else { $name = escape($_POST['name'], 'string').' (Gast)'; }
-                $text = escape($_POST[ 'text' ], 'string');
-            db_query("INSERT INTO `prefix_koms` (`uid`,`cat`,`time`,`name`,`text`) VALUES (" . $nid . ",'NEWS','" . time() . "','" . $name . "','" . $text . "')");
+            	if (loggedin()) { $name = $_SESSION['authname']; $userid = $_SESSION['authid']; } 
+				else { $name = escape($_POST['name'], 'string').' (Gast)'; $userid = 0; }
+                $text = escape($_POST[ 'txt' ], 'string');
+            db_query("INSERT INTO `prefix_koms` (`uid`,`cat`,`time`,`name`,`userid`,`text`) VALUES (" . $nid . ",'NEWS','" . time() . "','" . $name . "'," . $userid . ",'" . $text . "')");
         }
         // kommentar add
         // kommentar loeschen
@@ -187,7 +188,7 @@ if (!is_numeric($menu->get(1))) {
         if ($komsOK) {
             $tpl->set_ar_out(array('NAME' => $row->news_title, 'NID' => $nid ), "koms_on");
         
-			$erg1 = db_query("SELECT `text`, `name`, `id`, `time` FROM `prefix_koms` WHERE `uid` = " . $nid . " AND `cat` = 'NEWS' ORDER BY `id` DESC");
+			$erg1 = db_query("SELECT `text`, `name`, `userid`, `id`, `time` FROM `prefix_koms` WHERE `uid` = " . $nid . " AND `cat` = 'NEWS' ORDER BY `id` DESC");
 			$anz = db_num_rows($erg1);
 			if ($anz == 0) { echo $lang[ 'nocomments' ]; } else {
             	while ($row1 = db_fetch_assoc($erg1)) {
@@ -195,15 +196,15 @@ if (!is_numeric($menu->get(1))) {
                 	if (has_right(- 7, 'news')) { $del = ' <a href="?news-' . $nid . '-d' . $row1[ 'id' ] . '"><img src="include/images/icons/del.gif" alt="l&ouml;schen" border="0" title="l&ouml;schen" /></a>'; }
                 	$tpl->set_ar_out(array(
                         'TEXT' => $row1[ 'text' ],
-						'AVATAR' => get_komsavatar($row1[ 'name' ]),
+						'AVATAR' => get_avatar($row1[ 'userid' ]),
 						'NAME' => $row1[ 'name' ],
 						'TIME' => post_date($row1[ 'time' ],1).$del,
                         'ZAHL' => $anz
                         ), "koms_self");
                 	$anz--;
 				}
-				$tpl->out("koms_off");
 			}
+			$tpl->out("koms_off");
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿<div class="newsitem" id="news-{id}">
+<div class="newsitem" id="news-{id}">
   <div class="newsdate">{datum}</div>
   {kate}
   <div class="newstitle">
@@ -56,7 +56,7 @@
  	    <form action="index.php?news-{NID}" method="post" id="comments">
  	    {ANTISPAM}
  	      <br><br>
- 	      <label>{_lang_name}<br><input type="text" name="name" value="{uname}" {readonly} /></label>
+ 	      <label>{_lang_name}<br><input type="text" name="name" value="{uname}" maxlength="15" {readonly} /></label>
  	      <br><br>
  	      <label>{_lang_comment}<br><textarea style="width: 100%;" rows="2" name="txt"></textarea></label>
  	      <br><br>

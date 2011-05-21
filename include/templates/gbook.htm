@@ -1,4 +1,4 @@
-﻿<table width="100%">
+<table width="100%">
   <tr>
     <td width="50%" align="right">{EINTRAGE} {_lang_entries}</td>
     <td width="50%" align="center"><a href="index.php?gbook-insert">{_lang_insert}</a></td>
@@ -108,7 +108,7 @@ function RestlicheZeichenErmitteln(d)
  	    <form action="index.php?gbook-show-{id}" method="post" id="comments">
  	    {ANTISPAM}
  	      <br><br>
- 	      <label>{_lang_name}<br><input type="text" name="name" value="{uname}" {readonly} /></label>
+ 	      <label>{_lang_name}<br><input type="text" name="name" value="{uname}" maxlength="15" {readonly} /></label>
  	      <br><br>
  	      <label>{_lang_comment}<br><textarea style="width: 100%;" rows="2" name="text"></textarea></label>
  	      <br><br>

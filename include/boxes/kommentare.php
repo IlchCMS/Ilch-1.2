@@ -8,10 +8,9 @@ defined('main') or die('no direct access');
 //Anzahl der der Kommentare
 $anz = 5;
 //Laenge der der Kommentare
-$info = 20;
-
+$info = 15;
+// -----------------------------------------------------------|
 ?>
-
 <script language="Javascript" type="text/javascript">
 $(document).ready(function() {
 	$("a#fancyframecomment").fancybox({
@@ -27,7 +26,6 @@ $(document).ready(function() {
 	});
 });
 </script>
-
 <?php
 
 // Kalender - Recht
@@ -45,7 +43,7 @@ if ($allgAr[ 'GBukoms' ] == 0) { $GBtyp = ''; }
 // News - Recht
 $Ntyp = 'NEWS';
 if ($allgAr[ 'Ngkoms' ] == 0) { if (loggedin()) { $Ntyp = 'NEWS'; } else { $Ntyp = ''; } }
-if ($allgAr[ 'Nukoms' ] == 0) { $Ntyp = ''; }// News - Recht
+if ($allgAr[ 'Nukoms' ] == 0) { $Ntyp = ''; }
 // Downloads - Recht
 $Dtyp = 'DOWNLOAD';
 if ($allgAr[ 'Dgkoms' ] == 0) { if (loggedin()) { $Dtyp = 'DOWNLOAD'; } else { $Dtyp = ''; } }
@@ -96,52 +94,56 @@ $abf = "SELECT
 //
 
 $erg = db_query($abf);
-echo '<table>';
+echo '<table width="100%" border="0" cellpadding="2" cellspacing="0">';
 
-while ($row = db_fetch_object($erg)) 
-{	
-
-	$fancylink = '';
-
-	if ($row->categorie == 'KALENDER') { 
-			$kat = 'Kalender'; 
-			$link = 'index.php?kalender-v1-e' . $row->uid; 
-		}
-	if ($row->categorie == 'GALLERYIMG') { 
-			$id = db_result(db_query("SELECT `id` FROM `prefix_gallery_imgs` WHERE `id` = " . $row->uid), 0);
-			$cid = db_result(db_query("SELECT `cat` FROM `prefix_gallery_imgs` WHERE `id` = " . $id), 0);			
-			$anz = db_result(db_query("SELECT COUNT(*) FROM `prefix_gallery_imgs` WHERE `id` < " . $id . " AND `cat` = " . $cid), 0);
-			$kat = 'Gallery'; $fancylink = 'id="fancyframecomment"';
-			$link = 'index.php?gallery-show-' . $cid . '-p' . $anz; 
-		}
-	if ($row->categorie == 'GBOOK') { 
-			$kat = 'Gbook'; 
-			$link = 'index.php?gbook-show-' . $row->uid; 
-		}
-	if ($row->categorie == 'NEWS') { 
-			$kat = 'News'; 
-			$link = 'index.php?news-' . $row->uid; 
-		}
-	if ($row->categorie == 'DOWNLOAD') { 
-			$kat = 'Download'; 
-			$link = 'index.php?downloads-show-' . $row->uid; 
-		}
-	if ($row->categorie == 'WARSLAST') { 
-			$kat = 'Wars'; 
-			$link = 'index.php?wars-more-' . $row->uid; 
-		}
-
-// Ausgabe
-
-	echo 	'<tr>
-			   <td><b> &raquo; </b></td>
-			   <td>
-			     <a class="box" '.$fancylink.' href="'.$link.'" title="'.post_date($row->time,1).'">
-				   '.((strlen($row->text)<$info) ? $row->text : substr($row->text,0,$info-3).'...').'
-				 </a><br>
-				 <span class="smalfont">'.$kat.' // '.$row->name.'</span>
-			   </td>
-			</tr>';
+if (db_num_rows($erg) == 0)
+{
+	echo '<tr><td class="box" align="center">keine Kommentare vorhanden<td><tr>';
 }
+else
+{
+	while ($row = db_fetch_object($erg)) 
+	{	
 
+		$fancylink = '';
+
+		if ($row->categorie == 'KALENDER') { 
+				$kat = 'Kalender'; 
+				$link = 'index.php?kalender-v1-e' . $row->uid; 
+			}
+		if ($row->categorie == 'GALLERYIMG') { 
+				$id = db_result(db_query("SELECT `id` FROM `prefix_gallery_imgs` WHERE `id` = " . $row->uid), 0);
+				$cid = db_result(db_query("SELECT `cat` FROM `prefix_gallery_imgs` WHERE `id` = " . $id), 0);			
+				$anz = db_result(db_query("SELECT COUNT(*) FROM `prefix_gallery_imgs` WHERE `id` < " . $id . " AND `cat` = " . $cid), 0);
+				$kat = 'Gallery'; $fancylink = 'id="fancyframecomment"';
+				$link = 'index.php?gallery-show-' . $cid . '-p' . $anz; 
+			}
+		if ($row->categorie == 'GBOOK') { 
+				$kat = 'Gbook'; 
+				$link = 'index.php?gbook-show-' . $row->uid; 
+			}
+		if ($row->categorie == 'NEWS') { 
+				$kat = 'News'; 
+				$link = 'index.php?news-' . $row->uid; 
+			}
+		if ($row->categorie == 'DOWNLOAD') { 
+				$kat = 'Download'; 
+				$link = 'index.php?downloads-show-' . $row->uid; 
+			}
+		if ($row->categorie == 'WARSLAST') { 
+				$kat = 'Wars'; 
+				$link = 'index.php?wars-more-' . $row->uid; 
+			}
+
+		echo 	'<tr>
+				   <td><b> &raquo; </b></td>
+				   <td>
+				     <a class="box" '.$fancylink.' href="'.$link.'" title="'.post_date($row->time,1).'">
+					   '.((strlen($row->text)<$info) ? $row->text : substr($row->text,0,$info-3).'...').'
+					 </a><br>
+					 <span class="smalfont">'.$kat.' // '.$row->name.'</span>
+				   </td>
+				</tr>';
+	}
+}
 echo '</table>';
