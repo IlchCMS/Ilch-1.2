@@ -1,4 +1,4 @@
-<div class="newsitem" id="news-{id}">
+﻿<div class="newsitem" id="news-{id}">
   <div class="newsdate">{datum}</div>
   {kate}
   <div class="newstitle">
@@ -7,7 +7,7 @@
   </div>
   <div class="newscontentwrapper">{text}</div>
   <p>
-    <a class="floatleft ajaxload" href="index.php?news-{id}">{kom} {_if_{kom}=='1'}{_lang_comment}{_else_}{_lang_comments}{/_endif}</a>
+    <a {display} class="floatleft ajaxload" href="index.php?news-{id}">{kom} {_if_{kom}=='1'}{_lang_comment}{_else_}{_lang_comments}{/_endif}</a>
     <span class="floatright">{readwholenews}</span>
   </p>
   {_if_{social}=='1'}{!-- sozial networks --}
@@ -25,7 +25,7 @@
     <th height="25"><b>{NAME}</b></th>
   </tr>
   <tr>
-    <td height="25" class="Cdark">{_lang_message}</td>
+    <td class="Cdark"><b>{_lang_message}</b></td>
   </tr>
   <tr>
     <td class="Cnorm">
@@ -36,43 +36,40 @@
       <a href="index.php?news"><b>&laquo;</b> {_lang_back}</a>
     </td>
   </tr>
+</table>
+<!-- Kommentar -->
+{EXPLODE "koms_on"}
+<script>
+  $(document).ready(function() {
+    $('#newkom').click(function() {
+      $dialog = $('#komdiv').dialog({ autoOpen: true, modal: true, title: '{_lang_writecomment}', width: 300 });
+    });
+  });
+</script>
+<p></p>
+<table class="border" width="100%" cellpadding="5" cellspacing="1" border="0">
   <tr>
-    <td height="25" class="Cmite">{_lang_commentsfor} {NAME}</td>
-  </tr>
-  <tr>
-    <td class="Cnorm">
-    {EXPLODE}
-      <form action="index.php?news-{NID}" method="POST" class="ajaxload">
-        <fieldset>
-          <legend>{_lang_writecomment}</legend>
-          <label style="float:left; width:100px;">{_lang_name}</label><input type="text" name="name" value="{uname}" /><br />
-          <label style="float:left; width:100px; ">{_lang_comment}</label><textarea cols="40" rows="5" name="txt"></textarea><br />
-          {ANTISPAM}
-          <label style="float:left; width:100px;">&nbsp;</label><input type="submit" value="{_lang_enter}"><br />
-        </fieldset>
-      </form>
-      <br />
-      {EXPLODE}
-      <span class="Cmite"># <b>{ZAHL}</b> von {NAME}</span>
-      <br />{TEXT}<br /><br />
-      {EXPLODE}
-      <br />
-      <a href="index.php?news"><b>&laquo;</b> {_lang_back}</a>
-    </td>
+    <td class="Cdark" align="left"><b>{_lang_comments}</b>&nbsp;<a style="cursor:pointer;" id="newkom">({_lang_writecomment})</a></td>
+  </tr><tr>
+ 	<td class="Cnorm" align="left">
+ 	  <div id="komdiv" name="komdiv">
+ 	    <form action="index.php?news-{NID}" method="post" id="comments">
+ 	    {ANTISPAM}
+ 	      <br><br>
+ 	      <label>{_lang_name}<br><input type="text" name="name" value="{uname}" {readonly} /></label>
+ 	      <br><br>
+ 	      <label>{_lang_comment}<br><textarea style="width: 100%;" rows="2" name="txt"></textarea></label>
+ 	      <br><br>
+ 	      <input type="submit" value="{_lang_enter}">    
+ 	    </form>
+ 	  </div>
+ 	  {EXPLODE "koms_self"}
+ 	  <div class="comment">
+ 	    <img class="avatar" src="{AVATAR}" /><p class="arrow"></p>
+ 	    <blockquote><p>{TEXT}</p><h1>#{ZAHL}&nbsp;von&nbsp;<b>{NAME}</b></h1><h2>{TIME}</h2></blockquote>
+ 	  </div> 	
+ 	  {EXPLODE "koms_off"}
+ 	</td>
   </tr>
 </table>
-{EXPLODE}
-<table width="100%" border="0" cellspacing="0" cellpadding="5" class="rand">
-  <tr class="mite">
-    <td width="65%"><b>{NAME}</b></td>
-    <td width="15%">{FUER}</td>
-    <td width="20%" align="right">{DATE}</td>
-  </tr><tr class="norm">
-    <td valign="top" colspan="2">{TEXT}{MEHR}</td>
-    <td valign="top" rowspan="2" align="center">{KATE}</td>
-  </tr><tr class="norm">
-    <td valign="bottom" height="20" colspan="2" align="center">
-      <b>{_lang_from} {UNAME}</b> &nbsp; &nbsp; &nbsp; [ {KOM} <a href="index.php?news-1&amp;nid={ID}">{_lang_comments}</a> ]
-    </td>
-  </tr>
-</table>
+<!-- Kommentar -->

@@ -390,10 +390,24 @@ function sendpm($sid, $eid, $ti, $te, $status = 0) {
             // Email-Adresse abfragen und Email verschicken
             $mail = db_result(db_query("SELECT `email` FROM `prefix_user` WHERE `id` = " . $empf), 0);
             if (!empty($mail)) {
-                icmail($mail, "Du hast eine neue Nachricht", "Hallo,\ndu hast eben eine Neue Nachricht mit dem Betreff '" . $ti . "' bekommen. Diese Nachricht kannst du nun unter folgender Adresse mit Deinen Logindaten aufrufen: " . $page . "?forum-privmsg-showmsg-" . $last_id . "\n\nWir w�nschen Dir noch einen sch�nen Tag!");
+                icmail($mail, "Du hast eine neue Nachricht", "Hallo,\ndu hast eben eine Neue Nachricht mit dem Betreff '" . $ti . "' bekommen. Diese Nachricht kannst du nun unter folgender Adresse mit Deinen Logindaten aufrufen: " . $page . "?forum-privmsg-showmsg-" . $last_id . "\n\nWir wünschen Dir noch einen schönen Tag!");
             }
         }
     }
+}
+
+function get_komsavatar($name) {
+	$gast = db_result(db_query('SELECT COUNT(*) FROM prefix_user WHERE name = "' . $name . '"'),0);
+    if ($gast==0) { 
+		$avatar = 'include/images/avatars/wurstegal.jpg'; 
+	} else { 		
+		$row = db_fetch_assoc(db_query('SELECT avatar, geschlecht FROM prefix_user WHERE name = "' . $name . '"'));
+		if 		(empty($row['avatar']) and $row['geschlecht'] == 0) { $avatar = 'include/images/avatars/wurstegal.jpg'; }
+		elseif 	(empty($row['avatar']) and $row['geschlecht'] == 1) { $avatar = 'include/images/avatars/maennlich.jpg'; }
+		elseif 	(empty($row['avatar']) and $row['geschlecht'] == 2) { $avatar = 'include/images/avatars/weiblich.jpg'; }
+		else														{ $avatar = $row['avatar']; }					
+	}
+	return $avatar;
 }
 
 ?>

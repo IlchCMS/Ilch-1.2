@@ -47,18 +47,19 @@ if ($picofxOpts[ 'pic' ] != '' AND file_exists('include/images/gallery/' . $pico
 
     $weite = $allgAr[ 'gallery_normal_width' ] + 30;
 
-    ?>    
-
+    ?>
 <script language="Javascript" type="text/javascript">
 $(document).ready(function() {
       	$("a#fancyframepicofx").fancybox({
 				'overlayShow'		: true,				
-				'width'				: '100%',
-				'height'			: '100%',
+				'width'				: '90%',
+				'height'			: '90%',
 				'autoScale'			: false,
 				'transitionIn'		: 'elastic',
 				'transitionOut'		: 'elastic',
-				'type'				: 'iframe'
+				'type'				: 'iframe',
+				'titleShow'         : false,
+				'centerOnScroll'	: true
 			});
       	});
 </script>

@@ -110,6 +110,8 @@ if (!is_numeric($menu->get(1))) {
         while ($row = db_fetch_assoc($erg)) {
             $k0m = db_query("SELECT COUNT(ID) FROM `prefix_koms` WHERE `uid` = " . $row[ 'id' ] . " AND `cat` = 'NEWS'");
             $row[ 'kom' ] = db_result($k0m, 0);
+			if ($allgAr[ 'Ngkoms' ] == 0) { if (loggedin()) { $row[ 'display' ] = ''; } else { $row[ 'display' ] = 'style="display:none"'; }}
+			if ($allgAr[ 'Nukoms' ] == 0) { $row[ 'display' ] = 'style="display:none"'; }
             $row[ 'newslink' ] = 'http://' . $_SERVER[ 'HTTP_HOST' ] . dirname($_SERVER[ 'PHP_SELF' ]) . '/index.php?news-' . $row[ 'id' ];
             $row[ 'kate' ] = news_find_kat($row[ 'kate' ]);
             $row[ 'datum' ] = $lang[ $row[ 'dayofweek' ] ] . ' ' . $row[ 'datum' ];
@@ -130,7 +132,8 @@ if (!is_numeric($menu->get(1))) {
         unset($tpl);
     }
 } else {
-    $design->header();
+	$header = Array('jquery/jquery.validate.js','forms/news.js');
+    $design->header($header);
     $nid = escape($menu->get(1), 'integer');
     $row = db_fetch_object(db_query("SELECT * FROM `prefix_news` WHERE `news_id` = '" . $nid . "'"));
 
@@ -149,9 +152,9 @@ if (!is_numeric($menu->get(1))) {
         }
         // kommentar add
         if ((loggedin() OR chk_antispam('newskom')) AND $komsOK AND !empty($_POST[ 'name' ]) AND !empty($_POST[ 'txt' ])) {
-            $_POST[ 'txt' ] = escape($_POST[ 'txt' ], 'string');
-            $_POST[ 'name' ] = escape($_POST[ 'name' ], 'string');
-            db_query("INSERT INTO `prefix_koms` (`uid`,`cat`,`name`,`text`) VALUES (" . $nid . ",'NEWS','" . $_POST[ 'name' ] . "','" . $_POST[ 'txt' ] . "')");
+            	if (loggedin()) { $name = $_SESSION['authname']; } else { $name = escape($_POST['name'], 'string').' (Gast)'; }
+                $text = escape($_POST[ 'text' ], 'string');
+            db_query("INSERT INTO `prefix_koms` (`uid`,`cat`,`time`,`name`,`text`) VALUES (" . $nid . ",'NEWS','" . time() . "','" . $name . "','" . $text . "')");
         }
         // kommentar add
         // kommentar loeschen
@@ -168,46 +171,42 @@ if (!is_numeric($menu->get(1))) {
             $textToShow = markword($textToShow, $such);
         }
 
-        $tpl = new tpl('news.htm');
+        $tpl = new tpl('news.htm');			
+		if (loggedin()) { $uname = $_SESSION[ 'authname' ]; $readonly = 'readonly'; } else { $uname = ''; $readonly = ''; }
         $ar = array(
             'TEXT' => $textToShow,
             'KATE' => $kategorie,
             'NID' => $nid,
-            'uname' => $_SESSION[ 'authname' ],
-            'ANTISPAM' => (loggedin() ? '' : get_antispam('newskom', 100)),
+            'uname' => $uname,
+			'readonly' => $readonly,
+            'ANTISPAM' => get_antispam('newskom', 0),
             'NAME' => $row->news_title
             );
         $tpl->set_ar_out($ar, 2);
 
         if ($komsOK) {
-            $tpl->set_ar_out(array(
-                    'NAME' => $row->news_title,
-                    'NID' => $nid
-                    ), 3);
-        }
-        $erg1 = db_query("SELECT `text`, `name`, `id` FROM `prefix_koms` WHERE `uid` = " . $nid . " AND `cat` = 'NEWS' ORDER BY `id` DESC");
-        $ergAnz1 = db_num_rows($erg1);
-        if ($ergAnz1 == 0) {
-            echo '<b>' . $lang[ 'nocomments' ] . '</b>';
-        } else {
-            $zahl = $ergAnz1;
-            while ($row1 = db_fetch_assoc($erg1)) {
-                $row1[ 'text' ] = bbcode(trim($row1[ 'text' ]));
-                if (has_right(- 7, 'news')) {
-                    $row1[ 'text' ] .= '<a href="?news-' . $nid . '-d' . $row1[ 'id' ] . '"><img src="include/images/icons/del.gif" alt="l&ouml;schen" border="0" title="l&ouml;schen" /></a>';
-                }
-                $tpl->set_ar_out(array(
-                        'NAME' => $row1[ 'name' ],
+            $tpl->set_ar_out(array('NAME' => $row->news_title, 'NID' => $nid ), "koms_on");
+        
+			$erg1 = db_query("SELECT `text`, `name`, `id`, `time` FROM `prefix_koms` WHERE `uid` = " . $nid . " AND `cat` = 'NEWS' ORDER BY `id` DESC");
+			$anz = db_num_rows($erg1);
+			if ($anz == 0) { echo $lang[ 'nocomments' ]; } else {
+            	while ($row1 = db_fetch_assoc($erg1)) {
+                	$row1[ 'text' ] = bbcode(trim($row1[ 'text' ]));
+                	if (has_right(- 7, 'news')) { $del = ' <a href="?news-' . $nid . '-d' . $row1[ 'id' ] . '"><img src="include/images/icons/del.gif" alt="l&ouml;schen" border="0" title="l&ouml;schen" /></a>'; }
+                	$tpl->set_ar_out(array(
                         'TEXT' => $row1[ 'text' ],
-                        'ZAHL' => $zahl
-                        ), 4);
-                $zahl--;
-            }
-        }
-    }
-    $tpl->out(5);
+						'AVATAR' => get_komsavatar($row1[ 'name' ]),
+						'NAME' => $row1[ 'name' ],
+						'TIME' => post_date($row1[ 'time' ],1).$del,
+                        'ZAHL' => $anz
+                        ), "koms_self");
+                	$anz--;
+				}
+				$tpl->out("koms_off");
+			}
+		}
+	}
 }
-
 $design->footer();
 
 ?>

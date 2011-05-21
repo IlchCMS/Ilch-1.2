@@ -1,4 +1,4 @@
-<script language="JavaScript" type="text/javascript">
+﻿<script language="JavaScript" type="text/javascript">
 <!--
   function doVote(n1,did) { document.location.href="index.php?downloads-show-" + did + "-z"+n1; }
 //-->
@@ -56,3 +56,39 @@
     <td class="Cnorm">{ssurl}{descl}</td>
   </tr>
 </table>
+<!-- Kommentar -->
+{EXPLODE "koms_on"}
+<script>
+  $(document).ready(function() {
+    $('#newkom').click(function() {
+      $dialog = $('#komdiv').dialog({ autoOpen: true, modal: true, title: '{_lang_writecomment}', width: 300 });
+    });
+  });
+</script>
+<p></p>	
+<table width="100%" class="border" border="0" cellspacing="1" cellpadding="3">
+  <tr>
+    <td class="Cmite" colspan="3" align="left"><b>{_lang_comments}</b>&nbsp;<a style="cursor:pointer;" id="newkom">({_lang_writecomment})</a></td>
+  </tr><tr>
+ 	<td class="Cnorm" colspan="3" align="left">
+ 	<div id="komdiv" name="komdiv">
+ 	  <form action="index.php?downloads-show-{id}" method="post" id="comments">
+ 	  {ANTISPAM}
+ 	    <br><br>
+ 	    <label>{_lang_name}<br><input type="text" name="name" value="{uname}" {readonly} /></label>
+ 	    <br><br>
+ 	    <label>{_lang_comment}<br><textarea style="width: 100%;" rows="2" name="text"></textarea></label>
+ 	    <br><br>
+ 	    <input type="submit" value="{_lang_enter}">    
+ 	  </form>
+ 	</div>
+ 	{EXPLODE "koms_self"}
+ 	<div class="comment">
+ 	  <img class="avatar" src="{avatar}" /><p class="arrow"></p>
+ 	  <blockquote><p>{text}</p><h1>#{zahl}&nbsp;von&nbsp;<b>{name}</b></h1><h2>{time}</h2></blockquote>
+ 	</div>
+ 	{EXPLODE "koms_off"}
+ 	</td>
+  </tr>
+</table>
+<!-- Kommentar -->

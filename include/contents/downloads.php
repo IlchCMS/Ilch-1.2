@@ -5,7 +5,12 @@
  * @version $Id$
  */
 defined('main') or die('no direct access');
-	
+
+// Recht für Kommentare pruefen
+$komsOK = 1;
+if ($allgAr[ 'Dgkoms' ] == 0) { if (loggedin()) { $komsOK = true; } else { $komsOK = false; } }
+if ($allgAr[ 'Dukoms' ] == 0) { $komsOK = false; }
+
 function get_cats_title($catsar) {
     $l = '';
     foreach ($catsar as $k => $v) {
@@ -301,9 +306,41 @@ switch ($menu->get(1)) {
         $row[ 'version_kl' ] = (empty($row[ 'version' ]) ? '' : '(' . $row[ 'version' ] . ')');
         $title = $allgAr[ 'title' ] . ' :: Downloads ' . $cattitle;
         $hmenu = '<a class="smalfont" href="?downloads">Downloads</a>' . $catname;
-        $design = new design($title, $hmenu);		
-        $design->header();
+        $design = new design($title, $hmenu);
+		$header = Array('jquery/jquery.validate.js', 'forms/downloads.js');
+        $design->header($header);
         $tpl->set_ar_out($row, 0);
+		// Kommentare
+		if ($komsOK) {
+            $id = escape($menu->get(2), 'integer');
+            if (chk_antispam('downloads') AND isset($_POST[ 'name' ]) AND isset($_POST[ 'text' ])) {
+            	if (loggedin()) { $name = $_SESSION['authname']; } else { $name = escape($_POST['name'], 'string').' (Gast)'; }
+                $text = escape($_POST[ 'text' ], 'string');
+                db_query("INSERT INTO `prefix_koms` (`name`,`text`,`time`,`uid`,`cat`) VALUES ('" . $name . "', '" . $text . "','" . time() . "', " . $id . ", 'DOWNLOAD')");
+            }
+            if ($menu->getA(3) == 'd' AND is_numeric($menu->getE(3)) AND has_right(- 7, 'downloads')) {
+                $did = escape($menu->getE(3), 'integer');
+                db_query("DELETE FROM `prefix_koms` WHERE `uid` = " . $id . " AND `cat` = 'DOWNLOAD' AND `id` = " . $did);
+            }
+			
+			$r[ 'ANTISPAM' ] = get_antispam('downloads', 0);
+			if (loggedin()) { $r[ 'uname' ] = $_SESSION[ 'authname' ]; $r[ 'readonly' ] = 'readonly'; } else { $r[ 'uname' ] = ''; $r[ 'readonly' ] = ''; }
+            $r[ 'text' ] = bbcode($r[ 'text' ]);
+            $tpl->set_ar_out($r, "koms_on");
+            $erg = db_query("SELECT `id`, `name`, `text`, `time` FROM `prefix_koms` WHERE `uid` = " . $id . " AND `cat` = 'DOWNLOAD' ORDER BY `id` DESC");
+            $anz = db_num_rows($erg);
+			if ($anz == 0) { echo $lang[ 'nocomments' ]; } else {
+            while ($r1 = db_fetch_assoc($erg)) {
+                if (has_right(- 7, 'downloads')) { $del = ' <a href="index.php?downloads-show-' . $id . '-d' . $r1[ 'id' ] . '"><img src="include/images/icons/del.gif" alt="' . $lang[ 'delete' ] . '" border="0" title="' . $lang[ 'delete' ] . '" /></a>'; }
+                $r1[ 'zahl' ] = $anz;
+                $r1[ 'avatar' ] = get_komsavatar($r1[ 'name' ]);
+                $r1[ 'time' ] = post_date($r1[ 'time' ],1).$del;
+                $r1[ 'text' ] = bbcode($r1[ 'text' ]);
+                $tpl->set_ar_out($r1, "koms_self");
+                $anz--;
+			}}
+		}
+		$tpl->out("koms_off");
         $design->footer();
         break;
     case 'down':

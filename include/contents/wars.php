@@ -273,7 +273,8 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
         $title = $allgAr['title'] . ' :: Wars :: Lastwars';
         $hmenu = '<a href="?wars" class="smalfont">Wars</a><b> &raquo; </b>Lastwars';
         $design = new design ($title , $hmenu);
-        $design->header();
+		$header = Array('jquery/jquery.validate.js','forms/wars_last.js');
+    	$design->header($header);
         $tpl = new tpl ('wars_last');
         $row['tag'] = (empty($row['tag']) ? $row['gegner'] : $row['tag']);
         $tpl->set_ar_out($row, 0);
@@ -281,28 +282,30 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
         if ($allgAr['wars_last_komms'] < 0 AND has_right ($allgAr['wars_last_komms'])) {
             // aktion
             if (isset ($_POST['kommentar_fuer_last_wars'])) {
-                $name = $_SESSION['authname'];
-                $text = escape($_POST['text'], 'textarea');
-                db_query("INSERT INTO prefix_koms (name,cat,text,uid) VALUES ('" . $name . "','WARSLAST', '" . $text . "', " . $_GET['mehr'] . " )");
+            	if (loggedin()) { $name = $_SESSION['authname']; } else { $name = escape($_POST['name'], 'string').' (Gast)'; }
+                $text = escape($_POST[ 'text' ], 'string');
+                db_query("INSERT INTO prefix_koms (name,cat,time,text,uid) VALUES ('" . $name . "','WARSLAST','" . time() . "','" . $text . "', " . $_GET['mehr'] . " )");
             }
             if (isset ($_GET['kommentar_fuer_last_wars_loeschen']) AND is_siteadmin('wars')) {
                 db_query("DELETE FROM prefix_koms WHERE cat = 'WARSLAST' AND uid = " . $_GET['mehr'] . " AND id = " . $_GET['kommentar_fuer_last_wars_loeschen']);
             }
             // anzeigen
-            $tpl->out(1);
-            $class = '';
-            $erg = db_query("SELECT name,text,id FROM prefix_koms WHERE cat = 'WARSLAST' AND uid = " . $_GET['mehr'] . " ORDER BY id DESC");
-            while ($r = db_fetch_assoc($erg)) {
-                $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
-                $r['text'] = bbcode($r['text']);
-                if (is_siteadmin('wars')) {
-                    $r['text'] .= '<a href="index.php?wars-more-' . $_GET['mehr'] . '=0&amp;kommentar_fuer_last_wars_loeschen=' . $r['id'] . '"><img src="include/images/icons/del.gif" title="l&ouml;schen" alt="l&ouml;schen" border="0"></a>';
-                }
-                $r['class'] = $class;
-                $tpl->set_ar_out($r, 2);
-            }
-            $tpl->out(3);
+            $tpl->out("koms_on");
+            $erg = db_query("SELECT name,text,time,id FROM prefix_koms WHERE cat = 'WARSLAST' AND uid = " . $_GET['mehr'] . " ORDER BY id DESC");
+            $anz = db_num_rows($erg);
+			if ($anz == 0) { echo $lang[ 'nocomments' ]; } else {
+			while ($r = db_fetch_assoc($erg)) {
+				if (is_siteadmin('wars')) { $del = ' <a href="index.php?wars-more-' . $_GET['mehr'] . '=0&amp;kommentar_fuer_last_wars_loeschen=' . $r['id'] . '"><img src="include/images/icons/del.gif" title="l&ouml;schen" alt="l&ouml;schen" border="0"></a>'; }
+                $r[ 'zahl' ] = $anz;
+				$r[ 'avatar' ] = get_komsavatar($r[ 'name' ]);
+                $r[ 'time' ] = post_date($r[ 'time' ],1).$del;
+                $r[ 'text' ] = bbcode($r['text']);
+                $tpl->set_ar_out($r, "koms_self");
+				$anz--;
+            } }
+            $tpl->out("koms_off");
         }
+		$tpl->out(4);
     }
     $design->footer();
 }

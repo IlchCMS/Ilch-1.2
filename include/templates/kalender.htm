@@ -1,4 +1,4 @@
-<script type="text/javascript">
+﻿<script type="text/javascript">
 var icCalenderView = {VIEW};
 var icCalenderMonth = {MONAT};
 var icCalenderYear = {YEAR};
@@ -63,15 +63,42 @@ ic.documentReadyAdd(function(type, elemid) {
           <td colspan="3"><font style="font-size: 10px">{DETAIL_DATE} - {DETAIL_TIME} Uhr</font></td>
         </tr>
         <tr class="Cnorm">
-          <td colspan="3">{DETAIL_TEXT}</td>
-        </tr>
-        <tr class="Cnorm">
-          <td colspan="3" align="center">
-          {_if_{BACK_LINK}=='1'}
-            <a href="javascript:history.back()">{_lang_back}</a>
-          {_else_}
-            <a href="{BACK_LINK}" class="calajax">{_lang_back}</a>
-          {/_endif}
+          <td colspan="3">
+            {DETAIL_TEXT}
+            <br /><br />
+            {_if_{BACK_LINK}=='1'}<a href="javascript:history.back()">{_lang_back}</a>{_else_}<a href="{BACK_LINK}" class="calajax">{_lang_back}</a>{/_endif}
+            {EXPLODE "commentstart"}
+          </td>
+        </tr><tr class="Cmite">
+          <td class="Cmite" colspan="3" align="left"><b>{_lang_comments}</b>&nbsp;<a style="cursor:pointer;" id="newkom">({_lang_writecomment})</a></td>
+        </tr><tr class="Cnorm">
+          <td colspan="3">
+          <!-- Kommentar -->
+          <script>
+          $(document).ready(function() {
+            $('#newkom').click(function() {
+              $dialog = $('#komdiv').dialog({ autoOpen: true, modal: true, title: '{_lang_writecomment}', width: 300 });
+            });
+          });
+          </script>
+          <div id="komdiv" name="komdiv">
+            <form action="index.php?kalender-v1-e{ID}" method="post" id="comments">
+            {ANTISPAM}
+              <br><br>
+              <label>{_lang_name}<br><input type="text" name="name" value="{uname}" {readonly} /></label>
+              <br><br>
+              <label>{_lang_comment}<br><textarea style="width: 100%;" rows="2" name="text"></textarea></label>
+              <br><br>
+              <input type="submit" value="{_lang_enter}">    
+            </form>
+          </div>
+          {EXPLODE "comments"}
+          <div class="comment">
+            <img class="avatar" src="{avatar}" /><p class="arrow"></p>
+            <blockquote><p>{text}</p><h1>#{zahl}&nbsp;von&nbsp;<b>{name}</b></h1><h2>{time}</h2></blockquote>
+          </div>
+          {EXPLODE "commentend"}
+          <!-- Kommentar -->
           </td>
         </tr>
         {EXPLODE "listend"}
@@ -79,7 +106,7 @@ ic.documentReadyAdd(function(type, elemid) {
       {EXPLODE "kalenderend"}
     </td>
     <td width="10" nowrap="nowrap">&nbsp;</td>
-    <td width="175" valign="top" nowrap="nowrap" align="center">
+    <td {display} width="175" valign="top" nowrap="nowrap" align="center">
       <div id="datepickercontent"></div>
       <a class="calajax" href="index.php?kalender-v1" id="listviewlink">{_lang_listview}</a> | <a class="calajax" href="index.php?kalender-v0" id="monthviewlink">{_lang_monthsview}</a>
     </td>

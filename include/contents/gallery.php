@@ -5,9 +5,15 @@
  * @version $Id$
  */
 defined('main') or die('no direct access');
+
 // mini config
 $img_per_site = $allgAr[ 'gallery_imgs_per_site' ];
 $img_per_line = $allgAr[ 'gallery_imgs_per_line' ];
+
+// Recht für Kommentare pruefen
+$komsOK = 1;
+if ($allgAr[ 'Ggkoms' ] == 0) { if (loggedin()) { $komsOK = true; } else { $komsOK = false; } }
+if ($allgAr[ 'Gukoms' ] == 0) { $komsOK = false; }
 
 function get_cats_title($catsar) {
     $l = '';
@@ -102,9 +108,21 @@ if ($menu->get(1) == 'showOrig') {
         $diashow_html = '<meta http-equiv="refresh" content="' . $sek . '; URL=index.php?gallery-show-' . $cid . '-p' . $next . '=0&amp;diashow=shownext&amp;sek=' . $sek . '">';
         $diashow = $page . '=0&amp;diashow=stop';
     }
-    // anzeigen
+
+	// Header definieren
+	$header = '';
+	$js = read_ext('include/includes/js/global', 'js');
+	$css = read_ext('include/includes/css/global', 'css');
+    // Dynamisch CSS + JS laden
+    foreach ($css as $file) {$header .= "\n" . '<link rel="stylesheet" type="text/css" href="include/includes/css/global/' . $file . '" />';}
+    $header .= "\n" . '<link rel="stylesheet" type="text/css" href="include/admin/templates/style.css">';
+	foreach ($js as $file) {$header .= "\n" . '<script type="text/javascript" src="include/includes/js/global/' . $file . '"></script>';}
+	$header .= "\n" . '<script type="text/javascript" src="include/includes/js/jquery/jquery.validate.js"></script>';
+    $header .= "\n" . '<script type="text/javascript" src="include/includes/js/forms/gallery_show.js"></script>';
+	// anzeigen
     $tpl = new tpl('gallery_show');
     $arr = array(
+		'header' => $header,
         'cid' => $cid,
         'last' => $last,
         'next' => $next,
@@ -121,24 +139,12 @@ if ($menu->get(1) == 'showOrig') {
         );
     $tpl->set_ar_out($arr, 0);
     // kommentare
-    if ($allgAr[ 'gallery_img_koms' ] == 1) {
+    if ($komsOK) {
         // eintragen
-        $insertmsg = '';
         if ((loggedin() or isset($_POST['name'])) and !empty($_POST['text']) and $antispam = chk_antispam('gallery')) {
-            if (loggedin()) {
-                $name = $_SESSION['authname'];
-            } else {
-                $name = escape($_POST['name'], 'string');
-                if (db_count_query('SELECT COUNT(*) FROM prefix_user WHERE name = "' . $name . '"')) {
-                    $insertmsg .= 'Der Name ist bereits für einen registrierten User vergeben';
-                }
-            }
-            if (empty($insertmsg)) {
-                $text = escape($_POST['text'], 'string');
-                db_query("INSERT INTO prefix_koms (name,text,uid,cat) VALUES ('" . $name . "','" . $text . "'," . $row['id'] . ",'GALLERYIMG')");
-            }
-        } elseif (isset($_POST['subgalkom']) and !$antispam) {
-            $insertmsg .= 'Falscher Antispam';
+            if (loggedin()) { $name = $_SESSION['authname']; } else { $name = escape($_POST['name'], 'string').' (Gast)'; }
+            $text = escape($_POST['text'], 'string');
+            db_query("INSERT INTO prefix_koms (name,text,time,uid,cat) VALUES ('" . $name . "','" . $text . "','" . time() . "'," . $row['id'] . ",'GALLERYIMG')");
         }
         // loeschen
         if (isset($_GET['delete']) AND is_siteadmin()) {
@@ -148,23 +154,30 @@ if ($menu->get(1) == 'showOrig') {
         if (!empty($insertmsg)) {
             $insertmsg = '<span style="color:red;">' . $insertmsg . '</span><br />';
         }
-        $tpl->set('insertmsg', $insertmsg);
-        $tpl->set('uname', $_SESSION['authname']);
-        $tpl->set('antispam', get_antispam('gallery', 0));
+		if (loggedin()) { 
+			$uname = $_SESSION[ 'authname' ]; $readonly = 'readonly'; 
+		} else { 
+			$uname = ''; $readonly = ''; 
+		}
 
-        $tpl->out(1);
-        $class = 'Cnorm';
-        $erg = db_query("SELECT `id`, `name`, `text` FROM `prefix_koms` WHERE `uid` = " . $row[ 'id' ] . " AND `cat` = 'GALLERYIMG' ORDER BY `id` DESC");
+        $tpl->set('insertmsg', $insertmsg);
+        $tpl->set('uname', $uname);
+        $tpl->set('readonly', $readonly);
+        $tpl->set('antispam', get_antispam('gallery', 0));
+        $tpl->out("koms_on");
+        $erg = db_query("SELECT `id`, `name`, `text`, `time` FROM `prefix_koms` WHERE `uid` = " . $row[ 'id' ] . " AND `cat` = 'GALLERYIMG' ORDER BY `id` DESC");
+		$anz = db_num_rows($erg);
+		if ($anz == 0) { echo $lang[ 'nocomments' ]; } else {
         while ($r = db_fetch_assoc($erg)) {
-            $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
-            $r[ 'class' ] = $class;
+			if (is_admin()) { $del = ' <a href="index.php?gallery-show-' . $cid . '-p' . $page . '=0&amp;delete=' . $r[ 'id' ] . '"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" alt="l&ouml;schen" /></a>'; }
+			$r[ 'zahl' ] = $anz;
+			$r[ 'avatar' ] = get_komsavatar($r[ 'name' ]);
+			$r[ 'time' ] = post_date($r[ 'time' ],1).$del;
             $r[ 'text' ] = bbcode($r[ 'text' ]);
-            if (is_admin()) {
-                $r[ 'text' ] .= '<a href="index.php?gallery-show-' . $cid . '-p' . $page . '=0&amp;delete=' . $r[ 'id' ] . '"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" alt="l&ouml;schen" /></a>';
-            }
-            $tpl->set_ar_out($r, 2);
-        }
-        $tpl->out(3);
+            $tpl->set_ar_out($r, "koms_self");
+			$anz--;
+        } }
+        $tpl->out("koms_off");
     }
 } else {
     $cid = ($menu->get(1) ? escape($menu->get(1), 'integer') : 0);

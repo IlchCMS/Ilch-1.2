@@ -1,8 +1,12 @@
-body   
+﻿body   
 { 
   background-color: #EFEFEF;
   margin: 0;
   padding: 27px 0px 0px 0px;
+}
+
+fieldset {
+  border:1px #003366 solid;
 }
 
 div#header{
@@ -216,7 +220,6 @@ margin: 5px auto 5px auto;
 	width: 14px;
 	height: 14px;
 }
-
  
  /* *** Float containers fix:
  http://www.csscreator.com/attributes/containedfloat.php *** */ 
@@ -242,4 +245,73 @@ margin: 5px auto 5px auto;
 /*hide the left column when printing*/ 
 #leftcol{display:none;} 
 #twocols, #maincol{width:100%; float:none;}
+}
+
+/* Kommentar */
+div.comment {
+  width: 98%;
+  font-size: 12px;
+  margin: 0 auto;
+  padding: 5px 0;
+  font: 12px "Lucida Grande", Lucida, Verdana, sans-serif;
+  clear: both;
+}
+
+div.comment img.avatar{
+  width: 40px;
+  float: left;
+  border: 1px solid #ccc;
+  padding: 2px;
+  background: #fff;
+}
+
+div.comment blockquote {
+  margin: 0 0 0 55px;
+  padding: 0;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+div.comment blockquote p {
+  margin: 5px 10px 10px 10px;
+  padding: 0;
+}
+
+div.comment blockquote h1 {
+  color: #999;
+  font-size: 9px;
+  font-weight: normal;
+  padding: 0;
+  margin: 0 0 1px 3px;
+  text-align: left;
+  float: left;
+}
+
+div.comment blockquote h2 {
+  color: #999;
+  font-size: 9px;
+  font-weight: normal;
+  padding: 0;
+  margin: 0 3px 1px 0;
+  text-align: right;
+}
+
+div.comment p.arrow {
+  width: 7px;
+  height: 11px;
+  float: left;
+  margin: 10px 0 0 3px;
+  padding: 0;
+  background: transparent url(../../images/icons/arrowcomment.gif);
+}
+
+#komdiv {
+  float:none;
+  width:auto;
+  text-align: center;
+  display:none;
+}
+
+#komdiv form label {
+  font-weight: bold;
 }

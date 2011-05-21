@@ -1,7 +1,7 @@
-<html>
+﻿<html>
 <head>
-<link rel="stylesheet" type="text/css" href="include/admin/templates/style.css">
 {diashow_html}
+<!-- HEADER -->{header}
 <script language="JavaScript" type="text/javascript">
 <!--
   function openWindow() {
@@ -28,7 +28,7 @@
 //-->
 </script>
 </head>
-<body>
+<body style="background-color:#fff; margin:5px 10px;">
 <table width="100%" class="border" border="0" cellspacing="1" cellpadding="3">
   <tr>
     <td class="Callg">
@@ -45,7 +45,6 @@
       </div>
       <table class="border" border="0" cellspacing="1" cellpadding="3" width="100%">
         <tr>
-          <td class="Cnorm" align="center" width="15"><a href="javascript:closeThisWindow()"><img src="include/images/icons/del.gif" alt="{_lang_close}" title="{_lang_close}" border="0"></a></td>
           <td class="Cmite" align="center" width="15"><a href="index.php?gallery-show-{cid}-p{last}"><img src="include/images/icons/pfeill.gif" alt="{_lang_back}" title="{_lang_back}" border="0"></a></td>
           <td class="Cmite" align="center" width="15"><a href="index.php?gallery-show-{cid}-p{next}"><img src="include/images/icons/pfeilr.gif" alt="{_lang_forward}" title="{_lang_forward}" border="0"></a></td>
           <td class="Cnorm" align="center" width="15" onmouseout="closeDiashowDiv()" onmouseover="showDiashowDiv()"><a href="index.php?gallery-show-{cid}-p{diashow}"><img src="include/images/icons/diashow.gif" alt="{_lang_diashowstartstop}" title="{_lang_diashowstartstop}" border="0"></a></td>
@@ -77,39 +76,50 @@
       </table>
       </center>
       <br />
-      <table class="border" border="0" cellspacing="1" cellpadding="3" width="100%">
+      <table border="0" cellspacing="1" cellpadding="0" width="100%">
         <tr>
-          <td class="Cmite"><strong>{_lang_desc}:</strong>: {besch}</td>
+          <td class="Cmite"><u>{_lang_desc}:</u> {besch}</td>
         </tr>
-      </table>
-      {EXPLODE}
-      <br />
-      <table class="border" border="0" cellspacing="1" cellpadding="3" width="100%">
-        <tr>
-          <td class="Cdark"><strong>{_lang_comments}:</strong></td>
-        </tr><tr>
-          <td class="Cnorm">
-            <form action="index.php?gallery-show-{cid}-p{bildr}" method="POST">
-              {insertmsg}
-              <input type="text" name="name" value="{uname}" /><br />
-              <textarea cols="50" rows="2" name="text"></textarea><br />
-              {antispam}
-              <input type="submit" name="subgalkom" value="{_lang_formsub}">
-            </form>
-          </td>
-        </tr>
-      </table>
-      <br />
-      <table class="border" border="0" cellspacing="1" cellpadding="3">
-      {EXPLODE}
-        <tr>
-          <td class="{class}"><b>{name}:</b> &nbsp; {text}</td>
-        </tr>
-      {EXPLODE}
       </table>
     </td>
   </tr>
 </table>
+<!-- Kommentar -->
+{EXPLODE "koms_on"}
+<script>
+  $(document).ready(function() {
+    $('#newkom').click(function() {
+      $dialog = $('#komdiv').dialog({ position: 'top', autoOpen: true, modal: true, title: '{_lang_writecomment}', width: 300 });
+    });
+  });
+</script>
+<p></p>
+<table width="100%" class="border" border="0" cellspacing="1" cellpadding="3">
+  <tr>
+    <td class="Cnorm" colspan="3" align="left"><b>{_lang_comments}</b>&nbsp;<a style="cursor:pointer;" id="newkom">({_lang_writecomment})</a></td>
+  </tr><tr>
+ 	<td class="Cmite" colspan="3" align="left">
+ 	  <div id="komdiv" name="komdiv">
+        <form action="index.php?gallery-show-{cid}-p{bildr}" method="post" id="comments">
+        {insertmsg}{antispam}
+          <br><br>
+          <label>{_lang_name}<br><input type="text" name="name" value="{uname}" {readonly} /></label>
+          <br><br>
+          <label>{_lang_comment}<br><textarea style="width: 100%;" rows="2" name="text"></textarea></label>
+          <br><br>
+          <input type="submit" name="subgalkom" value="{_lang_formsub}">    
+        </form>
+      </div>
+ 	  {EXPLODE "koms_self"}
+ 	  <div class="comment">
+ 	    <img class="avatar" src="{avatar}" /><p class="arrow"></p>
+ 	    <blockquote><p>{text}</p><h1>#{zahl}&nbsp;von&nbsp;<b>{name}</b></h1><h2>{time}</h2></blockquote>
+ 	  </div>
+ 	  {EXPLODE "koms_off"}
+ 	</td>
+  </tr>
+</table>
+<!-- Kommentar -->
 </body>
 </html>
 {EXPLODE}

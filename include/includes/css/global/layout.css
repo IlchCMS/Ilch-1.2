@@ -1,4 +1,4 @@
-/* STANDARD */
+﻿/* STANDARD */
 .bold { font-weight:bold !important; }
 .underlined { text-decoration:underline; }
 .hidden { display:none !important; }
@@ -32,6 +32,8 @@ input.error, select.error, textarea.error { border: 1px #FF0000 dotted; backgrou
 #profiledit_form label.error 	{ margin-left: 150px; width: auto; display: inline; color: #FF0000; font-size:9px }
 #regist_form label.error 		{ margin-left: 0px; width: auto; display: inline; color: #FF0000; font-size:9px }
 #upload_form label.error 		{ margin-left: 100px; width: auto; display: inline; color: #FF0000; font-size:9px }
+#comments label.error 			{ text-align: center; width: auto; display: inline; color: #FF0000; font-size:9px }
+
 
 /* AWARDS */
 #awards {}

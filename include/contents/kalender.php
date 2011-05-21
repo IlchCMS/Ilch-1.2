@@ -10,8 +10,12 @@ defined('main') or die('no direct access');
 // -----------------------------------------------------------|
 $title = $allgAr[ 'title' ] . ' :: Kalender';
 $hmenu = 'Kalender';
+$header = Array(
+	'jquery/jquery.validate.js',
+	'forms/kalender.js'
+    );
 $design = new design($title, $hmenu);
-$design->header();
+$design->header($header);
 $tooltips = '';
 $tpl = new tpl('kalender.htm');
 // -----------------------------------------------------------|
@@ -21,7 +25,7 @@ $year = date('Y');
 $gday = 0;
 $view = $allgAr['kalender_standard_list'];
 $eid = 0;
-
+$delid = '';
 $addyrs = 25; # Anzahl der Jahre die vorrausberechnet werden sollen
 
 if ($menu->getA(1) == 'v' AND is_numeric($menu->getE(1))) {
@@ -39,6 +43,14 @@ if ($menu->getA(3) == 'y' AND is_numeric($menu->getE(3)) AND $menu->getE(3) >= 2
 if ($menu->getA(2) == 'e' AND is_numeric($menu->getE(1))) {
     $eid = $menu->getE(2);
 }
+if ($menu->getA(3) == 'd' AND is_numeric($menu->getE(3)) AND has_right(- 7, 'kalender')) {
+db_query("DELETE FROM `prefix_koms` WHERE `uid` = " . $eid . " AND `cat` = 'KALENDER' AND `id` = " . $menu->getE(3));
+}
+
+// Recht für Kommentare pruefen
+$komsOK = 1;
+if ($allgAr[ 'Kgkoms' ] == 0) { if (loggedin()) { $komsOK = true; } else { $komsOK = false; } }
+if ($allgAr[ 'Kukoms' ] == 0) { $komsOK = false; }
 
 $arr_month = array(0 => '',
     'Januar',
@@ -119,7 +131,7 @@ if ($view == 0) {
 }
 
 function kalender_listoutput() {
-    global $tpl, $eid, $data, $data_id, $gday, $month, $year, $days, $arr_day, $title_liste, $view, $allgAr;
+    global $komsOK, $tpl, $eid, $data, $data_id, $gday, $month, $year, $days, $arr_day, $title_liste, $view, $allgAr;
     //Listbegin
     $tpl->set_ar_out(array(
             'TITLE' => ($eid) ? $data_id[ $eid ][ 'title' ] : $title_liste,
@@ -127,17 +139,46 @@ function kalender_listoutput() {
         ), "listbegin");
     //Detail
     if ($eid) {
+		$aus[ 'display' ] =  'style="display:none"';
         $aus[ 'DETAIL_DATE' ] = date('d.m.Y', $data_id[ $eid ][ 'time' ]);
         $aus[ 'DETAIL_TIME' ] = date('H:i', $data_id[ $eid ][ 'time' ]);
         $aus[ 'DETAIL_TEXT' ] = BBcode($data_id[ $eid ][ 'text' ]);
+        $aus[ 'ID' ] = $eid;
         $viewl = $allgAr['kalender_standard_list'];
-        if (preg_match('%\?kalender-v([0|1])%i', $_SERVER['HTTP_REFERER'], $match)) {
-            $viewl = $match[1];
-        }
-        $aus[ 'BACK_LINK'   ] = 'index.php?kalender-v'.$viewl.'-m' . date('m', $data_id[$eid]['time']) .
-                '-y' . date('Y', $data_id[$eid]['time']);
-        $tpl->set_ar_out($aus, 'detail');
-    }
+        if (preg_match('%\?kalender-v([0|1])%i', $_SERVER['HTTP_REFERER'], $match)) { $viewl = $match[1]; }
+        $aus[ 'BACK_LINK'   ] = 'index.php?kalender-v'.$viewl.'-m' . date('m', $data_id[$eid]['time']) . '-y' . date('Y', $data_id[$eid]['time']);
+		
+		if (!$komsOK) { $tpl->set_ar_out($aus, 'detail'); } else {
+			
+			if ((loggedin() OR chk_antispam('kalender_komms')) AND $komsOK AND !empty($_POST[ 'name' ]) AND !empty($_POST[ 'text' ])) {
+            	if (loggedin()) { $name = $_SESSION['authname']; } else { $name = escape($_POST['name'], 'string').' (Gast)'; }
+                $text = escape($_POST[ 'text' ], 'string');
+                db_query("INSERT INTO `prefix_koms` (`name`,`text`,`time`,`uid`,`cat`) VALUES ('" . $name . "', '" . $text . "','" . time() . "', " . $eid . ", 'KALENDER')");
+            }
+			
+			if (loggedin()) { $aus[ 'uname' ] = $_SESSION[ 'authname' ]; $aus[ 'readonly' ] = 'readonly'; } else { $aus[ 'uname' ] = ''; $aus[ 'readonly' ] = ''; }
+			
+			$aus[ 'ANTISPAM' ] = get_antispam('kalenderkom', 0);
+			$aus[ 'text' ] = bbcode($aus[ 'text' ]);
+			$tpl->set_ar_out($aus, 'detail');
+			$tpl->set_ar_out($aus, 'commentstart');
+            $erg = db_query("SELECT `id`, `name`, `text`, `time` FROM `prefix_koms` WHERE `uid` = " . $eid . " AND `cat` = 'KALENDER' ORDER BY `id` DESC");
+			$anz = db_num_rows($erg);
+			if ($anz == 0) { echo 'Keine Kommentare vorhanden'; } else {
+				while ($r1 = db_fetch_assoc($erg)) {
+					if (has_right(- 7, 'kalender')) { $del = ' <a href="index.php?kalender-v1-e' . $eid . '-d' . $r1[ 'id' ] . '"><img src="include/images/icons/del.gif" alt="l&ouml;schen" border="0" title="l&ouml;schen" /></a>'; }
+				$r1[ 'zahl' ] = $anz;
+				$r1[ 'avatar' ] = get_komsavatar($r1[ 'name' ]);
+				$r1[ 'time' ] = post_date($r1[ 'time' ],1).$del;
+				$r1[ 'text' ] = bbcode($r1[ 'text' ]);
+				$tpl->set_ar_out($r1, 'comments');
+				$anz--;
+				}
+			}
+		}
+		$tpl->out('commentend');
+		// Kommentare Ende
+	}
     // Liste der Tage (Monats-Ansicht)
     elseif ($view == 0) {
         for ($i = 0; $i < $days; $i++) {

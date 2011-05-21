@@ -1,4 +1,4 @@
-{EXPLODE}
+﻿{EXPLODE}
 <table width="100%" class="border" border="0" cellspacing="1" cellpadding="3">
   <tr class="Chead">
     <td width="80%" align="center"><b>{_lang_category}</b></td>
@@ -34,7 +34,9 @@
       </tr>
     </table>
     </div>	
-
+	<style>
+	#fancybox-wrap {margin: 0px 0px;}
+	</style>
     <script language="Javascript" type="text/javascript">
 	var currentDialog; var currentImage;
     $(document).ready(function() {
@@ -47,17 +49,19 @@
       			my:"left top", 
       			at:"right bottom", 
       			of:event, 
-      			offset:"20 20" 
+      			offset:"15 15" 
       		});
       		
       	$("a#fancyframe").fancybox({
-				'overlayShow'		: true,
-				'width'				: '100%',
-				'height'			: '100%',
+				'overlayShow'		: true,				
+				'width'				: '90%',
+				'height'			: '90%',
 				'autoScale'			: false,
 				'transitionIn'		: 'elastic',
 				'transitionOut'		: 'elastic',
-				'type'				: 'iframe'
+				'type'				: 'iframe',
+				'titleShow'         : false,
+				'centerOnScroll'	: true
 			});
       	});
       	
@@ -71,7 +75,7 @@
     
     <table class="border" border="0" cellspacing="1" cellpadding="0">
       <tr>
-        <td><a id="fancyframe" class="gallery-info" rel="gallery-info-div-{id}" href="index.php?gallery-show-{cat}-p{bildr}"><img src="include/images/gallery/img_thumb_{id}.{endung}" border="0" alt="{datei_name}" title="&nbsp;" /></a></td>
+        <td><a id="fancyframe" class="gallery-info" rel="gallery-info-div-{id}" href="index.php?gallery-show-{cat}-p{bildr}"><img src="include/images/gallery/img_thumb_{id}.{endung}" border="0" alt="{datei_name}" title="" /></a></td>
       </tr>
     </table>
   </td>
