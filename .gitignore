@@ -17,3 +17,7 @@ include/includes/config.php
 .settings
 .buildpath
 .project
+
+# Dreamweaver und SVN ausschlieﬂen
+_notes
+.svn
