@@ -432,6 +432,8 @@ $lang = array_merge($lang, array
 'correct' => 'Richtig',
 'incorrect' => 'Falsch',
 
-'userpic' => 'Userpic'
+'userpic' => 'Userpic',
+
+'error_occured' => 'Ein Fehler ist aufgetreten',
 
 ));

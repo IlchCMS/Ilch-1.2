@@ -352,3 +352,8 @@ div.comment p.arrow {
 #komdiv form label {
   font-weight: bold;
 }
+
+td.ui-state-terminset a.ui-state-default { background:none #28FF2C !important; }
+#kalenderwidget ul.kalenderwidget { padding-left:0px; margin:0px; }
+#kalenderwidget ul.kalenderwidget li { border-bottom:1px solid #DDD; padding:3px 0px; }
+#kalenderwidget ul.kalenderwidget li.last { border-bottom:0px; }

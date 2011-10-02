@@ -1,4 +1,7 @@
 <?php
+	if ($_GET['action'] == 'kalenderwidget') {
+		die();
+	}
 /**
  *
  * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
@@ -44,7 +47,7 @@ if ($menu->getA(2) == 'e' AND is_numeric($menu->getE(1))) {
     $eid = $menu->getE(2);
 }
 if ($menu->getA(3) == 'd' AND is_numeric($menu->getE(3)) AND has_right(- 7, 'kalender')) {
-db_query("DELETE FROM `prefix_koms` WHERE `uid` = " . $eid . " AND `cat` = 'KALENDER' AND `id` = " . $menu->getE(3));
+	db_query("DELETE FROM `prefix_koms` WHERE `uid` = " . $eid . " AND `cat` = 'KALENDER' AND `id` = " . $menu->getE(3));
 }
 
 // Recht für Kommentare pruefen
@@ -91,6 +94,7 @@ $result = db_query("SELECT * FROM `prefix_kalender`
 	WHERE ((`time` >= " . $where1 . " AND `time` < " . $where2 . ") OR `id` = " . $eid . ")
 		AND " . $_SESSION[ 'authright' ] . " <= `recht`
 	ORDER BY `time` LIMIT 200");
+$existinDates = '[';
 while ($row = db_fetch_assoc($result)) {
     $t_id = $row[ 'id' ];
     $t_d = date('j', $row[ 'time' ]);
@@ -99,7 +103,14 @@ while ($row = db_fetch_assoc($result)) {
     $date = mktime(0, 0, 0, $t_m, $t_d, $t_y);
     $data_id[ $t_id ] = $row;
     $data[ $date ][ ] = $row;
+
+	$converteddate =  date("n,j,Y",$row[ 'time' ]);
+	$dates .= '['.$converteddate.'],';
 }
+$dates =rtrim($dates, ",");
+$existinDates .= $dates;
+$existinDates .= ']';
+
 $ueid = 0;
 if (substr($eid, 0, 3) == 999) {
     $ueid = substr($eid, 3);
@@ -128,6 +139,15 @@ if ($view == 0) {
     $title_liste = 'Nur am ' . $gday . ' ' . $arr_month[ $month ] . ' ' . $year;
 } elseif ($view == 1) {
     $title_liste = 'Liste ab ' . $arr_month[ $month ] . ' ' . $year;
+}
+
+if ($widgetCalling == 'kalender') {
+	$kalenderwidget = null;
+	foreach ($data as $date => $data1) {
+		$data1 = $data1[0];
+		$data1['datum'] = $arr_day[ date('w', $date) ] . '. ' . date('d.m.Y', $date);
+		$kalenderwidget[$data1['datum']][] = $data1;
+	}
 }
 
 function kalender_listoutput() {
@@ -263,9 +283,10 @@ function kalender_listoutput() {
     $tpl->out('listend');
 }
 
-if (AJAXCALL) {
+if (AJAXCALL && !isset($widgetCalling)) {
     kalender_listoutput();
-} else {
+	$design->footer();
+} else if (!isset($widgetCalling)) {
     if ($eid != 0 and isset($data_id[$eid])) {
         list($day, $month, $year) = explode('.', date('d.m.Y', $data_id[$eid]['time']));
     } elseif ($gday == 0) {
@@ -274,17 +295,17 @@ if (AJAXCALL) {
 
     // Template Ausgabe
     $tpl->set_ar_out(array(
-     'MONAT' => $month,
-     'TAG' => $day,
-     'YEAR' => $year,
-     'VIEW' => $view), 0);
+     'MONAT'	=> $month,
+     'TAG'		=> $day,
+     'YEAR'		=> $year,
+     'VIEW'		=> $view,
+	 'TERMINE'	=> $existinDates), 0);
     // Kalenderliste/-details etc
     kalender_listoutput();
     // Detailansicht
     // old calender
     // $tpl->set('calender', getCalendar($month, $year, 'index.php?kalender-v1-m{mon}-y{jahr}-d{tag}', 'index.php?kalender-v' . $view . '-m{mon}-y{jahr}', $data));
     $tpl->out('kalenderend');
+	$design->footer();
 }
-
-$design->footer();
 ?>

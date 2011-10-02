@@ -2,6 +2,7 @@
 var icCalenderView = {VIEW};
 var icCalenderMonth = {MONAT};
 var icCalenderYear = {YEAR};
+var icTermine = {TERMINE};
 $(document).ready(function() {
   $( "#datepickercontent" ).datepicker({
 			autoSize: true,
@@ -19,6 +20,17 @@ $(document).ready(function() {
 			showButtonPanel: false,
 			gotoCurrent: true,
 			currentText: 'Heute',
+			beforeShowDay: function (date){
+						  for (i = 0; i < icTermine.length; i++) {
+							  if (date.getMonth() == icTermine[i][0] - 1
+							  && date.getDate() == icTermine[i][1]
+							  && date.getFullYear() == icTermine[i][2]) {
+							  //[disable/enable, class for styling appearance, tool tip]
+							  return [true,"ui-state-terminset","Event Name"];
+							  }
+						   }
+						   return [true, ""];//enable all other days
+			},
 			onSelect: function(dateText, inst) {
                 var datesplit = dateText.split('.');
                 //location.href = loc+'index.php?kalender-v'+icKalenderView+'-m'+datesplit[1]+'-y'+datesplit[2]+'-d'+datesplit[0];
@@ -125,10 +137,6 @@ ic.documentReadyAdd(function(type, elemid) {
 <script language="Javascript" type="text/javascript">
 	var currentDialog;
     $(document).ready(function() {
-        /*$(".kalender-event-tooltips > div").each(function(index,element) {
-        $(element).dialog({autoOpen: false});
-        });*/
-
         $(".calender-event").each(function(index,element) {
             $(element).mouseover(function() {
                 currentDialog = $(document.getElementById(element.rel));
