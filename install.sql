@@ -996,14 +996,14 @@ INSERT INTO `prefix_modules` (`id`, `url`, `name`, `gshow`, `ashow`, `fright`, `
 (69, 'impressum', 'Impressum', 1, 0, 0, 'Content', 9),
 (70, 'archiv-partners', 'Partner', 1, 0, 0, 'Boxen', 0),
 (71, 'picofx', 'Pic of X', 1, 0, 0, 'Boxen', 1),
-(72, 'modules', 'Modulverwaltung', 1, 0, 0, 'Admin', 8),
-(73, 'smtpconf', 'SMTP', 1, 0, 0, 'Admin', 1),
-(74, 'puser', 'Nicht best&auml;tigte Registrierungen', 0, 0, 0, '', 0),
-(75, 'bbcode', 'BBcode 2.0', 1, 0, 1, 'Content', 11),
-(76, 'linkus', 'LinkUs', 1, 1, 1, 'Content', 4),
-(77, 'modrewrite', 'ModRewrite', 1, 0, 0, 'Admin', 9),
-(79, 'inactive', 'inaktive User', 1, 1, 1, 'Clanbox', 0),
-(80, 'opponents', 'Gegner', 0, 0, 0, 'Clanbox', 1);
+
+(72, 'smtpconf', 'SMTP', 1, 0, 0, 'Admin', 1),
+(73, 'puser', 'Nicht best&auml;tigte Registrierungen', 0, 0, 0, '', 0),
+(74, 'bbcode', 'BBcode 2.0', 1, 0, 1, 'Content', 11),
+(75, 'linkus', 'LinkUs', 1, 1, 1, 'Content', 4),
+(76, 'modrewrite', 'ModRewrite', 1, 0, 0, 'Admin', 9),
+(77, 'inactive', 'inaktive User', 1, 1, 1, 'Clanbox', 0),
+(78, 'opponents', 'Gegner', 0, 0, 0, 'Clanbox', 1);
 
 -- --------------------------------------------------------
 
