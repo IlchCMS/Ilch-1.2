@@ -19,20 +19,20 @@
 			$i++;
 		}
 		$list .= '</ul>';
-		echo json_encode( array('content'=> $list ) );
+		echo json_encode( array('kalenderwidget'=> $list ) );
 		exit;
 	}
 ?>
 <script>
 $(function() {
 	$.ajax({
-	  url: "index.php",
-	  data: "calender&boxreload=true&ajax=true",
+	  url: "index.php?calender",
+	  data: "boxreload=true&ajax=true",
 	  dataType: "json",
 	  success: function(response){
-		$('#kalenderwidget').html(response.content);
+		$('#kalenderwidget').html(response.kalenderwidget);
 	  },
-	  error: function(response){
+	  error: function(){
 		$('#kalenderwidget').html('<?php echo $lang['error_occured'] ?>');
 	  },
 	});
