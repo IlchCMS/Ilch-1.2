@@ -1,3 +1,7 @@
+-- die Standard Clan-Installation mit allen Menüs für Community und Clans
+
+-- in der Ersten Kommentarzeile wird die Beschreibung der Installationsdatei angegeben, welche als Hilfetext während der Installation ausgegeben wird.
+
 -- phpMyAdmin SQL Dump
 -- version 3.3.3
 -- http://www.phpmyadmin.net

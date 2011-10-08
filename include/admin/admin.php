@@ -11,7 +11,7 @@ $design = new design('Ilch Admin-Control-Panel :: Willkommen', '', 2);
 $design->header();
 // script version
 $scriptVersion = 1.2;
-$scriptUpdate = 0;
+$scriptUpdate = 1;
 // statistik wird bereinigt.
 $mon = date('n');
 $lastmon = $mon - 1;

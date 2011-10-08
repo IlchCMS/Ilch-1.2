@@ -2,7 +2,7 @@
 <!--
 function delid ( DELID ) {
   var frage = confirm ( unescape ( "Diesen%20Men%FCpunkt%20wirklich%20l%F6schen%3F" ));
-  if ( frage == true ) { document.location.href="?modules-adminmenu-del-"+DELID; }
+  if ( frage == true ) { document.location.href="admin.php?modules-adminmenu-del-"+DELID; }
   }
 function sichtbar(){
   if( document.form.kat.value=="neu"){
@@ -29,8 +29,8 @@ function sichtbar(){
   <tr class="{class}">
     <td><a href="admin.php?modules-adminmenu-edit-{id}"><img src="include/images/icons/edit.png" border="0" title="&auml;ndern" alt="&auml;ndern" /></a></td>
     <td><a href="javascript:delid({id})"><img src="include/images/icons/del.png" border="0" title="l&ouml;schen" alt="l&ouml;schen" /></a></td>
-    <td><a href="?modules-adminmenu-O{id}-{pos}"><img src="include/images/icons/pfeilo.png" border="0" title="oben" alt="oben"></a></td>
-    <td><a href="?modules-adminmenu-U{id}-{pos}"><img src="include/images/icons/pfeilu.png" border="0" title="unten" alt="unten"></a></td>
+    <td><a href="admin.php?modules-adminmenu-O{id}-{pos}"><img src="include/images/icons/pfeilo.png" border="0" title="oben" alt="oben" /></a></td>
+    <td><a href="admin.php?modules-adminmenu-U{id}-{pos}"><img src="include/images/icons/pfeilu.png" border="0" title="unten" alt="unten" /></a></td>
     <td valign="top" width="45%">{name}</td>
     <td>{url}</td>
   </tr>
@@ -48,7 +48,7 @@ function sichtbar(){
       <td class="Cmite">Kategorie:</td>
       <td class="Cnorm"><select onChange="sichtbar()" name="kat">{kat}<option value="neu">Neu:</option></select>&nbsp;&nbsp;<input type="text" name="newkat" size="40" /></td>
     </tr><tr>
-      <td class="Cdark" colspan="2" rowspan="1"><input name="pos" value="{pos}" type="hidden"><input type="submit" value="Speichern" name="submit"></td>
+      <td class="Cdark" colspan="2" rowspan="1"><input name="pos" value="{pos}" type="hidden" /><input type="submit" value="Speichern" name="submit" /></td>
     </tr>
   </tbody>
 </table>
