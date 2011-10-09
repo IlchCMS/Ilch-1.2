@@ -6,11 +6,11 @@ if (defined('DEBUG')) {
 }
 /**
  * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
- * @copyright (C) 2000-2010 ilch.de
+ * @copyright (C) 2000-2012 ilch.de
  * @version $Id: install.php 245 2011-09-11 13:13:27Z geck0 $
  */
 defined('E_DEPRECATED') or define('E_DEPRECATED', 0);
-@error_reporting(E_ALL > E_DEPRECATED ? E_ALL : E_ALL ^ E_DEPRECATED);
+@error_reporting(E_ALL > E_DEPRECATED ? E_ALL : E_ALL ^ E_DEPRECATED); 
 @date_default_timezone_set('Europe/Berlin');
 @ini_set('display_errors', 'On');
 
@@ -244,6 +244,21 @@ if ( @is_writeable ( '../include/downs/downloads/user_upload' ) ) {
 	$servercheck['downs/downloads/user_upload']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
 } else { 
 	$servercheck['downs/downloads/user_upload']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+}
+// .htaccess
+$servercheck['htaccess']['msg'] = '"../.htaccess" (CHMOD 777)';
+if ( @is_writeable ( '../.htaccess' ) ) { 
+	$servercheck['htaccess']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
+} else { 
+	if (is_file('../.htaccess')) {
+		$servercheck['htaccess']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+	} else {
+		if (FALSE === file_put_contents('../.htaccess', '')) {
+			$servercheck['htaccess']['erg'] = '<font color="#CC9933"><b>bitte eine leere .htaccess anlegen</b></font>'; 
+		} else {
+			$servercheck['htaccess']['erg'] = '<font color="#40aa00"><b>Datei angelegt</b></font>'; 
+		}
+	}
 }
 ###############################
 ##############################
