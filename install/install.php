@@ -50,8 +50,8 @@ if ( empty ($_POST['step']) ) {
           <td colspan="3"><b>Lizenz</b></td>
         </tr>
       <tr class="Cmite">
-          <td colspan="3" align="center"><p><a href="http://www.gnu.de/documents/gpl.de.html" target="_blank"><br>
-              <img src="http://www.gnu.org/graphics/gplv3-127x51.png" width="127" height="51" border="0"><br>
+          <td colspan="3" align="center"><p><a href="http://www.gnu.de/documents/gpl.de.html" target="_blank"><img src="ilch_logo.png" width="192" height="96" border="0"><br>
+              <img src="http://www.gnu.org/graphics/gplv3-127x51.png" width="79" height="31" border="0"><br>
               Komplette Lizenz lesen</a><br>
               <br>
           </p></td>

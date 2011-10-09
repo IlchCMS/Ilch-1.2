@@ -38,8 +38,20 @@ CREATE TABLE IF NOT EXISTS `prefix_allg` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_allg`
+-- Daten für Tabelle `prefix_allg`
 --
+
+INSERT INTO `prefix_allg` (`k`, `v1`, `v2`, `v3`, `v4`, `v5`, `v6`, `t1`) VALUES
+('kontakt', ' ', '1', '1', ' ', ' ', ' ', 'admin@host.de|Webmaster'),
+('impressum', 'Verantwortlich für diese Seite:', 'Max Mustermann', 'Muster Str. 43', '12345 Musterhausen', '', '', ''),
+('kasse_kontodaten', '', '', '', '', '', '', 'Kontoinhaber: Max Mustermann\r\nBankname: Muster Sparkasse\r\nKontonummer: 123\r\nBankleitzahl: 123\r\nBIC: 123\r\nIBAN: 123\r\nVerwendungszweck: Spende für ilch.de ;-)'),
+('picofx', 'pic', '2.jpg', '', '', '', '', ''),
+('picofx', 'directory', '0', '', '', '', '', ''),
+('picofx', 'interval', '0', '', '', '', '', ''),
+('picofx', 'nextchange', '2011-10-05', '', '', '', '', ''),
+('picofx', 'picwidth', '100', '', '', '', '', ''),
+('trainzeiten', '', '', '', '', '', '', 'Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train'),
+('smtpconf', '', '', '', '', '', '', '');
 
 
 -- --------------------------------------------------------
