@@ -156,7 +156,13 @@ if ( !file_exists( '../include/includes/config.php' ) and is_writeable('../inclu
 } else {
 	$servercheck['configphp']['erg'] = '<font color="#FF0000"><b>FEHLER</b></font>';
 }
-
+// smarty-cache
+$servercheck['smarty/cache']['msg'] = '"../include/cache" (CHMOD 777)';
+if ( @is_writeable ( '../include/cache' ) ) { 
+	$servercheck['smarty/cache']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
+} else { 
+	$servercheck['smarty/cache']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+}
 // backup-verzeichnis
 $servercheck['backup_dir']['msg'] = '"../include/backup/" (CHMOD 777)';
 if ( @is_writeable ( '../include/backup' ) ) { 
