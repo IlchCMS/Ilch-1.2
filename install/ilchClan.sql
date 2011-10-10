@@ -197,6 +197,7 @@ CREATE TABLE IF NOT EXISTS `prefix_bbcode_config` (
   PRIMARY KEY (`fnConfigNr`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
+
 --
 -- Daten f&uuml;r Tabelle `prefix_bbcode_config`
 --
@@ -372,7 +373,7 @@ CREATE TABLE IF NOT EXISTS `prefix_credits` (
 --
 
 INSERT INTO `prefix_credits` (`id`, `sys`, `name`, `version`, `url`, `lizenzname`, `lizenzurl`) VALUES
-(1, 'ilch', 'ilch.de - CMS', 'aktuell verwendete Version', 'http://ilch.de', 'GPL', 'http://www.gnu.de/gpl-ger.html'),
+(1, 'ilch', 'ilch.de - CMS', '1.2', 'http://ilch.de', 'GPL', 'http://www.gnu.de/gpl-ger.html'),
 (2, 'ilch', 'jQuery', '1.5', 'http://jquery.com', 'GPL', 'http://en.wikipedia.org/wiki/GNU_General_Public_License'),
 (3, 'ilch', 'jQuery UI', '1.8.9', 'http://jqueryui.com', 'GPL', 'http://en.wikipedia.org/wiki/GNU_General_Public_License');
 
