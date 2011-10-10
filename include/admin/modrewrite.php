@@ -1,7 +1,7 @@
 <?php
 /**
  * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
- * @copyright (C) 2000-2010 ilch.de
+ * @copyright (C) 2000-2012 ilch.de
  * @version $Id$
  */
 defined('main') or die('no direct access');
@@ -20,7 +20,9 @@ $mr['infotxt'] 			= '';
 $mr['infotype']			= 'info';
 $default_on_file 		= "RewriteEngine On\nRewriteRule ^(.*).html$ ./index.php?$1";
 $default_off_file 		= "RewriteEngine Off\nRewriteRule ^(.*).html$ ./index.php?$1";
-
+if (file_get_contents('./.htaccess') == '') {
+	file_put_contents('./.htaccess', $default_off_file);
+}
 # Benötigte Funktionen überprüfen
 if (function_exists('apache_get_modules')) {
 	if (false === apache_get_modules('mod_rewrite')) {
