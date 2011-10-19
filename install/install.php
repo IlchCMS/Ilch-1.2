@@ -124,8 +124,8 @@ if ( @version_compare(@phpversion(), '5.2.0') != -1) {
 // https://github.com/IlchCMS/Ilch-1.2/wiki/Doc-pcre.recursion_limit-auf-Windows-Servern
 if (defined('PHP_OS') && function_exists('ini_get')) {
 	if ( (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN' or PHP_OS == 'WINNT') && ini_get('pcre.recursion_limit') > 600) {
-		$servercheck['php_compare']['msg'] = '(Windows-Server) pcre.recursion_limit';
-		$servercheck['php_compare']['erg'] = '<font color="#FF0000"><b>FALSCH</b> <a href="https://github.com/IlchCMS/Ilch-1.2/wiki/Doc-pcre.recursion_limit-auf-Windows-Servern">weitere Info</a></font>';
+		$servercheck['php_overflow']['msg'] = '(Windows-Server) pcre.recursion_limit';
+		$servercheck['php_overflow']['erg'] = '<font color="#FF0000"><b>FALSCH</b> <a href="https://github.com/IlchCMS/Ilch-1.2/wiki/Doc-pcre.recursion_limit-auf-Windows-Servern">weitere Info</a></font>';
 		// Lösung ( für ./install/install.php und index.php
 		#if (function_exists('ini_set')) { ini_set("pcre.recursion_limit", "524"); }
 	}
