@@ -7,7 +7,7 @@ if (defined('DEBUG')) {
 /**
  * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
  * @copyright (C) 2000-2012 ilch.de
- * @version $Id: install.php 245 2011-09-11 13:13:27Z geck0 $
+ * @version $Id$
  */
 defined('E_DEPRECATED') or define('E_DEPRECATED', 0);
 @error_reporting(E_ALL > E_DEPRECATED ? E_ALL : E_ALL ^ E_DEPRECATED); 

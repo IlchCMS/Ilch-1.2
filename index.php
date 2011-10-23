@@ -1,7 +1,10 @@
 <?php
-// Copyright by: Manuel
-// Support: www.ilch.de
-// if(file_exists('install.php') || file_exists('install.sql')) die('Installationsdateien noch vorhanden! Bitte erst l&ouml;schen!');
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2012 ilch.de
+ * @version $Id
+ */
+// if(file_exists('install/install.php') || file_exists('install/install.sql')) die('Installationsdateien noch vorhanden! Bitte erst l&ouml;schen!');
 ob_start();
 define('main', true);
 define('DEBUG', true);
