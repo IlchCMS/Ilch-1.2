@@ -2,7 +2,7 @@
 /**
  * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
  * @copyright (C) 2000-2012 ilch.de
- * @version $Id
+ * @version $Id$
  */
 // if(file_exists('install/install.php') || file_exists('install/install.sql')) die('Installationsdateien noch vorhanden! Bitte erst l&ouml;schen!');
 ob_start();
