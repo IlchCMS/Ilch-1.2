@@ -1,0 +1,188 @@
+/*
+  css Datei copyright by ilch.de
+  erstellt von Tigereyes
+  seite: www.Tigereyes.de
+
+  --
+
+  Design copyright by ilch.de
+  erstellt von W@rLord
+
+  --
+
+  Support auf www.ilch.de
+*/
+
+body {
+	background: #1377A9 url(img/background.png) repeat-x ;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+  font-size: 12px;
+  font-family: Verdana, sans-serif;
+}
+
+#wrap {
+	position: relative;
+	width: 1013px;
+	text-align: left;
+	margin: 0 auto 0 auto;
+}
+
+#top {
+	background: url(img/top.png);
+	height: 62px;
+	padding-top: 5px;
+	padding-left: 650px;
+}
+
+#header {
+  background: url(img/header.png);
+  height: 248px;
+  text-align: center;
+  vertical-align:middle;
+}
+
+#header h1 {
+	display: inline;
+	position: absolute;
+	top: 110px;
+	left: 100px;
+	color: #fff;
+	font-family: 'Trebuchet MS';
+	font-weight: normal;
+	font-size: 24px;
+}
+
+#content{
+	width: 1013px;
+	background: url(img/contentbg.png) repeat-y;
+}
+
+#hmenue {
+	background: url(img/hmenue.png) no-repeat;
+	width: 675px;
+	height: 25px;
+	padding-top: 11px;
+	padding-left: 30px;
+	margin-left: 40px;
+	margin-bottom: 15px;
+	color: #FFFFFF;
+}
+
+#hmenue a{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+#hmenue a:hover{
+	text-decoration: underline;
+}
+
+#main_col {
+	width: 674px;
+	float: left;
+	padding-left: 60px;
+}
+
+#right_col {
+	width: 270px;
+	float: right;
+}
+
+#right_col_top {
+	width: 270px;
+	height: 30px;
+	background: url(img/right_col_top.png) no-repeat;
+}
+
+.m_head {
+	background: url(img/box_right_top.png) no-repeat;
+	height: 5px;
+}
+
+.m_center {
+	background: url(img/box_right_middle.png);
+	padding-left:20px;
+	padding-bottom: 20px;
+}
+
+.m_bottom {
+	background: url(img/box_right_bottom.png) no-repeat;
+	height: 30px;
+}
+
+.box_titel {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+	width: 220px;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+
+.box_inhalt {
+	width: 220px;
+	color: #FFFFFF;
+}
+
+.box_inhalt ul{
+	padding: 0;
+	margin: 0 15px 0; 
+	list-style: none;
+}
+
+.box_inhalt li{
+	margin-top: 3px;
+}
+
+.box_inhalt a{
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+.box_inhalt a:hover{
+	text-decoration: underline;
+	color: #FFFFFF;
+}
+
+.clear {
+	clear: both;
+}
+
+#footer {
+	height: 70px;
+	padding-top: 20px;
+	background: url(img/footer.png) no-repeat;
+	text-align: center;
+	color: #FFFFFF;
+}
+
+#footer a{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+#footer a:hover{
+	text-decoration: underline;
+}
+
+.Chead {
+	background-color: #404040;
+	color: #FFFFFF;
+}
+
+.Cdark{
+	background-color: #626262;
+	color: #FFFFFF;
+}
+
+
+
+.Cmite {
+	background-color: #B0B0B0;
+}
+
+.Cnorm {
+	background-color: #CCCCCC;
+}

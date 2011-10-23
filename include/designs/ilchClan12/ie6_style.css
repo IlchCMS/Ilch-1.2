@@ -1,0 +1,36 @@
+/* CSS Document */
+body {
+	behavior: url(include/designs/ilchClan12/zusatz/iepngfix.htc);
+}
+
+#right_col {
+	width: 250px;
+}
+
+#right_col_top {
+	width: 270px;
+}
+
+#top, #content, #header, .m_center, #footer {
+	behavior: url(include/designs/ilchClan12/zusatz/iepngfix.htc);
+}
+
+#hmenue {
+	width: 670px;
+	behavior: url(include/designs/ilchClan12/zusatz/iepngfix.htc);
+}
+
+
+#right_col_top {
+	height: 25px;
+	behavior: url(include/designs/ilchClan12/zusatz/iepngfix.htc);
+}
+
+.m_head {
+	background: none;
+}
+
+.m_bottom {
+	width: 270px;
+	behavior: url(include/designs/ilchClan12/zusatz/iepngfix.htc);
+}                                                              
