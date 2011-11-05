@@ -125,7 +125,7 @@ switch ($um) {
 
         $limit = 15; // Limit
         $page = ($menu->getA(1) == 'p' ? $menu->getE(1) : 1);
-        $MPL = db_make_sites($page, "WHERE `name` LIKE '" . $q . "'", $limit, '?user', 'user');
+        $MPL = db_make_sites($page, "WHERE `name` LIKE '" . $q . "'", $limit, 'admin.php?user', 'user');
         $anfang = ($page - 1) * $limit;
         $class = '';
         $grundrechte = simpleArrayFromQuery('SELECT `id`,`name` FROM `prefix_grundrechte` ORDER BY `id` ASC');
@@ -266,7 +266,7 @@ switch ($um) {
         if ($changeok and chk_antispam('adminuser_action', true)) {
             if (isset($_POST[ 'userdel' ])) {
                 user_remove($uid);
-                wd('?user', 'User wurde erfolgreich gel&ouml;scht');
+                wd('admin.php?user', 'User wurde erfolgreich gel&ouml;scht');
             } else {
                 $abf = "SELECT * FROM `prefix_user` WHERE `id` = '" . $uid . "'";
                 $erg = db_query($abf);

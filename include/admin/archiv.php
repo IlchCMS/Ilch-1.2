@@ -779,7 +779,7 @@ switch ($um) {
         $page = ($menu->getA(2) == 'p' ? $menu->getE(2) : 1);
         $limit = 20;
         $class = 'Cnorm';
-        $MPL = db_make_sites($page, '', $limit, '?archiv-partners', 'partners');
+        $MPL = db_make_sites($page, '', $limit, 'admin.php?archiv-partners', 'partners');
         $anfang = ($page - 1) * $limit;
         $abf = "SELECT `id`,`name`,`link`, `pos` FROM `prefix_partners` ORDER BY `pos` ASC LIMIT " . $anfang . "," . $limit;
         $erg = db_query($abf);
