@@ -16,7 +16,7 @@ $(document).ready(function() {
 <!--
   function delcheck ( DID ) {
     var frage = confirm ( unescape ( "Willst%20du%20dieses%20Feld%20und%20die%20Werte%20der%20User%20wirklich%20unwiederbringlich%20l%F6schen%3F" ));
-    if ( frage ) { document.location.href="?profilefields-delete-"+DID; }
+    if ( frage ) { document.location.href="admin.php?profilefields-delete-"+DID; }
   }
   
 	$(function() {
@@ -85,10 +85,10 @@ $(document).ready(function() {
         <tr class="{CLASS}">
           <td>{show}</td>
           <td align="center">{func}</td>
-          <td><a href="?profilefields-edit-{id}">&auml;ndern</a></td>
+          <td><a href="admin.php?profilefields-edit-{id}">&auml;ndern</a></td>
           <td><a href="javascript:delcheck({id})">l&ouml;schen</a></td>
-          <td><a href="?profilefields-o-{id}-{pos}"><img src="include/images/icons/pfeilo.png" border="0"></a></td>
-          <td><a href="?profilefields-u-{id}-{pos}"><img src="include/images/icons/pfeilu.png" border="0"></a></td>
+          <td><a href="admin.php?profilefields-o-{id}-{pos}"><img src="include/images/icons/pfeilo.png" border="0"></a></td>
+          <td><a href="admin.php?profilefields-u-{id}-{pos}"><img src="include/images/icons/pfeilu.png" border="0"></a></td>
         </tr>
         {EXPLODE}
       </table>

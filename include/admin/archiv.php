@@ -44,7 +44,7 @@ function upload_getdirlist($f = 'include/downs/downloads', $list = '') {
             continue;
         }
         $dirn = str_replace('include/downs/downloads/', '', $f . '/' . $v);
-        $list .= '<tr><td class="Cnorm"><a href="?archiv-downloads-upload=0&f=' . $f . '/' . $v . '">' . $dirn . '</a></td></tr>';
+        $list .= '<tr><td class="Cnorm"><a href="admin.php?archiv-downloads-upload=0&f=' . $f . '/' . $v . '">' . $dirn . '</a></td></tr>';
         $list = upload_getdirlist($f . '/' . $v, $list);
     }
     return ($list);
@@ -104,7 +104,7 @@ function archiv_links_admin_showcats($id, $stufe) {
     if (db_num_rows($erg) > 0) {
         while ($row = db_fetch_object($erg)) {
             echo '<tr class="Cmite"><td>' . $stufe . '- <a href="admin.php?archiv-links-S' . $row->id . '">' . $row->name . '</a></td>';
-            echo '<td align="center"><a href="?archiv-links-E' . $row->id . '#edit"><img src="include/images/icons/edit.png" border="0"></a></td>';
+            echo '<td align="center"><a href="admin.php?archiv-links-E' . $row->id . '#edit"><img src="include/images/icons/edit.png" border="0"></a></td>';
             echo '<td align="center"><a href="javascript:Kdel(' . $row->id . ')"><img src="include/images/icons/del.png" border="0"></a></td>';
             echo '<td align="center"><a href="admin.php?archiv-links-S' . $row->id . '-O' . $row->id . '-' . $row->pos . '-' . $row->cat . '"><img src="include/images/icons/pfeilo.png" border="0"></a></td>';
             echo '<td align="center"><a href="admin.php?archiv-links-S' . $row->id . '-U' . $row->id . '-' . $row->pos . '-' . $row->cat . '"><img src="include/images/icons/pfeilu.png" border="0"></a></td></tr>';
@@ -199,7 +199,7 @@ switch ($um) {
                 $ar_f = explode('/', str_replace('include/downs/downloads/', '', $f));
                 $str_nfl = '';
                 foreach ($ar_f as $v) {
-                    $str_fl .= '<b> &raquo; </b><a href="?archiv-downloads-upload=0&amp;f=include/downs/downloads/' . $str_nfl . $v . '">' . $v . '</a>';
+                    $str_fl .= '<b> &raquo; </b><a href="admin.php?archiv-downloads-upload=0&amp;f=include/downs/downloads/' . $str_nfl . $v . '">' . $v . '</a>';
                     $str_nfl .= $v . '/';
                 }
             }
@@ -236,7 +236,7 @@ switch ($um) {
                 // zuerstmal das dirs array dann das files...
                 foreach ($ar_dirs as $v) {
                     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
-                    echo '<tr class="' . $class . '"><td colspan="5"><a href="?archiv-downloads-upload=0&amp;f=' . $f . '/' . $v . '">' . $v . '/</a></td></tr>';
+                    echo '<tr class="' . $class . '"><td colspan="5"><a href="admin.php?archiv-downloads-upload=0&amp;f=' . $f . '/' . $v . '">' . $v . '/</a></td></tr>';
                 }
                 foreach ($ar_files as $v) {
                     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
@@ -249,7 +249,7 @@ switch ($um) {
                     echo '</tr>';
                 }
             } else {
-                echo '<tr><td colspan="5" class="Cmite">Das Verzeichnis wurde nicht gefunden <a href="?archiv-downloads-upload">&Uuml;bersicht</a></td></tr>';
+                echo '<tr><td colspan="5" class="Cmite">Das Verzeichnis wurde nicht gefunden <a href="admin.php?archiv-downloads-upload">&Uuml;bersicht</a></td></tr>';
             }
 
             $tpl->set('f', $f);
@@ -477,7 +477,7 @@ switch ($um) {
         // dateien hochladen, also wird als kategorie link noch ein "freischalt" link hinzugefueght.
         $frei = '';
         if ($allgAr[ 'archiv_down_userupload' ] == 1 AND is_writeable('include/downs/downloads/user_upload')) {
-            $frei = '<tr class="Cmite"><td colspan="5"><a href="?archiv-downloads-Sa">User-Uploads freischalten</a></td></tr>';
+            $frei = '<tr class="Cmite"><td colspan="5"><a href="admin.php?archiv-downloads-Sa">User-Uploads freischalten</a></td></tr>';
         }
 
         $tpl->out(0);

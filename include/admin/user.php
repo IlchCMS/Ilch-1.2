@@ -191,7 +191,7 @@ switch ($um) {
         }
         $erg = db_query("SELECT `name`,`email`,`id`,`recht`,`wohnort`,`homepage`,`aim`,`msn`,`icq`,`yahoo`,`status`, `sperre`,`staat`,`gebdatum`,`sig`,`opt_pm`,`opt_pm_popup`,`opt_mail`,`geschlecht`,`spezrank`,`avatar` FROM `prefix_user` WHERE `id` = '" . $uid . "'");
         if (db_num_rows($erg) == 0) {
-            die('Fehler: Username nicht gefunden <a href="?user">zur&uuml;ck</a>');
+            die('Fehler: Username nicht gefunden <a href="admin.php?user">zur&uuml;ck</a>');
         } else {
             $row = db_fetch_assoc($erg);
 

@@ -224,7 +224,7 @@ switch ($um) {
                 if (isset($_POST[ 'kalender' ]) AND $_POST[ 'kalender' ] == 'yes') {
                     $timestamp = strtotime(get_datime());
                     $page = str_replace('admin.php', 'index.php', $_SERVER[ "HTTP_HOST" ] . $_SERVER[ "SCRIPT_NAME" ]);
-                    db_query("INSERT INTO `prefix_kalender` (`time`, `title`, `text`, `recht`) VALUES (" . $timestamp . ",'Lastwar gegen " . $_POST[ 'gegner' ] . "', '" . $_POST[ 'mtyp' ] . " " . $_POST[ 'mod' ] . " in " . $_POST[ 'game' ] . " gegen [url=" . $_POST[ 'page' ] . "]" . $_POST[ 'gegner' ] . "[/url]\n\n[url=http://" . $page . "?wars-more-" . $wid . "]details des Wars[/url]', 0)");
+                    db_query("INSERT INTO `prefix_kalender` (`time`, `title`, `text`, `recht`) VALUES (" . $timestamp . ",'Lastwar gegen " . $_POST[ 'gegner' ] . "', '" . $_POST[ 'mtyp' ] . " " . $_POST[ 'mod' ] . " in " . $_POST[ 'game' ] . " gegen [url=" . $_POST[ 'page' ] . "]" . $_POST[ 'gegner' ] . "[/url]\n\n[url=http://" . $page . "admin.php?wars-more-" . $wid . "]details des Wars[/url]', 0)");
                 }
                 $msg = '<tr class="Cmite"><td colspan="2">Erfolgreich eingetragen</td></tr>';
             } else { //
@@ -257,9 +257,9 @@ switch ($um) {
                     $timestamp = strtotime(get_datime());
                     $page = str_replace('admin.php', 'index.php', $_SERVER[ "HTTP_HOST" ] . $_SERVER[ "SCRIPT_NAME" ]);
                     if (1 == db_result(db_query("SELECT COUNT(*) FROM `prefix_kalender` WHERE `text` LIKE '%more-" . $wid . "]%'"), 0)) {
-                        db_query("UPDATE `prefix_kalender` SET `time` = " . $timestamp . ", `title` = 'Lastwar gegen " . $_POST[ 'gegner' ] . "', `text` = '" . $_POST[ 'mtyp' ] . " " . $_POST[ 'mod' ] . " in " . $_POST[ 'game' ] . " gegen [url=" . $_POST[ 'page' ] . "]" . $_POST[ 'gegner' ] . "[/url]\n\n[url=http://" . $page . "?wars-more-" . $wid . "]details des Wars[/url]' WHERE `text` LIKE '%more-" . $wid . "]%'");
+                        db_query("UPDATE `prefix_kalender` SET `time` = " . $timestamp . ", `title` = 'Lastwar gegen " . $_POST[ 'gegner' ] . "', `text` = '" . $_POST[ 'mtyp' ] . " " . $_POST[ 'mod' ] . " in " . $_POST[ 'game' ] . " gegen [url=" . $_POST[ 'page' ] . "]" . $_POST[ 'gegner' ] . "[/url]\n\n[url=http://" . $page . "admin.php?wars-more-" . $wid . "]details des Wars[/url]' WHERE `text` LIKE '%more-" . $wid . "]%'");
                     } else {
-                        db_query("INSERT INTO `prefix_kalender` (`time`, `title`, `text`, `recht`) VALUES (" . $timestamp . ",'Lastwar gegen " . $_POST[ 'gegner' ] . "', '" . $_POST[ 'mtyp' ] . " " . $_POST[ 'mod' ] . " in " . $_POST[ 'game' ] . " gegen [url=" . $_POST[ 'page' ] . "]" . $_POST[ 'gegner' ] . "[/url]\n\n[url=http://" . $page . "?wars-more-" . $wid . "]details des Wars[/url]', 0)");
+                        db_query("INSERT INTO `prefix_kalender` (`time`, `title`, `text`, `recht`) VALUES (" . $timestamp . ",'Lastwar gegen " . $_POST[ 'gegner' ] . "', '" . $_POST[ 'mtyp' ] . " " . $_POST[ 'mod' ] . " in " . $_POST[ 'game' ] . " gegen [url=" . $_POST[ 'page' ] . "]" . $_POST[ 'gegner' ] . "[/url]\n\n[url=http://" . $page . "admin.php?wars-more-" . $wid . "]details des Wars[/url]', 0)");
                     }
                 }
                 $msg = '<tr class="Cmite"><td colspan="2">Erfolgreich ver&auml;ndert</td></tr>';
@@ -392,7 +392,7 @@ switch ($um) {
                 if (isset($_POST[ 'kalender' ]) AND $_POST[ 'kalender' ] == 'yes') {
                     $timestamp = strtotime(get_datime());
                     $page = str_replace('admin.php', 'index.php', $_SERVER[ "HTTP_HOST" ] . $_SERVER[ "SCRIPT_NAME" ]);
-                    db_query("INSERT INTO `prefix_kalender` (`time`, `title`, `text`, `recht`) VALUES (" . $timestamp . ",'Nextwar gegen " . $_POST[ 'gegner' ] . "', '" . $_POST[ 'mtyp' ] . " " . $_POST[ 'mod' ] . " in " . $_POST[ 'game' ] . " gegen [url=" . $_POST[ 'page' ] . "]" . $_POST[ 'gegner' ] . "[/url]\n\n[url=http://" . $page . "?wars-more-" . $wid . "]details des Wars[/url]', 0)");
+                    db_query("INSERT INTO `prefix_kalender` (`time`, `title`, `text`, `recht`) VALUES (" . $timestamp . ",'Nextwar gegen " . $_POST[ 'gegner' ] . "', '" . $_POST[ 'mtyp' ] . " " . $_POST[ 'mod' ] . " in " . $_POST[ 'game' ] . " gegen [url=" . $_POST[ 'page' ] . "]" . $_POST[ 'gegner' ] . "[/url]\n\n[url=http://" . $page . "admin.php?wars-more-" . $wid . "]details des Wars[/url]', 0)");
                 }
                 $msg = '<tr class="Cmite"><td colspan="2">Erfolgreich eingetragen</td></tr>';
             } else {
@@ -403,9 +403,9 @@ switch ($um) {
                     $timestamp = strtotime(get_datime());
                     $page = str_replace('admin.php', 'index.php', $_SERVER[ "HTTP_HOST" ] . $_SERVER[ "SCRIPT_NAME" ]);
                     if (1 == db_result(db_query("SELECT COUNT(*) FROM `prefix_kalender` WHERE `text` LIKE '%more-" . $wid . "]%'"), 0)) {
-                        db_query("UPDATE `prefix_kalender` SET `time` = " . $timestamp . ", `title` = 'Nextwar gegen " . $_POST[ 'gegner' ] . "', `text` = '" . $_POST[ 'mtyp' ] . " " . $_POST[ 'mod' ] . " in " . $_POST[ 'game' ] . " gegen [url=" . $_POST[ 'page' ] . "]" . $_POST[ 'gegner' ] . "[/url]\n\n[url=http://" . $page . "?wars-more-" . $wid . "]details des Wars[/url]' WHERE `text` LIKE '%more-" . $wid . "]%'");
+                        db_query("UPDATE `prefix_kalender` SET `time` = " . $timestamp . ", `title` = 'Nextwar gegen " . $_POST[ 'gegner' ] . "', `text` = '" . $_POST[ 'mtyp' ] . " " . $_POST[ 'mod' ] . " in " . $_POST[ 'game' ] . " gegen [url=" . $_POST[ 'page' ] . "]" . $_POST[ 'gegner' ] . "[/url]\n\n[url=http://" . $page . "admin.php?wars-more-" . $wid . "]details des Wars[/url]' WHERE `text` LIKE '%more-" . $wid . "]%'");
                     } else {
-                        db_query("INSERT INTO `prefix_kalender` (`time`, `title`, `text`, `recht`) VALUES (" . $timestamp . ",'Nextwar gegen " . $_POST[ 'gegner' ] . "', '" . $_POST[ 'mtyp' ] . " " . $_POST[ 'mod' ] . " in " . $_POST[ 'game' ] . " gegen [url=" . $_POST[ 'page' ] . "]" . $_POST[ 'gegner' ] . "[/url]\n\n[url=http://" . $page . "?wars-more-" . $wid . "]details des Wars[/url]', 0)");
+                        db_query("INSERT INTO `prefix_kalender` (`time`, `title`, `text`, `recht`) VALUES (" . $timestamp . ",'Nextwar gegen " . $_POST[ 'gegner' ] . "', '" . $_POST[ 'mtyp' ] . " " . $_POST[ 'mod' ] . " in " . $_POST[ 'game' ] . " gegen [url=" . $_POST[ 'page' ] . "]" . $_POST[ 'gegner' ] . "[/url]\n\n[url=http://" . $page . "admin.php?wars-more-" . $wid . "]details des Wars[/url]', 0)");
                     }
                 }
                 $msg = '<tr class="Cmite"><td colspan="2">Erfolgreich ver&auml;ndert</td></tr>';

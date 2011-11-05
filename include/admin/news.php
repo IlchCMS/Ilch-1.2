@@ -95,7 +95,7 @@ if ($menu->get(1) == 'del') {
 if (empty($doNoIn)) {
     $limit = 20; // Limit
     $page = ($menu->getA(1) == 'p' ? $menu->getE(1) : 1);
-    $MPL = db_make_sites($page, '', $limit, "?news", 'news');
+    $MPL = db_make_sites($page, '', $limit, "admin.php?news", 'news');
     $anfang = ($page - 1) * $limit;
     if ($menu->get(1) != 'edit') {
         $FnewsID = '';

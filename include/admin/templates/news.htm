@@ -18,14 +18,14 @@ $(document).ready(function() {
 function delcheck ( DELID ) {
 	var frage = confirm ( unescape ( "Willst%20du%20diesen%20Eintrag%20wirklich%20l%F6schen%3F " ) );
 	if ( frage == true ) {
-	  document.location.href="?news-del-"+DELID;
+	  document.location.href="admin.php?news-del-"+DELID;
 	}
 }
 
 function delKcheck ( DELID , NID) {
 	var frage = confirm ( unescape ( "Willst%20du%20diesen%20Kommentar%20wirklich%20l%F6schen%3F "  ));
 	if ( frage == true ) {
-	  document.location.href="?news-sKoms-"+NID+"-Kdel-"+DELID+"#"+NID;
+	  document.location.href="admin.php?news-sKoms-"+NID+"-Kdel-"+DELID+"#"+NID;
 	}
 }
 
@@ -43,7 +43,7 @@ function sichtbar(){
 
 <table border="0" cellspacing="0" cellpadding="0"><tr><td valign="top">
 
-<form method="POST" name="form" action="?news" id="validate">
+<form method="POST" name="form" action="admin.php?news" id="validate">
 {ANTISPAM}
   <input type="hidden" name="um"     value="{AKTION}">
   <input type="hidden" name="newsID" value="{NEWSID}">
@@ -107,7 +107,7 @@ function sichtbar(){
 <table cellpadding="3" cellspacing="1" border="0" class="border">
   {EXPLODE}<tr class="{class}">
 	  <td><a href="#" name="{ID}"></a><a href="javascript:delcheck({ID})"><img src="include/images/icons/del.gif" alt="L&ouml;schen" title="L&ouml;schen" border="0"></a></td>
-    <td><a href="?news-edit-{ID}"><img src="include/images/icons/edit.gif" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
+    <td><a href="admin.php?news-edit-{ID}"><img src="include/images/icons/edit.gif" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
 		<td>{TITEL}</td>
  </tr>{EXPLODE}
 </table>

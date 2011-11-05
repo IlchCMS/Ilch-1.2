@@ -51,7 +51,7 @@ $(document).ready(function() {
           <tr class="Chead">
             <td colspan="9"><b>Kategorien</b></td>
           </tr><tr class="Cmite">
-            <td><a href="?gallery-S0">Keine</a></td>
+            <td><a href="admin.php?gallery-S0">Keine</a></td>
             <td><a href="javascript:uploadImages(0)"><img src="include/images/icons/upload.png" title="Bilder in diese Kategorie hochladen" alt="Bilder in diese Kategorie hochladen" border="0"></a></td>
             <td><a href="javascript:reloadImages(0)"><img src="include/images/icons/reload.png" title="Bilder in diese Kategorie erneuern / einlesen" alt="Bilder in diese Kategorie erneuern / einlesen" border="0"></a></td>
             <td></td>
@@ -106,15 +106,15 @@ function Kdel ( id1 ) {
   }
 function del ( id1 ) {
   var x = confirm ( unescape ( "Dieses%20Bild%20wirklich%20l%F6schen%3F" ));
-  if ( x ) { document.location.href="?gallery-d"+id1; }
+  if ( x ) { document.location.href="admin.php?gallery-d"+id1; }
   }
 function edit ( besch, id1 ) {
   var x = prompt ( unescape ( "Bitte%20die%20neue%20Beschreibung%20eingeben%21", besch));
-  if ( x ) { document.location.href="?gallery-e"+id1+"=0&besch=" + x; }
+  if ( x ) { document.location.href="admin.php?gallery-e"+id1+"=0&besch=" + x; }
   }
 function reload ( id1 ) {
   var x = confirm ( unescape ( "Dieses%20Bild%20wirklich%20erneuern%3F" ));
-  if ( x ) { document.location.href="?gallery-r"+id1; }
+  if ( x ) { document.location.href="admin.php?gallery-r"+id1; }
   }
 function reloadImages (kid) {
   var Fenster = window.open ('admin.php?gallery-reloadImages-' + kid, 'reloadImages', 'status=yes,scrollbars=yes,height=500,width=350,left=300,top=50');

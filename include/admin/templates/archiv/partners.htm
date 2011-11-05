@@ -2,7 +2,7 @@
 <!--
   function del ( id1 ) {
   var x = confirm ( unescape ( "Diesen%20Eintrag%20wirklich%20l%F6schen%3F" ));
-  if ( x ) { document.location.href="?archiv-partners-d"+id1; }
+  if ( x ) { document.location.href="admin.php?archiv-partners-d"+id1; }
   }
 //-->
 </script>
@@ -61,10 +61,10 @@ $(document).ready(function() {
         {EXPLODE}
         <tr class="{class}">
           <td>{name}</td>
-          <td><a href="?archiv-partners-e{id}"><img src="include/images/icons/edit.png" alt=""></a></td>
+          <td><a href="admin.php?archiv-partners-e{id}"><img src="include/images/icons/edit.png" alt=""></a></td>
           <td><a href="javascript:del('{id}')"><img src="include/images/icons/del.png" alt=""></a></td>
-          <td><a href="?archiv-partners-o{id}-{pos}"><img src="include/images/icons/pfeilo.png" border="0" title="oben" alt="oben"></a></td>
-          <td><a href="?archiv-partners-u{id}-{pos}"><img src="include/images/icons/pfeilu.png" border="0" title="unten" alt="unten"></a></td>
+          <td><a href="admin.php?archiv-partners-o{id}-{pos}"><img src="include/images/icons/pfeilo.png" border="0" title="oben" alt="oben"></a></td>
+          <td><a href="admin.php?archiv-partners-u{id}-{pos}"><img src="include/images/icons/pfeilu.png" border="0" title="unten" alt="unten"></a></td>
         </tr>
         {EXPLODE}
       </table>

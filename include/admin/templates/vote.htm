@@ -4,7 +4,7 @@
   </tr><tr class="mite">
     <td colspan="5"><h3><b>Eintragen</b></h3></td>
   </tr>
-  <form action="?vote-1" method="POST">
+  <form action="admin.php?vote-1" method="POST">
   <tr>
     <td colspan="2" width="100">Frage</td>
     <td colspan="3" width="400"><input type="text" name="frage"></td>
@@ -41,10 +41,10 @@
   </tr>
   {EXPLODE}
   <tr>
-    <td width="40"><a href="?vote-del&id={ID}">L&ouml;schen</a></td>
-    <td width="40"><a href="?vote-3&id={ID}">&Auml;ndern</a></td>
-    <td width="40"><a href="?vote-5&id={ID}&ak={AK}">{OOC}</a></td>
-    <td width="40"><a href="?vote-6&id={ID}">Anzeigen</a></td>
+    <td width="40"><a href="admin.php?vote-del&id={ID}">L&ouml;schen</a></td>
+    <td width="40"><a href="admin.php?vote-3&id={ID}">&Auml;ndern</a></td>
+    <td width="40"><a href="admin.php?vote-5&id={ID}&ak={AK}">{OOC}</a></td>
+    <td width="40"><a href="admin.php?vote-6&id={ID}">Anzeigen</a></td>
     <td>{NAME}</td>
   </tr>
   {EXPLODE}
@@ -52,7 +52,7 @@
 {EXPLODE}
 <!-- delete -->
 <h2><b>L&ouml;schen</b></h2>
-<form action="?vote-2" method="POST">
+<form action="admin.php?vote-2" method="POST">
   M&ouml;chtest du diese Umfrage wirklich l&ouml;schen ?<br/><br/>
   <input type="hidden" value="{DELID}" name="id">
   <input type="hidden" value="1" name="delete">
@@ -64,7 +64,7 @@
   <tr class="dark">
     <td colspan="2"><h3><b>Umfrage &Auml;ndern</b></h3></td>
   </tr>
-<form action="?vote-4" method="POST">
+<form action="admin.php?vote-4" method="POST">
   <tr>
     <td width="100">Frage</td>
     <td width="400"><input type="text" size="50" name="frage" value="{ASK}"></td>
