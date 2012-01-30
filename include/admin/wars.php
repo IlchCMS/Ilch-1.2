@@ -329,7 +329,7 @@ switch ($um) {
         $page = ($menu->getA(2) == 'p' ? $menu->getE(2) : 1);
         $limit = 20;
         $class = '';
-        $MPL = db_make_sites($page, 'WHERE `status` = 3', $limit, '?wars-last', 'wars');
+        $MPL = db_make_sites($page, 'WHERE `status` = 3', $limit, 'admin.php?wars-last', 'wars');
         $anfang = ($page - 1) * $limit;
         $abf = "SELECT `id`,`gegner`,`game` FROM `prefix_wars` WHERE `status` = 3 ORDER BY `id` DESC LIMIT " . $anfang . "," . $limit;
         $erg = db_query($abf);
@@ -469,7 +469,7 @@ switch ($um) {
         }
 
         $limit = 20;
-        $MPL = db_make_sites($page, 'WHERE status = 2', $limit, '?wars-next', 'wars');
+        $MPL = db_make_sites($page, 'WHERE status = 2', $limit, 'admin.php?wars-next', 'wars');
         $anfang = ($page - 1) * $limit;
         $abf = "SELECT `id`,`gegner`,`game` FROM `prefix_wars` WHERE `status` = 2 ORDER BY `id` DESC LIMIT " . $anfang . "," . $limit;
         $erg = db_query($abf);

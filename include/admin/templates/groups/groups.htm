@@ -15,7 +15,7 @@ $(document).ready(function() {
 <script type="text/javascript">
 function change_group ( gid ) {
   var x = prompt ( unescape ( "Bitte%20den%20neuen%20Namen%20der%20Gruppe%20eingeben%21", "" ));
-  if ( x ) { document.location.href="?groups&group_change="+gid+"&group_name="+x; }
+  if ( x ) { document.location.href="admin.php?groups&group_change="+gid+"&group_name="+x; }
   }
 function delete_group ( gid ) {
   var x = confirm ( unescape ( "Wollen%20Sie%20diese%20Gruppe%20l%F6schen%3F", "" ));
@@ -90,10 +90,10 @@ $(document).ready(function() {
 	    <tr class="{class}">
 	      <td>{name}</td>
 	      <td><a class="manageUsers" href="admin.php?groups-addusers-{id}" title="manage Users">manage Users</a> ({useranz})</td>
-	      <td><a href="?groups-edit-{id}"><img src="include/images/icons/edit.png" alt="&auml;ndern" title="&auml;ndern" /></a></td>
+	      <td><a href="admin.php?groups-edit-{id}"><img src="include/images/icons/edit.png" alt="&auml;ndern" title="&auml;ndern" /></a></td>
 	      <td><a href="javascript:delete_group('{id}')"><img src="include/images/icons/del.png" alt="l&ouml;schen" title="l&ouml;schen" /></a></td>
-	      <td><a href="?groups-move-o{id}"><img src="include/images/icons/pfeilo.png" alt="hoch" title="hoch" /></a></td>
-	      <td><a href="?groups-move-u{id}"><img src="include/images/icons/pfeilu.png" alt="runter" title="runter" /></a></td>
+	      <td><a href="admin.php?groups-move-o{id}"><img src="include/images/icons/pfeilo.png" alt="hoch" title="hoch" /></a></td>
+	      <td><a href="admin.php?groups-move-u{id}"><img src="include/images/icons/pfeilu.png" alt="runter" title="runter" /></a></td>
 	    </tr>
 	    {EXPLODE}
 	  </table>

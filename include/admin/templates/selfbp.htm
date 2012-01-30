@@ -101,13 +101,13 @@ $(document).ready(function() {
 <script type="text/javascript">
 function changeAktion () {
   var akl = document.getElementById('akl').value;
-  document.location.href="?selfbp=0&akl=" + akl;
+  document.location.href="admin.php?selfbp=0&akl=" + akl;
 }
 function confirmDel(){
   var akl = document.getElementById('akl').value;
 	var frage = confirm ( unescape ( "Willst du " + akl.substr(1) + " wirklich%20l%F6schen%3F" ));
 	if ( frage == true ) {
-    document.location.href="?selfbp=0&del=" + akl;
+    document.location.href="admin.php?selfbp=0&del=" + akl;
   }
 }
 function toggleWYSIWYG(){

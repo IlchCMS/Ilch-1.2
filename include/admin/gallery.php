@@ -18,7 +18,7 @@ function gallery_admin_showcats($id, $stufe) {
             if ($menu->getE('S') == $row->id) {
                 $row->name = '<strong>' . $row->name . '</strong>';
             }
-            echo '<tr class="Cmite"><td>' . $stufe . '- <a href="?gallery-S' . $row->id . '">' . $row->name . '</a></td>';
+            echo '<tr class="Cmite"><td>' . $stufe . '- <a href="admin.php?gallery-S' . $row->id . '">' . $row->name . '</a></td>';
             echo '<td><a href="javascript:uploadImages(' . $row->id . ')"><img src="include/images/icons/upload.png" title="Bilder in diese Kategorie hochladen" alt="Bilder in diese Kategorie hochladen" border="0"></td>';
             echo '<td><a href="javascript:reloadImages(' . $row->id . ')"><img src="include/images/icons/reload.png" title="Bilder in diese Kategorie erneuern / einlesen" alt="Bilder in diese Kategorie erneuern / einlesen" border="0"></a></td>';
             echo '<td><a href="admin.php?gallery-E' . $row->id . '#edit"><img src="include/images/icons/edit.png" border="0" alt="&auml;ndern" title="&auml;ndern"></a></td>';

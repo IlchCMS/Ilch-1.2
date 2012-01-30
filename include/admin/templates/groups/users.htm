@@ -15,7 +15,7 @@ $(document).ready(function() {
 <script type="text/javascript">
 function delete_user ( gid , uid ) {
   var x = confirm ( unescape ( "Wollen%20Sie%20diesen%20User%20l%F6schen%3F", "" ));
-  if ( x ) { document.location.href="?groups-addusers-"+gid+"-user_delete-"+uid; }
+  if ( x ) { document.location.href="admin.php?groups-addusers-"+gid+"-user_delete-"+uid; }
   }
 function userfuncs () {
   var Fenster = window.open ('admin.php?groups-funcs', 'groupfuncs', 'status=no,scrollbars=yes,height=400,width=300');
