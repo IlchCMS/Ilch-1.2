@@ -51,10 +51,10 @@ $(document).ready(function() {
   {EXPLODE}
   <tr class="{class}">
     <td>{name} {version}</td>
-    <td><a href="?archiv-downloads-e{id}#edit"><img src="include/images/icons/edit.png" border="0" title="&auml;ndern" alt="&auml;ndern"></a></td>
+    <td><a href="admin.php?archiv-downloads-e{id}#edit"><img src="include/images/icons/edit.png" border="0" title="&auml;ndern" alt="&auml;ndern"></a></td>
     <td><a href="javascript:del('{id}')"><img src="include/images/icons/del.png" border="0" title="l&ouml;schen" alt="l&ouml;schen"></a></td>
-    <td><a href="?archiv-downloads-S{cat}-o{id}-{pos}"><img src="include/images/icons/pfeilo.png" border="0" title="oben" alt="oben"></a></td>
-    <td><a href="?archiv-downloads-S{cat}-u{id}-{pos}"><img src="include/images/icons/pfeilu.png" border="0" title="unten" alt="unten"></a></td>
+    <td><a href="admin.php?archiv-downloads-S{cat}-o{id}-{pos}"><img src="include/images/icons/pfeilo.png" border="0" title="oben" alt="oben"></a></td>
+    <td><a href=admin.php"?archiv-downloads-S{cat}-u{id}-{pos}"><img src="include/images/icons/pfeilu.png" border="0" title="unten" alt="unten"></a></td>
   </tr>
   {EXPLODE}
 </table>
@@ -66,7 +66,7 @@ $(document).ready(function() {
   <tr class="Chead">
     <td colspan="5"><b>Kategorien</b></td>
   </tr>{frei}<tr class="Cmite">
-    <td><a href="?archiv-downloads-S0">Keine</a></td>
+    <td><a href="admin.php?archiv-downloads-S0">Keine</a></td>
     <td></td>
     <td></td>
     <td></td>
@@ -165,14 +165,14 @@ $(document).ready(function() {
   function Kdel ( id1 ) {
     var x = confirm ( unescape ( "Willst%20du%20diese%20Kategorie%20wirklich%20l%F6schen%3F" ));
 		if ( x ) {
-		  document.location.href="?archiv-downloads-D"+id1;
+		  document.location.href="admin.php?archiv-downloads-D"+id1;
 		}
 	}
 	
   function del ( id1 ) {
     var x = confirm ( unescape ( "Willst%20du%20diesen%20Download%20wirklich%20l%F6schen%3F" ));
 		if ( x ) {
-		  document.location.href="?archiv-downloads-d"+id1;
+		  document.location.href="admin.php?archiv-downloads-d"+id1;
 		}
 	}
 //-->

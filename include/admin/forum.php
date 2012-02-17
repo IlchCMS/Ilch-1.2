@@ -16,7 +16,7 @@ function forum_admin_showcats($id, $stufe) {
             echo '<td><a href="javascript:delCcheck(' . $row->id . ')"><img src="include/images/icons/del.png" border="0" alt="l&ouml;schen" title="l&ouml;schen"></a></td>';
             echo '<td><a href="admin.php?forum-moveCategorie-0-' . $row->id . '-' . $row->pos . '"><img src="include/images/icons/pfeilo.png" border="0" title="hoch" alt="hoch"></a></td>';
             echo '<td><a href="admin.php?forum-moveCategorie-1-' . $row->id . '-' . $row->pos . '"><img src="include/images/icons/pfeilu.png" border="0" title="runter" alt="runter"></a></td>';
-            echo '<td>' . $stufe . '- <a href="?forum-S' . $row->id . '">' . $row->name . '</a></td></tr>';
+            echo '<td>' . $stufe . '- <a href="admin.php?forum-S' . $row->id . '">' . $row->name . '</a></td></tr>';
             forum_admin_showcats($row->id, $stufe . ' &nbsp; &nbsp;');
         }
     }

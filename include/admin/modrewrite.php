@@ -42,7 +42,7 @@ if (!function_exists('fopen') or !function_exists('fwrite')) {
 
 if (!function_exists('file_put_contents') or !function_exists('file_get_contents')) {
 	$mr['infotype']		= 'warning';
-	$mr['infotxt'] 		.= '- Der Server unsterst&uuml;tzt die ben&ouml;tigte Funktion zum editieren der .htaccess <br />';
+	$mr['infotxt'] 		.= '- Der Server unsterst&uuml;tzt nicht die ben&ouml;tigte Funktion zum editieren der .htaccess <br />';
 }
 
 if (file_exists('.htaccess') and !is_writeable('.htaccess')) {

@@ -146,7 +146,7 @@ echo '<tr class="Chead"><td colspan="5"><b>Vote verwalten</b></td></tr>';
     <!--
 	function delcheck ( DELID ) {
 		var frage = confirm ( unescape ( "Willst%20du%20diesen%20Eintrag%20wirklich%20l%F6schen%3F" ));
-		if ( frage == true ) { document.location.href="?vote-del&del="+DELID; }
+		if ( frage == true ) { document.location.href="admin.php?vote-del&del="+DELID; }
 		}
 	//-->
 </script>
@@ -170,9 +170,9 @@ while ($row = db_fetch_object($erg)) {
     }
     echo '<tr class="' . $class . '">';
     echo '<td><a  href="javascript:delcheck(' . $row->poll_id . ')">l&ouml;schen</a></td>';
-    echo '<td><a href="?vote=0&vid=' . $row->poll_id . '">&auml;ndern</a></td>';
-    echo '<td><a href="?vote-5=0&ak=' . $up . '&id=' . $row->poll_id . '">' . $coo . '</a></td>';
-    echo '<td><a href="?vote=0&showVote=' . $row->poll_id . '">zeigen</a></td>';
+    echo '<td><a href="admin.php?vote=0&vid=' . $row->poll_id . '">&auml;ndern</a></td>';
+    echo '<td><a href="admin.php?vote-5=0&ak=' . $up . '&id=' . $row->poll_id . '">' . $coo . '</a></td>';
+    echo '<td><a href="admin.php?vote=0&showVote=' . $row->poll_id . '">zeigen</a></td>';
     echo '<td>' . $row->frage . '</td>';
     echo '</tr>';
     if (isset($_GET[ 'showVote' ]) AND $_GET[ 'showVote' ] == $row->poll_id) {

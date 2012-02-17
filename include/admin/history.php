@@ -56,7 +56,7 @@ if (empty($_GET[ 'page' ])) {
 }
 $limit = 20;
 $class = '';
-$MPL = db_make_sites($_GET[ 'page' ], '', $limit, '?history', 'history');
+$MPL = db_make_sites($_GET[ 'page' ], '', $limit, 'admin.php?history', 'history');
 $anfang = ($_GET[ 'page' ] - 1) * $limit;
 
 $abf = "SELECT `id`,DATE_FORMAT(`date`,'%d.%m.%Y') as `date`,`title` FROM `prefix_history` ORDER BY `date` LIMIT " . $anfang . "," . $limit;
