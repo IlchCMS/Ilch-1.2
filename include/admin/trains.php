@@ -21,7 +21,7 @@ if (!empty($_POST[ 'send' ]) and chk_antispam('adminuser_action', true)) {
     $son = str_replace('#', '', escape($_POST[ 'son' ], 'textarea'));
     $new = $mon . '#' . $die . '#' . $mit . '#' . $don . '#' . $fre . '#' . $sam . '#' . $son;
     db_query("UPDATE `prefix_allg` SET `t1` = '" . $new . "' WHERE `k` = 'trainzeiten'");
-    wd('?trains', 'Daten erfolgreich ge&auml;ndert', 2);
+    wd('admin.php?trains', 'Daten erfolgreich ge&auml;ndert', 2);
 } else {
     $row = db_fetch_object(db_query("SELECT `t1` FROM `prefix_allg` WHERE `k` = 'trainzeiten'"));
     $dbe = explode('#', $row->t1);

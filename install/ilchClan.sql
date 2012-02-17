@@ -1,3 +1,7 @@
+-- die Standard Clan-Installation mit allen Menüs für Community und Clans
+
+-- in der Ersten Kommentarzeile wird die Beschreibung der Installationsdatei angegeben, welche als Hilfetext während der Installation ausgegeben wird.
+
 -- phpMyAdmin SQL Dump
 -- version 3.3.3
 -- http://www.phpmyadmin.net
@@ -34,8 +38,20 @@ CREATE TABLE IF NOT EXISTS `prefix_allg` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_allg`
+-- Daten für Tabelle `prefix_allg`
 --
+
+INSERT INTO `prefix_allg` (`k`, `v1`, `v2`, `v3`, `v4`, `v5`, `v6`, `t1`) VALUES
+('kontakt', ' ', '1', '1', ' ', ' ', ' ', 'admin@host.de|Webmaster'),
+('impressum', 'Verantwortlich für diese Seite:', 'Max Mustermann', 'Muster Str. 43', '12345 Musterhausen', '', '', ''),
+('kasse_kontodaten', '', '', '', '', '', '', 'Kontoinhaber: Max Mustermann\r\nBankname: Muster Sparkasse\r\nKontonummer: 123\r\nBankleitzahl: 123\r\nBIC: 123\r\nIBAN: 123\r\nVerwendungszweck: Spende für ilch.de ;-)'),
+('picofx', 'pic', '2.jpg', '', '', '', '', ''),
+('picofx', 'directory', '0', '', '', '', '', ''),
+('picofx', 'interval', '0', '', '', '', '', ''),
+('picofx', 'nextchange', '2011-10-05', '', '', '', '', ''),
+('picofx', 'picwidth', '100', '', '', '', '', ''),
+('trainzeiten', '', '', '', '', '', '', 'Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train'),
+('smtpconf', '', '', '', '', '', '', '');
 
 
 -- --------------------------------------------------------
@@ -180,6 +196,7 @@ CREATE TABLE IF NOT EXISTS `prefix_bbcode_config` (
   `fcFlashHintergrundfarbe` varchar(7) NOT NULL DEFAULT '',
   PRIMARY KEY (`fnConfigNr`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+
 
 --
 -- Daten f&uuml;r Tabelle `prefix_bbcode_config`
@@ -356,7 +373,7 @@ CREATE TABLE IF NOT EXISTS `prefix_credits` (
 --
 
 INSERT INTO `prefix_credits` (`id`, `sys`, `name`, `version`, `url`, `lizenzname`, `lizenzurl`) VALUES
-(1, 'ilch', 'ilch.de - CMS', 'aktuell verwendete Version', 'http://ilch.de', 'GPL', 'http://www.gnu.de/gpl-ger.html'),
+(1, 'ilch', 'ilch.de - CMS', '1.2', 'http://ilch.de', 'GPL', 'http://www.gnu.de/gpl-ger.html'),
 (2, 'ilch', 'jQuery', '1.5', 'http://jquery.com', 'GPL', 'http://en.wikipedia.org/wiki/GNU_General_Public_License'),
 (3, 'ilch', 'jQuery UI', '1.8.9', 'http://jqueryui.com', 'GPL', 'http://en.wikipedia.org/wiki/GNU_General_Public_License');
 
@@ -996,14 +1013,14 @@ INSERT INTO `prefix_modules` (`id`, `url`, `name`, `gshow`, `ashow`, `fright`, `
 (69, 'impressum', 'Impressum', 1, 0, 0, 'Content', 9),
 (70, 'archiv-partners', 'Partner', 1, 0, 0, 'Boxen', 0),
 (71, 'picofx', 'Pic of X', 1, 0, 0, 'Boxen', 1),
-(72, 'modules', 'Modulverwaltung', 1, 0, 0, 'Admin', 8),
-(73, 'smtpconf', 'SMTP', 1, 0, 0, 'Admin', 1),
-(74, 'puser', 'Nicht best&auml;tigte Registrierungen', 0, 0, 0, '', 0),
-(75, 'bbcode', 'BBcode 2.0', 1, 0, 1, 'Content', 11),
-(76, 'linkus', 'LinkUs', 1, 1, 1, 'Content', 4),
-(77, 'modrewrite', 'ModRewrite', 1, 0, 0, 'Admin', 9),
-(79, 'inactive', 'inaktive User', 1, 1, 1, 'Clanbox', 0),
-(80, 'opponents', 'Gegner', 0, 0, 0, 'Clanbox', 1);
+
+(72, 'smtpconf', 'SMTP', 1, 0, 0, 'Admin', 1),
+(73, 'puser', 'Nicht best&auml;tigte Registrierungen', 0, 0, 0, '', 0),
+(74, 'bbcode', 'BBcode 2.0', 1, 0, 1, 'Content', 11),
+(75, 'linkus', 'LinkUs', 1, 1, 1, 'Content', 4),
+(76, 'modrewrite', 'ModRewrite', 1, 0, 0, 'Admin', 9),
+(77, 'inactive', 'inaktive User', 1, 1, 1, 'Clanbox', 0),
+(78, 'opponents', 'Gegner', 0, 0, 0, 'Clanbox', 1);
 
 -- --------------------------------------------------------
 

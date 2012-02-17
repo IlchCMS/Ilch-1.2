@@ -31,7 +31,7 @@ if ($row[ 't1' ] == '') {
 }
 ?>
 
-<form action="?impressum" method="POST">
+<form action="admin.php?impressum" method="POST">
   <?php echo get_antispam('adminuser_action', 0, true); ?>
   <input type="text" name="v1" value="<?php echo $row[ 'v1' ]; ?>" size="60">
   <br />

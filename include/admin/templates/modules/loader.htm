@@ -18,7 +18,7 @@ $(document).ready(function() {
 <!--
 function delid ( DELID ) {
   var frage = confirm ( unescape ( "Diesen%20Eintrag%20wirklich%20l%F6schen%3F" ));
-  if ( frage == true ) { document.location.href="?modules-loader-del-"+DELID; }
+  if ( frage == true ) { document.location.href="admin.php?modules-loader-del-"+DELID; }
   }
 function sichtbar(){
   if( document.form.task.value=="neu"){
@@ -53,8 +53,8 @@ function sichtbar(){
   <tr class="{class}">
     <td><a href="admin.php?modules-loader-edit-{id}"><img src="include/images/icons/edit.png" border="0" title="&auml;ndern" alt="&auml;ndern" /></a></td>
     <td><a href="javascript:delid({id})"><img src="include/images/icons/del.png" border="0" title="l&ouml;schen" alt="l&ouml;schen" /></a></td>
-    <td><a href="?modules-loader-O{pos}"><img src="include/images/icons/pfeilo.png" border="0" title="oben" alt="oben"></a></td>
-    <td><a href="?modules-loader-U{pos}"><img src="include/images/icons/pfeilu.png" border="0" title="unten" alt="unten"></a></td>
+    <td><a href="admin.php?modules-loader-O{pos}"><img src="include/images/icons/pfeilo.png" border="0" title="oben" alt="oben"></a></td>
+    <td><a href="admin.php?modules-loader-U{pos}"><img src="include/images/icons/pfeilu.png" border="0" title="unten" alt="unten"></a></td>
     <td>{task}</td>
     <td>{file}</td>
     <td>more</td>

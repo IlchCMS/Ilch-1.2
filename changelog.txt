@@ -2,6 +2,27 @@ Changelog:
 ==========
 + neue Funktionen       * Änderungen/Bugfixes
 
+Version 1.2 a
+-------------
+alle Änderungen sind aus den Issues und Wiki-Pages auf https://github.com/IlchCMS/Ilch-1.2 zu entnehmen
+
+Version 1.1 O
+-------------
+* Altersberechnung im Kalender
+* Lastwarstatistiken für einzelne Teams verbessert
+* Fehler bei einigen mit PHP 5.3 und E_DEPRECATED
+* einige fehlende escapes bei der Forenadministration eingefügt
+* bigdump aktualisiert (u.a. PHP 5.3 Anpassungen) und beim Backup andere Zeilenenden eingefügt
+* Fehler mit POP3 bei SMTP Versand behoben
+* offene Bestätigungen (Adminbereich admin.php?puser), Account Löschen hingefügt
+* Adminbereich Upload von Gallery und Smilies Sicherheitsfehler behoben
+* Wars Bild löschen Sicherheitsfehler behoben
+* User-Datails bessere Fehlerausgabe bei ungültigem Aufruf
+* Antispam und einfacher Namensschutz bei Gallerykommentaren eingefügt
+* Löschen von (Unter-)Forenkategorien korrigiert
+* Shoutbox nicht mehr zu breit wegen Antispam
+* install.sql korrigiert (groupid fehlte in prefix_usercheck)
+
 Version 1.1 N
 -------------
 * Sicherheitslücke in der include/includes/func/statistic.php behoben (Danke an www.securityplanet.de für den Hinweis)

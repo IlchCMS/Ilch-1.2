@@ -467,7 +467,7 @@ switch ($menu->get(1)) {
         // > Ausgabe der Liste!
         $limit = 15;
         $page = ($menu->getA(2) == 'p' ? $menu->getE(2) : 1);
-        $MPL = db_make_sites($page, '', $limit, "?bbcode-badword", 'bbcode_badword');
+        $MPL = db_make_sites($page, '', $limit, "admin.php?bbcode-badword", 'bbcode_badword');
         $anfang = ($page - 1) * $limit;
         // > Seitenzahlen ausgeben!
         $tpl->set_ar_out(array(

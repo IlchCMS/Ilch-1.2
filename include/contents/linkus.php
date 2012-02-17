@@ -91,9 +91,9 @@ switch ($menu_1) {
                 $row['bb-link'] = '[url=' . $host . 'index.php?linkus-click-' . $row['id'] . '-true]
 									[img]' . $host . 'index.php?linkus-view-' . $row['id'] . '-true[/img]
 								[/url]';
-                $row['html-link'] = '<a href="' . $host . 'index.php?linkus-click-' . $row['id'] . '-true">
+                $row['html-link'] = htmlentities('<a href="' . $host . 'index.php?linkus-click-' . $row['id'] . '-true">
 					<img src="' . $host . 'index.php?linkus-view-' . $row['id'] . '-true" alt="' . $row['name'] . '" border="0">
-					</a>';
+					</a>');
 
                 $tpl->set_ar_out($row, 1);
             }

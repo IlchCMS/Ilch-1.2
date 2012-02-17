@@ -60,6 +60,8 @@ if ($menu->get(1) == "phpinfo") {
     $tpl->set_out('head', $lang[ 'filesystemrights' ], 1);
 
     $files = array(
+		'.htaccess',
+		'include/cache',
         'include/backup',
         'include/images/linkus',
         'include/images/avatars',

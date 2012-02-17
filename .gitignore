@@ -1,7 +1,6 @@
 # Tmp Verzeichnisse
 include/cache/*
 include/backup/*
-include/downs/*
 
 # .gitignore niemals ausschlieﬂen
 !.gitignore

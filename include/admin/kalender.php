@@ -195,7 +195,7 @@ $tpl = new tpl('kalender.htm', 1);
 
 $limit = 30; // Limit
 $page = ($menu->getA(1) == 'p' ? $menu->getE(1) : 1);
-$MPL = db_make_sites($page, '', $limit, "?kalender", 'kalender');
+$MPL = db_make_sites($page, '', $limit, "admin.php?kalender", 'kalender');
 $anfang = ($page - 1) * $limit;
 
 $aus = array(

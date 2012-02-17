@@ -10,6 +10,7 @@ $design->header();
 # define some vars
 $ilchcredits	=	'';
 $modcredits		=	'';
+$gfxcredits		=	'';
 $ilchtablestyle = 	'';
 $modtablestyle	= 	'';
 
@@ -19,7 +20,7 @@ $ilchcount		=	db_num_rows($ilchcountqry);
 
 # Prüfen ob ilch-credits eingetragen sind
 if ($ilchcount == 0 or $ilchcount === FALSE) {
-	$ilchcredits .= 'Es sind keine Credits f&uuml;r das ilch-Script eingetragen oder es ist ein Fehler aufgetreten';
+	$ilchcredits .= '<tr><td>Es sind keine Credits f&uuml;r das ilch-Script eingetragen oder es ist ein Fehler aufgetreten</td></tr>';
 	$ilchtablestyle = 	'display:none;';
 
 } else {
@@ -41,7 +42,7 @@ $modcount		=	db_num_rows($modcountqry);
 
 # prüfen ob modul-credits eingetragen sind und ggfl Liste erstellen
 if ($modcount == 0 or $modcount === FALSE) {
-	$modcredits .= 'Es sind keine Credits zu den installierten Modulen eingetragen';
+	$modcredits .= '<tr><td>Es sind keine Credits zu den installierten Modulen eingetragen</td></tr>';
 	$modtablestyle	= 	'display:none;';
 } else {
 	# liste erstellen
@@ -55,10 +56,31 @@ if ($modcount == 0 or $modcount === FALSE) {
 			</tr>';
 	}
 }
+# die gfx-credits auslesen
+$gfxcountqry	= 	db_query("SELECT * FROM `prefix_credits` WHERE sys = 'gfx'");
+$gfxcount		=	db_num_rows($gfxcountqry);
+
+# prüfen ob modul-credits eingetragen sind und ggfl Liste erstellen
+if ($gfxcount == 0 or $gfxcount === FALSE) {
+	$gfxcredits .= '<tr><td>Es sind keine Credits zu Grafiken/Designs eingetragen</td></tr>';
+	$gfxtablestyle	= 	'display:none;';
+} else {
+	# liste erstellen
+	while ($gfxrow = db_fetch_assoc($gfxcountqry)) {
+		$gfxcredits .= '
+			<tr>
+				<td>'.$gfxrow['name'].'</td>
+   				<td>'.$gfxrow['version'].'</td>
+    			<td><a href="'.$gfxrow['url'].'">Link</a></td>
+    			<td><a href="'.$gfxrow['lizenzurl'].'">'.$gfxrow['lizenzname'].'</a></td>
+			</tr>';
+	}
+}
 
 $tpl->set('ilchtablestyle', $ilchtablestyle);
 $tpl->set('modtablestyle', $modtablestyle);
 $tpl->set('ilchcredits', $ilchcredits);
 $tpl->set('modcredits', $modcredits);
+$tpl->set('gfxcredits', $gfxcredits);
 $tpl->out(0);
 $design->footer();

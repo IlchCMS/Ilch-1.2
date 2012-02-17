@@ -21,12 +21,12 @@ function show_menu($wo) {
         $class = ($class == 'Cdark' ? 'Cmite' : 'Cdark');
 
         echo '<tr class="' . $class . '"><td>' . $row[ 'pos' ] . '</td><td>' . ($whileMenP ? '' : '<b>') . ($whileMenP ? str_repeat('-&nbsp;', $row[ 'ebene' ] + 1) : '') . $row[ 'name' ] . ($whileMenP ? '' : '</b>') . '</td>';
-        echo '<td><a href="?menu-' . $row[ 'wo' ] . '-l-' . $row[ 'pos' ] . '"><img src="include/images/icons/pfeill.png" alt="" border="0" title="nach links"></a></td>';
-        echo '<td><a href="?menu-' . $row[ 'wo' ] . '-r-' . $row[ 'pos' ] . '"><img src="include/images/icons/pfeilr.png" alt="" border="0" title="nach rechts"></a></td>';
-        echo '<td><a href="?menu-' . $row[ 'wo' ] . '-o-' . $row[ 'pos' ] . '"><img src="include/images/icons/pfeilo.png" alt="" border="0" title="nach oben"></a></td>';
-        echo '<td><a href="?menu-' . $row[ 'wo' ] . '-u-' . $row[ 'pos' ] . '"><img src="include/images/icons/pfeilu.png" alt="" border="0" title="nach unten"></a></td>';
+        echo '<td><a href="admin.php?menu-' . $row[ 'wo' ] . '-l-' . $row[ 'pos' ] . '"><img src="include/images/icons/pfeill.png" alt="" border="0" title="nach links"></a></td>';
+        echo '<td><a href="admin.php?menu-' . $row[ 'wo' ] . '-r-' . $row[ 'pos' ] . '"><img src="include/images/icons/pfeilr.png" alt="" border="0" title="nach rechts"></a></td>';
+        echo '<td><a href="admin.php?menu-' . $row[ 'wo' ] . '-o-' . $row[ 'pos' ] . '"><img src="include/images/icons/pfeilo.png" alt="" border="0" title="nach oben"></a></td>';
+        echo '<td><a href="admin.php?menu-' . $row[ 'wo' ] . '-u-' . $row[ 'pos' ] . '"><img src="include/images/icons/pfeilu.png" alt="" border="0" title="nach unten"></a></td>';
         echo '<td><a href="javascript:delcheck(\'' . $row[ 'pos' ] . '\',\'' . $row[ 'wo' ] . '\')"><img src="include/images/icons/del.png" alt="" border="0" title="l&ouml;schen"></a></td>';
-        echo '<td><a href="?menu-' . $row[ 'wo' ] . '-edit-' . $row[ 'pos' ] . '"><img src="include/images/icons/edit.png" alt="" border="0" title="&auml;ndern"></a></td>';
+        echo '<td><a href="admin.php?menu-' . $row[ 'wo' ] . '-edit-' . $row[ 'pos' ] . '"><img src="include/images/icons/edit.png" alt="" border="0" title="&auml;ndern"></a></td>';
         echo '</tr>';
     }
     echo '</table>';

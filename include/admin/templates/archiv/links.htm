@@ -42,10 +42,10 @@ $(document).ready(function() {
         {EXPLODE}
         <tr class="{class}">
           <td>{name}</td>
-          <td><a href="?archiv-links-e{id}"><img src="include/images/icons/edit.png" border="0" title="&auml;ndern" alt="&auml;ndern"></a></td>
+          <td><a href="admin.php?archiv-links-e{id}"><img src="include/images/icons/edit.png" border="0" title="&auml;ndern" alt="&auml;ndern"></a></td>
           <td><a href="javascript:del('{id}')"><img src="include/images/icons/del.png" border="0" title="l&ouml;schen" alt="l&ouml;schen"></a></td>
-          <td><a href="?archiv-links-S{cat}-o{id}-{pos}"><img src="include/images/icons/pfeilo.png" border="0" title="oben" alt="oben"></a></td>
-          <td><a href="?archiv-links-S{cat}-u{id}-{pos}"><img src="include/images/icons/pfeilu.png" border="0" title="unten" alt="unten"></a></td>
+          <td><a href="admin.php?archiv-links-S{cat}-o{id}-{pos}"><img src="include/images/icons/pfeilo.png" border="0" title="oben" alt="oben"></a></td>
+          <td><a href="admin.php?archiv-links-S{cat}-u{id}-{pos}"><img src="include/images/icons/pfeilu.png" border="0" title="unten" alt="unten"></a></td>
         </tr>
         {EXPLODE}
       </table>
@@ -56,7 +56,7 @@ $(document).ready(function() {
         <tr class="Chead">
           <td colspan="5"><b>Kategorien</b></td>
         </tr><tr class="Cmite">
-          <td><a href="?archiv-links-S0">Keine</a></td>
+          <td><a href="admin.php?archiv-links-S0">Keine</a></td>
           <td></td>
           <td></td>
           <td></td>
@@ -126,11 +126,11 @@ $(document).ready(function() {
 <!--
 function Kdel ( id1 ) {
   var x = confirm ( unescape ( "Kategorie%20wirklich%20l%F6schen%3F" ));  
-  if ( x ) { document.location.href="?archiv-links-D"+id1; }
+  if ( x ) { document.location.href="admin.php?archiv-links-D"+id1; }
   }
 function del ( id1 ) {
   var x = confirm ( unescape ( "Link%20wirklich%20l%F6schen%3F" ));
-  if ( x ) { document.location.href="?archiv-links-d"+id1; }
+  if ( x ) { document.location.href="admin.php?archiv-links-d"+id1; }
   }
 function sichtbarA() {
   if(document.form.url.value=="neu"){

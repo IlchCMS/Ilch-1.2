@@ -95,13 +95,13 @@ if ($show) {
         echo '<tr class="' . $class . '"><td>' . $r[ 'show' ] . '</td>';
         echo '<td align="center">' . $ar[ $r[ 'func' ] ] . '</td>';
         if ($r[ 'func' ] != 3) { // func == 3 haben die vordefinierten
-            echo '<td><a href="?profilefields-edit-' . $r[ 'id' ] . '">&auml;ndern</a></td>';
+            echo '<td><a href="admin.php?profilefields-edit-' . $r[ 'id' ] . '">&auml;ndern</a></td>';
             echo '<td><a href="javascript:delcheck(' . $r[ 'id' ] . ')">l&ouml;schen</a></td>';
         } else {
-            echo '<td colspan="2"><a href="?profilefields-c-' . $r[ 'id' ] . '-' . $r[ 'func' ] . '">' . ($r[ 'func' ] == 3 ? 'verstecken' : 'anzeigen') . '</a></td>';
+            echo '<td colspan="2"><a href="admin.php?profilefields-c-' . $r[ 'id' ] . '-' . $r[ 'func' ] . '">' . ($r[ 'func' ] == 3 ? 'verstecken' : 'anzeigen') . '</a></td>';
         }
-        echo '<td><a href="?profilefields-o-' . $r[ 'id' ] . '-' . $r[ 'pos' ] . '"><img src="include/images/icons/pfeilo.png" border="0"></a></td>';
-        echo '<td><a href="?profilefields-u-' . $r[ 'id' ] . '-' . $r[ 'pos' ] . '"><img src="include/images/icons/pfeilu.png" border="0"></a></td>';
+        echo '<td><a href="admin.php?profilefields-o-' . $r[ 'id' ] . '-' . $r[ 'pos' ] . '"><img src="include/images/icons/pfeilo.png" border="0"></a></td>';
+        echo '<td><a href="admin.php?profilefields-u-' . $r[ 'id' ] . '-' . $r[ 'pos' ] . '"><img src="include/images/icons/pfeilu.png" border="0"></a></td>';
         echo '</tr>';
     }
     $tpl->out(2);
