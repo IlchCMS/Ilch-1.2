@@ -175,7 +175,7 @@ class tpl {
         }
     }
 
-    public function set_ar_out($ar, $pos) {
+    public function set_ar_out($ar, $pos = 0) {
         $this->set_ar($ar);
         $this->out($pos);
     }
