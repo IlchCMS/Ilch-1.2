@@ -268,7 +268,13 @@ class tpl {
         }
 
         foreach ($this->keys as $k => $v) {
+		 if (is_array($v)) {
+			 foreach ($v as $k1 => $v1) {
+				 $toout = str_replace('{' . $z . $k . '}', $v1, $toout);
+			 }
+		 }else {
             $toout = str_replace('{' . $z . $k . '}', $v, $toout);
+		 }
         }
         return ($toout);
     }
