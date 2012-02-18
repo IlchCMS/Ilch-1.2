@@ -15,7 +15,8 @@ $header = Array(
 $design = new design($title, $hmenu);
 $design->header($header);
 // time sperre in sekunden
-$timeSperre = $allgAr[ 'Gsperre' ];
+$timeSperre = (int) $allgAr[ 'Gsperre' ];
+$dppk_time = time();
 
 /*
  * gbook
@@ -39,7 +40,7 @@ function showPreview() {
  * @param  $mail Vorbelegung für die Emailadresse
  * @param  $page Vorbelegung für die Homepage
  */
-function showForm($text = "", $mail = "", $page = "", $fehler = "") {
+function showForm($text = "", $mail = "", $page = "", $fehler = "", $dppk_time = NULL, $timeSperre = 3600) {
     global $allgAr;
 
     $tpl = new tpl('gbook.htm');
@@ -54,9 +55,8 @@ function showForm($text = "", $mail = "", $page = "", $fehler = "") {
 		'FEHLER' => $fehler
         );
     $tpl->set_ar_out($ar, "formular_eintrag");
-
     if (!isset($_SESSION[ 'klicktime_gbook' ])) {
-        $_SESSION[ 'klicktime_gbook' ] = 0;
+        $_SESSION[ 'klicktime_gbook' ] = (time() - $timeSperre);
     }
 }
 // Recht für Kommentare pruefen
@@ -69,12 +69,11 @@ switch ($menu->get(1)) {
         if (isset($_POST["preview"])) 
 		{
             showPreview();
-            showForm($_POST["txt"], $_POST["mail"], $_POST["page"]);
+            showForm($_POST["txt"], $_POST["mail"], $_POST["page"], $dppk_time, $timeSperre);
         } 
 		elseif (isset($_POST['submit'])){ 
-            $dppk_time = time();
 			// Fehlerabfrage
-			if(($_SESSION[ 'klicktime_gbook' ] + $timeSperre) < $dppk_time AND isset($_POST[ 'name' ])) 
+			if(($_SESSION[ 'klicktime_gbook' ] + $timeSperre) > $dppk_time)
 			  {$fehler .= '&middot;&nbsp;'.$lang[ 'donotpostsofast' ].'<br/>';}
 			if(trim($_POST[ 'name' ]) == '') 
 			  {$fehler .= '&middot;&nbsp;'.$lang[ 'emptyname' ].'<br/>';}
@@ -102,12 +101,13 @@ switch ($menu->get(1)) {
             } 
 			else 
 			{
-            	showForm($_POST["txt"], $_POST["mail"], $_POST["page"], '<div id="formfehler">'.$fehler.'</div>');
+            	showForm($_POST["txt"], $_POST["mail"], $_POST["page"], '<div id="formfehler">'.$fehler.'</div>', $dppk_time, $timeSperre);
             }
         }
 		else
-		{   
-			showForm();
+		{
+			
+			showForm('','','','',$dppk_time);
 			break;
 		}
 		break;
