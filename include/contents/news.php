@@ -189,7 +189,7 @@ if (!is_numeric($menu->get(1))) {
             $tpl->set_ar_out(array('NAME' => $row->news_title, 'NID' => $nid ), "koms_on");
         
 			$erg1 = db_query("SELECT `text`, `name`, `userid`, `id`, `time` FROM `prefix_koms` WHERE `uid` = " . $nid . " AND `cat` = 'NEWS' ORDER BY `id` DESC");
-			$anz = db_num_rows($erg1);
+			$anz = (!$erg1) ? 0 : db_num_rows($erg1);
 			if ($anz == 0) { echo $lang[ 'nocomments' ]; } else {
             	while ($row1 = db_fetch_assoc($erg1)) {
                 	$row1[ 'text' ] = bbcode(trim($row1[ 'text' ]));
@@ -209,5 +209,3 @@ if (!is_numeric($menu->get(1))) {
 	}
 }
 $design->footer();
-
-?>
