@@ -155,5 +155,3 @@ if (empty($doNoIn)) {
 }
 
 $design->footer();
-
-?>
