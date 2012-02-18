@@ -45,16 +45,17 @@ switch ($um) {
                     $katname = $row[ 'menu' ];
                 }
 
-                $exturl = str_replace('-', '_', $row[ 'url' ]);
-                $expurl = explode('_', $exturl);
-
-                if (file_exists('include/images/icons/admin/' . $exturl . '.png')) {
-                    $bild = 'include/images/icons/admin/' . $exturl . '.png';
-                } else if (file_exists('include/images/icons/admin/' . $expurl[ 0 ] . '.png')) {
-                    $bild = 'include/images/icons/admin/' . $expurl[ 0 ] . '.png';
+                $exturl		= str_replace('-', '_', $row[ 'url' ]);
+                $expurl		= explode('_', $exturl);
+				$bildpfad	= 'include/images/icons/admin/';
+                if (file_exists( $bildpfad . $exturl . '.png')) {
+                    $bild = $exturl . '.png';
+                } else if (file_exists($bildpfad . $expurl[ 0 ] . '.png')) {
+                    $bild = $expurl[ 0 ] . '.png';
                 } else {
-                    $bild = 'include/images/icons/admin/na.png';
+                    $bild = 'na.png';
                 }
+				$bild = $bildpfad . $bild;
 
                 $tpl->set_ar_out(Array(
                         'url' => $row[ 'url' ],

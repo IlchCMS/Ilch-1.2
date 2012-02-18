@@ -273,7 +273,7 @@ class tpl {
         return ($toout);
     }
 
-    public function out($pos) {
+    public function out($pos = 0) {
         echo $this->get($pos);
     }
 }

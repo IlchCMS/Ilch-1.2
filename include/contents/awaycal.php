@@ -41,7 +41,8 @@ $design->header($header);
 $tpl = new tpl('awaycal.htm');
 
 if ($_SESSION[ 'authright' ] > - 3) { // Pruefen ob der User ein TrialMember oder mehr ist
-    echo $lang[ 'nopermission' ];
+	$tpl->set(text, $lang[ 'nopermission' ].'asd');
+	$tpl->out();
     $design->footer(1);
 }
 // status aendern
