@@ -66,19 +66,25 @@ function user_update_database($m) {
 
 function user_set_user_online() {
     global $allgAr;
-    if (0 == db_result(db_query('SELECT COUNT(*) FROM `prefix_online` WHERE `sid` = "' . session_id() . '"'), 0)) {
+    $qry = db_query('SELECT `ipa` FROM `prefix_online` WHERE `sid` = "' . session_id() . '"');
+    if (db_num_rows($qry) == 0) {
         db_query('INSERT INTO `prefix_online` (`sid`,`uptime`,`ipa`) VALUES ("' . session_id() . '", "' . date('Y-m-d H:i:s') . '", "' . getip() . '")');
+    } elseif (db_result($qry) != getip()) {
+        db_query('UPDATE `prefix_online` SET `uptime` = "' . date('Y-m-d H:i:s') . '", `ipa` =  "' . getip() . '", uid = 0 WHERE `sid` = "' . session_id() . '"');
     }
     if (!isset($_SESSION['authgfx'])) {
         $_SESSION['authgfx'] = $allgAr['gfx'];
     }
 }
 
+/**
+* Prüft ob die Session Id in der Datenbank vorhanden (mit der IP des Users) in der Datenbank steht
+*/
 function user_key_in_db() {
-    if (1 == db_result(db_query("SELECT COUNT(*) FROM `prefix_online` WHERE `sid` = '" . session_id() . "'"), 0)) {
-        return (true);
+    if (1 == db_result(db_query('SELECT COUNT(*) FROM `prefix_online` WHERE `sid` = "' . session_id() . '" AND ipa = "' . getip() . '"'), 0)) {
+        return true;
     } else {
-        return (false);
+        return false;
     }
 }
 
@@ -109,21 +115,26 @@ function user_login_check($auto=false) {
             return false;
         }
 
-        $erg = db_query("SELECT `name`,`id`,`recht`,`pass`,`llogin`, `sperre` FROM `prefix_user` WHERE " . $term);
+
         $formpassed = true;
     } elseif ($auto) {
         $dat = explode('=', $_COOKIE[ $cn ]);
         $id = $pw = 0;
-        if (isset($dat[ 0 ])) {
-            $id = escape($dat[ 0 ], 'integer');
+        if (isset($dat[0])) {
+            $id = escape($dat[0], 'integer');
         }
-        if (isset($dat[ 1 ])) {
-            $pw = $dat[ 1 ];
+        if (isset($dat[1])) {
+            $pw = $dat[1];
         }
-        debug(' pw ' . $pw);
-        debug(' id ' . $id);
-        $erg = db_query("SELECT `name`,`id`,`recht`,`pass`,`llogin`,`sperre` FROM `prefix_user` WHERE `id` = " . $id);
+        debug('Login mit Cookie - id: ' . $id . ' - hash: ' . $pw);
+        $term = '`id` = ' . $id;
     }
+
+    if (!isset($term)) {
+        return;
+    }
+    $erg = db_query("SELECT `name`,`id`,`recht`,`pass`,`llogin`, `sperre` FROM `prefix_user` WHERE " . $term);
+    mysql_error();
 
     if (isset($erg) and db_num_rows($erg) == 1) {
         $row = db_fetch_assoc($erg);
@@ -132,7 +143,7 @@ function user_login_check($auto=false) {
             debug('user gesperrt... ' . $row['name']);
             return false;
         } elseif ((!$auto and $row['pass'] == md5($_POST['pass']))
-                or ($auto and $row['pass']  == $pw)) {
+                or ($auto and md5($row['id'] . $row['pass'])  == $pw)) {
             debug('passwort stimmt ... ' . $row['name']);
             $_SESSION['authname'] = $row['name'];
             $_SESSION['authid'] = (int) $row['id'];
@@ -143,11 +154,15 @@ function user_login_check($auto=false) {
             $_SESSION['sperre'] = $row['sperre'];
             db_query('DELETE FROM `prefix_online` WHERE `uid` = ' . $_SESSION['authid'] . ' AND `sid` != "' . session_id() . '"');
             db_query('UPDATE `prefix_online` SET `uid` = ' . $_SESSION[ 'authid' ] . ' WHERE `sid` = "' . session_id() . '"');
-            $cookiepath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
-            if (strlen($cookiepath) > 1) {
-                $cookiepath .= '/';
+            //Cookie setzen, wenn User eingeloggt bleiben will
+            if (isset($_POST['cookie'])) {
+                $cookiepath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+                if (strlen($cookiepath) > 1) {
+                    $cookiepath .= '/';
+                }
+                setcookie($cn, $row[ 'id' ] . '=' . md5($row['id'] . $row[ 'pass' ]), strtotime('+1 year'), $cookiepath, '', false, true);
             }
-            setcookie($cn, $row[ 'id' ] . '=' . $row[ 'pass' ], strtotime('+1 year'), $cookiepath, '', false, true);
+
             user_set_grps_and_modules();
             return true;
         }
@@ -398,14 +413,14 @@ function sendpm($sid, $eid, $ti, $te, $status = 0) {
 
 function get_avatar($id) {
 	$pfad = 'include/images/avatars/';
-	if (is_numeric($id) and $id != 0) 
+	if (is_numeric($id) and $id != 0)
 	{
 		$row = db_fetch_assoc(db_query('SELECT `avatar`, `geschlecht` FROM `prefix_user` WHERE `id` = ' . $id));
 		if 		(isset($row['avatar']) and file_exists($row['avatar'])) { $avatar = $row['avatar']; }
 		elseif 	($row['geschlecht'] == 1) 								{ $avatar = $pfad . 'maennlich.jpg'; }
 		elseif 	($row['geschlecht'] == 2) 								{ $avatar = $pfad . 'weiblich.jpg'; }
-		else															{ $avatar = $pfad . 'wurstegal.jpg'; }					
-	} else { 
+		else															{ $avatar = $pfad . 'wurstegal.jpg'; }
+	} else {
 		$avatar = $pfad . 'wurstegal.jpg';
 	}
 	return $avatar;
