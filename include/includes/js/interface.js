@@ -29,8 +29,6 @@ function hide_color() {
 		document.getElementById("colorinput").style.display="none";
 	} else {
 	var pos = getPageCoords( "bbcode_color_button" );
-		document.getElementById("colorinput").style.top = pos.y - 15 + "px";
-		document.getElementById("colorinput").style.left = pos.x - 130 - document.getElementsByTagName('div')[0].offsetLeft + "px";
 		document.getElementById("colorinput").style.display= "block";
 	}
 }
@@ -171,9 +169,9 @@ function bbcode_insert_with_value(tag, boxtext1, boxtext2) {
 	if(tag == 'url') {
 		default_text = "http://";
 	} else if(tag == 'size') {
-		default_text = "12"; 
+		default_text = "12";
 	} else {
-		default_text ="";  
+		default_text ="";
 	}
 
 	// Box ausgeben mit Anforderung.
@@ -278,7 +276,7 @@ function bbcode_insert_with_value_2(tag, boxtext1, boxtext2) {
 
 // Simples einfügen der Tags :-)
 function bbcode_code_insert(tag, color) {
-    
+
     // Tags Definieren
 	if(color == "0"){
 		var begin_tag = "["+tag+"]";
