@@ -53,7 +53,6 @@ $class = '';
 $erg = db_query('SELECT `name`, `mail`, `txt`, `id` FROM `prefix_gbook` ORDER BY `time` DESC');
 while ($r = db_fetch_assoc($erg)) {
     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
-    //$text = substr(preg_replace("/\015\012|\015|\012/", " ", htmlentities(strip_tags(stripslashes($r[ 'txt' ])))), 0, 75);
     $text = substr(preg_replace("/\015\012|\015|\012/", " ", bbcode(stripslashes($r[ 'txt' ]))), 0, 75);
     echo '<tr class="' . $class . '">';
     echo '<td><a href="admin.php?gbook=0&edit=' . $r[ 'id' ] . '"><img src="include/images/icons/edit.png" /></a></td>';

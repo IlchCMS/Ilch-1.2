@@ -111,9 +111,10 @@ class design extends tpl {
     }
 
     protected function getJqueryThingy($a, $b){
-        if (preg_match('%jquery-\d\.\d+(\.\d+)?\.js%', $a) == 1) {
+        $pattern = '%jquery-\d\.\d+(\.\d+)?(\.min)\.js%';
+        if (preg_match($pattern, $a) == 1) {
             return -1;
-        } elseif (preg_match('%jquery-\d\.\d+(\.\d+)?\.js%', $b) == 1) {
+        } elseif (preg_match($pattern, $b) == 1) {
             return 1;
         }
         return 0;
@@ -370,7 +371,7 @@ class design extends tpl {
             if (($whileMenP === false) AND !empty($menuzw)) {
                 $menuzw .= $this->get_boxes_get_menu_close($ex_ebene, 0, $menuzw, $wmpE, $wmpTE, $wmpTEE);
                 $retur .= $tpl->list_get($datei, array(
-                        /*htmlentities(*/$boxname/*)*/,
+                        htmlspecialchars($boxname),
                         $menuzw . $menuzwE
                         ));
                 $menuzw = '';
@@ -422,7 +423,7 @@ class design extends tpl {
         if (!empty($menuzw)) {
             $menuzw .= $this->get_boxes_get_menu_close($ex_ebene, 0, $menuzw, $wmpE, $wmpTE, $wmpTEE);
             $retur .= $tpl->list_get($datei, array(
-                    /*htmlentities(*/$boxname/*)*/,
+                    htmlspecialchars($boxname),
                     $menuzw . $menuzwE
                     ));
         }

@@ -202,9 +202,16 @@ ic.Ajaxload = function(options) {
         elementId: '',  //Id eines Elements dessen Inhalt neu geladen wird, wenn nicht angegeben wird Content neu geladen, title und hmenu neu gesetzt
         type: 'content',//[content|box] bei box wird bei index.php?shoutbox, die include/boxes/shoutbox.php geladen, ansonsten normal im contents Ordner
         postData: null, //Parameter für einen POST Aufruf, Object {name:value, name2:value2, ...} (wie Formular mit method="post")
-        onload: null    //Funktion die nach dem Laden aufgerufen wird
+        onload: null,    //Funktion die nach dem Laden aufgerufen wird
+        showLoading: false, //Wenn true dann wird loadingContent im Container während des Ladens angezeigt
+        loadingContent: '<img src="include/images/icons/ajax-loader-arrows.gif" />', //Wenn gesetzt wird dies als Inhalt während des Ladens angezeigt
     };
     $.extend(settings, options);
+    if (settings.showLoading) {
+        var destEl = (settings.elementId != undefined && settings.elementId != '') ?
+            $('#'+settings.elementId) : $('#icContent');
+        destEl.html(settings.loadingContent);
+    }
     $.ajax({
         url: settings.url + '&ajax=true' + (settings.type == 'box' ? '&boxreload=true' : ''),
         dataType: 'text json',

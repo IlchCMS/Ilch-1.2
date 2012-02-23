@@ -1327,6 +1327,7 @@ CREATE TABLE IF NOT EXISTS `prefix_selfp` (
   `php` tinyint(1) NOT NULL DEFAULT '0',
   `view` smallint(6) NOT NULL DEFAULT '0',
   `pos` smallint(6) NOT NULL,
+  `content` MEDIUMTEXT NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 

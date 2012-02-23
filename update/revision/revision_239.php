@@ -5,31 +5,7 @@
  * @version $Id
  */
 
-/* Als Beispieldatei wenn ihr noch etwas über die update.php ausführen müsst/wollt ;)
-
-
-db_query("INSERT INTO `prefix_credits` (
-				`id` ,
-				`sys` ,
-				`name` ,
-				`version` ,
-				`url` ,
-				`lizenzname` ,
-				`lizenzurl`
-			)
-				VALUES 
-			(
-				NULL , 
-				'gfx', 
-				'ilch-Design', 
-				'1.0', 
-				'http://ilch.de', 
-				'by W@rLord and coded by Tigereyes', 
-				'http://www.gnu.de/gpl-ger.html'
-			);	
-");
+db_query("ALTER TABLE `prefix_selfp` ADD `content` MEDIUMTEXT NOT NULL ");
 
 $rev='239';
-$update_messages[$rev][] = 'Credits erweitert';
-
-*/
+$update_messages[$rev][] = 'EigeneSeiten zur Speicherung in der Datenbank';
