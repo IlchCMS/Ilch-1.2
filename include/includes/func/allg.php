@@ -118,7 +118,7 @@ function post_date($posttime,$sec=false) {
 		}
 	}
 	else { return( '' ); }
-} 
+}
 // #
 // ##
 // ###
@@ -499,18 +499,18 @@ function get_antispam($m, $t, $nopictures = false) {
     }
 
     if (is_numeric($allgAr[ 'antispam' ]) AND has_right($allgAr[ 'antispam' ])) {
-        return ('');
+        return '';
     }
 
-    $rs = '<img class="Custom" src="include/includes/libs/captcha/captchaimg.php" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt darunter stehende Feld ein.">&nbsp;<input id="number" name="number" type="text" maxlength="5" size="8">';
+    $rs = '<img class="Custom" src="include/includes/libs/captcha/captchaimg.php?nocache='.time().'" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt daneben stehende Feld ein.">&nbsp;<input id="number" name="number" type="text" maxlength="5" size="8">';
     if ($t == 0) {
-        return ('<img class="Custom" src="include/includes/libs/captcha/captchaimg.php" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt darunter stehende Feld ein."><br/><input name="number" type="text" maxlength="5" size="8">');
+        return '<img class="Custom" src="include/includes/libs/captcha/captchaimg.php?nocache='.time().'" alt="captchaimg" title="::Geben Sie diese Zeichen in das direkt darunter stehende Feld ein."><br/><input name="number" type="text" maxlength="5" size="8">';
     } elseif ($t == 1) {
-        return ('<tr><td class="Cmite"><b>Antispam</b></td><td class="Cnorm">' . $rs . '</td></tr>');
+        return '<tr><td class="Cmite"><b>Antispam</b></td><td class="Cnorm">' . $rs . '</td></tr>';
     } elseif ($t > 10) {
-        return ('<label style="float:left; width: ' . $t . 'px; ">Antispam</label>' . $rs . '<br/>');
+        return '<label style="float:left; width: ' . $t . 'px; ">Antispam</label>' . $rs . '<br/>';
     } else {
-        return ('');
+        return '';
     }
 }
 // Funktion, die die Größe aller Dateien im Ordner zusammenrechnet
