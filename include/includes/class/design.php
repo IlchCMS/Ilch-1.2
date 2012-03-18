@@ -99,10 +99,12 @@ class design extends tpl {
     }
 
     public function header($addons = '') {
-        global $ILCH_HEADER_ADDITIONS;
+        global $ILCH_HEADER_ADDITIONS, $allgAr;
         $this->addheader($ILCH_HEADER_ADDITIONS);
         if (isset($this->html[0]) and !$this->ajax) {
-            $this->html[0] = str_replace('</head>', $this->load_addons($addons) . $this->headerAdds . "\n</head>", $this->html[ 0 ]);
+            $this->html[0] = str_replace('</head>', $this->load_addons($addons) . $this->headerAdds . "\n
+			<link rel=\"stylesheet\" type=\"text/css\" href=\"include/includes/css/jquery/templates/".$allgAr['jqueryui']."/jquery-ui.css\" />\n
+			</head>", $this->html[ 0 ]);
             echo $this->html[0] . '<div id="icContent">';
             unset($this->html[0]);
         } else {
@@ -167,7 +169,8 @@ class design extends tpl {
         if ($this->ajax) {
             $this->json['headerAdds'] = $this->headerAdds;
             $this->json['bodyendAdds'] = $this->bodyendAdds;
-            $this->json['content'] = ob_get_clean();
+            $cntnt = ob_get_clean();
+			$this->json['content'] = str_replace('_jqueryuitheme_', '/'.$allgAr['jqueryui'].'/', $cntnt);
             if (isset($allgAr['modrewrite']) and $allgAr['modrewrite'] == 1) {
                 $this->json['content'] = self::rewriteLinks( $this->json['content'] );
             }
@@ -178,7 +181,9 @@ class design extends tpl {
         echo '</div>' . $this->html[1];
         unset($this->html[1]);
         if (isset($allgAr['modrewrite']) and $allgAr['modrewrite'] == 1) {
-            echo self::rewriteLinks( ob_get_clean() );
+			$cntnt = ob_get_clean();
+			$cntnt = str_replace('_jqueryuitheme_', '/'.$allgAr['jqueryui'].'/', $cntnt);
+            echo self::rewriteLinks( $cntnt) ;
         }
         if ($exit == 1) {
             if (DEBUG) {
