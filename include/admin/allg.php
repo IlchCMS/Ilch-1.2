@@ -17,7 +17,6 @@ if (!is_admin()) {
 }
 // Load needed functions
 $funcs = read_ext('include/admin/inc/allg', 'php');
-
 foreach ($funcs as $file) {
     require_once('include/admin/inc/allg/' . $file);
 }
@@ -67,7 +66,6 @@ if (empty($_POST[ 'submit' ])) {
                     'kat' => $katname
                     ), 3);
         }
-
         if ($row[ 'typ' ] == 'input') {
             $input = '<input size="50" type="text" name="' . $row[ 'schl' ] . '" value="' . $row[ 'wert' ] . '">';
         } elseif ($row[ 'typ' ] == 'r2') {
@@ -82,9 +80,26 @@ if (empty($_POST[ 'submit' ])) {
             }
             $input = '<input type="radio" name="' . $row[ 'schl' ] . '" value="1" ' . $checkedj . ' > ja' . '&nbsp;&nbsp;' . '<input type="radio" name="' . $row[ 'schl' ] . '" value="0" ' . $checkedn . ' > nein';
         } elseif ($row[ 'typ' ] == 's') {
-            $vname = $row[ 'schl' ];
-            $input = '<select name="' . $row[ 'schl' ] . '">' . $$vname . '</select>';
-        } elseif ($row[ 'typ' ] == 'textarea') {
+				if ($row['schl'] == 'jqueryui') {
+					$jqv = './include/includes/css/jquery/templates/';
+					$teAr = scandir($jqv);
+					
+					foreach ($teAr as $verz) {
+						if ($verz != '.' && $verz != '..' && is_dir($jqv.$verz)) {
+							if ($verz == $allgAr['jqueryui']) {
+								@$grml .= '<option selected="selected">'.$verz.'</option>';
+							} else {
+								@$grml .= '<option>'.$verz.'</option>';
+							}
+						}
+					}
+					$input = '<select name="' . $row[ 'schl' ] . '">' . $grml . '</select>';
+				} else {
+					$vname = $row['schl'];
+					$input = '<select name="' . $row[ 'schl' ] . '">' . $$vname . '</select>';
+				}
+        } 
+		elseif ($row[ 'typ' ] == 'textarea') {
             $input = '<textarea cols="55" rows="3" name="' . $row[ 'schl' ] . '">' . $row[ 'wert' ] . '</textarea>';
         } elseif ($row[ 'typ' ] == 'grecht') {
             $grl = dblistee($allgAr[ $row[ 'schl' ] ], "SELECT id,name FROM prefix_grundrechte ORDER BY id ASC");
@@ -109,7 +124,8 @@ if (empty($_POST[ 'submit' ])) {
             }
         }
 
-        $tpl->set_ar_out(Array(
+
+        $tpl->set_ar_out(array(
                 'frage' => $row[ 'frage' ],
                 'input' => $input,
                 'schl' => $row['schl'],
