@@ -27,20 +27,21 @@ $text = '';
 $fehler = '';
 
 if(isset($_POST['submit']))
-{ 
+{
+	$fehler_prefix = '&middot;&nbsp;';
 	// Fehlerabfrage
 	if(empty($_POST[ 'wer' ]))
-	  {$fehler .= '&middot;&nbsp;'.$lang[ 'emptywer' ].'<br/>';}
+	  {$fehler .= $fehler_prefix . $lang[ 'emptywer' ].'<br/>';}
 	if(empty($_POST[ 'name' ]))
-	  {$fehler .= '&middot;&nbsp;'.$lang[ 'emptyname' ].'<br/>';}	
+	  {$fehler .= $fehler_prefix . $lang[ 'emptyname' ].'<br/>';}
 	if(empty($_POST[ 'mail' ]))
-	  {$fehler .= '&middot;&nbsp;'.$lang[ 'emptyemail' ].'<br/>';}
+	  {$fehler .= $fehler_prefix . $lang[ 'emptyemail' ].'<br/>';}
 	if(empty($_POST[ 'subject' ]))
-	  {$fehler .= '&middot;&nbsp;'.$lang[ 'emptysubject' ].'<br/>';}
+	  {$fehler .= $fehler_prefix . $lang[ 'emptysubject' ].'<br/>';}
 	if(empty($_POST[ 'txt' ])) 
-	  {$fehler .= '&middot;&nbsp;'.$lang[ 'emptymessage' ].'<br/>';}
+	  {$fehler .= $fehler_prefix . $lang[ 'emptymessage' ].'<br/>';}
 	if(chk_antispam('contact') != true) 
-	  {$fehler .= '&middot;&nbsp;'.$lang[ 'incorrectspam' ].'<br/>';}
+	  {$fehler .= $fehler_prefix . $lang[ 'incorrectspam' ].'<br/>';}
 	//
  
 	if ($fehler == '' ) 

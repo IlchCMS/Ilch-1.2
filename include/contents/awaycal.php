@@ -41,7 +41,8 @@ $design->header($header);
 $tpl = new tpl('awaycal.htm');
 
 if ($_SESSION[ 'authright' ] > - 3) { // Pruefen ob der User ein TrialMember oder mehr ist
-    echo $lang[ 'nopermission' ];
+	$tpl->set(text, $lang[ 'nopermission' ].'asd');
+	$tpl->out();
     $design->footer(1);
 }
 // status aendern
@@ -73,7 +74,7 @@ if (isset($_POST[ 'ch' ])) {
     }
 }
 
-$tpl->out(1);
+$tpl->out("listbegin");
 $class = '';
 $statusar = array(2 => $lang[ 'reported' ],
     1 => $lang[ 'rejected' ],
@@ -91,9 +92,9 @@ while ($r = db_fetch_assoc($erg)) {
         }
         $r[ 'betreff' ] .= '</span>';
     }
-    $tpl->set_ar_out($r, 2);
+    $tpl->set_ar_out($r, 'listitem');
 }
-$tpl->out(3);
+$tpl->out("listend");
 
 $e = false;
 if ($menu->getA(1) == 'e' AND is_numeric($menu->getE(1))) {
@@ -110,7 +111,5 @@ if ($e == false) {
         'betreff' => ''
         );
 }
-$tpl->set_ar_out($ar, 0);
+$tpl->set_ar_out($ar, 'terminformular');
 $design->footer();
-
-?>

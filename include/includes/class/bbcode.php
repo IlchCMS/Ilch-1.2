@@ -1,9 +1,10 @@
 <?php
 /**
- * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
- * @copyright (C) 2000-2010 ilch.de originally from Thomas Bowe [Funjoy]
- * @version $Id$
- */
+*
+* @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+* @copyright (C) 2000-2010 ilch.de originally from Thomas Bowe [Funjoy]
+* @version $Id$
+*/
 /* Module - Information
 * -------------------------------------------------------
 * Hier könnt ihr eure Module includieren lassen.
@@ -50,16 +51,19 @@ class bbcode {
     protected $ayCacheKtextOpen = array();
     // > Cache fürQuotes Footer!
     protected $ayCacheKtextClose = array();
-
     // > Singleton Funktionen
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (is_null(self::$instance)) {
             self::$instance = new bbcode();
         }
         return self::$instance;
     }
-    private function __clone() {}
-    private function __construct() {
+    private function __clone()
+    {
+    }
+    private function __construct()
+    {
         global $global_smiles_array, $ILCH_BODYEND_ADDITIONS;
         require 'include/includes/func/bbcode_config.php';
         if (!isset($global_smiles_array)) {
@@ -74,11 +78,13 @@ class bbcode {
         $this->info = $info;
         $ILCH_BODYEND_ADDITIONS .= "<script type=\"text/javascript\">\nvar bbcodemaximagewidth = {$info['ImgMaxBreite']};\nvar bbcodemaximageheight = {$info['ImgMaxHoehe']};\n</script>";
     }
-    public function setConfig($name, $value) {
+    public function setConfig($name, $value)
+    {
         $this->info[$name] = $value;
     }
 
-    public static function getBBCodeButtons() {
+    public static function getBBCodeButtons()
+    {
         if (empty(self::$BBCodeButtons)) {
             // > Buttons Informationen.
             $ButtonSql = db_query("SELECT *	FROM prefix_bbcode_buttons WHERE fnButtonNr='1'");
@@ -132,15 +138,15 @@ class bbcode {
             if ($boolButton['fnFormatEmph'] == 1) {
                 $BBCodeButtons .= "<a href=\"javascript:bbcode_code_insert('emph','0')\"><img src=\"include/images/icons/bbcode/bbcode_emph.png\" alt=\"Text hervorheben\" title=\"Text hervorheben\" width=\"23\" height=\"22\" border=\"0\"></a> ";
             }
-            // > Schriftfarbe Button!
+            // > Schriftfarbeauswahlcontainer
             if ($boolButton['fnFormatColor'] == 1) {
-                $colorar = array('#FF0000' => 'red', '#FFFF00' => 'yellow', '#008000' => 'green', '#00FF00' => 'lime', '#008080' => 'teal', '#808000' => 'olive', '#0000FF' => 'blue', '#00FFFF' => 'aqua', '#000080' => 'navy', '#800080' => 'purple', '#FF00FF' => 'fuchsia', '#800000' => 'maroon', '#C0C0C0' => 'grey', '#808080' => 'silver', '#000000' => 'black', '#FFFFFF' => 'white',);
+                $colorar = array('#FF0000' => 'red', '#FFFF00' => 'yellow', '#008000' => 'green', '#00FF00' => 'lime', '#008080' => 'teal', '#808000' => 'olive', '#0000FF' => 'blue', '#00FFFF' => 'aqua', '#000080' => 'navy', '#800080' => 'purple', '#FF00FF' => 'fuchsia', '#800000' => 'maroon', '#C0C0C0' => 'grey', '#808080' => 'silver', '#000000' => 'black', '#FFFFFF' => 'white');
                 $BBCodeButtons .= "<a href=\"javascript:hide_color();\"><img id=\"bbcode_color_button\" src=\"include/images/icons/bbcode/bbcode_color.png\" alt=\"Text f&auml;rben\" title=\"Text f&auml;rben\" width=\"23\" height=\"22\" border=\"0\"></a> ";
-                $BBCodeButtons .= '<div style="display:none; position:absolute; top:0px; left:0px; width:200px; z-index:100;" id="colorinput">
-                  <table width="100%" class="border" border="0" cellspacing="1" cellpadding="0">
-                    <tr class="Chead" onclick="javascript:hide_color();"><td colspan="16"><b>Farbe wählen</b></td></tr>
-                    <tr class="Cmite" height="15">' . colorliste($colorar) . '</tr></table>
-                  </div>';
+                $BBCodeButtons .= '<div style="position:absolute;"><div style="display:none; position:relative; top:-30px; left:100px; width:200px; z-index:100;" id="colorinput">
+                <table width="100%" class="border" border="0" cellspacing="1" cellpadding="0">
+                	<tr class="Chead" onclick="javascript:hide_color();"><td colspan="16"><b>Farbe wählen</b></td></tr>
+                	<tr class="Cmite" height="15">' . colorliste($colorar) . '</tr></table>
+                </div></div>';
             }
             // > Schriftgröße Button!
             if ($boolButton['fnFormatSize'] == 1) {
@@ -227,9 +233,9 @@ class bbcode {
         }
         return self::$BBCodeButtons;
     }
-
     // > Codeblock verschlüsseln und wieder ausgeben.
-    protected function encode_codec($string, $tag, $file = null) {
+    protected function encode_codec($string, $tag, $file = null)
+    {
         $string = str_replace('\"', '"', $string);
         $file = ($file == null) ? "":"=" . $file;
         $crypt = md5(count($this->codecblocks));
@@ -237,10 +243,10 @@ class bbcode {
         return "[" . $tag . $file . "]" . $crypt . "[/" . $tag . "]";
     }
     // > Codeblock entschlüsseln und parsen!
-    protected function _codeblock($codecid, $file = null, $firstline = 1) {
+    protected function _codeblock($codecid, $file = null, $firstline = 1)
+    {
         $string = $this->codecblocks[$codecid . ':code'];
-        //$string = htmlentities($string);
-
+        // $string = htmlentities($string);
         $string = str_replace("\t", '&nbsp; &nbsp;', $string);
         $string = str_replace('  ', '&nbsp; ', $string);
         $string = str_replace('  ', ' &nbsp;', $string);
@@ -249,9 +255,10 @@ class bbcode {
         return $this->_addcodecontainer($string, 'Code', $file, $firstline);
     }
     // > htmlblock entschlüsseln und parsen!
-    protected function _htmlblock($codecid, $file = null, $firstline = 1) {
+    protected function _htmlblock($codecid, $file = null, $firstline = 1)
+    {
         $string = $this->codecblocks[$codecid . ':html'];
-        //$string = htmlentities($string);
+        // $string = htmlentities($string);
         // > Highlight Modul Funktion checken ob sie existerit.
         if (function_exists("highlight_html")) {
             $string = highlight_html($string, $this->info['BlockCodeFarbe']);
@@ -265,9 +272,10 @@ class bbcode {
         return $this->_addcodecontainer($string, 'HTML', $file, $firstline);
     }
     // > cssblock entschlüsseln und parsen!
-    protected function _cssblock($codecid, $file = null, $firstline = 1) {
+    protected function _cssblock($codecid, $file = null, $firstline = 1)
+    {
         $string = $this->codecblocks[$codecid . ':css'];
-        //$string = htmlentities($string);
+        // $string = htmlentities($string);
         // > Highlight Modul Funktion checken ob sie existerit.
         if (function_exists("highlight_css")) {
             $string = highlight_css($string);
@@ -281,7 +289,8 @@ class bbcode {
         return $this->_addcodecontainer($string, 'CSS', $file, $firstline);
     }
     // > phpblock entschlüsseln und parsen!
-    protected function _phpblock($codecid, $file = null, $firstline = 1) {
+    protected function _phpblock($codecid, $file = null, $firstline = 1)
+    {
         $string = $this->codecblocks[$codecid . ':php'];
         if (strpos($string, '<?php') === false) {
             $string = "<?php\n{$string}\n?>";
@@ -299,7 +308,8 @@ class bbcode {
         return $this->_addcodecontainer($php, 'Php', $file, $firstline);
     }
 
-    protected function _addcodecontainer($code, $type, $file = null, $firstline = 1) {
+    protected function _addcodecontainer($code, $type, $file = null, $firstline = 1)
+    {
         // > Datei pfad mit angegeben?
         $file = ($file == null) ? "":" von Datei <em>" . $this->_shortwords($file) . "</em>";
         // > Zeilen zählen.
@@ -325,7 +335,8 @@ class bbcode {
         return $header . $code . $footer;
     }
     // > Smilies aus dem Array auslesen.
-    protected function _smileys($string) {
+    protected function _smileys($string)
+    {
         if (!is_null($this->smileys) && is_array($this->smileys)) {
             if ($this->permitted['smileys'] == true) {
                 $smileystart = '#@' . uniqid('') . '@#';
@@ -366,7 +377,8 @@ class bbcode {
     // }
     // }
     // > Badwords Filtern.
-    protected function _badwords($string) {
+    protected function _badwords($string)
+    {
         // > Badwords aus der Datenbank laden!
         $cfgBBCodeSql = db_query("SELECT fcBadPatter, fcBadReplace FROM prefix_bbcode_badword");
         while ($row = db_fetch_object($cfgBBCodeSql)) {
@@ -380,7 +392,8 @@ class bbcode {
         return $string;
     }
     // > Liste formatieren.
-    protected function _list($codecid) {
+    protected function _list($codecid)
+    {
         $string = $this->codecblocks[$codecid . ':list'];
         $array = explode("[*]", $string);
         for($no = 1;$no <= (count($array) - 1);$no++) {
@@ -390,18 +403,15 @@ class bbcode {
         return "<ul>" . $li . "</ul>";
     }
     // > Auf Maximale Schriftgröße überprüfen.
-    protected function _size($size, $string) {
+    protected function _size($size, $string)
+    {
         $max = $this->info['SizeMax'];
-        if ($size <= $max) {
-            $fontsize = "<span style=\"font-size:" . $size . "px\">$string</span>";
-        } else {
-            $fontsize = "<span style=\"font-size:" . $max . "px\">$string</span>";
-        }
-
-        return $fontsize;
+        // return '<span style="font-size:' . ($size > $max ? $max : $size) . 'px">' . $string . '</span>';
+        return '<span style="font-size:' . ($size > $max ? $max : $size) . 'px">' . stripcslashes($string) . '</span>';
     }
     // > Bilder auf Verkleinern via Javascript überprüfen.
-    protected function _img($string, $float = '') {
+    protected function _img($string, $float = '')
+    {
         if ($float == 'none' OR $float == 'left' OR $float == 'right') {
             $float = 'style="float:' . $float . '; margin: 5px;" ';
         } else {
@@ -411,7 +421,8 @@ class bbcode {
         return $image;
     }
     // > Screenshots darstellen.
-    protected function _screenshot($string, $float = 'none') {
+    protected function _screenshot($string, $float = 'none')
+    {
         if ($float == 'none' OR $float == 'left' OR $float == 'right') {
             $float = 'style="float:' . $float . '; margin: 5px;" ';
         } else {
@@ -421,7 +432,8 @@ class bbcode {
         return $image;
     }
     // > Urls Filtern um XSS vorzubeugen
-    protected function _filterurl($url) {
+    protected function _filterurl($url)
+    {
         return str_replace(
             array('<', '>', '(', ')', '#'),
             array('&lt;', '&gt;', '&#40;', '&#41;', '&#35;'),
@@ -429,15 +441,20 @@ class bbcode {
             );
     }
     // > Links darstellen und ggf. kürzen
-    protected function _shorturl($string, $caption = null) {
+    protected function _shorturl($string, $caption = null)
+    {
         if ($caption == null) {
             $caption = $string;
         }
         $string = trim($string);
         $caption = trim($caption);
         $server = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'];
+        //Wenn kein Protokoll angegeben ist
         if (preg_match('%^((http|ftp|https)://)|^/%i', $string) == 0) {
-            $string = 'http://' . $string;
+            //Schauen ob Link mit www. beginnt, ansonsten wird angenommen, dass der Link relativ sein soll
+            if (preg_match('/^www\./i', $string) == 1) {
+                $string = 'http://' . $string;
+            }
         }
         if (substr($string, 0, 1) == '/' OR strpos($string, $server) !== false) {
             $target = '_self';
@@ -445,16 +462,14 @@ class bbcode {
             $target = '_blank';
         }
 
-        $count = strlen($caption);
-        if ($count >= $this->info['UrlMaxLaenge']) {
-            $string = "<a href=\"" . $string . "\" target=\"" . $target . "\">" . $this->_shortcaptions($caption) . "</a>";
-        } else {
-            $string = "<a href=\"" . $string . "\" target=\"" . $target . "\">" . $caption . "</a>";
+        if (strlen($caption) >= $this->info['UrlMaxLaenge']) {
+            $caption = $this->_shortcaptions($caption);
         }
-        return $string;
+        return '<a href="' . $string . '" target="' . $target . '">' . $caption . '</a>';
     }
     // > Linkbeschreibung kürzen
-    protected function _shortcaptions($string) {
+    protected function _shortcaptions($string)
+    {
         $words = explode(" ", $string);
         foreach($words as $word)
         if (strlen($word) > $this->info['WortMaxLaenge'] && !preg_match('%(\[(img|shot)\](.*)\[/(img|shot)\])%i', $word)) {
@@ -464,7 +479,8 @@ class bbcode {
         return $string;
     }
     // > Hilfsfunktion für _shortwords
-    protected function _checkpatterns($patterns, $word) {
+    protected function _checkpatterns($patterns, $word)
+    {
         if (!is_array($patterns)) {
             return true;
         }
@@ -476,7 +492,8 @@ class bbcode {
         return true;
     }
     // > Zu lange Wörter kürzen.
-    protected function _shortwords($string) {
+    protected function _shortwords($string)
+    {
         // > Zeichenkette in einzelne Array elemente zerlegen.
         $lines = explode("\n", $string);
         // > Patter Befehle die nicht gekürzt werden dürfen !!!
@@ -493,13 +510,14 @@ class bbcode {
             if (strlen($word) > $this->info['WortMaxLaenge'] && $this->_checkpatterns($pattern, $word)) {
                 // Auskommentiert also Variante mit 'zulanges...Wort' zu gunsten von 'zulanges allesdazwischen Wort' (ohne ...)
                 // $maxd2 = sprintf("%00d",($this->info['WortMaxLaenge']/2));
-                $string = wordwrap($string, $this->info['WortMaxLaenge'],' ', true);
+                $string = wordwrap($string, $this->info['WortMaxLaenge'], ' ', true);
             }
         }
         return $string;
     }
     // > Geöffnete Ktext- Tags Nummerieren.
-    protected function _addKtextOpen($Titel = null) {
+    protected function _addKtextOpen($Titel = null)
+    {
         $this->ayCacheKtextOpen[count($this->ayCacheKtextOpen) + 1] = true;
         $intCountKtext = count($this->ayCacheKtextOpen);
 
@@ -508,14 +526,16 @@ class bbcode {
         return $string;
     }
     // > Geschlossene Ktext- Tags Nummerieren.
-    protected function _addKtextClose() {
+    protected function _addKtextClose()
+    {
         $this->ayCacheKtextClose[count($this->ayCacheKtextClose) + 1] = true;
         $intCountKtext = count($this->ayCacheKtextClose);
 
         return "[/ktext:" . $intCountKtext . "]";
     }
     // > Ktext- Tags umwandeln..
-    protected function _ktext($string) {
+    protected function _ktext($string)
+    {
         $Random = rand(1, 10000000);
         // > Html- Muster für geöffnete Tags mit Titel.
         $HeaderTitel = "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"" . $this->info['KtextTabelleBreite'] . "\" align=\"center\">"
@@ -554,7 +574,8 @@ class bbcode {
         return $string;
     }
     // > Geöffnete Quote- Tags Nummerieren.
-    protected function _addQuoteOpen($User = null) {
+    protected function _addQuoteOpen($User = null)
+    {
         $this->ayCacheQuoteOpen[count($this->ayCacheQuoteOpen) + 1] = $User;
         $intCountQuote = count($this->ayCacheQuoteOpen);
 
@@ -567,14 +588,16 @@ class bbcode {
         return $string;
     }
     // > Geschlossene Quote- Tags Nummerieren.
-    protected  function _addQuoteClose() {
+    protected function _addQuoteClose()
+    {
         $this->ayCacheQuoteClose[count($this->ayCacheQuoteClose) + 1] = true;
         $intCountQuote = count($this->ayCacheQuoteClose);
 
         return "[/quote:" . $intCountQuote . "]";
     }
     // > Quote- Tags umwandeln.
-    protected function _quote($string) {
+    protected function _quote($string)
+    {
         // > überprüfen ob Bod gesetzt ist.
         if (strtolower($this->info['QuoteSchriftformatIT']) == "bold") {
             $Schriftformat = "font-weight:bold;";
@@ -629,7 +652,8 @@ class bbcode {
         return $string;
     }
     // > Video intergration.
-    protected function _video($typ, $id) {
+    protected function _video($typ, $id)
+    {
         $typ = strtolower($typ);
 
         if ($typ == "google") {
@@ -651,14 +675,15 @@ class bbcode {
         return $str;
     }
     // > Countdown berechnen.
-    protected function _countdown($date, $time = null) {
+    protected function _countdown($date, $time = null)
+    {
         $date = explode(".", $date);
 
         if ($time != null) {
             $timechk = explode(':', $time);
             if ($timechk[0] <= 23 && $timechk[1] <= 59 && $timechk[2] <= 59) $timechk = true;
             else $timechk = false;
-        }else $timechk = true;
+        } else $timechk = true;
         // > Html Design.
         $Header = "<div style=\"width:" . $this->info['CountdownTabelleBreite'] . ";padding:5px;font-family:Verdana;font-size:" . $this->info['CountdownSchriftsize'] . "px;" . $Font . "color:" . $this->info['CountdownSchriftfarbe'] . ";border:2px dotted " . $this->info['CountdownRandFarbe'] . ";text-align:center\">";
         $Footer = "</div>";
@@ -708,11 +733,13 @@ class bbcode {
         return $str;
     }
 
-    protected function _ws($ws) {
+    protected function _ws($ws)
+    {
         return $ws;
     }
     // > Flash verwerten
-    protected function _flash($url, $options) {
+    protected function _flash($url, $options)
+    {
         $width = $this->info['FlashBreite'];
         $height = $this->info['FlashHoehe'];
         if (!empty($options)) {
@@ -748,8 +775,9 @@ class bbcode {
         '</object>';
     }
 
-    public function onlySmileys($string, $maxLength) {
-        //Optionen setzen
+    public function onlySmileys($string, $maxLength)
+    {
+        // Optionen setzen
         if ($maxLength != 0) {
             $resetMaxLength = $this->info['fnWortMaxLaenge'];
             $this->info['fnWortMaxLaenge'] = $maxLength;
@@ -758,8 +786,7 @@ class bbcode {
         $string = $this->_shortwords($string);
         $string = nl2br($string);
         $string = $this->_smileys($string);
-
-        //Optionen rückgängig machen
+        // Optionen rückgängig machen
         if (isset($resetMaxLength)) {
             $this->info['fnWortMaxLaenge'] = $resetMaxLength;
         }
@@ -767,8 +794,9 @@ class bbcode {
         return $string;
     }
 
-    public function parse($string, $maxLength, $maxImgWidth, $maxImgHeight) {
-        //Optionen setzen
+    public function parse($string, $maxLength, $maxImgWidth, $maxImgHeight)
+    {
+        // Optionen setzen
         if ($maxLength != 0) {
             $resetMaxLength = $this->info['fnWortMaxLaenge'];
             $this->info['fnWortMaxLaenge'] = $maxLength;
@@ -781,7 +809,6 @@ class bbcode {
             $resetMaxImgHeight = $this->info['fnImgMaxBreite'];
             $this->info['fnImgMaxBreite'] = $maxImgHeight;
         }
-
         // > Die Blocks werden codiert um sie vor dem restlichen parsen zu schützen.
         if ($this->permitted['php'] == true) {
             $string = preg_replace("%\[php\](.+)\[\/php\]%esiU", "\$this->encode_codec('\$1','php')", $string);
@@ -811,7 +838,7 @@ class bbcode {
         // > BB Code der den Codeblock nicht betrifft.
         // > Überprüfen ob die wörter nicht die maximal länge überschrieten.
         $string = $this->_shortwords($string);
-        //$string = htmlentities($string);
+        // $string = htmlentities($string);
         $string = nl2br($string);
 
         if ($this->permitted['url'] == true) {
@@ -1005,16 +1032,14 @@ class bbcode {
         if ($this->permitted['list'] == true) {
             $string = preg_replace("%\[list\](.+)\[\/list\]%esiU", "\$this->_list('\$1')", $string);
         }
-
-        //Reset Arrays
+        // Reset Arrays
         $this->pattern = array();
         $this->replace = array();
         $this->ayCacheQuoteOpen = array();
         $this->ayCacheQuoteClose = array();
         $this->ayCacheKtextOpen = array();
         $this->ayCacheKtextClose = array();
-
-        //Optionen rückgängig machen
+        // Optionen rückgängig machen
         if (isset($resetMaxLength)) {
             $this->info['fnWortMaxLaenge'] = $resetMaxLength;
         }
@@ -1025,8 +1050,8 @@ class bbcode {
             $this->info['fnImgMaxBreite'] = $resetMaxImgHeight;
         }
 
-
         return $string;
     }
 }
+
 ?>

@@ -175,7 +175,7 @@ class tpl {
         }
     }
 
-    public function set_ar_out($ar, $pos) {
+    public function set_ar_out($ar, $pos = 0) {
         $this->set_ar($ar);
         $this->out($pos);
     }
@@ -268,12 +268,18 @@ class tpl {
         }
 
         foreach ($this->keys as $k => $v) {
+		 if (is_array($v)) {
+			 foreach ($v as $k1 => $v1) {
+				 $toout = str_replace('{' . $z . $k . '}', $v1, $toout);
+			 }
+		 }else {
             $toout = str_replace('{' . $z . $k . '}', $v, $toout);
+		 }
         }
         return ($toout);
     }
 
-    public function out($pos) {
+    public function out($pos = 0) {
         echo $this->get($pos);
     }
 }

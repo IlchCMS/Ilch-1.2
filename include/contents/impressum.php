@@ -23,7 +23,7 @@ echo '<br /><br />';
 echo $row[ 'v4' ]; // plz, ort
 echo '<br/><br />';
 echo 'Kontakt: <a href="index.php?contact">Formular</a><br /><br />';
-echo unescape($row[ 't1' ]); // disclaimer
+echo bbcode(unescape($row[ 't1' ])); // disclaimer
 
 // Credits-System von GeCk0 - Start
 # define some vars

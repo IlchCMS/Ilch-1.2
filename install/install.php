@@ -10,7 +10,7 @@ if (defined('DEBUG')) {
  * @version $Id: install.php 245 2011-09-11 13:13:27Z geck0 $
  */
 defined('E_DEPRECATED') or define('E_DEPRECATED', 0);
-@error_reporting(E_ALL > E_DEPRECATED ? E_ALL : E_ALL ^ E_DEPRECATED); 
+@error_reporting(E_ALL > E_DEPRECATED ? E_ALL : E_ALL ^ E_DEPRECATED);
 @date_default_timezone_set('Europe/Berlin');
 @ini_set('display_errors', 'On');
 
@@ -62,7 +62,7 @@ if ( empty ($_POST['step']) ) {
       <tr class="Cdark">
           <td align="center" width="40%"><span class="Cmite">Wähle hier ein Installationsprofil aus. <br>
 Die Standard-Installation wird durch die &quot;ilchClan.sql&quot; ausgewählt. <br>
-Mehr Infos dazu findest du in den <a href="http://ilch.de" target="_blank">FAQ</a></span></td>        
+Mehr Infos dazu findest du in den <a href="http://ilch.de" target="_blank">FAQ</a></span></td>
           <?php
 			# Auslesen der beigelegten install.sql - Files und deren Kommentare in der ersten Zeile
 		$sqllist = '';
@@ -70,8 +70,8 @@ Mehr Infos dazu findest du in den <a href="http://ilch.de" target="_blank">FAQ</
 		if ($sqlhandle = opendir('../install/')) {
 		$comment = array();
 		$_SESSION['installProfile'] = '';
-			while (FALSE !== ($sqlfilex = readdir($sqlhandle))) { 
-			 
+			while (FALSE !== ($sqlfilex = readdir($sqlhandle))) {
+
 				# nur .sql listen
 				$sqlextent = @explode('.', $sqlfilex);
 				if (isset($sqlextent[1]) and $sqlextent[1] == 'sql') {
@@ -114,28 +114,28 @@ $servercheck = array();
 
 // PHP Compare
 $servercheck['php_compare']['msg'] = 'PHP-Version 5.2.0 oder besser';
-if ( @version_compare(@phpversion(), '5.2.0') != -1) { 
- 	$servercheck['php_compare']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
-} else { 
-	$servercheck['php_compare']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
-} 
+if ( @version_compare(@phpversion(), '5.2.0') != -1) {
+ 	$servercheck['php_compare']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
+} else {
+	$servercheck['php_compare']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+}
 
 // Windows-PHP-Bug
 // https://github.com/IlchCMS/Ilch-1.2/wiki/Doc-pcre.recursion_limit-auf-Windows-Servern
 if (defined('PHP_OS') && function_exists('ini_get')) {
 	if ( (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN' or PHP_OS == 'WINNT') && ini_get('pcre.recursion_limit') > 600) {
 		$servercheck['php_overflow']['msg'] = '(Windows-Server) pcre.recursion_limit';
-		$servercheck['php_overflow']['erg'] = '<font color="#FF0000"><b>FALSCH</b> <a href="https://github.com/IlchCMS/Ilch-1.2/wiki/Doc-pcre.recursion_limit-auf-Windows-Servern">weitere Info</a></font>';
+		$servercheck['php_overflow']['erg'] = '<font color="#FF0000"><b>ACHTUNG</b> <a href="https://github.com/IlchCMS/Ilch-1.2/wiki/Doc-pcre.recursion_limit-auf-Windows-Servern">weitere Info</a></font>';
 		// Lösung ( für ./install/install.php und index.php
 		#if (function_exists('ini_set')) { ini_set("pcre.recursion_limit", "524"); }
 	}
 }
 // mySQL Server/Client-Check
 $servercheck['sql_compare']['msg'] = 'SQL 5.0.0 oder besser';
-		
+
 if (function_exists('mysql_get_server_info')) {
 	$sqlinfo = @mysql_get_server_info();
-	@preg_match('/[1-9]\.[0-9]\.\d{1,2}/', $sqlinfo, $sqlmatch); 
+	@preg_match('/[1-9]\.[0-9]\.\d{1,2}/', $sqlinfo, $sqlmatch);
 	if (isset($sqlmatch[0])) $sqlserver = $sqlmatch[0];
 }
 if (!isset($sqlmatch[0])) {
@@ -143,23 +143,23 @@ if (!isset($sqlmatch[0])) {
 	phpinfo(INFO_MODULES);
 	$sqlinfo = ob_get_contents();
 	ob_end_clean();
-	$sqlinfo = stristr($sqlinfo, 'Client API version');		
-	preg_match('/[1-9]\.[0-9]\.\d{1,2}/', $sqlinfo, $sqlmatch);  	
+	$sqlinfo = stristr($sqlinfo, 'Client API version');
+	preg_match('/[1-9]\.[0-9]\.\d{1,2}/', $sqlinfo, $sqlmatch);
 	if (isset($sqlmatch[0])) $sqlserver = $sqlmatch[0];
 }
-if ( @version_compare($sqlserver, '5.0.0') != -1) { 
-		$servercheck['sql_compare']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
+if ( @version_compare($sqlserver, '5.0.0') != -1) {
+		$servercheck['sql_compare']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
 } else {
-		$servercheck['sql_compare']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+		$servercheck['sql_compare']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
 }
 
 // config.php
 	$servercheck['configphp']['msg'] = '"../include/includes/config.php" (CHMOD 666)';
-if ( file_exists( '../include/includes/config.php' ) and is_writeable ( '../include/includes/config.php' ) ) { 
-	$servercheck['configphp']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
-} else 
-if ( file_exists( 'include/includes/config.php' ) and !is_writeable ( '../include/includes/config.php' ) ){ 
-	$servercheck['configphp']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+if ( file_exists( '../include/includes/config.php' ) and is_writeable ( '../include/includes/config.php' ) ) {
+	$servercheck['configphp']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
+} else
+if ( file_exists( 'include/includes/config.php' ) and !is_writeable ( '../include/includes/config.php' ) ){
+	$servercheck['configphp']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
 } else
 if ( !file_exists( '../include/includes/config.php' ) and is_writeable('../include/includes/')) {
 	$servercheck['configphp']['erg'] = '<font color="#40aa00"><b>wird angelegt</b></font>';
@@ -168,111 +168,111 @@ if ( !file_exists( '../include/includes/config.php' ) and is_writeable('../inclu
 }
 // smarty-cache
 $servercheck['smarty/cache']['msg'] = '"../include/cache" (CHMOD 777)';
-if ( @is_writeable ( '../include/cache' ) ) { 
-	$servercheck['smarty/cache']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
-} else { 
-	$servercheck['smarty/cache']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+if ( @is_writeable ( '../include/cache' ) ) {
+	$servercheck['smarty/cache']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
+} else {
+	$servercheck['smarty/cache']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
 }
 // backup-verzeichnis
 $servercheck['backup_dir']['msg'] = '"../include/backup/" (CHMOD 777)';
-if ( @is_writeable ( '../include/backup' ) ) { 
-	$servercheck['backup_dir']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
-} else { 
-	$servercheck['backup_dir']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+if ( @is_writeable ( '../include/backup' ) ) {
+	$servercheck['backup_dir']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
+} else {
+	$servercheck['backup_dir']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
 }
 // selfpb
 $servercheck['selfbp/selfp']['msg'] = '"../include/contents/selfbp/selfp" (CHMOD 777)';
-if ( @is_writeable ( '../include/contents/selfbp/selfp' ) ) { 
-	$servercheck['selfbp/selfp']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
-} else { 
-	$servercheck['selfbp/selfp']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+if ( @is_writeable ( '../include/contents/selfbp/selfp' ) ) {
+	$servercheck['selfbp/selfp']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
+} else {
+	$servercheck['selfbp/selfp']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
 }
 // selfpb
 $servercheck['selfbp/selfb']['msg'] = '"../include/contents/selfbp/selfb" (CHMOD 777)';
-if ( @is_writeable ( '../include/contents/selfbp/selfb' ) ) { 
-	$servercheck['selfbp/selfb']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
-} else { 
-	$servercheck['selfbp/selfb']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+if ( @is_writeable ( '../include/contents/selfbp/selfb' ) ) {
+	$servercheck['selfbp/selfb']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
+} else {
+	$servercheck['selfbp/selfb']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
 }
 
 // images/linkus
 $servercheck['images/linkus']['msg'] = '"../include/images/linkus" (CHMOD 777)';
-if ( @is_writeable ( '../include/images/linkus' ) ) { 
-	$servercheck['images/linkus']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
-} else { 
-	$servercheck['images/linkus']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+if ( @is_writeable ( '../include/images/linkus' ) ) {
+	$servercheck['images/linkus']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
+} else {
+	$servercheck['images/linkus']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
 }
 // images/avatars
 $servercheck['images/avatar']['msg'] = '"../include/images/avatars" (CHMOD 777)';
-if ( @is_writeable ( '../include/images/avatars' ) ) { 
-	$servercheck['images/avatar']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
-} else { 
-	$servercheck['images/avatar']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+if ( @is_writeable ( '../include/images/avatars' ) ) {
+	$servercheck['images/avatar']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
+} else {
+	$servercheck['images/avatar']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
 }
 // images/opponents
 $servercheck['images/opponents']['msg'] = '"../include/images/opponents" (CHMOD 777)';
-if ( @is_writeable ( '../include/images/opponents' ) ) { 
-	$servercheck['images/opponents']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
-} else { 
-	$servercheck['images/opponents']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+if ( @is_writeable ( '../include/images/opponents' ) ) {
+	$servercheck['images/opponents']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
+} else {
+	$servercheck['images/opponents']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
 }
 // images/gallery
 $servercheck['images/gallery']['msg'] = '"../include/images/gallery" (CHMOD 777)';
-if ( @is_writeable ( '../include/images/gallery' ) ) { 
-	$servercheck['images/gallery']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
-} else { 
-	$servercheck['images/gallery']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+if ( @is_writeable ( '../include/images/gallery' ) ) {
+	$servercheck['images/gallery']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
+} else {
+	$servercheck['images/gallery']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
 }
 // images/smilies
 $servercheck['images/smiles']['msg'] = '"../include/images/smiles" (CHMOD 777)';
-if ( @is_writeable ( '../include/images/smiles' ) ) { 
-	$servercheck['images/smiles']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
-} else { 
-	$servercheck['images/smiles']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+if ( @is_writeable ( '../include/images/smiles' ) ) {
+	$servercheck['images/smiles']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
+} else {
+	$servercheck['images/smiles']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
 }
 
 // images/usergallery
 $servercheck['images/usergallery']['msg'] = '"../include/images/usergallery" (CHMOD 777)';
-if ( @is_writeable ( '../include/images/usergallery' ) ) { 
-	$servercheck['images/usergallery']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
-} else { 
-	$servercheck['images/usergallery']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+if ( @is_writeable ( '../include/images/usergallery' ) ) {
+	$servercheck['images/usergallery']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
+} else {
+	$servercheck['images/usergallery']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
 }
 // images/wars
 $servercheck['images/wars']['msg'] = '"../include/images/wars" (CHMOD 777)';
-if ( @is_writeable ( '../include/images/wars' ) ) { 
-	$servercheck['images/wars']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
-} else { 
-	$servercheck['images/wars']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+if ( @is_writeable ( '../include/images/wars' ) ) {
+	$servercheck['images/wars']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
+} else {
+	$servercheck['images/wars']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
 }
 
 // downs/downloads
 $servercheck['downs/downloads']['msg'] = '"../include/downs/downloads" (CHMOD 777)';
-if ( @is_writeable ( '../include/downs/downloads' ) ) { 
-	$servercheck['downs/downloads']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
-} else { 
-	$servercheck['downs/downloads']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+if ( @is_writeable ( '../include/downs/downloads' ) ) {
+	$servercheck['downs/downloads']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
+} else {
+	$servercheck['downs/downloads']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
 }
 
 // downs/downloads/user_upload
 $servercheck['downs/downloads/user_upload']['msg'] = '"../include/downs/downloads/user_upload" (CHMOD 777)';
-if ( @is_writeable ( '../include/downs/downloads/user_upload' ) ) { 
-	$servercheck['downs/downloads/user_upload']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
-} else { 
-	$servercheck['downs/downloads/user_upload']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+if ( @is_writeable ( '../include/downs/downloads/user_upload' ) ) {
+	$servercheck['downs/downloads/user_upload']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
+} else {
+	$servercheck['downs/downloads/user_upload']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
 }
 // .htaccess
 $servercheck['htaccess']['msg'] = '"../.htaccess" (CHMOD 777)';
-if ( @is_writeable ( '../.htaccess' ) ) { 
-	$servercheck['htaccess']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>'; 
-} else { 
+if ( @is_writeable ( '../.htaccess' ) ) {
+	$servercheck['htaccess']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
+} else {
 	if (is_file('../.htaccess')) {
-		$servercheck['htaccess']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>'; 
+		$servercheck['htaccess']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
 	} else {
 		if (FALSE === file_put_contents('../.htaccess', '')) {
-			$servercheck['htaccess']['erg'] = '<font color="#CC9933"><b>bitte eine leere .htaccess anlegen</b></font>'; 
+			$servercheck['htaccess']['erg'] = '<font color="#CC9933"><b>bitte eine leere .htaccess anlegen</b></font>';
 		} else {
-			$servercheck['htaccess']['erg'] = '<font color="#40aa00"><b>Datei angelegt</b></font>'; 
+			$servercheck['htaccess']['erg'] = '<font color="#40aa00"><b>Datei angelegt</b></font>';
 		}
 	}
 }
@@ -301,7 +301,7 @@ foreach ($servercheck as $key => $val) {
 				<td><input type="submit" value="Weiter ->"></td>
 		</tr>
  	</table>
-    
+
 <?php
 } elseif ( $_POST['step'] == 4 ) {
   ?>
@@ -532,11 +532,11 @@ db_query ("UPDATE prefix_config SET wert = '".$_POST['admin_email']."' WHERE sch
 		messages: {
 			admin_pwd: {
 				required: "Bitte wählen Sie ein Passwort",
-				minlength: "Ihr Passwort muss mindestens 8 Zeischen lang sein.",
+				minlength: "Ihr Passwort muss mindestens 8 Zeichen lang sein.",
 			},
 			confirm_admin_pwd: {
 				required: "Bitte wählen Sie ein Passwort",
-				minlength: "Ihr Passwort muss mindestens 8 Zeischen lang sein.",
+				minlength: "Ihr Passwort muss mindestens 8 Zeichen lang sein.",
 				equalTo: "Bitte das selbe Passwort wie oben angeben."
 			},
 			confirm_mysql_password: {

@@ -982,7 +982,7 @@ INSERT INTO `prefix_modules` (`id`, `url`, `name`, `gshow`, `ashow`, `fright`, `
 (47, 'wars', 'Wars', 0, 0, 1, '', 0),
 (48, 'kasse', 'Kasse', 1, 0, 1, 'Clanbox', 5),
 (49, 'gbook', 'G&auml;stebuch', 1, 0, 1, 'Content', 5),
-(50, 'awaycal', 'Awaycal', 0, 0, 0, '', 0),
+(50, 'awaycal', 'Awaycal', 0, 0, 1, 'Content', 0),
 (51, 'news', 'News', 1, 0, 1, 'Content', 0),
 (52, 'allg', 'Konfiguration', 1, 0, 0, 'Admin', 0),
 (53, 'backup', 'Backup', 1, 0, 0, 'Admin', 3),

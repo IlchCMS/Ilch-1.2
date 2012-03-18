@@ -1,3 +1,5 @@
+{text}
+{EXPLODE "terminformular"}
 <noscript>Bitte JavaScript aktivieren</noscript>
 <form action="index.php?awaycal" method="POST" name="awaycal_form" id="awaycal_form">
 <input type="hidden" name="ch" value="{id}" class="hidden input_text" />
@@ -19,12 +21,12 @@
   </tr>
 </table>
 </form>
-{EXPLODE}
+{EXPLODE "listbegin"}
 <table width="100%" border="0" cellpadding="2" cellspacing="1" class="border">
   <tr class="Chead">
     <td><span class="bold _lang_datemanage">{_lang_datemanage}</span></td>
   </tr>
-  {EXPLODE}
+  {EXPLODE "listitem"}
   <tr class="{class}">
     <td>
       <span class="fright">{_lang_from}<span class="colon">:</span> {von} - {bis},&nbsp;<span class="underlined">{status}</span></span>
@@ -33,6 +35,6 @@
       {betreff}
     </td>
   </tr>
-  {EXPLODE}
+  {EXPLODE "listend"}
 </table>
 <br />
