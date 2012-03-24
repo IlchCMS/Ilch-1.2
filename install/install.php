@@ -24,11 +24,12 @@ function getInstallprofileComment($file)
 <html>
 
 <head>
-  <script src="../include/includes/js/global/jquery-1.5.1.js" type="text/javascript"></script>
+  <script src="../include/includes/js/global/jquery-1.7.1.js" type="text/javascript"></script>
   <script src="../include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>... ::: [ I n s t a l l a t i o n &nbsp; f &uuml; r &nbsp; C l a n s c r i p t &nbsp; v o n &nbsp; i l c h ] ::: ...</title>
-	<link rel="stylesheet" href="../include/designs/ilchClan/style.css" type="text/css">
+	<link rel="stylesheet" href="../include/designs/ilchClan12/style.css" type="text/css">
+    <link rel="stylesheet" href="../include/includes/css/jquery/templates/redmond/jquery-ui.css" type="text/css">
 	<style type="text/css">.hide { display:none; }</style>
 
 </head>
@@ -46,20 +47,20 @@ if ( empty ($_POST['step']) ) {
 		<input type="hidden" name="step" value="3" />
 
 		<table width="700" class="border" border="0" cellspacing="1" cellpadding="3" align="center">
-      <tr class="Chead">
+      <tr class="ui-state-default ui-corner-all">
           <td colspan="3"><b>Lizenz</b></td>
         </tr>
       <tr class="Cmite">
-          <td colspan="3" align="center"><p><a href="http://www.gnu.de/documents/gpl.de.html" target="_blank"><img src="ilch_logo.png" width="192" height="96" border="0"><br>
+          <td colspan="3" align="center" class="ui-widget-content ui-corner-all"><p><a href="http://www.gnu.de/documents/gpl.de.html" target="_blank"><img src="ilch_logo.png" width="192" height="96" border="0"><br>
               <img src="http://www.gnu.org/graphics/gplv3-127x51.png" width="79" height="31" border="0"><br>
               Komplette Lizenz lesen</a><br>
               <br>
           </p></td>
           </tr>
-      <tr class="Chead">
+      <tr class="ui-state-default ui-corner-all">
           <td colspan="3"><b>Installationsprofil</b></td>
           </tr>
-      <tr class="Cdark">
+      <tr  class="ui-widget-content ui-corner-all">
           <td align="center" width="40%"><span class="Cmite">Wähle hier ein Installationsprofil aus. <br>
 Die Standard-Installation wird durch die &quot;ilchClan.sql&quot; ausgewählt. <br>
 Mehr Infos dazu findest du in den <a href="http://ilch.de" target="_blank">FAQ</a></span></td>
@@ -83,7 +84,7 @@ Mehr Infos dazu findest du in den <a href="http://ilch.de" target="_blank">FAQ</
 			closedir($sqlhandle);
 		}
 		?>
-          <td width="20%" align="center"><select name="selectinstallsql" id="selectinstallsql">
+          <td width="20%" align="center"  class="ui-widget-content ui-corner-all"><select name="selectinstallsql" id="selectinstallsql">
               <?php echo $sqllist; ?>
           </select></td>
 				<td width="40%" align="center">
@@ -95,7 +96,7 @@ Mehr Infos dazu findest du in den <a href="http://ilch.de" target="_blank">FAQ</
 				?>
                <p id="sqlComment">{1. Kommentarzeile aus der gewählten SQL}</p>
       <tr class="Cdark">
-          <td colspan="3" align="center"><input type="submit" id="submitstep1" value="Lizenz gelesen und akzeptiert"></td>
+          <td colspan="3" align="center"><input type="submit" id="submitstep1" value="Lizenz gelesen und akzeptiert" class="ui-button ui-state-default ui-corner-all"></td>
           </tr>
     </table>
 <?php
@@ -107,7 +108,7 @@ $servercheck = array();
 <input type="hidden" name="step" value="4" />
 <table width="700" class="border" border="0" cellspacing="1" cellpadding="3" align="center">
       <tr class="Chead">
-        <td colspan="2"><b>Voraussetzungen Pr&uuml;fen</b> <?php echo $_POST['selectinstallsql']; ?></td>
+        <td colspan="2" class="ui-state-default ui-corner-all"><b>Voraussetzungen Pr&uuml;fen</b> <?php echo $_POST['selectinstallsql']; ?></td>
 		</tr>
         <input type="hidden" name="selectinstallsql" id="selectinstallsql" value="<?php echo $_POST['selectinstallsql']; ?>" />
 <?php
@@ -298,7 +299,7 @@ foreach ($servercheck as $key => $val) {
 ?>
 <tr class="Cdark">
 		    <td></td>
-				<td><input type="submit" value="Weiter ->"></td>
+				<td><input type="submit" value="Weiter ->" class="ui-button ui-state-default ui-corner-all"></td>
 		</tr>
  	</table>
 
@@ -309,7 +310,7 @@ foreach ($servercheck as $key => $val) {
 	<input type="hidden" name="selectinstallsql" id="selectinstallsql" value="<?php echo $_POST['selectinstallsql']; ?>">
 	<table width="700" class="border" border="0" cellspacing="1" cellpadding="3" align="center">
       <tr class="Chead">
-        <td colspan="3"><b>Installation </b>- <?php echo $_POST['selectinstallsql']; ?></td>
+        <td colspan="3" class="ui-state-default ui-corner-all"><b>Installation </b>- <?php echo $_POST['selectinstallsql']; ?></td>
 			</tr><tr class="Cdark">
  		    <td colspan="3"><b>MySQL Einstellungen</b><br />Wenn Sie mit den MySQL Daten nicht zurecht kommen, also nicht wissen was Sie im folgenden eingeben sollen, lesen Sie bitte erst die Beschreibung hinter dem Feld und bei weiterer Unklarheit wenden Sie sich an Ihren Webspace Anbieter oder Ihren Systemadministrator um die n&ouml;tigen Daten zu erfahren.</td>
 		  </tr><tr>
@@ -361,7 +362,7 @@ foreach ($servercheck as $key => $val) {
   		    <td class="Cnorm">Die eMail-Adresse des Administrator Users (also vermutlich Ihre eMail-Adresse).</td>
   		    </tr>
   		<tr class="Cdark">
-				<td colspan="3" align="center"><p>&nbsp;</p>				    <button onClick="javascript:submitForm();">Daten Speichern und Installieren</button></td>
+				<td colspan="3" align="center"><p>&nbsp;</p>				    <button onClick="javascript:submitForm();" class="ui-button ui-state-default ui-corner-all">Daten Speichern und Installieren</button></td>
  			</tr>
  	</table>
 </form>
@@ -416,14 +417,18 @@ if (DBPREF.'allg' == @db_result(@db_query("SHOW TABLES LIKE 'prefix_allg'"),0)) 
   ?>
 		<table width="70%" class="border" border="0" cellspacing="0" cellpadding="25" align="center">
       <tr>
-        <td class="Cmite">
-    	    <h1 style="color: #FF0000;">FEHLER: Es ist ein <u>Fehler</u> aufgetreten!</h2>
-          Die Installation wurde vermutlich schon ausgef&uuml;hrt.
-          <br />Auf jeden Fall ist die allgemeine Tabelle schon vorhanden...
+        <td class="ui-state-error ui-corner-all">
+        	<p><span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-alert"></span>Die Installation wurde vermutlich schon ausgef&uuml;hrt.
+          <br />
+          Auf jeden Fall ist die allgemeine Tabelle schon vorhanden...
           <br />Bitte ersteinmal den Status der <a href="index.php">Seite</a> checken.
           <br />- Wenn es die Version 1.1 ist, dann bitte das Update ausf&uuml;hren.
           <br />- Ansonsten wurde die Version 1.2 offenbar schon installiert.
           <br /><br />Bei Fragen bitte auf <a href="http://www.ilch.de/">ilch.de</a> nachfragen.
+          </p>
+		
+   	      <h1 style="color: #FF0000;">FEHLER: Es ist ein <u>Fehler</u> aufgetreten!</h2>
+
         </td>
       </tr>
     </table>
@@ -472,7 +477,7 @@ db_query ("UPDATE prefix_config SET wert = '".$_POST['admin_email']."' WHERE sch
 ?>
 		<table width="70%" class="border" border="0" cellspacing="0" cellpadding="25" align="center">
       <tr>
-        <td class="Cmite">
+        <td class="ui-state-highlight ui-corner-all">
     	    <h2><b>Installation abgeschlossen</b></h2>
 					Sofern keine Fehler aufgetreten sind ist die Installation abgeschlossen.
 
