@@ -1,30 +1,38 @@
 -- die Standard Clan-Installation mit allen Menüs für Community und Clans
-
 -- in der Ersten Kommentarzeile wird die Beschreibung der Installationsdatei angegeben, welche als Hilfetext während der Installation ausgegeben wird.
 
 -- phpMyAdmin SQL Dump
--- version 3.3.3
+-- version 3.4.9
 -- http://www.phpmyadmin.net
--- Dumped by GeCk0
--- Host: localhost
--- Erstellungszeit: 11. September 2011 um 14:58
--- Server Version: 5.1.50
--- PHP-Version: 5.3.8-ZS5.5.0
+-- dump by GeCk0
+-- Host: 127.0.0.1
+-- Erstellungszeit: 24. Mrz 2012 um 16:56
+-- Server Version: 5.5.20
+-- PHP-Version: 5.3.10
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- Datenbank: `ilch_12`
+-- Datenbank: `ilch12dev`
 --
+CREATE DATABASE `ilch12dev` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `ilch12dev`;
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_allg`
+-- Tabellenstruktur für Tabelle `prefix_allg`
 --
 
 DROP TABLE IF EXISTS `prefix_allg`;
-CREATE TABLE IF NOT EXISTS `prefix_allg` (
+CREATE TABLE `prefix_allg` (
   `id` int(5) unsigned NOT NULL AUTO_INCREMENT,
   `k` varchar(255) NOT NULL DEFAULT '',
   `v1` varchar(255) NOT NULL DEFAULT '',
@@ -33,58 +41,52 @@ CREATE TABLE IF NOT EXISTS `prefix_allg` (
   `v4` varchar(255) NOT NULL DEFAULT '',
   `v5` varchar(255) NOT NULL DEFAULT '',
   `v6` varchar(255) NOT NULL DEFAULT '',
-  `t1` text NOT NULL,
+  `t1` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 --
 -- Daten für Tabelle `prefix_allg`
 --
 
-INSERT INTO `prefix_allg` (`k`, `v1`, `v2`, `v3`, `v4`, `v5`, `v6`, `t1`) VALUES
-('kontakt', ' ', '1', '1', ' ', ' ', ' ', 'admin@host.de|Webmaster'),
-('impressum', 'Verantwortlich für diese Seite:', 'Max Mustermann', 'Muster Str. 43', '12345 Musterhausen', '', '', ''),
-('kasse_kontodaten', '', '', '', '', '', '', 'Kontoinhaber: Max Mustermann\r\nBankname: Muster Sparkasse\r\nKontonummer: 123\r\nBankleitzahl: 123\r\nBIC: 123\r\nIBAN: 123\r\nVerwendungszweck: Spende für ilch.de ;-)'),
-('picofx', 'pic', '2.jpg', '', '', '', '', ''),
-('picofx', 'directory', '0', '', '', '', '', ''),
-('picofx', 'interval', '0', '', '', '', '', ''),
-('picofx', 'nextchange', '2011-10-05', '', '', '', '', ''),
-('picofx', 'picwidth', '100', '', '', '', '', ''),
-('trainzeiten', '', '', '', '', '', '', 'Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train'),
-('smtpconf', '', '', '', '', '', '', '');
-
+INSERT INTO `prefix_allg` (`id`, `k`, `v1`, `v2`, `v3`, `v4`, `v5`, `v6`, `t1`) VALUES
+(1, 'kontakt', ' ', '1', '1', ' ', ' ', ' ', 'admin@gecko-dev.de|Webmaster'),
+(2, 'impressum', 'Verantwortlich für diese Seite:', 'Max Mustermann', 'Muster Str. 43', '12345 Musterhausen', '', '', ''),
+(3, 'kasse_kontodaten', '', '', '', '', '', '', 'Kontoinhaber: Max Mustermann\r\nBankname: Muster Sparkasse\r\nKontonummer: 123\r\nBankleitzahl: 123\r\nBIC: 123\r\nIBAN: 123\r\nVerwendungszweck: Spende für ilch.de ;-)'),
+(4, 'picofx', 'pic', '2.jpg', '', '', '', '', ''),
+(5, 'picofx', 'directory', '0', '', '', '', '', ''),
+(6, 'picofx', 'interval', '0', '', '', '', '', ''),
+(7, 'picofx', 'nextchange', '2011-10-05', '', '', '', '', ''),
+(8, 'picofx', 'picwidth', '100', '', '', '', '', ''),
+(9, 'trainzeiten', '', '', '', '', '', '', 'Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train'),
+(10, 'smtpconf', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_awards`
+-- Tabellenstruktur für Tabelle `prefix_awards`
 --
 
 DROP TABLE IF EXISTS `prefix_awards`;
-CREATE TABLE IF NOT EXISTS `prefix_awards` (
+CREATE TABLE `prefix_awards` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `time` date NOT NULL DEFAULT '0000-00-00',
   `platz` varchar(10) NOT NULL DEFAULT '',
   `team` varchar(100) NOT NULL DEFAULT '',
-  `wofur` text NOT NULL,
+  `wofur` mediumtext NOT NULL,
   `bild` varchar(100) NOT NULL DEFAULT '',
-  `text` text NOT NULL,
+  `text` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_awards`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_awaycal`
+-- Tabellenstruktur für Tabelle `prefix_awaycal`
 --
 
 DROP TABLE IF EXISTS `prefix_awaycal`;
-CREATE TABLE IF NOT EXISTS `prefix_awaycal` (
+CREATE TABLE `prefix_awaycal` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `uid` mediumint(9) DEFAULT NULL,
   `pruef` tinyint(2) DEFAULT '2',
@@ -92,29 +94,24 @@ CREATE TABLE IF NOT EXISTS `prefix_awaycal` (
   `bis` date DEFAULT NULL,
   `betreff` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_awaycal`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_bbcode_badword`
+-- Tabellenstruktur für Tabelle `prefix_bbcode_badword`
 --
 
 DROP TABLE IF EXISTS `prefix_bbcode_badword`;
-CREATE TABLE IF NOT EXISTS `prefix_bbcode_badword` (
+CREATE TABLE `prefix_bbcode_badword` (
   `fnBadwordNr` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `fcBadPatter` varchar(70) NOT NULL DEFAULT '',
   `fcBadReplace` varchar(70) NOT NULL DEFAULT '',
   PRIMARY KEY (`fnBadwordNr`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
--- Daten f&uuml;r Tabelle `prefix_bbcode_badword`
+-- Daten für Tabelle `prefix_bbcode_badword`
 --
 
 INSERT INTO `prefix_bbcode_badword` (`fnBadwordNr`, `fcBadPatter`, `fcBadReplace`) VALUES
@@ -124,11 +121,11 @@ INSERT INTO `prefix_bbcode_badword` (`fnBadwordNr`, `fcBadPatter`, `fcBadReplace
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_bbcode_buttons`
+-- Tabellenstruktur für Tabelle `prefix_bbcode_buttons`
 --
 
 DROP TABLE IF EXISTS `prefix_bbcode_buttons`;
-CREATE TABLE IF NOT EXISTS `prefix_bbcode_buttons` (
+CREATE TABLE `prefix_bbcode_buttons` (
   `fnButtonNr` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `fnFormatB` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `fnFormatI` tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -157,10 +154,10 @@ CREATE TABLE IF NOT EXISTS `prefix_bbcode_buttons` (
   `fnFormatCountdown` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `fnFormatFlash` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`fnButtonNr`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
--- Daten f&uuml;r Tabelle `prefix_bbcode_buttons`
+-- Daten für Tabelle `prefix_bbcode_buttons`
 --
 
 INSERT INTO `prefix_bbcode_buttons` (`fnButtonNr`, `fnFormatB`, `fnFormatI`, `fnFormatU`, `fnFormatS`, `fnFormatEmph`, `fnFormatColor`, `fnFormatSize`, `fnFormatUrl`, `fnFormatUrlAuto`, `fnFormatEmail`, `fnFormatLeft`, `fnFormatCenter`, `fnFormatRight`, `fnFormatSmilies`, `fnFormatList`, `fnFormatKtext`, `fnFormatImg`, `fnFormatScreen`, `fnFormatVideo`, `fnFormatPhp`, `fnFormatCss`, `fnFormatHtml`, `fnFormatCode`, `fnFormatQuote`, `fnFormatCountdown`, `fnFormatFlash`) VALUES
@@ -169,11 +166,11 @@ INSERT INTO `prefix_bbcode_buttons` (`fnButtonNr`, `fnFormatB`, `fnFormatI`, `fn
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_bbcode_config`
+-- Tabellenstruktur für Tabelle `prefix_bbcode_config`
 --
 
 DROP TABLE IF EXISTS `prefix_bbcode_config`;
-CREATE TABLE IF NOT EXISTS `prefix_bbcode_config` (
+CREATE TABLE `prefix_bbcode_config` (
   `fnConfigNr` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `fnYoutubeBreite` smallint(3) unsigned NOT NULL DEFAULT '0',
   `fnYoutubeHoehe` smallint(3) unsigned NOT NULL DEFAULT '0',
@@ -195,11 +192,10 @@ CREATE TABLE IF NOT EXISTS `prefix_bbcode_config` (
   `fnFlashHoehe` smallint(3) unsigned NOT NULL DEFAULT '0',
   `fcFlashHintergrundfarbe` varchar(7) NOT NULL DEFAULT '',
   PRIMARY KEY (`fnConfigNr`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
-
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
--- Daten f&uuml;r Tabelle `prefix_bbcode_config`
+-- Daten für Tabelle `prefix_bbcode_config`
 --
 
 INSERT INTO `prefix_bbcode_config` (`fnConfigNr`, `fnYoutubeBreite`, `fnYoutubeHoehe`, `fcYoutubeHintergrundfarbe`, `fnGoogleBreite`, `fnGoogleHoehe`, `fcGoogleHintergrundfarbe`, `fnMyvideoBreite`, `fnMyvideoHoehe`, `fcMyvideoHintergrundfarbe`, `fnSizeMax`, `fnImgMaxBreite`, `fnImgMaxHoehe`, `fnScreenMaxBreite`, `fnScreenMaxHoehe`, `fnUrlMaxLaenge`, `fnWortMaxLaenge`, `fnFlashBreite`, `fnFlashHoehe`, `fcFlashHintergrundfarbe`) VALUES
@@ -208,11 +204,11 @@ INSERT INTO `prefix_bbcode_config` (`fnConfigNr`, `fnYoutubeBreite`, `fnYoutubeH
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_bbcode_design`
+-- Tabellenstruktur für Tabelle `prefix_bbcode_design`
 --
 
 DROP TABLE IF EXISTS `prefix_bbcode_design`;
-CREATE TABLE IF NOT EXISTS `prefix_bbcode_design` (
+CREATE TABLE `prefix_bbcode_design` (
   `fnDesignNr` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `fcQuoteRandFarbe` varchar(7) NOT NULL DEFAULT '',
   `fcQuoteTabelleBreite` varchar(7) NOT NULL DEFAULT '',
@@ -238,10 +234,10 @@ CREATE TABLE IF NOT EXISTS `prefix_bbcode_design` (
   `fcCountdownSchriftformat` varchar(7) NOT NULL DEFAULT '',
   `fnCountdownSchriftsize` smallint(2) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`fnDesignNr`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
--- Daten f&uuml;r Tabelle `prefix_bbcode_design`
+-- Daten für Tabelle `prefix_bbcode_design`
 --
 
 INSERT INTO `prefix_bbcode_design` (`fnDesignNr`, `fcQuoteRandFarbe`, `fcQuoteTabelleBreite`, `fcQuoteSchriftfarbe`, `fcQuoteHintergrundfarbe`, `fcQuoteHintergrundfarbeIT`, `fcQuoteSchriftformatIT`, `fcQuoteSchriftfarbeIT`, `fcBlockRandFarbe`, `fcBlockTabelleBreite`, `fcBlockSchriftfarbe`, `fcBlockHintergrundfarbe`, `fcBlockHintergrundfarbeIT`, `fcBlockSchriftfarbeIT`, `fcKtextRandFarbe`, `fcKtextTabelleBreite`, `fcKtextRandFormat`, `fcEmphHintergrundfarbe`, `fcEmphSchriftfarbe`, `fcCountdownRandFarbe`, `fcCountdownTabelleBreite`, `fcCountdownSchriftfarbe`, `fcCountdownSchriftformat`, `fnCountdownSchriftsize`) VALUES
@@ -250,29 +246,29 @@ INSERT INTO `prefix_bbcode_design` (`fnDesignNr`, `fcQuoteRandFarbe`, `fcQuoteTa
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_config`
+-- Tabellenstruktur für Tabelle `prefix_config`
 --
 
 DROP TABLE IF EXISTS `prefix_config`;
-CREATE TABLE IF NOT EXISTS `prefix_config` (
+CREATE TABLE `prefix_config` (
   `schl` varchar(50) NOT NULL DEFAULT '',
   `typ` varchar(10) NOT NULL DEFAULT '',
-  `typextra` text,
+  `typextra` mediumtext,
   `kat` varchar(50) NOT NULL DEFAULT '',
   `frage` varchar(255) NOT NULL DEFAULT '',
-  `wert` text NOT NULL,
+  `wert` mediumtext NOT NULL,
   `pos` smallint(6) NOT NULL DEFAULT '0',
   `hide` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'auf 1 setzen um dies NICHT in der konfiguration anzuzeigen',
-  `helptext` text,
+  `helptext` mediumtext,
   PRIMARY KEY (`schl`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_config`
+-- Daten für Tabelle `prefix_config`
 --
 
 INSERT INTO `prefix_config` (`schl`, `typ`, `typextra`, `kat`, `frage`, `wert`, `pos`, `hide`, `helptext`) VALUES
-('jqueryui', 's', NULL, 'Allgemeine Optionen', 'jQueryUI Theming', 'redmond', 0, 0, NULL),
+('jqueryui', 's', NULL, 'Allgemeine Optionen', 'jQueryUI Theme', 'redmond', 0, 0, NULL),
 ('gbook_posts_per_site', 'input', NULL, 'G&auml;stebuch Optionen', 'Eintr&auml;ge pro Seite', '20', 0, 0, NULL),
 ('gallery_imgs_per_line', 'input', NULL, 'Gallery Optionen', 'Bilder pro Zeile', '4', 0, 0, NULL),
 ('Aanz', 'input', NULL, 'Archiv Optionen', 'Anzahl Banner in der Partner Box', '3', 0, 0, NULL),
@@ -324,7 +320,7 @@ INSERT INTO `prefix_config` (`schl`, `typ`, `typextra`, `kat`, `frage`, `wert`, 
 ('userpic_Fahohe', 'input', NULL, 'Forum Optionen', 'max H&ouml;he f&uuml;r das Userpic', '160', 0, 0, NULL),
 ('news_social', 'r2', NULL, 'News Optionen', 'Bei News Social Network Buttons anzeigen?', '0', 0, 0, 'Zeigt bei News dann Buttons von Social Networks wie Facebook an.'),
 ('menu_anz', 'input', NULL, 'Allgemeine Optionen', 'Wie viele Men&uuml;s sollen verwaltet werden?', '5', 0, 0, NULL),
-('revision', 'input', NULL, 'Allgemeine Optionen', 'Revisionsnummer', '238', 0, 0, NULL),
+('revision', 'input', NULL, 'Allgemeine Optionen', 'Revisionsnummer', '240', 0, 0, NULL),
 ('threadersteller_in_uebersicht', 'r2', NULL, 'Forum Optionen', 'Threadersteller - Anzeige in &uuml;bersicht?', '0', 0, 0, NULL),
 ('show_tooltip', 'r2', NULL, 'Kalender Optionen', 'Event-Tooltips', '1', 0, 0, 'Wenn aktiviert werden bei Kalendereintr&auml;gen in einem Tooltip schon Details zu dem Eintrag angezeigt.'),
 ('modrewrite', 'radio', NULL, 'Allgemeine Optionen', 'ModReWrite an / aus', '0', 0, 1, NULL),
@@ -337,55 +333,50 @@ INSERT INTO `prefix_config` (`schl`, `typ`, `typextra`, `kat`, `frage`, `wert`, 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_counter`
+-- Tabellenstruktur für Tabelle `prefix_counter`
 --
 
 DROP TABLE IF EXISTS `prefix_counter`;
-CREATE TABLE IF NOT EXISTS `prefix_counter` (
+CREATE TABLE `prefix_counter` (
   `date` date NOT NULL,
   `count` smallint(5) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_counter`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_credits`
+-- Tabellenstruktur für Tabelle `prefix_credits`
 --
 
 DROP TABLE IF EXISTS `prefix_credits`;
-CREATE TABLE IF NOT EXISTS `prefix_credits` (
+CREATE TABLE `prefix_credits` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sys` varchar(5) COLLATE utf8_bin NOT NULL,
-  `name` varchar(250) COLLATE utf8_bin NOT NULL,
-  `version` varchar(250) COLLATE utf8_bin NOT NULL,
-  `url` varchar(250) COLLATE utf8_bin NOT NULL,
-  `lizenzname` varchar(250) COLLATE utf8_bin NOT NULL,
-  `lizenzurl` varchar(250) COLLATE utf8_bin NOT NULL,
+  `sys` varchar(5) NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `version` varchar(250) NOT NULL,
+  `url` varchar(250) NOT NULL,
+  `lizenzname` varchar(250) NOT NULL,
+  `lizenzurl` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Credits-System - bitte doku beachten';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Credits-System - bitte doku beachten';
 
 --
--- Daten f&uuml;r Tabelle `prefix_credits`
+-- Daten für Tabelle `prefix_credits`
 --
 
 INSERT INTO `prefix_credits` (`id`, `sys`, `name`, `version`, `url`, `lizenzname`, `lizenzurl`) VALUES
 (1, 'ilch', 'ilch.de - CMS', '1.2', 'http://ilch.de', 'GPL', 'http://www.gnu.de/gpl-ger.html'),
-(2, 'ilch', 'jQuery', '1.5', 'http://jquery.com', 'GPL', 'http://en.wikipedia.org/wiki/GNU_General_Public_License'),
+(2, 'ilch', 'jQuery', '1.7.1', 'http://jquery.com', 'GPL', 'http://en.wikipedia.org/wiki/GNU_General_Public_License'),
 (3, 'ilch', 'jQuery UI', '1.8.9', 'http://jqueryui.com', 'GPL', 'http://en.wikipedia.org/wiki/GNU_General_Public_License');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_downcats`
+-- Tabellenstruktur für Tabelle `prefix_downcats`
 --
 
 DROP TABLE IF EXISTS `prefix_downcats`;
-CREATE TABLE IF NOT EXISTS `prefix_downcats` (
+CREATE TABLE `prefix_downcats` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `cat` mediumint(8) DEFAULT '0',
   `pos` smallint(6) NOT NULL DEFAULT '0',
@@ -393,21 +384,16 @@ CREATE TABLE IF NOT EXISTS `prefix_downcats` (
   `name` varchar(100) NOT NULL DEFAULT '',
   `desc` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_downcats`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_downloads`
+-- Tabellenstruktur für Tabelle `prefix_downloads`
 --
 
 DROP TABLE IF EXISTS `prefix_downloads`;
-CREATE TABLE IF NOT EXISTS `prefix_downloads` (
+CREATE TABLE `prefix_downloads` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `cat` mediumint(8) DEFAULT '0',
   `pos` smallint(6) NOT NULL DEFAULT '0',
@@ -423,62 +409,54 @@ CREATE TABLE IF NOT EXISTS `prefix_downloads` (
   `ssurl` varchar(255) NOT NULL DEFAULT '',
   `name` varchar(100) NOT NULL DEFAULT '',
   `desc` varchar(255) DEFAULT NULL,
-  `descl` text,
+  `descl` mediumtext,
   `drecht` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_downloads`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_forumcats`
+-- Tabellenstruktur für Tabelle `prefix_forumcats`
 --
 
 DROP TABLE IF EXISTS `prefix_forumcats`;
-CREATE TABLE IF NOT EXISTS `prefix_forumcats` (
+CREATE TABLE `prefix_forumcats` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `cid` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `name` varchar(100) NOT NULL DEFAULT '',
   `pos` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_forumcats`
+-- Daten für Tabelle `prefix_forumcats`
 --
 
+INSERT INTO `prefix_forumcats` (`id`, `cid`, `name`, `pos`) VALUES
+(1, 0, 'test', 0);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_forummods`
+-- Tabellenstruktur für Tabelle `prefix_forummods`
 --
 
 DROP TABLE IF EXISTS `prefix_forummods`;
-CREATE TABLE IF NOT EXISTS `prefix_forummods` (
+CREATE TABLE `prefix_forummods` (
   `uid` mediumint(9) NOT NULL DEFAULT '0',
   `fid` mediumint(9) NOT NULL DEFAULT '0',
   PRIMARY KEY (`uid`,`fid`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_forummods`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_forums`
+-- Tabellenstruktur für Tabelle `prefix_forums`
 --
 
 DROP TABLE IF EXISTS `prefix_forums`;
-CREATE TABLE IF NOT EXISTS `prefix_forums` (
+CREATE TABLE `prefix_forums` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `cid` mediumint(8) NOT NULL DEFAULT '0',
   `last_post_id` int(11) NOT NULL DEFAULT '0',
@@ -491,43 +469,40 @@ CREATE TABLE IF NOT EXISTS `prefix_forums` (
   `name` varchar(100) NOT NULL DEFAULT '',
   `besch` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_forums`
+-- Daten für Tabelle `prefix_forums`
 --
 
+INSERT INTO `prefix_forums` (`id`, `cid`, `last_post_id`, `view`, `reply`, `start`, `pos`, `posts`, `topics`, `name`, `besch`) VALUES
+(1, 1, 1, 0, 0, 0, 0, 1, 1, 'jo', 'jojo');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_gallery_cats`
+-- Tabellenstruktur für Tabelle `prefix_gallery_cats`
 --
 
 DROP TABLE IF EXISTS `prefix_gallery_cats`;
-CREATE TABLE IF NOT EXISTS `prefix_gallery_cats` (
+CREATE TABLE `prefix_gallery_cats` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `cat` mediumint(9) NOT NULL DEFAULT '0',
   `pos` smallint(6) NOT NULL DEFAULT '0',
   `recht` smallint(6) NOT NULL DEFAULT '0',
   `name` varchar(50) NOT NULL DEFAULT '',
-  `besch` text NOT NULL,
+  `besch` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_gallery_cats`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_gallery_imgs`
+-- Tabellenstruktur für Tabelle `prefix_gallery_imgs`
 --
 
 DROP TABLE IF EXISTS `prefix_gallery_imgs`;
-CREATE TABLE IF NOT EXISTS `prefix_gallery_imgs` (
+CREATE TABLE `prefix_gallery_imgs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cat` mediumint(9) NOT NULL DEFAULT '0',
   `klicks` mediumint(9) NOT NULL DEFAULT '0',
@@ -537,52 +512,42 @@ CREATE TABLE IF NOT EXISTS `prefix_gallery_imgs` (
   `endung` varchar(5) NOT NULL DEFAULT '',
   `besch` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_gallery_imgs`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_gbook`
+-- Tabellenstruktur für Tabelle `prefix_gbook`
 --
 
 DROP TABLE IF EXISTS `prefix_gbook`;
-CREATE TABLE IF NOT EXISTS `prefix_gbook` (
+CREATE TABLE `prefix_gbook` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL DEFAULT '',
   `mail` varchar(100) NOT NULL DEFAULT '',
   `page` varchar(100) NOT NULL DEFAULT '',
   `time` int(20) NOT NULL DEFAULT '0',
   `ip` varchar(20) NOT NULL DEFAULT '',
-  `txt` text NOT NULL,
+  `txt` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_gbook`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_groupfuncs`
+-- Tabellenstruktur für Tabelle `prefix_groupfuncs`
 --
 
 DROP TABLE IF EXISTS `prefix_groupfuncs`;
-CREATE TABLE IF NOT EXISTS `prefix_groupfuncs` (
+CREATE TABLE `prefix_groupfuncs` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL DEFAULT '',
   `pos` smallint(6) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_groupfuncs`
+-- Daten für Tabelle `prefix_groupfuncs`
 --
 
 INSERT INTO `prefix_groupfuncs` (`id`, `name`, `pos`) VALUES
@@ -594,11 +559,11 @@ INSERT INTO `prefix_groupfuncs` (`id`, `name`, `pos`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_groups`
+-- Tabellenstruktur für Tabelle `prefix_groups`
 --
 
 DROP TABLE IF EXISTS `prefix_groups`;
-CREATE TABLE IF NOT EXISTS `prefix_groups` (
+CREATE TABLE `prefix_groups` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL DEFAULT '',
   `mod1` mediumint(9) NOT NULL DEFAULT '0',
@@ -611,47 +576,37 @@ CREATE TABLE IF NOT EXISTS `prefix_groups` (
   `show_fightus` tinyint(1) NOT NULL DEFAULT '0',
   `img` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_groups`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_groupusers`
+-- Tabellenstruktur für Tabelle `prefix_groupusers`
 --
 
 DROP TABLE IF EXISTS `prefix_groupusers`;
-CREATE TABLE IF NOT EXISTS `prefix_groupusers` (
+CREATE TABLE `prefix_groupusers` (
   `uid` mediumint(9) NOT NULL DEFAULT '0',
   `gid` smallint(6) NOT NULL DEFAULT '0',
   `fid` smallint(6) NOT NULL DEFAULT '0',
   PRIMARY KEY (`uid`,`gid`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_groupusers`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_grundrechte`
+-- Tabellenstruktur für Tabelle `prefix_grundrechte`
 --
 
 DROP TABLE IF EXISTS `prefix_grundrechte`;
-CREATE TABLE IF NOT EXISTS `prefix_grundrechte` (
+CREATE TABLE `prefix_grundrechte` (
   `id` smallint(6) NOT NULL DEFAULT '0',
   `name` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Daten f&uuml;r Tabelle `prefix_grundrechte`
+-- Daten für Tabelle `prefix_grundrechte`
 --
 
 INSERT INTO `prefix_grundrechte` (`id`, `name`) VALUES
@@ -669,116 +624,91 @@ INSERT INTO `prefix_grundrechte` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_history`
+-- Tabellenstruktur für Tabelle `prefix_history`
 --
 
 DROP TABLE IF EXISTS `prefix_history`;
-CREATE TABLE IF NOT EXISTS `prefix_history` (
+CREATE TABLE `prefix_history` (
   `id` smallint(6) NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL DEFAULT '0000-00-00',
   `title` varchar(100) NOT NULL DEFAULT '',
-  `txt` text NOT NULL,
+  `txt` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_history`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_kalender`
+-- Tabellenstruktur für Tabelle `prefix_kalender`
 --
 
 DROP TABLE IF EXISTS `prefix_kalender`;
-CREATE TABLE IF NOT EXISTS `prefix_kalender` (
+CREATE TABLE `prefix_kalender` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `gid` int(11) NOT NULL DEFAULT '0',
   `time` int(11) NOT NULL DEFAULT '0',
   `title` varchar(100) NOT NULL DEFAULT '',
-  `text` text NOT NULL,
+  `text` mediumtext NOT NULL,
   `recht` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_kalender`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_kasse`
+-- Tabellenstruktur für Tabelle `prefix_kasse`
 --
 
 DROP TABLE IF EXISTS `prefix_kasse`;
-CREATE TABLE IF NOT EXISTS `prefix_kasse` (
+CREATE TABLE `prefix_kasse` (
   `id` int(14) NOT NULL AUTO_INCREMENT,
   `datum` date NOT NULL DEFAULT '0000-00-00',
   `name` varchar(50) NOT NULL DEFAULT '',
   `verwendung` varchar(50) NOT NULL DEFAULT '',
   `betrag` float NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_kasse`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_koms`
+-- Tabellenstruktur für Tabelle `prefix_koms`
 --
 
 DROP TABLE IF EXISTS `prefix_koms`;
-CREATE TABLE IF NOT EXISTS `prefix_koms` (
+CREATE TABLE `prefix_koms` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `uid` mediumint(9) NOT NULL DEFAULT '0',
   `cat` varchar(10) NOT NULL DEFAULT '',
   `name` varchar(100) NOT NULL DEFAULT '',
   `text` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_koms`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_linkcats`
+-- Tabellenstruktur für Tabelle `prefix_linkcats`
 --
 
 DROP TABLE IF EXISTS `prefix_linkcats`;
-CREATE TABLE IF NOT EXISTS `prefix_linkcats` (
+CREATE TABLE `prefix_linkcats` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `cat` mediumint(8) DEFAULT '0',
   `pos` smallint(6) NOT NULL DEFAULT '0',
   `name` varchar(100) NOT NULL DEFAULT '',
   `desc` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_linkcats`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_links`
+-- Tabellenstruktur für Tabelle `prefix_links`
 --
 
 DROP TABLE IF EXISTS `prefix_links`;
-CREATE TABLE IF NOT EXISTS `prefix_links` (
+CREATE TABLE `prefix_links` (
   `id` smallint(6) NOT NULL AUTO_INCREMENT,
   `cat` mediumint(8) DEFAULT '0',
   `pos` smallint(6) NOT NULL DEFAULT '0',
@@ -788,21 +718,16 @@ CREATE TABLE IF NOT EXISTS `prefix_links` (
   `link` varchar(100) NOT NULL DEFAULT '',
   `hits` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_links`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_linkus`
+-- Tabellenstruktur für Tabelle `prefix_linkus`
 --
 
 DROP TABLE IF EXISTS `prefix_linkus`;
-CREATE TABLE IF NOT EXISTS `prefix_linkus` (
+CREATE TABLE `prefix_linkus` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `datei` varchar(255) NOT NULL,
@@ -812,10 +737,10 @@ CREATE TABLE IF NOT EXISTS `prefix_linkus` (
   `views` int(11) NOT NULL,
   `klicks` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
--- Daten f&uuml;r Tabelle `prefix_linkus`
+-- Daten für Tabelle `prefix_linkus`
 --
 
 INSERT INTO `prefix_linkus` (`id`, `name`, `datei`, `hoch`, `breit`, `link`, `views`, `klicks`) VALUES
@@ -825,21 +750,21 @@ INSERT INTO `prefix_linkus` (`id`, `name`, `datei`, `hoch`, `breit`, `link`, `vi
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_loader`
+-- Tabellenstruktur für Tabelle `prefix_loader`
 --
 
 DROP TABLE IF EXISTS `prefix_loader`;
-CREATE TABLE IF NOT EXISTS `prefix_loader` (
+CREATE TABLE `prefix_loader` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `pos` int(10) NOT NULL,
   `task` varchar(200) NOT NULL,
   `file` varchar(200) NOT NULL,
-  `description` text NOT NULL,
+  `description` mediumtext NOT NULL,
   KEY `id` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
--- Daten f&uuml;r Tabelle `prefix_loader`
+-- Daten für Tabelle `prefix_loader`
 --
 
 INSERT INTO `prefix_loader` (`id`, `pos`, `task`, `file`, `description`) VALUES
@@ -866,11 +791,11 @@ INSERT INTO `prefix_loader` (`id`, `pos`, `task`, `file`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_menu`
+-- Tabellenstruktur für Tabelle `prefix_menu`
 --
 
 DROP TABLE IF EXISTS `prefix_menu`;
-CREATE TABLE IF NOT EXISTS `prefix_menu` (
+CREATE TABLE `prefix_menu` (
   `wo` tinyint(1) NOT NULL DEFAULT '0',
   `pos` tinyint(4) NOT NULL DEFAULT '0',
   `was` tinyint(1) NOT NULL DEFAULT '0',
@@ -881,10 +806,10 @@ CREATE TABLE IF NOT EXISTS `prefix_menu` (
   `path` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`pos`,`wo`),
   KEY `path` (`path`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_menu`
+-- Daten für Tabelle `prefix_menu`
 --
 
 INSERT INTO `prefix_menu` (`wo`, `pos`, `was`, `ebene`, `recht`, `recht_type`, `name`, `path`) VALUES
@@ -932,18 +857,18 @@ INSERT INTO `prefix_menu` (`wo`, `pos`, `was`, `ebene`, `recht`, `recht_type`, `
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_modulerights`
+-- Tabellenstruktur für Tabelle `prefix_modulerights`
 --
 
 DROP TABLE IF EXISTS `prefix_modulerights`;
-CREATE TABLE IF NOT EXISTS `prefix_modulerights` (
+CREATE TABLE `prefix_modulerights` (
   `uid` mediumint(9) NOT NULL DEFAULT '0',
   `mid` mediumint(9) NOT NULL DEFAULT '0',
   PRIMARY KEY (`uid`,`mid`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_modulerights`
+-- Daten für Tabelle `prefix_modulerights`
 --
 
 INSERT INTO `prefix_modulerights` (`uid`, `mid`) VALUES
@@ -960,11 +885,11 @@ INSERT INTO `prefix_modulerights` (`uid`, `mid`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_modules`
+-- Tabellenstruktur für Tabelle `prefix_modules`
 --
 
 DROP TABLE IF EXISTS `prefix_modules`;
-CREATE TABLE IF NOT EXISTS `prefix_modules` (
+CREATE TABLE `prefix_modules` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `url` varchar(20) NOT NULL DEFAULT '',
   `name` varchar(50) NOT NULL DEFAULT '',
@@ -974,10 +899,10 @@ CREATE TABLE IF NOT EXISTS `prefix_modules` (
   `menu` varchar(200) NOT NULL,
   `pos` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_modules`
+-- Daten für Tabelle `prefix_modules`
 --
 
 INSERT INTO `prefix_modules` (`id`, `url`, `name`, `gshow`, `ashow`, `fright`, `menu`, `pos`) VALUES
@@ -1014,7 +939,6 @@ INSERT INTO `prefix_modules` (`id`, `url`, `name`, `gshow`, `ashow`, `fright`, `
 (69, 'impressum', 'Impressum', 1, 0, 0, 'Content', 9),
 (70, 'archiv-partners', 'Partner', 1, 0, 0, 'Boxen', 0),
 (71, 'picofx', 'Pic of X', 1, 0, 0, 'Boxen', 1),
-
 (72, 'smtpconf', 'SMTP', 1, 0, 0, 'Admin', 1),
 (73, 'puser', 'Nicht best&auml;tigte Registrierungen', 0, 0, 0, '', 0),
 (74, 'bbcode', 'BBcode 2.0', 1, 0, 1, 'Content', 11),
@@ -1026,70 +950,62 @@ INSERT INTO `prefix_modules` (`id`, `url`, `name`, `gshow`, `ashow`, `fright`, `
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_news`
+-- Tabellenstruktur für Tabelle `prefix_news`
 --
 
 DROP TABLE IF EXISTS `prefix_news`;
-CREATE TABLE IF NOT EXISTS `prefix_news` (
+CREATE TABLE `prefix_news` (
   `news_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `news_title` varchar(100) NOT NULL DEFAULT '',
   `user_id` int(11) NOT NULL DEFAULT '0',
   `news_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `news_recht` int(11) NOT NULL DEFAULT '0',
   `news_kat` varchar(100) NOT NULL DEFAULT '',
-  `news_text` text NOT NULL,
+  `news_text` mediumtext NOT NULL,
   PRIMARY KEY (`news_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_news`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_newsletter`
+-- Tabellenstruktur für Tabelle `prefix_newsletter`
 --
 
 DROP TABLE IF EXISTS `prefix_newsletter`;
-CREATE TABLE IF NOT EXISTS `prefix_newsletter` (
+CREATE TABLE `prefix_newsletter` (
   `email` varchar(100) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_newsletter`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_online`
+-- Tabellenstruktur für Tabelle `prefix_online`
 --
 
 DROP TABLE IF EXISTS `prefix_online`;
-CREATE TABLE IF NOT EXISTS `prefix_online` (
+CREATE TABLE `prefix_online` (
   `uptime` datetime DEFAULT NULL,
   `sid` varchar(32) NOT NULL DEFAULT '',
   `ipa` varchar(15) NOT NULL DEFAULT '',
   `uid` mediumint(9) NOT NULL DEFAULT '0',
   `content` varchar(255) NOT NULL DEFAULT '(Startseite)'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_online`
+-- Daten für Tabelle `prefix_online`
 --
 
+INSERT INTO `prefix_online` (`uptime`, `sid`, `ipa`, `uid`, `content`) VALUES
+('2012-03-24 17:49:56', 'q8dnvvll9ppgcr1jnqjt0q1uk6', '127.0.0.1', 1, 'allg (Adminbereich)');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_opponents`
+-- Tabellenstruktur für Tabelle `prefix_opponents`
 --
 
 DROP TABLE IF EXISTS `prefix_opponents`;
-CREATE TABLE IF NOT EXISTS `prefix_opponents` (
+CREATE TABLE `prefix_opponents` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `tag` varchar(100) NOT NULL,
@@ -1099,31 +1015,26 @@ CREATE TABLE IF NOT EXISTS `prefix_opponents` (
   `nation` varchar(100) NOT NULL,
   `logo` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Gegner-Datenbank';
-
---
--- Daten f&uuml;r Tabelle `prefix_opponents`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Gegner-Datenbank';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_partners`
+-- Tabellenstruktur für Tabelle `prefix_partners`
 --
 
 DROP TABLE IF EXISTS `prefix_partners`;
-CREATE TABLE IF NOT EXISTS `prefix_partners` (
+CREATE TABLE `prefix_partners` (
   `id` smallint(6) NOT NULL AUTO_INCREMENT,
   `pos` smallint(6) NOT NULL DEFAULT '0',
   `name` varchar(100) NOT NULL DEFAULT '',
   `banner` varchar(100) NOT NULL DEFAULT '',
   `link` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_partners`
+-- Daten für Tabelle `prefix_partners`
 --
 
 INSERT INTO `prefix_partners` (`id`, `pos`, `name`, `banner`, `link`) VALUES
@@ -1132,11 +1043,11 @@ INSERT INTO `prefix_partners` (`id`, `pos`, `name`, `banner`, `link`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_pm`
+-- Tabellenstruktur für Tabelle `prefix_pm`
 --
 
 DROP TABLE IF EXISTS `prefix_pm`;
-CREATE TABLE IF NOT EXISTS `prefix_pm` (
+CREATE TABLE `prefix_pm` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `sid` mediumint(8) NOT NULL DEFAULT '0',
   `eid` mediumint(8) NOT NULL DEFAULT '0',
@@ -1144,96 +1055,83 @@ CREATE TABLE IF NOT EXISTS `prefix_pm` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `time` int(20) NOT NULL DEFAULT '0',
   `titel` varchar(100) NOT NULL DEFAULT '',
-  `txt` text NOT NULL,
+  `txt` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_pm`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_poll`
+-- Tabellenstruktur für Tabelle `prefix_poll`
 --
 
 DROP TABLE IF EXISTS `prefix_poll`;
-CREATE TABLE IF NOT EXISTS `prefix_poll` (
+CREATE TABLE `prefix_poll` (
   `poll_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `frage` varchar(200) NOT NULL DEFAULT '',
   `recht` tinyint(1) NOT NULL DEFAULT '0',
   `stat` tinyint(1) NOT NULL DEFAULT '0',
-  `text` text NOT NULL,
+  `text` mediumtext NOT NULL,
   PRIMARY KEY (`poll_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_poll`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_poll_res`
+-- Tabellenstruktur für Tabelle `prefix_poll_res`
 --
 
 DROP TABLE IF EXISTS `prefix_poll_res`;
-CREATE TABLE IF NOT EXISTS `prefix_poll_res` (
+CREATE TABLE `prefix_poll_res` (
   `sort` tinyint(2) NOT NULL DEFAULT '0',
   `poll_id` mediumint(8) NOT NULL DEFAULT '0',
   `antw` varchar(100) NOT NULL DEFAULT '',
   `res` smallint(6) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_poll_res`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_posts`
+-- Tabellenstruktur für Tabelle `prefix_posts`
 --
 
 DROP TABLE IF EXISTS `prefix_posts`;
-CREATE TABLE IF NOT EXISTS `prefix_posts` (
+CREATE TABLE `prefix_posts` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `tid` mediumint(8) NOT NULL DEFAULT '0',
   `fid` mediumint(9) NOT NULL DEFAULT '0',
   `erst` varchar(100) NOT NULL DEFAULT '',
   `erstid` int(10) NOT NULL DEFAULT '0',
   `time` bigint(20) NOT NULL DEFAULT '0',
-  `txt` text NOT NULL,
+  `txt` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_posts`
+-- Daten für Tabelle `prefix_posts`
 --
 
+INSERT INTO `prefix_posts` (`id`, `tid`, `fid`, `erst`, `erstid`, `time`, `txt`) VALUES
+(1, 1, 1, 'GeCk0', 0, 1332593707, ':P:P:P');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_profilefields`
+-- Tabellenstruktur für Tabelle `prefix_profilefields`
 --
 
 DROP TABLE IF EXISTS `prefix_profilefields`;
-CREATE TABLE IF NOT EXISTS `prefix_profilefields` (
+CREATE TABLE `prefix_profilefields` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `show` varchar(20) NOT NULL DEFAULT '',
   `pos` mediumint(9) NOT NULL DEFAULT '0',
   `func` tinyint(1) NOT NULL DEFAULT '0',
   `config_value` varchar(2048) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_profilefields`
+-- Daten für Tabelle `prefix_profilefields`
 --
 
 INSERT INTO `prefix_profilefields` (`id`, `show`, `pos`, `func`, `config_value`) VALUES
@@ -1260,20 +1158,20 @@ INSERT INTO `prefix_profilefields` (`id`, `show`, `pos`, `func`, `config_value`)
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_ranks`
+-- Tabellenstruktur für Tabelle `prefix_ranks`
 --
 
 DROP TABLE IF EXISTS `prefix_ranks`;
-CREATE TABLE IF NOT EXISTS `prefix_ranks` (
+CREATE TABLE `prefix_ranks` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `bez` varchar(100) NOT NULL DEFAULT '',
   `min` int(10) NOT NULL DEFAULT '0',
   `spez` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_ranks`
+-- Daten für Tabelle `prefix_ranks`
 --
 
 INSERT INTO `prefix_ranks` (`id`, `bez`, `min`, `spez`) VALUES
@@ -1294,31 +1192,26 @@ INSERT INTO `prefix_ranks` (`id`, `bez`, `min`, `spez`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_rules`
+-- Tabellenstruktur für Tabelle `prefix_rules`
 --
 
 DROP TABLE IF EXISTS `prefix_rules`;
-CREATE TABLE IF NOT EXISTS `prefix_rules` (
+CREATE TABLE `prefix_rules` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `zahl` smallint(6) NOT NULL DEFAULT '0',
   `titel` varchar(200) NOT NULL DEFAULT '',
-  `text` text NOT NULL,
+  `text` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_rules`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_selfp`
+-- Tabellenstruktur für Tabelle `prefix_selfp`
 --
 
 DROP TABLE IF EXISTS `prefix_selfp`;
-CREATE TABLE IF NOT EXISTS `prefix_selfp` (
+CREATE TABLE `prefix_selfp` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `path` varchar(30) NOT NULL,
@@ -1329,10 +1222,10 @@ CREATE TABLE IF NOT EXISTS `prefix_selfp` (
   `view` smallint(6) NOT NULL DEFAULT '0',
   `pos` smallint(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
--- Daten f&uuml;r Tabelle `prefix_selfp`
+-- Daten für Tabelle `prefix_selfp`
 --
 
 INSERT INTO `prefix_selfp` (`id`, `name`, `path`, `cpath`, `cid`, `wysiwyg`, `php`, `view`, `pos`) VALUES
@@ -1342,11 +1235,11 @@ INSERT INTO `prefix_selfp` (`id`, `name`, `path`, `cpath`, `cid`, `wysiwyg`, `ph
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_selfp_cat`
+-- Tabellenstruktur für Tabelle `prefix_selfp_cat`
 --
 
 DROP TABLE IF EXISTS `prefix_selfp_cat`;
-CREATE TABLE IF NOT EXISTS `prefix_selfp_cat` (
+CREATE TABLE `prefix_selfp_cat` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `path` varchar(30) NOT NULL,
@@ -1355,52 +1248,42 @@ CREATE TABLE IF NOT EXISTS `prefix_selfp_cat` (
   `startpage` int(11) NOT NULL,
   `pos` smallint(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
-
---
--- Daten f&uuml;r Tabelle `prefix_selfp_cat`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_shoutbox`
+-- Tabellenstruktur für Tabelle `prefix_shoutbox`
 --
 
 DROP TABLE IF EXISTS `prefix_shoutbox`;
-CREATE TABLE IF NOT EXISTS `prefix_shoutbox` (
+CREATE TABLE `prefix_shoutbox` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `uid` int(10) NOT NULL DEFAULT '0',
   `nickname` varchar(50) NOT NULL DEFAULT '',
-  `textarea` text,
+  `textarea` mediumtext,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_shoutbox`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_smilies`
+-- Tabellenstruktur für Tabelle `prefix_smilies`
 --
 
 DROP TABLE IF EXISTS `prefix_smilies`;
-CREATE TABLE IF NOT EXISTS `prefix_smilies` (
+CREATE TABLE `prefix_smilies` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ent` varchar(50) NOT NULL DEFAULT '',
   `emo` varchar(75) NOT NULL DEFAULT '',
   `url` varchar(100) NOT NULL DEFAULT '',
   `pos` int(8) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_smilies`
+-- Daten für Tabelle `prefix_smilies`
 --
 
 INSERT INTO `prefix_smilies` (`id`, `ent`, `emo`, `url`, `pos`) VALUES
@@ -1418,11 +1301,11 @@ INSERT INTO `prefix_smilies` (`id`, `ent`, `emo`, `url`, `pos`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_stats`
+-- Tabellenstruktur für Tabelle `prefix_stats`
 --
 
 DROP TABLE IF EXISTS `prefix_stats`;
-CREATE TABLE IF NOT EXISTS `prefix_stats` (
+CREATE TABLE `prefix_stats` (
   `wtag` tinyint(2) NOT NULL DEFAULT '0',
   `stunde` tinyint(2) NOT NULL DEFAULT '0',
   `day` tinyint(2) NOT NULL DEFAULT '0',
@@ -1432,40 +1315,86 @@ CREATE TABLE IF NOT EXISTS `prefix_stats` (
   `browser` varchar(50) NOT NULL DEFAULT '',
   `ip` varchar(20) NOT NULL DEFAULT '',
   `ref` varchar(255) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_stats`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_stats_content`
+-- Tabellenstruktur für Tabelle `prefix_stats_content`
 --
 
 DROP TABLE IF EXISTS `prefix_stats_content`;
-CREATE TABLE IF NOT EXISTS `prefix_stats_content` (
+CREATE TABLE `prefix_stats_content` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` varchar(255) NOT NULL,
   `counter` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
--- Daten f&uuml;r Tabelle `prefix_stats_content`
+-- Daten für Tabelle `prefix_stats_content`
 --
 
+INSERT INTO `prefix_stats_content` (`id`, `content`, `counter`) VALUES
+(1, 'news (Startseite)', 5),
+(2, 'admin (Adminbereich)', 10),
+(3, 'allg (Adminbereich)', 7),
+(4, 'user-3', 3),
+(5, 'news', 7),
+(6, 'linkus (Adminbereich)', 2),
+(7, 'linkus-view-1-false', 2),
+(8, 'linkus-view-2-false', 2),
+(9, 'forum (Adminbereich)', 1),
+(10, 'forum-newCategorie (Adminbereich)', 1),
+(11, 'forum-newForum-c1 (Adminbereich)', 1),
+(12, 'forum-newForum (Adminbereich)', 1),
+(13, 'forum', 1),
+(14, 'forum-showtopics-1', 1),
+(15, 'forum-newtopic-1', 2),
+(16, 'forum-showposts-1', 2),
+(17, 'user-login', 1),
+(18, 'awaycal (Adminbereich)', 1),
+(19, 'loader (Adminbereich)', 1),
+(20, 'loaderdb (Adminbereich)', 1),
+(21, 'checkconf (Adminbereich)', 4),
+(22, 'admin-versionsKontrolle (Adminbereich)', 3),
+(23, 'credits (Adminbereich)', 2),
+(24, 'news (Adminbereich)', 1),
+(25, 'inactive (Adminbereich)', 1),
+(26, 'archiv-partners (Adminbereich)', 1),
+(27, 'backup (Adminbereich)', 4),
+(28, 'user', 1),
+(29, 'user-details-1', 1),
+(30, 'user-8', 1),
+(31, 'gallery', 1),
+(32, 'impressum', 1),
+(33, 'gbook', 1),
+(34, 'admin-siteStatistik (Adminbereich)', 1),
+(35, 'modrewrite (Adminbereich)', 1),
+(36, 'gbook (Adminbereich)', 3),
+(37, 'bbcode-badword (Adminbereich)', 1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_topics`
+-- Tabellenstruktur für Tabelle `prefix_topic_alerts`
+--
+
+DROP TABLE IF EXISTS `prefix_topic_alerts`;
+CREATE TABLE `prefix_topic_alerts` (
+  `tid` mediumint(9) NOT NULL DEFAULT '0',
+  `uid` mediumint(9) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`tid`,`uid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `prefix_topics`
 --
 
 DROP TABLE IF EXISTS `prefix_topics`;
-CREATE TABLE IF NOT EXISTS `prefix_topics` (
+CREATE TABLE `prefix_topics` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `fid` int(10) NOT NULL DEFAULT '0',
   `last_post_id` mediumint(9) NOT NULL DEFAULT '0',
@@ -1476,39 +1405,23 @@ CREATE TABLE IF NOT EXISTS `prefix_topics` (
   `rep` int(10) NOT NULL DEFAULT '0',
   `hit` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_topics`
+-- Daten für Tabelle `prefix_topics`
 --
 
+INSERT INTO `prefix_topics` (`id`, `fid`, `last_post_id`, `name`, `erst`, `art`, `stat`, `rep`, `hit`) VALUES
+(1, 1, 1, 'jojojo', 'GeCk0', 0, 1, 0, 1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_topic_alerts`
---
-
-DROP TABLE IF EXISTS `prefix_topic_alerts`;
-CREATE TABLE IF NOT EXISTS `prefix_topic_alerts` (
-  `tid` mediumint(9) NOT NULL DEFAULT '0',
-  `uid` mediumint(9) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`tid`,`uid`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Daten f&uuml;r Tabelle `prefix_topic_alerts`
---
-
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur f&uuml;r Tabelle `prefix_user`
+-- Tabellenstruktur für Tabelle `prefix_user`
 --
 
 DROP TABLE IF EXISTS `prefix_user`;
-CREATE TABLE IF NOT EXISTS `prefix_user` (
+CREATE TABLE `prefix_user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '',
   `name_clean` varchar(50) NOT NULL DEFAULT '',
@@ -1535,23 +1448,18 @@ CREATE TABLE IF NOT EXISTS `prefix_user` (
   `msn` varchar(50) NOT NULL DEFAULT '',
   `yahoo` varchar(50) NOT NULL DEFAULT '',
   `aim` varchar(50) NOT NULL DEFAULT '',
-  `sig` text,
+  `sig` mediumtext,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_user`
---
-
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_usercheck`
+-- Tabellenstruktur für Tabelle `prefix_usercheck`
 --
 
 DROP TABLE IF EXISTS `prefix_usercheck`;
-CREATE TABLE IF NOT EXISTS `prefix_usercheck` (
+CREATE TABLE `prefix_usercheck` (
   `check` varchar(100) NOT NULL DEFAULT '',
   `name` varchar(100) NOT NULL DEFAULT '',
   `email` varchar(100) NOT NULL DEFAULT '',
@@ -1560,29 +1468,24 @@ CREATE TABLE IF NOT EXISTS `prefix_usercheck` (
   `ak` tinyint(4) NOT NULL DEFAULT '0',
   `groupid` tinyint(4) NOT NULL,
   PRIMARY KEY (`check`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_usercheck`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_userfields`
+-- Tabellenstruktur für Tabelle `prefix_userfields`
 --
 
 DROP TABLE IF EXISTS `prefix_userfields`;
-CREATE TABLE IF NOT EXISTS `prefix_userfields` (
+CREATE TABLE `prefix_userfields` (
   `uid` mediumint(8) NOT NULL DEFAULT '0',
   `fid` mediumint(8) NOT NULL DEFAULT '0',
   `val` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`uid`,`fid`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_userfields`
+-- Daten für Tabelle `prefix_userfields`
 --
 
 INSERT INTO `prefix_userfields` (`uid`, `fid`, `val`) VALUES
@@ -1597,72 +1500,57 @@ INSERT INTO `prefix_userfields` (`uid`, `fid`, `val`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_usergallery`
+-- Tabellenstruktur für Tabelle `prefix_usergallery`
 --
 
 DROP TABLE IF EXISTS `prefix_usergallery`;
-CREATE TABLE IF NOT EXISTS `prefix_usergallery` (
+CREATE TABLE `prefix_usergallery` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `uid` mediumint(9) NOT NULL DEFAULT '0',
   `name` varchar(50) NOT NULL DEFAULT '',
   `endung` varchar(5) NOT NULL DEFAULT '',
   `besch` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_usergallery`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_warmaps`
+-- Tabellenstruktur für Tabelle `prefix_warmaps`
 --
 
 DROP TABLE IF EXISTS `prefix_warmaps`;
-CREATE TABLE IF NOT EXISTS `prefix_warmaps` (
+CREATE TABLE `prefix_warmaps` (
   `wid` smallint(6) NOT NULL DEFAULT '0',
   `mnr` tinyint(4) NOT NULL DEFAULT '0',
   `map` varchar(100) NOT NULL DEFAULT '',
   `opp` mediumint(9) NOT NULL DEFAULT '0',
   `owp` mediumint(9) NOT NULL DEFAULT '0',
   PRIMARY KEY (`wid`,`mnr`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_warmaps`
---
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_warmember`
+-- Tabellenstruktur für Tabelle `prefix_warmember`
 --
 
 DROP TABLE IF EXISTS `prefix_warmember`;
-CREATE TABLE IF NOT EXISTS `prefix_warmember` (
+CREATE TABLE `prefix_warmember` (
   `wid` smallint(6) NOT NULL DEFAULT '0',
   `uid` mediumint(9) NOT NULL DEFAULT '0',
   `aktion` tinyint(1) NOT NULL DEFAULT '0',
-  `kom` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
-
---
--- Daten f&uuml;r Tabelle `prefix_warmember`
---
-
+  `kom` mediumtext NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_wars`
+-- Tabellenstruktur für Tabelle `prefix_wars`
 --
 
 DROP TABLE IF EXISTS `prefix_wars`;
-CREATE TABLE IF NOT EXISTS `prefix_wars` (
+CREATE TABLE `prefix_wars` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `datime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `status` tinyint(2) NOT NULL DEFAULT '0',
@@ -1680,11 +1568,10 @@ CREATE TABLE IF NOT EXISTS `prefix_wars` (
   `game` varchar(100) NOT NULL DEFAULT '',
   `mtyp` varchar(100) NOT NULL DEFAULT '',
   `land` varchar(100) NOT NULL DEFAULT '',
-  `txt` text NOT NULL,
+  `txt` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
---
--- Daten f&uuml;r Tabelle `prefix_wars`
---
-
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
