@@ -272,6 +272,7 @@ CREATE TABLE IF NOT EXISTS `prefix_config` (
 --
 
 INSERT INTO `prefix_config` (`schl`, `typ`, `typextra`, `kat`, `frage`, `wert`, `pos`, `hide`, `helptext`) VALUES
+('jqueryui', 's', NULL, 'Allgemeine Optionen', 'jQueryUI Theming', 'redmond', 0, 0, NULL),
 ('gbook_posts_per_site', 'input', NULL, 'G&auml;stebuch Optionen', 'Eintr&auml;ge pro Seite', '20', 0, 0, NULL),
 ('gallery_imgs_per_line', 'input', NULL, 'Gallery Optionen', 'Bilder pro Zeile', '4', 0, 0, NULL),
 ('Aanz', 'input', NULL, 'Archiv Optionen', 'Anzahl Banner in der Partner Box', '3', 0, 0, NULL),

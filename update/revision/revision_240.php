@@ -5,24 +5,31 @@
  * @version $Id
  */
 
-db_query("INSERT INTO `prefix_config` (
-`schl` ,
-`typ` ,
-`typextra` ,
-`kat` ,
-`frage` ,
-`wert` ,
-`pos` ,
-`hide` ,
-`helptext`
-)
-VALUES (
-'jqueryui', 's', NULL , 'Allgemeine Optionen', 'jQueryUI-Design', 'redmond', '0', '0', 'Zum Ändern des jQuery-Designs lese die FAQ unter <br />https://github.com/IlchCMS/Ilch-1.2/wiki/Doc-jquery_ui'
-);
+/* Als Beispieldatei wenn ihr noch etwas über die update.php ausführen müsst/wollt ;)
 
 
+db_query("INSERT INTO `prefix_credits` (
+				`id` ,
+				`sys` ,
+				`name` ,
+				`version` ,
+				`url` ,
+				`lizenzname` ,
+				`lizenzurl`
+			)
+				VALUES 
+			(
+				NULL , 
+				'gfx', 
+				'ilch-Design', 
+				'1.0', 
+				'http://ilch.de', 
+				'by W@rLord and coded by Tigereyes', 
+				'http://www.gnu.de/gpl-ger.html'
 			);	
 ");
 
-$rev='240';
-$update_messages[$rev][] = 'jQuery UI Theme Auswahl';
+$rev='239';
+$update_messages[$rev][] = 'Credits erweitert';
+
+*/
