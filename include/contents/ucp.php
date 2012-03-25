@@ -45,8 +45,7 @@ function get_news_since($time) {
 if (!loggedin()) {
     // Fehlermeldung ausgeben
     $tpl->out("please log in");
-    $design->footer();
-    exit();
+    $design->footer(1);
 }
 
 $news = get_news_since($_SESSION["lastlogin"]);
@@ -73,7 +72,44 @@ if (sizeof($hottopics) == 0) {
         $topicsout .= $tpl->list_get('topics', $listar);
     }
 }
+// Module die im UCP angezeigt werden sollen
+$modular['gallery'] 		= 'Gallerie';
+$modular['kasse'] 			= 'ClanKasse';
+$modular['forum-privmsg'] 	= 'Nachrichten';
+$modular['user-8'] 			= 'Profil';
+$modular['kalender'] 		= 'Termine';
+$modular['forum'] 			= 'Forum';
+$modular['wars'] 			= 'Wars';
+$modular['awaycal'] 		= 'Abwesenheit';
 
+$i = 1; // nicht null weil home-button statisch und somit schon eins vorhanden
+$iconout = '<tr>
+				<td align="center">
+					<a href="index.php" target="_blank"><img src="include/images/icons/home.png" title="zur Startseite" border="0" /></a><br />
+					Startseite
+				</td>';
+foreach ($modular as $key=>$val) {
+	
+	if (has_right($val)) {
+		if ($key != 'forum-privmsg') {
+			$msgcnt = '';
+		} else {
+			$msgcntx = db_result(db_query("SELECT COUNT(id) FROM `prefix_pm` WHERE eid = '".$_SESSION['authid']."'"));
+			$msgcnt = ' ('.$msgcntx.')';
+		}
+		$iconout .= '<td align="center">
+						<a href="index.php?'.$key.'" target="_blank"><img src="include/images/icons/'.$key.'.png" title="'.$val.'" border="0" /></a><br />
+						'.$val.$msgcnt.'
+					</td>';
+		$i++;
+	}
+	if ($i == 3) { // maximal 3 Punkte in einer Zeile
+		$i=0;
+		$iconout .= '</tr><tr>';
+	}
+}
+$iconout .= '</tr>';
+$tpl->set('iconout', $iconout);
 $tpl->set('news', $newsout);
 $tpl->set('topics', $topicsout);
 // unsere templatevariable
