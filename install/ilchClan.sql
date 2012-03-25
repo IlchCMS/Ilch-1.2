@@ -1,29 +1,16 @@
 -- die Standard Clan-Installation mit allen Menüs für Community und Clans
 -- in der Ersten Kommentarzeile wird die Beschreibung der Installationsdatei angegeben, welche als Hilfetext während der Installation ausgegeben wird.
+-- Maximal können die ersten 5 Zeilen für Author-Infos der Installationsprofile genutzt werden
+
 
 -- phpMyAdmin SQL Dump
 -- version 3.4.9
 -- http://www.phpmyadmin.net
--- dump by GeCk0
+-- dumped by GeCk0
 -- Host: 127.0.0.1
--- Erstellungszeit: 24. Mrz 2012 um 16:56
+-- Erstellungszeit: 25. Mrz 2012 um 20:03
 -- Server Version: 5.5.20
 -- PHP-Version: 5.3.10
-
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
--- Datenbank: `ilch12dev`
---
-CREATE DATABASE `ilch12dev` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `ilch12dev`;
 
 -- --------------------------------------------------------
 
@@ -31,8 +18,7 @@ USE `ilch12dev`;
 -- Tabellenstruktur für Tabelle `prefix_allg`
 --
 
-DROP TABLE IF EXISTS `prefix_allg`;
-CREATE TABLE `prefix_allg` (
+CREATE TABLE IF NOT EXISTS `prefix_allg` (
   `id` int(5) unsigned NOT NULL AUTO_INCREMENT,
   `k` varchar(255) NOT NULL DEFAULT '',
   `v1` varchar(255) NOT NULL DEFAULT '',
@@ -50,7 +36,7 @@ CREATE TABLE `prefix_allg` (
 --
 
 INSERT INTO `prefix_allg` (`id`, `k`, `v1`, `v2`, `v3`, `v4`, `v5`, `v6`, `t1`) VALUES
-(1, 'kontakt', ' ', '1', '1', ' ', ' ', ' ', 'admin@gecko-dev.de|Webmaster'),
+(1, 'kontakt', ' ', '1', '1', ' ', ' ', ' ', 'email@host.er|Webmaster'),
 (2, 'impressum', 'Verantwortlich für diese Seite:', 'Max Mustermann', 'Muster Str. 43', '12345 Musterhausen', '', '', ''),
 (3, 'kasse_kontodaten', '', '', '', '', '', '', 'Kontoinhaber: Max Mustermann\r\nBankname: Muster Sparkasse\r\nKontonummer: 123\r\nBankleitzahl: 123\r\nBIC: 123\r\nIBAN: 123\r\nVerwendungszweck: Spende für ilch.de ;-)'),
 (4, 'picofx', 'pic', '2.jpg', '', '', '', '', ''),
@@ -67,8 +53,7 @@ INSERT INTO `prefix_allg` (`id`, `k`, `v1`, `v2`, `v3`, `v4`, `v5`, `v6`, `t1`) 
 -- Tabellenstruktur für Tabelle `prefix_awards`
 --
 
-DROP TABLE IF EXISTS `prefix_awards`;
-CREATE TABLE `prefix_awards` (
+CREATE TABLE IF NOT EXISTS `prefix_awards` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `time` date NOT NULL DEFAULT '0000-00-00',
   `platz` varchar(10) NOT NULL DEFAULT '',
@@ -85,8 +70,7 @@ CREATE TABLE `prefix_awards` (
 -- Tabellenstruktur für Tabelle `prefix_awaycal`
 --
 
-DROP TABLE IF EXISTS `prefix_awaycal`;
-CREATE TABLE `prefix_awaycal` (
+CREATE TABLE IF NOT EXISTS `prefix_awaycal` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `uid` mediumint(9) DEFAULT NULL,
   `pruef` tinyint(2) DEFAULT '2',
@@ -102,8 +86,7 @@ CREATE TABLE `prefix_awaycal` (
 -- Tabellenstruktur für Tabelle `prefix_bbcode_badword`
 --
 
-DROP TABLE IF EXISTS `prefix_bbcode_badword`;
-CREATE TABLE `prefix_bbcode_badword` (
+CREATE TABLE IF NOT EXISTS `prefix_bbcode_badword` (
   `fnBadwordNr` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `fcBadPatter` varchar(70) NOT NULL DEFAULT '',
   `fcBadReplace` varchar(70) NOT NULL DEFAULT '',
@@ -124,8 +107,7 @@ INSERT INTO `prefix_bbcode_badword` (`fnBadwordNr`, `fcBadPatter`, `fcBadReplace
 -- Tabellenstruktur für Tabelle `prefix_bbcode_buttons`
 --
 
-DROP TABLE IF EXISTS `prefix_bbcode_buttons`;
-CREATE TABLE `prefix_bbcode_buttons` (
+CREATE TABLE IF NOT EXISTS `prefix_bbcode_buttons` (
   `fnButtonNr` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `fnFormatB` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `fnFormatI` tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -169,8 +151,7 @@ INSERT INTO `prefix_bbcode_buttons` (`fnButtonNr`, `fnFormatB`, `fnFormatI`, `fn
 -- Tabellenstruktur für Tabelle `prefix_bbcode_config`
 --
 
-DROP TABLE IF EXISTS `prefix_bbcode_config`;
-CREATE TABLE `prefix_bbcode_config` (
+CREATE TABLE IF NOT EXISTS `prefix_bbcode_config` (
   `fnConfigNr` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `fnYoutubeBreite` smallint(3) unsigned NOT NULL DEFAULT '0',
   `fnYoutubeHoehe` smallint(3) unsigned NOT NULL DEFAULT '0',
@@ -207,8 +188,7 @@ INSERT INTO `prefix_bbcode_config` (`fnConfigNr`, `fnYoutubeBreite`, `fnYoutubeH
 -- Tabellenstruktur für Tabelle `prefix_bbcode_design`
 --
 
-DROP TABLE IF EXISTS `prefix_bbcode_design`;
-CREATE TABLE `prefix_bbcode_design` (
+CREATE TABLE IF NOT EXISTS `prefix_bbcode_design` (
   `fnDesignNr` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `fcQuoteRandFarbe` varchar(7) NOT NULL DEFAULT '',
   `fcQuoteTabelleBreite` varchar(7) NOT NULL DEFAULT '',
@@ -249,8 +229,7 @@ INSERT INTO `prefix_bbcode_design` (`fnDesignNr`, `fcQuoteRandFarbe`, `fcQuoteTa
 -- Tabellenstruktur für Tabelle `prefix_config`
 --
 
-DROP TABLE IF EXISTS `prefix_config`;
-CREATE TABLE `prefix_config` (
+CREATE TABLE IF NOT EXISTS `prefix_config` (
   `schl` varchar(50) NOT NULL DEFAULT '',
   `typ` varchar(10) NOT NULL DEFAULT '',
   `typextra` mediumtext,
@@ -336,8 +315,7 @@ INSERT INTO `prefix_config` (`schl`, `typ`, `typextra`, `kat`, `frage`, `wert`, 
 -- Tabellenstruktur für Tabelle `prefix_counter`
 --
 
-DROP TABLE IF EXISTS `prefix_counter`;
-CREATE TABLE `prefix_counter` (
+CREATE TABLE IF NOT EXISTS `prefix_counter` (
   `date` date NOT NULL,
   `count` smallint(5) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
@@ -348,8 +326,7 @@ CREATE TABLE `prefix_counter` (
 -- Tabellenstruktur für Tabelle `prefix_credits`
 --
 
-DROP TABLE IF EXISTS `prefix_credits`;
-CREATE TABLE `prefix_credits` (
+CREATE TABLE IF NOT EXISTS `prefix_credits` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sys` varchar(5) NOT NULL,
   `name` varchar(250) NOT NULL,
@@ -375,8 +352,7 @@ INSERT INTO `prefix_credits` (`id`, `sys`, `name`, `version`, `url`, `lizenzname
 -- Tabellenstruktur für Tabelle `prefix_downcats`
 --
 
-DROP TABLE IF EXISTS `prefix_downcats`;
-CREATE TABLE `prefix_downcats` (
+CREATE TABLE IF NOT EXISTS `prefix_downcats` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `cat` mediumint(8) DEFAULT '0',
   `pos` smallint(6) NOT NULL DEFAULT '0',
@@ -392,8 +368,7 @@ CREATE TABLE `prefix_downcats` (
 -- Tabellenstruktur für Tabelle `prefix_downloads`
 --
 
-DROP TABLE IF EXISTS `prefix_downloads`;
-CREATE TABLE `prefix_downloads` (
+CREATE TABLE IF NOT EXISTS `prefix_downloads` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `cat` mediumint(8) DEFAULT '0',
   `pos` smallint(6) NOT NULL DEFAULT '0',
@@ -420,8 +395,7 @@ CREATE TABLE `prefix_downloads` (
 -- Tabellenstruktur für Tabelle `prefix_forumcats`
 --
 
-DROP TABLE IF EXISTS `prefix_forumcats`;
-CREATE TABLE `prefix_forumcats` (
+CREATE TABLE IF NOT EXISTS `prefix_forumcats` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `cid` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `name` varchar(100) NOT NULL DEFAULT '',
@@ -442,8 +416,7 @@ INSERT INTO `prefix_forumcats` (`id`, `cid`, `name`, `pos`) VALUES
 -- Tabellenstruktur für Tabelle `prefix_forummods`
 --
 
-DROP TABLE IF EXISTS `prefix_forummods`;
-CREATE TABLE `prefix_forummods` (
+CREATE TABLE IF NOT EXISTS `prefix_forummods` (
   `uid` mediumint(9) NOT NULL DEFAULT '0',
   `fid` mediumint(9) NOT NULL DEFAULT '0',
   PRIMARY KEY (`uid`,`fid`)
@@ -455,8 +428,7 @@ CREATE TABLE `prefix_forummods` (
 -- Tabellenstruktur für Tabelle `prefix_forums`
 --
 
-DROP TABLE IF EXISTS `prefix_forums`;
-CREATE TABLE `prefix_forums` (
+CREATE TABLE IF NOT EXISTS `prefix_forums` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `cid` mediumint(8) NOT NULL DEFAULT '0',
   `last_post_id` int(11) NOT NULL DEFAULT '0',
@@ -471,12 +443,6 @@ CREATE TABLE `prefix_forums` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
---
--- Daten für Tabelle `prefix_forums`
---
-
-INSERT INTO `prefix_forums` (`id`, `cid`, `last_post_id`, `view`, `reply`, `start`, `pos`, `posts`, `topics`, `name`, `besch`) VALUES
-(1, 1, 1, 0, 0, 0, 0, 1, 1, 'jo', 'jojo');
 
 -- --------------------------------------------------------
 
@@ -484,8 +450,7 @@ INSERT INTO `prefix_forums` (`id`, `cid`, `last_post_id`, `view`, `reply`, `star
 -- Tabellenstruktur für Tabelle `prefix_gallery_cats`
 --
 
-DROP TABLE IF EXISTS `prefix_gallery_cats`;
-CREATE TABLE `prefix_gallery_cats` (
+CREATE TABLE IF NOT EXISTS `prefix_gallery_cats` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `cat` mediumint(9) NOT NULL DEFAULT '0',
   `pos` smallint(6) NOT NULL DEFAULT '0',
@@ -501,8 +466,7 @@ CREATE TABLE `prefix_gallery_cats` (
 -- Tabellenstruktur für Tabelle `prefix_gallery_imgs`
 --
 
-DROP TABLE IF EXISTS `prefix_gallery_imgs`;
-CREATE TABLE `prefix_gallery_imgs` (
+CREATE TABLE IF NOT EXISTS `prefix_gallery_imgs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cat` mediumint(9) NOT NULL DEFAULT '0',
   `klicks` mediumint(9) NOT NULL DEFAULT '0',
@@ -520,8 +484,7 @@ CREATE TABLE `prefix_gallery_imgs` (
 -- Tabellenstruktur für Tabelle `prefix_gbook`
 --
 
-DROP TABLE IF EXISTS `prefix_gbook`;
-CREATE TABLE `prefix_gbook` (
+CREATE TABLE IF NOT EXISTS `prefix_gbook` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL DEFAULT '',
   `mail` varchar(100) NOT NULL DEFAULT '',
@@ -538,8 +501,7 @@ CREATE TABLE `prefix_gbook` (
 -- Tabellenstruktur für Tabelle `prefix_groupfuncs`
 --
 
-DROP TABLE IF EXISTS `prefix_groupfuncs`;
-CREATE TABLE `prefix_groupfuncs` (
+CREATE TABLE IF NOT EXISTS `prefix_groupfuncs` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL DEFAULT '',
   `pos` smallint(6) NOT NULL DEFAULT '0',
@@ -562,8 +524,7 @@ INSERT INTO `prefix_groupfuncs` (`id`, `name`, `pos`) VALUES
 -- Tabellenstruktur für Tabelle `prefix_groups`
 --
 
-DROP TABLE IF EXISTS `prefix_groups`;
-CREATE TABLE `prefix_groups` (
+CREATE TABLE IF NOT EXISTS `prefix_groups` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL DEFAULT '',
   `mod1` mediumint(9) NOT NULL DEFAULT '0',
@@ -584,8 +545,7 @@ CREATE TABLE `prefix_groups` (
 -- Tabellenstruktur für Tabelle `prefix_groupusers`
 --
 
-DROP TABLE IF EXISTS `prefix_groupusers`;
-CREATE TABLE `prefix_groupusers` (
+CREATE TABLE IF NOT EXISTS `prefix_groupusers` (
   `uid` mediumint(9) NOT NULL DEFAULT '0',
   `gid` smallint(6) NOT NULL DEFAULT '0',
   `fid` smallint(6) NOT NULL DEFAULT '0',
@@ -598,8 +558,7 @@ CREATE TABLE `prefix_groupusers` (
 -- Tabellenstruktur für Tabelle `prefix_grundrechte`
 --
 
-DROP TABLE IF EXISTS `prefix_grundrechte`;
-CREATE TABLE `prefix_grundrechte` (
+CREATE TABLE IF NOT EXISTS `prefix_grundrechte` (
   `id` smallint(6) NOT NULL DEFAULT '0',
   `name` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
@@ -627,8 +586,7 @@ INSERT INTO `prefix_grundrechte` (`id`, `name`) VALUES
 -- Tabellenstruktur für Tabelle `prefix_history`
 --
 
-DROP TABLE IF EXISTS `prefix_history`;
-CREATE TABLE `prefix_history` (
+CREATE TABLE IF NOT EXISTS `prefix_history` (
   `id` smallint(6) NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL DEFAULT '0000-00-00',
   `title` varchar(100) NOT NULL DEFAULT '',
@@ -642,8 +600,7 @@ CREATE TABLE `prefix_history` (
 -- Tabellenstruktur für Tabelle `prefix_kalender`
 --
 
-DROP TABLE IF EXISTS `prefix_kalender`;
-CREATE TABLE `prefix_kalender` (
+CREATE TABLE IF NOT EXISTS `prefix_kalender` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `gid` int(11) NOT NULL DEFAULT '0',
   `time` int(11) NOT NULL DEFAULT '0',
@@ -659,8 +616,7 @@ CREATE TABLE `prefix_kalender` (
 -- Tabellenstruktur für Tabelle `prefix_kasse`
 --
 
-DROP TABLE IF EXISTS `prefix_kasse`;
-CREATE TABLE `prefix_kasse` (
+CREATE TABLE IF NOT EXISTS `prefix_kasse` (
   `id` int(14) NOT NULL AUTO_INCREMENT,
   `datum` date NOT NULL DEFAULT '0000-00-00',
   `name` varchar(50) NOT NULL DEFAULT '',
@@ -675,8 +631,7 @@ CREATE TABLE `prefix_kasse` (
 -- Tabellenstruktur für Tabelle `prefix_koms`
 --
 
-DROP TABLE IF EXISTS `prefix_koms`;
-CREATE TABLE `prefix_koms` (
+CREATE TABLE IF NOT EXISTS `prefix_koms` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `uid` mediumint(9) NOT NULL DEFAULT '0',
   `cat` varchar(10) NOT NULL DEFAULT '',
@@ -691,8 +646,7 @@ CREATE TABLE `prefix_koms` (
 -- Tabellenstruktur für Tabelle `prefix_linkcats`
 --
 
-DROP TABLE IF EXISTS `prefix_linkcats`;
-CREATE TABLE `prefix_linkcats` (
+CREATE TABLE IF NOT EXISTS `prefix_linkcats` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `cat` mediumint(8) DEFAULT '0',
   `pos` smallint(6) NOT NULL DEFAULT '0',
@@ -707,8 +661,7 @@ CREATE TABLE `prefix_linkcats` (
 -- Tabellenstruktur für Tabelle `prefix_links`
 --
 
-DROP TABLE IF EXISTS `prefix_links`;
-CREATE TABLE `prefix_links` (
+CREATE TABLE IF NOT EXISTS `prefix_links` (
   `id` smallint(6) NOT NULL AUTO_INCREMENT,
   `cat` mediumint(8) DEFAULT '0',
   `pos` smallint(6) NOT NULL DEFAULT '0',
@@ -726,8 +679,7 @@ CREATE TABLE `prefix_links` (
 -- Tabellenstruktur für Tabelle `prefix_linkus`
 --
 
-DROP TABLE IF EXISTS `prefix_linkus`;
-CREATE TABLE `prefix_linkus` (
+CREATE TABLE IF NOT EXISTS `prefix_linkus` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `datei` varchar(255) NOT NULL,
@@ -753,8 +705,7 @@ INSERT INTO `prefix_linkus` (`id`, `name`, `datei`, `hoch`, `breit`, `link`, `vi
 -- Tabellenstruktur für Tabelle `prefix_loader`
 --
 
-DROP TABLE IF EXISTS `prefix_loader`;
-CREATE TABLE `prefix_loader` (
+CREATE TABLE IF NOT EXISTS `prefix_loader` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `pos` int(10) NOT NULL,
   `task` varchar(200) NOT NULL,
@@ -777,7 +728,7 @@ INSERT INTO `prefix_loader` (`id`, `pos`, `task`, `file`, `description`) VALUES
 (27, 3, 'func', 'user.php', 'Userverwaltung Login/Logout und Rechte'),
 (28, 4, 'func', 'escape.php', 'Sicherheitsvorkehrungen vom Ilch CMS'),
 (29, 5, 'func', 'allg.php', 'Allgemeine Funktionen und Einstellungen'),
-(40, 14, 'func', 'statistic_content.php', 'Wer-Ist-Wo und ContentStats'),
+(40, 16, 'func', 'statistic_content.php', 'Wer-Ist-Wo und ContentStats'),
 (31, 7, 'func', 'bbcode.php', 'BB-Code Buttons und Funktionen'),
 (32, 8, 'func', 'profilefields.php', 'Profilfelder Funktionen'),
 (33, 9, 'func', 'statistic.php', 'Statistiken &uuml;ber den Besucher speichern'),
@@ -794,8 +745,7 @@ INSERT INTO `prefix_loader` (`id`, `pos`, `task`, `file`, `description`) VALUES
 -- Tabellenstruktur für Tabelle `prefix_menu`
 --
 
-DROP TABLE IF EXISTS `prefix_menu`;
-CREATE TABLE `prefix_menu` (
+CREATE TABLE IF NOT EXISTS `prefix_menu` (
   `wo` tinyint(1) NOT NULL DEFAULT '0',
   `pos` tinyint(4) NOT NULL DEFAULT '0',
   `was` tinyint(1) NOT NULL DEFAULT '0',
@@ -814,30 +764,30 @@ CREATE TABLE `prefix_menu` (
 
 INSERT INTO `prefix_menu` (`wo`, `pos`, `was`, `ebene`, `recht`, `recht_type`, `name`, `path`) VALUES
 (1, 0, 3, 0, 0, 0, 'Men&uuml;', 'allianz.php'),
-(1, 1, 7, 0, 0, 0, 'News', 'news'),
-(1, 2, 7, 0, 0, 0, 'Forum', 'forum'),
-(1, 3, 7, 1, 0, 0, 'Mitglieder', 'user'),
-(1, 4, 7, 0, 0, 0, 'Gbook', 'gbook'),
-(1, 5, 7, 0, 0, 0, 'Links', 'links'),
-(1, 6, 7, 0, 0, 0, 'LinkUs', 'linkus'),
-(1, 7, 7, 0, 0, 0, 'Downloads', 'downloads'),
-(1, 8, 7, 0, 0, 0, 'Gallery', 'gallery'),
-(1, 9, 7, 0, 0, 0, 'Kalender', 'kalender'),
-(1, 10, 7, 0, 2, 3, 'Kontakt', 'contact'),
-(1, 11, 7, 0, 0, 0, 'Impressum', 'impressum'),
-(1, 12, 3, 0, 0, 0, 'Clan Men&uuml;', 'allianz.php'),
-(1, 13, 7, 0, 0, 0, 'Squads', 'teams'),
-(1, 14, 7, 1, 0, 0, 'Fightus', 'fightus'),
-(1, 15, 7, 1, 0, 0, 'Joinus', 'joinus'),
-(1, 16, 7, 0, 0, 0, 'Wars', 'wars'),
-(1, 17, 7, 0, 0, 0, 'Kasse', 'kasse'),
-(1, 18, 7, 0, -3, 0, 'Training', 'trains'),
-(1, 19, 7, 0, -3, 0, 'Away', 'awaycal'),
-(1, 20, 7, 0, 0, 0, 'Awards', 'awards'),
-(1, 21, 7, 0, 0, 0, 'Regeln', 'rules'),
-(1, 22, 7, 0, 0, 0, 'History', 'history'),
-(1, 23, 1, 0, 0, 0, 'Login', 'login.php'),
-(1, 24, 1, 0, 0, 0, 'Shoutbox', 'shoutbox.php'),
+(1, 2, 7, 0, 0, 0, 'News', 'news'),
+(1, 3, 7, 0, 0, 0, 'Forum', 'forum'),
+(1, 4, 7, 1, 0, 0, 'Mitglieder', 'user'),
+(1, 5, 7, 0, 0, 0, 'Gbook', 'gbook'),
+(1, 6, 7, 0, 0, 0, 'Links', 'links'),
+(1, 7, 7, 0, 0, 0, 'LinkUs', 'linkus'),
+(1, 8, 7, 0, 0, 0, 'Downloads', 'downloads'),
+(1, 9, 7, 0, 0, 0, 'Gallery', 'gallery'),
+(1, 10, 7, 0, 0, 0, 'Kalender', 'kalender'),
+(1, 11, 7, 0, 2, 3, 'Kontakt', 'contact'),
+(1, 12, 7, 0, 0, 0, 'Impressum', 'impressum'),
+(1, 13, 3, 0, 0, 0, 'Clan Men&uuml;', 'allianz.php'),
+(1, 14, 7, 0, 0, 0, 'Squads', 'teams'),
+(1, 15, 7, 1, 0, 0, 'Fightus', 'fightus'),
+(1, 16, 7, 1, 0, 0, 'Joinus', 'joinus'),
+(1, 17, 7, 0, 0, 0, 'Wars', 'wars'),
+(1, 18, 7, 0, 0, 0, 'Kasse', 'kasse'),
+(1, 19, 7, 0, -3, 0, 'Training', 'trains'),
+(1, 20, 7, 0, -3, 0, 'Away', 'awaycal'),
+(1, 21, 7, 0, 0, 0, 'Awards', 'awards'),
+(1, 22, 7, 0, 0, 0, 'Regeln', 'rules'),
+(1, 23, 7, 0, 0, 0, 'History', 'history'),
+(1, 24, 1, 0, 0, 0, 'Login', 'login.php'),
+(1, 25, 1, 0, 0, 0, 'Shoutbox', 'shoutbox.php'),
 (2, 0, 1, 0, 0, 0, 'Suchen', 'search.php'),
 (2, 1, 1, 0, 0, 0, 'Umfrage', 'vote.php'),
 (2, 2, 1, 0, 0, 0, 'Allianz', 'allianz.php'),
@@ -852,7 +802,8 @@ INSERT INTO `prefix_menu` (`wo`, `pos`, `was`, `ebene`, `recht`, `recht_type`, `
 (3, 4, 1, 0, 0, 0, 'Last News', 'lastnews.php'),
 (3, 5, 1, 0, 0, 0, 'PicOfX', 'picofx.php'),
 (3, 6, 1, 0, 0, 0, 'Geburtstag', 'geburtstag.php'),
-(5, 0, 7, 0, 0, 0, 'Shoutbox (Archiv)', 'shoutbox');
+(5, 0, 7, 0, 0, 0, 'Shoutbox (Archiv)', 'shoutbox'),
+(1, 1, 7, 0, 0, 0, 'UControl', 'ucp');
 
 -- --------------------------------------------------------
 
@@ -860,8 +811,7 @@ INSERT INTO `prefix_menu` (`wo`, `pos`, `was`, `ebene`, `recht`, `recht_type`, `
 -- Tabellenstruktur für Tabelle `prefix_modulerights`
 --
 
-DROP TABLE IF EXISTS `prefix_modulerights`;
-CREATE TABLE `prefix_modulerights` (
+CREATE TABLE IF NOT EXISTS `prefix_modulerights` (
   `uid` mediumint(9) NOT NULL DEFAULT '0',
   `mid` mediumint(9) NOT NULL DEFAULT '0',
   PRIMARY KEY (`uid`,`mid`)
@@ -888,8 +838,7 @@ INSERT INTO `prefix_modulerights` (`uid`, `mid`) VALUES
 -- Tabellenstruktur für Tabelle `prefix_modules`
 --
 
-DROP TABLE IF EXISTS `prefix_modules`;
-CREATE TABLE `prefix_modules` (
+CREATE TABLE IF NOT EXISTS `prefix_modules` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `url` varchar(20) NOT NULL DEFAULT '',
   `name` varchar(50) NOT NULL DEFAULT '',
@@ -953,8 +902,7 @@ INSERT INTO `prefix_modules` (`id`, `url`, `name`, `gshow`, `ashow`, `fright`, `
 -- Tabellenstruktur für Tabelle `prefix_news`
 --
 
-DROP TABLE IF EXISTS `prefix_news`;
-CREATE TABLE `prefix_news` (
+CREATE TABLE IF NOT EXISTS `prefix_news` (
   `news_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `news_title` varchar(100) NOT NULL DEFAULT '',
   `user_id` int(11) NOT NULL DEFAULT '0',
@@ -971,8 +919,7 @@ CREATE TABLE `prefix_news` (
 -- Tabellenstruktur für Tabelle `prefix_newsletter`
 --
 
-DROP TABLE IF EXISTS `prefix_newsletter`;
-CREATE TABLE `prefix_newsletter` (
+CREATE TABLE IF NOT EXISTS `prefix_newsletter` (
   `email` varchar(100) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
@@ -982,8 +929,7 @@ CREATE TABLE `prefix_newsletter` (
 -- Tabellenstruktur für Tabelle `prefix_online`
 --
 
-DROP TABLE IF EXISTS `prefix_online`;
-CREATE TABLE `prefix_online` (
+CREATE TABLE IF NOT EXISTS `prefix_online` (
   `uptime` datetime DEFAULT NULL,
   `sid` varchar(32) NOT NULL DEFAULT '',
   `ipa` varchar(15) NOT NULL DEFAULT '',
@@ -991,21 +937,13 @@ CREATE TABLE `prefix_online` (
   `content` varchar(255) NOT NULL DEFAULT '(Startseite)'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
---
--- Daten für Tabelle `prefix_online`
---
-
-INSERT INTO `prefix_online` (`uptime`, `sid`, `ipa`, `uid`, `content`) VALUES
-('2012-03-24 17:49:56', 'q8dnvvll9ppgcr1jnqjt0q1uk6', '127.0.0.1', 1, 'allg (Adminbereich)');
-
 -- --------------------------------------------------------
 
 --
 -- Tabellenstruktur für Tabelle `prefix_opponents`
 --
 
-DROP TABLE IF EXISTS `prefix_opponents`;
-CREATE TABLE `prefix_opponents` (
+CREATE TABLE IF NOT EXISTS `prefix_opponents` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `tag` varchar(100) NOT NULL,
@@ -1023,8 +961,7 @@ CREATE TABLE `prefix_opponents` (
 -- Tabellenstruktur für Tabelle `prefix_partners`
 --
 
-DROP TABLE IF EXISTS `prefix_partners`;
-CREATE TABLE `prefix_partners` (
+CREATE TABLE IF NOT EXISTS `prefix_partners` (
   `id` smallint(6) NOT NULL AUTO_INCREMENT,
   `pos` smallint(6) NOT NULL DEFAULT '0',
   `name` varchar(100) NOT NULL DEFAULT '',
@@ -1046,8 +983,7 @@ INSERT INTO `prefix_partners` (`id`, `pos`, `name`, `banner`, `link`) VALUES
 -- Tabellenstruktur für Tabelle `prefix_pm`
 --
 
-DROP TABLE IF EXISTS `prefix_pm`;
-CREATE TABLE `prefix_pm` (
+CREATE TABLE IF NOT EXISTS `prefix_pm` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `sid` mediumint(8) NOT NULL DEFAULT '0',
   `eid` mediumint(8) NOT NULL DEFAULT '0',
@@ -1065,8 +1001,7 @@ CREATE TABLE `prefix_pm` (
 -- Tabellenstruktur für Tabelle `prefix_poll`
 --
 
-DROP TABLE IF EXISTS `prefix_poll`;
-CREATE TABLE `prefix_poll` (
+CREATE TABLE IF NOT EXISTS `prefix_poll` (
   `poll_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `frage` varchar(200) NOT NULL DEFAULT '',
   `recht` tinyint(1) NOT NULL DEFAULT '0',
@@ -1081,8 +1016,7 @@ CREATE TABLE `prefix_poll` (
 -- Tabellenstruktur für Tabelle `prefix_poll_res`
 --
 
-DROP TABLE IF EXISTS `prefix_poll_res`;
-CREATE TABLE `prefix_poll_res` (
+CREATE TABLE IF NOT EXISTS `prefix_poll_res` (
   `sort` tinyint(2) NOT NULL DEFAULT '0',
   `poll_id` mediumint(8) NOT NULL DEFAULT '0',
   `antw` varchar(100) NOT NULL DEFAULT '',
@@ -1095,8 +1029,7 @@ CREATE TABLE `prefix_poll_res` (
 -- Tabellenstruktur für Tabelle `prefix_posts`
 --
 
-DROP TABLE IF EXISTS `prefix_posts`;
-CREATE TABLE `prefix_posts` (
+CREATE TABLE IF NOT EXISTS `prefix_posts` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `tid` mediumint(8) NOT NULL DEFAULT '0',
   `fid` mediumint(9) NOT NULL DEFAULT '0',
@@ -1120,8 +1053,7 @@ INSERT INTO `prefix_posts` (`id`, `tid`, `fid`, `erst`, `erstid`, `time`, `txt`)
 -- Tabellenstruktur für Tabelle `prefix_profilefields`
 --
 
-DROP TABLE IF EXISTS `prefix_profilefields`;
-CREATE TABLE `prefix_profilefields` (
+CREATE TABLE IF NOT EXISTS `prefix_profilefields` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `show` varchar(20) NOT NULL DEFAULT '',
   `pos` mediumint(9) NOT NULL DEFAULT '0',
@@ -1161,8 +1093,7 @@ INSERT INTO `prefix_profilefields` (`id`, `show`, `pos`, `func`, `config_value`)
 -- Tabellenstruktur für Tabelle `prefix_ranks`
 --
 
-DROP TABLE IF EXISTS `prefix_ranks`;
-CREATE TABLE `prefix_ranks` (
+CREATE TABLE IF NOT EXISTS `prefix_ranks` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `bez` varchar(100) NOT NULL DEFAULT '',
   `min` int(10) NOT NULL DEFAULT '0',
@@ -1195,8 +1126,7 @@ INSERT INTO `prefix_ranks` (`id`, `bez`, `min`, `spez`) VALUES
 -- Tabellenstruktur für Tabelle `prefix_rules`
 --
 
-DROP TABLE IF EXISTS `prefix_rules`;
-CREATE TABLE `prefix_rules` (
+CREATE TABLE IF NOT EXISTS `prefix_rules` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `zahl` smallint(6) NOT NULL DEFAULT '0',
   `titel` varchar(200) NOT NULL DEFAULT '',
@@ -1210,8 +1140,7 @@ CREATE TABLE `prefix_rules` (
 -- Tabellenstruktur für Tabelle `prefix_selfp`
 --
 
-DROP TABLE IF EXISTS `prefix_selfp`;
-CREATE TABLE `prefix_selfp` (
+CREATE TABLE IF NOT EXISTS `prefix_selfp` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `path` varchar(30) NOT NULL,
@@ -1238,8 +1167,7 @@ INSERT INTO `prefix_selfp` (`id`, `name`, `path`, `cpath`, `cid`, `wysiwyg`, `ph
 -- Tabellenstruktur für Tabelle `prefix_selfp_cat`
 --
 
-DROP TABLE IF EXISTS `prefix_selfp_cat`;
-CREATE TABLE `prefix_selfp_cat` (
+CREATE TABLE IF NOT EXISTS `prefix_selfp_cat` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `path` varchar(30) NOT NULL,
@@ -1256,8 +1184,7 @@ CREATE TABLE `prefix_selfp_cat` (
 -- Tabellenstruktur für Tabelle `prefix_shoutbox`
 --
 
-DROP TABLE IF EXISTS `prefix_shoutbox`;
-CREATE TABLE `prefix_shoutbox` (
+CREATE TABLE IF NOT EXISTS `prefix_shoutbox` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `uid` int(10) NOT NULL DEFAULT '0',
   `nickname` varchar(50) NOT NULL DEFAULT '',
@@ -1272,8 +1199,7 @@ CREATE TABLE `prefix_shoutbox` (
 -- Tabellenstruktur für Tabelle `prefix_smilies`
 --
 
-DROP TABLE IF EXISTS `prefix_smilies`;
-CREATE TABLE `prefix_smilies` (
+CREATE TABLE IF NOT EXISTS `prefix_smilies` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ent` varchar(50) NOT NULL DEFAULT '',
   `emo` varchar(75) NOT NULL DEFAULT '',
@@ -1304,8 +1230,7 @@ INSERT INTO `prefix_smilies` (`id`, `ent`, `emo`, `url`, `pos`) VALUES
 -- Tabellenstruktur für Tabelle `prefix_stats`
 --
 
-DROP TABLE IF EXISTS `prefix_stats`;
-CREATE TABLE `prefix_stats` (
+CREATE TABLE IF NOT EXISTS `prefix_stats` (
   `wtag` tinyint(2) NOT NULL DEFAULT '0',
   `stunde` tinyint(2) NOT NULL DEFAULT '0',
   `day` tinyint(2) NOT NULL DEFAULT '0',
@@ -1323,69 +1248,12 @@ CREATE TABLE `prefix_stats` (
 -- Tabellenstruktur für Tabelle `prefix_stats_content`
 --
 
-DROP TABLE IF EXISTS `prefix_stats_content`;
-CREATE TABLE `prefix_stats_content` (
+CREATE TABLE IF NOT EXISTS `prefix_stats_content` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` varchar(255) NOT NULL,
   `counter` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
---
--- Daten für Tabelle `prefix_stats_content`
---
-
-INSERT INTO `prefix_stats_content` (`id`, `content`, `counter`) VALUES
-(1, 'news (Startseite)', 5),
-(2, 'admin (Adminbereich)', 10),
-(3, 'allg (Adminbereich)', 7),
-(4, 'user-3', 3),
-(5, 'news', 7),
-(6, 'linkus (Adminbereich)', 2),
-(7, 'linkus-view-1-false', 2),
-(8, 'linkus-view-2-false', 2),
-(9, 'forum (Adminbereich)', 1),
-(10, 'forum-newCategorie (Adminbereich)', 1),
-(11, 'forum-newForum-c1 (Adminbereich)', 1),
-(12, 'forum-newForum (Adminbereich)', 1),
-(13, 'forum', 1),
-(14, 'forum-showtopics-1', 1),
-(15, 'forum-newtopic-1', 2),
-(16, 'forum-showposts-1', 2),
-(17, 'user-login', 1),
-(18, 'awaycal (Adminbereich)', 1),
-(19, 'loader (Adminbereich)', 1),
-(20, 'loaderdb (Adminbereich)', 1),
-(21, 'checkconf (Adminbereich)', 4),
-(22, 'admin-versionsKontrolle (Adminbereich)', 3),
-(23, 'credits (Adminbereich)', 2),
-(24, 'news (Adminbereich)', 1),
-(25, 'inactive (Adminbereich)', 1),
-(26, 'archiv-partners (Adminbereich)', 1),
-(27, 'backup (Adminbereich)', 4),
-(28, 'user', 1),
-(29, 'user-details-1', 1),
-(30, 'user-8', 1),
-(31, 'gallery', 1),
-(32, 'impressum', 1),
-(33, 'gbook', 1),
-(34, 'admin-siteStatistik (Adminbereich)', 1),
-(35, 'modrewrite (Adminbereich)', 1),
-(36, 'gbook (Adminbereich)', 3),
-(37, 'bbcode-badword (Adminbereich)', 1);
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `prefix_topic_alerts`
---
-
-DROP TABLE IF EXISTS `prefix_topic_alerts`;
-CREATE TABLE `prefix_topic_alerts` (
-  `tid` mediumint(9) NOT NULL DEFAULT '0',
-  `uid` mediumint(9) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`tid`,`uid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1393,8 +1261,7 @@ CREATE TABLE `prefix_topic_alerts` (
 -- Tabellenstruktur für Tabelle `prefix_topics`
 --
 
-DROP TABLE IF EXISTS `prefix_topics`;
-CREATE TABLE `prefix_topics` (
+CREATE TABLE IF NOT EXISTS `prefix_topics` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `fid` int(10) NOT NULL DEFAULT '0',
   `last_post_id` mediumint(9) NOT NULL DEFAULT '0',
@@ -1412,7 +1279,19 @@ CREATE TABLE `prefix_topics` (
 --
 
 INSERT INTO `prefix_topics` (`id`, `fid`, `last_post_id`, `name`, `erst`, `art`, `stat`, `rep`, `hit`) VALUES
-(1, 1, 1, 'jojojo', 'GeCk0', 0, 1, 0, 1);
+(1, 1, 1, 'jojojo', 'GeCk0', 0, 1, 0, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `prefix_topic_alerts`
+--
+
+CREATE TABLE IF NOT EXISTS `prefix_topic_alerts` (
+  `tid` mediumint(9) NOT NULL DEFAULT '0',
+  `uid` mediumint(9) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`tid`,`uid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1420,8 +1299,7 @@ INSERT INTO `prefix_topics` (`id`, `fid`, `last_post_id`, `name`, `erst`, `art`,
 -- Tabellenstruktur für Tabelle `prefix_user`
 --
 
-DROP TABLE IF EXISTS `prefix_user`;
-CREATE TABLE `prefix_user` (
+CREATE TABLE IF NOT EXISTS `prefix_user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '',
   `name_clean` varchar(50) NOT NULL DEFAULT '',
@@ -1458,8 +1336,7 @@ CREATE TABLE `prefix_user` (
 -- Tabellenstruktur für Tabelle `prefix_usercheck`
 --
 
-DROP TABLE IF EXISTS `prefix_usercheck`;
-CREATE TABLE `prefix_usercheck` (
+CREATE TABLE IF NOT EXISTS `prefix_usercheck` (
   `check` varchar(100) NOT NULL DEFAULT '',
   `name` varchar(100) NOT NULL DEFAULT '',
   `email` varchar(100) NOT NULL DEFAULT '',
@@ -1476,8 +1353,7 @@ CREATE TABLE `prefix_usercheck` (
 -- Tabellenstruktur für Tabelle `prefix_userfields`
 --
 
-DROP TABLE IF EXISTS `prefix_userfields`;
-CREATE TABLE `prefix_userfields` (
+CREATE TABLE IF NOT EXISTS `prefix_userfields` (
   `uid` mediumint(8) NOT NULL DEFAULT '0',
   `fid` mediumint(8) NOT NULL DEFAULT '0',
   `val` varchar(255) NOT NULL DEFAULT '',
@@ -1503,8 +1379,7 @@ INSERT INTO `prefix_userfields` (`uid`, `fid`, `val`) VALUES
 -- Tabellenstruktur für Tabelle `prefix_usergallery`
 --
 
-DROP TABLE IF EXISTS `prefix_usergallery`;
-CREATE TABLE `prefix_usergallery` (
+CREATE TABLE IF NOT EXISTS `prefix_usergallery` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `uid` mediumint(9) NOT NULL DEFAULT '0',
   `name` varchar(50) NOT NULL DEFAULT '',
@@ -1519,8 +1394,7 @@ CREATE TABLE `prefix_usergallery` (
 -- Tabellenstruktur für Tabelle `prefix_warmaps`
 --
 
-DROP TABLE IF EXISTS `prefix_warmaps`;
-CREATE TABLE `prefix_warmaps` (
+CREATE TABLE IF NOT EXISTS `prefix_warmaps` (
   `wid` smallint(6) NOT NULL DEFAULT '0',
   `mnr` tinyint(4) NOT NULL DEFAULT '0',
   `map` varchar(100) NOT NULL DEFAULT '',
@@ -1535,8 +1409,7 @@ CREATE TABLE `prefix_warmaps` (
 -- Tabellenstruktur für Tabelle `prefix_warmember`
 --
 
-DROP TABLE IF EXISTS `prefix_warmember`;
-CREATE TABLE `prefix_warmember` (
+CREATE TABLE IF NOT EXISTS `prefix_warmember` (
   `wid` smallint(6) NOT NULL DEFAULT '0',
   `uid` mediumint(9) NOT NULL DEFAULT '0',
   `aktion` tinyint(1) NOT NULL DEFAULT '0',
@@ -1549,8 +1422,7 @@ CREATE TABLE `prefix_warmember` (
 -- Tabellenstruktur für Tabelle `prefix_wars`
 --
 
-DROP TABLE IF EXISTS `prefix_wars`;
-CREATE TABLE `prefix_wars` (
+CREATE TABLE IF NOT EXISTS `prefix_wars` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `datime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `status` tinyint(2) NOT NULL DEFAULT '0',
@@ -1571,7 +1443,3 @@ CREATE TABLE `prefix_wars` (
   `txt` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
