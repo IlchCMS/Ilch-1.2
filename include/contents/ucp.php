@@ -85,8 +85,8 @@ $modular['awaycal'] 		= 'Abwesenheit';
 $i = 1; // nicht null weil home-button statisch und somit schon eins vorhanden
 $iconout = '<tr>
 				<td align="center">
-					<a href="index.php" target="_blank"><img src="include/images/icons/home.png" title="zur Startseite" border="0" /></a><br />
-					Startseite
+					<a href="index.php" target="_self"><img src="include/images/icons/home.png" title="zur Startseite" border="0" /><br />
+					Startseite</a>
 				</td>';
 foreach ($modular as $key=>$val) {
 	
@@ -98,8 +98,8 @@ foreach ($modular as $key=>$val) {
 			$msgcnt = ' ('.$msgcntx.')';
 		}
 		$iconout .= '<td align="center">
-						<a href="index.php?'.$key.'" target="_blank"><img src="include/images/icons/'.$key.'.png" title="'.$val.'" border="0" /></a><br />
-						'.$val.$msgcnt.'
+						<a href="index.php?'.$key.'" target="_self"><img src="include/images/icons/'.$key.'.png" title="'.$val.'" border="0" /><br />
+						'.$val.$msgcnt.'</a>
 					</td>';
 		$i++;
 	}
