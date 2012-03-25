@@ -4,23 +4,23 @@ Copyright (c) by ilch.de
 
 
 i n s t a l l a t i o n
-  - alle Dateien hochladen.
-  - deinedomain/install im Browser aufrufen und den Anweisungen am Bildschirm folgen
+  - alle Dateien auf einen Webserver laden.
+  - http://DEINE-DOMAIN.tld/install im Browser aufrufen und den Anweisungen am Bildschirm folgen
 
+v o r a u s s e t z u n g e n
+  - PHP 5.2 oder höher
+  - 1x mySQL 5.x
+  - mindestens 5 MB freier Speicherplatz (Gallery, Downloads ect benötigen u.U. mehr)
+  
 s u p p o r t
   - www.ilch.de
 
 d a n k e
-  - Mairu fuer die viele Weiterentwicklung
-  - Meiner Freundin für die Zeit ;-)
-  - Scarfhogg für die Design Anpassung und die Icons im Adminbereich und vieles mehr!
-  - Scorp für die super Hilfe bei den Templates.
-  - jihi für die Hilfe zwischendurch.
-  - fanguro für das neue Standard Design
-  - Rock@Wulf für sein AwayCalender und Kassen Modul.
-  - Nickel für sein Kalender Modul.
-  - s_down für die Geburtstagsbox
-  - ilch.de Team für die gute Hilfe.
+  - Manuel für die Idee und Betreuung des Projekts bis Version 1.1
+  - Mairu fuer die viele Weiterentwicklung und die Übernahme von ilch.de
+  - GeCk0 für das aktualisieren dieser Readme :)
+  - oldenmuche und Tigereyes für das StandardDesign und dessen Umsetzung
+  - ilch.de Team für die gute Hilfe und Support.
 
 L i z e n z
 		    GNU GENERAL PUBLIC LICENSE
