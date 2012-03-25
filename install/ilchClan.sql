@@ -1082,10 +1082,7 @@ INSERT INTO `prefix_profilefields` (`id`, `show`, `pos`, `func`, `config_value`)
 (13, 'aim', 14, 3, ''),
 (14, 'homepage', 5, 3, ''),
 (15, 'opt_pm_popup', 10, 3, ''),
-(16, 'usergallery', 15, 3, ''),
-(19, 'Testfeld', 16, 1, 'a:4:{s:3:"sid";i:0;s:4:"show";s:8:"Testfeld";s:4:"func";i:1;s:3:"sub";s:9:"Eintragen";}'),
-(20, 'Ein Slider', 17, 4, 'a:6:{s:3:"sid";i:0;s:4:"show";s:10:"Ein Slider";s:4:"func";i:4;s:9:"textlinks";s:11:"linker Text";s:10:"textrechts";s:12:"rechter Text";s:3:"sub";s:9:"Eintragen";}'),
-(21, 'Eine Seite', 18, 5, 'a:4:{s:3:"sid";i:0;s:4:"show";s:10:"Eine Seite";s:4:"func";i:5;s:3:"sub";s:9:"Eintragen";}');
+(16, 'usergallery', 15, 3, '');
 
 -- --------------------------------------------------------
 
