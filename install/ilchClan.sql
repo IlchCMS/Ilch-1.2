@@ -1,4 +1,4 @@
--- die Standard Clan-Installation mit allen Menüs für Community und Clans
+﻿-- die Standard Clan-Installation mit allen Menüs für Community und Clans
 -- in der Ersten Kommentarzeile wird die Beschreibung der Installationsdatei angegeben, welche als Hilfetext während der Installation ausgegeben wird.
 -- Maximal können die ersten 5 Zeilen für Author-Infos der Installationsprofile genutzt werden
 
@@ -855,6 +855,7 @@ CREATE TABLE IF NOT EXISTS `prefix_modules` (
 --
 
 INSERT INTO `prefix_modules` (`id`, `url`, `name`, `gshow`, `ashow`, `fright`, `menu`, `pos`) VALUES
+(38, 'modules', 'ModulConfig', 1, 0, 1, 'Admin', 9),
 (39, 'gallery', 'Gallery', 1, 0, 1, 'Content', 4),
 (40, 'menu', 'Navigation', 1, 0, 0, 'Admin', 2),
 (41, 'groups', 'Teams', 1, 0, 1, 'Clanbox', 6),
