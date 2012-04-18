@@ -20,3 +20,5 @@ include/includes/config.php
 # Dreamweaver und SVN ausschlieﬂen
 _notes
 .svn
+
+/include/includes/libs/captcha/txt/numbers.txt
