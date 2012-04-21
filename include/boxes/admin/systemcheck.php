@@ -1,6 +1,6 @@
 <?php
-$get_check_status = db_result(db_query("SELECT `wert` FROM `prefix_config` WHERE schl = 'syscheckstatus'"));
-$get_check_datum  = db_result(db_query("SELECT `wert` FROM `prefix_config` WHERE schl = 'syscheckdatum'"));
+$get_check_status = @db_result(db_query("SELECT `wert` FROM `prefix_config` WHERE schl = 'syscheckstatus'"));
+$get_check_datum  = @db_result(db_query("SELECT `wert` FROM `prefix_config` WHERE schl = 'syscheckdatum'"));
 
 if ($get_check_status == 'OK') {
 	$sysstatus = '<div style="color: #0c0; float:left;">&nbsp;OK</div>';
