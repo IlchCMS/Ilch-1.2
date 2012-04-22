@@ -84,7 +84,7 @@ $comment[]='/*!';                     // Or add your own string to leave out oth
 // See http://dev.mysql.com/doc/refman/5.0/en/charset-charsets.html for the full list
 // Change this if you have problems with non-latin letters
 
-$db_connection_charset = 'UTF-8';
+$db_connection_charset = 'utf8';
 
 // Default query delimiter: this character at the line end tells Bigdump where a SQL statement ends
 // Can be changed by DELIMITER statement in the dump file (normally used when defining procedures/functions)
