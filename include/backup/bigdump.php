@@ -1,9 +1,9 @@
 <?php
-//Auskommentieren der n�chsten Zeilen hat zur Folge, dass das Script ohne Adminrechte aufgerufen werden kann
+//Auskommentieren der n�chsten Zeilen hat zur Folge, dass das Script ohne Adminrechte aufgerufen werden kann
 session_name ('sid');
 session_start ();
 if ($_SESSION['authright'] != -9) die('only admin access');
-
+echo '<p><a href="../../admin.php?backup" target="_self">zurück zum Adminmenü</a></p>';
 // BigDump ver. 0.34b from 2011-09-04
 // Staggered import of an large MySQL Dump (like phpMyAdmin 2.x Dump)
 // Even through the webservers with hard runtime limit and those in safe mode
@@ -45,8 +45,8 @@ if ($_SESSION['authright'] != -9) die('only admin access');
 
 // Database configuration
 require_once('../includes/config.php');
-$db_server	 	= DBHOST;
-$db_name 		= DBDATE;
+$db_server	 = DBHOST;
+$db_name 	= DBDATE;
 $db_username 	= DBUSER;
 $db_password 	= DBPASS;
 
@@ -84,7 +84,7 @@ $comment[]='/*!';                     // Or add your own string to leave out oth
 // See http://dev.mysql.com/doc/refman/5.0/en/charset-charsets.html for the full list
 // Change this if you have problems with non-latin letters
 
-$db_connection_charset = '';
+$db_connection_charset = 'UTF-8';
 
 // Default query delimiter: this character at the line end tells Bigdump where a SQL statement ends
 // Can be changed by DELIMITER statement in the dump file (normally used when defining procedures/functions)
@@ -133,8 +133,8 @@ foreach ($_REQUEST as $key => $val)
 <html>
 <head>
 <title>BigDump ver. <?php echo (VERSION); ?></title>
-<meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-1"/>
-<meta http-equiv="CONTENT-LANGUAGE" content="EN"/>
+<meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8"/>
+<meta http-equiv="CONTENT-LANGUAGE" content="DE-de"/>
 
 <meta http-equiv="Cache-Control" content="no-cache/"/>
 <meta http-equiv="Pragma" content="no-cache"/>
