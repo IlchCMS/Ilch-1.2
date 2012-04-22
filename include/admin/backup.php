@@ -21,9 +21,29 @@ if (!is_writeable(BACKUPDIR)) {
     $design->footer(1);
 } else 
 if (isset($_POST['backitup'])){
-	$dumper = new MySQLDump(DBDATE, BACKUPDIR.$filedatename, false, false);
-        $dumperg=$dumper->doDump();
-	if (isset($dumperg) && $dumperg !== false) {
+    $hostspec = DBHOST;
+    $username = DBUSER;
+    $password = DBPASS;
+    $database = DBDATE;
+
+    $nodata   = false;      #!DO NOT DUMP TABLES DATA
+    $nostruct = false;      #!DO NOT DUMP TABLES STRUCTURE
+    $gzip     = false;      #!DO GZIP OUTPUT
+
+    $link = mysql_connect("$hostspec", "$username", "$password",false,MYSQL_CLIENT_COMPRESS);
+    $dump = new MySQLDump();
+    $dbdata =  $dump->dumpDatabase($database,$nodata,$nostruct);
+    mysql_close($link);
+    if($gzip === false){
+        file_put_contents(BACKUPDIR.$filedatename, $dbdata);
+        #$dump->sendAttachFile($dbdata,'text/html','sql_dump.sql');
+    } else {
+        file_put_contents(BACKUPDIR.$filedatename, $dbdata);
+        #$dump->sendAttachFileGzip($dbdata,BACKUPDIR.$filedatename'.gz');
+    } 
+    
+    
+	if (isset($dbdata) && $dbdata !== false) {
             wd('admin.php?backup', 'das SQL-Backup wurde erfolgreich unter <a href="'.BACKUPDIR.$filedatename.'" target="_blank">'.BACKUPDIR.$filedatename.'</a> gespeichert<br />');
             $design->footer(1);
 	} else {
