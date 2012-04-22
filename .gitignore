@@ -2,23 +2,24 @@
 include/cache/*
 include/backup/*
 
-# .gitignore niemals ausschließen
+# .gitignore niemals ausschlieï¿½en
 !.gitignore
 
-# Backup-Verzeichnis beschränken
+# Backup-Verzeichnis beschrï¿½nken
 !include/backup/bigdump.php
 
 # Config und .htaccess
 .htaccess
 include/includes/config.php
 
-# Zend Studio ausschließen
+# Zend Studio ausschlieï¿½en
 .settings
 .buildpath
 .project
 
-# Dreamweaver und SVN ausschließen
+# Dreamweaver und SVN ausschlieï¿½en
 _notes
 .svn
 
 /include/includes/libs/captcha/txt/numbers.txt
+!/include/backup/backup.class.php
