@@ -5,11 +5,10 @@
  * @version $Id
 */
 
-db_query("INSERT INTO `prefix_config` (`schl`, `typ`, `typextra`, `kat`, `frage`, `wert`, `pos`, `hide`, `helptext`) 
+db_query("INSERT INTO `prefix_config` (`schl`, `typ`, `kat`, `frage`, `wert`, `pos`, `hide`, `helptext`) 
 			VALUES 
-			('syscheckstatus', 'input', NULL, 'unsichtbar', '', 'ungeprüft', '0', '1', 'Hier speichert das Script den aktuellen Systemstatus'), 
-			('syscheckdatum', 'input', NULL, 'unsichtbar', '', '', '0', '1', 'Hier speichert das Script das Datum der letzten Systemüberprüfung');'
-		);	
+			('syscheckstatus', 'input',  'unsichtbar', '', 'ungeprüft', '0', '1', 'Hier speichert das Script den aktuellen Systemstatus'),
+			('syscheckdatum',  'input',  'unsichtbar', '', '',          '0', '1', 'Hier speichert das Script das Datum der letzten Systemüberprüfung')	
 ");
 
 $rev='241';
