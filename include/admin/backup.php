@@ -17,17 +17,19 @@ define("BACKUPDIR", "./include/backup/");
 $filedatename = "sql_".date('Y-m-d_h-m-s').".sql";
 
 if (!is_writeable(BACKUPDIR)) {
-    echo 'backupdir != writeable';
+    wd('admin.php?checkconf', 'Das BackupVerzeichnis ist nicht beschreibbar');
+    $design->footer(1);
 } else 
 if (isset($_POST['backitup'])){
 	$dumper = new MySQLDump(DBDATE, BACKUPDIR.$filedatename, false, false);
-    $dumperg=$dumper->doDump();
+        $dumperg=$dumper->doDump();
 	if (isset($dumperg) && $dumperg !== false) {
-    	echo 'das SQL-Backup wurde erfolgreich unter '.BACKUPDIR.$filedatename.' gespeichert<br />';
+            wd('admin.php?backup', 'das SQL-Backup wurde erfolgreich unter <a href="'.BACKUPDIR.$filedatename.'" target="_blank">'.BACKUPDIR.$filedatename.'</a> gespeichert<br />');
+            $design->footer(1);
 	} else {
-		echo 'oops, da lief was schief';
+            wd('admin.php?backup', 'ooOOps, da lief was schief...');
+            $design->footer(1);
 	}
 }
-
 $tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
 $tpl->out(0);
