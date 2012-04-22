@@ -270,7 +270,7 @@ if ( @is_writeable ( '../.htaccess' ) ) {
 	if (is_file('../.htaccess')) {
 		$servercheck['htaccess']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
 	} else {
-		if (FALSE === file_put_contents('../.htaccess', '')) {
+		if (FALSE === @file_put_contents('../.htaccess', '')) {
 			$servercheck['htaccess']['erg'] = '<font color="#CC9933"><b>bitte eine leere .htaccess anlegen</b></font>';
 		} else {
 			$servercheck['htaccess']['erg'] = '<font color="#40aa00"><b>Datei angelegt</b></font>';
