@@ -21,7 +21,8 @@ if ($get_check_status == 'ungeprüft' or $get_check_status === FALSE) {
 	$sysstatus = '<div style="color: '.WARNUNG.'; float:left;">&nbsp;ungeprüft</div>';
 }
 if (strtotime($get_check_datum) <= strtotime('NOW - 7days') ) { // Meldet wenn letzter Check älter als 7 Tage ist
-    $sysstatus = '<div style="color: '.WARNUNG.'; float:left;">&nbsp;veraltet</div>';
+    $diffdays = ( time() - strtotime($get_check_datum) ) / 86400;
+    $sysstatus = '<div style="color: '.WARNUNG.'; float:left;">&nbsp;veraltet ('.ceil($diffdays).' Tage)</div>';
 }
 ?><li>
 <center>
