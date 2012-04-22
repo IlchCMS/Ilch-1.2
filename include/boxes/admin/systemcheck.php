@@ -18,6 +18,6 @@ if ($get_check_status == 'ungeprüft' or $get_check_status === FALSE) {
 	$sysstatus = '<div style="color: #c93; float:left;">&nbsp;ungeprüft</div>';
 }
 ?><li>
-<center><a href="admin.php?checkconf"><span>
+<center><a href="admin.php?checkconf-1"><span>
     <div style="float:left;"><strong>Systemstatus</strong></div><?php echo $sysstatus; ?></span></a></center>
 </li>
