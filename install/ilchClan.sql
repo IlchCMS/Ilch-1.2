@@ -786,7 +786,6 @@ INSERT INTO `prefix_menu` (`wo`, `pos`, `was`, `ebene`, `recht`, `recht_type`, `
 (1, 21, 7, 0, 0, 0, 'Awards', 'awards'),
 (1, 22, 7, 0, 0, 0, 'Regeln', 'rules'),
 (1, 23, 7, 0, 0, 0, 'History', 'history'),
-(1, 24, 1, 0, 0, 0, 'Login', 'login.php'),
 (1, 25, 1, 0, 0, 0, 'Shoutbox', 'shoutbox.php'),
 (2, 0, 1, 0, 0, 0, 'Suchen', 'search.php'),
 (2, 1, 1, 0, 0, 0, 'Umfrage', 'vote.php'),
