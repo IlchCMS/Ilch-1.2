@@ -35,17 +35,17 @@ CREATE TABLE IF NOT EXISTS `prefix_allg` (
 -- Daten für Tabelle `prefix_allg`
 --
 
-INSERT INTO `prefix_allg` (`id`, `k`, `v1`, `v2`, `v3`, `v4`, `v5`, `v6`, `t1`) VALUES
-(1, 'kontakt', ' ', '1', '1', ' ', ' ', ' ', 'email@host.er|Webmaster'),
-(2, 'impressum', 'Verantwortlich für diese Seite:', 'Max Mustermann', 'Muster Str. 43', '12345 Musterhausen', '', '', ''),
-(3, 'kasse_kontodaten', '', '', '', '', '', '', 'Kontoinhaber: Max Mustermann\r\nBankname: Muster Sparkasse\r\nKontonummer: 123\r\nBankleitzahl: 123\r\nBIC: 123\r\nIBAN: 123\r\nVerwendungszweck: Spende für ilch.de ;-)'),
-(4, 'picofx', 'pic', '2.jpg', '', '', '', '', ''),
-(5, 'picofx', 'directory', '0', '', '', '', '', ''),
-(6, 'picofx', 'interval', '0', '', '', '', '', ''),
-(7, 'picofx', 'nextchange', '2011-10-05', '', '', '', '', ''),
-(8, 'picofx', 'picwidth', '100', '', '', '', '', ''),
-(9, 'trainzeiten', '', '', '', '', '', '', 'Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train'),
-(10, 'smtpconf', '', '', '', '', '', '', '');
+INSERT INTO `prefix_allg` (`k`, `v1`, `v2`, `v3`, `v4`, `v5`, `v6`, `t1`) VALUES
+('kontakt', ' ', '1', '1', ' ', ' ', ' ', 'email@host.er|Webmaster'),
+( 'impressum', 'Verantwortlich für diese Seite:', 'Max Mustermann', 'Muster Str. 43', '12345 Musterhausen', '', '', ''),
+( 'kasse_kontodaten', '', '', '', '', '', '', 'Kontoinhaber: Max Mustermann\r\nBankname: Muster Sparkasse\r\nKontonummer: 123\r\nBankleitzahl: 123\r\nBIC: 123\r\nIBAN: 123\r\nVerwendungszweck: Spende für ilch.de ;-)'),
+( 'picofx', 'pic', '2.jpg', '', '', '', '', ''),
+( 'picofx', 'directory', '0', '', '', '', '', ''),
+( 'picofx', 'interval', '0', '', '', '', '', ''),
+( 'picofx', 'nextchange', '2011-10-05', '', '', '', '', ''),
+( 'picofx', 'picwidth', '100', '', '', '', '', ''),
+( 'trainzeiten', '', '', '', '', '', '', 'Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train'),
+( 'smtpconf', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -341,10 +341,10 @@ CREATE TABLE IF NOT EXISTS `prefix_credits` (
 -- Daten für Tabelle `prefix_credits`
 --
 
-INSERT INTO `prefix_credits` (`id`, `sys`, `name`, `version`, `url`, `lizenzname`, `lizenzurl`) VALUES
-(1, 'ilch', 'ilch.de - CMS', '1.2', 'http://ilch.de', 'GPL', 'http://www.gnu.de/gpl-ger.html'),
-(2, 'ilch', 'jQuery', '1.7.1', 'http://jquery.com', 'GPL', 'http://en.wikipedia.org/wiki/GNU_General_Public_License'),
-(3, 'ilch', 'jQuery UI', '1.8.9', 'http://jqueryui.com', 'GPL', 'http://en.wikipedia.org/wiki/GNU_General_Public_License');
+INSERT INTO `prefix_credits` (`sys`, `name`, `version`, `url`, `lizenzname`, `lizenzurl`) VALUES
+('ilch', 'ilch.de - CMS', '1.2', 'http://ilch.de', 'GPL', 'http://www.gnu.de/gpl-ger.html'),
+('ilch', 'jQuery', '1.7.1', 'http://jquery.com', 'GPL', 'http://en.wikipedia.org/wiki/GNU_General_Public_License'),
+('ilch', 'jQuery UI', '1.8.9', 'http://jqueryui.com', 'GPL', 'http://en.wikipedia.org/wiki/GNU_General_Public_License');
 
 -- --------------------------------------------------------
 
@@ -512,11 +512,11 @@ CREATE TABLE IF NOT EXISTS `prefix_groupfuncs` (
 -- Daten für Tabelle `prefix_groupfuncs`
 --
 
-INSERT INTO `prefix_groupfuncs` (`id`, `name`, `pos`) VALUES
-(1, 'Leader', 1),
-(2, 'Co-Leader', 2),
-(3, 'Member', 3),
-(4, 'Trial', 4);
+INSERT INTO `prefix_groupfuncs` (`name`, `pos`) VALUES
+( 'Leader', 1),
+( 'Co-Leader', 2),
+( 'Member', 3),
+( 'Trial', 4);
 
 -- --------------------------------------------------------
 
@@ -695,9 +695,9 @@ CREATE TABLE IF NOT EXISTS `prefix_linkus` (
 -- Daten für Tabelle `prefix_linkus`
 --
 
-INSERT INTO `prefix_linkus` (`id`, `name`, `datei`, `hoch`, `breit`, `link`, `views`, `klicks`) VALUES
-(1, 'Ilch.de-Banner 468x60', '468x60ilch.gif', 60, 468, 'http://gecko.ilch.de', 22, 3),
-(2, 'Ilch.de-Button 88x31', 'copy_by_ilch.gif', 31, 88, 'http://gecko.ilch.de', 6, 0);
+INSERT INTO `prefix_linkus` (`name`, `datei`, `hoch`, `breit`, `link`, `views`, `klicks`) VALUES
+( 'Ilch.de-Banner 468x60', '468x60ilch.gif', 60, 468, 'http://gecko.ilch.de', 22, 3),
+( 'Ilch.de-Button 88x31', 'copy_by_ilch.gif', 31, 88, 'http://gecko.ilch.de', 6, 0);
 
 -- --------------------------------------------------------
 
@@ -718,26 +718,26 @@ CREATE TABLE IF NOT EXISTS `prefix_loader` (
 -- Daten für Tabelle `prefix_loader`
 --
 
-INSERT INTO `prefix_loader` (`id`, `pos`, `task`, `file`, `description`) VALUES
-(20, 1, 'class', 'tpl.php', 'Template-Class'),
-(21, 2, 'class', 'design.php', 'Design-Class'),
-(22, 3, 'class', 'menu.php', 'Menu-Class'),
-(23, 4, 'class', 'bbcode.php', 'BB-Code 2.0 Class'),
-(24, 5, 'libs', 'xajax/xajax.inc.php', 'Die xAjax-Class'),
-(26, 2, 'func', 'calender.php', 'Funktionen fuer den Kalender'),
-(27, 3, 'func', 'user.php', 'Userverwaltung Login/Logout und Rechte'),
-(28, 4, 'func', 'escape.php', 'Sicherheitsvorkehrungen vom Ilch CMS'),
-(29, 5, 'func', 'allg.php', 'Allgemeine Funktionen und Einstellungen'),
-(40, 16, 'func', 'statistic_content.php', 'Wer-Ist-Wo und ContentStats'),
-(31, 7, 'func', 'bbcode.php', 'BB-Code Buttons und Funktionen'),
-(32, 8, 'func', 'profilefields.php', 'Profilfelder Funktionen'),
-(33, 9, 'func', 'statistic.php', 'Statistiken &uuml;ber den Besucher speichern'),
-(34, 10, 'func', 'listen.php', 'Funktionen, zum Listen erstellen'),
-(35, 11, 'func', 'forum.php', 'Alle Funktionen f&uuml;r das Forum'),
-(36, 12, 'func', 'warsys.php', 'Funktionen f&uuml;r das War-System'),
-(37, 13, 'func', 'ic_mime_type.php', 'Funktionen f&uuml;r den Umgang mit Dateiuploads'),
-(38, 14, 'func', 'lang.php', 'Funktionen zum Aufrufen der Sprachdateien'),
-(39, 15, 'class', 'profilefield_registry.php', 'Verwaltet die Profilfeld-Typen.');
+INSERT INTO `prefix_loader` ( `pos`, `task`, `file`, `description`) VALUES
+( 1, 'class', 'tpl.php', 'Template-Class'),
+( 2, 'class', 'design.php', 'Design-Class'),
+( 3, 'class', 'menu.php', 'Menu-Class'),
+( 4, 'class', 'bbcode.php', 'BB-Code 2.0 Class'),
+( 5, 'libs', 'xajax/xajax.inc.php', 'Die xAjax-Class'),
+( 2, 'func', 'calender.php', 'Funktionen fuer den Kalender'),
+( 3, 'func', 'user.php', 'Userverwaltung Login/Logout und Rechte'),
+( 4, 'func', 'escape.php', 'Sicherheitsvorkehrungen vom Ilch CMS'),
+( 5, 'func', 'allg.php', 'Allgemeine Funktionen und Einstellungen'),
+( 16, 'func', 'statistic_content.php', 'Wer-Ist-Wo und ContentStats'),
+( 7, 'func', 'bbcode.php', 'BB-Code Buttons und Funktionen'),
+( 8, 'func', 'profilefields.php', 'Profilfelder Funktionen'),
+( 9, 'func', 'statistic.php', 'Statistiken &uuml;ber den Besucher speichern'),
+( 10, 'func', 'listen.php', 'Funktionen, zum Listen erstellen'),
+( 11, 'func', 'forum.php', 'Alle Funktionen f&uuml;r das Forum'),
+( 12, 'func', 'warsys.php', 'Funktionen f&uuml;r das War-System'),
+( 13, 'func', 'ic_mime_type.php', 'Funktionen f&uuml;r den Umgang mit Dateiuploads'),
+( 14, 'func', 'lang.php', 'Funktionen zum Aufrufen der Sprachdateien'),
+( 15, 'class', 'profilefield_registry.php', 'Verwaltet die Profilfeld-Typen.');
 
 -- --------------------------------------------------------
 
@@ -754,8 +754,7 @@ CREATE TABLE IF NOT EXISTS `prefix_menu` (
   `recht_type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 -> ab (>) ; 1 -> genau dieses; 2 -> bis (<)',
   `name` varchar(100) NOT NULL DEFAULT '',
   `path` varchar(100) NOT NULL DEFAULT '',
-  PRIMARY KEY (`pos`,`wo`),
-  KEY `path` (`path`)
+  PRIMARY KEY (`pos`,`wo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
 --
@@ -763,7 +762,8 @@ CREATE TABLE IF NOT EXISTS `prefix_menu` (
 --
 
 INSERT INTO `prefix_menu` (`wo`, `pos`, `was`, `ebene`, `recht`, `recht_type`, `name`, `path`) VALUES
-(1, 0, 3, 0, 0, 0, 'Men&uuml;', 'allianz.php'),
+(1, 0, 7, 0, 0, 0, 'UControl', 'ucp'),
+(1, 1, 3, 0, 0, 0, 'Men&uuml;', 'allianz.php'),
 (1, 2, 7, 0, 0, 0, 'News', 'news'),
 (1, 3, 7, 0, 0, 0, 'Forum', 'forum'),
 (1, 4, 7, 1, 0, 0, 'Mitglieder', 'user'),
@@ -786,10 +786,9 @@ INSERT INTO `prefix_menu` (`wo`, `pos`, `was`, `ebene`, `recht`, `recht_type`, `
 (1, 21, 7, 0, 0, 0, 'Awards', 'awards'),
 (1, 22, 7, 0, 0, 0, 'Regeln', 'rules'),
 (1, 23, 7, 0, 0, 0, 'History', 'history'),
-(1, 25, 1, 0, 0, 0, 'Shoutbox', 'shoutbox.php'),
+(1, 24, 1, 0, 0, 0, 'Shoutbox', 'shoutbox.php'),
 (2, 0, 1, 0, 0, 0, 'Suchen', 'search.php'),
 (2, 1, 1, 0, 0, 0, 'Umfrage', 'vote.php'),
-(2, 2, 1, 0, 0, 0, 'Allianz', 'allianz.php'),
 (2, 3, 1, 0, 0, 0, 'Statistik', 'statistik.php'),
 (2, 4, 1, 0, 0, 0, 'Newsletter', 'newsletter.php'),
 (2, 5, 1, 0, 0, 0, 'Designs', 'designs.php'),
@@ -801,8 +800,7 @@ INSERT INTO `prefix_menu` (`wo`, `pos`, `was`, `ebene`, `recht`, `recht_type`, `
 (3, 4, 1, 0, 0, 0, 'Last News', 'lastnews.php'),
 (3, 5, 1, 0, 0, 0, 'PicOfX', 'picofx.php'),
 (3, 6, 1, 0, 0, 0, 'Geburtstag', 'geburtstag.php'),
-(5, 0, 7, 0, 0, 0, 'Shoutbox (Archiv)', 'shoutbox'),
-(1, 1, 7, 0, 0, 0, 'UControl', 'ucp');
+(5, 0, 7, 0, 0, 0, 'Shoutbox (Archiv)', 'shoutbox');
 
 -- --------------------------------------------------------
 
@@ -853,48 +851,48 @@ CREATE TABLE IF NOT EXISTS `prefix_modules` (
 -- Daten für Tabelle `prefix_modules`
 --
 
-INSERT INTO `prefix_modules` (`id`, `url`, `name`, `gshow`, `ashow`, `fright`, `menu`, `pos`) VALUES
-(38, 'modules', 'ModulConfig', 1, 0, 1, 'Admin', 9),
-(39, 'gallery', 'Gallery', 1, 0, 1, 'Content', 4),
-(40, 'menu', 'Navigation', 1, 0, 0, 'Admin', 2),
-(41, 'groups', 'Teams', 1, 0, 1, 'Clanbox', 6),
-(42, 'rules', 'Regeln', 1, 0, 1, 'Clanbox', 4),
-(43, 'awards', 'Awards', 1, 0, 1, 'Clanbox', 3),
-(44, 'forum', 'Forum', 1, 0, 1, 'Content', 1),
-(45, 'archiv-downloads', 'Downloads', 1, 0, 1, 'Content', 2),
-(46, 'kalender', 'Kalender', 1, 0, 1, 'Content', 7),
-(47, 'wars', 'Wars', 0, 0, 1, '', 0),
-(48, 'kasse', 'Kasse', 1, 0, 1, 'Clanbox', 5),
-(49, 'gbook', 'G&auml;stebuch', 1, 0, 1, 'Content', 5),
-(50, 'awaycal', 'Awaycal', 0, 0, 1, 'Content', 0),
-(51, 'news', 'News', 1, 0, 1, 'Content', 0),
-(52, 'allg', 'Konfiguration', 1, 0, 0, 'Admin', 0),
-(53, 'backup', 'Backup', 1, 0, 0, 'Admin', 3),
-(54, 'range', 'Ranks', 1, 0, 0, 'Admin', 4),
-(55, 'wars-last', 'Lastwars', 1, 0, 0, 'Clanbox', 2),
-(56, 'smilies', 'Smilies', 1, 0, 0, 'Admin', 5),
-(57, 'newsletter', 'Newsletter', 1, 0, 0, 'Admin', 6),
-(58, 'checkconf', 'Serverkonfiguration', 1, 0, 0, 'Admin', 7),
-(59, 'user', 'User', 1, 0, 0, 'User', 0),
-(60, 'grundrechte', 'Grundrechte', 1, 0, 0, 'User', 1),
-(61, 'profilefields', 'Profilfelder', 1, 0, 0, 'User', 2),
-(62, 'selfbp', 'Eigene Box/Page', 1, 0, 0, 'Eigene Box/Page', 0),
-(63, 'wars-next', 'Nextwars', 1, 0, 0, 'Clanbox', 1),
-(64, 'history', 'History', 1, 0, 0, 'Clanbox', 8),
-(65, 'trains', 'Trainzeiten', 1, 0, 0, 'Clanbox', 7),
-(66, 'archiv-links', 'Links', 1, 0, 0, 'Content', 3),
-(67, 'vote', 'Umfragen', 1, 0, 0, 'Content', 6),
-(68, 'contact', 'Kontakt', 1, 0, 0, 'Content', 8),
-(69, 'impressum', 'Impressum', 1, 0, 0, 'Content', 9),
-(70, 'archiv-partners', 'Partner', 1, 0, 0, 'Boxen', 0),
-(71, 'picofx', 'Pic of X', 1, 0, 0, 'Boxen', 1),
-(72, 'smtpconf', 'SMTP', 1, 0, 0, 'Admin', 1),
-(73, 'puser', 'Nicht best&auml;tigte Registrierungen', 0, 0, 0, '', 0),
-(74, 'bbcode', 'BBcode 2.0', 1, 0, 1, 'Content', 11),
-(75, 'linkus', 'LinkUs', 1, 1, 1, 'Content', 4),
-(76, 'modrewrite', 'ModRewrite', 1, 0, 0, 'Admin', 9),
-(77, 'inactive', 'inaktive User', 1, 1, 1, 'Clanbox', 0),
-(78, 'opponents', 'Gegner', 0, 0, 0, 'Clanbox', 1);
+INSERT INTO `prefix_modules` (`url`, `name`, `gshow`, `ashow`, `fright`, `menu`, `pos`) VALUES
+( 'modules', 'ModulConfig', 1, 0, 1, 'Admin', 9),
+( 'gallery', 'Gallery', 1, 0, 1, 'Content', 4),
+( 'menu', 'Navigation', 1, 0, 0, 'Admin', 2),
+( 'groups', 'Teams', 1, 0, 1, 'Clanbox', 6),
+( 'rules', 'Regeln', 1, 0, 1, 'Clanbox', 4),
+( 'awards', 'Awards', 1, 0, 1, 'Clanbox', 3),
+( 'forum', 'Forum', 1, 0, 1, 'Content', 1),
+( 'archiv-downloads', 'Downloads', 1, 0, 1, 'Content', 2),
+( 'kalender', 'Kalender', 1, 0, 1, 'Content', 7),
+( 'wars', 'Wars', 0, 0, 1, '', 0),
+( 'kasse', 'Kasse', 1, 0, 1, 'Clanbox', 5),
+( 'gbook', 'G&auml;stebuch', 1, 0, 1, 'Content', 5),
+( 'awaycal', 'Awaycal', 0, 0, 1, 'Content', 0),
+( 'news', 'News', 1, 0, 1, 'Content', 0),
+( 'allg', 'Konfiguration', 1, 0, 0, 'Admin', 0),
+( 'backup', 'Backup', 1, 0, 0, 'Admin', 3),
+( 'range', 'Ranks', 1, 0, 0, 'Admin', 4),
+( 'wars-last', 'Lastwars', 1, 0, 0, 'Clanbox', 2),
+( 'smilies', 'Smilies', 1, 0, 0, 'Admin', 5),
+( 'newsletter', 'Newsletter', 1, 0, 0, 'Admin', 6),
+( 'checkconf', 'Serverkonfiguration', 1, 0, 0, 'Admin', 7),
+( 'user', 'User', 1, 0, 0, 'User', 0),
+( 'grundrechte', 'Grundrechte', 1, 0, 0, 'User', 1),
+( 'profilefields', 'Profilfelder', 1, 0, 0, 'User', 2),
+( 'selfbp', 'Eigene Box/Page', 1, 0, 0, 'Eigene Box/Page', 0),
+( 'wars-next', 'Nextwars', 1, 0, 0, 'Clanbox', 1),
+( 'history', 'History', 1, 0, 0, 'Clanbox', 8),
+( 'trains', 'Trainzeiten', 1, 0, 0, 'Clanbox', 7),
+( 'archiv-links', 'Links', 1, 0, 0, 'Content', 3),
+( 'vote', 'Umfragen', 1, 0, 0, 'Content', 6),
+( 'contact', 'Kontakt', 1, 0, 0, 'Content', 8),
+( 'impressum', 'Impressum', 1, 0, 0, 'Content', 9),
+( 'archiv-partners', 'Partner', 1, 0, 0, 'Boxen', 0),
+( 'picofx', 'Pic of X', 1, 0, 0, 'Boxen', 1),
+( 'smtpconf', 'SMTP', 1, 0, 0, 'Admin', 1),
+( 'puser', 'Nicht best&auml;tigte Registrierungen', 0, 0, 0, '', 0),
+( 'bbcode', 'BBcode 2.0', 1, 0, 1, 'Content', 11),
+( 'linkus', 'LinkUs', 1, 1, 1, 'Content', 4),
+( 'modrewrite', 'ModRewrite', 1, 0, 0, 'Admin', 9),
+( 'inactive', 'inaktive User', 1, 1, 1, 'Clanbox', 0),
+( 'opponents', 'Gegner', 0, 0, 0, 'Clanbox', 1);
 
 -- --------------------------------------------------------
 
@@ -974,8 +972,8 @@ CREATE TABLE IF NOT EXISTS `prefix_partners` (
 -- Daten für Tabelle `prefix_partners`
 --
 
-INSERT INTO `prefix_partners` (`id`, `pos`, `name`, `banner`, `link`) VALUES
-(1, 0, 'www.ilch.de', 'http://www.ilch.de/images/banner/copy_by_ilch.gif', 'http://www.ilch.de');
+INSERT INTO `prefix_partners` ( `pos`, `name`, `banner`, `link`) VALUES
+( 0, 'www.ilch.de', 'http://www.ilch.de/images/banner/copy_by_ilch.gif', 'http://www.ilch.de');
 
 -- --------------------------------------------------------
 
@@ -1040,13 +1038,6 @@ CREATE TABLE IF NOT EXISTS `prefix_posts` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
---
--- Daten für Tabelle `prefix_posts`
---
-
-INSERT INTO `prefix_posts` (`id`, `tid`, `fid`, `erst`, `erstid`, `time`, `txt`) VALUES
-(1, 1, 1, 'GeCk0', 0, 1332593707, ':P:P:P');
-
 -- --------------------------------------------------------
 
 --
@@ -1066,23 +1057,22 @@ CREATE TABLE IF NOT EXISTS `prefix_profilefields` (
 -- Daten für Tabelle `prefix_profilefields`
 --
 
-INSERT INTO `prefix_profilefields` (`id`, `show`, `pos`, `func`, `config_value`) VALUES
-(1, 'msn', 12, 3, ''),
-(2, 'opt_pm', 9, 3, ''),
-(3, 'opt_mail', 8, 3, ''),
-(4, 'yahoo', 13, 3, ''),
-(5, 'sig', 6, 3, ''),
-(6, 'wohnort', 4, 3, ''),
-(7, 'icq', 11, 3, ''),
-(8, 'gebdatum', 1, 3, ''),
-(9, 'geschlecht', 2, 3, ''),
-(10, 'staat', 0, 3, ''),
-(11, 'status', 3, 3, ''),
-(12, 'Kontakt', 7, 2, ''),
-(13, 'aim', 14, 3, ''),
-(14, 'homepage', 5, 3, ''),
-(15, 'opt_pm_popup', 10, 3, ''),
-(16, 'usergallery', 15, 3, '');
+INSERT INTO `prefix_profilefields` (`show`, `pos`, `func`, `config_value`) VALUES
+( 'msn', 12, 3, ''),
+( 'opt_pm', 9, 3, ''),
+( 'opt_mail', 8, 3, ''),
+( 'yahoo', 13, 3, ''),
+( 'sig', 6, 3, ''),
+( 'wohnort', 4, 3, ''),
+( 'icq', 11, 3, ''),
+( 'gebdatum', 1, 3, ''),
+( 'geschlecht', 2, 3, ''),
+( 'staat', 0, 3, ''),
+( 'status', 3, 3, ''),
+( 'Kontakt', 7, 2, ''),
+( 'aim', 14, 3, ''),
+( 'homepage', 5, 3, ''),
+( 'opt_pm_popup', 10, 3, ''),
 
 -- --------------------------------------------------------
 
@@ -1102,20 +1092,20 @@ CREATE TABLE IF NOT EXISTS `prefix_ranks` (
 -- Daten für Tabelle `prefix_ranks`
 --
 
-INSERT INTO `prefix_ranks` (`id`, `bez`, `min`, `spez`) VALUES
-(1, 'Gr&uuml;nschnabel', 1, 0),
-(2, 'Jungspund', 25, 0),
-(3, 'Mitglied', 50, 0),
-(4, 'Eroberer', 75, 0),
-(6, 'Doppel-As', 150, 0),
-(7, 'Tripel-As', 250, 0),
-(8, 'Haudegen', 500, 0),
-(9, 'Routinier', 1000, 0),
-(15, 'K&ouml;nig', 2000, 0),
-(11, 'Kaiser', 5000, 0),
-(12, 'Legende', 7000, 0),
-(13, 'Foren Gott', 10000, 0),
-(14, 'Administrator', 0, 1);
+INSERT INTO `prefix_ranks` ( `bez`, `min`, `spez`) VALUES
+( 'Gr&uuml;nschnabel', 1, 0),
+( 'Jungspund', 25, 0),
+( 'Mitglied', 50, 0),
+( 'Eroberer', 75, 0),
+( 'Doppel-As', 150, 0),
+( 'Tripel-As', 250, 0),
+( 'Haudegen', 500, 0),
+( 'Routinier', 1000, 0),
+( 'K&ouml;nig', 2000, 0),
+( 'Kaiser', 5000, 0),
+( 'Legende', 7000, 0),
+( 'Foren Gott', 10000, 0),
+( 'Administrator', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -1149,14 +1139,6 @@ CREATE TABLE IF NOT EXISTS `prefix_selfp` (
   `pos` smallint(6) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
---
--- Daten für Tabelle `prefix_selfp`
---
-
-INSERT INTO `prefix_selfp` (`id`, `name`, `path`, `cpath`, `cid`, `wysiwyg`, `php`, `view`, `pos`) VALUES
-(1, 'S&auml;ubern', 'saeubern', 'kueche-saeubern', 1, 1, 0, 0, 0),
-(2, 'Testseite', 'testseite', 'testseite', 0, 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1209,17 +1191,17 @@ CREATE TABLE IF NOT EXISTS `prefix_smilies` (
 -- Daten für Tabelle `prefix_smilies`
 --
 
-INSERT INTO `prefix_smilies` (`id`, `ent`, `emo`, `url`, `pos`) VALUES
-(1, ':)', 'Smilie', '1.png', 1),
-(2, ':D', 'Lachen', '2.png', 2),
-(3, ':O', 'Opssss', '3.png', 3),
-(4, ':P', 'Auslachen', '4.png', 4),
-(5, ';)', 'Zwinker', '5.png', 5),
-(6, ':(', 'Traurig', '6.png', 6),
-(7, ':S', 'Grummel', '7.png', 7),
-(8, ':|', 'Sauer', '8.png', 8),
-(9, ':''(', 'Weinen', '9.png', 9),
-(10, ':@', 'Veraergert', '10.png', 10);
+INSERT INTO `prefix_smilies` ( `ent`, `emo`, `url`, `pos`) VALUES
+( ':)', 'Smilie', '1.png', 1),
+( ':D', 'Lachen', '2.png', 2),
+( ':O', 'Opssss', '3.png', 3),
+( ':P', 'Auslachen', '4.png', 4),
+( ';)', 'Zwinker', '5.png', 5),
+( ':(', 'Traurig', '6.png', 6),
+( ':S', 'Grummel', '7.png', 7),
+( ':|', 'Sauer', '8.png', 8),
+( ':''(', 'Weinen', '9.png', 9),
+( ':@', 'Veraergert', '10.png', 10);
 
 -- --------------------------------------------------------
 
@@ -1274,9 +1256,6 @@ CREATE TABLE IF NOT EXISTS `prefix_topics` (
 --
 -- Daten für Tabelle `prefix_topics`
 --
-
-INSERT INTO `prefix_topics` (`id`, `fid`, `last_post_id`, `name`, `erst`, `art`, `stat`, `rep`, `hit`) VALUES
-(1, 1, 1, 'jojojo', 'GeCk0', 0, 1, 0, 2);
 
 -- --------------------------------------------------------
 
