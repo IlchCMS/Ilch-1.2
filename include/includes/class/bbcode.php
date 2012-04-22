@@ -794,7 +794,7 @@ class bbcode {
         return $string;
     }
 
-    public function parse($string, $maxLength, $maxImgWidth, $maxImgHeight)
+    public function parse($string, $maxLength = 0, $maxImgWidth = 0, $maxImgHeight = 0)
     {
         // Optionen setzen
         if ($maxLength != 0) {

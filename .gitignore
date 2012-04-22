@@ -6,7 +6,8 @@ include/backup/*
 !.gitignore
 
 # Backup-Verzeichnis beschr�nken
-!include/backup/bigdump.php
+!/include/backup/bigdump.php
+!/include/backup/backup.class.php
 
 # Config und .htaccess
 .htaccess
@@ -22,4 +23,3 @@ _notes
 .svn
 
 /include/includes/libs/captcha/txt/numbers.txt
-!/include/backup/backup.class.php

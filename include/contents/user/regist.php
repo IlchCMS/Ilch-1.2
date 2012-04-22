@@ -30,7 +30,8 @@ switch ($menu->get(2)) {
         $design = new design($title, $hmenu, 1);
         $design->header();
         $tpl = new tpl('user/regist');
-        $tpl->set_out('regeln', bbcode($allgAr[ 'allg_regeln' ]), 0);
+        $getrulez = bbcode($allgAr[ 'allg_regeln' ]);
+        $tpl->set_out('regeln', $getrulez, 0);
         $design->footer();
         break;
 
