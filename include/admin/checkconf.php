@@ -211,11 +211,15 @@ if ($menu->get(1) == "phpinfo") {
 	db_query("UPDATE `prefix_config` SET wert = '".$systemstatus."' WHERE schl = 'syscheckstatus'");
 	db_query("UPDATE `prefix_config` SET wert = '".date('Y-m-d')."' WHERE schl = 'syscheckdatum'");
 	// Wenn durch Adminpanel angesteuert, reloaden sofern der neue Status nicht dem aktuell angezeigtem Status entspricht
-	
-	
-	$tpl->out(0);
+
+    $tpl->out(0);
     $tpl->out(2);
     $tpl->out(4);
+}
+if ($menu->get(1) == 1) {
+    wd('admin.php?checkconf', 'Untersuche Systemeinstellungen...', 1);
+    $design->footer(1);
+} else {
     $design->footer();
 }
 ?>
