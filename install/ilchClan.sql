@@ -1072,7 +1072,7 @@ INSERT INTO `prefix_profilefields` (`show`, `pos`, `func`, `config_value`) VALUE
 ( 'Kontakt', 7, 2, ''),
 ( 'aim', 14, 3, ''),
 ( 'homepage', 5, 3, ''),
-( 'opt_pm_popup', 10, 3, ''),
+( 'opt_pm_popup', 10, 3, '');
 
 -- --------------------------------------------------------
 
