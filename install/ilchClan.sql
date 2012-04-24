@@ -1,4 +1,4 @@
-﻿-- die Standard Clan-Installation mit allen Menüs für Community und Clans
+-- die Standard Clan-Installation mit allen Menüs für Community und Clans
 -- in der Ersten Kommentarzeile wird die Beschreibung der Installationsdatei angegeben, welche als Hilfetext während der Installation ausgegeben wird.
 -- Maximal können die ersten 5 Zeilen für Author-Infos der Installationsprofile genutzt werden
 
