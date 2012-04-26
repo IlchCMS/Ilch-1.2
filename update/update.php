@@ -1,4 +1,9 @@
 <?php
+/* 
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2012 ilch.de
+ * @version $Id$ $Date $Author
+ */ 
 // update-datei für das sql. Siehe Entwicklerdokumentation
 $files = read_ext("update/revision", "php", 0, 0);
 // updatefiles bestimmen
