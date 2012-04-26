@@ -2,7 +2,7 @@
 /*
  * @license 	http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
  * @copyright 	(C) 2000-2012 ilch.de
- * @version 	@$commit$ @$Date$ @$Author @Id
+ * @version 	$Header
  */ 
 ob_start();
 define('main', true);
