@@ -1,3 +1,5 @@
 # .gitattributes
 # Map file extensions to git filters
-*.php
+*.php filter=rcs-keywords
+*.htm filter=rcs-keywords
+*.html filter=rcs-keywords
