@@ -1,8 +1,16 @@
 <?php
 /* 
- * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
- * @copyright (C) 2000-2012 ilch.de
- * @version $Id$ $Date $Author
+ * @license 	http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright 	(C) 2000-2012 ilch.de
+	 $Id
+	 $Date
+	 $File
+	 $Author
+	 $Revision
+	 $Source
+	 $Name
+	 $Header
+	 $Commit
  */ 
 // update-datei für das sql. Siehe Entwicklerdokumentation
 $files = read_ext("update/revision", "php", 0, 0);
