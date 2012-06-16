@@ -62,7 +62,7 @@ if (DEBUG) {
 //            if (DEVELOPER_MODE) {
 //              $d = manipulate_debug_output($d);
 //            }
-            $ILCH_DEBUG_OUTPUT .= '<div style="white-space:pre">' . $time . var_export($d, true) . '</div>';
+            $ILCH_DEBUG_OUTPUT .= '<div style="white-space:pre">' . $time . print_r($d, true) . '</div>';
         } else {
             if (is_bool($d)) {
                 $d = 'Bool: ' . ($d ? 'true' : 'false');
@@ -198,5 +198,3 @@ function toggleDebugDiv() {
     function debug_out() {
     }
 }
-
-?>

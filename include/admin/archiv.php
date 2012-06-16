@@ -442,10 +442,11 @@ switch ($um) {
                 'url' => '',
                 'desc' => '',
                 'descl' => '',
-                'datum' => ''
+                'datum' => '',
+                'drecht' => 0
                 );
             unset($c);
-        }    
+        }
 		$_ilch['drecht'] = dblistee($_ilch['drecht'],"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
 		$_ilch['ANTISPAM'] = get_antispam('adminuser_action', 0, true);
         // wenn der link von archiv upload kommt ist dllink gesetzt
@@ -774,7 +775,7 @@ switch ($um) {
                 'link' => ''
                 );
         }
-		$_ilch[ 'ANTISPAM' ] = get_antispam('adminuser_action', 0, true); 
+		$_ilch[ 'ANTISPAM' ] = get_antispam('adminuser_action', 0, true);
         $tpl->set_ar_out($_ilch, 0);
         $page = ($menu->getA(2) == 'p' ? $menu->getE(2) : 1);
         $limit = 20;

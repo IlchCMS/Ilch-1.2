@@ -18,7 +18,11 @@ function user_get_group_list($uid) {
 
 function user_get_mod_list($uid, $recht, $modulenames, $modulerights) {
     $mods = $mr = $gr = array();
-    foreach ($modulerights as $row){
+	    	debug($modulerights);
+    foreach ($modulerights as $row) {
+		if (!isset($modulenames[$row['mid']])) {
+			continue;
+		}
         if ($row['uid'] == $recht) {
             $gr[] = $modulenames[$row['mid']];
         } elseif ($row['uid'] == $uid) {

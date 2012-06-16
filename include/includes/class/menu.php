@@ -94,7 +94,7 @@ class menu {
                     $paths[] = '\'' . $path . '\'';
                 }
             }
-            $qry = db_query('SELECT `recht`, `recht_type` FROM `prefix_menu` WHERE `was` IN (7,9) AND `path` IN ('.implode(',', $paths).') ORDER BY LENGTH(`path`), `recht_type`, `recht`');
+            $qry = db_query('SELECT `recht`, `recht_type`, `path` FROM `prefix_menu` WHERE `was` IN (7,9) AND `path` IN ('.implode(',', $paths).') ORDER BY LENGTH(`path`), `recht_type`, `recht`');
             $lastlength = 0;
             while($row = db_fetch_assoc($qry)){
                 $pathlength = strlen($row['path']);
@@ -118,7 +118,6 @@ class menu {
         } elseif ($this->type == 'box') {
             $qry = db_query('SELECT `recht`, `recht_type` FROM `prefix_menu` WHERE `was` = 1 AND `path` = "' . $this->get(0) . '.php"');
             while($row = db_fetch_assoc($qry)){
-                $pathlength = strlen($row['path']);
                 if ($has_right) {
                     break;
                 }
@@ -287,5 +286,3 @@ Also entweder die Seite <strong>' . $this->get(0) . '</strong> in der <a href="a
         return implode('-', $this->menu_ar);
     }
 }
-
-?>

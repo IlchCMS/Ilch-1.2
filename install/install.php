@@ -1,6 +1,5 @@
 <?php
-define('DEBUG',true);
-define('INSTALL_COMPLIANCE_MODE', true);
+define('DEBUG', true);
 if (defined('DEBUG')) {
   define('SCRIPT_START_TIME', microtime(true));
 }
@@ -426,7 +425,7 @@ if (DBPREF.'allg' == @db_result(@db_query("SHOW TABLES LIKE 'prefix_allg'"),0)) 
           <br />- Ansonsten wurde die Version 1.2 offenbar schon installiert.
           <br /><br />Bei Fragen bitte auf <a href="http://www.ilch.de/">ilch.de</a> nachfragen.
           </p>
-		
+
    	      <h1 style="color: #FF0000;">FEHLER: Es ist ein <u>Fehler</u> aufgetreten!</h2>
 
         </td>
@@ -437,15 +436,9 @@ if (DBPREF.'allg' == @db_result(@db_query("SHOW TABLES LIKE 'prefix_allg'"),0)) 
   exit ();
 }
 
-$sql_file = implode('',file($_POST['selectinstallsql'].'.sql'));
-$sql_file = preg_replace ("/(\015\012|\015|\012)/", "\n", $sql_file);
-$sql_statements = explode(";\n",$sql_file);
-foreach ( $sql_statements as $sql_statement ) {
-  if ( trim($sql_statement) != '' ) {
-    #echo '<pre>'.$sql_statement.'</pre><hr>';
-    db_query($sql_statement);
-	}
-}
+$filename = $_POST['selectinstallsql'].'.sql';
+
+db_import_sql_file($filename);
 
 db_query ("INSERT INTO `prefix_user` (
 										name,

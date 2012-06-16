@@ -8,7 +8,7 @@ define('DEBUG', true);
 define('SCRIPT_START_TIME', microtime(true));
 define('AJAXCALL', isset($_GET['ajax']) and $_GET['ajax'] == 'true');
 // Konfiguration zur Anzeige von Fehlern
-// Auf http://www.php.net/manual/de/function.error-reporting.php sind die verf�gbaren Modi aufgelistet
+// Auf http://www.php.net/manual/de/function.error-reporting.php sind die verfügbaren Modi aufgelistet
 // Seit php-5.3 ist eine Angabe der TimeZone Pflicht
 if (version_compare(phpversion(), '5.3') != - 1) {
     if (E_ALL > E_DEPRECATED) {
@@ -60,4 +60,3 @@ require_once('include/contents/' . $menu->get_url());
 // Datenbank schließen
 db_close();
 debug_out();
-?>

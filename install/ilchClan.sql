@@ -814,21 +814,6 @@ CREATE TABLE IF NOT EXISTS `prefix_modulerights` (
   PRIMARY KEY (`uid`,`mid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
 
---
--- Daten für Tabelle `prefix_modulerights`
---
-
-INSERT INTO `prefix_modulerights` (`uid`, `mid`) VALUES
-(1, 41),
-(1, 43),
-(1, 46),
-(1, 47),
-(1, 49),
-(1, 50),
-(1, 75),
-(2, 51),
-(3, 45);
-
 -- --------------------------------------------------------
 
 --

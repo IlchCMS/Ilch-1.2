@@ -47,49 +47,9 @@ if (defined('DEBUG') and DEBUG) {
         return '';
     }
 
-    /**
-     * schlägt an falls der übergebene string utf8 kodierte zeichen enthält
-     *
-     * @return bool
-     * @author annemarie
-     **/
-    function is_utf8($string) {
-
-        // From http://w3.org/International/questions/qa-forms-utf-8.html
-        $var = preg_match('%^(?:
-              [\x09\x0A\x0D\x20-\x7E]            # ASCII
-            | [\xC2-\xDF][\x80-\xBF]             # non-overlong 2-byte
-            |  \xE0[\xA0-\xBF][\x80-\xBF]        # excluding overlongs
-            | [\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}  # straight 3-byte
-            |  \xED[\x80-\x9F][\x80-\xBF]        # excluding surrogates
-            |  \xF0[\x90-\xBF][\x80-\xBF]{2}     # planes 1-3
-            | [\xF1-\xF3][\x80-\xBF]{3}          # planes 4-15
-            |  \xF4[\x80-\x8F][\x80-\xBF]{2}     # plane 16
-        )*$%xs', $string);
-            if ($var) {
-                #$string = preg_replace("/\x93{1}|\x84{1}/i", "\x22", $string);
-                #$string = preg_replace("/\x96{1}/i", "-", $string);
-                #$string = preg_replace("/\x82|\x94|\x91|\x94/i", "'", $string);
-                #$string = preg_replace("/\x9F/i", "Ã", $string);
-                #$string = preg_replace("/\x96/i", "¶", $string);
-                #$string = preg_replace("/\x96/i", "¶", $string);
-                #return iconv("ISO-8859-1", "UTF-8",  $string);
-                #return utf8_decode($string);
-                return true;
-            }
-            return false;
-    }
-
     function db_query ($q) {
         global $ILCH_DEBUG_DB_COUNT_QUERIES, $ILCH_DEBUG_DB_QUERIES;
         $ILCH_DEBUG_DB_COUNT_QUERIES++;
-
-        // Hilfsmodus zum einspielen von utf8 Installationsdatensätzen in die veraltete datenbank *yawn*
-        if (defined('INSTALL_COMPLIANCE_MODE')) {
-            if (is_utf8($q)) {
-              $q = utf8_decode($q);
-            }
-        }
 
         if (preg_match ("/^UPDATE `?prefix_\S+`?\s+SET/is", $q)) {
             $q = preg_replace("/^UPDATE `?prefix_(\S+?)`?([\s\.,]|$)/i","UPDATE `".DBPREF."\\1`\\2", $q);
@@ -97,9 +57,6 @@ if (defined('DEBUG') and DEBUG) {
             $q = preg_replace("/^INSERT INTO `?prefix_(\S+?)`?([\s\.,]|$)/i", "INSERT INTO `".DBPREF."\\1`\\2", $q);
         } else {
             $q = preg_replace("/prefix_(\S+?)([\s\.,]|$)/", DBPREF."\\1\\2", $q);
-//            if (is_utf8($q)) {
-//              $q = utf8_decode($q);
-//            }
         }
 
         if (!function_exists('debug_bt')) {
@@ -251,4 +208,65 @@ function db_make_sites($page, $where, $limit, $link, $table, $anzahl = null) {
     return $MPL;
 }
 
-?>
+/**
+ * Importiert ein sql File in die Datenbank
+ *
+ * @param string $filename Dateiname(+pfad) der SQL Datei
+ * @param boolean $decodeUtf8 gibt an, ob ggf. utf8 Zeichen decodiert werden sollen
+ */
+function db_import_sql_file($filename, $decodeUtf8 = false) {
+	if (!file_exists($filename)) {
+		throw new Exception($filename . ' wurde nicht gefunden.');
+	}
+	$sql_file = file_get_contents($filename);
+	if ($decodeUtf8 && is_utf8($sql_file)) {
+		$sql_file = utf8_decode($sql_file);
+	}
+	$sql_file = preg_replace ("/(\015\012|\015|\012)/", "\n", $sql_file);
+	$lines = explode("\n", $sql_file);
+	//Kommentare und leere Zeilen entfernen
+	foreach ($lines as $no => $line) {
+		if (empty($line) || substr($line, 0, 3) == '-- ' || $line == '--') {
+			unset($lines[$no]);
+		}
+	}
+	$sql_statements = explode(";\n", implode("\n", $lines));
+	foreach ( $sql_statements as $sql_statement ) {
+		if ( trim($sql_statement) != '' ) {
+			db_query($sql_statement);
+		}
+	}
+}
+
+/**
+ * schlägt an falls der übergebene string utf8 kodierte zeichen enthält
+ *
+ * @return bool
+ * @author annemarie
+ **/
+function is_utf8($string) {
+
+	// From http://w3.org/International/questions/qa-forms-utf-8.html
+	$var = preg_match('%^(?:
+	      [\x09\x0A\x0D\x20-\x7E]            # ASCII
+	    | [\xC2-\xDF][\x80-\xBF]             # non-overlong 2-byte
+	    |  \xE0[\xA0-\xBF][\x80-\xBF]        # excluding overlongs
+	    | [\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}  # straight 3-byte
+	    |  \xED[\x80-\x9F][\x80-\xBF]        # excluding surrogates
+	    |  \xF0[\x90-\xBF][\x80-\xBF]{2}     # planes 1-3
+	    | [\xF1-\xF3][\x80-\xBF]{3}          # planes 4-15
+	    |  \xF4[\x80-\x8F][\x80-\xBF]{2}     # plane 16
+	)*$%xs', $string);
+	if ($var) {
+		#$string = preg_replace("/\x93{1}|\x84{1}/i", "\x22", $string);
+		#$string = preg_replace("/\x96{1}/i", "-", $string);
+		#$string = preg_replace("/\x82|\x94|\x91|\x94/i", "'", $string);
+		#$string = preg_replace("/\x9F/i", "Ã", $string);
+		#$string = preg_replace("/\x96/i", "¶", $string);
+		#$string = preg_replace("/\x96/i", "¶", $string);
+		#return iconv("ISO-8859-1", "UTF-8",  $string);
+		#return utf8_decode($string);
+		return true;
+	}
+	return false;
+}

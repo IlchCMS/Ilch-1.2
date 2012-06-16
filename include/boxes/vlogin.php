@@ -6,6 +6,8 @@
  */
 defined('main') or die('no direct access');
 
+load_box_lang('login.php');
+
 $tpl = new tpl('user/v_boxen_login.htm');
 
 if (loggedin()) {
