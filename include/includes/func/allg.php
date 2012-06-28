@@ -559,4 +559,3 @@ function getSiteURL($endslash = true)
     }
     return $site;
 }
-?>

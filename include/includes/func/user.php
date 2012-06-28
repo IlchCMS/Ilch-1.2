@@ -133,17 +133,21 @@ function user_login_check($auto=false) {
     if (!isset($term)) {
         return;
     }
-    $erg = db_query("SELECT `name`,`id`,`recht`,`pass`,`llogin`, `sperre` FROM `prefix_user` WHERE " . $term);
+    $erg = db_query("SELECT `name`,`id`,`recht`,`pass`, `salt`, `llogin`, `sperre` FROM `prefix_user` WHERE " . $term);
     mysql_error();
 
     if (isset($erg) and db_num_rows($erg) == 1) {
-        $row = db_fetch_assoc($erg);
 		debug('user gefunden... ' . $row['name']);
+        $row = db_fetch_assoc($erg);
+		if(strlen($passwd) <= 13){
+			debug('Fehler beim Hashen des Passwortes aufgetreten');
+			return false;
+		}
         if ($row['sperre'] == 1) {
             debug('user gesperrt... ' . $row['name']);
             return false;
-        } elseif ((!$auto and $row['pass'] == md5($_POST['pass']))
-                or ($auto and md5($row['id'] . $row['pass'])  == $pw)) {
+        } elseif ((!$auto and $row['salt'].$row['pass'] == crypt($_POST['pass'], $row['salt'])) 
+		or (($auto and $row['pass']) and crypt($row['pass'], $row['salt']) == $pw)) {
             debug('passwort stimmt ... ' . $row['name']);
             $_SESSION['authname'] = $row['name'];
             $_SESSION['authid'] = (int) $row['id'];
@@ -160,7 +164,7 @@ function user_login_check($auto=false) {
                 if (strlen($cookiepath) > 1) {
                     $cookiepath .= '/';
                 }
-                setcookie($cn, $row[ 'id' ] . '=' . md5($row['id'] . $row[ 'pass' ]), strtotime('+1 year'), $cookiepath, '', false, true);
+                setcookie($cn, $row[ 'id' ] . '=' . crypt($row['pass'], $row['salt']), strtotime('+1 year'), $cookiepath, '', false, true);
             }
 
             user_set_grps_and_modules();
@@ -340,12 +344,18 @@ function user_regist($name, $mail, $pass) {
     }
 
     if ($allgAr[ 'forum_regist_user_pass' ] == 0) {
-        $new_pass = genkey(8);
+        $new_pass = genkey(8, WITH_NUMBERS | WITH_SPECIAL_CHARACTERS);
     } else {
         $new_pass = $pass;
     }
+	
+	$crypt_method = 5; // 5: SHA256 , 6: SHA512 ; 5 sollte ausreichen. Wenn ihrs ganz sicher wollt, nehmt hier  die 6. Dann müsst ihr aber noch die Länge des Passwortes in der DB auf 128 anpassen
+	//Salt erzeugen
+	$salt = '$'.$crypt_method.'$rounds='.mt_rand(1000,999999999).'$'.genkey(16, WITH_NUMBERS).'$';
 
-    $md5_pass = md5($new_pass);
+    $crypted_pass =explode('$'($new_pass, $salt));
+	$crypted_pass = $crypted_pass[3];
+	
     $confirmlinktext = '';
     // confirm insert in confirm tb not confirm insert in user tb
     if ($allgAr[ 'forum_regist_confirm_link' ] == 1) {
@@ -356,8 +366,8 @@ function user_regist($name, $mail, $pass) {
         db_query("INSERT INTO `prefix_usercheck` (`check`,`name`,`email`,`pass`,`datime`,`ak`)
 		VALUES ('" . $id . "','" . $name . "','" . $mail . "','" . $md5_pass . "',NOW(),1)");
     } else {
-        db_query("INSERT INTO `prefix_user` (`name`,`name_clean`,`pass`,`recht`,`regist`,`llogin`,`email`,`status`,`opt_mail`,`opt_pm`)
-		VALUES('" . $name . "','" . $name_clean . "','" . $md5_pass . "',-1,'" . time() . "','" . time() . "','" . $mail . "',1,1,1)");
+        db_query("INSERT INTO `prefix_user` (`name`,`name_clean`,`pass`, `salt`, `recht`,`regist`,`llogin`,`email`,`status`,`opt_mail`,`opt_pm`)
+		VALUES('" . $name . "','" . $name_clean . "','" . $crypted_pass . "','".$salt."',-1,'" . time() . "','" . time() . "','" . $mail . "',1,1,1)");
         $userid = db_last_id();
     }
     $regmail = sprintf($lang[ 'registemail' ], $name, $confirmlinktext, $mail, $new_pass);
@@ -393,7 +403,7 @@ function sendpm($sid, $eid, $ti, $te, $status = 0) {
     if (!is_array($eid)) {
         $eid = array($eid);
     }
-    // Alle Emf�nger durchlaufen
+    // Alle Emfänger durchlaufen
     foreach ($eid AS $empf) {
         // PM schreiben und ID speichern
         db_query("INSERT INTO `prefix_pm` (`sid`,`eid`,`time`,`titel`,`txt`,`status`) VALUES (" . $sid . "," . $empf . ",'" . time() . "','" . $ti . "','" . $te . "'," . $status . ")");
@@ -425,5 +435,3 @@ function get_avatar($id) {
 	}
 	return $avatar;
 }
-
-?>

@@ -85,10 +85,11 @@ if ($_SESSION[ 'authright' ] <= - 1) {
         // change password
         if (!empty($_POST[ 'np1' ]) AND !empty($_POST[ 'np2' ]) AND !empty($_POST[ 'op' ])) {
             if ($_POST[ 'np1' ] == $_POST[ 'np2' ]) {
-                $akpw = db_result(db_query("SELECT pass FROM prefix_user WHERE id = " . $_SESSION[ 'authid' ]), 0);
-                if ($akpw == md5($_POST[ 'op' ])) {
-                    $newpw = md5($_POST[ 'np1' ]);
-                    db_query("UPDATE prefix_user SET pass = '" . $newpw . "' WHERE id = " . $_SESSION[ 'authid' ]);
+                $akpw = mysql_fetch_array(db_query("SELECT `pass`, `salt` FROM prefix_user WHERE id = " . $_SESSION[ 'authid' ]));
+                if (($akpw['salt'].$akpw['pass']) == crypt($_POST[ 'op' ], $akpw['salt'])) {
+                    $newpw = explode('$', crypt($_POST['np1'], $akpw['salt']));
+					$new_salt = $salt = '$'.$newpw[0].'$rounds='.mt_rand(1000,999999999).'$'.genkey(16, WITH_NUMBERS).'$';
+                    db_query("UPDATE prefix_user SET pass = '" . $newpw[3] . "', `salt` = '".$new_salt."' WHERE id = " . $_SESSION[ 'authid' ]);
                     setcookie(session_und_cookie_name(), $_SESSION[ 'authid' ] . '=' . $newpw, time() + 31104000, "/");
                     $fmsg = $lang[ 'passwortchanged' ];
                 } else {
@@ -234,5 +235,3 @@ if ($_SESSION[ 'authright' ] <= - 1) {
 }
 
 $design->footer();
-
-?>
