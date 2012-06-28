@@ -206,92 +206,34 @@ function getsmilies($zeilen = 3) {
     $a = $b . $a;
     return ($a);
 }
-// #
-// ##
-// ###
-// #### generey key with x length
-function genkey($anz) {
-    $letterArray = array(
-        'a',
-        'b',
-        'c',
-        'd',
-        'e',
-        'f',
-        'g',
-        'h',
-        'i',
-        'j',
-        'k',
-        'l',
-        'm',
-        'n',
-        'o',
-        'p',
-        'q',
-        'r',
-        's',
-        't',
-        'u',
-        'v',
-        'w',
-        'x',
-        'y',
-        'z',
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '0',
-        'A',
-        'B',
-        'C',
-        'D',
-        'E',
-        'F',
-        'G',
-        'H',
-        'I',
-        'J',
-        'K',
-        'L',
-        'M',
-        'N',
-        'O',
-        'P',
-        'Q',
-        'R',
-        'S',
-        'T',
-        'U',
-        'V',
-        'W',
-        'X',
-        'Y',
-        'Z',
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '0'
-        );
-    $key = '';
-    for ($i = 0; $i < $anz; $i++) {
-        mt_srand((double) microtime() * 1000000);
-        $zufallZahl = mt_rand(0, 62);
-        $key .= $letterArray[ $zufallZahl ];
-    }
-    return ($key);
+
+define('ONLY_LETTERS',0);
+define('WITH_NUMBERS', 1);
+define('WITH_SPECIAL_CHARACTERS', 2);
+/**
+* Erzeugt einen Zufallsstring
+*
+* Erzeugt aus Vorgaben einen Zufallsstring
+*@autor finke
+*@return string Zufalsstring
+*/
+function genkey($size = 20, $url = ONLY_LETTERS){
+  mt_srand();
+  $pool = 'abcdefghijklmnopqrstuvwxyz';
+  $pool .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  if($url & WITH_SPECIAL_CHARACTERS){
+    $pool .= ',.-;:_#+*~!§$%&/()=?';
+  }
+  if($url & WITH_NUMBERS){
+    $pool .='0123456789';
+  }
+  $pool = str_shuffle($pool);
+  $pool_size = strlen($pool);
+  $string ='';
+  for($i = 0;$i<$size; $i++){
+    $string .= $pool[mt_rand(0, $pool_size - 1)];
+  }
+  return $string;
 }
 
 function icmail($mail, $bet, $txt, $from = '', $html = false) {
