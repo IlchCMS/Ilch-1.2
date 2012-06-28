@@ -61,5 +61,3 @@ if (db_num_rows($erg) == 1) {
 }
 
 $design->footer();
-
-?>

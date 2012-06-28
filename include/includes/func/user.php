@@ -354,7 +354,8 @@ function user_regist($name, $mail, $pass) {
 	$salt = '$'.$crypt_method.'$rounds='.mt_rand(1000,999999999).'$'.genkey(16, WITH_NUMBERS).'$';
 
     $crypted_pass =explode('$'($new_pass, $salt));
-	$crypted_pass = $crypted_pass[3];
+	$crypted_pass = $crypted_pass[4];
+	$salt = '$'.$newpw[1].'$'.$newpw[2].'$'.$newpw[3].'$';
 	
     $confirmlinktext = '';
     // confirm insert in confirm tb not confirm insert in user tb
@@ -363,8 +364,8 @@ function user_regist($name, $mail, $pass) {
         $page = $_SERVER[ "HTTP_HOST" ] . $_SERVER[ "SCRIPT_NAME" ];
         $id = md5(uniqid(rand()));
         $confirmlinktext = "\n" . $lang[ 'registconfirm' ] . "\n\n" . sprintf($lang[ 'registconfirmlink' ], $page, $id);
-        db_query("INSERT INTO `prefix_usercheck` (`check`,`name`,`email`,`pass`,`datime`,`ak`)
-		VALUES ('" . $id . "','" . $name . "','" . $mail . "','" . $md5_pass . "',NOW(),1)");
+        db_query("INSERT INTO `prefix_usercheck` (`check`,`name`,`email`,`pass`, `salt`, `datime`,`ak`)
+		VALUES ('" . $id . "','" . $name . "','" . $mail . "','" . $crypted_pass . "','".$salt."',NOW(),1)");
     } else {
         db_query("INSERT INTO `prefix_user` (`name`,`name_clean`,`pass`, `salt`, `recht`,`regist`,`llogin`,`email`,`status`,`opt_mail`,`opt_pm`)
 		VALUES('" . $name . "','" . $name_clean . "','" . $crypted_pass . "','".$salt."',-1,'" . time() . "','" . time() . "','" . $mail . "',1,1,1)");

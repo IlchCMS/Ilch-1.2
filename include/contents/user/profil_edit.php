@@ -87,10 +87,12 @@ if ($_SESSION[ 'authright' ] <= - 1) {
             if ($_POST[ 'np1' ] == $_POST[ 'np2' ]) {
                 $akpw = mysql_fetch_array(db_query("SELECT `pass`, `salt` FROM prefix_user WHERE id = " . $_SESSION[ 'authid' ]));
                 if (($akpw['salt'].$akpw['pass']) == crypt($_POST[ 'op' ], $akpw['salt'])) {
-                    $newpw = explode('$', crypt($_POST['np1'], $akpw['salt']));
-					$new_salt = $salt = '$'.$newpw[0].'$rounds='.mt_rand(1000,999999999).'$'.genkey(16, WITH_NUMBERS).'$';
-                    db_query("UPDATE prefix_user SET pass = '" . $newpw[3] . "', `salt` = '".$new_salt."' WHERE id = " . $_SESSION[ 'authid' ]);
-                    setcookie(session_und_cookie_name(), $_SESSION[ 'authid' ] . '=' . $newpw, time() + 31104000, "/");
+					$new_salt = '$'.$newpw[0].'$rounds='.mt_rand(1000,999999999).'$'.genkey(16, WITH_NUMBERS).'$';
+                    $newpw = explode('$', crypt($_POST['np1'], $new_salt));					
+					$new_salt = '$'.$newpw[1].'$'.$newpw[2].'$'.$newpw[3].'$';
+					$newpw = $newpw[4];
+                    db_query("UPDATE prefix_user SET pass = '" . $newpw . "', `salt` = '".$new_salt."' WHERE id = " . $_SESSION[ 'authid' ]);
+                    setcookie(session_und_cookie_name(), $_SESSION[ 'authid' ] . '=' . crypt($newpw, $new_salt), time() + 31104000, "/");
                     $fmsg = $lang[ 'passwortchanged' ];
                 } else {
                     $fmsg = $lang[ 'passwortwrong' ];

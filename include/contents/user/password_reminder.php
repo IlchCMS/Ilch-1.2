@@ -25,7 +25,9 @@ if (isset($_POST[ 'email' ])) {
 		$salt = '$'.$row['salt'].'$rounds='.mt_rand(1000,999999999).'$'.genkey(16, WITH_NUMBERS).'$';
 
 		$crypted_pass =explode('$'($new_pass, $salt));
-		$crypted_pass = $crypted_pass[3];
+		$salt = '$'.$newpw[1].'$'.$newpw[2].'$'.$newpw[3].'$';
+		$crypted_pass = $crypted_pass[4];
+			
 		
         $id = md5(uniqid(rand()));
 
