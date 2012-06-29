@@ -19,20 +19,14 @@ if (isset($_POST[ 'email' ])) {
     if (db_num_rows($erg) == 1) {
         $row = db_fetch_assoc($erg);
 
-        $new_pass = genkey(8);
-		
-		//neuen Salt erzeugen
-		$salt = '$'.$row['salt'].'$rounds='.mt_rand(1000,999999999).'$'.genkey(16, WITH_NUMBERS).'$';
-
-		$crypted_pass =explode('$'($new_pass, $salt));
-		$salt = '$'.$newpw[1].'$'.$newpw[2].'$'.$newpw[3].'$';
-		$crypted_pass = $crypted_pass[4];
-			
+		$crypt = new PasswdCrypt();
+        $new_pass = PasswdCrypt::getRndString(8);
+		$crypted_pass = $crypt->cryptPasswd($new_pass);
 		
         $id = md5(uniqid(rand()));
 
-        db_query("INSERT INTO `prefix_usercheck` (`check`,`name`,`email`,`pass`, `salt`, `datime`,`ak`)
-		VALUES ('" . $id . "','" . $row[ 'name' ] . "','" . $email . "','" . $crypted_pass . "','".$salt."',NOW(),2)");
+        db_query("INSERT INTO `prefix_usercheck` (`check`,`name`,`email`,`pass`, `datime`,`ak`)
+		VALUES ('" . $id . "','" . $row[ 'name' ] . "','" . $email . "','" . $crypted_pass . "', NOW(),2)");
 
         $page = $_SERVER[ "HTTP_HOST" ] . $_SERVER[ "SCRIPT_NAME" ];
 

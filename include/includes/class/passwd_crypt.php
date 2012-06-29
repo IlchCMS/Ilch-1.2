@@ -1,21 +1,22 @@
 <?php
 class PasswdCrypt{
 	
-	private $hashAlgorithm = '5';
+	private $hashAlgorithm;
 	
 	const ONLY_LETTERS = 0;
 	const WITH_NUMBERS = 1;
 	const WITH_SPECIAL_CHARACTERS = 2;
 	
-	public function PasswdCrypt(){
+	public function PasswdCrypt($lvl = '5'){
 		if(version_compare(PHP_VERSION, '5.0.0', '<')){ // Vor php5 war das der Konstructor
-			$this->__construct();
+			$this->__construct($lvl);
 		}
 		return;
 	}
 	
-	public function __construct(){
+	public function __construct($lvl = '5'){
 		mt_srand();
+		$this->hashAlgorithm = $lvl;
 		
 		if(version_compare(PHP_VERSION, '5.3.0', '<')){	//Prüfen welche Hash Funktionen Verfügbar sind. Ab 5.3 werden alle Mitgeliefert
 			if($this->hashAlgorithm == '6' && !defined('CRYPT_SHA512')) $this->hashAlgoriathm = '5'; // Wenn SHA512 nicht verfügbar, versuche SHA256
@@ -83,5 +84,8 @@ class PasswdCrypt{
 		if(strlen($new_chrypt_pw) < 13){	return false;  }
 		if($new_chrypt_pw == $crypted_passwd) return true;
 		else return false;
+	}
+	public static function getHash($salt){
+		
 	}
 }

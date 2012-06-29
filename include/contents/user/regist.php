@@ -88,7 +88,7 @@ switch ($menu->get(2)) {
             }
             $tpl->out(3);
         } else {
-            $pass = genkey(8);
+            $pass = PasswdCrypt::getRndString(8);
             if (!empty($_POST[ 'pass' ])) {
                 $pass = escape($_POST[ 'pass' ], 'string');
             }

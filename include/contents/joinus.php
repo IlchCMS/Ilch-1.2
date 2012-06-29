@@ -108,11 +108,11 @@ if (count($far) != $x OR $ch_name == false OR $joinusspam == false) {
     $name = $xname;
     $userreg = $lang[ 'no' ];
     if (!loggedin() AND $allgAr[ 'forum_regist' ] != 0) {
-        $x = user_regist($name, $mail, genkey(8));
+        $x = user_regist($name, $mail, PasswdCrypt::getRndString(8));
         $userreg = $lang[ 'yes' ];
     }
 
-    db_query("INSERT INTO `prefix_usercheck` (`check`,`name`,`datime`,`ak`,`groupid`) VALUES ('" . genkey(8) . "','" . $name . "',NOW(),4," . $squad . ")");
+    db_query("INSERT INTO `prefix_usercheck` (`check`,`name`,`datime`,`ak`,`groupid`) VALUES ('" . PasswdCrypt::getRndString(8) . "','" . $name . "',NOW(),4," . $squad . ")");
 
     $squad = escape($squad, 'integer');
     $abf = "SELECT `mod1`, `mod2`, `mod4`, `name` FROM `prefix_groups` WHERE `id` = " . $squad;
