@@ -9,5 +9,5 @@ db_query("ALTER TABLE `prefix_user`  MODIFY COLUMN `pass` varchar(118) NOT NULL 
 	ALTER TABLE ``prefix_usercheck`  MODIFY COLUMN `pass` varchar(118) NOT NULL DEFAULT ''");
 
 $rev='242';
-$update_messages[$rev][] = 'Spalte für die Passwörter vergößert, so dass crypt bis SHA512 benutzt werden kann';
+$update_messages[$rev][] = 'Spalte fÃ¼r die PasswÃ¶rter vergÃ¶ÃŸert, so dass crypt bis SHA512 benutzt werden kann';
 
