@@ -207,35 +207,6 @@ function getsmilies($zeilen = 3) {
     return ($a);
 }
 
-define('ONLY_LETTERS',0);
-define('WITH_NUMBERS', 1);
-define('WITH_SPECIAL_CHARACTERS', 2);
-/**
-* Erzeugt einen Zufallsstring
-*
-* Erzeugt aus Vorgaben einen Zufallsstring
-*@autor finke
-*@return string Zufalsstring
-*/
-function genkey($size = 20, $url = ONLY_LETTERS){
-  mt_srand();
-  $pool = 'abcdefghijklmnopqrstuvwxyz';
-  $pool .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  if($url & WITH_SPECIAL_CHARACTERS){
-    $pool .= ',.-;:_#+*~!§$%&/()=?';
-  }
-  if($url & WITH_NUMBERS){
-    $pool .='0123456789';
-  }
-  $pool = str_shuffle($pool);
-  $pool_size = strlen($pool);
-  $string ='';
-  for($i = 0;$i<$size; $i++){
-    $string .= $pool[mt_rand(0, $pool_size - 1)];
-  }
-  return $string;
-}
-
 function icmail($mail, $bet, $txt, $from = '', $html = false) {
     global $allgAr;
     include_once('include/includes/libs/phpmailer/class.phpmailer.php');
