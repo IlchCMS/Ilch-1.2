@@ -88,6 +88,10 @@ function user_key_in_db() {
     }
 }
 
+function session_und_cookie_name() {
+	return (md5(dirname($_SERVER[ "HTTP_HOST" ] . $_SERVER[ "SCRIPT_NAME" ]) . DBPREF));
+}
+
 
 function user_login_check($auto=false) {
     global $allgAr, $menu;
@@ -143,7 +147,7 @@ function user_login_check($auto=false) {
             debug('user gesperrt... ' . $row['name']);
             return false;
         } elseif ((!$auto and $crypt->checkPasswd($_POST['pass'], $row['pass'])) 
-		or (($auto and $row['pass']) and $crypt->checkPasswd($row['pass'],$pw)) {
+		or (($auto and $row['pass']) and $crypt->checkPasswd($row['pass'],$pw))) {
             debug('passwort stimmt ... ' . $row['name']);
             $_SESSION['authname'] = $row['name'];
             $_SESSION['authid'] = (int) $row['id'];

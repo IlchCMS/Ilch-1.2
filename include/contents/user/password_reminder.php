@@ -15,7 +15,7 @@ $show = true;
 
 if (isset($_POST[ 'email' ])) {
     $email = get_lower(escape($_POST[ 'email' ], 'string'));
-    $erg = db_query("SELECT `name`, `salt` FROM `prefix_user` WHERE `email` = BINARY '" . $email . "'");
+    $erg = db_query("SELECT `name` FROM `prefix_user` WHERE `email` = BINARY '" . $email . "'");
     if (db_num_rows($erg) == 1) {
         $row = db_fetch_assoc($erg);
 

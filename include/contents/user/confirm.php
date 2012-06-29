@@ -23,8 +23,8 @@ if (db_num_rows($erg) == 1) {
         case 1:
             $lower = get_lower($row);
             if (0 == db_count_query("SELECT COUNT(*) FROM `prefix_user` WHERE `name_clean` = BINARY '" . $lower[ 'name' ] . "'")) {
-                db_query("INSERT INTO `prefix_user` (`name`,`name_clean`,`pass`,`salt`,`recht`,`regist`,`llogin`,`email`,`status`,`opt_mail`,`opt_pm`)
-			  VALUES('" . $row[ 'name' ] . "','" . $lower[ 'name' ] . "','" . $row[ 'pass' ] . "','" . $row[ 'salt' ] . "',-1,'" . time() . "','" . time() . "','" . $lower[ 'email' ] . "',1,1,1)");
+                db_query("INSERT INTO `prefix_user` (`name`,`name_clean`,`pass`,`recht`,`regist`,`llogin`,`email`,`status`,`opt_mail`,`opt_pm`)
+			  VALUES('" . $row[ 'name' ] . "','" . $lower[ 'name' ] . "','" . $row[ 'pass' ] . "',-1,'" . time() . "','" . time() . "','" . $lower[ 'email' ] . "',1,1,1)");
 
                 echo $lang[ 'confirmregist' ];
             } else {
@@ -33,7 +33,7 @@ if (db_num_rows($erg) == 1) {
             break;
         // confirm new pass
         case 2:
-            db_query("UPDATE `prefix_user` SET `pass` = '" . $row[ 'pass' ] . "', `salt` = '".$row['salt'."' WHERE `name` = BINARY '" . $row[ 'name' ] . "'");
+            db_query("UPDATE `prefix_user` SET `pass` = '" . $row[ 'pass' ] . "' WHERE `name` = BINARY '" . $row[ 'name' ] . "'");
             echo $lang[ 'confirmpassword' ];
             break;
         // confirm new email

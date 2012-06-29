@@ -1,5 +1,5 @@
 <?php
-class PasswdCrypt{
+class PasswdCrypt{	
 	
 	private $hashAlgorithm;
 	
