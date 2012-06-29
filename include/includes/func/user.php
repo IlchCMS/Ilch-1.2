@@ -173,6 +173,22 @@ function user_login_check($auto=false) {
     return false;
 }
 
+function user_set_guest_vars() {
+	global $allgAr;
+	$_SESSION[ 'authname' ] = 'Gast';
+	$_SESSION[ 'authid' ] = 0;
+	$_SESSION[ 'authright' ] = 0;
+	$_SESSION[ 'authlang' ] = $allgAr[ 'lang' ];
+	$_SESSION[ 'lastlogin' ] = time();
+	$_SESSION[ 'authgrp' ] = array();
+	$_SESSION[ 'authmod' ] = array();
+	$_SESSION[ 'authsess' ] = session_und_cookie_name();
+}
+
+function user_markallasread() {
+	$_SESSION[ 'lastlogin' ] = time();
+}
+
 function user_logout() {
     // global $allgAr;
     // $_SESSION = array();
