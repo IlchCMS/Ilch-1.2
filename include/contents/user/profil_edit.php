@@ -89,7 +89,7 @@ if ($_SESSION[ 'authright' ] <= - 1) {
 				$crypt = new PasswdCrypt();
                 if ($crypt->checkPasswd($_POST['op'], $akpw['pass'])) {
 					
-                    $newpw $crypt->cryptPasswd($_POST['np1']);
+                    $newpw =$crypt->cryptPasswd($_POST['np1']);
                     db_query("UPDATE prefix_user SET pass = '" . $newpw . "' WHERE id = " . $_SESSION[ 'authid' ]);
                     setcookie(session_und_cookie_name(), $_SESSION[ 'authid' ] . '=' . $crypt->cryptPasswd($row['pass']), time() + 31104000, "/");
                     $fmsg = $lang[ 'passwortchanged' ];

@@ -6,7 +6,7 @@
 */
 
 db_query("ALTER TABLE `prefix_user`  MODIFY COLUMN `pass` varchar(118) NOT NULL DEFAULT '';
-	ALTER TABLE ``prefix_usercheck`  MODIFY COLUMN `pass` varchar(118) NOT NULL DEFAULT '';
+	ALTER TABLE `prefix_usercheck`  MODIFY COLUMN `pass` varchar(118) NOT NULL DEFAULT '';
 	INSERT INTO `prefix_loader` ( `pos`, `task`, `file`, `description`) VALUES ( 5, 'class', 'passwd_crypt.php', 'Passwort Klasse');");
 
 $rev='242';
