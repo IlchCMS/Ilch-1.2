@@ -458,7 +458,7 @@ db_query ("INSERT INTO `prefix_user` (
 										'".strtolower($_POST['admin_name'])."',
 										'".md5($_POST['admin_pwd'])."',
 										'".time()."',
-										'".$_POST['admin_email']."',
+										'".get_lower(escape($_POST['admin_email'], 'string'))."',
 										'-9',
 										'".time()."',
 										1,
