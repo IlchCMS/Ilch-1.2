@@ -246,7 +246,7 @@ class bbcode {
     protected function _codeblock($codecid, $file = null, $firstline = 1)
     {
         $string = $this->codecblocks[$codecid . ':code'];
-        // $string = htmlentities($string);
+        $string = htmlspecialchars($string);
         $string = str_replace("\t", '&nbsp; &nbsp;', $string);
         $string = str_replace('  ', '&nbsp; ', $string);
         $string = str_replace('  ', ' &nbsp;', $string);
@@ -258,7 +258,7 @@ class bbcode {
     protected function _htmlblock($codecid, $file = null, $firstline = 1)
     {
         $string = $this->codecblocks[$codecid . ':html'];
-        // $string = htmlentities($string);
+        $string = htmlspecialchars($string);
         // > Highlight Modul Funktion checken ob sie existerit.
         if (function_exists("highlight_html")) {
             $string = highlight_html($string, $this->info['BlockCodeFarbe']);
@@ -275,7 +275,7 @@ class bbcode {
     protected function _cssblock($codecid, $file = null, $firstline = 1)
     {
         $string = $this->codecblocks[$codecid . ':css'];
-        // $string = htmlentities($string);
+        $string = htmlspecialchars($string);
         // > Highlight Modul Funktion checken ob sie existerit.
         if (function_exists("highlight_css")) {
             $string = highlight_css($string);
@@ -838,7 +838,7 @@ class bbcode {
         // > BB Code der den Codeblock nicht betrifft.
         // > Überprüfen ob die wörter nicht die maximal länge überschrieten.
         $string = $this->_shortwords($string);
-        // $string = htmlentities($string);
+        $string = htmlspecialchars($string);
         $string = nl2br($string);
 
         if ($this->permitted['url'] == true) {

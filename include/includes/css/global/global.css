@@ -1,11 +1,10 @@
 /*
 * Sammlung Globaler CSS-Dateien, falls diese in Ordnern liegen
-
-jquery ui-css muss in der index angegeben werden
-@import url("../jquery/templates/{jqueryui}/jquery-ui-1.8.9.custom.css");
 */
 
 /*
 @import url("beispielordner/beispieldatei.css");
 */
+
+@import url("../jquery/templates/redmond/jquery-ui-1.8.21.custom.css");
 @import url("../fancybox/jquery.fancybox-1.3.4.css");

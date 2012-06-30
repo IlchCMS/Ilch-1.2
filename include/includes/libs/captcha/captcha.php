@@ -1,6 +1,6 @@
 <?php
 # www.ilch.de
-# Author: T0P0LIN0                                                     
+# Author: T0P0LIN0
 # thanks to uwe slick! http://www.deruwe.de/captcha.html - his thoughts
 class Captcha
 {
@@ -31,7 +31,7 @@ class Captcha
     function Captcha( )
     {
         include 'memory.php';
-        $this->memory = new Memory();
+        $this->memory = new Memory_Session();
     }
 
     function isValid( $number )

@@ -24,7 +24,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_allg`
+-- Tabellenstruktur für Tabelle `prefix_allg`
 --
 
 DROP TABLE IF EXISTS `prefix_allg`;
@@ -42,14 +42,14 @@ CREATE TABLE IF NOT EXISTS `prefix_allg` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_allg`
+-- Daten für Tabelle `prefix_allg`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_awards`
+-- Tabellenstruktur für Tabelle `prefix_awards`
 --
 
 DROP TABLE IF EXISTS `prefix_awards`;
@@ -65,14 +65,14 @@ CREATE TABLE IF NOT EXISTS `prefix_awards` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_awards`
+-- Daten für Tabelle `prefix_awards`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_awaycal`
+-- Tabellenstruktur für Tabelle `prefix_awaycal`
 --
 
 DROP TABLE IF EXISTS `prefix_awaycal`;
@@ -87,14 +87,14 @@ CREATE TABLE IF NOT EXISTS `prefix_awaycal` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_awaycal`
+-- Daten für Tabelle `prefix_awaycal`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_bbcode_badword`
+-- Tabellenstruktur für Tabelle `prefix_bbcode_badword`
 --
 
 DROP TABLE IF EXISTS `prefix_bbcode_badword`;
@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `prefix_bbcode_badword` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 --
--- Daten f&uuml;r Tabelle `prefix_bbcode_badword`
+-- Daten für Tabelle `prefix_bbcode_badword`
 --
 
 INSERT INTO `prefix_bbcode_badword` (`fnBadwordNr`, `fcBadPatter`, `fcBadReplace`) VALUES
@@ -116,7 +116,7 @@ INSERT INTO `prefix_bbcode_badword` (`fnBadwordNr`, `fcBadPatter`, `fcBadReplace
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_bbcode_buttons`
+-- Tabellenstruktur für Tabelle `prefix_bbcode_buttons`
 --
 
 DROP TABLE IF EXISTS `prefix_bbcode_buttons`;
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `prefix_bbcode_buttons` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 --
--- Daten f&uuml;r Tabelle `prefix_bbcode_buttons`
+-- Daten für Tabelle `prefix_bbcode_buttons`
 --
 
 INSERT INTO `prefix_bbcode_buttons` (`fnButtonNr`, `fnFormatB`, `fnFormatI`, `fnFormatU`, `fnFormatS`, `fnFormatEmph`, `fnFormatColor`, `fnFormatSize`, `fnFormatUrl`, `fnFormatUrlAuto`, `fnFormatEmail`, `fnFormatLeft`, `fnFormatCenter`, `fnFormatRight`, `fnFormatSmilies`, `fnFormatList`, `fnFormatKtext`, `fnFormatImg`, `fnFormatScreen`, `fnFormatVideo`, `fnFormatPhp`, `fnFormatCss`, `fnFormatHtml`, `fnFormatCode`, `fnFormatQuote`, `fnFormatCountdown`, `fnFormatFlash`) VALUES
@@ -161,7 +161,7 @@ INSERT INTO `prefix_bbcode_buttons` (`fnButtonNr`, `fnFormatB`, `fnFormatI`, `fn
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_bbcode_config`
+-- Tabellenstruktur für Tabelle `prefix_bbcode_config`
 --
 
 DROP TABLE IF EXISTS `prefix_bbcode_config`;
@@ -190,7 +190,7 @@ CREATE TABLE IF NOT EXISTS `prefix_bbcode_config` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 --
--- Daten f&uuml;r Tabelle `prefix_bbcode_config`
+-- Daten für Tabelle `prefix_bbcode_config`
 --
 
 INSERT INTO `prefix_bbcode_config` (`fnConfigNr`, `fnYoutubeBreite`, `fnYoutubeHoehe`, `fcYoutubeHintergrundfarbe`, `fnGoogleBreite`, `fnGoogleHoehe`, `fcGoogleHintergrundfarbe`, `fnMyvideoBreite`, `fnMyvideoHoehe`, `fcMyvideoHintergrundfarbe`, `fnSizeMax`, `fnImgMaxBreite`, `fnImgMaxHoehe`, `fnScreenMaxBreite`, `fnScreenMaxHoehe`, `fnUrlMaxLaenge`, `fnWortMaxLaenge`, `fnFlashBreite`, `fnFlashHoehe`, `fcFlashHintergrundfarbe`) VALUES
@@ -199,7 +199,7 @@ INSERT INTO `prefix_bbcode_config` (`fnConfigNr`, `fnYoutubeBreite`, `fnYoutubeH
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_bbcode_design`
+-- Tabellenstruktur für Tabelle `prefix_bbcode_design`
 --
 
 DROP TABLE IF EXISTS `prefix_bbcode_design`;
@@ -232,7 +232,7 @@ CREATE TABLE IF NOT EXISTS `prefix_bbcode_design` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 --
--- Daten f&uuml;r Tabelle `prefix_bbcode_design`
+-- Daten für Tabelle `prefix_bbcode_design`
 --
 
 INSERT INTO `prefix_bbcode_design` (`fnDesignNr`, `fcQuoteRandFarbe`, `fcQuoteTabelleBreite`, `fcQuoteSchriftfarbe`, `fcQuoteHintergrundfarbe`, `fcQuoteHintergrundfarbeIT`, `fcQuoteSchriftformatIT`, `fcQuoteSchriftfarbeIT`, `fcBlockRandFarbe`, `fcBlockTabelleBreite`, `fcBlockSchriftfarbe`, `fcBlockHintergrundfarbe`, `fcBlockHintergrundfarbeIT`, `fcBlockSchriftfarbeIT`, `fcKtextRandFarbe`, `fcKtextTabelleBreite`, `fcKtextRandFormat`, `fcEmphHintergrundfarbe`, `fcEmphSchriftfarbe`, `fcCountdownRandFarbe`, `fcCountdownTabelleBreite`, `fcCountdownSchriftfarbe`, `fcCountdownSchriftformat`, `fnCountdownSchriftsize`) VALUES
@@ -241,7 +241,7 @@ INSERT INTO `prefix_bbcode_design` (`fnDesignNr`, `fcQuoteRandFarbe`, `fcQuoteTa
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_config`
+-- Tabellenstruktur für Tabelle `prefix_config`
 --
 
 DROP TABLE IF EXISTS `prefix_config`;
@@ -259,11 +259,11 @@ CREATE TABLE IF NOT EXISTS `prefix_config` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_config`
+-- Daten für Tabelle `prefix_config`
 --
 
 INSERT INTO `prefix_config` (`schl`, `typ`, `typextra`, `kat`, `frage`, `wert`, `pos`, `hide`, `helptext`) VALUES
-('gbook_posts_per_site', 'input', NULL, 'G&auml;stebuch Optionen', 'Eintr&auml;ge pro Seite', '20', 0, 0, NULL),
+('gbook_posts_per_site', 'input', NULL, 'Gästebuch Optionen', 'Einträge pro Seite', '20', 0, 0, NULL),
 ('gallery_imgs_per_line', 'input', NULL, 'Gallery Optionen', 'Bilder pro Zeile', '4', 0, 0, NULL),
 ('Aanz', 'input', NULL, 'Archiv Optionen', 'Anzahl Banner in der Partner Box', '3', 0, 0, NULL),
 ('Nlimit', 'input', NULL, 'News Optionen', 'News pro Seite', '5', 0, 0, NULL),
@@ -275,59 +275,59 @@ INSERT INTO `prefix_config` (`schl`, `typ`, `typextra`, `kat`, `frage`, `wert`, 
 ('Fpmf', 'r2', NULL, 'Forum Optionen', 'Nachrichten Function', '1', 0, 0, NULL),
 ('gfx', 's', NULL, 'Allgemeine Optionen', 'Standard Design', 'ilchClan', 0, 0, NULL),
 ('smodul', 's', NULL, 'Allgemeine Optionen', 'Start Modul der Seite', 'news', 0, 0, NULL),
-('title', 'input', NULL, 'Allgemeine Optionen', 'Titel der Seite', 'Das Clanscript f&uuml;r jeden!', 0, 0, NULL),
-('Fabreite', 'input', NULL, 'Forum Optionen', 'max Breite f&uuml;r den Avatar', '80', 0, 0, NULL),
-('Fahohe', 'input', NULL, 'Forum Optionen', 'max H&ouml;he f&uuml;r den Avatar', '80', 0, 0, NULL),
-('Gsperre', 'input', NULL, 'G&auml;stebuch Optionen', 'Ip Sperre in Sekunden', '3600', 0, 0, NULL),
-('Gtxtl', 'input', NULL, 'G&auml;stebuch Optionen', 'max Text l&auml;nge im G&auml;stebuch', '600', 0, 0, NULL),
+('title', 'input', NULL, 'Allgemeine Optionen', 'Titel der Seite', 'Das Clanscript für jeden!', 0, 0, NULL),
+('Fabreite', 'input', NULL, 'Forum Optionen', 'max Breite für den Avatar', '80', 0, 0, NULL),
+('Fahohe', 'input', NULL, 'Forum Optionen', 'max Höhe für den Avatar', '80', 0, 0, NULL),
+('Gsperre', 'input', NULL, 'Gästebuch Optionen', 'Ip Sperre in Sekunden', '3600', 0, 0, NULL),
+('Gtxtl', 'input', NULL, 'Gästebuch Optionen', 'max Text länge im Gästebuch', '600', 0, 0, NULL),
 ('Aart', 'r2', NULL, 'Archiv Optionen', 'Soll die Partner Box sortiert werden', '0', 0, 0, NULL),
-('Ngkoms', 'r2', NULL, 'News Optionen', 'D&uuml;rfen G&auml;ste Kommentare schreiben?', '1', 0, 0, NULL),
-('Nukoms', 'r2', NULL, 'News Optionen', 'D&uuml;rfen User Kommentare schreiben?', '1', 0, 0, NULL),
-('allg_menupoint_access', 'r2', NULL, 'Allgemeine Optionen', 'Zugriff auf nicht im Men&uuml; verlinkte Module f&uuml;r alle?', '0', 0, 0, NULL),
-('forum_regist', 'r2', NULL, 'Forum Optionen', 'D&uuml;rfen sich User registrieren?', '1', 0, 0, NULL),
-('forum_regist_user_pass', 'r2', NULL, 'Forum Optionen', 'Passwort vom User beim registrieren selber w&auml;hlbar?', '1', 0, 0, NULL),
-('forum_regist_confirm_link', 'r2', NULL, 'Forum Optionen', 'Registrierung per Link im eMail best&auml;tigen?', '1', 0, 0, NULL),
-('archiv_down_userupload', 'r2', NULL, 'Archiv Optionen', 'D&uuml;rfen User Dateien hochladen?', '1', 0, 0, NULL),
-('show_session_id', 'r2', NULL, 'Allgemeine Optionen', 'SessionID bei G&auml;sten anzeigen?', '1', 0, 0, NULL),
-('wars_last_komms', 's', NULL, 'Wars Optionen', 'Kommentare f&uuml;r Lastwars', '0', 0, 0, NULL),
+('Ngkoms', 'r2', NULL, 'News Optionen', 'Dürfen Gäste Kommentare schreiben?', '1', 0, 0, NULL),
+('Nukoms', 'r2', NULL, 'News Optionen', 'Dürfen User Kommentare schreiben?', '1', 0, 0, NULL),
+('allg_menupoint_access', 'r2', NULL, 'Allgemeine Optionen', 'Zugriff auf nicht im Menü verlinkte Module für alle?', '0', 0, 0, NULL),
+('forum_regist', 'r2', NULL, 'Forum Optionen', 'Dürfen sich User registrieren?', '1', 0, 0, NULL),
+('forum_regist_user_pass', 'r2', NULL, 'Forum Optionen', 'Passwort vom User beim registrieren selber wählbar?', '1', 0, 0, NULL),
+('forum_regist_confirm_link', 'r2', NULL, 'Forum Optionen', 'Registrierung per Link im eMail bestätigen?', '1', 0, 0, NULL),
+('archiv_down_userupload', 'r2', NULL, 'Archiv Optionen', 'Dürfen User Dateien hochladen?', '1', 0, 0, NULL),
+('show_session_id', 'r2', NULL, 'Allgemeine Optionen', 'SessionID bei Gästen anzeigen?', '1', 0, 0, NULL),
+('wars_last_komms', 's', NULL, 'Wars Optionen', 'Kommentare für Lastwars', '0', 0, 0, NULL),
 ('wars_last_limit', 'input', NULL, 'Wars Optionen', 'Lastwars pro Seite.', '15', 0, 0, NULL),
 ('forum_usergallery', 'r2', NULL, 'Forum Optionen', 'Darf jeder User seine eigene Gallery haben?', '1', 0, 0, NULL),
 ('gallery_normal_width', 'input', NULL, 'Gallery Optionen', 'Breite der normalen Bilder', '500', 0, 0, NULL),
-('gallery_img_koms', 'r2', NULL, 'Gallery Optionen', 'Kommentare f&uuml;r Bilder zulassen?', '1', 0, 0, NULL),
+('gallery_img_koms', 'r2', NULL, 'Gallery Optionen', 'Kommentare für Bilder zulassen?', '1', 0, 0, NULL),
 ('forum_max_sig', 'input', NULL, 'Forum Optionen', 'max. Anzahl Zeichen in der Signatur', '200', 0, 0, NULL),
-('gbook_koms_for_inserts', 'r2', NULL, 'G&auml;stebuch Optionen', 'Kommentare f&uuml;r G&auml;stebucheintr&auml;ge?', '1', 0, 0, NULL),
-('allg_regeln', 'textarea', NULL, 'Allgemeine Optionen', 'Die Regeln f&uuml;r die Seite (bbcode erlaubt)', '[list]\r\n[*]Die Registrierung ist v&ouml;llig Kostenlos\r\n[*]Die Betreiber der Seite &uuml;bernehmen keine Haftung.\r\n[*]Bitte verhalten Sie sich angemessen und mit Respekt gegen&uuml;ber den anderen Community Mitgliedern.\r\n[/list]', 0, 0, NULL),
+('gbook_koms_for_inserts', 'r2', NULL, 'Gästebuch Optionen', 'Kommentare für Gästebucheinträge?', '1', 0, 0, NULL),
+('allg_regeln', 'textarea', NULL, 'Allgemeine Optionen', 'Die Regeln für die Seite (bbcode erlaubt)', '[list]\r\n[*]Die Registrierung ist völlig Kostenlos\r\n[*]Die Betreiber der Seite übernehmen keine Haftung.\r\n[*]Bitte verhalten Sie sich angemessen und mit Respekt gegenüber den anderen Community Mitgliedern.\r\n[/list]', 0, 0, NULL),
 ('teams_show_list', 'r2', NULL, 'Team Optionen', 'Avatar bei den Usern?', '0', 0, 0, NULL),
 ('teams_show_cat', 'r2', NULL, 'Team Optionen', 'Sollen die Squads als Kategorie angezeigt werden?', '1', 0, 0, NULL),
 ('allg_bbcode_max_img_width', 'input', NULL, 'Allgemeine Optionen', 'Wie Breit solle ein Bild maximal sein (in Pixeln)?', '230', 0, 0, NULL),
 ('forum_default_avatar', 'r2', NULL, 'Forum Optionen', 'Standard Avatar anzeigen?', '1', 0, 0, NULL),
 ('allg_default_subject', 'input', NULL, 'Allgemeine Optionen', 'Standard Absender bei eMails', 'automatische eMail', 0, 0, NULL),
-('sb_maxwordlength', 'input', NULL, 'Shoutbox Optionen', 'Maximale Wortl&auml;nge in der Shoutbox', '10', 0, 0, NULL),
+('sb_maxwordlength', 'input', NULL, 'Shoutbox Optionen', 'Maximale Wortlänge in der Shoutbox', '10', 0, 0, NULL),
 ('sb_recht', 'grecht', NULL, 'Shoutbox Optionen', 'Schreiben in der Shoutbox ab?', '0', 0, 0, NULL),
 ('sb_limit', 'input', NULL, 'Shoutbox Optionen', 'Anzahl angezeigter Nachrichten', '5', 0, 0, NULL),
 ('antispam', 'grecht2', NULL, 'Allgemeine Optionen', 'Antispam <small>(ab diesem Recht keine Eingabe mehr erforderlich)</small>', '-2', 0, 0, NULL),
-('joinus_rules', 'r2', NULL, 'Team Optionen', 'Regeln bei Joinus vollst&auml;ndig anzeigen?', '0', 0, 0, NULL),
-('groups_forall', 'r2', NULL, 'Team Optionen', 'Modulrecht <i>Gruppen</i> auf eigene Gruppe beschr&auml;nken?', '1', 0, 0, NULL),
+('joinus_rules', 'r2', NULL, 'Team Optionen', 'Regeln bei Joinus vollständig anzeigen?', '0', 0, 0, NULL),
+('groups_forall', 'r2', NULL, 'Team Optionen', 'Modulrecht <i>Gruppen</i> auf eigene Gruppe beschränken?', '1', 0, 0, NULL),
 ('lang', 's', NULL, 'Allgemeine Optionen', 'Standard Sprache', 'de', 0, 0, NULL),
-('mail_smtp', 'r2', NULL, 'Allgemeine Optionen', 'SMTP f&uuml;r den Mailversand verwenden? <a href="admin.php?smtpconf" class="smalfont">weitere Einstellungen</a>', '0', 0, 0, NULL),
-('userpic_Fabreite', 'input', NULL, 'Forum Optionen', 'max Breite f&uuml;r das Userpic', '160', 0, 0, NULL),
-('userpic_Fahohe', 'input', NULL, 'Forum Optionen', 'max H&ouml;he f&uuml;r das Userpic', '160', 0, 0, NULL),
+('mail_smtp', 'r2', NULL, 'Allgemeine Optionen', 'SMTP für den Mailversand verwenden? <a href="admin.php?smtpconf" class="smalfont">weitere Einstellungen</a>', '0', 0, 0, NULL),
+('userpic_Fabreite', 'input', NULL, 'Forum Optionen', 'max Breite für das Userpic', '160', 0, 0, NULL),
+('userpic_Fahohe', 'input', NULL, 'Forum Optionen', 'max Höhe für das Userpic', '160', 0, 0, NULL),
 ('news_social', 'r2', NULL, 'News Optionen', 'Bei News Social Network Buttons anzeigen?', '0', 0, 0, 'Zeigt bei News dann Buttons von Social Networks wie Facebook an.'),
-('menu_anz', 'input', NULL, 'Allgemeine Optionen', 'Wie viele Men&uuml;s sollen verwaltet werden?', '5', 0, 0, NULL),
+('menu_anz', 'input', NULL, 'Allgemeine Optionen', 'Wie viele Menüs sollen verwaltet werden?', '5', 0, 0, NULL),
 ('revision', 'input', NULL, 'Allgemeine Optionen', 'Revisionsnummer', '238', 0, 0, NULL),
-('threadersteller_in_uebersicht', 'r2', NULL, 'Forum Optionen', 'Threadersteller - Anzeige in &uuml;bersicht?', '0', 0, 0, NULL),
-('show_tooltip', 'r2', NULL, 'Kalender Optionen', 'Event-Tooltips', '1', 0, 0, 'Wenn aktiviert werden bei Kalendereintr&auml;gen in einem Tooltip schon Details zu dem Eintrag angezeigt.'),
+('threadersteller_in_uebersicht', 'r2', NULL, 'Forum Optionen', 'Threadersteller - Anzeige in übersicht?', '0', 0, 0, NULL),
+('show_tooltip', 'r2', NULL, 'Kalender Optionen', 'Event-Tooltips', '1', 0, 0, 'Wenn aktiviert werden bei Kalendereinträgen in einem Tooltip schon Details zu dem Eintrag angezeigt.'),
 ('modrewrite', 'radio', NULL, 'Allgemeine Optionen', 'ModReWrite an / aus', '0', 0, 1, NULL),
 ('wartung', 'r2', NULL, 'Allgemeine Optionen', 'Wartungsmodus ?', '0', 0, 0, NULL),
 ('wartungstext', 'input', NULL, 'Allgemeine Optionen', 'Wartungstext', '0', 0, 0, NULL),
-('inactive', 'r2', NULL, 'Allgemeine Optionen', 'Ab wie vielen Wochen z&auml;hlt ein User als inaktiv ?', '12', 0, 1, NULL),
+('inactive', 'r2', NULL, 'Allgemeine Optionen', 'Ab wie vielen Wochen zählt ein User als inaktiv ?', '12', 0, 1, NULL),
 ('kalender_standard_list', 'select', '{"keys":[1, 0], "values":["Listenansicht", "Monatsansicht"]}', 'Kalender Optionen', 'Standardansicht', '0', 0, 0, 'Gibt ob Die Listenansicht oder die Monatsansicht verwendet wird, wenn man den Kalender aufruft.'),
 ('sb_archive_limit', 'input', NULL, 'Shoutbox Optionen', 'Anzahl angezeigter Nachrichten pro Seite im Archiv', '5', 0, 0, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_counter`
+-- Tabellenstruktur für Tabelle `prefix_counter`
 --
 
 DROP TABLE IF EXISTS `prefix_counter`;
@@ -337,14 +337,14 @@ CREATE TABLE IF NOT EXISTS `prefix_counter` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_counter`
+-- Daten für Tabelle `prefix_counter`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_credits`
+-- Tabellenstruktur für Tabelle `prefix_credits`
 --
 
 DROP TABLE IF EXISTS `prefix_credits`;
@@ -360,7 +360,7 @@ CREATE TABLE IF NOT EXISTS `prefix_credits` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Credits-System - bitte doku beachten';
 
 --
--- Daten f&uuml;r Tabelle `prefix_credits`
+-- Daten für Tabelle `prefix_credits`
 --
 
 INSERT INTO `prefix_credits` (`id`, `sys`, `name`, `version`, `url`, `lizenzname`, `lizenzurl`) VALUES
@@ -371,7 +371,7 @@ INSERT INTO `prefix_credits` (`id`, `sys`, `name`, `version`, `url`, `lizenzname
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_downcats`
+-- Tabellenstruktur für Tabelle `prefix_downcats`
 --
 
 DROP TABLE IF EXISTS `prefix_downcats`;
@@ -386,14 +386,14 @@ CREATE TABLE IF NOT EXISTS `prefix_downcats` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_downcats`
+-- Daten für Tabelle `prefix_downcats`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_downloads`
+-- Tabellenstruktur für Tabelle `prefix_downloads`
 --
 
 DROP TABLE IF EXISTS `prefix_downloads`;
@@ -419,14 +419,14 @@ CREATE TABLE IF NOT EXISTS `prefix_downloads` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_downloads`
+-- Daten für Tabelle `prefix_downloads`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_forumcats`
+-- Tabellenstruktur für Tabelle `prefix_forumcats`
 --
 
 DROP TABLE IF EXISTS `prefix_forumcats`;
@@ -439,14 +439,14 @@ CREATE TABLE IF NOT EXISTS `prefix_forumcats` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_forumcats`
+-- Daten für Tabelle `prefix_forumcats`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_forummods`
+-- Tabellenstruktur für Tabelle `prefix_forummods`
 --
 
 DROP TABLE IF EXISTS `prefix_forummods`;
@@ -457,14 +457,14 @@ CREATE TABLE IF NOT EXISTS `prefix_forummods` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_forummods`
+-- Daten für Tabelle `prefix_forummods`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_forums`
+-- Tabellenstruktur für Tabelle `prefix_forums`
 --
 
 DROP TABLE IF EXISTS `prefix_forums`;
@@ -484,14 +484,14 @@ CREATE TABLE IF NOT EXISTS `prefix_forums` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_forums`
+-- Daten für Tabelle `prefix_forums`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_gallery_cats`
+-- Tabellenstruktur für Tabelle `prefix_gallery_cats`
 --
 
 DROP TABLE IF EXISTS `prefix_gallery_cats`;
@@ -506,14 +506,14 @@ CREATE TABLE IF NOT EXISTS `prefix_gallery_cats` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_gallery_cats`
+-- Daten für Tabelle `prefix_gallery_cats`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_gallery_imgs`
+-- Tabellenstruktur für Tabelle `prefix_gallery_imgs`
 --
 
 DROP TABLE IF EXISTS `prefix_gallery_imgs`;
@@ -530,14 +530,14 @@ CREATE TABLE IF NOT EXISTS `prefix_gallery_imgs` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_gallery_imgs`
+-- Daten für Tabelle `prefix_gallery_imgs`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_gbook`
+-- Tabellenstruktur für Tabelle `prefix_gbook`
 --
 
 DROP TABLE IF EXISTS `prefix_gbook`;
@@ -553,14 +553,14 @@ CREATE TABLE IF NOT EXISTS `prefix_gbook` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_gbook`
+-- Daten für Tabelle `prefix_gbook`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_groupfuncs`
+-- Tabellenstruktur für Tabelle `prefix_groupfuncs`
 --
 
 DROP TABLE IF EXISTS `prefix_groupfuncs`;
@@ -572,7 +572,7 @@ CREATE TABLE IF NOT EXISTS `prefix_groupfuncs` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_groupfuncs`
+-- Daten für Tabelle `prefix_groupfuncs`
 --
 
 INSERT INTO `prefix_groupfuncs` (`id`, `name`, `pos`) VALUES
@@ -584,7 +584,7 @@ INSERT INTO `prefix_groupfuncs` (`id`, `name`, `pos`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_groups`
+-- Tabellenstruktur für Tabelle `prefix_groups`
 --
 
 DROP TABLE IF EXISTS `prefix_groups`;
@@ -604,14 +604,14 @@ CREATE TABLE IF NOT EXISTS `prefix_groups` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_groups`
+-- Daten für Tabelle `prefix_groups`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_groupusers`
+-- Tabellenstruktur für Tabelle `prefix_groupusers`
 --
 
 DROP TABLE IF EXISTS `prefix_groupusers`;
@@ -623,14 +623,14 @@ CREATE TABLE IF NOT EXISTS `prefix_groupusers` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_groupusers`
+-- Daten für Tabelle `prefix_groupusers`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_grundrechte`
+-- Tabellenstruktur für Tabelle `prefix_grundrechte`
 --
 
 DROP TABLE IF EXISTS `prefix_grundrechte`;
@@ -641,7 +641,7 @@ CREATE TABLE IF NOT EXISTS `prefix_grundrechte` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Daten f&uuml;r Tabelle `prefix_grundrechte`
+-- Daten für Tabelle `prefix_grundrechte`
 --
 
 INSERT INTO `prefix_grundrechte` (`id`, `name`) VALUES
@@ -659,7 +659,7 @@ INSERT INTO `prefix_grundrechte` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_history`
+-- Tabellenstruktur für Tabelle `prefix_history`
 --
 
 DROP TABLE IF EXISTS `prefix_history`;
@@ -672,14 +672,14 @@ CREATE TABLE IF NOT EXISTS `prefix_history` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_history`
+-- Daten für Tabelle `prefix_history`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_kalender`
+-- Tabellenstruktur für Tabelle `prefix_kalender`
 --
 
 DROP TABLE IF EXISTS `prefix_kalender`;
@@ -694,14 +694,14 @@ CREATE TABLE IF NOT EXISTS `prefix_kalender` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_kalender`
+-- Daten für Tabelle `prefix_kalender`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_kasse`
+-- Tabellenstruktur für Tabelle `prefix_kasse`
 --
 
 DROP TABLE IF EXISTS `prefix_kasse`;
@@ -715,14 +715,14 @@ CREATE TABLE IF NOT EXISTS `prefix_kasse` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_kasse`
+-- Daten für Tabelle `prefix_kasse`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_koms`
+-- Tabellenstruktur für Tabelle `prefix_koms`
 --
 
 DROP TABLE IF EXISTS `prefix_koms`;
@@ -736,14 +736,14 @@ CREATE TABLE IF NOT EXISTS `prefix_koms` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_koms`
+-- Daten für Tabelle `prefix_koms`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_linkcats`
+-- Tabellenstruktur für Tabelle `prefix_linkcats`
 --
 
 DROP TABLE IF EXISTS `prefix_linkcats`;
@@ -757,14 +757,14 @@ CREATE TABLE IF NOT EXISTS `prefix_linkcats` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_linkcats`
+-- Daten für Tabelle `prefix_linkcats`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_links`
+-- Tabellenstruktur für Tabelle `prefix_links`
 --
 
 DROP TABLE IF EXISTS `prefix_links`;
@@ -781,14 +781,14 @@ CREATE TABLE IF NOT EXISTS `prefix_links` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_links`
+-- Daten für Tabelle `prefix_links`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_linkus`
+-- Tabellenstruktur für Tabelle `prefix_linkus`
 --
 
 DROP TABLE IF EXISTS `prefix_linkus`;
@@ -805,7 +805,7 @@ CREATE TABLE IF NOT EXISTS `prefix_linkus` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 --
--- Daten f&uuml;r Tabelle `prefix_linkus`
+-- Daten für Tabelle `prefix_linkus`
 --
 
 INSERT INTO `prefix_linkus` (`id`, `name`, `datei`, `hoch`, `breit`, `link`, `views`, `klicks`) VALUES
@@ -815,7 +815,7 @@ INSERT INTO `prefix_linkus` (`id`, `name`, `datei`, `hoch`, `breit`, `link`, `vi
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_loader`
+-- Tabellenstruktur für Tabelle `prefix_loader`
 --
 
 DROP TABLE IF EXISTS `prefix_loader`;
@@ -829,7 +829,7 @@ CREATE TABLE IF NOT EXISTS `prefix_loader` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 --
--- Daten f&uuml;r Tabelle `prefix_loader`
+-- Daten für Tabelle `prefix_loader`
 --
 
 INSERT INTO `prefix_loader` (`id`, `pos`, `task`, `file`, `description`) VALUES
@@ -845,18 +845,18 @@ INSERT INTO `prefix_loader` (`id`, `pos`, `task`, `file`, `description`) VALUES
 (40, 14, 'func', 'statistic_content.php', 'Wer-Ist-Wo und ContentStats'),
 (31, 7, 'func', 'bbcode.php', 'BB-Code Buttons und Funktionen'),
 (32, 8, 'func', 'profilefields.php', 'Profilfelder Funktionen'),
-(33, 9, 'func', 'statistic.php', 'Statistiken &uuml;ber den Besucher speichern'),
+(33, 9, 'func', 'statistic.php', 'Statistiken über den Besucher speichern'),
 (34, 10, 'func', 'listen.php', 'Funktionen, zum Listen erstellen'),
-(35, 11, 'func', 'forum.php', 'Alle Funktionen f&uuml;r das Forum'),
-(36, 12, 'func', 'warsys.php', 'Funktionen f&uuml;r das War-System'),
-(37, 13, 'func', 'ic_mime_type.php', 'Funktionen f&uuml;r den Umgang mit Dateiuploads'),
+(35, 11, 'func', 'forum.php', 'Alle Funktionen für das Forum'),
+(36, 12, 'func', 'warsys.php', 'Funktionen für das War-System'),
+(37, 13, 'func', 'ic_mime_type.php', 'Funktionen für den Umgang mit Dateiuploads'),
 (38, 14, 'func', 'lang.php', 'Funktionen zum Aufrufen der Sprachdateien'),
 (39, 15, 'class', 'profilefield_registry.php', 'Verwaltet die Profilfeld-Typen.');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_menu`
+-- Tabellenstruktur für Tabelle `prefix_menu`
 --
 
 DROP TABLE IF EXISTS `prefix_menu`;
@@ -874,11 +874,11 @@ CREATE TABLE IF NOT EXISTS `prefix_menu` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_menu`
+-- Daten für Tabelle `prefix_menu`
 --
 
 INSERT INTO `prefix_menu` (`wo`, `pos`, `was`, `ebene`, `recht`, `recht_type`, `name`, `path`) VALUES
-(1, 0, 3, 0, 0, 0, 'Men&uuml;', 'allianz.php'),
+(1, 0, 3, 0, 0, 0, 'Menü', 'allianz.php'),
 (1, 1, 7, 0, 0, 0, 'News', 'news'),
 (1, 2, 7, 0, 0, 0, 'Forum', 'forum'),
 (1, 3, 7, 1, 0, 0, 'Mitglieder', 'user'),
@@ -890,7 +890,7 @@ INSERT INTO `prefix_menu` (`wo`, `pos`, `was`, `ebene`, `recht`, `recht_type`, `
 (1, 9, 7, 0, 0, 0, 'Kalender', 'kalender'),
 (1, 10, 7, 0, 2, 3, 'Kontakt', 'contact'),
 (1, 11, 7, 0, 0, 0, 'Impressum', 'impressum'),
-(1, 12, 3, 0, 0, 0, 'Clan Men&uuml;', 'allianz.php'),
+(1, 12, 3, 0, 0, 0, 'Clan Menü', 'allianz.php'),
 (1, 13, 7, 0, 0, 0, 'Squads', 'teams'),
 (1, 14, 7, 1, 0, 0, 'Fightus', 'fightus'),
 (1, 15, 7, 1, 0, 0, 'Joinus', 'joinus'),
@@ -922,7 +922,7 @@ INSERT INTO `prefix_menu` (`wo`, `pos`, `was`, `ebene`, `recht`, `recht_type`, `
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_modulerights`
+-- Tabellenstruktur für Tabelle `prefix_modulerights`
 --
 
 DROP TABLE IF EXISTS `prefix_modulerights`;
@@ -933,7 +933,7 @@ CREATE TABLE IF NOT EXISTS `prefix_modulerights` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_modulerights`
+-- Daten für Tabelle `prefix_modulerights`
 --
 
 INSERT INTO `prefix_modulerights` (`uid`, `mid`) VALUES
@@ -950,7 +950,7 @@ INSERT INTO `prefix_modulerights` (`uid`, `mid`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_modules`
+-- Tabellenstruktur für Tabelle `prefix_modules`
 --
 
 DROP TABLE IF EXISTS `prefix_modules`;
@@ -967,7 +967,7 @@ CREATE TABLE IF NOT EXISTS `prefix_modules` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_modules`
+-- Daten für Tabelle `prefix_modules`
 --
 
 INSERT INTO `prefix_modules` (`id`, `url`, `name`, `gshow`, `ashow`, `fright`, `menu`, `pos`) VALUES
@@ -981,7 +981,7 @@ INSERT INTO `prefix_modules` (`id`, `url`, `name`, `gshow`, `ashow`, `fright`, `
 (46, 'kalender', 'Kalender', 1, 0, 1, 'Content', 7),
 (47, 'wars', 'Wars', 0, 0, 1, '', 0),
 (48, 'kasse', 'Kasse', 1, 0, 1, 'Clanbox', 5),
-(49, 'gbook', 'G&auml;stebuch', 1, 0, 1, 'Content', 5),
+(49, 'gbook', 'Gästebuch', 1, 0, 1, 'Content', 5),
 (50, 'awaycal', 'Awaycal', 0, 0, 1, 'Content', 0),
 (51, 'news', 'News', 1, 0, 1, 'Content', 0),
 (52, 'allg', 'Konfiguration', 1, 0, 0, 'Admin', 0),
@@ -1006,7 +1006,7 @@ INSERT INTO `prefix_modules` (`id`, `url`, `name`, `gshow`, `ashow`, `fright`, `
 (71, 'picofx', 'Pic of X', 1, 0, 0, 'Boxen', 1),
 
 (72, 'smtpconf', 'SMTP', 1, 0, 0, 'Admin', 1),
-(73, 'puser', 'Nicht best&auml;tigte Registrierungen', 0, 0, 0, '', 0),
+(73, 'puser', 'Nicht bestätigte Registrierungen', 0, 0, 0, '', 0),
 (74, 'bbcode', 'BBcode 2.0', 1, 0, 1, 'Content', 11),
 (75, 'linkus', 'LinkUs', 1, 1, 1, 'Content', 4),
 (76, 'modrewrite', 'ModRewrite', 1, 0, 0, 'Admin', 9),
@@ -1016,7 +1016,7 @@ INSERT INTO `prefix_modules` (`id`, `url`, `name`, `gshow`, `ashow`, `fright`, `
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_news`
+-- Tabellenstruktur für Tabelle `prefix_news`
 --
 
 DROP TABLE IF EXISTS `prefix_news`;
@@ -1032,14 +1032,14 @@ CREATE TABLE IF NOT EXISTS `prefix_news` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_news`
+-- Daten für Tabelle `prefix_news`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_newsletter`
+-- Tabellenstruktur für Tabelle `prefix_newsletter`
 --
 
 DROP TABLE IF EXISTS `prefix_newsletter`;
@@ -1048,14 +1048,14 @@ CREATE TABLE IF NOT EXISTS `prefix_newsletter` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_newsletter`
+-- Daten für Tabelle `prefix_newsletter`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_online`
+-- Tabellenstruktur für Tabelle `prefix_online`
 --
 
 DROP TABLE IF EXISTS `prefix_online`;
@@ -1068,14 +1068,14 @@ CREATE TABLE IF NOT EXISTS `prefix_online` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_online`
+-- Daten für Tabelle `prefix_online`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_opponents`
+-- Tabellenstruktur für Tabelle `prefix_opponents`
 --
 
 DROP TABLE IF EXISTS `prefix_opponents`;
@@ -1092,14 +1092,14 @@ CREATE TABLE IF NOT EXISTS `prefix_opponents` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Gegner-Datenbank';
 
 --
--- Daten f&uuml;r Tabelle `prefix_opponents`
+-- Daten für Tabelle `prefix_opponents`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_partners`
+-- Tabellenstruktur für Tabelle `prefix_partners`
 --
 
 DROP TABLE IF EXISTS `prefix_partners`;
@@ -1113,7 +1113,7 @@ CREATE TABLE IF NOT EXISTS `prefix_partners` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_partners`
+-- Daten für Tabelle `prefix_partners`
 --
 
 INSERT INTO `prefix_partners` (`id`, `pos`, `name`, `banner`, `link`) VALUES
@@ -1122,7 +1122,7 @@ INSERT INTO `prefix_partners` (`id`, `pos`, `name`, `banner`, `link`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_pm`
+-- Tabellenstruktur für Tabelle `prefix_pm`
 --
 
 DROP TABLE IF EXISTS `prefix_pm`;
@@ -1139,14 +1139,14 @@ CREATE TABLE IF NOT EXISTS `prefix_pm` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_pm`
+-- Daten für Tabelle `prefix_pm`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_poll`
+-- Tabellenstruktur für Tabelle `prefix_poll`
 --
 
 DROP TABLE IF EXISTS `prefix_poll`;
@@ -1160,14 +1160,14 @@ CREATE TABLE IF NOT EXISTS `prefix_poll` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_poll`
+-- Daten für Tabelle `prefix_poll`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_poll_res`
+-- Tabellenstruktur für Tabelle `prefix_poll_res`
 --
 
 DROP TABLE IF EXISTS `prefix_poll_res`;
@@ -1179,14 +1179,14 @@ CREATE TABLE IF NOT EXISTS `prefix_poll_res` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_poll_res`
+-- Daten für Tabelle `prefix_poll_res`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_posts`
+-- Tabellenstruktur für Tabelle `prefix_posts`
 --
 
 DROP TABLE IF EXISTS `prefix_posts`;
@@ -1202,14 +1202,14 @@ CREATE TABLE IF NOT EXISTS `prefix_posts` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_posts`
+-- Daten für Tabelle `prefix_posts`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_profilefields`
+-- Tabellenstruktur für Tabelle `prefix_profilefields`
 --
 
 DROP TABLE IF EXISTS `prefix_profilefields`;
@@ -1223,7 +1223,7 @@ CREATE TABLE IF NOT EXISTS `prefix_profilefields` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_profilefields`
+-- Daten für Tabelle `prefix_profilefields`
 --
 
 INSERT INTO `prefix_profilefields` (`id`, `show`, `pos`, `func`, `config_value`) VALUES
@@ -1250,7 +1250,7 @@ INSERT INTO `prefix_profilefields` (`id`, `show`, `pos`, `func`, `config_value`)
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_ranks`
+-- Tabellenstruktur für Tabelle `prefix_ranks`
 --
 
 DROP TABLE IF EXISTS `prefix_ranks`;
@@ -1263,11 +1263,11 @@ CREATE TABLE IF NOT EXISTS `prefix_ranks` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_ranks`
+-- Daten für Tabelle `prefix_ranks`
 --
 
 INSERT INTO `prefix_ranks` (`id`, `bez`, `min`, `spez`) VALUES
-(1, 'Gr&uuml;nschnabel', 1, 0),
+(1, 'Grünschnabel', 1, 0),
 (2, 'Jungspund', 25, 0),
 (3, 'Mitglied', 50, 0),
 (4, 'Eroberer', 75, 0),
@@ -1275,7 +1275,7 @@ INSERT INTO `prefix_ranks` (`id`, `bez`, `min`, `spez`) VALUES
 (7, 'Tripel-As', 250, 0),
 (8, 'Haudegen', 500, 0),
 (9, 'Routinier', 1000, 0),
-(15, 'K&ouml;nig', 2000, 0),
+(15, 'König', 2000, 0),
 (11, 'Kaiser', 5000, 0),
 (12, 'Legende', 7000, 0),
 (13, 'Foren Gott', 10000, 0),
@@ -1284,7 +1284,7 @@ INSERT INTO `prefix_ranks` (`id`, `bez`, `min`, `spez`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_rules`
+-- Tabellenstruktur für Tabelle `prefix_rules`
 --
 
 DROP TABLE IF EXISTS `prefix_rules`;
@@ -1297,14 +1297,14 @@ CREATE TABLE IF NOT EXISTS `prefix_rules` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_rules`
+-- Daten für Tabelle `prefix_rules`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_selfp`
+-- Tabellenstruktur für Tabelle `prefix_selfp`
 --
 
 DROP TABLE IF EXISTS `prefix_selfp`;
@@ -1318,21 +1318,22 @@ CREATE TABLE IF NOT EXISTS `prefix_selfp` (
   `php` tinyint(1) NOT NULL DEFAULT '0',
   `view` smallint(6) NOT NULL DEFAULT '0',
   `pos` smallint(6) NOT NULL,
+  `content` MEDIUMTEXT NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 --
--- Daten f&uuml;r Tabelle `prefix_selfp`
+-- Daten für Tabelle `prefix_selfp`
 --
 
 INSERT INTO `prefix_selfp` (`id`, `name`, `path`, `cpath`, `cid`, `wysiwyg`, `php`, `view`, `pos`) VALUES
-(1, 'S&auml;ubern', 'saeubern', 'kueche-saeubern', 1, 1, 0, 0, 0),
+(1, 'Säubern', 'saeubern', 'kueche-saeubern', 1, 1, 0, 0, 0),
 (2, 'Testseite', 'testseite', 'testseite', 0, 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_selfp_cat`
+-- Tabellenstruktur für Tabelle `prefix_selfp_cat`
 --
 
 DROP TABLE IF EXISTS `prefix_selfp_cat`;
@@ -1348,14 +1349,14 @@ CREATE TABLE IF NOT EXISTS `prefix_selfp_cat` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 --
--- Daten f&uuml;r Tabelle `prefix_selfp_cat`
+-- Daten für Tabelle `prefix_selfp_cat`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_shoutbox`
+-- Tabellenstruktur für Tabelle `prefix_shoutbox`
 --
 
 DROP TABLE IF EXISTS `prefix_shoutbox`;
@@ -1369,14 +1370,14 @@ CREATE TABLE IF NOT EXISTS `prefix_shoutbox` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_shoutbox`
+-- Daten für Tabelle `prefix_shoutbox`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_smilies`
+-- Tabellenstruktur für Tabelle `prefix_smilies`
 --
 
 DROP TABLE IF EXISTS `prefix_smilies`;
@@ -1390,7 +1391,7 @@ CREATE TABLE IF NOT EXISTS `prefix_smilies` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_smilies`
+-- Daten für Tabelle `prefix_smilies`
 --
 
 INSERT INTO `prefix_smilies` (`id`, `ent`, `emo`, `url`, `pos`) VALUES
@@ -1408,7 +1409,7 @@ INSERT INTO `prefix_smilies` (`id`, `ent`, `emo`, `url`, `pos`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_stats`
+-- Tabellenstruktur für Tabelle `prefix_stats`
 --
 
 DROP TABLE IF EXISTS `prefix_stats`;
@@ -1425,14 +1426,14 @@ CREATE TABLE IF NOT EXISTS `prefix_stats` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_stats`
+-- Daten für Tabelle `prefix_stats`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_stats_content`
+-- Tabellenstruktur für Tabelle `prefix_stats_content`
 --
 
 DROP TABLE IF EXISTS `prefix_stats_content`;
@@ -1444,14 +1445,14 @@ CREATE TABLE IF NOT EXISTS `prefix_stats_content` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Daten f&uuml;r Tabelle `prefix_stats_content`
+-- Daten für Tabelle `prefix_stats_content`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_topics`
+-- Tabellenstruktur für Tabelle `prefix_topics`
 --
 
 DROP TABLE IF EXISTS `prefix_topics`;
@@ -1469,14 +1470,14 @@ CREATE TABLE IF NOT EXISTS `prefix_topics` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_topics`
+-- Daten für Tabelle `prefix_topics`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_topic_alerts`
+-- Tabellenstruktur für Tabelle `prefix_topic_alerts`
 --
 
 DROP TABLE IF EXISTS `prefix_topic_alerts`;
@@ -1487,14 +1488,14 @@ CREATE TABLE IF NOT EXISTS `prefix_topic_alerts` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Daten f&uuml;r Tabelle `prefix_topic_alerts`
+-- Daten für Tabelle `prefix_topic_alerts`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_user`
+-- Tabellenstruktur für Tabelle `prefix_user`
 --
 
 DROP TABLE IF EXISTS `prefix_user`;
@@ -1530,14 +1531,14 @@ CREATE TABLE IF NOT EXISTS `prefix_user` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_user`
+-- Daten für Tabelle `prefix_user`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_usercheck`
+-- Tabellenstruktur für Tabelle `prefix_usercheck`
 --
 
 DROP TABLE IF EXISTS `prefix_usercheck`;
@@ -1553,14 +1554,14 @@ CREATE TABLE IF NOT EXISTS `prefix_usercheck` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_usercheck`
+-- Daten für Tabelle `prefix_usercheck`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_userfields`
+-- Tabellenstruktur für Tabelle `prefix_userfields`
 --
 
 DROP TABLE IF EXISTS `prefix_userfields`;
@@ -1572,7 +1573,7 @@ CREATE TABLE IF NOT EXISTS `prefix_userfields` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_userfields`
+-- Daten für Tabelle `prefix_userfields`
 --
 
 INSERT INTO `prefix_userfields` (`uid`, `fid`, `val`) VALUES
@@ -1587,7 +1588,7 @@ INSERT INTO `prefix_userfields` (`uid`, `fid`, `val`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_usergallery`
+-- Tabellenstruktur für Tabelle `prefix_usergallery`
 --
 
 DROP TABLE IF EXISTS `prefix_usergallery`;
@@ -1601,14 +1602,14 @@ CREATE TABLE IF NOT EXISTS `prefix_usergallery` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_usergallery`
+-- Daten für Tabelle `prefix_usergallery`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_warmaps`
+-- Tabellenstruktur für Tabelle `prefix_warmaps`
 --
 
 DROP TABLE IF EXISTS `prefix_warmaps`;
@@ -1622,14 +1623,14 @@ CREATE TABLE IF NOT EXISTS `prefix_warmaps` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_warmaps`
+-- Daten für Tabelle `prefix_warmaps`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_warmember`
+-- Tabellenstruktur für Tabelle `prefix_warmember`
 --
 
 DROP TABLE IF EXISTS `prefix_warmember`;
@@ -1641,14 +1642,14 @@ CREATE TABLE IF NOT EXISTS `prefix_warmember` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_warmember`
+-- Daten für Tabelle `prefix_warmember`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f&uuml;r Tabelle `prefix_wars`
+-- Tabellenstruktur für Tabelle `prefix_wars`
 --
 
 DROP TABLE IF EXISTS `prefix_wars`;
@@ -1675,6 +1676,6 @@ CREATE TABLE IF NOT EXISTS `prefix_wars` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='powered by ilch.de';
 
 --
--- Daten f&uuml;r Tabelle `prefix_wars`
+-- Daten für Tabelle `prefix_wars`
 --
 
