@@ -140,9 +140,9 @@ function user_login_check($auto=false) {
     mysql_error();
 
     if (isset($erg) and db_num_rows($erg) == 1) {
-		debug('user gefunden... ' . $row['name']);
         $row = db_fetch_assoc($erg);
-		
+		debug('user gefunden... ' . $row['name']);
+
         if ($row['sperre'] == 1) {
             debug('user gesperrt... ' . $row['name']);
             return false;
