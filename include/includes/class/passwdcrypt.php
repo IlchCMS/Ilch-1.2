@@ -1,8 +1,5 @@
 <?php
 class PasswdCrypt{    
-    
-    private $hashAlgorithm;
-    
     //Konstanten für den Zufalszahlen Generator
     const ONLY_LETTERS = 0;
     const WITH_NUMBERS = 1;
@@ -14,10 +11,14 @@ class PasswdCrypt{
     const SHA256 = '5';
     const SHA512 = '6';
     
+    private $hashAlgorithm = self::SHA256;
     
-    public function __construct($lvl = self::SHA256){
+    public function __construct($lvl = ''){
         mt_srand();
-        $this->hashAlgorithm = $lvl;
+        
+        if(preg_match('/^([156]|2a)$/',$lvl)){
+            $this->hashAlgorithm = $lvl;
+        }
         
         if(version_compare(PHP_VERSION, '5.3.0', '<')){    //Prüfen welche Hash Funktionen Verfügbar sind. Ab 5.3 werden alle Mitgeliefert
             if($this->hashAlgorithm == self::SHA512 && !defined('CRYPT_SHA512')){
@@ -79,6 +80,8 @@ class PasswdCrypt{
                 $salt = (empty($salt)?self::getRndString(12, self::WITH_NUMBERS):$salt);
                 $salt_string = '$'.$this->hashAlgorithm.'$'.$salt.'$';
             break;
+            default:
+                return false;
         }
         $crypted_pw = crypt($passwd, $salt_string);
         if(strlen($crypted_pw) < 13){
@@ -91,7 +94,7 @@ class PasswdCrypt{
         if(empty($crypted_passwd)){
             return false;        
         }
-        if(substr($crypted_passwd, 0,1) == '$'){
+        if(preg_match('/^\$([156]|2a)\$?/',$crypted_passwd) === 1){
             $new_chrypt_pw = crypt($passwd, $crypted_passwd);
             
             if(strlen($new_chrypt_pw) < 13){
