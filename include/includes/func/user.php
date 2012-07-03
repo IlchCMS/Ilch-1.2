@@ -28,7 +28,7 @@ function user_auth() {
             if (!user_login_check(true)) {
                 // gruppen, und modulzugehoerigkeit setzten (gäste)
                 user_set_grps_and_modules();
-            };
+            } ;
         }
     }
 }
@@ -47,17 +47,17 @@ function user_check_url_rewrite() {
 
 function user_update_database($m) {
     $dif = date('Y-m-d H:i:s', time() - 7200);
-	global $allgAr;
-	if (empty($m)) {
-		$m = $allgAr['smodul']. ' (Startseite)';
-	}
-    db_query('UPDATE `prefix_online` SET `uptime` = "' . date('Y-m-d H:i:s') . '",
-										`content` = "'.$m.'"  WHERE `sid` = "' . session_id() . '"');
+    global $allgAr;
+    if (empty($m)) {
+        $m = $allgAr['smodul'] . ' (Startseite)';
+    }
+    db_query('UPDATE `prefix_online` SET `uptime` = "' . date('Y-m-d H:i:s') . '",'
+         . '`content` = "' . $m . '"  WHERE `sid` = "' . session_id() . '"');
 
-	if (function_exists('content_stats')) {
-	  content_stats($m);
-	}
-	debug('"'.$m.'" als Aufenthaltsort erkannt');
+    if (function_exists('content_stats')) {
+        content_stats($m);
+    }
+    debug('"' . $m . '" als Aufenthaltsort erkannt');
     db_query('DELETE FROM `prefix_online` WHERE `uptime` < "' . $dif . '"');
     if (loggedin()) {
         db_query("UPDATE `prefix_user` SET `llogin` = '" . time() . "' WHERE `id` = '" . $_SESSION[ 'authid' ] . "'");
@@ -92,10 +92,12 @@ function session_und_cookie_name() {
     return (md5(dirname($_SERVER[ "HTTP_HOST" ] . $_SERVER[ "SCRIPT_NAME" ]) . DBPREF));
 }
 
-function user_login_check($auto=false) {
+function user_login_check($auto = false) {
     global $allgAr, $menu;
     $formpassed = false;
     $cn = session_und_cookie_name();
+    $crypt = new PasswdCrypt();
+
     if (isset($_POST[ 'user_login_sub' ]) and isset($_POST[ 'email' ]) and isset($_POST[ 'pass' ])) {
         debug('posts vorhanden');
         // prüfen ob Eingabe = Email oder Username
@@ -110,12 +112,9 @@ function user_login_check($auto=false) {
             $term = "name_clean = '" . $value . "'";
             debug('Login mit Nickname: ' . $value);
         }
-
         if ($lower != $value) {
             return false;
         }
-
-
         $formpassed = true;
     } elseif ($auto) {
         $dat = explode('=', $_COOKIE[ $cn ]);
@@ -129,21 +128,21 @@ function user_login_check($auto=false) {
         debug('Login mit Cookie - id: ' . $id . ' - hash: ' . $pw);
         $term = '`id` = ' . $id;
     }
-
     if (!isset($term)) {
         return;
     }
     $erg = db_query("SELECT `name`,`id`,`recht`,`pass`,`llogin`, `sperre` FROM `prefix_user` WHERE " . $term);
     mysql_error();
-
     if (isset($erg) and db_num_rows($erg) == 1) {
         $row = db_fetch_assoc($erg);
-		debug('user gefunden... ' . $row['name']);
+        debug('user gefunden... ' . $row['name']);
+
         if ($row['sperre'] == 1) {
             debug('user gesperrt... ' . $row['name']);
             return false;
-        } elseif ((!$auto and $row['pass'] == md5($_POST['pass']))
-                or ($auto and md5($row['id'] . $row['pass'])  == $pw)) {
+        } elseif ((!$auto and $crypt->checkPasswd($_POST['pass'], $row['pass']))
+                or (($auto and $row['pass']) and $crypt->checkPasswd($row['pass'], $pw))
+                ) {
             debug('passwort stimmt ... ' . $row['name']);
             $_SESSION['authname'] = $row['name'];
             $_SESSION['authid'] = (int) $row['id'];
@@ -154,15 +153,24 @@ function user_login_check($auto=false) {
             $_SESSION['sperre'] = $row['sperre'];
             db_query('DELETE FROM `prefix_online` WHERE `uid` = ' . $_SESSION['authid'] . ' AND `sid` != "' . session_id() . '"');
             db_query('UPDATE `prefix_online` SET `uid` = ' . $_SESSION[ 'authid' ] . ' WHERE `sid` = "' . session_id() . '"');
-            //Cookie setzen, wenn User eingeloggt bleiben will
+            // Falls noch einfaches MD5 in DB, den neuen Hash erstellen und in die Datenbank schreiben,
+            // bei Cookie dieses Löschen, um den User zum Login mit Passwort zu zwingen
+            if (!PasswdCrypt::isCryptHash($row['pass'])) {
+                if ($auto) {
+                    user_remove_cookie();
+                } else {
+                    $newHash = $crypt->cryptPasswd($_POST['pass']);
+                    db_query('UPDATE `prefix_user` SET `pass` = "' . $newHash . '" WHERE id = ' . $row['id']);
+                }
+            }
+            // Cookie setzen, wenn User eingeloggt bleiben will
             if (isset($_POST['cookie'])) {
                 $cookiepath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
                 if (strlen($cookiepath) > 1) {
                     $cookiepath .= '/';
                 }
-                setcookie($cn, $row[ 'id' ] . '=' . md5($row['id'] . $row[ 'pass' ]), strtotime('+1 year'), $cookiepath, '', false, true);
+                setcookie($cn, $row[ 'id' ] . '=' . $crypt->cryptPasswd($row['pass']), strtotime('+1 year'), $cookiepath, '', false, true);
             }
-
             user_set_grps_and_modules();
             return true;
         }
@@ -191,17 +199,13 @@ function user_markallasread() {
 }
 
 function user_logout() {
-    // global $allgAr;
-    // $_SESSION = array();
-    // $_SESSION['authgfx'] = $allgAr['gfx'];
     user_set_guest_vars();
     db_query("UPDATE `prefix_online` SET `uid` = " . $_SESSION[ 'authid' ] . " WHERE `sid` = '" . session_id() . "'");
+    user_remove_cookie();
+}
+
+function user_remove_cookie() {
     setcookie(session_und_cookie_name(), "", time() - 999999999999, "/");
-    // if (isset($_COOKIE[session_name()])) {
-    // setcookie(session_name(), '', time()-99999999999931104000, '/');
-    // }
-    // setcookie(session_und_cookie_name(), "", time()-999999999999, "/" );
-    // session_destroy();
 }
 
 function user_set_grps_and_modules() {
@@ -327,6 +331,8 @@ function user_has_admin_right(&$menu, $sl = true) {
 function user_regist($name, $mail, $pass) {
     global $allgAr, $lang;
 
+    $crypt = new PasswdCrypt();
+
     $name_clean = get_lower($name);
     $erg = db_query("SELECT `id` FROM `prefix_user` WHERE `name_clean` = BINARY '" . $name_clean . "'");
     if (db_num_rows($erg) > 0) {
@@ -340,24 +346,24 @@ function user_regist($name, $mail, $pass) {
     }
 
     if ($allgAr[ 'forum_regist_user_pass' ] == 0) {
-        $new_pass = genkey(8);
+        $new_pass = PasswdCrypt::getRndString(8, WITH_NUMBERS | WITH_SPECIAL_CHARACTERS);
     } else {
         $new_pass = $pass;
     }
 
-    $md5_pass = md5($new_pass);
     $confirmlinktext = '';
     // confirm insert in confirm tb not confirm insert in user tb
     if ($allgAr[ 'forum_regist_confirm_link' ] == 1) {
         // confirm link + text ... bit of shit put it in languages file
         $page = $_SERVER[ "HTTP_HOST" ] . $_SERVER[ "SCRIPT_NAME" ];
         $id = md5(uniqid(rand()));
+        $crypted_pass = $crypt->cryptPasswd($new_pass);
         $confirmlinktext = "\n" . $lang[ 'registconfirm' ] . "\n\n" . sprintf($lang[ 'registconfirmlink' ], $page, $id);
-        db_query("INSERT INTO `prefix_usercheck` (`check`,`name`,`email`,`pass`,`datime`,`ak`)
-		VALUES ('" . $id . "','" . $name . "','" . $mail . "','" . $md5_pass . "',NOW(),1)");
+        db_query("INSERT INTO `prefix_usercheck` (`check`,`name`,`email`,`pass`, `datime`,`ak`)
+		VALUES ('" . $id . "','" . $name . "','" . $mail . "','" . $crypted_pass . "',NOW(),1)");
     } else {
-        db_query("INSERT INTO `prefix_user` (`name`,`name_clean`,`pass`,`recht`,`regist`,`llogin`,`email`,`status`,`opt_mail`,`opt_pm`)
-		VALUES('" . $name . "','" . $name_clean . "','" . $md5_pass . "',-1,'" . time() . "','" . time() . "','" . $mail . "',1,1,1)");
+        db_query("INSERT INTO `prefix_user` (`name`,`name_clean`,`pass`, `recht`,`regist`,`llogin`,`email`,`status`,`opt_mail`,`opt_pm`)
+		VALUES('" . $name . "','" . $name_clean . "','" . $crypted_pass . "',-1,'" . time() . "','" . time() . "','" . $mail . "',1,1,1)");
         $userid = db_last_id();
     }
     $regmail = sprintf($lang[ 'registemail' ], $name, $confirmlinktext, $mail, $new_pass);
@@ -393,12 +399,12 @@ function sendpm($sid, $eid, $ti, $te, $status = 0) {
     if (!is_array($eid)) {
         $eid = array($eid);
     }
-    // Alle Emf�nger durchlaufen
+    // Alle Emfänger durchlaufen
     foreach ($eid AS $empf) {
         // PM schreiben und ID speichern
         db_query("INSERT INTO `prefix_pm` (`sid`,`eid`,`time`,`titel`,`txt`,`status`) VALUES (" . $sid . "," . $empf . ",'" . time() . "','" . $ti . "','" . $te . "'," . $status . ")");
         $last_id = db_last_id();
-        // Alle Zeiten der letzten PMs abfragen, die nach dem letzten Login des Empf�ngers verschickt wurden
+        // Alle Zeiten der letzten PMs abfragen, die nach dem letzten Login des Empfängers verschickt wurden
         $erg = db_query("SELECT `b`.`time` FROM `prefix_user` AS `a` LEFT JOIN `prefix_pm` AS `b` ON `a`.`id` = `b`.`eid` AND `b`.`id` != " . $last_id . " WHERE `a`.`id` = " . $empf . " AND `a`.`llogin` < `b`.`time`");
         // Wenn keine PM gefunden wurde, Email schreiben
         if (db_num_rows($erg) == 0) {
@@ -412,18 +418,20 @@ function sendpm($sid, $eid, $ti, $te, $status = 0) {
 }
 
 function get_avatar($id) {
-	$pfad = 'include/images/avatars/';
-	if (is_numeric($id) and $id != 0)
-	{
-		$row = db_fetch_assoc(db_query('SELECT `avatar`, `geschlecht` FROM `prefix_user` WHERE `id` = ' . $id));
-		if 		(isset($row['avatar']) and file_exists($row['avatar'])) { $avatar = $row['avatar']; }
-		elseif 	($row['geschlecht'] == 1) 								{ $avatar = $pfad . 'maennlich.jpg'; }
-		elseif 	($row['geschlecht'] == 2) 								{ $avatar = $pfad . 'weiblich.jpg'; }
-		else															{ $avatar = $pfad . 'wurstegal.jpg'; }
-	} else {
-		$avatar = $pfad . 'wurstegal.jpg';
-	}
-	return $avatar;
+    $pfad = 'include/images/avatars/';
+    if (is_numeric($id) and $id != 0) {
+        $row = db_fetch_assoc(db_query('SELECT `avatar`, `geschlecht` FROM `prefix_user` WHERE `id` = ' . $id));
+        if (isset($row['avatar']) and file_exists($row['avatar'])) {
+            $avatar = $row['avatar'];
+        } elseif ($row['geschlecht'] == 1) {
+            $avatar = $pfad . 'maennlich.jpg';
+        } elseif ($row['geschlecht'] == 2) {
+            $avatar = $pfad . 'weiblich.jpg';
+        } else {
+            $avatar = $pfad . 'wurstegal.jpg';
+        }
+    } else {
+        $avatar = $pfad . 'wurstegal.jpg';
+    }
+    return $avatar;
 }
-
-?>

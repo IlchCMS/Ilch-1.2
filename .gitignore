@@ -18,8 +18,11 @@ include/includes/config.php
 .buildpath
 .project
 
-# Dreamweaver und SVN ausschließen
+# Dreamweaver, Eclipse und SVN ausschließen
 _notes
 .svn
+
+#Backup Dateien einiger Editoren ausschließen
+*~
 
 /include/includes/libs/captcha/txt/numbers.txt

@@ -275,16 +275,15 @@ switch ($um) {
                 $abf = "SELECT * FROM `prefix_user` WHERE `id` = '" . $uid . "'";
                 $erg = db_query($abf);
                 $row = db_fetch_object($erg);
-
+				$crypt = new PasswdCrypt();
                 if (isset($_POST[ 'passw' ])) {
-                    $newPass = genkey(8);
-                    $newPassMD5 = md5($newPass);
-                    icmail($row->email, 'neues Password', "Hallo\n\nDein Password wurde soeben von einem Administrator geändert es ist nun:\n\n" . $newPass . "\n\nGruß der Administrator");
-                    db_query('UPDATE `prefix_user` SET `pass` = "' . $newPassMD5 . '" WHERE `id` = "' . escape($_POST[ 'uID' ], 'integer') . '"');
+					$new_pass = PasswdCrypt::getRndString(8);
+					$crypted_pass = $crypt->cryptPasswd($new_pass);
+                    icmail($row->email, 'neues Password', "Hallo\n\nDein Password wurde soeben von einem Administrator geändert es ist nun:\n\n" . $new_pass . "\n\nGruß der Administrator");
+                    db_query('UPDATE `prefix_user` SET `pass` = "' . $crypted_pass . '" WHERE `id` = "' . escape($_POST[ 'uID' ], 'integer') . '"');
                 }
                 if ($_POST['setnewpw'] != '') {
-                    $newPassMD5 = md5(escape($_POST['setnewpw'], 'string'));
-                    db_query('UPDATE `prefix_user` SET `pass` = "' . $newPassMD5 . '" WHERE `id` = "' . escape($_POST[ 'uID' ], 'integer') . '"');
+                    db_query('UPDATE `prefix_user` SET `pass` = "' . $crypt->cryptPasswd(escape($_POST['setnewpw'], 'string')) . '" WHERE `id` = "' . escape($_POST[ 'uID' ], 'integer') . '"');
                 }
                 // avatar speichern START
                 $avatar_sql_update = '';
@@ -386,10 +385,10 @@ switch ($um) {
             if (db_num_rows($erg) > 0) {
                 $msg = 'Der Name ist leider schon vorhanden!';
             } else {
-                $new_pass = $_POST[ 'pass' ];
-                $md5_pass = md5($new_pass);
+				$crypt = new PasswdCrypt();
+                $crypt_pass = $crypt->cryptPasswd($_POST[ 'pass' ]);
                 db_query("INSERT INTO `prefix_user` (`name`,`name_clean`,`pass`,`recht`,`regist`,`llogin`,`email`)
-		    VALUES('" . $_POST[ 'name' ] . "','" . get_lower($_POST[ 'name' ]) . "','" . $md5_pass . "'," . $_POST[ 'recht' ] . ",'" . time() . "','" . time() . "','" . $_POST[ 'email' ] . "')");
+		    VALUES('" . $_POST[ 'name' ] . "','" . get_lower($_POST[ 'name' ]) . "','" . $crypt_pass . "'," . $_POST[ 'recht' ] . ",'" . time() . "','" . time() . "','" . $_POST[ 'email' ] . "')");
                 $userid = db_last_id();
                 db_query("INSERT INTO `prefix_userfields` (`uid`,`fid`,`val`) VALUES (" . $userid . ",2,'1')");
                 db_query("INSERT INTO `prefix_userfields` (`uid`,`fid`,`val`) VALUES (" . $userid . ",3,'1')");
@@ -499,5 +498,3 @@ switch ($um) {
         $design->footer(1);
         break;
 }
-
-?>

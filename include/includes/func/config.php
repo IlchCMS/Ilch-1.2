@@ -54,4 +54,3 @@ function parse_type($attr_name, $type, $value) {
             return '<input type="text" value="' . $value . '" name="' . $attr_name . '" size="35"/>';
     }
 }
-?>

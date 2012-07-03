@@ -1,10 +1,11 @@
 <?php
 ob_start();
 /**
- * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
- * @copyright (C) 2000-2010 ilch.de
- * @version $Id$
- */
+*
+* @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+* @copyright (C) 2000-2010 ilch.de
+* @version $Id$
+*/
 define('main', true);
 define('admin', true);
 define('DEBUG', true);
@@ -25,14 +26,17 @@ require_once('include/includes/config.php');
 require_once('include/includes/loader.php');
 // Allgemeiner Konfig-Array
 $allgAr = getAllgAr();
+
+/* ENTWICKLUNGSVERSION SQL UPDATES */
+require_once('update/update.php');
 // Wartungsmodus
 if ($allgAr['wartung'] == 1) {
-	@define('DEBUG', true);
-	debug ('Wartungsmodus aktiv !');
+    @define('DEBUG', true);
+    debug ('Wartungsmodus aktiv !');
 }
 // Menu, Nutzerverwaltung und Seitenstatistik laden
 $menu = new menu();
-$m = $menu->get_complete().' (Adminbereich)';
+$m = $menu->get_complete() . ' (Adminbereich)';
 user_identification($m);
 site_statistic();
 // Sprachdateien oeffnen
@@ -40,9 +44,6 @@ load_global_lang(2);
 load_modul_lang(2);
 // Navigation in Variable als Array speichern
 $menuAr = $menu->get_menu();
-
-/* ENTWICKLUNGSVERSION SQL UPDATES */
-require_once('update/update.php');
 // Modul oeffnen
 if (user_has_admin_right($menu)) {
     require_once('include/admin/' . $menu->get_url('admin'));
@@ -50,4 +51,3 @@ if (user_has_admin_right($menu)) {
 // Datenbank schlie�en
 db_close();
 debug_out();
-?>

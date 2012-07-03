@@ -154,5 +154,3 @@ function get_nationality_array() {
 function profilefields_show_echo_standart($k, $v) {
     return ('<tr><td class="Cmite">' . $k . '</td><td class="Cnorm">' . $v . '</td></tr>');
 }
-
-?>
