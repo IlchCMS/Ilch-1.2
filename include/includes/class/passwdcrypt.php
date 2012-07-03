@@ -1,6 +1,19 @@
 <?php
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2012 ilch.de
+ * @version $Id$
+ */
+defined('main') or die('no direct access');
+
+/**
+ * PasswdCrypt
+ *
+ * @author finke <Surf-finke@gmx.de>
+ * @copyright Copyright (c) 2012
+ */
 class PasswdCrypt{
-    //Konstanten für den Zufalszahlen Generator
+    //Konstanten für den Zufallszahlen Generator
     const ONLY_LETTERS = 0;
     const WITH_NUMBERS = 1;
     const WITH_SPECIAL_CHARACTERS = 2;
@@ -13,6 +26,9 @@ class PasswdCrypt{
 
     private $hashAlgorithm = self::SHA256;
 
+    /**
+     * @param string $lvl Gibt den zu verwendenden Hashalgorithmus an (Klassenkonstante)
+     */
     public function __construct($lvl = ''){
         mt_srand();
 
@@ -21,44 +37,73 @@ class PasswdCrypt{
         }
 
         if(version_compare(PHP_VERSION, '5.3.0', '<')){    //Prüfen welche Hash Funktionen Verfügbar sind. Ab 5.3 werden alle Mitgeliefert
-            if($this->hashAlgorithm == self::SHA512 && !defined('CRYPT_SHA512')){
+            if($this->hashAlgorithm == self::SHA512 && !defined('CRYPT_SHA512') && CRYPT_SHA512 !== 1){
                 $this->hashAlgoriathm = self::SHA256; // Wenn SHA512 nicht verfügbar, versuche SHA256
             }
-            if($this->hashAlgorithm == self::SHA256 && !defined('CRYPT_SHA256')){
+            if($this->hashAlgorithm == self::SHA256 && !defined('CRYPT_SHA256') && CRYPT_SHA256 !== 1){
                 $this->hashAlgorithm = self::BLOWFISH; // Wenn SHA256 nicht verfügbar, versuche BLOWFISH
             }
-            if($this->hashAlgorithm == self::BLOWFISH && !defined('CRYPT_BLOWFISH')){
+            if($this->hashAlgorithm == self::BLOWFISH && !defined('CRYPT_BLOWFISH') && CRYPT_BLOWFISH !== 1){
                 $this->hashAlgorithm = self::MD5; // Wenn BLOWFISH nicht verfügbar, nutze MD5
             }
         }
     }
 
-
-    public static function getRndString($size = 20, $url = self::ONLY_LETTERS){
+    /**
+     * Erstellt eine zufällige Zeichenkette
+     *
+     * @param integer $size Länge der Zeichenkette
+     * @param integer $chars Angabe welche Zeichen für die Zeichenkette verwendet werden
+     * @return string
+     */
+    public static function getRndString($size = 20, $chars = self::ONLY_LETTERS) {
         $pool = 'abcdefghijklmnopqrstuvwxyz';
         $pool .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        if($url & self::WITH_NUMBERS){
+        if($chars & self::WITH_NUMBERS){
             $pool .='0123456789';
         }
 
-        if($url & self::WITH_SPECIAL_CHARACTERS){
+        if($chars & self::WITH_SPECIAL_CHARACTERS){
             $pool .= ',.-;:_#+*~!$%&/()=?';
         }
 
         $pool = str_shuffle($pool);
         $pool_size = strlen($pool);
         $string ='';
-        for($i = 0;$i<$size; $i++){
+        for($i = 0; $i < $size; $i++){
             $string .= $pool[mt_rand(0, $pool_size - 1)]; //!TODO Zufallszahlen aus /dev/random bzw /dev/urandom wenn verfügbar
         }
         return $string;
     }
 
-    public function getHashAlgorithm(){
+    /**
+     * Prüft, ob der übergebene Hash, im crpyt Format ist
+     *
+     * @param mixed $hash
+     * @return boolean
+     */
+    public static function isCryptHash($hash) {
+        return preg_match('/^\$([156]|2a)\$?/', $hash) === 1;
+    }
+
+    /**
+     * Gibt den Code der gewählten/genutzen Hashmethode zurück (Crpyt Konstante)
+     *
+     * @return string
+     */
+    public function getHashAlgorithm() {
         return $this->hashAlgorithm;
     }
 
-    public function cryptPasswd($passwd, $salt = '', $rounds = 0){
+    /**
+     * Erstellt ein Hash für das übergebene Passwort
+     *
+     * @param string $passwd Klartextpasswort
+     * @param string $salt Salt für den Hashalgorithus
+     * @param integer $rounds Anzahl der Runden für den verwendeten Hashalgorithmus
+     * @return string Hash des Passwortes (Ausgabe von crypt())
+     */
+    public function cryptPasswd($passwd, $salt = '', $rounds = 0) {
         $salt_string = '';
         switch($this->hashAlgorithm){
             case self::SHA512:
@@ -90,21 +135,28 @@ class PasswdCrypt{
         return $crypted_pw;
     }
 
-    public function checkPasswd($passwd, $crypted_passwd){
-        if(empty($crypted_passwd)){
+    /**
+     * Prüft, ob das Klartextpasswort dem Hash "entspricht"
+     *
+     * @param mixed $passwd Klartextpasswort
+     * @param mixed $crypted_passwd Hash des Passwortes (aus der Datenbank)
+     * @return boolean
+     */
+    public function checkPasswd($passwd, $crypted_passwd) {
+        if (empty($crypted_passwd)) {
             return false;
         }
-        if(preg_match('/^\$([156]|2a)\$?/',$crypted_passwd) === 1){
+        if (self::isCryptHash($crypted_passwd)) {
             $new_chrypt_pw = crypt($passwd, $crypted_passwd);
-            if(strlen($new_chrypt_pw) < 13){
+            if (strlen($new_chrypt_pw) < 13) {
                 return false;
             }
-        }else{
+        } else {
             $new_chrypt_pw = md5($passwd);
         }
-        if($new_chrypt_pw == $crypted_passwd){
+        if ($new_chrypt_pw == $crypted_passwd) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

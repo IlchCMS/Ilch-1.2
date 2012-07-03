@@ -20,7 +20,7 @@ if (version_compare(phpversion(), '5.3') != - 1) {
 } else {
     @error_reporting(E_ALL ^ E_NOTICE);
 }
-//header('Content-Type: text/html;charset=UTF-8');
+// header('Content-Type: text/html;charset=UTF-8');
 @ini_set('display_errors', 'On');
 // Session starten
 session_name('sid');
@@ -30,33 +30,31 @@ require_once('include/includes/config.php');
 require_once('include/includes/loader.php');
 // Allgemeiner Konfig-Array
 $allgAr = getAllgAr();
+
+/* ENTWICKLUNGSVERSION SQL UPDATES */
+require_once('update/update.php');
 // Menu, Nutzerverwaltung und Seitenstatistik laden
 $menu = new menu();
 $m = $menu->get_complete();
 user_identification($m);
-
 // Sprachdateien oeffnen
 load_global_lang();
 load_modul_lang();
-//Ajaxreload für Boxen
+// Ajaxreload für Boxen
 design::ajax_boxload();
 
 site_statistic();
 // Wartungsmodus
 if ($allgAr['wartung'] == 1) {
-	if (is_admin()) {
-	    @define('DEBUG', true);
-	    debug ('Wartungsmodus aktiv !');
-	} else {
-	    die ($allgAr['wartungstext']);
-	}
+    if (is_admin()) {
+        @define('DEBUG', true);
+        debug ('Wartungsmodus aktiv !');
+    } else {
+        die ($allgAr['wartungstext']);
+    }
 }
-
-/* ENTWICKLUNGSVERSION SQL UPDATES */
-require_once('update/update.php');
 // Modul oeffnen
 require_once('include/contents/' . $menu->get_url());
-
 // Datenbank schließen
 db_close();
 debug_out();

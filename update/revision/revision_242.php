@@ -5,10 +5,9 @@
  * @version $Id
 */
 
-db_query("ALTER TABLE `prefix_user`  MODIFY COLUMN `pass` varchar(118) NOT NULL DEFAULT '';
-	ALTER TABLE `prefix_usercheck`  MODIFY COLUMN `pass` varchar(118) NOT NULL DEFAULT '';
-	INSERT INTO `prefix_loader` ( `pos`, `task`, `file`, `description`) VALUES ( 5, 'class', 'passwd_crypt.php', 'Passwort Klasse');");
+db_query('ALTER TABLE `prefix_user`  MODIFY COLUMN `pass` varchar(118) NOT NULL DEFAULT ""');
+db_query('ALTER TABLE `prefix_usercheck`  MODIFY COLUMN `pass` varchar(118) NOT NULL DEFAULT ""');
+db_querY('INSERT INTO `prefix_loader` ( `pos`, `task`, `file`, `description`) VALUES ( 5, "class", "passwdcrypt.php", "Passwort Klasse")');
 
 $rev='242';
-$update_messages[$rev][] = 'Spalte für die Passwörter vergößert, so dass crypt bis SHA512 benutzt werden kann';
-
+$update_messages[$rev][] = 'Spalte für die Passwörter vergrößert, so dass crypt bis SHA512 benutzt werden kann';
