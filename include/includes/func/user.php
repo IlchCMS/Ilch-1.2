@@ -98,7 +98,7 @@ function user_login_check($auto=false) {
     $formpassed = false;
     $cn = session_und_cookie_name();
 	$crypt = new PasswdCrypt();
-	
+
     if (isset($_POST[ 'user_login_sub' ]) and isset($_POST[ 'email' ]) and isset($_POST[ 'pass' ])) {
         debug('posts vorhanden');
         // prüfen ob Eingabe = Email oder Username
@@ -113,12 +113,9 @@ function user_login_check($auto=false) {
             $term = "name_clean = '" . $value . "'";
             debug('Login mit Nickname: ' . $value);
         }
-
         if ($lower != $value) {
             return false;
         }
-
-
         $formpassed = true;
     } elseif ($auto) {
         $dat = explode('=', $_COOKIE[ $cn ]);
@@ -132,13 +129,11 @@ function user_login_check($auto=false) {
         debug('Login mit Cookie - id: ' . $id . ' - hash: ' . $pw);
         $term = '`id` = ' . $id;
     }
-
     if (!isset($term)) {
         return;
     }
     $erg = db_query("SELECT `name`,`id`,`recht`,`pass`,`llogin`, `sperre` FROM `prefix_user` WHERE " . $term);
     mysql_error();
-
     if (isset($erg) and db_num_rows($erg) == 1) {
         $row = db_fetch_assoc($erg);
 		debug('user gefunden... ' . $row['name']);
@@ -146,7 +141,7 @@ function user_login_check($auto=false) {
         if ($row['sperre'] == 1) {
             debug('user gesperrt... ' . $row['name']);
             return false;
-        } elseif ((!$auto and $crypt->checkPasswd($_POST['pass'], $row['pass'])) 
+        } elseif ((!$auto and $crypt->checkPasswd($_POST['pass'], $row['pass']))
 		or (($auto and $row['pass']) and $crypt->checkPasswd($row['pass'],$pw))) {
             debug('passwort stimmt ... ' . $row['name']);
             $_SESSION['authname'] = $row['name'];
@@ -158,6 +153,19 @@ function user_login_check($auto=false) {
             $_SESSION['sperre'] = $row['sperre'];
             db_query('DELETE FROM `prefix_online` WHERE `uid` = ' . $_SESSION['authid'] . ' AND `sid` != "' . session_id() . '"');
             db_query('UPDATE `prefix_online` SET `uid` = ' . $_SESSION[ 'authid' ] . ' WHERE `sid` = "' . session_id() . '"');
+			//Fals noch einfaches MD5 in DB, dem User ne PM schicken
+			if(!preg_match('/^\$([156]|2a)\$?/',$row['pass'])){
+                $erg = db_query("SELECT `id` FROM `prefix_user` WHERE `recht` = -9 ORDER BY `id` ASC");
+                if($admin = mysql_fetch_row($erg)){
+                    sendpm($admin[0], $row['id'], 'Bitte dein Passwort ändern', "Sehr geehrter User,
+wir möchten Sie darauf hinweisen, dass aus Sicherheitsgründen die Art wie Ihr Passwort in der Datenbank gespeichert wird geändert wurde. Daher bitten wir Sie unter
+[url]http://finke.extrem-mods.de/ilch1_2/index.php?user-8[/url]
+Ihr Passwort mindestens ein mal zu ändern.
+
+Anmerkung:
+Dies ist eine automatisch vom System Generierte PM, Bitte Antworten Sie nicht darauf. Diese PM wirst du bei jedem Login erhalten, bis Ihr Passwort geändert wurde.");
+                }
+			}
             //Cookie setzen, wenn User eingeloggt bleiben will
             if (isset($_POST['cookie'])) {
                 $cookiepath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
@@ -329,9 +337,9 @@ function user_has_admin_right(&$menu, $sl = true) {
 
 function user_regist($name, $mail, $pass) {
     global $allgAr, $lang;
-	
+
 	$crypt = new PasswdCrypt();
-	
+
     $name_clean = get_lower($name);
     $erg = db_query("SELECT `id` FROM `prefix_user` WHERE `name_clean` = BINARY '" . $name_clean . "'");
     if (db_num_rows($erg) > 0) {
@@ -349,7 +357,7 @@ function user_regist($name, $mail, $pass) {
     } else {
         $new_pass = $pass;
     }
-		
+
     $confirmlinktext = '';
     // confirm insert in confirm tb not confirm insert in user tb
     if ($allgAr[ 'forum_regist_confirm_link' ] == 1) {
@@ -403,7 +411,7 @@ function sendpm($sid, $eid, $ti, $te, $status = 0) {
         // PM schreiben und ID speichern
         db_query("INSERT INTO `prefix_pm` (`sid`,`eid`,`time`,`titel`,`txt`,`status`) VALUES (" . $sid . "," . $empf . ",'" . time() . "','" . $ti . "','" . $te . "'," . $status . ")");
         $last_id = db_last_id();
-        // Alle Zeiten der letzten PMs abfragen, die nach dem letzten Login des Empf�ngers verschickt wurden
+        // Alle Zeiten der letzten PMs abfragen, die nach dem letzten Login des Empfängers verschickt wurden
         $erg = db_query("SELECT `b`.`time` FROM `prefix_user` AS `a` LEFT JOIN `prefix_pm` AS `b` ON `a`.`id` = `b`.`eid` AND `b`.`id` != " . $last_id . " WHERE `a`.`id` = " . $empf . " AND `a`.`llogin` < `b`.`time`");
         // Wenn keine PM gefunden wurde, Email schreiben
         if (db_num_rows($erg) == 0) {
