@@ -30,6 +30,10 @@ switch ($um)
     case 'next':
         include ('include/admin/contents/wars/next.php');
     break;
+    // Games
+    case 'games':
+        include ('include/admin/contents/wars/games.php');
+    break;
     case 'info':
         include ('include/admin/contents/wars/details.php');
     break;
