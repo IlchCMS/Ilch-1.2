@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<menu>
+  <list title="War Bereich">
+    <modul>
+	  <title>&amp;#220;bersicht</title>
+	  <url>admin.php?wars</url>
+	</modul>
+    <modul>
+	  <title>Herrausforderungen</title>
+	  <url>admin.php?wars-challanges</url>
+	</modul>
+     <modul>
+	  <title>Next Wars</title>
+	  <url>admin.php?wars-next</url>
+	</modul>
+     <modul>
+	  <title>Last Wars</title>
+	  <url>admin.php?wars-last</url>
+	</modul>
+  </list>
+  <list title="War Administration">
+    <modul>
+	  <title>Spiele</title>
+	  <url>admin.php?wars-games</url>
+	</modul>
+    <modul>
+	  <title>Spielmodus</title>
+	  <url>admin.php?wars-gametype</url>
+	</modul>
+    <modul>
+	  <title>Matchart</title>
+	  <url>admin.php?wars-matchtype</url>
+	</modul>
+    <modul>
+	  <title>Maps</title>
+	  <url>admin.php?wars-locations</url>
+	</modul>
+    <modul>
+	  <title>Gegner</title>
+	  <url>admin.php?wars-opponents</url>
+	</modul>
+    <modul>
+	  <title>Server</title>
+	  <url>admin.php?wars-server</url>
+	</modul>
+  </list>
+</menu>
