@@ -1,0 +1,189 @@
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<style>
+#form1 label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+#newoppform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+#editoppform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+</style>
+<script>
+    function openNewGame() {
+		$(function() {
+			$( "#newGame" ).dialog( "destroy" );
+			$( "#newGame" ).dialog({
+				height: 300,
+				width: 333,
+				modal: true
+			});
+		});
+	}
+	function openchangefrage(gameid) {
+			$( "#changedialog" ).dialog( "destroy" );
+					$( "#changedialog" ).dialog({
+						height: 175,
+						width: 300,
+						modal: true,
+						autoOpen: true,
+						buttons: {
+									Ok: function() {
+										$( this ).dialog( "close" );
+										window.location = "admin.php?wars-games-stat-"+gameid;
+									},
+									Nein: function() {
+										$( this ).dialog( "close" );	
+									}
+						}
+			});
+	}
+	
+$(document).ready(function() {		   
+	$("#form1").validate({
+		rules: {			
+			suche: { required: true }
+		},
+		messages: {
+			suche: "Bitte Gamenamen angeben!"
+		}
+	});
+	$("#newgameform").validate({
+		rules: {			
+			newgametag: { required: true },
+			newgamename: { required: true, minlength: 2 },
+		},
+		messages: {
+			newgametag: "Bitte Kurzname angeben!",
+			newgamename: { required: "Bitte Spielnamen angeben!", minlength: "Name mind. 2 Zeichen!" },
+		}
+	});
+    $(document).ready(function() {
+		$('#newicon').change(function() {
+			$('#choosedIcon').attr('src', 'include/images/wargames/' + $(this).val());
+		});
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
+
+<div id="main">
+    <div id="inlineNavi" style="display:inline;">
+        <p>&nbsp;</p>
+        <p><a onClick="openNewGame()" style="cursor: pointer; cursor: hand;" >neues Spiel eintragen</a></p>
+    </div>
+    <div id="okdialog" style="display:none;" title="Eintrag erfolgreich">
+        <img src="include/images/icons/dialog-ok.png" /> Spiel erfolgreich zur Datenbank hinzugef&uuml;gt
+    </div>
+    <div id="Nokdialog" style="display:none;" title="Eintragen fehlgeschlagen">
+        <img src="include/images/icons/dialog-nok.png" /> es ist ein Fehler aufgetreten
+    </div>
+    <div id="akdialog" style="display:none;" title="Erfolgreich Aktiviert">
+        <img src="include/images/icons/dialog-ok.png" /> Spiel erfolgreich aktiviert
+    </div>
+    <div id="deakdialog" style="display:none;" title="Erfolgreich Deaktiviert">
+        <img src="include/images/icons/dialog-ok.png" /> Spiel erfolgreich deaktiviert
+    </div>
+    <div id="changedialog" style="display:none;" title="Bist du dir sicher... ?">
+        <img src="include/images/icons/dialog-what.png" /> Den Status dieses Spiels wirklich &auml;ndern ? <br/>
+    </div>
+    <div id="newGame" style="display:none;" title="neues Spiel anlegen">
+        <form action="" method="post" enctype="multipart/form-data" id="newgameform" name="newgameform">
+            {antispam}
+            <table width="200" border="0">
+            <tr>
+                <td><label>Gamename<br /><input type="text" name="newgamename" id="newgamename" value="" /></label></td>
+            </tr><tr>
+                <td><label>Gametag<br /><input type="text" name="newgametag" id="newgametag" value="" /></label></td>
+            </tr><tr>
+                <td><label>Spiel Aktiv?<br /><input type="Radio" name="newinaktive" id="newinaktive" value="1">Nein <input type="Radio" name="newinaktive" id="newinaktive" value="0">Ja</label></td>
+            </tr><tr>
+                <td colspan="2"><label>Icon<div style="display:inline-table"><img id="choosedIcon" src="include/images/wargames/noicon.gif" /></div><br /><select name="newicon" id="newicon"><option value="noicon.gif">Kein Icon</option>{icon}</select></label></td>
+            </tr>
+            </table>
+            <p><input type="submit" name="newsubmit" id="newsubmit" value="Speichern" class="submit" /></p>
+        </form>
+    </div>
+    <p>Hier kannst du deine Spiele verwalten, neue Spiele anlegen oder jene deaktivieren, die nicht mehr im System ben&ouml;tigt werden</p>
+    <form id="form1" name="form1" method="post" action="">
+        <input name="suche" type="text" id="suche" value="suche SpielName..." onfocus="this.value = ''"/>
+        <input type="submit" name="submit" id="submit" value="Senden" />
+    </form>
+    <p align="center">{siteindex}</p>
+    <table width="98%" border="0" align="center">
+    <tr class="Cmite">
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap"><strong>SpielName</strong></td>
+        <td nowrap="nowrap"><strong>SpielTag</strong></td>
+        <td nowrap="nowrap"><strong>Icon</strong></td>
+        <td nowrap="nowrap"><strong>Status</strong></td>
+    </tr><tr>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+    </tr>
+{EXPLODE}
+    <tr class="{class}">
+        <td width="10px"><a onClick="openchangefrage({id})" style="cursor: pointer; cursor: hand;" ><img src="include/images/icons/{chekimg}.gif" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
+        <td width="10px"><a href="?wars-games-e{id}"><img src="include/images/icons/edit.gif" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
+        <td>{name}</td>
+        <td>{shortname}</td>
+        <td><img src="include/images/wargames/{icon}" alt="Icon" title="Icon" border="0"></td>
+        <td>{inaktive}</td>
+    </tr>
+{EXPLODE}
+    <tr>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+    </tr>
+</table>
+<p>{siteindex}</p>
+</div>
+{EXPLODE}
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<style>
+#editoppform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+</style>
+<script>	
+$(document).ready(function() {		   
+	$("#editgameform").validate({
+		rules: {			
+			editgametag: { required: true },
+			editgamename: { required: true, minlength: 2 },
+		},
+		messages: {
+			editgametag: "Bitte GameTag angeben!",
+			editgamename: { required: "Bitte Game Namen angeben!", minlength: "Name mind. 2 Zeichen!" },
+		}
+	});
+	$(document).ready(function() {
+		$('#editicon').change(function() {
+			$('#choosedIcon').attr('src', 'include/images/wargames/' + $(this).val());
+		});
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
+<div id="inlineNavi" style="display:inline;">
+  <p>&nbsp;</p>
+  <p><a href="admin.php?wars-games" style="cursor: pointer; cursor: hand;" >zur&uuml;ck zur &Uuml;bersicht</a></p>
+</div>
+{aktuellesIcon}
+<form action="" method="post" enctype="multipart/form-data" id="editoppform" name="editgameform">
+{antispam}
+<table width="200" border="0">
+<tr>
+    <td><label>Gamename<br /><input type="text" name="editgamename" id="editgamename" value="{name}" /></label></td>
+</tr><tr>
+    <td><label>Gametag<br /><input type="text" name="editgametag" id="editgametag" value="{shortname}" /></label></td>
+</tr><tr>
+    <td><label>Spiel Aktiv?<br /><input type="Radio" name="editinaktive" id="editinaktive" value="1" {inactiven}>Nein <input type="Radio" name="editinaktive" id="editinaktive" value="0" {inaktivej}>Ja</label></td>
+</tr><tr>
+    <td colspan="2"><label>Icon<div style="display:inline-table"><img id="choosedIcon" src="include/images/wargames/{icon}" /></div><br /><select name="editicon" id="editicon"><option value="noicon.gif">Kein Icon</option>{iconlist}</select></label></td>
+</tr>
+</table>
+<p><input type="submit" name="editsubmit" id="editsubmit" value="Speichern" class="submit" /></p>
+</form>
