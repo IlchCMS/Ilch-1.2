@@ -1,0 +1,99 @@
+<table border="0" cellspacing="1" cellpadding="5" class="border" style="width:100%; margin:0px auto;">
+  <tr class="Chead">
+	<td colspan="2"><b>{_lang_war} {_lang_against}: {tag}</b></td>
+  </tr><tr>
+	<td class="Cdark" colspan="2" align="left"><b>{_lang_opponent} {_lang_info}</b></td>
+  </tr><tr>
+	<td class="Cmite">{_lang_clancountry}:</td>
+	<td class="Cnorm"><img src="include/images/flags/{land}" alt="" border="0"></td>
+  </tr><tr>
+	<td class="Cmite">{_lang_name}:</td>
+	<td class="Cnorm">{gegner}</td>
+  </tr><tr>
+	<td class="Cmite">{_lang_homepage}</td>
+	<td class="Cnorm"><a href="{page}" target="_blank">{page}</a></td>
+  </tr><tr>
+	<td class="Cmite">{_lang_mail}</td>
+	<td class="Cnorm">{mail}</td>
+  </tr><tr>
+	<td class="Cmite">{_lang_icq}</td>
+	<td class="Cnorm">{icq}</td>
+  </tr><tr>
+	<td class="Cdark" colspan="2" align="left"><b>{_lang_match} {_lang_info}</b></td>
+  </tr><tr>
+	<td class="Cmite">{_lang_date}</td>
+	<td class="Cnorm"><strong>{datum} {_lang_at} {zeit} {_lang_oclock}</strong></td>
+  </tr><tr>
+	<td class="Cmite">{_lang_squad}</td>
+	<td class="Cnorm"><u><i><b>{team}</b></i></u></td>
+  </tr><tr>
+	<td class="Cmite">{_lang_member}</td>
+	<td class="Cnorm">{memberliste}</td>
+  </tr><tr>
+	<td class="Cmite">{_lang_xonx}</td>
+	<td class="Cnorm">{mod}</td>
+  </tr><tr>
+	<td class="Cmite">{_lang_matchtype}:</td>
+	<td class="Cnorm">{mtyp}</td>
+  </tr><tr>
+	<td class="Cmite">{_lang_game}:</td>
+	<td class="Cnorm">{game}</td>
+  </tr><tr>
+	<td class="Cmite">{_lang_report}:</td>
+	<td class="Cnorm">{txt}</td>
+  </tr><tr>
+	<td class="Cdark" colspan="2" align="left"><b>{_lang_result}</b></td>
+  </tr><tr>
+	<td class="Cmite">{_lang_the} {team} {_lang_had}:</td>
+	<td class="Cnorm">{wlp}</td>
+  </tr><tr>
+	<td class="Cmite">{_lang_round} {_lang_info}</td>
+	<td class="Cnorm">
+      <table width="100%" border="0" cellpadding="2" cellspacing="1" class="border">
+		<tr class="Cmite">
+          <td>{_lang_map}/{_lang_round}</td>
+          <td>{gegner}</td>
+          <td>{team}</td>
+        </tr>
+		{ergliste}
+        <tr class="Cnorm">
+          <td>{_lang_whole}</td>
+          <td>{opp}</td>
+          <td>{owp}</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <!-- Kommentar -->
+  {EXPLODE "koms_on"} 
+  <tr>
+	<td class="Cdark" colspan="2" align="left"><b>{_lang_comments}</b>&nbsp;<a style="cursor:pointer;" id="newkom">({_lang_writecomment})</a></td>
+  </tr><tr>
+ 	<td class="Cnorm" colspan="2" align="left">
+ 	<!-- Kommentar -->
+ 	<script>
+ 	$(document).ready(function() {
+ 	  $('#newkom').click(function() {
+ 	    $dialog = $('#komdiv').dialog({ autoOpen: true, modal: true, title: '{_lang_writecomment}', width: 300 });
+ 	  });
+ 	});
+ 	</script>
+ 	<div id="komdiv" name="komdiv">
+ 	  <form action="index.php?wars-more-{id}" method="post" id="comments">
+ 	    <input type="hidden" name="kommentar_fuer_last_wars" value="yes" />
+ 	    <label>{_lang_comment}<br><textarea style="width: 100%;" rows="2" name="text"></textarea></label>
+ 	    <br><br>
+ 	    <input type="submit" value="{_lang_formsub}" />    
+ 	  </form>
+ 	</div>
+ 	{EXPLODE "koms_self"}
+ 	<div class="comment">
+ 	  <img class="avatar" src="{avatar}" /><p class="arrow"></p>
+ 	  <blockquote><p>{text}</p><h1>#{zahl}&nbsp;von&nbsp;<b>{name}</b></h1><h2>{time}</h2></blockquote>
+ 	</div>
+ 	{EXPLODE "koms_off"}
+ 	<!-- Kommentar -->
+ 	</td>
+  </tr>
+  {EXPLODE}
+</table>
