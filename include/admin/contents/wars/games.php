@@ -40,6 +40,7 @@ $eintrag_nok = '<script language="JavaScript" type="text/javascript">
                         });
                     });
                 </script>';
+// Jquery Dialoge für Erfolg oder Aktivieren/Deaktivieren                
 $aktiviert = '<script language="JavaScript" type="text/javascript">
                     $(document).ready(function() {
                         $( "#akdialog" ).dialog({
