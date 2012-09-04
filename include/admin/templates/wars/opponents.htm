@@ -1,0 +1,316 @@
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<style>
+#form1 label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+#newoppform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+#editoppform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+</style>
+<script>
+    function openNewOpp() {
+		$(function() {
+			$( "#newOpponent" ).dialog( "destroy" );
+			$( "#newOpponent" ).dialog({
+				height: 500,
+				width: 555,
+				modal: true
+			});
+		});
+	}
+	function openchangefrage(gegnerid) {
+			$( "#changedialog" ).dialog( "destroy" );
+					$( "#changedialog" ).dialog({
+						height: 175,
+						width: 300,
+						modal: true,
+						autoOpen: true,
+						buttons: {
+									Ok: function() {
+										$( this ).dialog( "close" );
+										window.location = "admin.php?wars-opponents-stat-"+gegnerid;
+									},
+									Nein: function() {
+										$( this ).dialog( "close" );	
+									}
+						}
+			});
+	}
+    
+    function openOppDetails(id) {
+		$(function() {
+			$( "#OppDetails"+id ).dialog( "destroy" );
+			$( "#OppDetails"+id ).dialog({
+				height: 425,
+				width: 340,
+				modal: true
+			});
+		});
+	}
+	
+$(document).ready(function() {		   
+	$("#form1").validate({
+		rules: {			
+			suche: { required: true }
+		},
+		messages: {
+			suche: "Bitte ein Clanname angeben!"
+		}
+	});
+	$("#newoppform").validate({
+		rules: {			
+			newgegnertag: { required: true },
+			newclanname: { required: true, minlength: 2 },
+			newwebsite: { required: true, url: true },
+            newcontact: { required: true },
+			//newicq: { required: true },
+			//newemail: { required: true, email: true },
+			//newlogo: { required: true }
+		},
+		messages: {
+			newgegnertag: "Bitte ClanTag angeben!",
+			newclanname: { required: "Bitte Namen angeben!", minlength: "Name mind. 2 Zeichen!" },
+			newwebsite: "Bitte URL angeben!",
+            newcontact: "Bitte Kontaktperson angeben angeben!",
+			//newicq: "Bitte ICQ angeben!",
+			//newemail: "Bitte Email angeben!",
+			//newlogo: "Bitte Logolink angeben!"
+		}
+	});
+	$(document).ready(function() {
+		$('#newnation').change(function() {
+			$('#choosedFlag').attr('src', 'include/images/flags/' + $(this).val());
+		});
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
+<div id="main">
+  <div id="inlineNavi" style="display:inline;">
+    <p>&nbsp;</p>
+    <p><a onClick="openNewOpp()" style="cursor: pointer; cursor: hand;" >neuen Gegner eintragen</a></p>
+  </div>
+  <div id="okdialog" style="display:none;" title="Upload erfolgreich">
+    <img src="include/images/icons/dialog-ok.png" /> Gegner erfolgreich zur Datenbank hinzugef&uuml;gt
+  </div>
+  <div id="Nokdialog" style="display:none;" title="Upload fehlgeschlagen">
+    <img src="include/images/icons/dialog-nok.png" /> es ist ein Fehler aufgetreten
+  </div>
+  <div id="akdialog" style="display:none;" title="Erfolgreich Aktiviert">
+        <img src="include/images/icons/dialog-ok.png" /> Gegner erfolgreich aktiviert
+    </div>
+    <div id="deakdialog" style="display:none;" title="Erfolgreich Deaktiviert">
+        <img src="include/images/icons/dialog-ok.png" /> Gegener erfolgreich deaktiviert
+    </div>
+  <div id="changedialog" style="display:none;" title="Bist du dir sicher... ?">
+        <img src="include/images/icons/dialog-what.png" /> Den Status dieses Gegners wirklich &auml;ndern ? <br/>
+    </div>
+  <div id="newOpponent" style="display:none;" title="neuen Gegner anlegen">
+    <form action="" method="post" enctype="multipart/form-data" id="newoppform" name="newoppform">
+    {antispam}
+      <table width="200" border="0">
+        <tr>
+          <td><label>ClanTag<br /><input type="text" name="newgegnertag" id="newgegnertag" value="" /></label></td>
+          <td><label>ClanName<br /><input type="text" name="newclanname" id="newclanname" value="" /></label></td>
+        </tr><tr>
+            <td><label>Nation</label><div style="display:inline-table"><img id="choosedFlag" src="include/images/flags/nocountry.gif" /></div></td>
+            <td><select name="newnation" id="newnation"><!-- Ausgabe der Flaggen Start -->{nationen}<!-- Ausgabe der Flaggen Ende --></select></td>
+        </tr><tr>
+          <td><label>Clan Kontakt<br /><input type="text" name="newcontact" id="newcontact" value="" /></label></td>
+          <td><label>Website<br /><input name="newwebsite" type="text" id="newwebsite" value="" /></label></td>
+        </tr><tr>
+          <td><label>E-Mail<br /><input name="newemail" type="text" id="newemail" value="" /></label></td>
+          <td><label>ICQ<br /><input name="newicq" type="text" id="newicq" value="" /></label></td>
+        </tr><tr>
+          <td><label>AOL-Messanger<br /><input name="newaim" type="text" id="newaim" value="" /></label></td>
+          <td><label>Yahoo-Messanger<br /><input name="newyim" type="text" id="newyim" value="" /></label></td>
+        </tr><tr>
+          <td><label>Micrisoft-Messanger<br /><input name="newmsn" type="text" id="newmsn" value="" /></label></td>
+          <td><label>Xfire<br /><input name="newxfire" type="text" id="newxfire" value="" /></label></td>
+        </tr><tr>
+          <td><label>IRC-Network<br /><input name="newircnw" type="text" id="newircnw" value="" /></label></td>
+          <td><label>IRC-Channel<br /><input name="newircch" type="text" id="newircch" value="" /></label></td>
+        </tr><tr>
+            <td><label>Gegner Aktiv?<br /><input type="Radio" name="newinaktive" id="newinaktive" value="1">Nein</td>
+            <td><input type="Radio" name="newinaktive" id="newinaktive" value="0">Ja</label></td>
+        </tr><tr>
+          <td colspan="2"><label>Logo<input type="file" name="newlogo" id="newlogo" /></label></td>
+        </tr>
+      </table>
+      <p><input type="submit" name="newsubmit" id="newsubmit" value="Speichern" class="submit" /></p>
+    </form>
+  </div>
+  <p>Hier kannst du deine Gegner verwalten, neue Gegner anlegen oder jene L&ouml;schen, die nicht mehr im System ben&ouml;tigt werden</p>
+  <form id="form1" name="form1" method="post" action="">
+    <input name="suche" type="text" id="suche" value="suche ClanName..." onfocus="this.value = ''"/>
+    <input type="submit" name="submit" id="submit" value="Senden" />
+  </form>
+  <p align="center">{siteindex}</p>
+  <table width="98%" border="0" align="center">
+    <tr class="Cmite">
+      <td nowrap="nowrap">&nbsp;</td>
+      <td nowrap="nowrap">&nbsp;</td>
+      <td nowrap="nowrap"><strong>Logo</strong></td>
+      <td nowrap="nowrap"><strong>ClanTag</strong></td>
+      <td nowrap="nowrap"><strong>ClanName</strong></td>
+      <td nowrap="nowrap"><strong>WebSite</strong></td>
+      <td nowrap="nowrap"><strong>Status</strong></td>
+      <td nowrap="nowrap">&nbsp;</td>
+    </tr><tr>
+      <td nowrap="nowrap">&nbsp;</td>
+      <td nowrap="nowrap">&nbsp;</td>
+      <td nowrap="nowrap">&nbsp;</td>
+      <td nowrap="nowrap">&nbsp;</td>
+      <td nowrap="nowrap">&nbsp;</td>
+      <td nowrap="nowrap">&nbsp;</td>
+      <td nowrap="nowrap">&nbsp;</td>
+      <td nowrap="nowrap">&nbsp;</td>
+    </tr>
+{EXPLODE}
+    <tr class="{class}">
+        <td width="10px"><a onClick="openchangefrage({id})" style="cursor: pointer; cursor: hand;" ><img src="include/images/icons/{chekimg}.gif" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
+        <td width="10px"><a href="?wars-opponents-e{id}"><img src="include/images/icons/edit.gif" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
+        <td><strong><img src="include/images/opponents/thumb_{logo}" /></strong></td>
+        <td><strong>{tag}</strong></td>
+        <td><strong>{name}</strong></td>
+        <td><strong>{url}</strong></td>
+        <td>{inaktive}</td>
+        <td width="10px"><a onClick="openOppDetails({id})" style="cursor: pointer; cursor: hand;"><img src="include/images/icons/eyeplus.gif" alt="Details" title="Details" border="0"></a></td>
+    </tr>
+{EXPLODE}
+    <tr>
+      <td nowrap="nowrap">&nbsp;</td>
+      <td nowrap="nowrap">&nbsp;</td>
+      <td nowrap="nowrap">&nbsp;</td>
+      <td nowrap="nowrap">&nbsp;</td>
+      <td nowrap="nowrap">&nbsp;</td>
+      <td nowrap="nowrap">&nbsp;</td>
+      <td nowrap="nowrap">&nbsp;</td>
+      <td nowrap="nowrap">&nbsp;</td>
+    </tr>
+  </table>
+  <p>{siteindex}</p>
+{EXPLODE}
+    <div id="OppDetails{id}" style="display:none;" title="Gegerner Details">
+    <table width="300" border="0">
+        <tr>
+          <td>Aktuelles Logo</td>
+          <td><img src="include/images/opponents/thumb_{logo}" /></label></td>
+        </tr><tr>
+          <td>ClanTag</td>
+          <td>{tag}</td>
+        </tr><tr>
+          <td>ClanName</td>
+          <td>{name}</td>
+        </tr><tr>
+            <td>Nation</td>
+            <td><div style="display:inline-table"><img id="choosedFlag" src="include/images/flags/{country}" /></div></td>
+        </tr><tr>
+          <td><label>Clan Kontakt</td>
+          <td>{contact}</td>
+        </tr><tr>
+          <td><label>Website</td>
+            <td><a href="{url}" target="_blank">{url}</a></td>
+        </tr><tr>
+          <td><label>E-Mail</td>
+          <td>{email}</td>
+        </tr><tr>
+          <td><label>ICQ</td>
+        <td><img src="http://status.icq.com/online.gif?icq={icq}&img=5" />{icq}</td>
+        </tr><tr>
+          <td><label>AOL-Messanger</td>
+          <td>{aim}</td>
+        </tr><tr>
+          <td><label>Yahoo-Messanger</td>
+        <td>{yim}</td>
+        </tr><tr>
+          <td><label>Micrisoft-Messanger</td>
+          <td>{msn}</td>
+        </tr><tr>
+          <td><label>Xfire</td>
+        <td>{xfire}</td>
+        </tr><tr>
+          <td><label>IRC-Network</td>
+          <td>{ircnw}</td>
+        </tr><tr>
+          <td><label>IRC-Channel</td>
+        <td>{ircch}</td>
+        </tr><tr>
+            <td>Gegner Aktiv?</td>
+            <td>{inaktive}</td>
+        </tr>
+      </table>
+    </div>
+{EXPLODE}
+ </div>
+{EXPLODE}
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<style>
+#editoppform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+</style>
+<script>	
+$(document).ready(function() {		   
+	$("#editoppform").validate({
+		rules: {			
+			editgegnertag: { required: true },
+			editclanname: { required: true, minlength: 2 },
+			editwebsite: { required: true, url: true },
+            editcontact: { required: true },
+			//editicq: { required: true },
+			//editemail: { required: true, email: true },
+			//editlogo: { required: true }
+		},
+		messages: {
+			editgegnertag: "Bitte ClanTag angeben!",
+			editclanname: { required: "Bitte Namen angeben!", minlength: "Name mind. 2 Zeichen!" },
+			editwebsite: "Bitte URL angeben!",
+            editcontact: "Bitte Kontaktperson angeben angeben!",
+			//editicq: "Bitte ICQ angeben!",
+			//editemail: "Bitte Email angeben!",
+			//editlogo: "Bitte Logolink angeben!"
+		}
+	});
+	$(document).ready(function() {
+		$('#editnation').change(function() {
+			$('#choosedFlag').attr('src', 'include/images/flags/' + $(this).val());
+		});
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
+<div id="inlineNavi" style="display:inline;">
+  <p>&nbsp;</p>
+  <p><a href="admin.php?wars-opponents" style="cursor: pointer; cursor: hand;" >zur&uuml;ck zur &Uuml;bersicht</a></p>
+</div>
+{aktuellesLogo}
+<form action="" method="post" enctype="multipart/form-data" id="editoppform" name="editoppform">
+{ANTISPAM}
+    <table width="200" border="0">
+        <tr>
+          <td><label>ClanTag<br /><input type="text" name="editgegnertag" id="editgegnertag" value="{tag}" /></label></td>
+          <td><label>ClanName<br /><input type="text" name="editclanname" id="editclanname" value="{name}" /></label></td>
+        </tr><tr>
+            <td><label>Nation</label><div style="display:inline-table"><img id="choosedFlag" src="include/images/flags/{country}" /></div></td>
+            <td><select name="editnation" id="editnation"><!-- Ausgabe der Flaggen Start -->{nationen}<!-- Ausgabe der Flaggen Ende --></select></td>
+        </tr><tr>
+          <td><label>Clan Kontakt<br /><input type="text" name="editcontact" id="editcontact" value="{contact}" /></label></td>
+          <td><label>Website<br /><input name="editwebsite" type="text" id="editwebsite" value="{url}" /></label></td>
+        </tr><tr>
+          <td><label>E-Mail<br /><input name="editemail" type="text" id="editemail" value="{email}" /></label></td>
+          <td><label>ICQ<br /><input name="editicq" type="text" id="editicq" value="{icq}" /></label></td>
+        </tr><tr>
+          <td><label>AOL-Messanger<br /><input name="editaim" type="text" id="editaim" value="{aim}" /></label></td>
+          <td><label>Yahoo-Messanger<br /><input name="edityim" type="text" id="edityim" value="{yim}" /></label></td>
+        </tr><tr>
+          <td><label>Micrisoft-Messanger<br /><input name="editmsn" type="text" id="editmsn" value="{msn}" /></label></td>
+          <td><label>Xfire<br /><input name="editxfire" type="text" id="editxfire" value="{xfire}" /></label></td>
+        </tr><tr>
+          <td><label>IRC-Network<br /><input name="editircnw" type="text" id="editircnw" value="{ircnw}" /></label></td>
+          <td><label>IRC-Channel<br /><input name="editircch" type="text" id="editircch" value="{ircch}" /></label></td>
+        </tr><tr>
+            <td><label>Gegner Aktiv?<br /><input type="Radio" name="editinaktive" id="editinaktive" value="1" {inactiven}>Nein</td>
+            <td><input type="Radio" name="editinaktive" id="editinaktive" value="0" {inactivej}>Ja</label></td>
+        </tr><tr>
+          <td colspan="2"><label>Logo<input type="file" name="editlogo" id="editlogo" /></label></td>
+        </tr>
+    </table>
+  <p><input type="submit" name="editsubmit" id="editsubmit" value="Speichern" class="submit" /></p>
+</form>
+{EXPLODE}
