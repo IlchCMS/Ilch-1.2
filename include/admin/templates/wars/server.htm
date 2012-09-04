@@ -1,0 +1,166 @@
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<style>
+#form1 label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+#newserverform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+#editserverform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+</style>
+<script>
+    function openNewserver() {
+		$(function() {
+			$( "#newserver" ).dialog( "destroy" );
+			$( "#newserver" ).dialog({
+				height: 300,
+				width: 333,
+				modal: true
+			});
+		});
+	}
+	function openchangefrage(serverid) {
+			$( "#changedialog" ).dialog( "destroy" );
+					$( "#changedialog" ).dialog({
+						height: 175,
+						width: 300,
+						modal: true,
+						autoOpen: true,
+						buttons: {
+									Ok: function() {
+										$( this ).dialog( "close" );
+										window.location = "admin.php?wars-server-stat-"+serverid;
+									},
+									Nein: function() {
+										$( this ).dialog( "close" );	
+									}
+						}
+			});
+	}
+	
+$(document).ready(function() {		   
+	$("#form1").validate({
+		rules: {			
+			suche: { required: true }
+		},
+		messages: {
+			suche: "Bitte Servernamen angeben!"
+		}
+	});
+	$("#newserverform").validate({
+		rules: {			
+			newservername: { required: true, minlength: 2 },
+		},
+		messages: {
+			newservername: { required: "Bitte Servernamen angeben!", minlength: "Name mind. 2 Zeichen!" },
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
+
+<div id="main">
+    <div id="inlineNavi" style="display:inline;">
+        <p>&nbsp;</p>
+        <p><a onClick="openNewserver()" style="cursor: pointer; cursor: hand;" >neuen Server eintragen</a></p>
+    </div>
+    <div id="okdialog" style="display:none;" title="Eintrag erfolgreich">
+        <img src="include/images/icons/dialog-ok.png" /> Server erfolgreich zur Datenbank hinzugef&uuml;gt
+    </div>
+    <div id="Nokdialog" style="display:none;" title="Eintragen fehlgeschlagen">
+        <img src="include/images/icons/dialog-nok.png" /> es ist ein Fehler aufgetreten
+    </div>
+    <div id="akdialog" style="display:none;" title="Erfolgreich Aktiviert">
+        <img src="include/images/icons/dialog-ok.png" /> Server erfolgreich aktiviert
+    </div>
+    <div id="deakdialog" style="display:none;" title="Erfolgreich Deaktiviert">
+        <img src="include/images/icons/dialog-ok.png" /> Server erfolgreich deaktiviert
+    </div>
+    <div id="changedialog" style="display:none;" title="Bist du dir sicher... ?">
+        <img src="include/images/icons/dialog-what.png" /> Den Status dieses Servers wirklich &auml;ndern ? <br/>
+    </div>
+    <div id="newserver" style="display:none;" title="neuen Server anlegen">
+        <form action="" method="post" enctype="multipart/form-data" id="newserverform" name="newserverform">
+            {antispam}
+            <table width="200" border="0">
+            <tr>
+                <td><label>Servername<br /><input type="text" name="newservername" id="newservername" value="" /></label></td>
+            </tr><tr>
+                <td><label>Serverip<br /><input type="text" name="newserverip" id="newserverip" value="" /></label></td>
+            </tr><tr>
+                <td><label>Server Aktiv?<br /><input type="Radio" name="newinaktive" id="newinaktive" value="1">Nein <input type="Radio" name="newinaktive" id="newinaktive" value="0">Ja</label></td>
+            </tr>
+            </table>
+            <p><input type="submit" name="newsubmit" id="newsubmit" value="Speichern" class="submit" /></p>
+        </form>
+    </div>
+    <p>Hier kannst du deine Server verwalten, neue Server anlegen oder jene deaktivieren, die nicht mehr im System ben&ouml;tigt werden</p>
+    <form id="form1" name="form1" method="post" action="">
+        <input name="suche" type="text" id="suche" value="suche Servername..." onfocus="this.value = ''"/>
+        <input type="submit" name="submit" id="submit" value="Senden" />
+    </form>
+    <p align="center">{siteindex}</p>
+    <table width="98%" border="0" align="center">
+    <tr class="Cmite">
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap"><strong>Servername</strong></td>
+        <td nowrap="nowrap"><strong>IP</strong></td>
+        <td nowrap="nowrap"><strong>Status</strong></td>
+    </tr><tr>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+    </tr>
+{EXPLODE}
+    <tr class="{class}">
+        <td width="10px"><a onClick="openchangefrage({id})" style="cursor: pointer; cursor: hand;" ><img src="include/images/icons/{chekimg}.gif" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
+        <td width="10px"><a href="?wars-server-e{id}"><img src="include/images/icons/edit.gif" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
+        <td>{name}</td>
+        <td>{ip}</td>
+        <td>{inaktive}</td>
+    </tr>
+{EXPLODE}
+    <tr>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+    </tr>
+</table>
+<p>{siteindex}</p>
+</div>
+{EXPLODE}
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<style>
+#editserverform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+</style>
+<script>	
+$(document).ready(function() {		   
+	$("#editserverform").validate({
+		rules: {			
+			editservername: { required: true, minlength: 2 },
+		},
+		messages: {
+			editservername: { required: "Bitte Matchtyp angeben!", minlength: "Name mind. 2 Zeichen!" },
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren!</noscript>
+<div id="inlineNavi" style="display:inline;">
+  <p>&nbsp;</p>
+  <p><a href="admin.php?wars-server" style="cursor: pointer; cursor: hand;" >zur&uuml;ck zur &Uuml;bersicht</a></p>
+</div>
+<form action="" method="post" enctype="multipart/form-data" id="editserverform" name="editserverform">
+{antispam}
+<table width="200" border="0">
+<tr>
+    <td><label>Servername<br /><input type="text" name="editservername" id="editservername" value="{name}" /></label></td>
+</tr><tr>
+    <td><label>IP<br /><input type="text" name="editserverip" id="editserverip" value="{ip}" /></label></td>
+</tr><tr>
+    <td><label>Server Aktiv?<br /><input type="Radio" name="editinaktive" id="editinaktive" value="1" {inactiven}>Nein <input type="Radio" name="editinaktive" id="editinaktive" value="0" {inactivej}>Ja</label></td>
+</tr>
+</table>
+<p><input type="submit" name="editsubmit" id="editsubmit" value="Speichern" class="submit" /></p>
+</form>

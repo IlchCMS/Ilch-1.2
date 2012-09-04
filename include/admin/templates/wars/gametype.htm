@@ -1,0 +1,158 @@
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<style>
+#form1 label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+#newgametypeform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+#editgametypeform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+</style>
+<script>
+    function openNewGametype() {
+		$(function() {
+			$( "#newGametype" ).dialog( "destroy" );
+			$( "#newGametype" ).dialog({
+				height: 300,
+				width: 333,
+				modal: true
+			});
+		});
+	}
+	function openchangefrage(gameid) {
+			$( "#changedialog" ).dialog( "destroy" );
+					$( "#changedialog" ).dialog({
+						height: 175,
+						width: 300,
+						modal: true,
+						autoOpen: true,
+						buttons: {
+									Ok: function() {
+										$( this ).dialog( "close" );
+										window.location = "admin.php?wars-gametype-stat-"+gameid;
+									},
+									Nein: function() {
+										$( this ).dialog( "close" );	
+									}
+						}
+			});
+	}
+	
+$(document).ready(function() {		   
+	$("#form1").validate({
+		rules: {			
+			suche: { required: true }
+		},
+		messages: {
+			suche: "Bitte Spielmodusnamen angeben!"
+		}
+	});
+	$("#newgametypeform").validate({
+		rules: {			
+			newgametypename: { required: true, minlength: 2 },
+		},
+		messages: {
+			newgametypename: { required: "Bitte Spielmodusnamen angeben!", minlength: "Name mind. 2 Zeichen!" },
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
+
+<div id="main">
+    <div id="inlineNavi" style="display:inline;">
+        <p>&nbsp;</p>
+        <p><a onClick="openNewGametype()" style="cursor: pointer; cursor: hand;" >neuen Spielmodus eintragen</a></p>
+    </div>
+    <div id="okdialog" style="display:none;" title="Eintrag erfolgreich">
+        <img src="include/images/icons/dialog-ok.png" /> Spielmodus erfolgreich zur Datenbank hinzugef&uuml;gt
+    </div>
+    <div id="Nokdialog" style="display:none;" title="Eintragen fehlgeschlagen">
+        <img src="include/images/icons/dialog-nok.png" /> es ist ein Fehler aufgetreten
+    </div>
+    <div id="akdialog" style="display:none;" title="Erfolgreich Aktiviert">
+        <img src="include/images/icons/dialog-ok.png" /> Spielmodus erfolgreich aktiviert
+    </div>
+    <div id="deakdialog" style="display:none;" title="Erfolgreich Deaktiviert">
+        <img src="include/images/icons/dialog-ok.png" /> Spielmodus erfolgreich deaktiviert
+    </div>
+    <div id="changedialog" style="display:none;" title="Bist du dir sicher... ?">
+        <img src="include/images/icons/dialog-what.png" /> Den Status dieses Spielsmodus wirklich &auml;ndern ? <br/>
+    </div>
+    <div id="newGametype" style="display:none;" title="neuen Spielmodus anlegen">
+        <form action="" method="post" enctype="multipart/form-data" id="newgametypeform" name="newgametypeform">
+            {antispam}
+            <table width="200" border="0">
+            <tr>
+                <td><label>Spielmodusname<br /><input type="text" name="newgametypename" id="newgametypename" value="" /></label></td>
+            </tr><tr>
+                <td><label>Spielmodus Aktiv?<br /><input type="Radio" name="newinaktive" id="newinaktive" value="1">Nein <input type="Radio" name="newinaktive" id="newinaktive" value="0">Ja</label></td>
+            </tr>
+            </table>
+            <p><input type="submit" name="newsubmit" id="newsubmit" value="Speichern" class="submit" /></p>
+        </form>
+    </div>
+    <p>Hier kannst du deine Spielmodi verwalten, neue Spielmodi anlegen oder jene deaktivieren, die nicht mehr im System ben&ouml;tigt werden</p>
+    <form id="form1" name="form1" method="post" action="">
+        <input name="suche" type="text" id="suche" value="suche SpielModus..." onfocus="this.value = ''"/>
+        <input type="submit" name="submit" id="submit" value="Senden" />
+    </form>
+    <p align="center">{siteindex}</p>
+    <table width="98%" border="0" align="center">
+    <tr class="Cmite">
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap"><strong>SpielModus</strong></td>
+        <td nowrap="nowrap"><strong>Status</strong></td>
+    </tr><tr>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+    </tr>
+{EXPLODE}
+    <tr class="{class}">
+        <td width="10px"><a onClick="openchangefrage({id})" style="cursor: pointer; cursor: hand;" ><img src="include/images/icons/{chekimg}.gif" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
+        <td width="10px"><a href="?wars-gametype-e{id}"><img src="include/images/icons/edit.gif" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
+        <td>{name}</td>
+        <td>{inaktive}</td>
+    </tr>
+{EXPLODE}
+    <tr>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+    </tr>
+</table>
+<p>{siteindex}</p>
+</div>
+{EXPLODE}
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<style>
+#editgametypeform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+</style>
+<script>	
+$(document).ready(function() {		   
+	$("#editgametypeform").validate({
+		rules: {			
+			editgametypename: { required: true, minlength: 2 },
+		},
+		messages: {
+			editgametypename: { required: "Bitte Spielmodus Namen angeben!", minlength: "Name mind. 2 Zeichen!" },
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren!</noscript>
+<div id="inlineNavi" style="display:inline;">
+  <p>&nbsp;</p>
+  <p><a href="admin.php?wars-gametype" style="cursor: pointer; cursor: hand;" >zur&uuml;ck zur &Uuml;bersicht</a></p>
+</div>
+<form action="" method="post" enctype="multipart/form-data" id="editgametypeform" name="editgametypeform">
+{antispam}
+<table width="200" border="0">
+<tr>
+    <td><label>Spielmodusname<br /><input type="text" name="editgametypename" id="editgametypename" value="{name}" /></label></td>
+</tr><tr>
+    <td><label>Spielmodus Aktiv?<br /><input type="Radio" name="editinaktive" id="editinaktive" value="1" {inactiven}>Nein <input type="Radio" name="editinaktive" id="editinaktive" value="0" {inactivej}>Ja</label></td>
+</tr>
+</table>
+<p><input type="submit" name="editsubmit" id="editsubmit" value="Speichern" class="submit" /></p>
+</form>

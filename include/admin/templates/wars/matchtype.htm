@@ -1,0 +1,162 @@
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<style>
+#form1 label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+#newmatchtypeform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+#editmatchtypeform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+</style>
+<script>
+    function openNewMatchtype() {
+		$(function() {
+			$( "#newMatchtype" ).dialog( "destroy" );
+			$( "#newMatchtype" ).dialog({
+				height: 300,
+				width: 333,
+				modal: true
+			});
+		});
+	}
+	function openchangefrage(matchtypeid) {
+			$( "#changedialog" ).dialog( "destroy" );
+					$( "#changedialog" ).dialog({
+						height: 175,
+						width: 300,
+						modal: true,
+						autoOpen: true,
+						buttons: {
+									Ok: function() {
+										$( this ).dialog( "close" );
+										window.location = "admin.php?wars-matchtype-stat-"+matchtypeid;
+									},
+									Nein: function() {
+										$( this ).dialog( "close" );	
+									}
+						}
+			});
+	}
+	
+$(document).ready(function() {		   
+	$("#form1").validate({
+		rules: {			
+			suche: { required: true }
+		},
+		messages: {
+			suche: "Bitte Matchtyp angeben!"
+		}
+	});
+	$("#newmatchtypeform").validate({
+		rules: {			
+			newmatchtypename: { required: true, minlength: 2 },
+		},
+		messages: {
+			newmatchtypename: { required: "Bitte Spielnamen angeben!", minlength: "Name mind. 2 Zeichen!" },
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren</noscript>
+
+<div id="main">
+    <div id="inlineNavi" style="display:inline;">
+        <p>&nbsp;</p>
+        <p><a onClick="openNewMatchtype()" style="cursor: pointer; cursor: hand;" >neuen Matchtyp eintragen</a></p>
+    </div>
+    <div id="okdialog" style="display:none;" title="Eintrag erfolgreich">
+        <img src="include/images/icons/dialog-ok.png" /> Matchtyp erfolgreich zur Datenbank hinzugef&uuml;gt
+    </div>
+    <div id="Nokdialog" style="display:none;" title="Eintragen fehlgeschlagen">
+        <img src="include/images/icons/dialog-nok.png" /> es ist ein Fehler aufgetreten
+    </div>
+    <div id="akdialog" style="display:none;" title="Erfolgreich Aktiviert">
+        <img src="include/images/icons/dialog-ok.png" /> Matchtyp erfolgreich aktiviert
+    </div>
+    <div id="deakdialog" style="display:none;" title="Erfolgreich Deaktiviert">
+        <img src="include/images/icons/dialog-ok.png" /> Matchtyp erfolgreich deaktiviert
+    </div>
+    <div id="changedialog" style="display:none;" title="Bist du dir sicher... ?">
+        <img src="include/images/icons/dialog-what.png" /> Den Status dieses Matchtyps wirklich &auml;ndern ? <br/>
+    </div>
+    <div id="newMatchtype" style="display:none;" title="neuen Matcht&uuml;p anlegen">
+        <form action="" method="post" enctype="multipart/form-data" id="newmatchtypeform" name="newmatchtypeform">
+            {antispam}
+            <table width="200" border="0">
+            <tr>
+                <td><label>Matchtyp<br /><input type="text" name="newmatchtypename" id="newmatchtypename" value="" /></label></td>
+            </tr><tr>
+                <td><label>Webseite<br /><input type="text" name="newmatchtypesite" id="newmatchtypesite" value="" /></label></td>
+            </tr><tr>
+                <td><label>Matchtyp Aktiv?<br /><input type="Radio" name="newinaktive" id="newinaktive" value="1">Nein <input type="Radio" name="newinaktive" id="newinaktive" value="0">Ja</label></td>
+            </tr>
+            </table>
+            <p><input type="submit" name="newsubmit" id="newsubmit" value="Speichern" class="submit" /></p>
+        </form>
+    </div>
+    <p>Hier kannst du deine Matchtypen verwalten, neue Matchtypen anlegen oder jene deaktivieren, die nicht mehr im System ben&ouml;tigt werden</p>
+    <form id="form1" name="form1" method="post" action="">
+        <input name="suche" type="text" id="suche" value="suche Matchtyp..." onfocus="this.value = ''"/>
+        <input type="submit" name="submit" id="submit" value="Senden" />
+    </form>
+    <p align="center">{siteindex}</p>
+    <table width="98%" border="0" align="center">
+    <tr class="Cmite">
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap"><strong>Matchtyp</strong></td>
+        <td nowrap="nowrap"><strong>Status</strong></td>
+    </tr><tr>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+    </tr>
+{EXPLODE}
+    <tr class="{class}">
+        <td width="10px"><a onClick="openchangefrage({id})" style="cursor: pointer; cursor: hand;" ><img src="include/images/icons/{chekimg}.gif" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
+        <td width="10px"><a href="?wars-matchtype-e{id}"><img src="include/images/icons/edit.gif" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
+        <td>{name}</td>
+        <td>{inaktive}</td>
+    </tr>
+{EXPLODE}
+    <tr>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+        <td nowrap="nowrap">&nbsp;</td>
+    </tr>
+</table>
+<p>{siteindex}</p>
+</div>
+{EXPLODE}
+<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<style>
+#editmatchtypeform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+</style>
+<script>	
+$(document).ready(function() {		   
+	$("#editmatchtypeform").validate({
+		rules: {			
+			editmatchtypename: { required: true, minlength: 2 },
+		},
+		messages: {
+			editmatchtypename: { required: "Bitte Matchtyp angeben!", minlength: "Name mind. 2 Zeichen!" },
+		}
+	});
+});
+</script>
+<noscript>Bitte JavaScript aktivieren!</noscript>
+<div id="inlineNavi" style="display:inline;">
+  <p>&nbsp;</p>
+  <p><a href="admin.php?wars-matchtype" style="cursor: pointer; cursor: hand;" >zur&uuml;ck zur &Uuml;bersicht</a></p>
+</div>
+<form action="" method="post" enctype="multipart/form-data" id="editmatchtypeform" name="editmatchtypeform">
+{antispam}
+<table width="200" border="0">
+<tr>
+    <td><label>Matchtyp<br /><input type="text" name="editmatchtypename" id="editmatchtypename" value="{name}" /></label></td>
+</tr><tr>
+    <td><label>URL<br /><input type="text" name="editmatchtypesite" id="editmatchtypesite" value="{url}" /></label></td>
+</tr><tr>
+    <td><label>Matchtyp Aktiv?<br /><input type="Radio" name="editinaktive" id="editinaktive" value="1" {inactiven}>Nein <input type="Radio" name="editinaktive" id="editinaktive" value="0" {inactivej}>Ja</label></td>
+</tr>
+</table>
+<p><input type="submit" name="editsubmit" id="editsubmit" value="Speichern" class="submit" /></p>
+</form>
