@@ -16,6 +16,12 @@ switch ($um)
         $siteheader = 'Ilch Admin-Control-Panel :: Wars';
         $contentheader =':: &Uuml;bersicht';
     break;
+    // info
+    case 'info':
+        $datei = 'details';
+        $siteheader = 'Ilch Admin-Control-Panel :: Wars';
+        $contentheader =':: Details';
+    break;
     // last wars
     case 'last':
         $datei = 'last';
@@ -34,10 +40,23 @@ switch ($um)
         $siteheader = 'Ilch Admin-Control-Panel :: Wars';
         $contentheader =':: Games';
     break;
-    case 'info':
-        $datei = 'details';
+    // Gametype
+    case 'gametype':
+        $datei = 'gametype';
         $siteheader = 'Ilch Admin-Control-Panel :: Wars';
-        $contentheader =':: Details';
+        $contentheader =':: Spielmodus';
+    break;
+    // Matchtype
+    case 'matchtype':
+        $datei = 'matchtype';
+        $siteheader = 'Ilch Admin-Control-Panel :: Wars';
+        $contentheader =':: Matchtypen';
+    break;
+    // Server
+    case 'server':
+        $datei = 'server';
+        $siteheader = 'Ilch Admin-Control-Panel :: Wars';
+        $contentheader =':: Server';
     break;
 }
 

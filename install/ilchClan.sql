@@ -854,7 +854,6 @@ INSERT INTO `prefix_modules` (`url`, `name`, `gshow`, `ashow`, `fright`, `menu`,
 ( 'allg', 'Konfiguration', 1, 0, 0, 'Admin', 0),
 ( 'backup', 'Backup', 1, 0, 0, 'Admin', 3),
 ( 'range', 'Ranks', 1, 0, 0, 'Admin', 4),
-( 'wars-last', 'Lastwars', 1, 0, 0, 'Clanbox', 2),
 ( 'smilies', 'Smilies', 1, 0, 0, 'Admin', 5),
 ( 'newsletter', 'Newsletter', 1, 0, 0, 'Admin', 6),
 ( 'checkconf', 'Serverkonfiguration', 1, 0, 0, 'Admin', 7),
@@ -862,7 +861,7 @@ INSERT INTO `prefix_modules` (`url`, `name`, `gshow`, `ashow`, `fright`, `menu`,
 ( 'grundrechte', 'Grundrechte', 1, 0, 0, 'User', 1),
 ( 'profilefields', 'Profilfelder', 1, 0, 0, 'User', 2),
 ( 'selfbp', 'Eigene Box/Page', 1, 0, 0, 'Eigene Box/Page', 0),
-( 'wars-next', 'Nextwars', 1, 0, 0, 'Clanbox', 1),
+( 'wars', 'Wars', 1, 0, 0, 'Clanbox', 1),
 ( 'history', 'History', 1, 0, 0, 'Clanbox', 8),
 ( 'trains', 'Trainzeiten', 1, 0, 0, 'Clanbox', 7),
 ( 'archiv-links', 'Links', 1, 0, 0, 'Content', 3),
@@ -876,8 +875,7 @@ INSERT INTO `prefix_modules` (`url`, `name`, `gshow`, `ashow`, `fright`, `menu`,
 ( 'bbcode', 'BBcode 2.0', 1, 0, 1, 'Content', 11),
 ( 'linkus', 'LinkUs', 1, 1, 1, 'Content', 4),
 ( 'modrewrite', 'ModRewrite', 1, 0, 0, 'Admin', 9),
-( 'inactive', 'inaktive User', 1, 1, 1, 'Clanbox', 0),
-( 'opponents', 'Gegner', 0, 0, 0, 'Clanbox', 1);
+( 'inactive', 'inaktive User', 1, 1, 1, 'Clanbox', 0);
 
 -- --------------------------------------------------------
 
@@ -919,24 +917,6 @@ CREATE TABLE IF NOT EXISTS `prefix_online` (
   `uid` mediumint(9) NOT NULL DEFAULT '0',
   `content` varchar(255) NOT NULL DEFAULT '(Startseite)'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `prefix_opponents`
---
-
-CREATE TABLE IF NOT EXISTS `prefix_opponents` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `tag` varchar(100) NOT NULL,
-  `page` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `icq` int(11) NOT NULL,
-  `nation` varchar(100) NOT NULL,
-  `logo` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Gegner-Datenbank';
 
 -- --------------------------------------------------------
 
@@ -1353,55 +1333,186 @@ CREATE TABLE IF NOT EXISTS `prefix_usergallery` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `prefix_warmaps`
+-- Tabellenstruktur für Tabelle `ic1_wars`
 --
 
-CREATE TABLE IF NOT EXISTS `prefix_warmaps` (
-  `wid` smallint(6) NOT NULL DEFAULT '0',
-  `mnr` tinyint(4) NOT NULL DEFAULT '0',
-  `map` varchar(100) NOT NULL DEFAULT '',
-  `opp` mediumint(9) NOT NULL DEFAULT '0',
-  `owp` mediumint(9) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`wid`,`mnr`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
+CREATE TABLE IF NOT EXISTS `ic1_wars` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `gameid` smallint(6) NOT NULL DEFAULT '0',
+  `gametypeid` smallint(6) NOT NULL DEFAULT '0',
+  `matchtypeid` smallint(6) NOT NULL DEFAULT '0',
+  `groupid` smallint(6) NOT NULL DEFAULT '0',
+  `member` varchar(255) NOT NULL,
+  `oppmember` varchar(255) NOT NULL,
+  `oppid` smallint(6) NOT NULL DEFAULT '0',
+  `serverid` smallint(6) NOT NULL DEFAULT '0',
+  `serverpw` varchar(100) NOT NULL,
+  `ppt` int(10) NOT NULL DEFAULT '0',
+  `txt` text NOT NULL,
+  `status` tinyint(2) NOT NULL DEFAULT '0',
+  `datime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `adduid` int(10) NOT NULL DEFAULT '0',
+  `addtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `chuid` int(10) NOT NULL DEFAULT '0',
+  `chtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `prefix_warmember`
+-- Tabellenstruktur für Tabelle `ic1_wars_challanges`
 --
 
-CREATE TABLE IF NOT EXISTS `prefix_warmember` (
+CREATE TABLE IF NOT EXISTS `ic1_wars_challanges` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `gameid` smallint(6) NOT NULL DEFAULT '0',
+  `gametypeid` smallint(6) NOT NULL DEFAULT '0',
+  `matchtypeid` smallint(6) NOT NULL DEFAULT '0',
+  `groupid` smallint(6) NOT NULL DEFAULT '0',
+  `tag` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `contact` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `icq` varchar(100) NOT NULL,
+  `aim` varchar(100) NOT NULL,
+  `yim` varchar(100) NOT NULL,
+  `msn` varchar(100) NOT NULL,
+  `xfire` varchar(100) NOT NULL,
+  `ircnw` varchar(100) NOT NULL,
+  `ircch` varchar(100) NOT NULL,
+  `url` varchar(100) NOT NULL,
+  `country` varchar(50) NOT NULL,
+  `ppt` int(10) NOT NULL DEFAULT '0',
+  `locations` varchar(50) NOT NULL,
+  `txt` text NOT NULL,
+  `datime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `ic1_wars_games`
+--
+
+CREATE TABLE IF NOT EXISTS `ic1_wars_games` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `shortname` varchar(100) NOT NULL,
+  `icon` varchar(50) NOT NULL,
+  `inaktive` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `ic1_wars_gametype`
+--
+
+CREATE TABLE IF NOT EXISTS `ic1_wars_gametype` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `inaktive` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `ic1_wars_locations`
+--
+
+CREATE TABLE IF NOT EXISTS `ic1_wars_locations` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `pic` varchar(50) NOT NULL,
+  `gid` int(10) NOT NULL DEFAULT '0',
+  `inaktive` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `ic1_wars_matchtype`
+--
+
+CREATE TABLE IF NOT EXISTS `ic1_wars_matchtype` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `url` varchar(100) NOT NULL,
+  `inaktive` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `ic1_wars_member`
+--
+
+CREATE TABLE IF NOT EXISTS `ic1_wars_member` (
   `wid` smallint(6) NOT NULL DEFAULT '0',
   `uid` mediumint(9) NOT NULL DEFAULT '0',
   `aktion` tinyint(1) NOT NULL DEFAULT '0',
-  `kom` mediumtext NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
+  `kom` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `prefix_wars`
+-- Tabellenstruktur für Tabelle `ic1_wars_opponents`
 --
 
-CREATE TABLE IF NOT EXISTS `prefix_wars` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `datime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `status` tinyint(2) NOT NULL DEFAULT '0',
-  `wlp` tinyint(1) NOT NULL DEFAULT '0',
-  `owp` mediumint(9) NOT NULL DEFAULT '0',
-  `opp` mediumint(9) NOT NULL DEFAULT '0',
-  `gegner` varchar(100) NOT NULL DEFAULT '',
-  `tag` varchar(100) NOT NULL DEFAULT '',
-  `page` varchar(100) NOT NULL DEFAULT '',
-  `mail` varchar(100) NOT NULL DEFAULT '',
-  `icq` varchar(100) NOT NULL DEFAULT '',
-  `wo` varchar(100) NOT NULL DEFAULT '',
-  `tid` smallint(6) NOT NULL DEFAULT '0',
-  `mod` varchar(100) NOT NULL DEFAULT '',
-  `game` varchar(100) NOT NULL DEFAULT '',
-  `mtyp` varchar(100) NOT NULL DEFAULT '',
-  `land` varchar(100) NOT NULL DEFAULT '',
-  `txt` mediumtext NOT NULL,
+CREATE TABLE IF NOT EXISTS `ic1_wars_opponents` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `tag` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `contact` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `icq` varchar(100) NOT NULL,
+  `aim` varchar(100) NOT NULL,
+  `yim` varchar(100) NOT NULL,
+  `msn` varchar(100) NOT NULL,
+  `xfire` varchar(100) NOT NULL,
+  `ircnw` varchar(100) NOT NULL,
+  `ircch` varchar(100) NOT NULL,
+  `url` varchar(100) NOT NULL,
+  `country` varchar(50) NOT NULL,
+  `inaktive` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `ic1_wars_scores`
+--
+
+CREATE TABLE IF NOT EXISTS `ic1_wars_scores` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `wid` smallint(6) NOT NULL DEFAULT '0',
+  `screenid` tinyint(4) NOT NULL DEFAULT '0',
+  `locationid` int(10) NOT NULL DEFAULT '0',
+  `opp` mediumint(9) NOT NULL DEFAULT '0',
+  `owp` mediumint(9) NOT NULL DEFAULT '0',
+  `inaktive` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `ic1_wars_server`
+--
+
+CREATE TABLE IF NOT EXISTS `ic1_wars_server` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `ip` varchar(25) NOT NULL,
+  `inaktive` smallint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+

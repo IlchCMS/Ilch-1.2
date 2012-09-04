@@ -129,7 +129,7 @@ switch ($seite) {
 					}
 				$outar['aktuellesIcon'] = '<img src="include/images/wargames/'.$outar['icon'].'"/>';
                 $outar['inactiven']=($outar['inaktive']==1?'checked':'');
-                $outar['']=($outar['inaktive']==0?'checked':'');
+                $outar['inactivej']=($outar['inaktive']==0?'checked':'');
 				if (isset($_POST['editsubmit']) and chk_antispam('adminuser_action', true)) {
 						$editgamename			= @escape($_POST['editgamename'], 'string');
 						$editgametag			= @escape($_POST['editgametag'], 'string');

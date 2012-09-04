@@ -95,6 +95,23 @@ function escape ($var, $type = 's') {
         case 'form': case 'f':
             return escapeFormToArray($var);
             break;
+        case 'ip':
+            $ip = explode('.',$var);
+            if (   preg_match("!^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$!",$var)) {
+                if (  $ip[0]<=255 && $ip[1]<=255 && $ip[2]<=255 && $ip[3]<=255)
+                {
+                    $var=intval ($ip[0]).'.'.intval ($ip[1]).'.'.intval ($ip[2]).'.'.intval ($ip[3]);
+                }
+                else 
+                {
+                    $var='';
+                }
+            }
+            else 
+            {
+                $var='';
+            }
+            break;
     }
     return ($var);
 }
