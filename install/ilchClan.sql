@@ -1481,6 +1481,7 @@ CREATE TABLE IF NOT EXISTS `ic1_wars_opponents` (
   `ircch` varchar(100) NOT NULL,
   `url` varchar(100) NOT NULL,
   `country` varchar(50) NOT NULL,
+  `logo` varchar(255) NOT NULL,
   `inaktive` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

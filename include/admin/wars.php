@@ -52,6 +52,12 @@ switch ($um)
         $siteheader = 'Ilch Admin-Control-Panel :: Wars';
         $contentheader =':: Matchtypen';
     break;
+    // Gegner
+    case 'opponents':
+        $datei = 'opponents';
+        $siteheader = 'Ilch Admin-Control-Panel :: Wars';
+        $contentheader =':: Gegenerdatenbank';
+    break;
     // Server
     case 'server':
         $datei = 'server';
