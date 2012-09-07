@@ -52,6 +52,12 @@ switch ($um)
         $siteheader = 'Ilch Admin-Control-Panel :: Wars';
         $contentheader =':: Matchtypen';
     break;
+    // Locations
+    case 'locations':
+        $datei = 'locations';
+        $siteheader = 'Ilch Admin-Control-Panel :: Wars';
+        $contentheader =':: Kartendatenbank';
+    break;
     // Gegner
     case 'opponents':
         $datei = 'opponents';
@@ -69,12 +75,16 @@ switch ($um)
 if(($menu->getA(2)=='e' AND $menu->getA(3)=='d') OR ($menu->getA(2)=='e' AND $menu->getA(3)=='a') OR $menu->getA(2) == 'l' OR $menu->getA(2) == 'm'){
 	$design = new design ( $siteheader, $contentheader, 0 );
 	$design->header();
-} else{
+} elseif($menu->getA(2)=='j'){
+debug_out();
+}else{
 	$design = new design ( $siteheader, $contentheader, 2 );
 	$design->header();
 }
 
 include_once ('include/admin/contents/wars/'.$datei.'.php');
 
-$design->footer();
+if($menu->getA(2)!='j'){
+    $design->footer();
+}
 ?>
