@@ -33,9 +33,9 @@ if ($menu->get(1) == 'showcat') {
 if ($menu->get(1) == 'showtopics' OR $menu->get(1) == 'editforum' OR $menu->get(1) == 'savetopic' OR $menu->get(1) == 'newtopic') {
     $fid = escape($menu->get(2), 'integer');
 }
-if ($menu->get(1) == 'showposts' OR $menu->get(1) == 'newpost' OR $menu->get(1) == 'editpost' OR $menu->get(1) == 'edittopic' OR $menu->get(1) == 'delpost' OR $menu->get(1) == 'savepost') {
+if ($menu->get(1) == 'showposts' OR $menu->get(1) == 'newpost' OR $menu->get(1) == 'editpost' OR $menu->get(1) == 'edittopic' OR $menu->get(1) == 'delpost' OR $menu->get(1) == 'savepost' OR $menu->get(1) == 'movepost') {
     $tid = escape($menu->get(2), 'integer');
-}
+} 
 // menu
 require_once('include/contents/forum/menu.php');
 
@@ -149,6 +149,9 @@ switch ($menu->get(1)) {
     case 'reportpost':
         $incdatei = 'report_post.php';
         break;
+    case 'movepost':
+    		$incdatei = 'move_post.php';
+    		break;
 }
 
 if (isset($incdatei)) {

@@ -22,7 +22,8 @@
 		</div>
 		<div style="float: right; width: 40%; text-align:right;">
 		    {_if_{change}=='true'}<a href="index.php?forum-editpost-{TID}-{id}" title="Diesen Post editieren"><img style="border:none" src="include/images/icons/edit.png" alt="{_lang_edit}" /></a>{/_endif}
-		    {_if_{delete}=='true'}<a href="index.php?forum-delpost-{TID}-{id}" title="Diesen Post l&ouml;schen"><img style="border:none" src="include/images/icons/del.png" alt="{_lang_delete}" /></a>&nbsp;{/_endif}
+		    {_if_{move}=='true'}<a href="index.php?forum-movepost-{TID}-{id}" title="Diesen Post in anderes Topic verschieben"><img style="border:none" src="include/images/icons/move_post.png" alt="Beitrag verschieben" /></a>{/_endif}
+				{_if_{delete}=='true'}<a href="index.php?forum-delpost-{TID}-{id}" title="Diesen Post l&ouml;schen"><img style="border:none" src="include/images/icons/del.png" alt="{_lang_delete}" /></a>&nbsp;{/_endif}
 		    <a href="index.php?forum-newpost-{TID}-z{id}" title="Diesen Post zitieren"><img style="border:none" src="include/images/icons/comment.png" alt="{_lang_quote}" /></a>
 		    <a href="#toppost" title="zum ersten Post springen"><img src="include/images/icons/pfeilo.png" alt="{_lang_top}" style="border:none;" /></a>
 		</div>
