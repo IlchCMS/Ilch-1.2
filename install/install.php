@@ -113,11 +113,11 @@ $servercheck = array();
 <?php
 
 // PHP Compare
-$servercheck['php_compare']['msg'] = 'PHP-Version 5.2.0 oder besser';
-if ( @version_compare(@phpversion(), '5.2.0') != -1) {
- 	$servercheck['php_compare']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
+$servercheck['php_compare']['msg'] = 'PHP-Version 5.2.3 oder besser';
+if ( @version_compare(@phpversion(), '5.2.3') != -1) {
+ 	$servercheck['php_compare']['erg'] = '<font color="#40aa00"><b>OK</b></font>';
 } else {
-	$servercheck['php_compare']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+	$servercheck['php_compare']['erg'] = '<font color="#FF0000"><b>System ist nicht installierbar.<br />Bitte kontaktieren Sie ihren Hoster</b></font>';
 }
 
 // Windows-PHP-Bug
@@ -151,6 +151,7 @@ if ( @version_compare($sqlserver, '5.0.0') != -1) {
 		$servercheck['sql_compare']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
 } else {
 		$servercheck['sql_compare']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+		$servercheck['err'] = TRUE;
 }
 
 // config.php
@@ -160,11 +161,13 @@ if ( file_exists( '../include/includes/config.php' ) and is_writeable ( '../incl
 } else
 if ( file_exists( 'include/includes/config.php' ) and !is_writeable ( '../include/includes/config.php' ) ){
 	$servercheck['configphp']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+	$servercheck['err'] = TRUE;
 } else
 if ( !file_exists( '../include/includes/config.php' ) and is_writeable('../include/includes/')) {
 	$servercheck['configphp']['erg'] = '<font color="#40aa00"><b>wird angelegt</b></font>';
 } else {
 	$servercheck['configphp']['erg'] = '<font color="#FF0000"><b>FEHLER</b></font>';
+	$servercheck['err'] = TRUE;
 }
 // smarty-cache
 $servercheck['smarty/cache']['msg'] = '"../include/cache" (CHMOD 777)';
@@ -172,6 +175,7 @@ if ( @is_writeable ( '../include/cache' ) ) {
 	$servercheck['smarty/cache']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
 } else {
 	$servercheck['smarty/cache']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+	$servercheck['err'] = TRUE;
 }
 // backup-verzeichnis
 $servercheck['backup_dir']['msg'] = '"../include/backup/" (CHMOD 777)';
@@ -179,6 +183,7 @@ if ( @is_writeable ( '../include/backup' ) ) {
 	$servercheck['backup_dir']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
 } else {
 	$servercheck['backup_dir']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+	$servercheck['err'] = TRUE;
 }
 // selfpb
 $servercheck['selfbp/selfp']['msg'] = '"../include/contents/selfbp/selfp" (CHMOD 777)';
@@ -186,6 +191,7 @@ if ( @is_writeable ( '../include/contents/selfbp/selfp' ) ) {
 	$servercheck['selfbp/selfp']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
 } else {
 	$servercheck['selfbp/selfp']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+	$servercheck['err'] = TRUE;
 }
 // selfpb
 $servercheck['selfbp/selfb']['msg'] = '"../include/contents/selfbp/selfb" (CHMOD 777)';
@@ -193,6 +199,7 @@ if ( @is_writeable ( '../include/contents/selfbp/selfb' ) ) {
 	$servercheck['selfbp/selfb']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
 } else {
 	$servercheck['selfbp/selfb']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+	$servercheck['err'] = TRUE;
 }
 
 // images/linkus
@@ -201,6 +208,7 @@ if ( @is_writeable ( '../include/images/linkus' ) ) {
 	$servercheck['images/linkus']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
 } else {
 	$servercheck['images/linkus']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+	$servercheck['err'] = TRUE;
 }
 // images/avatars
 $servercheck['images/avatar']['msg'] = '"../include/images/avatars" (CHMOD 777)';
@@ -208,6 +216,7 @@ if ( @is_writeable ( '../include/images/avatars' ) ) {
 	$servercheck['images/avatar']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
 } else {
 	$servercheck['images/avatar']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+	$servercheck['err'] = TRUE;
 }
 // images/opponents
 $servercheck['images/opponents']['msg'] = '"../include/images/opponents" (CHMOD 777)';
@@ -215,6 +224,7 @@ if ( @is_writeable ( '../include/images/opponents' ) ) {
 	$servercheck['images/opponents']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
 } else {
 	$servercheck['images/opponents']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+	$servercheck['err'] = TRUE;
 }
 // images/gallery
 $servercheck['images/gallery']['msg'] = '"../include/images/gallery" (CHMOD 777)';
@@ -222,6 +232,7 @@ if ( @is_writeable ( '../include/images/gallery' ) ) {
 	$servercheck['images/gallery']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
 } else {
 	$servercheck['images/gallery']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+	$servercheck['err'] = TRUE;
 }
 // images/smilies
 $servercheck['images/smiles']['msg'] = '"../include/images/smiles" (CHMOD 777)';
@@ -229,6 +240,7 @@ if ( @is_writeable ( '../include/images/smiles' ) ) {
 	$servercheck['images/smiles']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
 } else {
 	$servercheck['images/smiles']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+	$servercheck['err'] = TRUE;
 }
 
 // images/usergallery
@@ -237,6 +249,7 @@ if ( @is_writeable ( '../include/images/usergallery' ) ) {
 	$servercheck['images/usergallery']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
 } else {
 	$servercheck['images/usergallery']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+	$servercheck['err'] = TRUE;
 }
 // images/wars
 $servercheck['images/wars']['msg'] = '"../include/images/wars" (CHMOD 777)';
@@ -244,6 +257,7 @@ if ( @is_writeable ( '../include/images/wars' ) ) {
 	$servercheck['images/wars']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
 } else {
 	$servercheck['images/wars']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+	$servercheck['err'] = TRUE;
 }
 
 // downs/downloads
@@ -252,6 +266,7 @@ if ( @is_writeable ( '../include/downs/downloads' ) ) {
 	$servercheck['downs/downloads']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
 } else {
 	$servercheck['downs/downloads']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+	$servercheck['err'] = TRUE;
 }
 
 // downs/downloads/user_upload
@@ -260,6 +275,7 @@ if ( @is_writeable ( '../include/downs/downloads/user_upload' ) ) {
 	$servercheck['downs/downloads/user_upload']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
 } else {
 	$servercheck['downs/downloads/user_upload']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+	$servercheck['err'] = TRUE;
 }
 // .htaccess
 $servercheck['htaccess']['msg'] = '"../.htaccess" (CHMOD 777)';
@@ -268,9 +284,11 @@ if ( @is_writeable ( '../.htaccess' ) ) {
 } else {
 	if (is_file('../.htaccess')) {
 		$servercheck['htaccess']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+		$servercheck['err'] = TRUE;
 	} else {
 		if (FALSE === @file_put_contents('../.htaccess', '')) {
 			$servercheck['htaccess']['erg'] = '<font color="#CC9933"><b>bitte eine leere .htaccess anlegen</b></font>';
+			$servercheck['err'] = TRUE;
 		} else {
 			$servercheck['htaccess']['erg'] = '<font color="#40aa00"><b>Datei angelegt</b></font>';
 		}
@@ -294,6 +312,7 @@ foreach ($servercheck as $key => $val) {
   		</tr>
     <?php
 }
+if (!$servercheck['err']) { 
 
 ?>
 <tr class="Cdark">
@@ -301,7 +320,9 @@ foreach ($servercheck as $key => $val) {
 				<td><input type="submit" value="Weiter ->" class="ui-button ui-state-default ui-corner-all"></td>
 		</tr>
  	</table>
-
+<?php
+}
+?>
 <?php
 } elseif ( $_POST['step'] == 4 ) {
   ?>
