@@ -9,7 +9,7 @@ defined('admin') or die('only admin access');
 
 $tpl = new tpl ('wars/matchtype', 1);
 
-// Jquery Dialoge für Erfolg oder Misserfolg ok/nok
+// Jquery Dialoge fï¿½r Erfolg oder Misserfolg ok/nok
 $eintrag_ok = '<script language="JavaScript" type="text/javascript">
                     $(document).ready(function() {
                         $( "#okdialog" ).dialog({
@@ -40,7 +40,7 @@ $eintrag_nok = '<script language="JavaScript" type="text/javascript">
                         });
                     });
                 </script>';
-// Jquery Dialoge für Erfolg oder Aktivieren/Deaktivieren                
+// Jquery Dialoge fï¿½r Erfolg oder Aktivieren/Deaktivieren                
 $aktiviert = '<script language="JavaScript" type="text/javascript">
                     $(document).ready(function() {
                         $( "#akdialog" ).dialog({
@@ -74,7 +74,7 @@ $deaktiviert = '<script language="JavaScript" type="text/javascript">
                     });
                 </script>';
                 
-// Formular für Neue Gegner absenden
+// Formular fï¿½r Neue Gegner absenden
 if (isset($_POST['newsubmit']) and chk_antispam('adminuser_action', true)) {
     debug('########## FormUpload-Log Start ##########');
     $newmatchtypename		= escape($_POST['newmatchtypename'], 'string');
@@ -89,20 +89,20 @@ if (isset($_POST['newsubmit']) and chk_antispam('adminuser_action', true)) {
     }
     debug('########## FormUpload-Log END ##########');
 } // form neue Gegner Ende
-$statusänderung = escape($menu->get(2), 'string');
-$statusänderungsid = escape($menu->get(3), 'integer');
+$statusChange = escape($menu->get(2), 'string');
+$statusChangeid = escape($menu->get(3), 'integer');
 
-if ( $statusänderung == 'stat' AND !empty($statusänderungsid)) {
-    $state=db_result(db_query('SELECT inaktive FROM `prefix_wars_matchtype` WHERE id = '.$statusänderungsid),0);
+if ( $statusChange == 'stat' AND !empty($statusChangeid)) {
+    $state=db_result(db_query('SELECT inaktive FROM `prefix_wars_matchtype` WHERE id = '.$statusChangeid),0);
     if($state==1){
         debug('########## Spiel aktivieren ##########');
-        $reakqyr = db_query('UPDATE `prefix_wars_matchtype` SET inaktive=0 WHERE id = "'.$statusänderungsid.'" LIMIT 1');
+        $reakqyr = db_query('UPDATE `prefix_wars_matchtype` SET inaktive=0 WHERE id = "'.$statusChangeid.'" LIMIT 1');
         if($reakqyr){
             echo $aktiviert;
         }
     } else {
          debug('########## Spiel deaktivieren ##########');
-         $deakqyr = db_query('UPDATE `prefix_wars_matchtype` SET inaktive=1 WHERE id = "'.$statusänderungsid.'" LIMIT 1');
+         $deakqyr = db_query('UPDATE `prefix_wars_matchtype` SET inaktive=1 WHERE id = "'.$statusChangeid.'" LIMIT 1');
         if($deakqyr){
             echo $deaktiviert;
         }
@@ -149,7 +149,7 @@ switch ($seite) {
 			$WHERE				= '';
 		}
         $class='Cmite';
-		$oneout['siteindex']	= db_make_sites ($page ,$WHERE ,$limit ,'admin.php?wars-matchtype' ,'wars-matchtype');
+		$oneout['siteindex']	= db_make_sites ($page ,$WHERE ,$limit ,'admin.php?wars-matchtype' ,'wars_matchtype');
         $oneout['antispam'] = get_antispam('adminuser_action', 0, true);
 		$tpl->set_ar_out($oneout, 0);
 		$erg=db_query("SELECT * FROM `prefix_wars_matchtype` LIMIT ".$anfang.",".$limit);

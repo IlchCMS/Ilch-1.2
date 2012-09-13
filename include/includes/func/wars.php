@@ -17,7 +17,7 @@ function get_gamepic_ar () {
 	return ($ar);
 }
 function get_locations($gid){
-	$l[0]='----Bitte Auswählen---';
+	$l[0]='----Bitte Ausw&auml;hlen---';
 	if($gid!=0){
 		$e = db_query('SELECT id,name FROM `prefix_wars_locations` WHERE inaktive = 0 AND gid='.$gid);
          	while($r = db_fetch_row($e) ) {
@@ -27,7 +27,7 @@ function get_locations($gid){
 	return $l;
 }
 function get_groups(){
-	$l[0]='----Bitte Auswählen---';
+	$l[0]='----Bitte Ausw&auml;hlen---';
 	$e = db_query('SELECT id,name FROM `prefix_groups` WHERE show_fightus = 1');
          while($r = db_fetch_row($e) ) {
 		$l[$r[0]].=$r[1];
@@ -38,25 +38,28 @@ function get_locationpic_ar ($s) {
 	if($s=='db_error'){
 		$ar['error']='Fehler:Game ist inaktiv';
 	} elseif($s=='choose'){
-		$ar['choose']='Bitte erst Game auswählen';
+		$ar['choose']='Bitte erst Game ausw&auml;hlen';
 	} else {
 		$ar = array();
 		$ar['nopic']='Kein Bild';
 		$ar['neu']='Neues Bild';
-                 $s=strtolower($s);
-		$s=ereg_replace (" ", "", $s);
-		$o = opendir('portal/images/locations/'.$s);
-		while ($f = readdir($o) ) {
-			if ( $f != '.' AND $f != '..' AND $f != 'preview' ) {
-				$ar[$s.$f] = $f;
-			}
-		}
-		closedir($o);
+        $dir='include/images/locations/';
+        if(is_dir($dir) && is_writeable($dir)) {
+            $s=strtolower($s);
+            $s=str_replace (' ', '', $s);
+            $o = @opendir($dir.$s);
+            while ($f = @readdir($o) ) {
+                if ( $f != '.' AND $f != '..' AND $f != 'preview' ) {
+                    $ar[$s.$f] = $f;
+                }
+            }
+            @closedir($o);
+        }
 	}
 	return ($ar);
 }
 function get_opponents(){
-	$l[0]='----Bitte Auswählen---';
+	$l[0]='----Bitte Ausw&auml;hlen---';
 	$e = db_query('SELECT id,name FROM `prefix_wars_opponents` WHERE inaktive = 0');
          while($r = db_fetch_row($e) ) {
 		$l[$r[0]].=$r[1];
@@ -64,7 +67,7 @@ function get_opponents(){
 	return $l;
 }
 function get_server(){
-	$l[0]='----Bitte Auswählen---';
+	$l[0]='----Bitte Ausw&auml;hlen---';
 	$e = db_query('SELECT id,name FROM `prefix_wars_server` WHERE inaktive = 0');
          while($r = db_fetch_row($e) ) {
 		$l[$r[0]].=$r[1];
@@ -107,7 +110,7 @@ function get_game_icon($gid){
 }
 ##get games
 function get_games(){
-	$l[0]='----Bitte Auswählen---';
+	$l[0]='----Bitte Ausw&auml;hlen---';
 	$e = db_query('SELECT id,name FROM `prefix_wars_games` WHERE inaktive = 0');
          while($r = db_fetch_row($e) ) {
 		$l[$r[0]].=$r[1];
@@ -115,7 +118,7 @@ function get_games(){
 	return $l;
 }
 function get_matchtypes(){
-	$l[0]='----Bitte Auswählen---';
+	$l[0]='----Bitte Ausw&auml;hlen---';
 	$e = db_query('SELECT id,name FROM `prefix_wars_matchtype` WHERE inaktive = 0');
          while($r = db_fetch_row($e) ) {
 		$l[$r[0]].=$r[1];
@@ -123,7 +126,7 @@ function get_matchtypes(){
 	return $l;
 }
 function get_gametypes(){
-	$l[0]='----Bitte Auswählen---';
+	$l[0]='----Bitte Ausw&auml;hlen---';
 	$e = db_query('SELECT id,name FROM `prefix_wars_gametype` WHERE inaktive = 0');
          while($r = db_fetch_row($e) ) {
 		$l[$r[0]].=$r[1];

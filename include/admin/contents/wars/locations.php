@@ -277,7 +277,14 @@ $getid	= escape($menu->getE(2), 'integer');
 			}
 		break;
         case 'j';
-            echo 'test';
+            if(db_query('SELECT shortname FROM `prefix_wars_games` WHERE inaktive = 0 AND id='.$menu->getE(2))){
+                    $sx=db_query('SELECT shortname FROM `prefix_wars_games` WHERE inaktive = 0 AND id='.$menu->getE(2));
+                    $s=db_result($sx,0);
+                    $s=strtolower($s).'/';
+                } else{
+                    $s='dberror';
+                }
+            echo arlistee('', get_locationpic_ar($s) );
         break;
 		default:
             if (is_numeric($_POST['idtemp'])) {
@@ -298,26 +305,15 @@ $getid	= escape($menu->getE(2), 'integer');
 				$WHERE				= '';
 			}
             $class='Cmite';
-			$oneout['siteindex']	= db_make_sites ($page ,$WHERE ,$limit ,'admin.php?locations' ,'locations');
+			$oneout['siteindex']	= db_make_sites ($page ,$WHERE ,$limit ,'admin.php?locations' ,'wars_locations');
             $oneout['antispam'] = get_antispam('adminuser_action', 0, true);
             $oneout['name']=(isset($_POST['name'])?$_POST['name']:$oneout['name']);
             $game=(isset($_POST['game'])?$_POST['game']:$oneout['gid']);
-            $icon=(isset($_POST['icon'])?$_POST['icon']:$oneout['pic']);
-            if(isset($_POST['game']) OR !empty($game)){
-                if(db_query('SELECT shortname FROM `prefix_wars_games` WHERE inaktive = 0 AND id='.$game)){
-                    $sx=db_query('SELECT shortname FROM `prefix_wars_games` WHERE inaktive = 0 AND id='.$game);
-                    $s=db_result($sx,0);
-                    $s=strtolower($s).'/';
-                } else{
-                    $s='dberror';
-                }
-            } else {
-                $s='choose';
-            }
+            $icon=(isset($_POST['icon'])?$_POST['icon']:$oneout['icon']);
             $oneout['inactiven']=($oneout['inaktive']==0?'checked':'');
             $oneout['inaktivej']=($oneout['inaktive']==1?'checked':'');
             $oneout['game']=dblistee($game, 'SELECT id,name FROM `prefix_wars_games` WHERE inaktive = 0');
-            $oneout['icon']=arlistee($icon, get_locationpic_ar($s) );
+            $oneout['icon']=arlistee($icon, get_locationpic_ar('choose') );
             $tpl->set_ar_out($oneout, 0);
             $erg=db_query("SELECT * FROM `prefix_wars_locations` ".$WHERE." ORDER BY name LIMIT ".$anfang.",".$limit);
             while($row=db_fetch_assoc($erg)){

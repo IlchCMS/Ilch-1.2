@@ -8,7 +8,7 @@ ob_start();
 */
 define('main', true);
 define('admin', true);
-define('DEBUG', true);
+define('DEBUG', false);
 define('SCRIPT_START_TIME', microtime(true));
 define('AJAXCALL', isset($_GET['ajax']) and $_GET['ajax'] == 'true');
 // Konfiguration zur Anzeige von Fehlern

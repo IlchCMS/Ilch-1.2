@@ -300,7 +300,7 @@ $getid	= escape($menu->getE(2), 'integer');
 				$WHERE				= '';
 			}
             $class='Cmite';
-			$oneout['siteindex']	= db_make_sites ($page ,$WHERE ,$limit ,'admin.php?opponents' ,'opponents');
+			$oneout['siteindex']	= db_make_sites ($page ,$WHERE ,$limit ,'admin.php?opponents' ,'wars_opponents');
             $oneout['antispam'] = get_antispam('adminuser_action', 0, true);
             $tpl->set_ar_out($oneout, 0);
             $erg=db_query("SELECT * FROM `prefix_wars_opponents` ".$WHERE." ORDER BY name LIMIT ".$anfang.",".$limit);

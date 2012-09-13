@@ -71,12 +71,26 @@ $(document).ready(function() {
               url: "admin.php?wars-locations-j"+val,
                 data: "data",
                 success: function(data){
-                    $('#newtest').attr('value', data);
-                    alert('Load was performed.');
+                    $('option', '#newicon').remove();
+                    $('#newicon').append(data);
                 }
             });
             };
+            if ($(this).val() == "x") {
+                $('option', '#newicon').remove();
+                $('#newicon').append('<option value="choose">Bitte erst Game ausw&auml;hlen</option>');
+            }
     	});
+	});
+    $(document).ready(function() {
+		$('#newicon').change(function() {
+            var val = $( this ).val();
+            if ($(this).val() == "neu") { 
+                $('#newpic').show();
+            } else {
+                $('#newpic').hide();
+            }
+		});
 	});
       
  
@@ -112,7 +126,7 @@ $(document).ready(function() {
           <td><input type="text" name="newmapame" id="newmapname" value="{name}" /></label></td>
         </tr><tr>
             <td>Game</td>
-            <td><select name="newgame" id="newgame" ><option value="x">------Bitte Ausw&auml;hlen----</option>{game}</select><input type="text" name="newtest" id="newtest" value="" /></td>
+            <td><select name="newgame" id="newgame" ><option value="x">------Bitte Ausw&auml;hlen----</option>{game}</select></td>
         </tr><tr>
             <td>Bild</td>
           <td><select name="newicon" id="newicon">{icon}</select><input type="file" name="newpic" id="newpic" style="display:none"/></td>

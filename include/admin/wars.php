@@ -75,8 +75,7 @@ switch ($um)
 if(($menu->getA(2)=='e' AND $menu->getA(3)=='d') OR ($menu->getA(2)=='e' AND $menu->getA(3)=='a') OR $menu->getA(2) == 'l' OR $menu->getA(2) == 'm'){
 	$design = new design ( $siteheader, $contentheader, 0 );
 	$design->header();
-} elseif($menu->getA(2)=='j'){
-debug_out();
+}elseif($menu->getA(2)=='j'){
 }else{
 	$design = new design ( $siteheader, $contentheader, 2 );
 	$design->header();
@@ -84,7 +83,8 @@ debug_out();
 
 include_once ('include/admin/contents/wars/'.$datei.'.php');
 
-if($menu->getA(2)!='j'){
+if(!$menu->getA(2)=='j'){
     $design->footer();
 }
+
 ?>
