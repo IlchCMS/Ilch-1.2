@@ -13,14 +13,13 @@ include/backup/*
 .htaccess
 include/includes/config.php
 
-# Zend Studio ausschließen
+# Dreamweaver, Eclipse, Netbeans und SVN ausschließen
+_notes
+/nbproject
+.svn
 .settings
 .buildpath
 .project
-
-# Dreamweaver, Eclipse und SVN ausschließen
-_notes
-.svn
 
 #Backup Dateien einiger Editoren ausschließen
 *~

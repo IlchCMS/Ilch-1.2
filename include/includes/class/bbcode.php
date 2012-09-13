@@ -324,14 +324,23 @@ class bbcode {
         // > Hier könnt ihr den Header und Footer für HTML editieren.
         $breite = trim($this->info['BlockTabelleBreite']);
         $breite = (strpos($breite, '%') !== false) ? '450px' : $breite . 'px';
-        $header = "<div style=\"overflow: auto; width: {$breite};\">"
-         . "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"BORDER: 1px SOLID " . $this->info['BlockRandFarbe'] . ";\" width=\"100%\">"
-         . "<tr><td colspan=\"3\" style=\"font-family:Arial, Helvetica, sans-serif;font-size:12px; font-weight:bold; color:" . $this->info['BlockSchriftfarbe'] . ";background-color:" . $this->info['BlockHintergrundfarbe'] . ";\">&nbsp;" . $type . $file . "</td></tr>"
-         . "<tr bgcolor=\"" . $this->info['BlockHintergrundfarbeIT'] . "\"><td style=\"width:20px; color:" . $this->info['BlockSchriftfarbe'] . ";padding-left:2px;padding-right:2px;border-right:1px solid " . $this->info['BlockHintergrundfarbe'] . ";font-family:Arial, Helvetica, sans-serif;\" align=\"right\" valign=\"top\"><code style=\"width:20px;\">"
-         . $line
-         . "</code></td><td width=\"5\">&nbsp;</td><td valign=\"top\" style=\"background-color:" . $this->info['BlockHintergrundfarbe'] . "; color:" . $this->info['BlockSchriftfarbe'] . ";\" nowrap width=\"95%\"><code>";
-        $footer = "</code></td></tr></table></div>";
-
+        $header = <<<CODEHEAD
+<div style="overflow: auto; width: {$breite};">
+<table cellspacing="0" cellpadding="0" border="0" style="border: 1px solid {$this->info['BlockRandFarbe']}";" width="100%">
+    <tr>
+        <td colspan="2" style="font-size:12px; font-weight:bold; color: {$this->info['BlockSchriftfarbe']};background-color:{$this->info['BlockHintergrundfarbe']};">
+            &nbsp;{$type}{$file}
+        </td>
+    </tr>
+    <tr style="background-color:{$this->info['BlockHintergrundfarbeIT']}; color:{$this->info['BlockCodeFarbe']};">
+        <td style="width:20px; padding:0 2px;
+            border-right:1px solid {$this->info['BlockHintergrundfarbe']}; text-align:right; vertical-align:top;">
+            <code style="width:20px;">{$line}</code>
+        </td>
+        <td style="width:95%; vertical-align:top; padding-left: 5px">
+            <code>
+CODEHEAD;
+        $footer = '</code></td></tr></table></div>';
         return $header . $code . $footer;
     }
     // > Smilies aus dem Array auslesen.
