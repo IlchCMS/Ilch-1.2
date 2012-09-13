@@ -8,8 +8,8 @@ i n s t a l l a t i o n
   - http://DEINE-DOMAIN.tld/install im Browser aufrufen und den Anweisungen am Bildschirm folgen
 
 v o r a u s s e t z u n g e n
-  - PHP 5.2 oder höher
-  - 1x mySQL 5.x
+  - PHP 5.2.3 oder höher
+  - 1x MySQL 5.0.7 oder höher
   - mindestens 5 MB freier Speicherplatz (Gallery, Downloads ect benötigen u.U. mehr)
   
 s u p p o r t

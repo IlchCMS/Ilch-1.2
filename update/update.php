@@ -45,4 +45,6 @@ if (!empty($update_messages)) {
         echo '</ul></li>';
     }
     echo '<ul></div>';
+    echo '<p>Updates erfolgreich eingespielt, laden sie die Seite erneut.</p>';
+    exit;
 }
