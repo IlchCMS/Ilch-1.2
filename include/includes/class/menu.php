@@ -179,25 +179,39 @@ class menu {
         // pruefen ob der client die noetigen rechte hat
         // das modul zu sehen.. bzw. den menupunkt zu sehen
         $exit = ! $this->check_rights();
-        // das usermodul kann aus eigener sicherheit nicht
-        // gesperrt werden, sonst koennen sich member
-        // usw. nicht mehr einloggen, bzw. es kann
-        // sich sonst keiner registrieren. deshalb is das
-        // user modul immer frei geschaltet
-        $alwaysallowed = array(
-            'regist',
-            'login',
-            '1',
-            '2',
-            'confirm',
-            'remind',
-            '13',
-            '3',
-            'logout'
+        if ($exit === true) {
+            /* Hier sind Seiten / Module angegeben, die immer aufrufbar sein müssen,
+             * wobei der Key für den Anfang des Pfades stehen und der Wert für das Recht, welches der User mindestens
+             * besitzen muss
+             * Der Pfad kann auch ohne Schlüssel direkt angegeben werden,
+             * wobei keine weitere Rechteüberprüfung mehr statt findet
+             * TODO: ggf. über Datenbank oder andere Funktionalität erweiterbar machen,
+             * damit Module hier etwas eintragen können
+             */
+            $alwaysallowed = array(
+                //User Seiten für Login, Logout, Registrierung etc.
+                'user-regist', 'user-login', 'user-1', 'user-2', 'user-confirm', 'user-remind',
+                'user-13', 'user-3', 'user-logout',
+                //User suchen Seite (hauptsächlich im Adminbereich oder bei PM)
+                'search-finduser' => -1
             );
-        if ($exit === true AND $this->get(0) == 'user' AND in_array($this->get(1), $alwaysallowed)) {
-            $exit = false;
-            debug('o');
+            $completePath = $this->get_complete();
+            foreach ($alwaysallowed as $key => $value) {
+                if (!is_string($key)) {
+                    $path = $value;
+                    $right = 0;
+                } else {
+                    $path = $key;
+                    $right = $value;
+                }
+                if (substr($completePath, 0, strlen($path)) === $path) {
+                    if ($right != 0 && !has_right($right)) {
+                        continue;
+                    }
+                    $exit = false;
+                    break;
+                }
+            }
         }
 
         if ($exit) {

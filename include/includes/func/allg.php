@@ -102,7 +102,7 @@ function getDmon($mon) {
 // #### Postausgabe Heute|Gestern|Datum
 function post_date($posttime,$sec=false) {
 	if (!empty($posttime)) {
-		$akttime = mktime();
+		$akttime = time();
 		$jahr_jetzt = date( "y" , $akttime );
 		$jahr_post = date( "y" , $posttime );
 		$tag_jetzt = date( "z" , $akttime );

@@ -5,39 +5,43 @@
  * @version $Id$
  */
 defined('main') or die('no direct access');
-// Kategorien aufschl�sseln
-function aktForumCats($catAR, $trenn = 'hmenu') {
+
+// Kategorien aufschlüsseln
+function aktForumCats($catAR, $trenn = 'hmenu')
+{
     $out = '';
     $i = count($catAR) - 1;
     if ($trenn == 'hmenu') {
         while ($i > 0) {
-            $out .= '<a class="smalfont" href="index.php?forum-showcat-' . $catAR[ $i ][ 'id' ] . '">' . $catAR[ $i ][ 'name' ] . '</a><b> &raquo; </b>';
+            $out .= '<a class="smalfont" href="index.php?forum-showcat-' . $catAR[$i]['id'] . '">' . $catAR[$i]['name'] . '</a><b> &raquo; </b>';
             $i--;
         }
-        $out .= '<a class="smalfont" href="index.php?forum-showcat-' . $catAR[ $i ][ 'id' ] . '">' . $catAR[ $i ][ 'name' ] . '</a>';
+        $out .= '<a class="smalfont" href="index.php?forum-showcat-' . $catAR[$i]['id'] . '">' . $catAR[$i]['name'] . '</a>';
     } else {
         while ($i > 0) {
-            $out .= $catAR[ $i ][ 'name' ] . ' :: ';
+            $out .= $catAR[$i]['name'] . ' :: ';
             $i--;
         }
-        $out .= $catAR[ $i ][ 'name' ];
+        $out .= $catAR[$i]['name'];
     }
+
     return $out;
 }
+
 // variablen suchen und definieren.
 if ($menu->get(1) == 'showcat') {
     $cid = escape($menu->get(2), 'integer');
-    $fid = db_result(db_query("SELECT `b`.`id` FROM `prefix_forums` as `b` WHERE (`b`.`view`  >= " . $_SESSION[ 'authright' ] . " OR `b`.`reply` >= " . $_SESSION[ 'authright' ] . " OR `b`.`start` >= " . $_SESSION[ 'authright' ] . ") AND `b`.`cid` = " . $cid . " LIMIT 1"), 0, 0);
+    $fid = db_result(db_query("SELECT `b`.`id` FROM `prefix_forums` as `b` WHERE (`b`.`view`  >= " . $_SESSION['authright'] . " OR `b`.`reply` >= " . $_SESSION['authright'] . " OR `b`.`start` >= " . $_SESSION['authright'] . ") AND `b`.`cid` = " . $cid . " LIMIT 1"), 0, 0);
 }
 
-if ($menu->get(1) == 'showtopics' OR $menu->get(1) == 'editforum' OR $menu->get(1) == 'savetopic' OR $menu->get(1) == 'newtopic') {
+if (in_array($menu->get(1), array('showtopics', 'editforum', 'savetopic', 'newtopic'))) {
     $fid = escape($menu->get(2), 'integer');
 }
-if ($menu->get(1) == 'showposts' OR $menu->get(1) == 'newpost' OR $menu->get(1) == 'editpost' OR $menu->get(1) == 'edittopic' OR $menu->get(1) == 'delpost' OR $menu->get(1) == 'savepost' OR $menu->get(1) == 'movepost') {
+if (in_array($menu->get(1), array('showposts', 'newpost', 'editpost', 'edittopic', 'delpost', 'savepost', 'movepost'))) {
     $tid = escape($menu->get(2), 'integer');
-} 
+}
 // menu
-require_once('include/contents/forum/menu.php');
+require_once 'include/contents/forum/menu.php';
 
 $forum_failure = array();
 $forum_rights = array();
@@ -47,10 +51,10 @@ if (!empty($tid)) {
     if (db_num_rows($aktTopicErg) == 1) {
         $aktTopicRow = db_fetch_assoc($aktTopicErg);
         if (empty($fid)) {
-            $fid = $aktTopicRow[ 'fid' ];
+            $fid = $aktTopicRow['fid'];
         }
     } else {
-        $forum_failure[ ] = $lang[ 'topicidnotfound' ];
+        $forum_failure[] = $lang['topicidnotfound'];
     }
 }
 
@@ -64,37 +68,32 @@ if (!empty($fid)) {
     if (db_num_rows($aktForumErg) > 0) {
         $aktForumRow = db_fetch_assoc($aktForumErg);
         // Unterkategorien
-        $topcid = $aktForumRow[ 'topcid' ];
+        $topcid = $aktForumRow['topcid'];
         $catsnr = 1;
-        $aktForumRow[ 'kat' ] = array();
+        $aktForumRow['kat'] = array();
         while ($topcid != 0) {
             $tmpsql = db_fetch_object(db_query("SELECT `id`,`cid`,`name` FROM `prefix_forumcats` WHERE `id` = " . $topcid));
             $topcid = $tmpsql->cid;
-            $aktForumRow[ 'kat' ][ $catsnr ] = array();
-            $aktForumRow[ 'kat' ][ $catsnr ][ 'id' ] = $tmpsql->id;
-            $aktForumRow[ 'kat' ][ $catsnr ][ 'name' ] = $tmpsql->name;
+            $aktForumRow['kat'][$catsnr] = array();
+            $aktForumRow['kat'][$catsnr]['id'] = $tmpsql->id;
+            $aktForumRow['kat'][$catsnr]['name'] = $tmpsql->name;
             $catsnr++;
         }
-        $aktForumRow[ 'kat' ][ 0 ][ 'id' ] = $aktForumRow[ 'cid' ];
-        $aktForumRow[ 'kat' ][ 0 ][ 'name' ] = $aktForumRow[ 'cat' ];
+        $aktForumRow['kat'][0]['id'] = $aktForumRow['cid'];
+        $aktForumRow['kat'][0]['name'] = $aktForumRow['cat'];
         // Unterkategorien - Ende
         $forum_rights = array(
-            'start' => has_right($aktForumRow[ 'start' ]),
-            'reply' => has_right(array($aktForumRow[ 'reply' ],
-                    $aktForumRow[ 'start' ]
-                    )),
-            'view' => has_right(array($aktForumRow[ 'view' ],
-                    $aktForumRow[ 'reply' ],
-                    $aktForumRow[ 'start' ]
-                    )),
+            'start' => has_right($aktForumRow['start']),
+            'reply' => has_right(array($aktForumRow['reply'], $aktForumRow['start'])),
+            'view' => has_right(array($aktForumRow['view'], $aktForumRow['reply'], $aktForumRow['start'])),
             'mods' => forum_user_is_mod($fid)
-            );
+        );
 
-        if ($forum_rights[ 'view' ] == false) {
-            $forum_failure[ ] = $lang[ 'forumidnotfound' ];
+        if ($forum_rights['view'] == false) {
+            $forum_failure[] = $lang['forumidnotfound'];
         }
     } else {
-        $forum_failure[ ] = $lang[ 'forumidnotfound' ];
+        $forum_failure[] = $lang['forumidnotfound'];
     }
 }
 
@@ -150,13 +149,11 @@ switch ($menu->get(1)) {
         $incdatei = 'report_post.php';
         break;
     case 'movepost':
-    		$incdatei = 'move_post.php';
-    		break;
+        $incdatei = 'move_post.php';
+        break;
 }
 
 if (isset($incdatei)) {
-    require_once('include/contents/forum/' . $incdatei);
+    require_once 'include/contents/forum/' . $incdatei;
 }
-// -----------------------------------------------------------|
 
-?>

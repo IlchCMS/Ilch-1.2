@@ -362,7 +362,7 @@ if ($show) {
 
     forum_admin_showcats(0, '');
     if (is_object($r)) {
-      $topcid = (is_numeric($r->topcid) ? $r->topcid : 0);
+      $topcid = (isset($r->topcid) && is_numeric($r->topcid)) ? $r->topcid : 0;
     }elseif(is_numeric($r)) {
       $topcid = $r;
     }else{
@@ -372,7 +372,7 @@ if ($show) {
     $Cout[ 'cid' ] = $cid;
     $Cout[ 'ak' ] = ($um == 'changeCategorie' ? 'change' : 'new');
     $Cout[ 'sub' ] = ($um == 'changeCategorie' ? '&auml;ndern' : 'erstellen');
-    $Cout[ 'name' ] = is_object($r) ? ($um == 'changeCategorie' ? $r->name : '') : '';
+    $Cout[ 'name' ] = (is_object($r) && isset($r->name) && $um == 'changeCategorie') ? $r->name : '';
     forum_admin_selectcats('0', '', $Cout[ 'cat' ], $topcid);
     $Cout[ 'cat' ] = '<option value="0">Keine</option>' . $Cout[ 'cat' ];
 	$Cout[ 'ANTISPAM' ] = get_antispam('adminuser_action', 0, true);
