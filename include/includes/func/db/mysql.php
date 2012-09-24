@@ -18,14 +18,13 @@ function db_connect() {
         return;
     }
     define('CONN', @mysql_pconnect(DBHOST, DBUSER, DBPASS));
-    $db = @mysql_select_db(DBDATE, CONN);
-
-    //UTF8 setzen (mysql 5.0.7+ erforderlich)
-    mysql_set_charset('utf8', CONN);
 
     if (!CONN) {
         die('Verbindung nicht m&ouml;glich, bitte pr&uuml;fen Sie ihre mySQL Daten wie Passwort, Username und Host<br />');
     }
+    //UTF8 setzen (mysql 5.0.7+ erforderlich)
+    mysql_set_charset('utf8', CONN);
+    $db = @mysql_select_db(DBDATE, CONN);
     if (!$db) {
         die('Kann Datenbank "' . DBDATE . '" nicht benutzen : ' . mysql_error(CONN));
     }
