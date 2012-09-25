@@ -96,7 +96,7 @@ function user_login_check($auto = false) {
     global $allgAr, $menu;
     $formpassed = false;
     $cn = session_und_cookie_name();
-    $crypt = new PasswdCrypt();
+    $crypt = new PwCrypt();
 
     if (isset($_POST[ 'user_login_sub' ]) and isset($_POST[ 'email' ]) and isset($_POST[ 'pass' ])) {
         debug('posts vorhanden');
@@ -155,7 +155,7 @@ function user_login_check($auto = false) {
             db_query('UPDATE `prefix_online` SET `uid` = ' . $_SESSION[ 'authid' ] . ' WHERE `sid` = "' . session_id() . '"');
             // Falls noch einfaches MD5 in DB, den neuen Hash erstellen und in die Datenbank schreiben,
             // bei Cookie dieses Löschen, um den User zum Login mit Passwort zu zwingen
-            if (!PasswdCrypt::isCryptHash($row['pass'])) {
+            if (!PwCrypt::isCryptHash($row['pass'])) {
                 if ($auto) {
                     user_remove_cookie();
                 } else {
@@ -331,7 +331,7 @@ function user_has_admin_right(&$menu, $sl = true) {
 function user_regist($name, $mail, $pass) {
     global $allgAr, $lang;
 
-    $crypt = new PasswdCrypt();
+    $crypt = new PwCrypt();
 
     $name_clean = get_lower($name);
     $erg = db_query("SELECT `id` FROM `prefix_user` WHERE `name_clean` = BINARY '" . $name_clean . "'");
@@ -346,7 +346,7 @@ function user_regist($name, $mail, $pass) {
     }
 
     if ($allgAr[ 'forum_regist_user_pass' ] == 0) {
-        $new_pass = PasswdCrypt::getRndString(8, WITH_NUMBERS | WITH_SPECIAL_CHARACTERS);
+        $new_pass = PwCrypt::getRndString(8, WITH_NUMBERS | WITH_SPECIAL_CHARACTERS);
     } else {
         $new_pass = $pass;
     }

@@ -275,9 +275,9 @@ switch ($um) {
                 $abf = "SELECT * FROM `prefix_user` WHERE `id` = '" . $uid . "'";
                 $erg = db_query($abf);
                 $row = db_fetch_object($erg);
-				$crypt = new PasswdCrypt();
+				$crypt = new PwCrypt();
                 if (isset($_POST[ 'passw' ])) {
-					$new_pass = PasswdCrypt::getRndString(8);
+					$new_pass = PwCrypt::getRndString(8);
 					$crypted_pass = $crypt->cryptPasswd($new_pass);
                     icmail($row->email, 'neues Password', "Hallo\n\nDein Password wurde soeben von einem Administrator geändert es ist nun:\n\n" . $new_pass . "\n\nGruß der Administrator");
                     db_query('UPDATE `prefix_user` SET `pass` = "' . $crypted_pass . '" WHERE `id` = "' . escape($_POST[ 'uID' ], 'integer') . '"');
@@ -385,7 +385,7 @@ switch ($um) {
             if (db_num_rows($erg) > 0) {
                 $msg = 'Der Name ist leider schon vorhanden!';
             } else {
-				$crypt = new PasswdCrypt();
+				$crypt = new PwCrypt();
                 $crypt_pass = $crypt->cryptPasswd($_POST[ 'pass' ]);
                 db_query("INSERT INTO `prefix_user` (`name`,`name_clean`,`pass`,`recht`,`regist`,`llogin`,`email`)
 		    VALUES('" . $_POST[ 'name' ] . "','" . get_lower($_POST[ 'name' ]) . "','" . $crypt_pass . "'," . $_POST[ 'recht' ] . ",'" . time() . "','" . time() . "','" . $_POST[ 'email' ] . "')");
