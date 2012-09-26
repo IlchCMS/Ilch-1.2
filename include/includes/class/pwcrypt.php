@@ -20,7 +20,7 @@ class PwCrypt{  //Achtung beim Übertragen von mit 2a erzeugten Passwörtern auf
     const NUMBERS = 2;	//0010
 	const FOR_ULR = 7;	//0111
     const SPECIAL_CHARACTERS = 8;	//1000
-	
+
 
     //Konstanten für die Verschlüsselung
     const MD5 = '1';
@@ -40,6 +40,7 @@ class PwCrypt{  //Achtung beim Übertragen von mit 2a erzeugten Passwörtern auf
         if(!empty($lvl)){
             $this->hashAlgorithm = $lvl;
         }
+		
 		//Wenn 2a gewählt aber 2x verfügbar: nutze trotzdem 2x, da dies sicherer ist; wenn 2x oder 2y gewählt, aber nicht verfügbar, nutze 2a
 		if(version_compare(PHP_VERSION, '5.3.5', '<') && ($this->hashAlgorithm == self::BLOWFISH || $this->hashAlgorithm == self::BLOWFISH_FALSE){
 			$this->hashAlgorithm == self::BLOWFISH_OLD;
@@ -72,11 +73,11 @@ class PwCrypt{  //Achtung beim Übertragen von mit 2a erzeugten Passwörtern auf
 			$pool = 'abcdefghijklmnopqrstuvwxyz';
 			$pool .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		}
-		
+
         if($chars & self::NUMBERS){
             $pool .='0123456789';
         }
-		
+
 		if($chars & 4){	//In URLs sind nicht alle zeichen erlaubt
             $pool .= '.';
         }
@@ -84,7 +85,7 @@ class PwCrypt{  //Achtung beim Übertragen von mit 2a erzeugten Passwörtern auf
         if($chars & self::SPECIAL_CHARACTERS){
             $pool .= ',.-;:_#+*~!$%&/()=?';
         }
-		
+
 
         $pool = str_shuffle($pool);
         $pool_size = strlen($pool);
@@ -181,13 +182,13 @@ class PwCrypt{  //Achtung beim Übertragen von mit 2a erzeugten Passwörtern auf
         } else {
 			if($backup == true
 				&& version_compare(PHP_VERSION, '5.3.5', '>=')
-				&& preg_match('/^$(2a)?$/', $hash) === 1				
+				&& substr($hash,0,4) == '$2a$'
 			){
-				$password_x = preg_replace('/^$(2a)\$/', '$2x$', $crypted_passwd);
-				$password_y = preg_replace('/^$(2a)\$/', '$2y$', $crypted_passwd);
+				$password_x = '$2x$'.substr($hash,4);
+				$password_y = '$2y$'.substr($hash,4);
 				$password_neu_x = crypt($passwd, $password_x);
 				$password_neu_y = crypt($passwd, $password_y);
-				if($password_neu_x == $password_x || $password_neu_y == $password_y) return true;				
+				if($password_neu_x == $password_x || $password_neu_y == $password_y) return true;
 			}
         }
 		return false;
