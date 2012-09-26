@@ -127,7 +127,7 @@ class PwCrypt{  //Achtung beim Übertragen von mit 2a erzeugten Passwörtern auf
         switch($this->hashAlgorithm){
             case self::SHA512:
             case self::SHA256:
-                $salt = (empty($salt)?self::getRndString(16, self::WITH_NUMBERS):$salt);
+                $salt = (empty($salt)?self::getRndString(16, self::LETTERS |self::NUMBERS):$salt);
                 if($rounds < 1000 || $rounds >    999999999){
                     $rounds = mt_rand(2000,10000);
                 }
@@ -136,14 +136,14 @@ class PwCrypt{  //Achtung beim Übertragen von mit 2a erzeugten Passwörtern auf
             case self::BLOWFISH:
 			case self::BLOWFISH_OLD:
 			case self::BLOWFISH_FALSE:
-                $salt = (empty($salt)?self::getRndString(22, self::WITH_NUMBERS):$salt);
+                $salt = (empty($salt)?self::getRndString(22, self::LETTERS |self::NUMBERS):$salt);
                 if($rounds < 4 || $rounds > 31){
                     $rounds = mt_rand(6,10);
                 }
                 $salt_string = '$'.$this->hashAlgorithm.'$'.$rounds.'$'.$salt.'$';	//Verwendet 2x, wenn verfügbar, auch wenn 2a angegeben wurde
             break;
             case self::MD5:
-                $salt = (empty($salt)?self::getRndString(12, self::WITH_NUMBERS):$salt);
+                $salt = (empty($salt)?self::getRndString(12, self::LETTERS | self::NUMBERS):$salt);
                 $salt_string = '$'.$this->hashAlgorithm.'$'.$salt.'$';
             break;
             default:

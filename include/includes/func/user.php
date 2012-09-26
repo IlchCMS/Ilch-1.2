@@ -346,7 +346,7 @@ function user_regist($name, $mail, $pass) {
     }
 
     if ($allgAr[ 'forum_regist_user_pass' ] == 0) {
-        $new_pass = PwCrypt::getRndString(8, WITH_NUMBERS | WITH_SPECIAL_CHARACTERS);
+        $new_pass = PwCrypt::getRndString(8, PwCrypt::LETTERS| PwCrypt::NUMBERS | PwCrypt::SPECIAL_CHARACTERS);
     } else {
         $new_pass = $pass;
     }
