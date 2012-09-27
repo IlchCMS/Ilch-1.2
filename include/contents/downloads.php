@@ -6,7 +6,7 @@
  */
 defined('main') or die('no direct access');
 
-// Recht für Kommentare pruefen
+// Recht fÃ¼r Kommentare pruefen
 $komsOK = 1;
 if ($allgAr[ 'Dgkoms' ] == 0) { if (loggedin()) { $komsOK = true; } else { $komsOK = false; } }
 if ($allgAr[ 'Dukoms' ] == 0) { $komsOK = false; }
@@ -295,9 +295,10 @@ switch ($menu->get(1)) {
         $tpl = new tpl('downloads_show');
 		$drecht = $row['drecht'];    
 		if ( $_SESSION['authright'] <= $drecht ) {
-		$row['downlink'] = '<a href="index.php?downloads-down-'.$row['id'].'">'.$lang['download'].'</a>';
+				$_SESSION['download'][$row['id']] = $row['id'];
+				$row['downlink'] = '<a href="index.php?downloads-down-'.$row['id'].'">'.$lang['download'].'</a>';
 		} else {
-		$row['downlink'] = '<a href="index.php?downloads-error">'.$lang['download'].'</a>'; 
+				$row['downlink'] = '<a href="index.php?downloads-error">'.$lang['download'].'</a>'; 
 		}
         $row[ 'ssurl' ] = ($row[ 'ssurl' ] != '' ? '<img src="' . $row[ 'ssurl' ] . '" alt="' . $row[ 'name' ] . ' ' . $row[ 'version' ] . '" title="' . $row[ 'name' ] . ' ' . $row[ 'version' ] . '" style="float:left; border: none; padding-right:5px;" />' : '');
         $row[ 'surl' ] = (empty($row[ 'surl' ]) ? '' : '&nbsp;&nbsp;&nbsp; <a href="' . $row[ 'surl' ] . '" target="_blank">Demo/Screenshot</a>');
@@ -307,7 +308,7 @@ switch ($menu->get(1)) {
         $title = $allgAr[ 'title' ] . ' :: Downloads ' . $cattitle;
         $hmenu = '<a class="smalfont" href="?downloads">Downloads</a>' . $catname;
         $design = new design($title, $hmenu);
-		$header = Array('jquery/jquery.validate.js', 'forms/downloads.js');
+				$header = Array('jquery/jquery.validate.js', 'forms/downloads.js');
         $design->header($header);
         $tpl->set_ar_out($row, 0);
 		// Kommentare
@@ -345,7 +346,7 @@ switch ($menu->get(1)) {
         $design->footer();
         break;
     case 'down':
-	    $fid = intval($menu->get(2));   
+	    	$fid = intval($menu->get(2));   
         $erg = db_query("SELECT `drecht` FROM `prefix_downloads` LEFT JOIN `prefix_downcats` ON `prefix_downcats`.`id` = `prefix_downloads`.`cat` WHERE `prefix_downloads`.`id` = ".$fid." AND (".$_SESSION['authright']." <= `prefix_downloads`.`drecht` OR (`prefix_downloads`.`cat` = 0 AND `prefix_downcats`.`recht` = 0))");    
         if (@db_num_rows($erg) != 1) {
         $title = $allgAr['title'].' :: Downloads ';
@@ -356,20 +357,20 @@ switch ($menu->get(1)) {
         $design->footer(1);
         }
         if (!isset($_SESSION[ 'download' ][ $fid ])) {
-            header('Location: ' . 'http://' . $_SERVER[ "HTTP_HOST" ] . dirname($_SERVER[ "SCRIPT_NAME" ]) . '/index.php?downloads');
+            header('Location: ' . 'http://' . $_SERVER[ "HTTP_HOST" ] . dirname($_SERVER[ "SCRIPT_NAME" ]) . '/index.php?downloads-error');
             break;
         }
         $qry = db_query("SELECT d.`url`, IFNULL(c.`recht`,0) AS recht FROM `prefix_downloads` d LEFT JOIN `prefix_downcats` c ON c.`id` = d.`cat` WHERE d.`id` = $fid");
         $row = db_fetch_assoc($qry);
         $url = 'http://' . $_SERVER[ "HTTP_HOST" ] . dirname($_SERVER[ "SCRIPT_NAME" ]) . '/index.php?downloads';
-        if ($qry !== false and has_right($row[ 'recht' ])) {
+        if ($qry !== false and has_right($row[ 'recht' ])) {						
             db_query("UPDATE prefix_downloads SET downs = downs +1 WHERE id = " . $fid);
             if (file_exists($row[ 'url' ])) {
-                header('Content-type: application/octet-stream');
-                header('Content-Disposition: attachment; filename="' . basename($row[ 'url' ]) . '"');
-                header('Content-Length: ' . filesize($row[ 'url' ]));
-                readfile($row[ 'url' ]);
-                exit;
+      				header('Content-type: application/octet-stream');
+    					header('Content-Disposition: attachment; filename="' . basename($row[ 'url' ]) . '"');
+      				header('Content-Length: ' . filesize($row[ 'url' ]));
+      				readfile($row[ 'url' ]);
+							exit;
             } else {
                 $url = iurlencode($row[ 'url' ]);
             }
@@ -394,6 +395,7 @@ switch ($menu->get(1)) {
             $design->footer();
         }
         break;
+        
 	case 'error':
       $title = $allgAr['title'].' :: Downloads Error';
       $hmenu = '<a class="smalfont" href="?downloads">Downloads Error</a>';
@@ -404,4 +406,5 @@ switch ($menu->get(1)) {
       </tr><tr class="Cdark"><td align="center"><a href="javascript:history.back();"><u>Zur&uuml;ck</u></a> oder <a href="/index.php"><u>Auf die Startseite</u></a></td></tr></table>';
       $design->footer();
       break;
-}
+
+} 
