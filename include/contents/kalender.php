@@ -197,7 +197,11 @@ function kalender_listoutput() {
             $aus[ 'LIST_I' ] = $i + 1;
             $aus[ 'LIST_D' ] = $arr_day[ date('w', mktime(0, 0, 0, $month, $i + 1, $year)) ];
             $aus[ 'LIST_T' ] = $text;
-            $class = ($i % 2) ? 'Cnorm' : 'Cmite';
+            if (empty($text)) {
+            	$class = ($i % 2) ? 'Cnorm' : 'Cmite';
+						} else {
+							$class = 'Cmarked';
+						}
             $aus[ 'LIST_CLASS' ] = ($i + 1 == date('j') && $month == date('n') && $year == date('Y')) ? 'Cdark' : $class;
             $tpl->set_ar_out($aus, 'listitem');
 

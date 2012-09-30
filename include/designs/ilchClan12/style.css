@@ -145,6 +145,13 @@ body {
 	background-color: #626262;
 	color: #FFFFFF;
 }
+.Cmarked{
+	background-color: #8A0808;
+	color: #FFFFFF;
+}
+.Cmarked a{
+	color: #FFFFFF;
+}
 .Cmite {
 	background-color: #B0B0B0;
 }
