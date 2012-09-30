@@ -26,16 +26,17 @@ $(function() {
 <noscript>
 Bitte JavaScript aktivieren
 </noscript>
+<center>
 <div class="datepicker">
 
 <p><form id="form1" name="form1" action="">
-<!--
+
 <div id="datepicker"></div>
--->
+
 	Datum: <input type="text" id="datepicker" size="10" maxlength="15" onChange="document.datepicker.submit();">
     <div style="display: none;"><input type="submit" value="absenden" id="datepicker"/></div>
     </form></p>
 
 </div>
-
 <p></p>
+</center>
