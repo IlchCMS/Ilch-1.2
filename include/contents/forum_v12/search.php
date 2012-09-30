@@ -129,7 +129,7 @@ while($r = db_fetch_assoc($q) ) {
     if ($ord === TRUE) {
         $r['ORD'] .= '_unread';
         $r['TORD'] .= ', neue Beitr&auml;ge';
-        $r['NPOS'] = '<a href="index.php?forum-showposts-'.$r['id'].'-firstnew"><img src="include/images/ilchbb_forum/icon_topic_newest.gif" title="Neuster Beitrag" border="0" /></a> ';
+        $r['NPOS'] = '<a href="index.php?forum-showposts-'.$r['id'].'-firstnew"><img src="include/images/forum_v12/icon_topic_newest.gif" title="Neuster Beitrag" border="0" /></a> ';
     } else {
         $r['ORD'] .= '_read';
         $r['TORD'] .= ', keine neuen Beitr&auml;ge';

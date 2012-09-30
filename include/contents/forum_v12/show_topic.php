@@ -77,7 +77,7 @@ if ( db_num_rows($erg) > 0 ) {
         if ($ord === TRUE) {
             $row['ORD'] .= '_unread';
             $row['TORD'] .= ', neue Beitr&auml;ge';
-            $row['NPOS'] = '<a href="index.php?forum-showposts-'.$row['id'].'-firstnew"><img src="include/images/ilchbb_forum/icon_topic_newest.gif" title="Neuster Beitrag" border="0" /></a> ';
+            $row['NPOS'] = '<a href="index.php?forum-showposts-'.$row['id'].'-firstnew"><img src="include/images/forum_v11/icon_topic_newest.gif" title="Neuster Beitrag" border="0" /></a> ';
         } else {
             $row['ORD'] .= '_read';
             $row['TORD'] .= ', keine neuen Beitr&auml;ge';

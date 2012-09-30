@@ -214,9 +214,9 @@ while($row = db_fetch_assoc($erg)) {
         $query = "SELECT * FROM prefix_online where uid = " . $row['erstid'];
         $result = db_query($query);
         if (db_num_rows($result) > 0) {
-            $row['online'] = '&nbsp;<img src="include/images/ilchbb_forum/icon_online.gif" border="0">';
+            $row['online'] = '&nbsp;<img src="include/images/forum_v12/icon_online.gif" border="0">';
         }else {
-            $row['online'] = '&nbsp;<img src="include/images/ilchbb_forum/icon_offline.gif" border="0">';
+            $row['online'] = '&nbsp;<img src="include/images/forum_v12/icon_offline.gif" border="0">';
         }
     }else {
         $row['online'] = '';
