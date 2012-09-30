@@ -218,7 +218,7 @@ array(
 'logFile'=> '',
 'timeout'=> 6000,
 'version'=> $this->getVersion(),
-'javascript URI' => 'include/includes/'
+'javascript URI' => 'include/includes/libs/xajax/'
 )
 );if(null!==$sRequestURI)
 $this->configure('requestURI',$sRequestURI);else

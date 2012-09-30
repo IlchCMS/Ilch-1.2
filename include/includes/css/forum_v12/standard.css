@@ -1,0 +1,308 @@
+h5
+{
+    font-size: 1em;
+    font-weight: bold;
+    margin: 10px 0px;
+    border-bottom: 1px solid #666666;
+}
+
+h6
+{
+    font-size: 20px;
+    color: #355569;
+    margin: 0px 0px 10px 0px;
+}
+
+a.icon
+{
+    display: inline-block;
+    height: 20px;
+}
+
+a.icon.contact_email
+{
+    width: 20px;
+    background: transparent url(../../../images/ilchbb_forum/icon_contact_email.gif) no-repeat;
+}
+
+a.icon.contact_icq
+{
+    width: 20px;
+    background: transparent url(../../../images/forum_v12/icon_contact_icq.gif) no-repeat;
+}
+
+a.icon.contact_msn
+{
+    width: 20px;
+    background: transparent url(../../../images/forum_v12/icon_contact_msnm.gif) no-repeat;
+}
+
+a.icon.contact_pm
+{
+    width: 28px;
+    background: transparent url(../../../images/forum_v12/icon_contact_pm.gif) no-repeat;
+}
+
+a.icon.contact_www
+{
+    width: 20px;
+    background: transparent url(../../../images/forum_v12/icon_contact_www.gif) no-repeat;
+}
+
+a.icon.contact_yahoo
+{
+    width: 20px;
+    background: transparent url(../../../images/forum_v12/icon_contact_yahoo.gif) no-repeat;
+}
+
+a.icon.post_delete
+{
+    width: 20px;
+    background: transparent url(../../../images/forum_v12/icon_post_delete.gif) no-repeat;
+}
+
+a.icon.post_edit
+{
+    width: 61px;
+    background: transparent url(../../../images/forum_v12/icon_post_edit.gif) no-repeat;
+}
+
+a.icon.post_info
+{
+    width: 20px;
+    background: transparent url(../../../images/forum_v12/icon_post_info.gif) no-repeat;
+}
+
+a.icon.post_quote
+{
+    width: 65px;
+    background: transparent url(../../../images/forum_v12/icon_post_quote.gif) no-repeat;
+}
+
+a.icon.post_report
+{
+    width: 20px;
+    background: transparent url(../../../images/forum_v12/icon_post_report.gif) no-repeat;
+}
+
+a.icon.rate_good
+{
+    width: 20px;
+    background: transparent url(../../../images/forum_v12/icon_rate_good.gif) no-repeat;
+}
+
+a.icon:hover {
+    background-position: 0px -20px;
+}
+
+.mpl {
+    margin-top: 10px;
+}
+
+.button_topic_new a {
+    margin: 10px 0px;
+    display: inline-block;
+    width: 119px;
+    height: 25px;
+    background: transparent url(../../../images/forum_v12/button_topic_new.gif) no-repeat;
+}
+
+.button_topic_new a:hover {
+    background-position: 0px -25px;
+}
+
+.button_post_new a {
+    margin: 10px 0px;
+    display: inline-block;
+    width: 102px;
+    height: 25px;
+    background: transparent url(../../../images/forum_v12/button_topic_reply.gif) no-repeat;
+}
+
+.button_post_new a:hover {
+    background-position: 0px -25px;
+}
+
+.forum
+{
+    background-color: #4F7E9B;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+.forum p
+{
+    margin: 10px 0px 0px 0px;
+}
+
+.forum a
+{
+    color: #355569;
+    font-size: 1em;
+    text-decoration: none;
+}
+
+.forum a:visited
+{
+    color: #355569;
+    text-decoration: none;
+}
+
+.forum a:hover
+{
+    color: #C5010F;
+    text-decoration: underline;
+}
+
+.forum a:active
+{
+    color: #355569;
+    text-decoration: none;
+}
+
+.forum fieldset {
+	border-width: 1px;
+        padding: 5px;
+}
+
+.forum input[type=text], .forum select {
+	font-weight: normal;
+	vertical-align: middle;
+        border: 1px solid #676767;
+        background-color: #FFF;
+        padding: 2px;
+        margin: 5px 0px;
+}
+
+.forum textarea {
+	width: 99%;
+	padding: 2px;
+        margin: 5px 0px;
+        border: 1px solid #676767;
+}
+
+.forum label {
+        display: inline-block;
+	padding-right: 5px;
+        font-weight: bold;
+        width: 100px;
+        margin: 5px 0px;
+}
+
+.forum label input {
+	vertical-align: middle;
+}
+
+.forum label img {
+	vertical-align: middle;
+}
+
+.forum .smallfont
+{
+    font-size: 11px;
+}
+
+.forum #qpost
+{
+    display: block;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
+
+.forum.ilchbb_Cmite, .forum .ilchbb_Cmite
+{
+    background-color: #ccdce6;
+}
+
+.forum.ilchbb_Cnorm, .forum .ilchbb_Cnorm
+{
+    background-color: #e1e7e8;
+}
+
+.forum .post.message
+{
+    float: left;
+    width: 70%;
+}
+
+.forum .post.details
+{
+    float: right;
+    width: 30%;
+}
+
+.forum .post .text
+{
+    padding: 5px;
+}
+
+.forum .ilchbb_border
+{
+    border: 0px;
+    width: 100%;
+}
+
+.forum .ilchbb_border center
+{
+    text-align: center;
+}
+
+.forum .ilchbb_border .top
+{
+    vertical-align: top;
+}
+
+.forum .ilchbb_border .center
+{
+    width: 100%;
+    margin: 5px 0px;
+    padding: 10px 0px;
+    border-color: #4F7E9B;
+    border-width: 0px;
+    border-style: solid;
+    border-left-width: 1px;
+    text-align: center;
+}
+
+.forum .ilchbb_border tr.ilchbb_Cmite:hover
+{
+    background-color: #FBF1D3;
+}
+
+.forum .ilchbb_border tr.ilchbb_Cnorm:hover
+{
+    background-color: #FBF1D3;
+}
+
+.forum .ilchbb_border th
+{
+    padding: 5px;
+    font-weight: bold;
+    text-align: left;
+    color: #FFF;
+}
+
+.forum .ilchbb_border td
+{
+    padding: 5px;
+    border-top: 1px solid #FFF;
+    border-bottom: 1px solid #4F7E9B;
+}
+
+.forum .ilchbb_border td.middle
+{
+    vertical-align: top;
+    padding: 0px;
+}
+
+.forum .ilchbb_border td.xleft
+{
+    padding-left: 5px;
+}
+
+.forum .ilchbb_border td.xright
+{
+    padding-right: 5px;
+}

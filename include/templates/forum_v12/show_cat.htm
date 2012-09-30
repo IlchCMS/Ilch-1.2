@@ -1,0 +1,63 @@
+<div style="display:none;">
+    <table>
+        <tr>
+            <td></td>
+        </tr>
+        {EXPLODE}
+    </table>
+</div>
+<div class="forum ui-corner-all">
+    <table cellpadding="0" cellspacing="0" class="ilchbb_border" border="0">
+        <tr>
+            <th colspan="2" width="45%">
+                <a href="index.php?forum-showcat-{cid}" style="color: #FFF;">{cname}</a>
+            </th>
+            <th width="13%">
+                <center>{_lang_topic}</center>
+            </th>
+            <th width="13%">
+                <center>{_lang_post}</center>
+            </th>
+            <th width="29%">
+                {_lang_lastpost}
+            </th>
+        </tr>
+        {EXPLODE}
+        <tr>
+            <td colspan="5" class="{class}" style="font-weight: bold;">
+                &nbsp; &nbsp; &raquo; <a href="index.php?forum-showcat-{cid}">{cname}</a>
+            </td>
+        </tr>
+        {EXPLODE}
+        <tr class="{class}">
+            <td width="6%">
+                <center><img alt="" src="include/images/forum_v12/{ORD}.gif" title="{TORD}" /></center>
+            </td>
+            <td class="top" width="39%">
+                <a href="index.php?forum-showtopics-{id}" >{name}</a><br />
+                <span class="smallfont">{besch}</span>
+            </td>
+            <td class="middle xleft">
+                <div class="center">
+                    {topics}
+                </div>
+            </td>
+            <td class="middle xright">
+                <div class="center" style="border-right-width: 1px;">
+                    {posts}
+                </div>
+            </td>
+            <td class="top smallfont">
+                <a title="{topicl}" href="index.php?forum-showposts-{tid}-p{page}#{pid}">
+                    {topic}
+                    <img src="include/images/forum_v12/icon_topic_latest.gif" title="Letzter Beitrag" border="0" />
+                </a>
+                <br />
+                {_lang_from}: {erst}
+                <br />
+                am: {datum}
+            </td>
+        </tr>
+        {EXPLODE}
+    </table>
+</div>
