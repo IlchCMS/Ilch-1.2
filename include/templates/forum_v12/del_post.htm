@@ -1,0 +1,8 @@
+<h2><b>L&ouml;schen</b></h2>
+<form action="index.php?forum-delpost-{tid}-{get3}" method="POST">
+    {_lang_doyoureallydelthispost}<br><br>
+    <input type="hidden" value="1" name="delete">
+    <input type="submit" value="{_lang_yes}"> &nbsp; &nbsp; <input type="button" value="{_lang_no}" onclick="history.back(-1)">
+</form>
+{EXPLODE}
+{_lang_thedelwassuccessful} <a href="index.php?forum-showposts-{tid}">{_lang_topic}</a> &laquo;

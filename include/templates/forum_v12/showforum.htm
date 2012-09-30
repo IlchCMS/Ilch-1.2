@@ -1,0 +1,99 @@
+<div style="display:none;">
+    <table>
+        <tr>
+            <td></td>
+        </tr>
+        {EXPLODE}
+    </table>
+</div>
+<div class="forum ui-corner-all">
+    <table cellpadding="0" cellspacing="0" class="ilchbb_border" border="0">
+        <tr>
+            <th colspan="2" width="45%">
+                <a href="index.php?forum-showcat-{cid}" style="color: #FFF;">{cname}</a>
+            </th>
+            <th width="13%">
+                <center>{_lang_topic}</center>
+            </th>
+            <th width="13%">
+                <center>{_lang_post}</center>
+            </th>
+            <th width="29%">
+                {_lang_lastpost}
+            </th>
+        </tr>
+        {EXPLODE}
+        <tr>
+            <td colspan="5" class="{class}" style="font-weight: bold;">
+                &nbsp; &nbsp; &raquo; <a href="index.php?forum-showcat-{cid}">{cname}</a>
+            </td>
+        </tr>
+        {EXPLODE}
+        <tr class="{class}">
+            <td width="6%">
+                <center><img alt="" src="include/images/forum_v12/{ORD}.gif" title="{TORD}" /></center>
+            </td>
+            <td class="top" width="39%">
+                <a href="index.php?forum-showtopics-{id}" >{name}</a><br />
+                <span class="smallfont">{besch}</span>
+            </td>
+            <td class="middle xleft">
+                <div class="center">
+                    {topics}
+                </div>
+            </td>
+            <td class="middle xright">
+                <div class="center" style="border-right-width: 1px;">
+                    {posts}
+                </div>
+            </td>
+            <td class="top smallfont">
+                <a title="{topicl}" href="index.php?forum-showposts-{tid}-p{page}#{pid}">
+                    {topic}
+                    <img src="include/images/forum_v12/icon_topic_latest.gif" title="Letzter Beitrag" border="0" />
+                </a>
+                <br />
+                {_lang_from}: {erst}
+                <br />
+                am: {datum}
+            </td>
+        </tr>
+        {EXPLODE}
+    </table>
+</div>
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td width="50%" valign="top">
+            <a href="index.php?forum-markallasread">{_lang_markallasread}</a>
+        </td>
+        <td width="50%" style="text-align: right" valign="top">
+            <a href="index.php?forum-augt">{_lang_newtopicssincelastvisit}</a><br />
+            <a href="index.php?forum-aubt">{_lang_topicwithnoreply}</a><br />
+            <a href="index.php?forum-aeit">{_lang_ownposts}</a>
+        </td>
+    </tr>
+</table>
+
+<br />
+<br />
+
+<div class="forum ui-corner-all">
+    <table cellpadding="0" cellspacing="0" class="ilchbb_border" border="0">
+        <tr>
+            <th>
+                Statistiken
+            </th>
+        </tr>
+        <tr style="background-color: #FFF;">
+            <td>
+                <b>{users}</b> {_lang_membershaveritten} <b>{posts}</b> {_lang_postsin} <b>{topics}</b> {_lang_topics}<br />
+                <br />
+                {_lang_it} {istsind} {gesonline} {_lang_guestsonline,ofthem} {useronline} {_if_{useronline}=='1'}{_lang_registredand}{/_endif}{_if_{useronline}!='1'}{_lang_registrededand}{/_endif} {gastonline} {_lang_guests}<br />
+                {userliste}
+                {dayonline}
+            </td>
+        </tr>
+    </table>
+</div>
+{privmsgpopup}

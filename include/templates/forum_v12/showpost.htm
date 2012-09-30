@@ -1,0 +1,167 @@
+<!-- Funktionen fuer Beitrag melden und Danke-Funktion -->
+<script type="text/javascript">
+    var reportTopicID = 0;
+    var reportPostID = 0;
+    var reportPostPage = 0;
+
+    function reportPost(tid,pid,page) {
+        reportTopicID = tid;
+        reportPostID = pid;
+        reportPostPage = page;
+        $('#reportPost').dialog('open');
+    };
+
+    function ratePost(pid) {
+        $.ajax({
+            type: 'POST',
+            url: 'index.php?forum-showposts-ratepost',
+            data: { pid: pid },
+            success: function(response) {
+                if (response == '') {
+                    rate = $("#rate_"+pid)
+                    rate.text(parseInt(rate.text())+1);
+                } else {
+                    alert(response);
+                }
+            }
+        });
+    }
+
+    $(function() {
+        var rG = $("#reportGrounds");
+        $("#reportPost").dialog({
+            autoOpen: false,
+            width: 350,
+            modal: true,
+            resizable: false,
+            buttons: {
+                'Melden': function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'index.php?forum-showposts-reportpost',
+                        data: { tid: reportTopicID, pid: reportPostID, page: reportPostPage, grounds: rG.val() },
+                        success: function(response) {
+                            alert(response);
+                            rG.val('');
+                        }
+                    });
+                    $(this).dialog('close');
+                },
+                'Abbrechen': function() {
+                        $(this).dialog('close');
+                }}
+        });
+    });
+</script>
+
+<!-- Div fuer Beitrag melden -->
+<div class="forum" id="reportPost" title="Begr&uuml;ndung">
+    <textarea rows="4" name="reportGrounds" id="reportGrounds" style="width: 300px;"></textarea>
+</div>
+
+<h6>{TOPICNAME}</h6>
+
+{ANTWORTEN}
+
+<div style="float: right;">
+    {SITELINK}
+</div>
+
+<br style="clear: both;" />
+
+{EXPLODE}
+<div class="forum ui-corner-all ilchbb_{class}">
+    <div class="post message">
+        <div class="text">
+            <a name="{id}"></a>
+            <span style="float: left;" class="smallfont">
+                <a href="index.php?forum-showposts-{TID}-p{page}#{id}" title="{STATUS_TITLE}">
+                    <img src="include/images/forum_v12/icon_post_target{STATUS_SRC}.gif" border="0" />
+                </a>
+                {date}
+            </span>
+            <span style="float: right;">
+                {report}
+                {delete}
+                {change}
+                {quote}
+            </span>
+            <br style="clear: both;" />
+            <p>{txt}</p>
+            <p>{sig}</p>
+        </div>
+    </div>
+    <div class="post details">
+        <div class="text" style="margin: 5px 0px 5px 15px; border-left: 1px solid #666666;">
+            {online}
+            <a href="index.php?user-details-{erstid}" style="font-weight: bold;">{erst}</a><br />
+            {rang}
+            {avatar}
+            <p class="smallfont">
+                {posts}{details}
+            </p>
+            <p>
+                {pm}{email}{www}{icq}{msn}{yahoo}
+            </p>
+            {_if_{rate_allow}=='1'}
+                <p style="font-size: .8em; padding-top: 5px;">
+                    <a href="javascript:void(0);" onClick="ratePost({id});" title="Finde ich gut" class="icon rate_good" style="float: left;"></a>
+                    <strong id="rate_{id}">{rate}</strong> Mitglieder finden den Beitrag gut.
+                    <br style="clear: left;" />
+                </p>
+            {/_endif}
+        </div>
+    </div>
+    <br style="clear: both;" />
+    <div style="text-align: right;">
+        <a href="#"><img src="include/images/forum_v12/icon_back_top.gif" border="0" /></a>
+    </div>
+</div>
+{EXPLODE}
+{ANTWORTEN}
+
+<div style="float: right;">
+    {SITELINK}
+</div>
+
+<br style="clear: both;" />
+<br />
+{EXPLODE}
+<div class="forum ui-corner-all" style="background-color: #DCDDE2; text-align: center;">
+    <a href="javascript:renametopic()">{_lang_rename}</a>
+    &nbsp;,&nbsp;
+    <a href="index.php?forum-edittopic-{tid}-2">{_lang_delete}</a>
+    &nbsp;,&nbsp;
+    <a href="index.php?forum-edittopic-{tid}-3">{_lang_shift}</a>
+    &nbsp;,&nbsp;
+    <a href="index.php?forum-edittopic-{tid}-4-2">{status}</a>
+    &nbsp;,&nbsp;
+    <a href="index.php?forum-edittopic-{tid}-5">{festnorm}</a>
+
+    <script language="JavaScript" type="text/javascript">
+    <!--
+      function renametopic () {
+              var x = prompt ( "Bitte den neuen Namen vom Thema eintragen" , "" );
+                    if ( x ) {
+                      document.location.href="index.php?forum-edittopic-{tid}-1=0&newTopic="+x;
+                    }
+            }
+
+    //-->
+    </script>
+</div>
+
+{EXPLODE}
+
+<div class="forum ui-corner-all Cmite" style="padding: 5px; background-color: #DCDDE2;">
+    <div id="qpost">
+        Schnellantwort
+    </div>
+
+    <form id="qpost_forum" action="index.php?forum-newpost-{tid}" method="POST" name="form" style="display:none;">
+        <textarea name="txt" rows="8" cols="50" tabindex="2"></textarea>
+        <div style="text-align: right;">
+            <input type="submit" name="submit" value="{_lang_formsub}" />
+        </div>
+    </form>
+</div>

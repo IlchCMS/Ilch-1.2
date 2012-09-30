@@ -1,0 +1,48 @@
+<h6>{_lang_preview}</h6>
+
+<div class="forum ui-corner-all ilchbb_Cnorm">
+    {txt}
+</div>
+
+<br />
+{EXPLODE}
+<script language="JavaScript" type="text/javascript">
+<!--
+    function form_check() {
+        document.form.submit.disabled = true;
+        return true;
+    }
+//-->
+</script>
+
+<h6>{_lang_writeanewtopic}</h6>
+
+<form action="index.php?forum-newtopic-{fid}" method="POST" name="form" onSubmit="return form_check();">
+
+    <div class="forum ui-corner-all ilchbb_Cmite">
+        <label for="topic">Thema:</label><input type="text" size="40" value="{topic}" maxlength="40" tabindex="1" name="topic"><br />
+        {name}
+        <h5>Beitrag</h5>
+        <div>
+        <!-- BB Code START -->
+        {__BBCodeButtons__}
+        <!-- BB Code ENDE -->
+        </div>
+        <div style="float: left; width: 80%;">
+            <textarea name="txt" rows="20" cols="80" tabindex="2">{txt}</textarea>
+        </div>
+        <div style="float: right; width: 20%;">
+            <div class="forum ui-corner-all ilchbb_Cnorm" style="text-align: center; margin: 5px 0px 0px 10px;">
+                {SMILIES}
+            </div>
+        </div>
+        <br style="clear: both;" />
+        {antispam}
+        <h5>Optionen</h5>
+        <input id="topic_alert" type="checkbox" value="yes" name="topic_alert" /> {_lang_mailonreply}
+    </div>
+
+    <div class="forum ui-corner-all ilchbb_Cnorm" style="text-align: right;">
+        <input type="submit" name="priview" value="{_lang_preview}" /> <input type="submit" name="submit" value="{_lang_formsub}" />
+    </div>
+</form>

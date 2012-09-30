@@ -1,0 +1,14 @@
+<!-- Forum-Style CSS laden -->
+<link rel="stylesheet" type="text/css" href="include/includes/css/forum_v12/standard.css" />
+
+<!-- Funktionen für Buttons und Schnellantwort -->
+<script type="text/javascript">
+    $(function() {
+        $(".forum input:submit").button();
+        $("#qpost").click(function() {
+            $("#qpost_forum").toggle('blind');
+        });
+    });
+</script>
+
+{EXPLODE}

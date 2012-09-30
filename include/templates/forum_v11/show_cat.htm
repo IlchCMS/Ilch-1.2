@@ -1,0 +1,18 @@
+<table width="100%" cellpadding="4" cellspacing="1" class="border" border="0">
+  <tr class="Chead">
+    <th width="58%" colspan="2" align="center"><b>{_lang_board}</b></th>
+    <th width="6%">{_lang_post}</th>
+    <th width="6%">{_lang_topic}</th>
+    <th width="25%" align="center">{_lang_lastpost}</th>
+  </tr>{EXPLODE}<tr class="Cdark">
+    <td colspan="5"><strong><a href="index.php?forum-showcat-{cid}">{cname}</a></strong></td>
+  </tr>{EXPLODE}<tr class="Cmite">
+    <td colspan="5"><strong> &nbsp; &nbsp; &raquo; <a href="index.php?forum-showcat-{cid}">{cname}</a></strong></td>
+  </tr>{EXPLODE}<tr class="Cnorm">
+    <td width="5%" align="center" valign="middle"><img alt="" src="include/images/forum_v11/{ORD}.gif" width="15" height="15" border="0"></td>
+    <td><a href="index.php?forum-showtopics-{id}">{name}</a><br /><span class="smalfont">{besch}{mods}</span></td>
+    <td align="center"><span class="smalfont">{posts}</span></td>
+    <td align="center"><span class="smalfont">{topics}</span></td>
+    <td><span class="smalfont"><a class="smalfont" title="{topicl}" href="index.php?forum-showposts-{tid}-p{page}#{pid}">{topic}</a><br />{_lang_from}: {erst}<br />{datum}</span></td>
+  </tr>{EXPLODE} 
+</table>
