@@ -18,7 +18,7 @@ $(function() {
 							document.form1.submit();
 							var loc = '';
 							var datesplit = dateText.split('.');
-							location.href = loc+'?kalender-v1-m'+datesplit[1]+'-y'+datesplit[2]+'-d'+datesplit[0];
+							location.href = loc+'?kalender-gotoDate-'+datesplit[2]+'-'+datesplit[1]+'-'+datesplit[0];
 					}
 		});
 });
@@ -33,7 +33,6 @@ Bitte JavaScript aktivieren
 
 <div id="datepicker"></div>
 
-	Datum: <input type="text" id="datepicker" size="10" maxlength="15" onChange="document.datepicker.submit();">
     <div style="display: none;"><input type="submit" value="absenden" id="datepicker"/></div>
     </form></p>
 
