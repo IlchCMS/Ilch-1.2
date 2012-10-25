@@ -162,7 +162,7 @@ class PwCrypt{  //Achtung beim Übertragen von mit 2a erzeugten Passwörtern auf
      *
      * @param mixed $passwd Klartextpasswort
      * @param mixed $crypted_passwd Hash des Passwortes (aus der Datenbank)
-	 * @param boolean $backup wenn Check fehlschlägt und das alte passwort mit BLOWFISH_OLD verschlüsselt wurde, werden beide Varianten noch einmal explizit geprüft, wenn verfügbar. Nur nach Transfer der Datenbank verwenden, da es ein sicherheitsrisiko darstellen kann
+	 * @param boolean $backup wenn Check fehlschlägt und das alte passwort mit BLOWFISH_OLD verschlüsselt wurde, werden beide Varianten noch einmal explizit geprüft, wenn verfügbar. Nur nach Transfer der Datenbank verwenden, da dies ein Sicherheitsrisiko darstellen kann
      * @return boolean
      */
     public function checkPasswd($passwd, $crypted_passwd, $backup = false) {

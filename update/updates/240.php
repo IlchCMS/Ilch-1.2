@@ -29,6 +29,7 @@ db_query("INSERT INTO `prefix_credits` (
 			);	
 ");
 
+ALT: $rev ist SVN Revisionnummer NEU: $rev ist ein einmaliger key, also z.B. branchname_1
 $rev='239';
 $update_messages[$rev][] = 'Credits erweitert';
 

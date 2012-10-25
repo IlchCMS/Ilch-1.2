@@ -49,7 +49,7 @@ function checkzyklusins($x, $i0, $i1, $i2, $z, $sar) {
     return (false);
 }
 
-function zyklusinsert($sar, $ear, $z, $_POST) {
+function zyklusinsert($sar, $ear, $z) {
     $x = 1;
     $first_id = 0;
     for ($i0 = $sar[ 0 ]; $i0 <= $ear[ 0 ]; $i0++) {

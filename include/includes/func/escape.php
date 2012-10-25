@@ -6,39 +6,62 @@
  */
 defined('main') or die('no direct access');
 
+/**
+ * Wrapper f√ºr stripslashes
+ * @param string $var
+ * @return string
+ */
 function unescape($var) {
-    $var = stripslashes($var);
-    return ($var);
+    return stripslashes($var);
 }
 
-function escape_nickname($t) {
-    $t = preg_replace("/[^a-zA-Z0-9-\[\]\*\ \+=\._\|]/", "", $t);
-    $t = substr($t, 0, 15);
-    $t = escape($t, 'string');
-    return ($t);
+/**
+ * Entfernt ung√ºltige Zeichen aus einem Nutzernamen und k√ºrzt ihn ggf. auf
+ * die maximale L√§nge
+ * @param string $nickname
+ * @return string
+ */
+function escape_nickname($nickname) {
+    return escape(
+        substr(
+            preg_replace("/[^a-zA-Z0-9-\[\]\*\ \+=\._\|]/", '', $nickname),
+            0,
+            15
+        ),
+        'string'
+    );
+}
+/**
+ * Entfernt ung√ºltige Zeichen aus einer E-Mail-Adresse
+ * @param string $email
+ * @param boolean $leerzeichen
+ * @return string
+ */
+function escape_for_email($email, $leerzeichen = false) {
+    $regex = '/\015\012|\015|\012|\072|\074|\076'
+        . ($leerzeichen ? '\040' : '') . '/';
+    return preg_replace($regex, '', $email);
 }
 
-function escape_for_email($t, $leerzeichen = false) {
-    if ($leerzeichen === true) {
-        $t = preg_replace("/\015\012|\015|\012|\072|\074|\076/", "", $t);
-    } else {
-        $t = preg_replace("/\015\012|\015|\012|\072|\074|\076|\040/", "", $t);
-    }
-    return ($t);
+/**
+ * Wrapper f√ºr htmlspecialchars, zur Bearbeitung
+ * von HTML (oder Texten die Sonderzeichen enthalten d√ºrfen)
+ * innerhalb von inputs oder textareas
+ * @param string $string
+ * @return string
+ */
+function escape_for_fields($string) {
+    return htmlspecialchars($string);
 }
 
-function escape_for_fields($t) {
-    // $t = str_replace ('<', '&lt;', str_replace('>', '&gt;', $t));
-    // $t = str_replace ('<', '&lt;', str_replace('>', '&gt;', $t));
-    // $t = str_replace ('<', '&lt;', str_replace('>', '&gt;', $t));
-    // $t = htmlentities($t);
-
-    return ($t);
-}
-
-function escape_email_to_show($str) {
+/**
+ * E-Mail-Adresse zur Ausgabe vorbereiten
+ * @param string $$email
+ * @return string
+ */
+function escape_email_to_show($email) {
     $ret = "";
-    $arr = unpack("C*", $str);
+    $arr = unpack("C*", $email);
     foreach ($arr as $char) {
         $ret .= sprintf("%%%X", $char);
     }
@@ -51,11 +74,11 @@ function escape_email_to_show($str) {
  *
  * @param mixed $var
  * @param string $type [optional] string|integer|textarea|checkbox|form (oder den ersten Buchstaben), string ist Standard
- * f¸r form die Funktion escapeFormToArray anschauen
+ * f√ºr form die Funktion escapeFormToArray anschauen
  * @return mixed escaped input $var oder false, wenn $var nicht gesetzt
  */
 function escape ($var, $type = 's') {
-    if (is_array($var)) { //F¸r Array escape f¸r jeden Eintrag durchf¸hren
+    if (is_array($var)) { //F√ºr Array escape f√ºr jeden Eintrag durchf√ºhren
         $newar = array();
         foreach ($var as $key => $val){
             $newar[$key] = escape($val, $type);
@@ -100,11 +123,11 @@ function escape ($var, $type = 's') {
 }
 
 /**
- * Funktion um Formulardaten zu escapen und f¸r das Eintragen in die Datenbank vorzubereiten
+ * Funktion um Formulardaten zu escapen und f√ºr das Eintragen in die Datenbank vorzubereiten
  *
  * @param array $ar Array mit den Formularfeldern und deren vorgesehen Inhalt in Form
  * array('integer_feld' => 'i', 'string_feld' => 's', 'textarea_feld' => 't', 'checkbox_feld' => 'c')
- * falls der Key ein integer ist, wird er nicht ber¸cksichtig, value wird als string escaped
+ * falls der Key ein integer ist, wird er nicht ber√ºcksichtig, value wird als string escaped
  * @return array Array mit den escapeten Felder aus dem Formular
  */
 function escapeFormToArray($ar, $form = null) {
@@ -124,9 +147,9 @@ function escapeFormToArray($ar, $form = null) {
 
 /**
  * getClearArray()
- * erzeugt ein "leeres" Array f¸r die Templateausgabe, f¸r ein Eingabearray vom Typ f¸r escapeFormToArray
+ * erzeugt ein "leeres" Array f√ºr die Templateausgabe, f√ºr ein Eingabearray vom Typ f√ºr escapeFormToArray
  *
- * @param array $ar Array mit Schl¸sselnamen f¸r das neue "leere" Array
+ * @param array $ar Array mit Schl√ºsselnamen f√ºr das neue "leere" Array
  * @return array
  */
 function getClearArray($ar) {
@@ -147,8 +170,8 @@ function getClearArray($ar) {
  * @param string $table Tabellenname in der Datenbank, wohin eingetragen werden soll
  * @param array $ar Array mit Feldnamen und Inhalt, der in die Datenbank eingetragen werden soll
  *                           array('feldname' => 'inhalt',...)
- * @param string $where (optional) Updatebedingung, wenn angegeben, wird ein UPDATE mit dieser Bedingung durchgef¸hrt
- *                           ansonsten wird ein INSERT durchgef¸hrt
+ * @param string $where (optional) Updatebedingung, wenn angegeben, wird ein UPDATE mit dieser Bedingung durchgef√ºhrt
+ *                           ansonsten wird ein INSERT durchgef√ºhrt
  * @param array $ar2 Array mit Feldnamen aus Eingabearray, die nicht mit in die Datenbank eingetragen werden sollen
  * @return bool Eintrag war erfolgreich
  */
@@ -168,11 +191,11 @@ function arrayToDb($table, $ar, $where = '', $ar2 = array()) {
 
 /**
  * allRowsFromQuery()
- * Gibt ein Array mit allen Datens‰tzen einer Abfrage
+ * Gibt ein Array mit allen Datens√§tzen einer Abfrage
  *
  * @param string $qry MySQL Query
- * @paran string $key [optional] Gibt die f¸r die Arraykeys eine Spalte der Abfrage anzugeben
- * @return array Array mit allen Datens‰tzen der Query
+ * @paran string $key [optional] Gibt die f√ºr die Arraykeys eine Spalte der Abfrage anzugeben
+ * @return array Array mit allen Datens√§tzen der Query
  */
 function allRowsFromQuery($qry, $key = false) {
     $sql = db_query($qry);
@@ -194,7 +217,7 @@ function allRowsFromQuery($qry, $key = false) {
 
 /**
  * simpleArrayFromQuery()
- * Gibt Array mit den beiden ersten beiden Feldern des Ergebnisses als index und wert zur¸ck
+ * Gibt Array mit den beiden ersten beiden Feldern des Ergebnisses als index und wert zur√ºck
  * Wenn nur ein Feld angegeben ist, wird es als Wert benutzt
  *
  * @param string $qry SQL-Query
@@ -202,31 +225,31 @@ function allRowsFromQuery($qry, $key = false) {
  */
 function simpleArrayFromQuery($qry){
     $sql = db_query($qry);
-    $fields = mysql_num_fields($sql) > 1 ? true : false;
     $out = array();
     if ($sql) {
-        while ($r = db_fetch_row($sql)) {
-            if ($fields) {
+        if (mysql_num_fields($sql) > 1) {
+            while ($r = db_fetch_row($sql)) {
                 $out[$r[0]] = $r[1];
-            } else {
-                $out[] = $r[1];
             }
-
+        } else {
+            while ($r = db_fetch_row($sql)) {
+                $out[] = $r[0];
+            }
         }
     }
     return $out;
 }
 
 /**
- * validInt() pr¸ft ob die Eingabe eine ganze Zahl ist und gibt diese als int zur¸ck,
+ * validInt() pr√ºft ob die Eingabe eine ganze Zahl ist und gibt diese als int zur√ºck,
  * oder false falls es keine war
  *
  * @param string $string Eingabe
  * @return int |boolean
  */
 function validInt($string) {
-    if (preg_match('%^\d+$%', trim($string)) == 1) {
-        return intval($string);
+    if (is_int($string) || ctype_digit($string)) {
+        return (int) $string;
     } else {
         return false;
     }
@@ -234,7 +257,7 @@ function validInt($string) {
 
 /**
  * validGermanDate()
- * pr¸ft ein String auf ein deutsches Format und gibt das englische Datumsformat zur¸ck oder false
+ * pr√ºft ein String auf ein deutsches Format und gibt das englische Datumsformat zur√ºck oder false
  *
  * @param string $string deutsches Datum
  * @return string |boolean englisches Datum oder false
