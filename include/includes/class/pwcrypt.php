@@ -16,17 +16,18 @@ mt_srand();
  */
 class PwCrypt{  //Achtung beim Übertragen von mit 2a erzeugten Passwörtern auf einen anderen PC, dort kann es uU Passieren, das eine Authentifikation nicht mehr möglich ist. Versuche dann bitte 2x bzw 2y
     //Konstanten für den Zufallszahlen Generator
-    const LETTERS = 1;	//0001
-    const NUMBERS = 2;	//0010
-	const FOR_ULR = 7;	//0111
+    const LETTERS = 1;				//0001
+    const NUMBERS = 2;				//0010
+	const ALPHA_NUM = 3; 			//0011
+    const URL_CHARACTERS = 4; 		//0100
+    const FOR_ULR = 7;				//0111
     const SPECIAL_CHARACTERS = 8;	//1000
-
 
     //Konstanten für die Verschlüsselung
     const MD5 = '1';
     const BLOWFISH_OLD = '2a'; //2a liefert auf einigen System fehlerhafte Ergebnisse. Wenn verfügbar leiber 2x verwenden
-	const BLOWFISH = '2x';
-	const BLOWFISH_FALSE = '2y';
+	const BLOWFISH = '2y';
+	const BLOWFISH_FALSE = '2x';
     const SHA256 = '5';
     const SHA512 = '6';
 
@@ -41,7 +42,7 @@ class PwCrypt{  //Achtung beim Übertragen von mit 2a erzeugten Passwörtern auf
             $this->hashAlgorithm = $lvl;
         }
 		
-		//Wenn 2a gewählt aber 2x verfügbar: nutze trotzdem 2x, da dies sicherer ist; wenn 2x oder 2y gewählt, aber nicht verfügbar, nutze 2a
+		//Wenn 2a gewählt aber 2y verfügbar: nutze trotzdem 2y, da dies sicherer ist; wenn 2x oder 2y gewählt, aber nicht verfügbar, nutze 2a
 		if(version_compare(PHP_VERSION, '5.3.5', '<') && ($this->hashAlgorithm == self::BLOWFISH || $this->hashAlgorithm == self::BLOWFISH_FALSE){
 			$this->hashAlgorithm == self::BLOWFISH_OLD;
 		}elseif(version_compare(PHP_VERSION, '5.3.5', '>=') && $this->hashAlgorithm == self::BLOWFISH_OLD){
@@ -78,14 +79,13 @@ class PwCrypt{  //Achtung beim Übertragen von mit 2a erzeugten Passwörtern auf
             $pool .='0123456789';
         }
 
-		if($chars & 4){	//In URLs sind nicht alle zeichen erlaubt
-            $pool .= '.';
+		if($chars & (self::URL_CHARACTERS | self::SPECIAL_CHARACTERS)){	//in einer URL nicht reservierte Zeichen
+            $pool .= '-_.~';
         }
 
-        if($chars & self::SPECIAL_CHARACTERS){
-            $pool .= ',.-;:_#+*~!$%&/()=?';
+        if($chars & self::SPECIAL_CHARACTERS){ //restiliche Sonderzeichen 
+            $pool .= '!#$%&()*+,/:;=?@[]';
         }
-
 
         $pool = str_shuffle($pool);
         $pool_size = strlen($pool);
@@ -182,10 +182,10 @@ class PwCrypt{  //Achtung beim Übertragen von mit 2a erzeugten Passwörtern auf
         } else {
 			if($backup == true
 				&& version_compare(PHP_VERSION, '5.3.5', '>=')
-				&& substr($hash,0,4) == '$2a$'
+				&& substr($crypted_passwd,0,4) == '$2a$'
 			){
-				$password_x = '$2x$'.substr($hash,4);
-				$password_y = '$2y$'.substr($hash,4);
+				$password_x = '$2x$'.substr($crypted_passwd,4);
+				$password_y = '$2y$'.substr($crypted_passwd,4);
 				$password_neu_x = crypt($passwd, $password_x);
 				$password_neu_y = crypt($passwd, $password_y);
 				if($password_neu_x == $password_x || $password_neu_y == $password_y) return true;
