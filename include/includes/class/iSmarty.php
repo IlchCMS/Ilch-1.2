@@ -4,7 +4,7 @@
  * @copyright (C) 2000-2010 ilch.de
  * @version $Id$
  */
-require 'include/includes/libs/smarty/Smarty.class.php';
+require_once 'include/includes/libs/smarty/Smarty.class.php';
 
 /**
  * iSmarty
