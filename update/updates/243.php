@@ -5,7 +5,7 @@
  * @version $Id
 */
 
-db_query("UPDATE `prefix_loader` SET `file` = 'pwcrypt.php' fiel='passwdcrypt.php'");
+db_query("UPDATE `prefix_loader` SET `file` = 'pwcrypt.php' WHERE `file` = 'passwdcrypt.php' ");
 
 $rev='243';
 $update_messages[$rev][] = 'Update der Passwortklasse.';
