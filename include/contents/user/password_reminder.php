@@ -19,8 +19,8 @@ if (isset($_POST[ 'email' ])) {
     if (db_num_rows($erg) == 1) {
         $row = db_fetch_assoc($erg);
 
-		$crypt = new PasswdCrypt();
-        $new_pass = PasswdCrypt::getRndString(8);
+		$crypt = new PwCrypt();
+        $new_pass = PwCrypt::getRndString(8);
 		$crypted_pass = $crypt->cryptPasswd($new_pass);
 		
         $id = md5(uniqid(rand()));

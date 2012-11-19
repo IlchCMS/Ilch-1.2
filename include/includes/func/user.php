@@ -5,13 +5,15 @@
  * @copyright (C) 2000-2010 ilch.de
  * @version $Id$
  */
-// hier werden alle user spezifischen funktionen
-// definert..
-function user_identification($m)
+/**
+ * Authentifiziert den Benutzer, legt die Rechte fest und aktualisiert Datenbankeinträge zum Onlinestatus
+ * @param string $menuComplete QueryString (menu::get_complete()) des Seitenaufrufs
+ */
+function user_identification($menuComplete)
 {
     user_auth();
     user_login_check();
-    user_update_database($m);
+    user_update_database($menuComplete);
     user_check_url_rewrite();
 }
 
@@ -53,24 +55,24 @@ function user_check_url_rewrite()
 /**
  * Setzt Aufenthaltsort und Zeit des Seitenaufrufs des Benutzers in der Datenbank
  * @global array $allgAr
- * @param string $m
+ * @param string $menuComplete QueryString des Seitenaufrufs
  */
-function user_update_database($m)
+function user_update_database($menuComplete)
 {
     $dif = date('Y-m-d H:i:s', time() - 7200);
     global $allgAr;
-    if (empty($m)) {
-        $m = $allgAr['smodul'] . ' (Startseite)';
+    if (empty($menuComplete)) {
+        $menuComplete = $allgAr['smodul'] . ' (Startseite)';
     }
     db_query(
         'UPDATE `prefix_online` SET `uptime` = "' . date('Y-m-d H:i:s') . '",'
-        . '`content` = "' . $m . '"  WHERE `sid` = "' . session_id() . '"'
+        . '`content` = "' . $menuComplete . '"  WHERE `sid` = "' . session_id() . '"'
     );
 
     if (function_exists('content_stats')) {
-        content_stats($m);
+        content_stats($menuComplete);
     }
-    debug('"' . $m . '" als Aufenthaltsort erkannt');
+    debug('"' . $menuComplete . '" als Aufenthaltsort erkannt');
     db_query('DELETE FROM `prefix_online` WHERE `uptime` < "' . $dif . '"');
     if (loggedin()) {
         db_query("UPDATE `prefix_user` SET `llogin` = '" . time() . "' WHERE `id` = '" . $_SESSION['authid'] . "'");
@@ -128,7 +130,7 @@ function user_login_check($auto = false)
     global $allgAr, $menu;
     $formpassed = false;
     $cn = session_und_cookie_name();
-    $crypt = new PasswdCrypt();
+    $crypt = new PwCrypt();
 
     if (isset($_POST['user_login_sub']) and isset($_POST['email']) and isset($_POST['pass'])) {
         debug('posts vorhanden');
@@ -187,7 +189,7 @@ function user_login_check($auto = false)
             db_query('UPDATE `prefix_online` SET `uid` = ' . $_SESSION['authid'] . ' WHERE `sid` = "' . session_id() . '"');
             // Falls noch einfaches MD5 in DB, den neuen Hash erstellen und in die Datenbank schreiben,
             // bei Cookie dieses Löschen, um den User zum Login mit Passwort zu zwingen
-            if (!PasswdCrypt::isCryptHash($row['pass'])) {
+            if (!PwCrypt::isCryptHash($row['pass'])) {
                 if ($auto) {
                     user_remove_cookie();
                 } else {
@@ -427,7 +429,7 @@ function user_regist($name, $mail, $pass)
 {
     global $allgAr, $lang;
 
-    $crypt = new PasswdCrypt();
+    $crypt = new PwCrypt();
 
     $name_clean = get_lower($name);
     $erg = db_query("SELECT `id` FROM `prefix_user` WHERE `name_clean` = BINARY '" . $name_clean . "'");
@@ -440,9 +442,9 @@ function user_regist($name, $mail, $pass)
     if (db_num_rows($erg) > 0) {
         return (false);
     }
-
-    if ($allgAr['forum_regist_user_pass'] == 0) {
-        $new_pass = PasswdCrypt::getRndString(8, WITH_NUMBERS | WITH_SPECIAL_CHARACTERS);
+	
+    if ($allgAr[ 'forum_regist_user_pass' ] == 0) {
+        $new_pass = PwCrypt::getRndString(8, PwCrypt::LETTERS| PwCrypt::NUMBERS | PwCrypt::SPECIAL_CHARACTERS);
     } else {
         $new_pass = $pass;
     }
