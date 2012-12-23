@@ -1,0 +1,11 @@
+<?php
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2012 ilch.de
+ * @version $Id
+*/
+
+db_query("ALTER TABLE `prefix_koms` ADD COLUMN `userid` int(10) unsigned NOT NULL AFTER `name`");
+
+$rev='244';
+$update_messages[$rev][] = 'Fahler beim Eintragen von Kommentaren behoben.';
