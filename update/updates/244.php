@@ -9,4 +9,4 @@ db_query("ALTER TABLE `prefix_koms` ADD COLUMN `userid` int(10) unsigned NOT NUL
 db_query("ALTER TABLE `prefix_koms` ADD COLUMN `time` int(11) NOT NULL AFTER `cat`");
 
 $rev='244';
-$update_messages[$rev][] = 'Fahler beim Eintragen von Kommentaren behoben.';
+$update_messages[$rev][] = 'Fehler beim Eintragen von Kommentaren behoben.';
