@@ -114,7 +114,7 @@ class PwCrypt
      */
     public static function isCryptHash($hash)
     {
-        return (preg_match('/^$([156]|2[axy])\$/', $hash) === 1);
+        return (preg_match('/^\$([156]|2[axy])\$/', $hash) === 1);
     }
 
     /**
