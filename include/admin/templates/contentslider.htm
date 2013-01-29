@@ -1,0 +1,79 @@
+<a href="admin.php?contentslider" class="sliderbutton">Zur&uuml;ck</a>
+<br style="clear:both;" />
+<table width="100%">
+    <tr>
+        <td valign="top" width="60%">
+            <form action="admin.php?contentslider-post" enctype="multipart/form-data" method="post">
+                {ANTISPAM}
+                <input type="hidden" name="pkey" value="{pkey}">
+                <input type="hidden" name="action" value="{action}">
+                <table class="border" cellpadding="3" cellspacing="1" border="0">
+                    <tr class="Chead">
+                        <td colspan="2"><b>{head}</b></td>
+                    </tr><tr>
+                        <td width="150" class="Cmite">Titel</td>
+                        <td class="Cnorm"><input type="text" size="100" maxlength="100" name="name" value="{name}" /></td>
+                    </tr><tr>
+                        <td class="Cmite">Banner</td>
+                        <td class="Cnorm">{img}<input size="30" name="imgbig_file" type="file" /></td>
+                    </tr><tr>
+                        <td class="Cmite">Link</td>
+                        <td class="Cnorm"><input type="text" size="100" name="link" value="{link}" /></td>
+                    </tr><tr>
+                        <td class="Cmite">Linkziel</td>
+                        <td class="Cnorm">
+                            <input type="radio" value="_self" id="target1" name="target" {target1} /><label for="target1"> selbe Seite </label>
+                            <input type="radio" value="_blank" id="target2" name="target" {target2} /><label for="target2"> neues Fenster </label>
+                        </td>
+                    </tr><tr>
+                        <td class="Cmite">Status</td>
+                        <td class="Cnorm"><input type="checkbox" name="status" {_if_{status}=='1'}checked="checked"{/_endif} id="status" value="1" /><label for="status"> Aktiv/Inaktiv</label></td>
+                    </tr><tr class="Cdark">
+                        <td></td>
+                        <td><input class="sub" type="submit" value="{atc}" name="sub" /></td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+</table>
+
+{EXPLODE}
+
+<script language="JavaScript" type="text/javascript">
+    <!--
+    function delcheck(id, name) {
+        var frage = confirm ( unescape ( "Willst%20du%20"+name+"%20wirklich%20l%F6schen%3F" ) );
+        if ( frage == true ) {
+            document.location.href="?contentslider-del-"+id;
+        }
+    }
+    //-->
+</script>
+
+<a href="admin.php?contentslider-post" class="sliderbutton">Neuer Eintrag</a>
+<br style="clear:both;" />
+<table width="800" border="0" cellpadding="3" cellspacing="1" class="border">
+    <tr class="Chead">
+        <td width="50" align="center" colspan="2">Position</td>
+        <td width="50" align="center">Status</td>
+        <td width="50" align="center">Löschen</td>
+        <td width="50" align="center">Edit</td>
+        <td width="600" align="left">Name</td>
+    </tr>
+
+    {EXPLODE}
+
+    <tr class="{class}">
+        <td width="25" align="center"><a href="?contentslider-o{id}-{pos}"><img src="include/images/icons/pfeilo.gif" border="0" title="oben" alt="oben"></a></td>
+        <td width="25" align="center"><a href="?contentslider-u{id}-{pos}"><img src="include/images/icons/pfeilu.gif" border="0" title="unten" alt="unten"></a></td>
+        <td width="50" align="center"><a href="admin.php?contentslider-show-{id}">{_if_{status}=='1'}<img src="include/images/icons/jep.gif" alt="aktiv" title="aktiv" border="0" />{_else_}<img src="include/images/icons/nop.gif" alt="inaktiv" title="inaktiv" border="0" />{/_endif}</a></td>
+        <td width="50" align="center"><a href="javascript:delcheck('{id}','{name}')"><img src="include/images/icons/del.gif" alt="l&ouml;schen" title="l&ouml;schen" border="0"></a></td>
+        <td width="50" align="center"><a href="?contentslider-post-e{id}"><img src="include/images/icons/edit.gif" alt="ver&auml;ndern" title="ver&auml;ndern" border="0"></a></td>
+        <td width="600" align="left">{name}</td> 
+    </tr>
+
+    {EXPLODE}
+
+</table>
+{MPL}

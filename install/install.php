@@ -103,6 +103,7 @@ function getInstallprofileComment($file) {
             </tr>
             <input type="hidden" name="selectinstallsql" id="selectinstallsql" value="<?php echo $_POST['selectinstallsql']; ?>" />
     <?php
+
 // PHP Compare
     $servercheck['php_compare']['msg'] = 'PHP-Version 5.2.3 oder besser';
     if (@version_compare(@phpversion(), '5.2.3') != -1) {
@@ -122,6 +123,7 @@ function getInstallprofileComment($file) {
             #if (function_exists('ini_set')) { ini_set("pcre.recursion_limit", "524"); }
         }
     }
+
 // mySQL Server/Client-Check
     $servercheck['sql_compare']['msg'] = 'SQL 5.0.7 oder besser';
 
@@ -163,6 +165,7 @@ function getInstallprofileComment($file) {
         $servercheck['configphp']['erg'] = '<font color="#FF0000"><b>FEHLER</b></font>';
         $servercheck['err'] = TRUE;
     }
+
 // smarty-cache
     $servercheck['smarty/cache']['msg'] = '"../include/cache" (CHMOD 777)';
     if (@is_writeable('../include/cache')) {
@@ -171,6 +174,7 @@ function getInstallprofileComment($file) {
         $servercheck['smarty/cache']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
         $servercheck['err'] = TRUE;
     }
+
 // backup-verzeichnis
     $servercheck['backup_dir']['msg'] = '"../include/backup/" (CHMOD 777)';
     if (@is_writeable('../include/backup')) {
@@ -179,6 +183,7 @@ function getInstallprofileComment($file) {
         $servercheck['backup_dir']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
         $servercheck['err'] = TRUE;
     }
+
 // selfpb
     $servercheck['selfbp/selfp']['msg'] = '"../include/contents/selfbp/selfp" (CHMOD 777)';
     if (@is_writeable('../include/contents/selfbp/selfp')) {
@@ -187,6 +192,7 @@ function getInstallprofileComment($file) {
         $servercheck['selfbp/selfp']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
         $servercheck['err'] = TRUE;
     }
+
 // selfpb
     $servercheck['selfbp/selfb']['msg'] = '"../include/contents/selfbp/selfb" (CHMOD 777)';
     if (@is_writeable('../include/contents/selfbp/selfb')) {
@@ -204,6 +210,7 @@ function getInstallprofileComment($file) {
         $servercheck['images/linkus']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
         $servercheck['err'] = TRUE;
     }
+
 // images/avatars
     $servercheck['images/avatar']['msg'] = '"../include/images/avatars" (CHMOD 777)';
     if (@is_writeable('../include/images/avatars')) {
@@ -212,6 +219,7 @@ function getInstallprofileComment($file) {
         $servercheck['images/avatar']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
         $servercheck['err'] = TRUE;
     }
+
 // images/opponents
     $servercheck['images/opponents']['msg'] = '"../include/images/opponents" (CHMOD 777)';
     if (@is_writeable('../include/images/opponents')) {
@@ -220,6 +228,7 @@ function getInstallprofileComment($file) {
         $servercheck['images/opponents']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
         $servercheck['err'] = TRUE;
     }
+
 // images/gallery
     $servercheck['images/gallery']['msg'] = '"../include/images/gallery" (CHMOD 777)';
     if (@is_writeable('../include/images/gallery')) {
@@ -228,6 +237,7 @@ function getInstallprofileComment($file) {
         $servercheck['images/gallery']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
         $servercheck['err'] = TRUE;
     }
+
 // images/smilies
     $servercheck['images/smiles']['msg'] = '"../include/images/smiles" (CHMOD 777)';
     if (@is_writeable('../include/images/smiles')) {
@@ -245,9 +255,19 @@ function getInstallprofileComment($file) {
         $servercheck['images/usergallery']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
         $servercheck['err'] = TRUE;
     }
+
 // images/wars
     $servercheck['images/wars']['msg'] = '"../include/images/wars" (CHMOD 777)';
     if (@is_writeable('../include/images/wars')) {
+        $servercheck['images/wars']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
+    } else {
+        $servercheck['images/wars']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
+        $servercheck['err'] = TRUE;
+    }
+
+// images/contentslider
+    $servercheck['images/wars']['msg'] = '"../include/images/contentslider" (CHMOD 777)';
+    if (@is_writeable('../include/images/contentslider')) {
         $servercheck['images/wars']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
     } else {
         $servercheck['images/wars']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
@@ -271,6 +291,7 @@ function getInstallprofileComment($file) {
         $servercheck['downs/downloads/user_upload']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
         $servercheck['err'] = TRUE;
     }
+
 // .htaccess
     $servercheck['htaccess']['msg'] = '"../.htaccess" (CHMOD 777)';
     if (@is_writeable('../.htaccess')) {

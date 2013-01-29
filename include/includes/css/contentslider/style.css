@@ -1,0 +1,134 @@
+@charset "utf-8";
+
+/* Bildvorschau CSS-Tooltip */
+a.slidertip {
+    text-decoration:none;
+}
+.slidertip span.sliderbanner {
+    display:none;
+}
+.slidertip:hover span.sliderbanner {
+    display:block;
+    position:absolute;
+    width:auto;
+    height:auto;
+    margin-top:15px;
+    margin-left:-15px;
+}
+
+/* Button im Adminbereich */
+.sliderbutton {
+    float:left; 
+    margin:2px 4px 4px 0;
+    padding:4px 10px; 
+    height:auto; 
+    text-align:center; 
+    font-weight:bold; 
+    color:#738792;
+    border:1px solid #cbd8de; 
+    text-decoration:none; 
+    background:#f2f9ff;
+    -moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;
+}
+.sliderbutton:hover {
+    background:#EEE;
+}
+.sliderbutton img {
+    position:absolute;
+    margin-top:-1px;
+    margin-left:-18px;	
+}
+
+/* Container des Sliders */
+#contentslider {
+    margin:0 auto;
+    margin-bottom:15px;
+}
+ul.bjqs {
+    position:relative; 
+    list-style:none;
+    padding:0;
+    margin:0;
+    overflow:hidden; 
+    display:none;
+}
+li.bjqs-slide {
+    position:absolute; 
+    display:none;
+}
+
+/* Next/Prev Button */
+ul.bjqs-controls {
+    font:14px Tahoma, Geneva, sans-serif;
+    list-style:none;
+    margin:0;
+    padding:0;
+    z-index:9999;
+}
+ul.bjqs-controls.v-centered li a {
+    position:absolute;
+    display:block;
+    padding:15px 4px;
+    background:rgba(0,0,0,0.6);
+    color:#fff;
+    text-decoration:none;
+}
+ul.bjqs-controls.v-centered li a:hover {
+    background:rgba(255,255,255,0.6);
+    color:#000;
+}
+ul.bjqs-controls.v-centered li.bjqs-next a {
+    right:0;
+    -webkit-border-top-left-radius:5px; -webkit-border-bottom-left-radius:5px;
+    -moz-border-radius-topleft:5px; -moz-border-radius-bottomleft:5px;
+    border-top-left-radius:5px; border-bottom-left-radius:5px;
+}
+ul.bjqs-controls.v-centered li.bjqs-prev a {
+    left:0;
+    -webkit-border-top-right-radius:5px; -webkit-border-bottom-right-radius:5px;
+    -moz-border-radius-topright:5px; -moz-border-radius-bottomright:5px;
+    border-top-right-radius:5px; border-bottom-right-radius:5px;
+}
+
+/* Bildnummern */
+ol.bjqs-markers {
+    position:absolute;
+    font:10px Tahoma, Geneva, sans-serif;
+    list-style:none; 
+    padding:0; 
+    margin:0; 
+    width:100%;
+    top:0px;
+}
+ol.bjqs-markers.h-centered {
+    text-align:center;
+}
+ol.bjqs-markers li {
+    display:inline;
+}
+ol.bjqs-markers li a {
+    display:inline-block;
+    padding:1px 20px;
+    background:rgba(0,0,0,0.6);
+    color:#fff;
+    margin:0px 1px;
+    text-decoration:none;
+}
+ol.bjqs-markers li.active-marker a,
+ol.bjqs-markers li a:hover {
+    background:rgba(255,255,255,0.6);
+    color:#000;
+}
+
+/* Titelanzeige */
+p.bjqs-caption {
+    position:absolute;
+    display:block;
+    font:12px Tahoma, Geneva, sans-serif;
+    width:98%;
+    margin:0;
+    padding:1%;
+    bottom:0;
+    background:rgba(0,0,0,0.6);
+    color:#fff;
+}
