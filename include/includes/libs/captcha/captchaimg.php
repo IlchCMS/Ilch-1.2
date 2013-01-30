@@ -1,27 +1,29 @@
 <?php
-# www.ilch.de
-# Author: T0P0LIN0                                                     
-# thanks to uwe slick! http://www.deruwe.de/captcha.html - his thoughts
+/**
+ * Captcha für www.ilch.de
+ * @author T0P0LIN0
+ * thanks to uwe slick! http://www.deruwe.de/captcha.html - his thoughts
+ */
 date_default_timezone_set('Europe/Berlin');
 
 include 'captcha.php';
 include 'settings.php';
 $captcha = new Captcha();
 
+$captcha->setUseRandomColors($useRandomColors);
+$captcha->setImageWidth($imagewidth);
+$captcha->setImageHeight($imageheight);
+$captcha->setFontSize($fontsize);
+$captcha->setBackgroundIntensity($bgintensity);
+$captcha->setFontType($bgfonttype);
+$captcha->setPassPhraselenght($passphraselenght);
+$captcha->enableScratches($scratches);
+$captcha->setScratchesAmount($scratchamount);
+$captcha->setMinMaxSize($minsize, $maxsize);
+$captcha->setShowgrid($addagrid);
+$captcha->setAngle($angle);
+$captcha->setShowColoredLines($addhorizontallines);
 
-$captcha->setUseRandomColors( $useRandomColors );
-$captcha->setImageWidth( $imagewidth );
-$captcha->setImageHeight( $imageheight );
-$captcha->setFontSize( $fontsize );
-$captcha->set_background_intensity( $bgintensity );
-$captcha->set_font_type( $bgfonttype );
-$captcha->setPassPhraselenght( $passphraselenght );
-$captcha->enable_scratches( $scratches );
-$captcha->set_scratches_amount( $scratchamount );
-$captcha->set_minmax_size( $minsize, $maxsize );
-$captcha->set_showgrid( $addagrid );
-$captcha->set_angle( $angle );
-$captcha->set_showcoloredlines( $addhorizontallines );
-$captcha->displayImage();
+$captchaId = isset($_GET['id']) ? $_GET['id'] : 'alwaysWrong';
 
-?>
+$captcha->displayImage($captchaId);
