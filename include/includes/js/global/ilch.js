@@ -1,14 +1,14 @@
 //Activate console for Firebug and other Browsers
 if (window['loadFirebugConsole']) {
-	window.loadFirebugConsole();
+    window.loadFirebugConsole();
 } else {
-	if (!window['console']) {
-		window.console = {};
-		window.console.info = alert;
-		window.console.log = alert;
-		window.console.warn = alert;
-		window.console.error = alert;
-	}
+    if (!window['console']) {
+        window.console = {};
+        window.console.info = alert;
+        window.console.log = alert;
+        window.console.warn = alert;
+        window.console.error = alert;
+    }
 }
 
 //ic Objekt, für ilch eigene Funktionen, um Konflikte zu vermeiden
@@ -26,7 +26,9 @@ var ic = {}
 ic.loadFileData = {};
 ic.loadFile = function(options) {
     if (typeof options == 'string') {
-        options = {file: options};
+        options = {
+            file: options
+        };
     }
     var settings = {
         file: null,     //Dateiname des zu ladenden Datei
@@ -83,7 +85,9 @@ ic.loadFile = function(options) {
             });
         } else if (settings.type == 'css') {
             var ncss = $('<link type="text/css" rel="stylesheet" href="' + file + '" />');
-            if (typeof settings.onload == 'function') ncss.load(settings.onload);
+            if (typeof settings.onload == 'function') {
+                ncss.load(settings.onload);
+            }
             $(document.head).append(ncss);
         }
     } else if (settings.onload != null && typeof settings.onload == 'function') {
@@ -155,7 +159,9 @@ ic.modalDialogClose = function() {
 // 2. Parameter gibt im Falle von ajaxelement und ajaxbox die ElementId des neugeladenen Containers
 
 //Array in das man Funktionen einhängen kann die bei DocumentReady und Ajaxreload aufgerufen werden
-ic.documentReadyFuncs = {count: 0};
+ic.documentReadyFuncs = {
+    count: 0
+};
 ic.documentReadyAdd = function(func) {
     if ($.isFunction(func) && $.inArray(func, ic.documentReadyFuncs) == -1) {
         var type = 'both';
@@ -195,7 +201,9 @@ ic.documentReady = function() {
 */
 ic.Ajaxload = function(options) {
     if (typeof options == 'string') {
-        options = {url: options};
+        options = {
+            url: options
+        };
     }
     var settings = {
         url: '',        //Url von wo Inhalt geladen wird z.B. index.php?forum
@@ -204,12 +212,12 @@ ic.Ajaxload = function(options) {
         postData: null, //Parameter für einen POST Aufruf, Object {name:value, name2:value2, ...} (wie Formular mit method="post")
         onload: null,    //Funktion die nach dem Laden aufgerufen wird
         showLoading: false, //Wenn true dann wird loadingContent im Container während des Ladens angezeigt
-        loadingContent: '<img src="include/images/icons/ajax-loader-arrows.gif" />', //Wenn gesetzt wird dies als Inhalt während des Ladens angezeigt
+        loadingContent: '<img src="include/images/icons/ajax-loader-arrows.gif" />' //Wenn gesetzt wird dies als Inhalt während des Ladens angezeigt
     };
     $.extend(settings, options);
     if (settings.showLoading) {
         var destEl = (settings.elementId != undefined && settings.elementId != '') ?
-            $('#'+settings.elementId) : $('#icContent');
+        $('#'+settings.elementId) : $('#icContent');
         destEl.html(settings.loadingContent);
     }
     $.ajax({
@@ -218,10 +226,14 @@ ic.Ajaxload = function(options) {
         type: settings.postData ? 'POST' : 'GET',
         data: settings.postData,
         success: function(data) {
-            if (!data || !data.content) return;
+            if (!data || !data.content) {
+                return;
+            }
             if (settings.elementId != undefined && settings.elementId != '') {
                 $('#' + settings.elementId).html(data.content);
-                if (settings.type != 'box') settings.type = 'element';
+                if (settings.type != 'box') {
+                    settings.type = 'element';
+                }
                 ic.documentReady('ajax' + settings.type, settings.elementId);
             } else {
                 document.title = data.title;
@@ -231,7 +243,9 @@ ic.Ajaxload = function(options) {
                 $('#icContent').html(data.content);
                 ic.documentReady('ajaxcontent');
             }
-            if (settings.onload) settings.onload();
+            if (settings.onload) {
+                settings.onload();
+            }
         }
     });
 }
@@ -259,7 +273,9 @@ $.fn.icAjaxload = function(options) {
         var tag = this.tagName.toLowerCase();
         if (tag == 'a') {
             $(this).click(function() {
-                ic.Ajaxload($.extend({url:$(this).attr('href')}, options));
+                ic.Ajaxload($.extend({
+                    url:$(this).attr('href')
+                    }, options));
                 return false;
             });
         } else if (tag == 'form') {
@@ -282,14 +298,19 @@ Bsp : ic.Alert('Dies ist ein Satz, den man erst wegklicken muss');
 */
 ic.Alert = function(options) {
     if (typeof options == 'string') {
-        options = {content: options};
+        options = {
+            content: options
+        };
     }
+    var interval, closemsg;
     var settings = {
         height: 200,
         title: 'Modal Dialog',
         buttons: {
             'OK': function () {
-                if (int != undefined) window.clearInterval(int);
+                if (interval != undefined) {
+                    window.clearInterval(interval);
+                }
                 $(this).dialog('close');
             }
         },
@@ -303,7 +324,9 @@ ic.Alert = function(options) {
     $.extend(settings, options);
 
     if (settings.symbol == 'alert') {
-        if (options.title == undefined) settings.title = 'Alert';
+        if (options.title == undefined) {
+            settings.title = 'Alert';
+        }
         settings.content = '<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>' + settings.content;
     }
 
@@ -311,7 +334,7 @@ ic.Alert = function(options) {
 
     if (settings.autoclose !== false) {
         closemsg = 'Meldung schließt sich in <span class="timercount">'+settings.autoclose+'</span> Sekunden';
-        var int = window.setInterval(function() {
+        interval = window.setInterval(function() {
             var s = $('span.timercount', div);
             var n = Number(s.html());
             if (n > 0) {
@@ -322,7 +345,7 @@ ic.Alert = function(options) {
                 } else {
                     $(div).dialog('close');
                 }
-                window.clearInterval(int);
+                window.clearInterval(interval);
             }
         }, 1000);
     }

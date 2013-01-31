@@ -1,70 +1,77 @@
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#tabs").tabs();
-		$('img.helpimg').hover(function() {
+    $(document).ready(function() {
+        var chosenTab = $('#chosenTab');
+        $("#tabs").tabs({
+            activate: function(e, ui) {
+                chosenTab.val(ui.newPanel.attr('id'));
+            }
+        });
+        $('img.helpimg').hover(function() {
             $helpdialog.html($(this).next('div').html());
-            var p = $(this).offset();
             $helpdialog.dialog('option', {
-                position: [p.left + 25, p.top]
+                position: {my: 'left', at: 'right', of: this}
             });
             $helpdialog.dialog('open');
-		}, function() {
-		    $helpdialog.dialog('close');
-		}).css('float', 'right');
-		$helpdialog = $('<div />').dialog({
-		    autoOpen: false,
-			title: 'Info',
-			resizable: false,
-			width: 338
-	    });
+        }, function() {
+            $helpdialog.dialog('close');
+        }).css('float', 'right');
+        $helpdialog = $('<div />')
+            .appendTo(document.body)
+            .dialog({
+                autoOpen: false,
+                title: 'Info',
+                resizable: false,
+                width: 338
+            });
 
-	    $("div#con_menu").hide();
-	    // die breite des inhalts auf 94% setzen
-	    set_width(94);
-	});
+        $("div#con_menu").hide();
+        // die breite des inhalts auf 94% setzen
+        set_width(94);
+    });
 </script>
 
 <form action="admin.php?allg" method="POST">
-  <div id="tabs">
-    <ul>
-{EXPLODE}
-	  <li><a href="#tabs-{katid}">{katname}</a></li>
-{EXPLODE}
-	</ul>
-{EXPLODE}
-	<div id="tabs-{katid}">
-	  <table cellpadding="3" cellspacing="1" class="border" border="0" width="100%">
-        <tr>
-		  <td colspan="2" class="Cdark">
-		    <b>{kat}</b>
-		  </td>
-		</tr>
-{EXPLODE}
-        <tr>
-		  <td class="Cmite" width="50%">
-		    {frage}
-		    {_if_{help}=='1'}
-		    <img src="include/images/icons/dialog-what.png" width="16" class="helpimg" alt="help" />
-		    <div style="display:none;">{helptext}</div>
-		    {/_endif}
-		  </td>
-          <td class="Cnorm">
-		    {input}
-		  </td>
-		</tr>
-{EXPLODE}
-      </table>
-	</div>
-{EXPLODE}
-	<br />
-	<table cellpadding="3" cellspacing="1" class="border" border="0" width="100%">
-      <tr class="Cdark">
-	    <td colspan="2" style="text-align: right;">
-		  <input class="sub" type="submit" value="Alle &Auml;nderungen speichern" name="submit">
-		  <input class="sub" type="reset" value="Zur&uuml;cksetzen">
-		  {antispam}
-		</td>
-      </tr>
-	</table>
-  </div>
+    <input type="hidden" name="chosenTab" id="chosenTab" value="" />
+    <div id="tabs">
+        <ul>
+            {EXPLODE}
+            <li><a href="#tabs-{katid}">{katname}</a></li>
+            {EXPLODE}
+        </ul>
+        {EXPLODE}
+        <div id="tabs-{katid}">
+            <table cellpadding="3" cellspacing="1" class="border" border="0" width="100%">
+                <tr>
+                    <td colspan="2" class="Cdark">
+                        <b>{kat}</b>
+                    </td>
+                </tr>
+                {EXPLODE}
+                <tr>
+                    <td class="Cmite" width="50%">
+                        {frage}
+                        {_if_{help}=='1'}
+                        <img src="include/images/icons/dialog-what.png" width="16" class="helpimg" alt="help" />
+                        <div style="display:none;">{helptext}</div>
+                        {/_endif}
+                    </td>
+                    <td class="Cnorm">
+                        {input}
+                    </td>
+                </tr>
+                {EXPLODE}
+            </table>
+        </div>
+        {EXPLODE}
+        <br />
+    </div>
+    <table cellpadding="3" cellspacing="1" class="border" border="0" width="100%">
+        <tr class="Cdark">
+            <td colspan="2" style="text-align: right;">
+                <input class="sub" type="submit" value="Alle &Auml;nderungen speichern" name="submit">
+                <input class="sub" type="reset" value="Zur&uuml;cksetzen">
+                {antispam}
+            </td>
+        </tr>
+    </table>
 </form>

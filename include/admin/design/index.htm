@@ -1,82 +1,82 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>{TITLE}</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="robots" content="index,follow" />
-<meta name="author" content="OloX - www.ilch.de" />
-<link rel="stylesheet" type="text/css" href="include/admin/design/style.css" media="all" />
-</head>
-<body>
-<script type="text/javascript" src="include/includes/js/dropdowntabs.js"></script>
-<div id="admin_head">
-  <a target="_blank" href="http://www.ilch.de/"><span id="logo">&nbsp;</span></a>
-    <ul class="button">
-        {_boxes_admin/adminlogin}{_boxes_admin/systemcheck}
-    </ul>
-</div>
-<div id="admin_content">
-
- <div id="admin_tabs">
-	<ul>
-		{_boxes_admin/admintabs}
-	</ul>
- </div>
-<br class="clear" />
-<span class="corners-top"><span>&nbsp;</span>&nbsp;</span>
-  <div id="main_content_border">
-      <div id="main_content">
-
-         <!-- drop down menus -->
-		 {_boxes_admin/adminmenu}
-
-		 <script type="text/javascript">
-           tabdropdown.init("admin_tabs");
-         </script>
-
-        <div id="con_menu">
-			{_boxes_admin/adminsubmenu}
+    <head>
+        <title>{TITLE}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="robots" content="index,follow" />
+        <meta name="author" content="OloX - www.ilch.de" />
+        <link rel="stylesheet" type="text/css" href="include/admin/design/style.css" media="all" />
+    </head>
+    <body>
+        <script type="text/javascript" src="include/includes/js/dropdowntabs.js"></script>
+        <div id="admin_head">
+            <a target="_blank" href="http://www.ilch.de/"><span id="logo">&nbsp;</span></a>
+            <ul class="button">
+                {_boxes_admin/adminlogin}{_boxes_admin/systemcheck}
+            </ul>
         </div>
-           <div id="con_mid"><span id="toggle" class="toggle-off">&nbsp;</span></div>
-             <div id="con_main">
+        <div id="admin_content">
 
-             <h1>{_boxes_admin/adminhmenu} {HMENU}</h1>
-			 {EXPLODE}
-             </div>
-             <br class="clear" />
-           <br class="clear" />
+            <div id="admin_tabs">
+                <ul>
+                    {_boxes_admin/admintabs}
+                </ul>
+            </div>
+            <br class="clear" />
+            <span class="corners-top"><span>&nbsp;</span>&nbsp;</span>
+            <div id="main_content_border">
+                <div id="main_content">
 
-      </div>
-  </div>
-<span class="corners-bottom"><span>&nbsp;</span>&nbsp;</span>
-<span class="footer">&copy; 2004-2012 by <a target="_blank" href="http://www.ilch.de/">ilch.de</a></span>
-<br class="clear" />
-</div>
-<script language="javascript" type="text/javascript">
-//<![CDATA[
-function set_width(width) {
-   var div_con = document.getElementById('con_main');
-    div_con.style.width =  width + '%'
-}
+                    <!-- drop down menus -->
+                    {_boxes_admin/adminmenu}
 
-//Adminmenu links
-$(document).ready(function(){
-    var div = document.getElementById('con_menu');
-    var div_con = document.getElementById('con_main');
-    var pic = document.getElementById('toggle');
-    $("span#toggle").click(function () {
-        if (div.style.display == 'none') {
-            $("div#con_menu").fadeIn("slow");
-            pic.className = 'toggle-off';
-            set_width(74);
-        } else {
-            $("div#con_menu").fadeOut("slow");
-            pic.className = 'toggle-on';
-            window.setTimeout("set_width(94)",700);
-        }
-    });
-});
-//]]>
-</script>
-</body>
+                    <script type="text/javascript">
+                        tabdropdown.init("admin_tabs");
+                    </script>
+
+                    <div id="con_menu">
+                        {_boxes_admin/adminsubmenu}
+                    </div>
+                    <div id="con_mid"><span id="toggle" class="toggle-off">&nbsp;</span></div>
+                    <div id="con_main">
+
+                        <h1>{_boxes_admin/adminhmenu} {HMENU}</h1>
+                        {EXPLODE}
+                    </div>
+                    <br class="clear" />
+                    <br class="clear" />
+
+                </div>
+            </div>
+            <span class="corners-bottom"><span>&nbsp;</span>&nbsp;</span>
+            <span class="footer">&copy; 2004-2013 by <a target="_blank" href="http://www.ilch.de/">ilch.de</a></span>
+            <br class="clear" />
+        </div>
+        <script type="text/javascript">
+            //<![CDATA[
+            function set_width(width) {
+                var div_con = document.getElementById('con_main');
+                div_con.style.width =  width + '%'
+            }
+
+            //Adminmenu links
+            $(document).ready(function(){
+                var div = document.getElementById('con_menu');
+                var div_con = document.getElementById('con_main');
+                var pic = document.getElementById('toggle');
+                $("span#toggle").click(function () {
+                    if (div.style.display == 'none') {
+                        $("div#con_menu").fadeIn("slow");
+                        pic.className = 'toggle-off';
+                        set_width(74);
+                    } else {
+                        $("div#con_menu").fadeOut("slow");
+                        pic.className = 'toggle-on';
+                        window.setTimeout("set_width(94)",700);
+                    }
+                });
+            });
+            //]]>
+        </script>
+    </body>
 </html>

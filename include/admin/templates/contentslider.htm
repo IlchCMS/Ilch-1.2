@@ -1,4 +1,4 @@
-<a href="admin.php?contentslider" class="sliderbutton">Zur&uuml;ck</a>
+<a href="admin.php?contentslider" class="sliderbutton">Zurück</a>
 <br style="clear:both;" />
 <table width="100%">
     <tr>
@@ -39,41 +39,45 @@
 </table>
 
 {EXPLODE}
-
-<script language="JavaScript" type="text/javascript">
-    <!--
-    function delcheck(id, name) {
-        var frage = confirm ( unescape ( "Willst%20du%20"+name+"%20wirklich%20l%F6schen%3F" ) );
-        if ( frage == true ) {
-            document.location.href="?contentslider-del-"+id;
-        }
-    }
-    //-->
-</script>
-
 <a href="admin.php?contentslider-post" class="sliderbutton">Neuer Eintrag</a>
+<a href="admin.php?allg#tabs-contentslider" class="sliderbutton">Konfiguration</a>
 <br style="clear:both;" />
 <table width="800" border="0" cellpadding="3" cellspacing="1" class="border">
-    <tr class="Chead">
-        <td width="50" align="center" colspan="2">Position</td>
-        <td width="50" align="center">Status</td>
-        <td width="50" align="center">Löschen</td>
-        <td width="50" align="center">Edit</td>
-        <td width="600" align="left">Name</td>
-    </tr>
-
+    <thead>
+        <tr class="Chead">
+            <td width="50" align="center" colspan="2">Position</td>
+            <td width="50" align="center">Status</td>
+            <td width="50" align="center">Löschen</td>
+            <td width="50" align="center">Edit</td>
+            <td width="600" align="left">Name</td>
+        </tr>
+    </thead>
+    <tbody id="sliders">
     {EXPLODE}
-
     <tr class="{class}">
-        <td width="25" align="center"><a href="?contentslider-o{id}-{pos}"><img src="include/images/icons/pfeilo.gif" border="0" title="oben" alt="oben"></a></td>
-        <td width="25" align="center"><a href="?contentslider-u{id}-{pos}"><img src="include/images/icons/pfeilu.gif" border="0" title="unten" alt="unten"></a></td>
+        <td width="25" align="center"><a href="?contentslider-{id}-o{pos}" class="ajax"><img src="include/images/icons/pfeilo.gif" border="0" title="oben" alt="oben"></a></td>
+        <td width="25" align="center"><a href="?contentslider-{id}-u{pos}" class="ajax"><img src="include/images/icons/pfeilu.gif" border="0" title="unten" alt="unten"></a></td>
         <td width="50" align="center"><a href="admin.php?contentslider-show-{id}">{_if_{status}=='1'}<img src="include/images/icons/jep.gif" alt="aktiv" title="aktiv" border="0" />{_else_}<img src="include/images/icons/nop.gif" alt="inaktiv" title="inaktiv" border="0" />{/_endif}</a></td>
         <td width="50" align="center"><a href="javascript:delcheck('{id}','{name}')"><img src="include/images/icons/del.gif" alt="l&ouml;schen" title="l&ouml;schen" border="0"></a></td>
         <td width="50" align="center"><a href="?contentslider-post-e{id}"><img src="include/images/icons/edit.gif" alt="ver&auml;ndern" title="ver&auml;ndern" border="0"></a></td>
         <td width="600" align="left">{name}</td> 
     </tr>
-
     {EXPLODE}
-
+    </tbody>
 </table>
 {MPL}
+
+<script type="text/javascript">
+    function delcheck(id, name) {
+        var frage = confirm("Willst du " + name + " wirklich löschen?");
+        if ( frage == true ) {
+            document.location.href="?contentslider-del-"+id;
+        }
+    }
+    $(function() {
+        $('#sliders').on('click', 'a.ajax', function(){
+            ic.Ajaxload({url: this.href});
+            return false;
+        });
+    });
+</script>

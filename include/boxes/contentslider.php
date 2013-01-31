@@ -1,9 +1,11 @@
 <?php
-
-// Contentslider
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2013 ilch.de
+ */
 defined('main') or die('no direct access');
 
-// Anzeige pruefen
+// Nur Anzeigen, wenn entsprechend konfiguriert
 if (($allgAr['sliderShow'] AND !$allgAr['sliderSmodul']) OR ($allgAr['sliderShow'] AND $allgAr['sliderSmodul'] AND $allgAr['smodul'] == $menu->get(0))) {
 
     $allgAr['sliderAnimation'] == 1 ? $allgAr['sliderAnimation'] = 'slide' : $allgAr['sliderAnimation'] = 'fade';
@@ -35,10 +37,11 @@ if (($allgAr['sliderShow'] AND !$allgAr['sliderSmodul']) OR ($allgAr['sliderShow
     echo "\n" . '  <ul class="bjqs">' . "\n";
 
     if ($allgAr['sliderRandom']) {
-        $erg = db_query("SELECT `id`,`name`,`link`,`target`,`banner`,`pos`,`status` FROM `prefix_contentslider` WHERE `status` = 1 ORDER BY RAND()");
+        $orderBy = 'RAND()';
     } else {
-        $erg = db_query("SELECT `id`,`name`,`link`,`target`,`banner`,`pos`,`status` FROM `prefix_contentslider` WHERE `status` = 1 ORDER BY `pos` ASC");
+        $orderBy = '`pos` ASC';
     }
+    $erg = db_query('SELECT `id`,`name`,`link`,`target`,`banner`,`pos`,`status` FROM `prefix_contentslider` WHERE `status` = 1 ORDER BY ' . $orderBy);
 
     $num = db_num_rows($erg);
     while ($r = db_fetch_assoc($erg)) {
@@ -51,9 +54,4 @@ if (($allgAr['sliderShow'] AND !$allgAr['sliderSmodul']) OR ($allgAr['sliderShow
 
     echo '  </ul>' . "\n";
     echo '</div>' . "\n";
-} else {
-
-    // keine Ausgabe
-    echo '';
 }
-?>

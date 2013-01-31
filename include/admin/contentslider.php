@@ -1,12 +1,18 @@
 <?php
-
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2013 ilch.de
+ */
 defined('main') or die('no direct access');
 defined('admin') or die('only admin access');
 
-$ILCH_HEADER_ADDITIONS .= '<link rel="stylesheet" type="text/css" href="include/includes/css/contentslider/style.css" />' . "\n";
-$ILCH_HEADER_ADDITIONS .= '<script type="text/javascript" src="include/includes/js/contentslider/slider.js"></script>' . "\n";
+if (!AJAXCALL) {
+    $ILCH_HEADER_ADDITIONS .= '<link rel="stylesheet" type="text/css" href="include/includes/css/contentslider/style.css" />' . "\n";
+    $ILCH_HEADER_ADDITIONS .= '<script type="text/javascript" src="include/includes/js/contentslider/slider.js"></script>' . "\n";
+}
 
-function genkey($anz) {
+function genkey($anz)
+{
     $letterArray = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0');
     $key = '';
     for ($i = 0; $i < $anz; $i++) {
@@ -17,35 +23,32 @@ function genkey($anz) {
     return ($key);
 }
 
-// verschieben
-if ($menu->getA(1) == 'o' or $menu->getA(1) == 'u') {
-    $pos = $menu->get(2);
-    $id = $menu->getE(1);
-    $nps = ($menu->getA(1) == 'u' ? $pos + 1 : $pos - 1);
-    $anz = db_result(db_query("SELECT COUNT(*) FROM `prefix_contentslider`"), 0);
-    if ($nps < 0) {
-        db_query("UPDATE `prefix_contentslider` SET pos = " . $anz . " WHERE id = " . $id);
-        db_query("UPDATE `prefix_contentslider` SET pos = pos -1");
-    }
-    if ($nps >= $anz) {
-        db_query("UPDATE `prefix_contentslider` SET pos = -1 WHERE id = " . $id);
-        db_query("UPDATE `prefix_contentslider` SET pos = pos +1");
-    }
-    if ($nps < $anz and $nps >= 0) {
-        db_query("UPDATE `prefix_contentslider` SET pos = " . $pos . " WHERE pos = " . $nps);
-        db_query("UPDATE `prefix_contentslider` SET pos = " . $nps . " WHERE id = " . $id);
-    }
-}
-
 $design = new design('Ilch Admin-Control-Panel :: Contentslider ', '', 2);
 $tpl = new tpl('contentslider.htm', 1);
 $design->header();
 
 $um = $menu->get(1);
 switch ($um) {
-
-    default :
-
+    default:
+        // verschieben
+        $direction = $menu->getA(2);
+        if ($direction === 'o' or $direction === 'u') {
+            $id = $menu->get(1);
+            $pos = $menu->getE(2);
+            $nps = ($direction === 'u' ? $pos + 1 : $pos - 1);
+            $anz = db_result(db_query("SELECT COUNT(*) FROM `prefix_contentslider`"), 0);
+            if ($nps < 0) {
+                db_query("UPDATE `prefix_contentslider` SET pos = " . $anz . " WHERE id = " . $id);
+                db_query("UPDATE `prefix_contentslider` SET pos = pos -1");
+            } elseif ($nps >= $anz) {
+                db_query("UPDATE `prefix_contentslider` SET pos = -1 WHERE id = " . $id);
+                db_query("UPDATE `prefix_contentslider` SET pos = pos +1");
+            } elseif ($nps < $anz) {
+                db_query("UPDATE `prefix_contentslider` SET pos = " . $pos . " WHERE pos = " . $nps);
+                db_query("UPDATE `prefix_contentslider` SET pos = " . $nps . " WHERE id = " . $id);
+            }
+        }
+        
         $tpl->out(1);
         $page = ($menu->getA(1) == 'p' ? $menu->getE(1) : 1);
         $limit = 15;
@@ -65,9 +68,7 @@ switch ($um) {
         $tpl->set('MPL', $MPL);
         $tpl->out(3);
         break;
-
-    case 'post' :
-
+    case 'post':
         // aendern / eintragen
         if (isset($_POST['sub']) AND chk_antispam('adminuser_action', true)) {
             if (!empty($_POST['name'])) {
@@ -102,8 +103,9 @@ switch ($um) {
                     $q = db_query(sprintf("SELECT `id`,`banner`,`name` FROM `prefix_contentslider` WHERE `id` = '%d'", $_POST['pkey']));
                     $r = db_fetch_assoc($q);
                     if (db_num_rows($q) > 0) {
-                        if ($imgupdate === true and file_exists($r['banner']))
+                        if ($imgupdate === true and file_exists($r['banner'])) {
                             @unlink($r['banner']);
+                        }
                         if (file_exists($r['banner'])) {
                             $parts = pathinfo($r['banner']);
                             $nname = strtolower('include/images/contentslider/' . $r['id'] . '_' . genkey(6) . '.' . $parts['extension']);
@@ -146,46 +148,42 @@ switch ($um) {
                 $_ilch['atc'] = 'Bearbeiten';
             } else {
                 $_ilch = array(
-                    'pkey' => '',
-                    'id' => '',
-                    'banner' => '',
-                    'status' => '',
-                    'name' => '',
-                    'link' => '',
-                    'target1' => 'checked',
-                    'target2' => '',
-                    'img' => '',
-                    'action' => 'new',
-                    'head' => 'Neuen Eintrag',
-                    'atc' => 'Eintragen'
+                        'pkey' => '',
+                        'id' => '',
+                        'banner' => '',
+                        'status' => '',
+                        'name' => '',
+                        'link' => '',
+                        'target1' => 'checked',
+                        'target2' => '',
+                        'img' => '',
+                        'action' => 'new',
+                        'head' => 'Neuen Eintrag',
+                        'atc' => 'Eintragen'
                 );
             }
             $tpl->set_ar_out($_ilch, 0);
         }
         break;
-
-    case 'del' :
-
+    case 'del':
         // loeschen
         $state = false;
         $q = db_query(sprintf("SELECT `id`,`banner`,`pos` FROM `prefix_contentslider` WHERE `id` = '%d'", $menu->get(2)));
         if (db_num_rows($q) > 0) {
             $r = db_fetch_assoc($q);
-            if (file_exists($r['banner']))
+            if (file_exists($r['banner'])) {
                 @unlink($r['banner']);
+            }
             db_query(sprintf("DELETE FROM `prefix_contentslider` WHERE `id` = '%d'", $r['id']));
             db_query(sprintf("UPDATE `prefix_contentslider` SET `pos` = pos -1 WHERE `pos` > '%d'", $r['pos']));
             $state = true;
         }
         wd('admin.php?contentslider', $state == true ? $lang['deletesuccessful'] : 'OoooOpss', 1);
         break;
-
-    case 'show' :
-
+    case 'show':
         // aktiv / inaktiv
         db_query(sprintf("UPDATE `prefix_contentslider` SET `status` = IF( `status` = 1,0,1 ) WHERE `id` = '%d' LIMIT 1", $menu->get(2)));
-        wd('admin.php?contentslider', 'Erfolgreich bearbeitet.', 1);
+        wd('admin.php?contentslider', 'Erfolgreich bearbeitet.', 2);
 }
 
 $design->footer();
-?>

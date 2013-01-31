@@ -1,6 +1,5 @@
 <?php
-
-db_query("INSERT INTO `ic1_config` (`schl`, `typ`, `typextra`, `kat`, `frage`, `wert`, `pos`, `hide`, `helptext`) VALUES
+db_query("INSERT INTO `prefix_config` (`schl`, `typ`, `typextra`, `kat`, `frage`, `wert`, `pos`, `hide`, `helptext`) VALUES
     ('sliderShow', 'r2', NULL, 'Contentslider', 'Contentslider aktivieren', '1', 1, 0, NULL),
     ('sliderSmodul', 'r2', NULL, 'Contentslider', 'Nur auf der Startseite anzeigen', '0', 2, 0, 'Der Contentslider wird nur auf der eingestellten Startseite angezeigt.<br />(Allgemein -> Start Modul der Seite) '),
     ('sliderWidth', 'input', NULL, 'Contentslider', 'Breite für den Contentslider', '670', 3, 0, NULL),
@@ -17,7 +16,7 @@ db_query("INSERT INTO `ic1_config` (`schl`, `typ`, `typextra`, `kat`, `frage`, `
     ('sliderResize', 'r2', NULL, 'Contentslider', 'Bildskalierung aktivieren', '1', 14, 0, 'Die Bannergröße wird automatisch an die Maße (Breite und Höhe) des Contenslider angepasst.'),
     ('sliderRandom', 'r2', NULL, 'Contentslider', 'Zufallsanordnung aktivieren', '0', 15, 0, 'Die Banner werden nicht in geordneter Reihenfolge, sondern in zufälliger Reihenfolge angezeigt')");
 
-db_query("CREATE TABLE IF NOT EXISTS `ic1_contentslider` (
+db_query("CREATE TABLE IF NOT EXISTS `prefix_contentslider` (
     `id` smallint(6) NOT NULL AUTO_INCREMENT,
     `pos` smallint(6) NOT NULL DEFAULT '0',
     `status` smallint(1) NOT NULL DEFAULT '0',
@@ -28,15 +27,18 @@ db_query("CREATE TABLE IF NOT EXISTS `ic1_contentslider` (
     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='powered by ilch.de' AUTO_INCREMENT=6");
 
-db_query("INSERT INTO `ic1_contentslider` (`id`, `pos`, `status`, `name`, `banner`, `link`, `target`) VALUES
+db_query("INSERT INTO `prefix_contentslider` (`id`, `pos`, `status`, `name`, `banner`, `link`, `target`) VALUES
     (1, 0, 1, 'Berge im Herbst', 'include/images/contentslider/1_mkygre.jpg', 'http://www.ilch.de/', '_blank'),
     (2, 1, 1, 'Weizenfeld im Sommer', 'include/images/contentslider/2_sigdl7.jpg', 'http://www.ilch.de/', '_blank'),
     (3, 2, 1, 'Straße an der Küste', 'include/images/contentslider/3_yjsdzq.jpg', 'http://www.ilch.de/', '_blank'),
     (4, 3, 1, 'Steine am Meer', 'include/images/contentslider/4_wwnahq.jpg', 'http://www.ilch.de/', '_blank'),
     (5, 4, 1, 'Landschaft mit Waserfall', 'include/images/contentslider/5_4psxyq.jpg', 'http://www.ilch.de/', '_blank')");
 
-db_query("INSERT INTO `ic1_credits` (`id`, `sys`, `name`, `version`, `url`, `lizenzname`, `lizenzurl`) VALUES
-    (4, 'ilch', 'Basic jQuery Slider', '1.3', 'http://www.basic-slider.com', 'GPL', 'http://www.opensource.org/licenses/gpl-3.0.html')");
+db_query("INSERT INTO `prefix_credits` (`id`, `sys`, `name`, `version`, `url`, `lizenzname`, `lizenzurl`) VALUES
+    (NULL, 'ilch', 'Basic jQuery Slider', '1.3', 'http://www.basic-slider.com', 'GPL', 'http://www.opensource.org/licenses/gpl-3.0.html')");
+
+$newPos = db_result(db_query('SELECT MAX(`pos`) FROM `prefix_modules` WHERE `menu` = "Content"')) + 1;
+db_query("INSERT INTO `prefix_modules` (`id`, `url`, `name`, `gshow`, `ashow`, `fright`, `menu`, `pos`) VALUES (NULL, 'contentslider', 'Contentslider', 1, 1, 0, 'Content', " . $newPos . ")");
 
 $rev = '245';
 $update_messages[$rev][] = 'Einbindung eines konfigurierbaren Contentslider.';
