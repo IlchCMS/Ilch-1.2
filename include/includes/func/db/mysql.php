@@ -1,19 +1,14 @@
 <?php
 /**
  * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
- * @copyright (C) 2000-2010 ilch.de
- * @version $Id$
+ * @copyright (C) 2000-2013 ilch.de
  */
 defined('main') or die('no direct access');
 
-/**
- *
- * @todo bei UPDATE/INSERT/DELETE true oder false zurückgeben um einen fehler im script sachgemäß dem user präsentieren zu können
- */
-
 $count_query_xyzXYZ = 0;
 
-function db_connect() {
+function db_connect()
+{
     if (defined('CONN')) {
         return;
     }
@@ -30,15 +25,16 @@ function db_connect() {
     }
 }
 
-function db_close() {
+function db_close()
+{
     mysql_close(CONN);
 }
-
 if (defined('DEBUG') and DEBUG) {
     $ILCH_DEBUG_DB_QUERIES = array();
     $ILCH_DEBUG_DB_COUNT_QUERIES = 0;
 
-    function db_check_error($r) {
+    function db_check_error($r)
+    {
         if (!$r AND mysql_errno(CONN) != 0) {
             // var_export (debug_backtrace(), true)
             return '<font color="#FF0000">MySQL Error:</font><br/>' . mysql_errno(CONN) . ' : ' . mysql_error(CONN);
@@ -46,22 +42,25 @@ if (defined('DEBUG') and DEBUG) {
         return '';
     }
 
-    function db_query ($q) {
+    function db_query($q)
+    {
         global $ILCH_DEBUG_DB_COUNT_QUERIES, $ILCH_DEBUG_DB_QUERIES;
         $ILCH_DEBUG_DB_COUNT_QUERIES++;
 
-        if (preg_match ("/^UPDATE `?prefix_\S+`?\s+SET/is", $q)) {
-            $q = preg_replace("/^UPDATE `?prefix_(\S+?)`?([\s\.,]|$)/i","UPDATE `".DBPREF."\\1`\\2", $q);
-        } elseif (preg_match ("/^INSERT INTO `?prefix_\S+`?\s+[a-z0-9\s,\)\(]*?VALUES/is", $q)) {
-            $q = preg_replace("/^INSERT INTO `?prefix_(\S+?)`?([\s\.,]|$)/i", "INSERT INTO `".DBPREF."\\1`\\2", $q);
+        if (preg_match("/^UPDATE `?prefix_\S+`?\s+SET/is", $q)) {
+            $q = preg_replace("/^UPDATE `?prefix_(\S+?)`?([\s\.,]|$)/i", "UPDATE `" . DBPREF . "\\1`\\2", $q);
+        } elseif (preg_match("/^INSERT INTO `?prefix_\S+`?\s+[a-z0-9\s,\)\(]*?VALUES/is", $q)) {
+            $q = preg_replace("/^INSERT INTO `?prefix_(\S+?)`?([\s\.,]|$)/i", "INSERT INTO `" . DBPREF . "\\1`\\2", $q);
         } else {
-            $q = preg_replace("/prefix_(\S+?)([\s\.,]|$)/", DBPREF."\\1\\2", $q);
+            $q = preg_replace("/prefix_(\S+?)([\s\.,]|$)/", DBPREF . "\\1\\2", $q);
         }
 
         if (!function_exists('debug_bt')) {
-          function debug_bt(){
-            return debug_backtrace();
-          }
+
+            function debug_bt()
+            {
+                return debug_backtrace();
+            }
         }
 
         $tmp = array();
@@ -74,7 +73,7 @@ if (defined('DEBUG') and DEBUG) {
         $tmp['time'] = $nach - SCRIPT_START_TIME;
         $tmp['query'] = $q;
         $tmp['affected_rows'] = mysql_affected_rows(CONN);
-        $tmp['result_index'] = (int)$qry;
+        $tmp['result_index'] = (int) $qry;
         $tmp['call'] = debug_bt();
         $error = db_check_error($qry);
         if (!empty($error)) {
@@ -85,7 +84,9 @@ if (defined('DEBUG') and DEBUG) {
         return ($qry);
     }
 } else {
-    function db_check_error(&$r, $q) {
+
+    function db_check_error(&$r, $q)
+    {
         if (!$r AND mysql_errno(CONN) != 0 AND function_exists('is_coadmin') AND is_coadmin()) {
             // var_export (debug_backtrace(), true)
             echo ('<font color="#FF0000">MySQL Error:</font><br/>' . mysql_errno(CONN) . ' : ' . mysql_error(CONN) . '<br/>in Query:<br/>' . $q . '<pre>' . debug_bt() . '</pre>');
@@ -93,7 +94,8 @@ if (defined('DEBUG') and DEBUG) {
         return ($r);
     }
 
-    function db_query($q) {
+    function db_query($q)
+    {
         if (preg_match("/^UPDATE `?prefix_\S+`?\s+SET/is", $q)) {
             $q = preg_replace("/^UPDATE `?prefix_(\S+?)`?([\s\.,]|$)/i", "UPDATE `" . DBPREF . "\\1`\\2", $q);
         } elseif (preg_match("/^INSERT INTO `?prefix_\S+`?\s+[a-z0-9\s,\)\(]*?VALUES/is", $q)) {
@@ -106,54 +108,74 @@ if (defined('DEBUG') and DEBUG) {
     }
 }
 
-function db_result($erg, $zeile = 0, $spalte = 0) {
+function db_result($erg, $zeile = 0, $spalte = 0)
+{
     return (mysql_result($erg, $zeile, $spalte));
 }
 
-function db_fetch_assoc($erg) {
+function db_fetch_assoc($erg)
+{
     return (mysql_fetch_assoc($erg));
 }
 
-function db_fetch_row($erg) {
+function db_fetch_row($erg)
+{
     return (mysql_fetch_row($erg));
 }
 
-function db_fetch_object($erg) {
+function db_fetch_object($erg)
+{
     return (mysql_fetch_object($erg));
 }
 
-function db_num_rows($erg) {
+function db_num_rows($erg)
+{
     return (mysql_num_rows($erg));
 }
 
-function db_last_id() {
+function db_last_id()
+{
     return (mysql_insert_id(CONN));
 }
 
-function db_count_query($query) {
+function db_count_query($query)
+{
     return (db_result(db_query($query), 0));
 }
 
-function db_list_tables($db) {
+function db_list_tables($db)
+{
     return (mysql_list_tables($db, CONN));
 }
 
-function db_tablename($db, $i) {
+function db_tablename($db, $i)
+{
     return (mysql_tablename($db, $i));
 }
 
-function db_check_erg($erg) {
+function db_check_erg($erg)
+{
     if ($erg == false OR @db_num_rows($erg) == 0) {
         exit('Es ist ein Fehler aufgetreten');
     }
 }
 
-function db_make_sites($page, $where, $limit, $link, $table, $anzahl = null) {
+/**
+ * Generiert einen HTML Code für eine Paginationauswahl (Multipages)
+ * 
+ * @param integer $page Seite die derzeit angezeigt wird
+ * @param string $where SQL Bedingung (mit WHERE Schlüsselwort) um Einschränkungen zu ermöglichen
+ * @param integer $limit Anzahl Einträge pro Seite
+ * @param string $link Link der aufgerufen wird und an den -pX angehangen wird, alternativ wird {page} ersetzt, falls -p nicht am Ende des Links stehen soll
+ * @param string $table Datenbanktabelle ohne prefix, in der die Einträge gezählt werden
+ * @param integer $anzahl Angabe der maximalen Anzahl, wenn angegeben wird keine Datenbankabfrage gemacht
+ * @return string
+ */
+function db_make_sites($page, $where, $limit, $link, $table, $anzahl = null)
+{
     $hvmax = 4; // hinten und vorne links nach page
     $maxpage = '';
-    if (empty($MPL)) {
-        $MPL = '';
-    }
+    $MPL = '';
     if (is_null($anzahl)) {
         $resultID = db_query("SELECT COUNT(*) FROM `prefix_" . $table . "` " . $where);
         $total = (is_resource($resultID)) ? db_result($resultID, 0) : 0;
@@ -185,15 +207,21 @@ function db_make_sites($page, $where, $limit, $link, $table, $anzahl = null) {
             $iende = $maxpage;
         }
         $vMPL = '';
+        if (strpos($link, '{page}') !== false) {
+            $link = str_replace('{page}', '-p%u', $link);
+        } else {
+            $link .= '-p%u';
+        }
+        $linkTpl = '<a href="' . $link . '">%s</a>';
         if ($ibegin > 1) {
-            $vMPL = '<a href="' . $link . '-p1">&laquo;</a> ';
+            $vMPL = sprintf($linkTpl, 1, '&laquo;');
         }
         $MPL = $vMPL . '[ ';
         for ($i = $ibegin; $i <= $iende; $i++) {
             if ($i == $page) {
                 $MPL .= $i;
             } else {
-                $MPL .= '<a href="' . $link . '-p' . $i . '">' . $i . '</a>';
+                $MPL .= sprintf($linkTpl, $i, $i);
             }
             if ($i != $iende) {
                 $MPL .= ' | ';
@@ -201,7 +229,7 @@ function db_make_sites($page, $where, $limit, $link, $table, $anzahl = null) {
         }
         $MPL .= ' ]';
         if ($iende < $maxpage) {
-            $MPL .= ' <a href="' . $link . '-p' . $maxpage . '">&raquo;</a>';
+            $MPL .= sprintf($linkTpl, $maxpage, '&raquo;');
         }
     }
     return $MPL;
@@ -213,40 +241,41 @@ function db_make_sites($page, $where, $limit, $link, $table, $anzahl = null) {
  * @param string $filename Dateiname(+pfad) der SQL Datei
  * @param boolean $decodeUtf8 gibt an, ob ggf. utf8 Zeichen decodiert werden sollen
  */
-function db_import_sql_file($filename, $decodeUtf8 = false) {
-	if (!file_exists($filename)) {
-		throw new Exception($filename . ' wurde nicht gefunden.');
-	}
-	$sql_file = file_get_contents($filename);
-	if ($decodeUtf8 && is_utf8($sql_file)) {
-		$sql_file = utf8_decode($sql_file);
-	}
-	$sql_file = preg_replace ("/(\015\012|\015|\012)/", "\n", $sql_file);
-	$lines = explode("\n", $sql_file);
-	//Kommentare und leere Zeilen entfernen
-	foreach ($lines as $no => $line) {
-		if (empty($line) || substr($line, 0, 3) == '-- ' || $line == '--') {
-			unset($lines[$no]);
-		}
-	}
-	$sql_statements = explode(";\n", implode("\n", $lines));
-	foreach ( $sql_statements as $sql_statement ) {
-		if ( trim($sql_statement) != '' ) {
-			db_query($sql_statement);
-		}
-	}
+function db_import_sql_file($filename, $decodeUtf8 = false)
+{
+    if (!file_exists($filename)) {
+        throw new Exception($filename . ' wurde nicht gefunden.');
+    }
+    $sql_file = file_get_contents($filename);
+    if ($decodeUtf8 && is_utf8($sql_file)) {
+        $sql_file = utf8_decode($sql_file);
+    }
+    $sql_file = preg_replace("/(\015\012|\015|\012)/", "\n", $sql_file);
+    $lines = explode("\n", $sql_file);
+    //Kommentare und leere Zeilen entfernen
+    foreach ($lines as $no => $line) {
+        if (empty($line) || substr($line, 0, 3) == '-- ' || $line == '--') {
+            unset($lines[$no]);
+        }
+    }
+    $sql_statements = explode(";\n", implode("\n", $lines));
+    foreach ($sql_statements as $sql_statement) {
+        if (trim($sql_statement) != '') {
+            db_query($sql_statement);
+        }
+    }
 }
 
 /**
- * schlägt an falls der übergebene string utf8 kodierte zeichen enthält
+ * Schlägt an falls der übergebene string utf8 kodierte zeichen enthält
  *
  * @return bool
  * @author annemarie
- **/
-function is_utf8($string) {
-
-	// From http://w3.org/International/questions/qa-forms-utf-8.html
-	$var = preg_match('%^(?:
+ * @link http://w3.org/International/questions/qa-forms-utf-8.html Quelle
+ * */
+function is_utf8($string)
+{
+    $var = preg_match('%^(?:
 	      [\x09\x0A\x0D\x20-\x7E]            # ASCII
 	    | [\xC2-\xDF][\x80-\xBF]             # non-overlong 2-byte
 	    |  \xE0[\xA0-\xBF][\x80-\xBF]        # excluding overlongs
@@ -256,16 +285,16 @@ function is_utf8($string) {
 	    | [\xF1-\xF3][\x80-\xBF]{3}          # planes 4-15
 	    |  \xF4[\x80-\x8F][\x80-\xBF]{2}     # plane 16
 	)*$%xs', $string);
-	if ($var) {
-		#$string = preg_replace("/\x93{1}|\x84{1}/i", "\x22", $string);
-		#$string = preg_replace("/\x96{1}/i", "-", $string);
-		#$string = preg_replace("/\x82|\x94|\x91|\x94/i", "'", $string);
-		#$string = preg_replace("/\x9F/i", "Ã", $string);
-		#$string = preg_replace("/\x96/i", "¶", $string);
-		#$string = preg_replace("/\x96/i", "¶", $string);
-		#return iconv("ISO-8859-1", "UTF-8",  $string);
-		#return utf8_decode($string);
-		return true;
-	}
-	return false;
+    if ($var) {
+        #$string = preg_replace("/\x93{1}|\x84{1}/i", "\x22", $string);
+        #$string = preg_replace("/\x96{1}/i", "-", $string);
+        #$string = preg_replace("/\x82|\x94|\x91|\x94/i", "'", $string);
+        #$string = preg_replace("/\x9F/i", "Ã", $string);
+        #$string = preg_replace("/\x96/i", "¶", $string);
+        #$string = preg_replace("/\x96/i", "¶", $string);
+        #return iconv("ISO-8859-1", "UTF-8",  $string);
+        #return utf8_decode($string);
+        return true;
+    }
+    return false;
 }

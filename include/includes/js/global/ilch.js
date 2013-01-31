@@ -103,7 +103,7 @@ ic.loadFile = function(options) {
 ic.modalDialogContainer = [];
 ic.modalDialog = function (options) {
     if (typeof options == 'string') {
-        string = eval(options);
+        options = eval(options);
     }
     var settings = {
         width: 400,
@@ -114,7 +114,7 @@ ic.modalDialog = function (options) {
         url: ''
     };
     $.extend(settings, options);
-    count = ic.modalDialogContainer.length + 1;
+    var count = ic.modalDialogContainer.length + 1;
     var div = $('<div id="icModalDialog' + count + '" />').css('overflow','hidden').appendTo(document.body);
 
     if (settings.realiframe) {
@@ -139,11 +139,15 @@ ic.modalDialog = function (options) {
         width: settings.width,
         draggable: true,
         resizeable: settings.resizable,
-        title: settings.title
+        title: settings.title,
+        close: function(e, ui) { ic.modalDialogDestroy(); }
     });
 };
 ic.modalDialogClose = function() {
-    ic.modalDialogContainer[ic.modalDialogContainer.length-1].dialog('close').dialog('destroy');
+    ic.modalDialogContainer[ic.modalDialogContainer.length-1].dialog('close');
+}
+ic.modalDialogDestroy = function() {
+    ic.modalDialogContainer[ic.modalDialogContainer.length-1].dialog('destroy').remove();
     ic.modalDialogContainer.pop();
 }
 

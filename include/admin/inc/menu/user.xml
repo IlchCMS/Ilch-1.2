@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <menu>
-  <list title="Sonstiges">
-    <modul>
-	  <title>Neuer Nutzer</title>
-	  <url>javascript: ic.modalDialog({title:'Neuer Nutzer',url:'admin.php?user-createNewUser',height:320,width:350});</url>
-	</modul>
-  </list>
+    <list title="Sonstiges">
+        <modul>
+            <title>Neuer Nutzer</title>
+            <url>javascript: ic.modalDialog({title:'Neuer Nutzer',url:'admin.php?user-createNewUser',height:340,width:350});</url>
+        </modul>
+    </list>
 </menu>

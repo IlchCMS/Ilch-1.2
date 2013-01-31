@@ -1,61 +1,61 @@
-<script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
-<script src="./include/includes/js/jquery/pstrength-min.1.2.js" type="text/javascript"></script>
-<script src="./include/includes/js/jquery/pstrength.css" type="text/javascript"></script>
+<script src="include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
+<script src="include/includes/js/jquery/pstrength-min.1.2.js" type="text/javascript"></script>
 <script>
-$(document).ready(function() {		   
-	$("#new-user").validate({
-		rules: {			
-			name: { required: true, minlength: 2 },
-			pass: { required: true },			
-			email: { required: true, email: true }
-		},
-		messages: {
-			name: { required: "Bitte Name eingeben!", minlength: "Der Name muss mindestens 2 Zeichen haben!" },
-			pass: "Bitte ein sicheres Passwort eingeben!",
-			email: "Bitte eine g&uuml;ltige eMail eingeben!"
-		}
-	});
-	$(".password").pstrength();
-});
+    $(document).ready(function() {
+        $("#new-user").validate({
+            rules: {
+                name: { required: true, minlength: 2 },
+                pass: { required: true },
+                email: { required: true, email: true }
+            },
+            messages: {
+                name: { required: "Bitte Name eingeben!", minlength: "Der Name muss mindestens 2 Zeichen haben!" },
+                pass: "Bitte ein sicheres Passwort eingeben!",
+                email: "Bitte eine g&uuml;ltige eMail eingeben!"
+            }
+        });
+        $(".password").pstrength();
+    });
 </script>
 <noscript>Bitte JavaScript aktivieren</noscript>
 <style type="text/css">
-  table.rand td { padding: 0; }
-  table.border td { padding: 3px; }
-  #new-user label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+    table.rand td { padding: 0; }
+    table.border td { padding: 3px; }
+    #new-user label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
 </style>
+<link type="text/css" rel="stylesheet" href="include/includes/css/jquery/pstrength.css" />
 {EXPLODE}
 <div align="center">
-  <table border="0" cellpadding="5" cellspacing="1" class="border" width="100%">
-    <tr>
-      <td class="Callg">{msg}
-        <form id="new-user" action="admin.php?user-createNewUser" method="post" name="form">
-        {ANTISPAM}
-          <table cellpadding="3" cellspacing="1" border="0" class="border">
-            <tr class="Chead">
-              <td colspan="2"><b>Benutzer anlegen</b></td>
-            </tr><tr>
-              <td class="Cmite">Name</td>
-              <td class="Cnorm"><input  name="name" value="" /></td>
-            </tr><tr>
-              <td class="Cmite">Pass</td>
-              <td class="Cnorm"><input class="password" name="pass" value="{pass}" /></td>
-            </tr><tr>
-              <td class="Cmite">Recht</td>
-              <td class="Cnorm"><select name="recht">{recht}</select></td>
-            </tr><tr>
-              <td class="Cmite">eMail</td>
-              <td class="Cnorm"><input  name="email" value="{email}" /></td>
-            </tr><tr>
-              <td class="Cmite">Senden?</td>
-              <td class="Cnorm"><input id="sja" type="checkbox" name="info" value="ja" /><label for="sja"> Dem User seine Daten zusenden?</label></td>
-            </tr><tr class="Cdark">
-              <td></td>
-              <td><input class="sub" type="submit" name="sub" value="Absenden" /> <input class="sub" type="button" value="Schlie&szlig;en" onClick="self.parent.ic.modalDialogClose();" /></td>
-            </tr>
-          </table>
-        </form>
-      </td>
-    </tr>
-  </table>
+    <table border="0" cellpadding="5" cellspacing="1" class="border" width="100%">
+        <tr>
+            <td class="Callg">{msg}
+                <form id="new-user" action="admin.php?user-createNewUser" method="post" name="form">
+                    {ANTISPAM}
+                    <table cellpadding="3" cellspacing="1" border="0" class="border">
+                        <tr class="Chead">
+                            <td colspan="2"><b>Benutzer anlegen</b></td>
+                        </tr><tr>
+                            <td class="Cmite">Name</td>
+                            <td class="Cnorm"><input  name="name" value="" /></td>
+                        </tr><tr>
+                            <td class="Cmite">Pass</td>
+                            <td class="Cnorm"><input class="password" name="pass" value="{pass}" /></td>
+                        </tr><tr>
+                            <td class="Cmite">Recht</td>
+                            <td class="Cnorm"><select name="recht">{recht}</select></td>
+                        </tr><tr>
+                            <td class="Cmite">eMail</td>
+                            <td class="Cnorm"><input  name="email" value="{email}" /></td>
+                        </tr><tr>
+                            <td class="Cmite">Senden?</td>
+                            <td class="Cnorm"><input id="sja" type="checkbox" name="info" value="ja" /><label for="sja"> Dem User seine Daten zusenden?</label></td>
+                        </tr><tr class="Cdark">
+                            <td></td>
+                            <td><input class="sub" type="submit" name="sub" value="Absenden" /> <input class="sub" type="button" value="Schlie&szlig;en" onClick="self.parent.ic.modalDialogClose();" /></td>
+                        </tr>
+                    </table>
+                </form>
+            </td>
+        </tr>
+    </table>
 </div>

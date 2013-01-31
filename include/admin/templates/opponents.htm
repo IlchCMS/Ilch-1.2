@@ -1,201 +1,201 @@
 <script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
 <style>
-#form1 label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
-#newoppform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
-#editoppform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+    #form1 label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+    #newoppform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+    #editoppform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
 </style>
 <script>
     function openNewOpp() {
-		$(function() {
-			$( "#newOpponent" ).dialog( "destroy" );
-			$( "#newOpponent" ).dialog({
-				height: 300,
-				width: 333,
-				modal: true
-			});
-		});
-	}
-	function openloschfrage(gegnerid) {
-			$( "#loschdialog" ).dialog( "destroy" );
-					$( "#loschdialog" ).dialog({
-						height: 175,
-						width: 300,
-						modal: true,
-						autoOpen: true,
-						buttons: {
-									Ok: function() {
-										$( this ).dialog( "close" );
-										window.location = "admin.php?opponents-delok-"+gegnerid;
-									},
-									Nein: function() {
-										$( this ).dialog( "close" );	
-									}
-						}
-			});
-	}
-	
-$(document).ready(function() {		   
-	$("#form1").validate({
-		rules: {			
-			suche: { required: true }
-		},
-		messages: {
-			suche: "Bitte ein Clanname angeben!"
-		}
-	});
-	$("#newoppform").validate({
-		rules: {			
-			newgegnertag: { required: true },
-			newclanname: { required: true, minlength: 2 },
-			newwebsite: { required: true, url: true },
-			//newicq: { required: true },
-			//newemail: { required: true, email: true },
-			//newlogo: { required: true }
-		},
-		messages: {
-			newgegnertag: "Bitte ClanTag angeben!",
-			newclanname: { required: "Bitte Namen angeben!", minlength: "Name mind. 2 Zeichen!" },
-			newwebsite: "Bitte URL angeben!",
-			//newicq: "Bitte ICQ angeben!",
-			//newemail: "Bitte Email angeben!",
-			//newlogo: "Bitte Logolink angeben!"
-		}
-	});
-	$(document).ready(function() {
-		$('#newnation').change(function() {
-			$('#choosedFlag').attr('src', 'include/images/flags/' + $(this).val());
-		});
-	});
-});
+        $(function() {
+            $( "#newOpponent" ).dialog({
+                height: 300,
+                width: 333,
+                modal: true,
+                close: function(e, ui) { $(this).dialog('destroy'); } 
+            });
+        });
+    }
+    function openloschfrage(gegnerid) {
+        $( "#loschdialog" ).dialog({
+            height: 175,
+            width: 300,
+            modal: true,
+            autoOpen: true,
+            buttons: {
+                Ok: function() {
+                    $( this ).dialog( "close" );
+                    window.location = "admin.php?opponents-delok-"+gegnerid;
+                },
+                Nein: function() {
+                    $( this ).dialog( "close" );	
+                }
+            },
+        close: function(e, ui) { $(this).dialog('destroy'); } 
+        });
+    }
+
+    $(document).ready(function() {
+        $("#form1").validate({
+            rules: {			
+                suche: { required: true }
+            },
+            messages: {
+                suche: "Bitte ein Clanname angeben!"
+            }
+        });
+        $("#newoppform").validate({
+            rules: {
+                newgegnertag: { required: true },
+                newclanname: { required: true, minlength: 2 },
+                newwebsite: { required: true, url: true }
+                //newicq: { required: true },
+                //newemail: { required: true, email: true },
+                //newlogo: { required: true }
+            },
+            messages: {
+                newgegnertag: "Bitte ClanTag angeben!",
+                newclanname: { required: "Bitte Namen angeben!", minlength: "Name mind. 2 Zeichen!" },
+                newwebsite: "Bitte URL angeben!"
+                //newicq: "Bitte ICQ angeben!",
+                //newemail: "Bitte Email angeben!",
+                //newlogo: "Bitte Logolink angeben!"
+            }
+        });
+        $(document).ready(function() {
+            $('#newnation').change(function() {
+                $('#choosedFlag').attr('src', 'include/images/flags/' + $(this).val());
+            });
+        });
+    });
 </script>
 <noscript>Bitte JavaScript aktivieren</noscript>
 <div id="main">
-  <div id="inlineNavi" style="display:inline;">
-    <p>&nbsp;</p>
-    <p><a onClick="openNewOpp()" style="cursor: pointer; cursor: hand;" >neuen Gegner eintragen</a></p>
-  </div>
-  <div id="okdialog" style="display:none;" title="Upload erfolgreich">
-    <img src="include/images/icons/dialog-ok.png" /> Gegner erfolgreich zur Datenbank hinzugef&uuml;gt
-  </div>
-  <div id="Nokdialog" style="display:none;" title="Upload fehlgeschlagen">
-    <img src="include/images/icons/dialog-nok.png" /> es ist ein Fehler aufgetreten
-  </div>
-  <div id="loschdialog" style="display:none;" title="Bist du dir sicher... ?">
-    <img src="include/images/icons/dialog-what.png" /> diesen Gegner wirklich l&ouml;schen ? <br/>
-  </div>
-  <div id="newOpponent" style="display:none;" title="neuen Gegner anlegen">
-    <form action="" method="post" enctype="multipart/form-data" id="newoppform" name="newoppform">
-    {ANTISPAM}
-      <table width="200" border="0">
-        <tr>
-          <td><label>ClanTag<br /><input type="text" name="newgegnertag" id="newgegnertag" value="" /></label></td>
-          <td>
-            <label>Nation</label><div style="display:inline-table"><img id="choosedFlag" src="" /></div><br />
-            <select name="newnation" id="newnation"><!-- Ausgabe der Flaggen Start -->{nationen}<!-- Ausgabe der Flaggen Ende --></select>
-          </td>
-        </tr><tr>
-          <td><label>ClanName<br /><input type="text" name="newclanname" id="newclanname" value="" /></label></td>
-          <td><label>Website<br /><input name="newwebsite" type="text" id="newwebsite" value="" /></label></td>
-        </tr><tr>
-          <td><label>ICQ<br /><input name="newicq" type="text" id="newicq" value="" /></label></td>
-          <td><label>E-Mail<br /><input name="newemail" type="text" id="newemail" value="" /></label></td>
-        </tr><tr>
-          <td colspan="2"><label>Logo<input type="file" name="newlogo" id="newlogo" /></label></td>
-        </tr>
-      </table>
-      <p><input type="submit" name="newsubmit" id="newsubmit" value="Speichern" class="submit" /></p>
+    <div id="inlineNavi" style="display:inline;">
+        <p>&nbsp;</p>
+        <p><a onClick="openNewOpp()" style="cursor: pointer; cursor: hand;" >neuen Gegner eintragen</a></p>
+    </div>
+    <div id="okdialog" style="display:none;" title="Upload erfolgreich">
+        <img src="include/images/icons/dialog-ok.png" /> Gegner erfolgreich zur Datenbank hinzugef&uuml;gt
+    </div>
+    <div id="Nokdialog" style="display:none;" title="Upload fehlgeschlagen">
+        <img src="include/images/icons/dialog-nok.png" /> es ist ein Fehler aufgetreten
+    </div>
+    <div id="loschdialog" style="display:none;" title="Bist du dir sicher... ?">
+        <img src="include/images/icons/dialog-what.png" /> diesen Gegner wirklich l&ouml;schen ? <br/>
+    </div>
+    <div id="newOpponent" style="display:none;" title="neuen Gegner anlegen">
+        <form action="" method="post" enctype="multipart/form-data" id="newoppform" name="newoppform">
+            {ANTISPAM}
+            <table width="200" border="0">
+                <tr>
+                    <td><label>ClanTag<br /><input type="text" name="newgegnertag" id="newgegnertag" value="" /></label></td>
+                    <td>
+                        <label>Nation</label><div style="display:inline-table"><img id="choosedFlag" src="" /></div><br />
+                        <select name="newnation" id="newnation"><!-- Ausgabe der Flaggen Start -->{nationen}<!-- Ausgabe der Flaggen Ende --></select>
+                    </td>
+                </tr><tr>
+                    <td><label>ClanName<br /><input type="text" name="newclanname" id="newclanname" value="" /></label></td>
+                    <td><label>Website<br /><input name="newwebsite" type="text" id="newwebsite" value="" /></label></td>
+                </tr><tr>
+                    <td><label>ICQ<br /><input name="newicq" type="text" id="newicq" value="" /></label></td>
+                    <td><label>E-Mail<br /><input name="newemail" type="text" id="newemail" value="" /></label></td>
+                </tr><tr>
+                    <td colspan="2"><label>Logo<input type="file" name="newlogo" id="newlogo" /></label></td>
+                </tr>
+            </table>
+            <p><input type="submit" name="newsubmit" id="newsubmit" value="Speichern" class="submit" /></p>
+        </form>
+    </div>
+    <p>Hier kannst du deine Gegner verwalten, neue Gegner anlegen oder jene L&ouml;schen, die nicht mehr im System ben&ouml;tigt werden</p>
+    <form id="form1" name="form1" method="post" action="">
+        <input name="suche" type="text" id="suche" value="suche ClanName..." onfocus="this.value = ''"/>
+        <input type="submit" name="submit" id="submit" value="Senden" />
     </form>
-  </div>
-  <p>Hier kannst du deine Gegner verwalten, neue Gegner anlegen oder jene L&ouml;schen, die nicht mehr im System ben&ouml;tigt werden</p>
-  <form id="form1" name="form1" method="post" action="">
-    <input name="suche" type="text" id="suche" value="suche ClanName..." onfocus="this.value = ''"/>
-    <input type="submit" name="submit" id="submit" value="Senden" />
-  </form>
-  <p align="center">{siteindex}</p>
-  <table width="98%" border="0" align="center">
-    <tr class="Cmite">
-      <td nowrap="nowrap"><strong>Logo</strong></td>
-      <td nowrap="nowrap"><strong>Edit</strong></td>
-      <td nowrap="nowrap"><strong>ClanName</strong></td>
-      <td nowrap="nowrap"><strong>ClanTag</strong></td>
-      <td nowrap="nowrap"><strong>WebSite</strong></td>
-      <td nowrap="nowrap"><strong>ICQ</strong></td>
-    </tr><tr>
-      <td nowrap="nowrap">&nbsp;</td>
-      <td nowrap="nowrap">&nbsp;</td>
-      <td nowrap="nowrap">&nbsp;</td>
-      <td nowrap="nowrap">&nbsp;</td>
-      <td nowrap="nowrap">&nbsp;</td>
-      <td nowrap="nowrap">&nbsp;</td>
-    </tr>
-    {gegnerliste}
-    <tr>
-      <td nowrap="nowrap">&nbsp;</td>
-      <td nowrap="nowrap">&nbsp;</td>
-      <td nowrap="nowrap">&nbsp;</td>
-      <td nowrap="nowrap">&nbsp;</td>
-      <td nowrap="nowrap">&nbsp;</td>
-      <td nowrap="nowrap">&nbsp;</td>
-    </tr>
-  </table>
-  <p>{siteindex}</p>
+    <p align="center">{siteindex}</p>
+    <table width="98%" border="0" align="center">
+        <tr class="Cmite">
+            <td nowrap="nowrap"><strong>Logo</strong></td>
+            <td nowrap="nowrap"><strong>Edit</strong></td>
+            <td nowrap="nowrap"><strong>ClanName</strong></td>
+            <td nowrap="nowrap"><strong>ClanTag</strong></td>
+            <td nowrap="nowrap"><strong>WebSite</strong></td>
+            <td nowrap="nowrap"><strong>ICQ</strong></td>
+        </tr><tr>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td nowrap="nowrap">&nbsp;</td>
+        </tr>
+        {gegnerliste}
+        <tr>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td nowrap="nowrap">&nbsp;</td>
+        </tr>
+    </table>
+    <p>{siteindex}</p>
 </div>
 {EXPLODE}
 <script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
 <style>
-#editoppform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+    #editoppform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
 </style>
 <script>	
-$(document).ready(function() {		   
-	$("#editoppform").validate({
-		rules: {			
-			editgegnertag: { required: true },
-			editclanname: { required: true, minlength: 2 },
-			editwebsite: { required: true, url: true },
-			//editicq: { required: true },
-			//editemail: { required: true, email: true },
-			//editlogo: { required: true }
-		},
-		messages: {
-			editgegnertag: "Bitte ClanTag angeben!",
-			editclanname: { required: "Bitte Namen angeben!", minlength: "Name mind. 2 Zeichen!" },
-			editwebsite: "Bitte URL angeben!",
-			//editicq: "Bitte ICQ angeben!",
-			//editemail: "Bitte Email angeben!",
-			//editlogo: "Bitte Logolink angeben!"
-		}
-	});
-	$(document).ready(function() {
-		$('#newnation').change(function() {
-			$('#choosedFlag').attr('src', 'include/images/flags/' + $(this).val());
-		});
-	});
-});
+    $(document).ready(function() {
+        $("#editoppform").validate({
+            rules: {
+                editgegnertag: { required: true },
+                editclanname: { required: true, minlength: 2 },
+                editwebsite: { required: true, url: true }
+                //editicq: { required: true },
+                //editemail: { required: true, email: true },
+                //editlogo: { required: true }
+            },
+            messages: {
+                editgegnertag: "Bitte ClanTag angeben!",
+                editclanname: { required: "Bitte Namen angeben!", minlength: "Name mind. 2 Zeichen!" },
+                editwebsite: "Bitte URL angeben!"
+                //editicq: "Bitte ICQ angeben!",
+                //editemail: "Bitte Email angeben!",
+                //editlogo: "Bitte Logolink angeben!"
+            }
+        });
+        $(document).ready(function() {
+            $('#newnation').change(function() {
+                $('#choosedFlag').attr('src', 'include/images/flags/' + $(this).val());
+            });
+        });
+    });
 </script>
 <noscript>Bitte JavaScript aktivieren</noscript>
 <div id="inlineNavi" style="display:inline;">
-  <p>&nbsp;</p>
-  <p><a href="admin.php?opponents" style="cursor: pointer; cursor: hand;" >zur&uuml;ck zur &Uuml;bersicht</a></p>
+    <p>&nbsp;</p>
+    <p><a href="admin.php?opponents" style="cursor: pointer; cursor: hand;" >zur&uuml;ck zur &Uuml;bersicht</a></p>
 </div>
 {aktuellesLogo}
 <form action="" method="post" enctype="multipart/form-data" id="editoppform" name="editoppform">
-{ANTISPAM}
-  <table width="200" border="0">
-    <tr>
-      <td><label>ClanTag<br /><input type="text" name="editgegnertag" id="editgegnertag" value="{tag}" /></label></td>
-      <td>
-        <label>Nation</label><div style="display:inline-table"><img id="choosedFlag" src="" /></div><br />
-        <select name="editnation" id="editnation"><!-- Ausgabe der Flaggen Start -->{nationen}<!-- Ausgabe der Flaggen Ende --></select>
-      </td>
-    </tr><tr>
-      <td><label>ClanName<br /><input type="text" name="editclanname" id="editclanname" value="{name}" /></label></td>
-      <td><label>Website<br /><input name="editwebsite" type="text" id="editwebsite" value="{page}" /></label></td>
-    </tr><tr>
-      <td><label>ICQ<br /><input name="editicq" type="text" id="editicq" value="{icq}" /></label></td>
-      <td><label>E-Mail<br /><input name="editemail" type="text" id="editemail" value="{email}" /></label></td>
-    </tr><tr>
-      <td colspan="2"><label>Logo<input type="file" name="editlogo" id="editlogo" /></label></td>
-    </tr>
-  </table>
-  <p><input type="submit" name="editsubmit" id="editsubmit" value="Speichern" class="submit" /></p>
+    {ANTISPAM}
+    <table width="200" border="0">
+        <tr>
+            <td><label>ClanTag<br /><input type="text" name="editgegnertag" id="editgegnertag" value="{tag}" /></label></td>
+            <td>
+                <label>Nation</label><div style="display:inline-table"><img id="choosedFlag" src="" /></div><br />
+                <select name="editnation" id="editnation"><!-- Ausgabe der Flaggen Start -->{nationen}<!-- Ausgabe der Flaggen Ende --></select>
+            </td>
+        </tr><tr>
+            <td><label>ClanName<br /><input type="text" name="editclanname" id="editclanname" value="{name}" /></label></td>
+            <td><label>Website<br /><input name="editwebsite" type="text" id="editwebsite" value="{page}" /></label></td>
+        </tr><tr>
+            <td><label>ICQ<br /><input name="editicq" type="text" id="editicq" value="{icq}" /></label></td>
+            <td><label>E-Mail<br /><input name="editemail" type="text" id="editemail" value="{email}" /></label></td>
+        </tr><tr>
+            <td colspan="2"><label>Logo<input type="file" name="editlogo" id="editlogo" /></label></td>
+        </tr>
+    </table>
+    <p><input type="submit" name="editsubmit" id="editsubmit" value="Speichern" class="submit" /></p>
 </form>
