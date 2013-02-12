@@ -8,13 +8,13 @@
 defined('main') or die('no direct access');
 
 $lang = array_merge($lang, array(
-    'regist' => 'registrieren',
+    'regist' => 'register',
     'email_name' => 'Name/E-Mail',
-    'adminarea' => 'Adminbereich',
-    'messages' => 'Nachrichten',
-    'savecookie' => 'eingeloggt bleiben',
-    'hello' => 'Hallo',
+    'adminarea' => 'Adminarea',
+    'messages' => 'Messages',
+    'savecookie' => 'stay logged in',
+    'hello' => 'Hello',
     'userpanel' => 'UserPanel',
-    'gbook' => 'Gästebuch',
-    'uncheckedgbook' => 'Es befinden sich ungeprüfte Einträge im Gästebuch'
+    'gbook' => 'Guestbook',
+    'uncheckedgbook' => 'There are unverified guestbook entries'
 ));

@@ -1,0 +1,87 @@
+<table width="100%">
+    <tr>
+        <td align="left"><b>{INSERTS}</b></td>
+        <td align="right">{BUTTON}</td>
+    </tr>
+</table>
+<br />
+
+{EXPLODE "showlist_start"}
+
+<table width="100%" cellpadding="4" cellspacing="0" border="0" class="rand">
+    <tr class="Cmite">
+        <td width="40%"><b>{NAME}</b></td>
+        <td width="20%">{MAIL}{PAGE}</td>
+        <td width="40%" align="right"><span class="smalfont">{DATE}</span></td>
+    </tr>
+    <tr class="Cnorm">
+        <td colspan="3">{TEXT}</td>
+    </tr>
+</table>
+{koms}
+<br />
+<br />
+
+{EXPLODE "showlist_end"}
+
+<br />
+<br />
+<div align="center">{SITELINK}</div>
+
+{EXPLODE "showsingle"}
+
+<table width="100%" cellpadding="4" cellspacing="0" border="0" class="rand">
+    <tr class="Cmite">
+        <td width="40%"><b>{name}</b></td>
+        <td width="20%">{mail}{page}</td>
+        <td width="40%" align="right"><span class="smalfont">{datum}</span></td>
+    </tr>
+    <tr class="Cnorm">
+        <td colspan="3">{text}</td>
+    </tr>
+</table>
+<br />
+<br />
+
+<!-- Kommentar -->
+{EXPLODE "koms_on"} 	
+<script>
+    $(document).ready(function() {
+        $('#newkom').click(function() {
+            $dialog = $('#komdiv').dialog({ autoOpen: true, modal: true, title: '{_lang_writecomment}', width: 300 });
+        });
+    });
+</script>
+
+<table width="100%" cellpadding="4" cellspacing="0" border="0" class="rand">
+    <tr>
+        <td class="Cmite" colspan="3" align="left"><b>{_lang_comments}</b>&nbsp;<a style="cursor:pointer;" id="newkom">({_lang_writecomment})</a></td>
+    </tr>
+    <tr>
+        <td class="Cnorm" colspan="3" align="left">
+            <div id="komdiv" name="komdiv">
+                <form action="index.php?gbook-show-{id}" method="post" id="comments">
+                    {ANTISPAM}
+                    <br /><br />
+                    <label>{_lang_name}<br><input type="text" name="name" value="{uname}" maxlength="15" {readonly} /></label>
+                    <br /><br />
+                    <label>{_lang_comment}<br><textarea style="width: 100%;" rows="2" name="text"></textarea></label>
+                    <br /><br />
+                    <input type="submit" value="{_lang_enter}">    
+                </form>
+            </div>
+            {EXPLODE "koms_self"}
+            <div class="comment">
+                <img class="avatar" src="{avatar}" />
+                <p class="arrow"></p>
+                <blockquote>
+                    <p>{text}</p>
+                    <h1>#{zahl}&nbsp;von&nbsp;<b>{name}</b></h1>
+                    <h2>{time}</h2>
+                </blockquote>
+            </div>
+            {EXPLODE "koms_off"}
+        </td>
+    </tr>
+</table>
+<!-- /Kommentar -->

@@ -4,8 +4,8 @@ $(document).ready(function() {
 	$("#gbook_form").validate({
 		rules: {
 			name: { required: true, minlength: 2 },
-			mail: { required: true, email: true },
-			page: { required: true, url: true },
+			mail: { required: false, email: true },
+			page: { required: false, url: true },
 			txt: { required: true },
 			number: { required: true }
 		},

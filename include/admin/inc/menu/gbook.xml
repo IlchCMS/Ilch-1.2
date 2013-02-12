@@ -2,18 +2,23 @@
 
 <menu>
 
-  <list title="G&amp;auml;stebuch">
-  
+    <list title="G&amp;auml;stebuch">
+
     <modul>
-	  <title>Eintr&amp;auml;ge verwalten</title>
-	  <url>admin.php?gbook</url>
-	</modul>
-	
+        <title>Eintr&amp;auml;ge verwalten</title>
+        <url>admin.php?gbook</url>
+    </modul>
+
     <modul>
-	  <title>Badword-Liste</title>
-	  <url>admin.php?bbcode-badword</url>
-	</modul>
-	
-  </list>
-  
+        <title>G&amp;auml;stebuch konfigurieren</title>
+        <url>admin.php?allg#tabs-gstebuch</url>
+    </modul>
+
+    <modul>
+        <title>Badword-Liste</title>
+        <url>admin.php?bbcode-badword</url>
+    </modul>
+
+    </list>
+
 </menu>
