@@ -1,6 +1,6 @@
 <?php
 
-db_query("DELETE * FROM `prefix_config` WHERE kat = 'Gästebuch'");
+db_query("DELETE FROM `prefix_config` WHERE `kat` = 'Gästebuch'");
 
 db_query("INSERT INTO `prefix_config` (`schl`, `typ`, `typextra`, `kat`, `frage`, `wert`, `pos`, `hide`, `helptext`) VALUES
 ('gbook_koms_for_inserts', 'r2', NULL, 'Gästebuch', 'Kommentare für Einträge zulassen?', '1', 5, 0, NULL),

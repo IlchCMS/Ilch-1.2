@@ -1,25 +1,6 @@
 {EXPLODE "formular_insert"}
-
-<noscript>Bitte JavaScript aktivieren</noscript>
-<script language="JavaScript" type="text/javascript">
-    <!--
-    var ErlaubteAnzahl={TXTL};
-    function RestlicheZeichenErmitteln(d) {
-        Laenge=document.form.txt.value.length;
-        if(Laenge>ErlaubteAnzahl) {
-            document.form.txt.value=document.form.txt.value.substring(0,ErlaubteAnzahl);
-            RestlicheZeichen=0;
-        } else {
-            RestlicheZeichen=ErlaubteAnzahl-Laenge;
-        }
-        document.form.Laenge.value=RestlicheZeichen;
-    }
-    //-->
-</script>
-
 <script type="text/javascript" src="include/includes/js/bbcode.js"></script>
-
-<form action="index.php?gbook-insert" onsubmit="return checkg()" method="POST" name="form" id="gbook_form">
+<form action="index.php?gbook-insert" method="POST" name="form" id="gbook_form">
     {FEHLER}
     <table width="100%" class="border" cellspacing="1" border="0" cellpadding="5">
         <tr>
@@ -42,8 +23,8 @@
                     </tr>
                     <tr class="Cnorm">
                         <td width="100%">
-                            <textarea style="width: 98%" onblur="RestlicheZeichenErmitteln(this);" onchange="RestlicheZeichenErmitteln(this);" onfocus="RestlicheZeichenErmitteln(this);" onkeydown="RestlicheZeichenErmitteln(this);" onkeyup="RestlicheZeichenErmitteln(this);" cols="50" rows="10" tabindex="4" name="txt">{TEXT}</textarea>
-                            <br />Noch <input size="3" name="Laenge" value="{TXTL}"> {_lang_signs}
+                            <textarea style="width: 98%" rows="10" tabindex="4" name="txt" id="gbookText">{TEXT}</textarea>
+                            <br />Noch <input size="3" id="gbookTextLength" value="{TXTL}"> {_lang_signs}
                         </td>
                     </tr>
                 </table>
@@ -56,7 +37,11 @@
         </tr>
     </table>
 </form>
-
+<script type="text/javascript">
+if (ic) {
+    ic.gbook = {maxTextLength: {TXTL}};
+}
+</script>
 {EXPLODE "preview"}
 <table width="100%" class="border" cellspacing="1" border="0" cellpadding="5">
     <tr>

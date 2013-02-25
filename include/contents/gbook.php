@@ -9,7 +9,7 @@ defined('main') or die('no direct access');
 
 $title = $allgAr['title'] . ' :: G&auml;stebuch';
 $hmenu = 'G&auml;stebuch';
-$header = Array(
+$header = array(
     'jquery/jquery.validate.js',
     'forms/gbook.js'
 );
@@ -18,7 +18,7 @@ $design->header($header);
 
 // time sperre in sekunden
 $timeSperre = (int) $allgAr['gbook_time_ban'];
-$dppk_time = time();
+$now = time();
 
 /**
  * gbook
@@ -38,11 +38,14 @@ function showPreview() {
 /**
  * Zeigt das Formular an, in dem User ihre Einträge machen können
  *
- * @param  $text Vorbelegung für den text
- * @param  $mail Vorbelegung für die Emailadresse
- * @param  $page Vorbelegung für die Homepage
+ * @param string $text Vorbelegung für den text
+ * @param string $mail Vorbelegung für die Emailadresse
+ * @param string $page Vorbelegung für die Homepage
+ * @param string $fehler Fehlermeldung
+ * @param integer $now aktueller Unixtimestamp
+ * @param integer $timeSperre Anzahl Sekunden, die vergehen muss bevor man erneut posten kann
  */
-function showForm($text = "", $mail = "", $page = "", $fehler = "", $dppk_time = NULL, $timeSperre = 3600) {
+function showForm($text = "", $mail = "", $page = "", $fehler = "", $now = NULL, $timeSperre = 3600) {
     global $allgAr;
     $tpl = new tpl('gbook/insert.htm');
     $ar = array(
@@ -57,7 +60,7 @@ function showForm($text = "", $mail = "", $page = "", $fehler = "", $dppk_time =
     );
     $tpl->set_ar_out($ar, 'formular_insert');
     if (!isset($_SESSION['klicktime_gbook'])) {
-        $_SESSION['klicktime_gbook'] = (time() - $timeSperre);
+        $_SESSION['klicktime_gbook'] = ($now - $timeSperre);
     }
 }
 
@@ -79,10 +82,11 @@ switch ($menu->get(1)) {
 
         if (isset($_POST['preview'])) {
             showPreview();
-            showForm($_POST['txt'], $_POST['mail'], get_homepage($_POST['page']), false, $dppk_time, $timeSperre);
+            showForm($_POST['txt'], $_POST['mail'], get_homepage($_POST['page']), false, $now, $timeSperre);
         } elseif (isset($_POST['submit'])) {
+            $fehler = '';
             // Fehlerabfrage
-            if (($_SESSION['klicktime_gbook'] + $timeSperre) > $dppk_time) {
+            if (($_SESSION['klicktime_gbook'] + $timeSperre) > $now) {
                 $fehler .= '&middot;&nbsp;' . $lang['donotpostsofast'] . '<br />';
             }
             if (trim($_POST['name']) == '') {
@@ -98,7 +102,7 @@ switch ($menu->get(1)) {
                 $fehler .= '&middot;&nbsp;' . $lang['incorrectspam'] . '<br />';
             }
             //
-            if ($fehler == '') {
+            if ($fehler === '') {
                 $txt = escape($_POST['txt'], 'textarea');
                 if ($_SESSION['authid'] == 0) {
                     $name = escape_nickname($_POST['name'], 'string') . ' (Gast)';
@@ -111,13 +115,13 @@ switch ($menu->get(1)) {
                 db_query("INSERT INTO `prefix_gbook` (`name`,`mail`,`page`,`time`,`ip`,`txt`,`show`) 
 				VALUES ('" . $name . "', '" . $mail . "', '" . $page . "', '" . time() . "', '" . getip() . "', '" . $txt . "', '" . $allgAr['gbook_show'] . "')");
 
-                $_SESSION['klicktime_gbook'] = $dppk_time;
+                $_SESSION['klicktime_gbook'] = $now;
                 wd('index.php?gbook', (($allgAr['gbook_show'] == 1) ? $lang['insertsuccessful'] : $lang['insertcheck']), 5);
             } else {
-                showForm($_POST['txt'], $_POST['mail'], get_homepage($_POST['page']), '<div id="formfehler">' . $fehler . '</div>', $dppk_time, $timeSperre);
+                showForm($_POST['txt'], $_POST['mail'], get_homepage($_POST['page']), '<div id="formfehler">' . $fehler . '</div>', $now, $timeSperre);
             }
         } else {
-            showForm('', '', '', '', $dppk_time);
+            showForm('', '', '', '', $now);
             break;
         }
         break;
@@ -126,7 +130,7 @@ switch ($menu->get(1)) {
     case 'show':
 
         $id = escape($menu->get(2), 'integer');
-        if (chk_antispam('gbookkom') AND isset($_POST['name']) AND isset($_POST['text'])) {
+        if (isset($_POST['name']) && isset($_POST['text']) && chk_antispam('gbookkom')) {
             if (loggedin()) {
                 $name = $_SESSION['authname'];
                 $userid = $_SESSION['authid'];
@@ -191,10 +195,10 @@ switch ($menu->get(1)) {
 
         $limit = $allgAr['gbook_posts_per_site']; // Limit
         $page = ($menu->getA(1) == 'p' ? escape($menu->getE(1), 'integer') : 1);
-        $MPL = db_make_sites($page, "WHERE `show` = '1'", $limit, "?gbook", 'gbook');
+        $countOfGbookInserts = @db_result(db_query("SELECT COUNT(ID) FROM `prefix_gbook` WHERE `show` = 1"), 0);
+        $MPL = db_make_sites($page, '', $limit, "?gbook", '', $countOfGbookInserts);
         $anfang = ($page - 1) * $limit;
         $tpl = new tpl('gbook/show.htm');
-        $anzGbookInserts = @db_result(db_query("SELECT COUNT(ID) FROM `prefix_gbook` WHERE `show` = 1"), 0);
         // Gaestebuch gesperrt
         if ($allgAr['gbook_show'] != 2) {
             $insertButton = '<a href="index.php?gbook-insert">' . $lang['insert'] . '</a>';
@@ -202,7 +206,7 @@ switch ($menu->get(1)) {
             $insertButton = '';
         }
         $ar = array(
-            'INSERTS' => $anzGbookInserts . ' ' . (($anzGbookInserts == 1) ? $lang['entry'] : $lang['entries']),
+            'INSERTS' => $countOfGbookInserts . ' ' . (($countOfGbookInserts == 1) ? $lang['entry'] : $lang['entries']),
             'BUTTON' => $insertButton
         );
         $tpl->set_ar_out($ar, 0);

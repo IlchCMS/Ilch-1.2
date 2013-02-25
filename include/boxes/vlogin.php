@@ -16,8 +16,7 @@ if (loggedin()) {
     if (user_has_admin_right($menu, false)) {
         $admin = '<a class="box" href="admin.php?admin">' . $lang['adminarea'] . '</a>';
     }
-    $checkGbook = @db_result(db_query("SELECT COUNT(*) FROM `prefix_gbook` WHERE `show` = 0"), 0);
-    if (has_right(-8, 'gbook') AND $checkGbook > 0) {
+    if (has_right(-8, 'gbook') AND ($checkGbook = @db_result(db_query("SELECT COUNT(*) FROM `prefix_gbook` WHERE `show` = 0"), 0)) > 0) {
         $admin .= ' | <a class="box" href="admin.php?gbook" title="' . $lang['uncheckedgbook'] . '">' . $lang['gbook'] . '</a>&nbsp;(' . $checkGbook . ')';
     }
     $tpl->set('ADMIN', $admin);

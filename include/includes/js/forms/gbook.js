@@ -16,7 +16,19 @@ $(document).ready(function() {
 			txt: "Bitte eine Nachricht eingeben!",
 			number: "Bitte den Antispam ausf&uuml;llen!"
 		}
-	});	
+        });
+
+        //Zählen/Anzeigen verbleibender Zeichen
+        var gbookTextLengthEl = $('#gbookTextLength');
+        $('#gbookText').on('keyup', function() {
+            var maxLength = ic.gbook.maxTextLength,
+                curLength = this.value.length;
+            if (curLength > maxLength) {
+                this.value = this.value.substring(0, maxLength);
+                curLength = maxLength;
+            }
+            gbookTextLengthEl.val(maxLength - curLength);
+        });
 	
 	// GAESTEBUCH-KOMMENTAR					   
 	$("#comments").validate({
