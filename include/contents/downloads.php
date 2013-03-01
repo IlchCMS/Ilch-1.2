@@ -77,7 +77,13 @@ function count_files($cid) {
     return ($zges);
 }
 
-function icUpload() {
+/**
+ * Check and upload a file to the downloads directory.
+ *
+ * @param array $allgAr
+ * @return boolean|string
+ */
+function icUpload($allgAr) {
     $name = escape($_POST[ 'name' ], 'string');
     $version = escape($_POST[ 'version' ], 'string');
     $autor = escape($_POST[ 'autor' ], 'string');
@@ -110,8 +116,8 @@ function icUpload() {
         $fende = preg_replace("/.+\.([a-zA-Z]+)$/", "\\1", $fname);
         $fende = strtolower($fende);
 
-        if ($_FILES[ 'file' ][ 'size' ] > 2097000) { // 2 mb (2 097 152)
-            $upload_errors[] = 'Die Datei darf NICHT gr&ouml;sser als 2 MBytes sein.';
+        if ($_FILES['file']['size'] > (int)$allgAr['user_upload_max_size']) {
+            $upload_errors[] = 'Die Datei darf nicht größer als '.(nicebytes($allgAr['user_upload_max_size'])).' sein.';
             $upload_error = true;
         }
 
@@ -385,7 +391,8 @@ switch ($menu->get(1)) {
             $design = new design($title, $hmenu);
             $design->header();
 
-            $re = icUpload();
+            $re = icUpload($allgAr);
+
             if ($re === true) {
                 echo 'Erfolgreich eingetragen! ... ein Moderator oder Admin dieser Seite wird den Download in n&auml;chster Zeit freischalten.';
             } else {
