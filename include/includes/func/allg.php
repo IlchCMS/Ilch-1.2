@@ -314,12 +314,23 @@ function get_datum($d) {
     return ($d);
 }
 
+/**
+ * Add "http" to url if no "http/https" given.
+ *
+ * @param string $h
+ * @return string
+ */
 function get_homepage($h) {
     $h = trim($h);
-    if (!empty($h) AND substr($h, 0, 7) != 'http://') {
-        $h = 'http://' . $h;
+
+    if (!empty($h)
+        && substr($h, 0, 7) !== 'http://'
+        && substr($h, 0, 8) !== 'https://'
+    ) {
+        $h = 'http://'.$h;
     }
-    return ($h);
+
+    return $h;
 }
 
 function get_wargameimg($img) {
