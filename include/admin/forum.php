@@ -279,7 +279,7 @@ switch ($um) {
 		$tpl->set('ANTISPAM', get_antispam('adminuser_action', 0, true));
         if (isset($_POST[ 'sub' ]) AND (chk_antispam('adminuser_action', true))) {
             // Kategorien
-            if ($_POST[ 'cb_repc' ] == 'on') {
+            if (isset($_POST['cb_repc']) && $_POST['cb_repc'] == 'on') {
                 $cats_sql = db_query("SELECT `cid` FROM `prefix_forumcats`");
                 while ($cats_row = db_fetch_object($cats_sql)) {
                     $ucats_sql = db_query("SELECT `id` FROM `prefix_forumcats` WHERE `cid` = " . $cats_row->cid . " ORDER BY `pos`, `id`");
@@ -292,7 +292,7 @@ switch ($um) {
                 $FK = 'Kategorien';
             }
             // Foren
-            if ($_POST[ 'cb_repf' ] == 'on') {
+            if (isset($_POST['cb_repf']) && $_POST['cb_repf'] == 'on') {
                 $cats_sql = db_query("SELECT DISTINCT `cid` FROM `prefix_forums`");
                 while ($cats_row = db_fetch_object($cats_sql)) {
                     $frm_sql = db_query("SELECT `id` FROM `prefix_forums` WHERE `cid` = " . $cats_row->cid . " ORDER BY `pos`, `id`");
@@ -309,7 +309,7 @@ switch ($um) {
                 }
             }
             if (!isset($FK)) {
-                $FK = 'Nichts';
+                $FK = 'Weder Kategorien noch Foren';
             }
             $tpl->set_out('FK', $FK, 1);
         } else {
