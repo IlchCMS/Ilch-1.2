@@ -14,7 +14,7 @@ defined ('main') or die ( 'no direct access' );
 $lang = array_merge($lang, array (
     //Login
     'login' => 'Login',
-    'mail_name' => 'E-Mail / Loginname',
+    'email_name' => 'Name/E-Mail',
     'password' => 'Passwort',
     'savecookie' => 'eingeloggt bleiben',
     'registernow' => 'jetzt registrieren',
