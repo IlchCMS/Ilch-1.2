@@ -62,7 +62,7 @@ class PwCrypt
             if ($this->hashAlgorithm === self::SHA256 && (!defined('CRYPT_SHA256') || CRYPT_SHA256 !== 1)) {
                 $this->hashAlgorithm = self::BLOWFISH_OLD; // Wenn SHA256 nicht verfügbar, versuche BLOWFISH
             }
-            if ($this->hashAlgorithm === self::BLOWFISH_OLD (!defined('CRYPT_BLOWFISH') || CRYPT_BLOWFISH !== 1)) {
+            if ($this->hashAlgorithm === self::BLOWFISH_OLD && (!defined('CRYPT_BLOWFISH') || CRYPT_BLOWFISH !== 1)) {
                 $this->hashAlgorithm = self::MD5; // Wenn BLOWFISH nicht verfügbar, nutze MD5
             }
         }
