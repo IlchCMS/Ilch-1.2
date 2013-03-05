@@ -56,13 +56,13 @@ class PwCrypt
 
         // Prüfen welche Hash Funktionen Verfügbar sind. Ab 5.3 werden alle Mitgeliefert
         if (version_compare(PHP_VERSION, '5.3.0', '<')) {
-            if ($this->hashAlgorithm === self::SHA512 && !defined('CRYPT_SHA512') && CRYPT_SHA512 !== 1) {
+            if ($this->hashAlgorithm === self::SHA512 && (!defined('CRYPT_SHA512') || CRYPT_SHA512 !== 1)) {
                 $this->hashAlgoriathm = self::SHA256; // Wenn SHA512 nicht verfügbar, versuche SHA256
             }
-            if ($this->hashAlgorithm === self::SHA256 && !defined('CRYPT_SHA256') && CRYPT_SHA256 !== 1) {
+            if ($this->hashAlgorithm === self::SHA256 && (!defined('CRYPT_SHA256') || CRYPT_SHA256 !== 1)) {
                 $this->hashAlgorithm = self::BLOWFISH_OLD; // Wenn SHA256 nicht verfügbar, versuche BLOWFISH
             }
-            if ($this->hashAlgorithm === self::BLOWFISH_OLD && !defined('CRYPT_BLOWFISH') && CRYPT_BLOWFISH !== 1) {
+            if ($this->hashAlgorithm === self::BLOWFISH_OLD && (!defined('CRYPT_BLOWFISH') || CRYPT_BLOWFISH !== 1)) {
                 $this->hashAlgorithm = self::MD5; // Wenn BLOWFISH nicht verfügbar, nutze MD5
             }
         }
