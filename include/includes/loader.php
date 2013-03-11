@@ -8,9 +8,23 @@ defined('main') or die('no direct access');
 //new feature, enhances Debug mode!
 define('DEVELOPER_MODE',false);
 require_once('include/includes/func/debug.php');
-// Datenbankverbindung aufbauen
 require_once('include/includes/func/db/mysql.php');
+
+spl_autoload_register(function($className) {
+    $className = strtolower(str_replace('_', '/', $className));
+    $filePath = 'include/includes/class/'.$className.'.php';
+
+    if(file_exists($filePath)) {
+        require_once $filePath;
+    } else {
+        throw new InvalidArgumentException('the file "'.$filePath.'" does not exist');
+    }
+});
+
 db_connect();
+
+
+$ilchDb = Ilch_Registry::get('db');
 // Eintraege aus `prefix_loader` laden
 $sql = 'SELECT `task`,`file` FROM `prefix_loader` ORDER BY `pos` ASC';
 $erg = db_query($sql);

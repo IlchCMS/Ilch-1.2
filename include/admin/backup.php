@@ -21,19 +21,13 @@ if (!is_writeable(BACKUPDIR)) {
     $design->footer(1);
 } else 
 if (isset($_POST['backitup'])){
-    $hostspec = DBHOST;
-    $username = DBUSER;
-    $password = DBPASS;
-    $database = DBDATE;
-
     $nodata   = false;      #!DO NOT DUMP TABLES DATA
     $nostruct = false;      #!DO NOT DUMP TABLES STRUCTURE
     $gzip     = false;      #!DO GZIP OUTPUT
 
-    $link = mysql_connect("$hostspec", "$username", "$password",false,MYSQL_CLIENT_COMPRESS);
     $dump = new MySQLDump();
-    $dbdata =  $dump->dumpDatabase($database,$nodata,$nostruct);
-    mysql_close($link);
+    $dbdata =  $dump->dumpDatabase(DBDATE, $nodata, $nostruct);
+
     if($gzip === false){
         file_put_contents(BACKUPDIR.$filedatename, $dbdata);
         #$dump->sendAttachFile($dbdata,'text/html','sql_dump.sql');

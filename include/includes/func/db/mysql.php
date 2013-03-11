@@ -9,35 +9,34 @@ $count_query_xyzXYZ = 0;
 
 function db_connect()
 {
-    if (defined('CONN')) {
+    if (Ilch_Registry::get('db') !== null) {
         return;
     }
-    define('CONN', @mysql_pconnect(DBHOST, DBUSER, DBPASS));
 
-    if (!CONN) {
-        die('Verbindung nicht m&ouml;glich, bitte pr&uuml;fen Sie ihre mySQL Daten wie Passwort, Username und Host<br />');
-    }
-    //UTF8 setzen (mysql 5.0.7+ erforderlich)
-    mysql_set_charset('utf8', CONN);
-    $db = @mysql_select_db(DBDATE, CONN);
-    if (!$db) {
-        die('Kann Datenbank "' . DBDATE . '" nicht benutzen : ' . mysql_error(CONN));
-    }
+    $db = new Ilch_Database_Mysql();
+    $db->connect(DBHOST, DBUSER, DBPASS);
+    $db->setDatabase(DBDATE);
+    $db->setPrefix(DBPREF);
+    Ilch_Registry::set('db', $db);
+    Ilch_Registry::set('dbLink', $db->getLink());
 }
 
 function db_close()
 {
-    mysql_close(CONN);
+    mysqli_close(Ilch_Registry::get('dbLink'));
 }
+
 if (defined('DEBUG') and DEBUG) {
     $ILCH_DEBUG_DB_QUERIES = array();
     $ILCH_DEBUG_DB_COUNT_QUERIES = 0;
 
     function db_check_error($r)
     {
-        if (!$r AND mysql_errno(CONN) != 0) {
+        $dbLink = Ilch_Registry::get('dbLink');
+
+        if (!$r AND mysqli_errno($dbLink) != 0) {
             // var_export (debug_backtrace(), true)
-            return '<font color="#FF0000">MySQL Error:</font><br/>' . mysql_errno(CONN) . ' : ' . mysql_error(CONN);
+            return '<font color="#FF0000">MySQL Error:</font><br/>' . mysqli_errno($dbLink) . ' : ' . mysqli_errno($dbLink);
         }
         return '';
     }
@@ -46,6 +45,7 @@ if (defined('DEBUG') and DEBUG) {
     {
         global $ILCH_DEBUG_DB_COUNT_QUERIES, $ILCH_DEBUG_DB_QUERIES;
         $ILCH_DEBUG_DB_COUNT_QUERIES++;
+        $dbLink = Ilch_Registry::get('dbLink');
 
         if (preg_match("/^UPDATE `?prefix_\S+`?\s+SET/is", $q)) {
             $q = preg_replace("/^UPDATE `?prefix_(\S+?)`?([\s\.,]|$)/i", "UPDATE `" . DBPREF . "\\1`\\2", $q);
@@ -65,15 +65,14 @@ if (defined('DEBUG') and DEBUG) {
 
         $tmp = array();
         $vor = microtime(true);
-        $qry = @mysql_query($q, CONN);
+        $qry = mysqli_query($dbLink, $q);
         $nach = microtime(true);
         $res = is_resource($qry);
         $tmp['is_valid_result_resource'] = $res;
         $tmp['duration'] = $nach - $vor;
         $tmp['time'] = $nach - SCRIPT_START_TIME;
         $tmp['query'] = $q;
-        $tmp['affected_rows'] = mysql_affected_rows(CONN);
-        $tmp['result_index'] = (int) $qry;
+        $tmp['affected_rows'] = mysqli_affected_rows($dbLink);
         $tmp['call'] = debug_bt();
         $error = db_check_error($qry);
         if (!empty($error)) {
@@ -87,15 +86,18 @@ if (defined('DEBUG') and DEBUG) {
 
     function db_check_error(&$r, $q)
     {
-        if (!$r AND mysql_errno(CONN) != 0 AND function_exists('is_coadmin') AND is_coadmin()) {
+        $dbLink = Ilch_Registry::get('dbLink');
+
+        if (!$r AND mysqli_errno($dbLink) != 0 AND function_exists('is_coadmin') AND is_coadmin()) {
             // var_export (debug_backtrace(), true)
-            echo ('<font color="#FF0000">MySQL Error:</font><br/>' . mysql_errno(CONN) . ' : ' . mysql_error(CONN) . '<br/>in Query:<br/>' . $q . '<pre>' . debug_bt() . '</pre>');
+            echo ('<font color="#FF0000">MySQL Error:</font><br/>' . mysqli_errno($dbLink) . ' : ' . mysqli_error($dbLink) . '<br/>in Query:<br/>' . $q . '<pre>' . debug_bt() . '</pre>');
         }
         return ($r);
     }
 
     function db_query($q)
     {
+        $dbLink = Ilch_Registry::get('dbLink');
         if (preg_match("/^UPDATE `?prefix_\S+`?\s+SET/is", $q)) {
             $q = preg_replace("/^UPDATE `?prefix_(\S+?)`?([\s\.,]|$)/i", "UPDATE `" . DBPREF . "\\1`\\2", $q);
         } elseif (preg_match("/^INSERT INTO `?prefix_\S+`?\s+[a-z0-9\s,\)\(]*?VALUES/is", $q)) {
@@ -104,38 +106,52 @@ if (defined('DEBUG') and DEBUG) {
             $q = preg_replace("/prefix_(\S+?)([\s\.,]|$)/", DBPREF . "\\1\\2", $q);
         }
 
-        return (db_check_error(@mysql_query($q, CONN), $q));
+        return (db_check_error(mysqli_query($dbLink, $q), $q));
     }
 }
 
 function db_result($erg, $zeile = 0, $spalte = 0)
 {
-    return (mysql_result($erg, $zeile, $spalte));
+      $erg->data_seek($zeile);
+      $ceva = $erg->fetch_row();
+      return $ceva[$spalte];
 }
 
 function db_fetch_assoc($erg)
 {
-    return (mysql_fetch_assoc($erg));
+    return (mysqli_fetch_assoc($erg));
 }
 
 function db_fetch_row($erg)
 {
-    return (mysql_fetch_row($erg));
+    return (mysqli_fetch_row($erg));
 }
 
 function db_fetch_object($erg)
 {
-    return (mysql_fetch_object($erg));
+    return (mysqli_fetch_object($erg));
 }
 
 function db_num_rows($erg)
 {
-    return (mysql_num_rows($erg));
+    return (mysqli_num_rows($erg));
+}
+
+function db_num_fields($erg)
+{
+    return mysqli_num_fields($erg);
+}
+
+function db_affected_rows()
+{
+    $dbLink = Ilch_Registry::get('dbLink');
+    return mysqli_affected_rows($dbLink);
 }
 
 function db_last_id()
 {
-    return (mysql_insert_id(CONN));
+    $dbLink = Ilch_Registry::get('dbLink');
+    return (mysqli_insert_id($dbLink));
 }
 
 function db_count_query($query)
@@ -145,12 +161,19 @@ function db_count_query($query)
 
 function db_list_tables($db)
 {
-    return (mysql_list_tables($db, CONN));
+    $sql = 'SHOW tables FROM '.$db;
+    $qry = db_query($sql);
+    $rows = array();
+    while ($row = db_fetch_row($qry)) {
+        $rows[] = $row[0];
+    }
+    return $rows;
 }
 
-function db_tablename($db, $i)
+function db_error()
 {
-    return (mysql_tablename($db, $i));
+    $dbLink = Ilch_Registry::get('dbLink');
+    return mysqli_error($dbLink);
 }
 
 function db_check_erg($erg)
