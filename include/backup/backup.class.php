@@ -25,24 +25,13 @@ class MySQLDump {
      * @return string
      */
     function dumpDatabase($database, $nodata = false, $nostruct = false) {
-
         // Set content-type and charset
         header ('Content-Type: text/html; charset=utf-8');
-        // Connect to database
-        $db = @mysql_select_db($database);
+        $db = mysqli_select_db(Ilch_Registry::get('dbLink'), $database);
 
         if (!empty($db)) {
 
-            // Get all table names from database
-            $c = 0;
-            $result = mysql_list_tables($database);
-            for ($x = 0; $x < mysql_num_rows($result); $x++) {
-                $table = mysql_tablename($result, $x);
-                if (!empty($table)) {
-                    $arr_tables[$c] = mysql_tablename($result, $x);
-                    $c++;
-                }
-            }
+            $arr_tables = db_list_tables($database);
             // List tables
             $dump = '';
 
@@ -63,8 +52,8 @@ class MySQLDump {
                     // Dump Structure
                     $structure .= "DROP TABLE IF EXISTS `{$table}`; \n";
                     $structure .= "CREATE TABLE `{$table}` (\n";
-                    $result = mysql_db_query($database, "SHOW FIELDS FROM `{$table}`");
-                    while ($row = mysql_fetch_object($result)) {
+                    $result = db_query("SHOW FIELDS FROM `{$table}`");
+                    while ($row = db_fetch_object($result)) {
 
                         $structure .= "  `{$row->Field}` {$row->Type}";
                         if ($row->Default != 'CURRENT_TIMESTAMP') {
@@ -81,8 +70,8 @@ class MySQLDump {
 
                     // Save all Column Indexes in array
                     unset($index);
-                    $result = mysql_db_query($database, "SHOW KEYS FROM `{$table}`");
-                    while ($row = mysql_fetch_object($result)) {
+                    $result = db_query("SHOW KEYS FROM `{$table}`");
+                    while ($row = db_fetch_object($result)) {
 
                         if (($row->Key_name == 'PRIMARY') AND ($row->Index_type == 'BTREE')) {
                             $index['PRIMARY'][$row->Key_name] = $row->Column_name;
@@ -133,35 +122,39 @@ class MySQLDump {
 
                     $structure .= " \n\n";
 
-                    $result = mysql_query("SELECT * FROM `$table`");
-                    $num_rows = mysql_num_rows($result);
-                    $num_fields = mysql_num_fields($result);
+                    $result = db_query("SELECT * FROM `$table`");
+                    $num_rows = db_num_rows($result);
+                    $num_fields = mysqli_num_fields($result);
 
                     $data .= "-- -------------------------------------------- \n";
                     $data .= "-- Dumping data for table `$table` started >>> \n";
 
                     for ($i = 0; $i < $num_rows; $i++) {
 
-                        $row = mysql_fetch_object($result);
+                        $row = db_fetch_object($result);
                         $data .= "INSERT INTO `$table` (";
+                        $x = 0;
+                        foreach ($row as $fieldName => $o) {
+                            $data .= "`{$fieldName}`";
 
-                        // Field names
-                        for ($x = 0; $x < $num_fields; $x++) {
+                            if($x < $num_fields - 1) {
+                                $data .= ',';
+                            }
 
-                            $field_name = mysql_field_name($result, $x);
-
-                            $data .= "`{$field_name}`";
-                            $data .= ($x < ($num_fields - 1)) ? ", " : false;
+                            $x++;
                         }
 
                         $data .= ") VALUES (";
 
-                        // Values
-                        for ($x = 0; $x < $num_fields; $x++) {
-                            $field_name = mysql_field_name($result, $x);
+                        $x = 0;
+                        foreach ($row as $fieldName => $o) {
+                            $data .= "'" . escape($o) . "'";
 
-                            $data .= "'" . str_replace('\"', '"', mysql_real_escape_string($row->$field_name)) . "'";
-                            $data .= ($x < ($num_fields - 1)) ? ", " : false;
+                            if($x < $num_fields - 1) {
+                                $data .= ',';
+                            }
+
+                            $x++;
                         }
 
                         $data.= ");\n";
@@ -174,6 +167,7 @@ class MySQLDump {
             }
             $dump .= $structure . $data;
         }
+
         return $dump;
     }
 

@@ -64,7 +64,7 @@ if (isset($_POST[ 'subform' ]) and chk_antispam('adminuser_action', true)) {
 
     $smtpsql = escape(serialize($smtp), 'textarea');
     db_query('UPDATE `prefix_allg` SET `t1` = "' . $smtpsql . '" WHERE `k` = "smtpconf"');
-    if (mysql_affected_rows() == 0) {
+    if (mysqli_affected_rows(Ilch_Registry::get('dbLink')) == 0) {
         echo '<h2>Es wurden keine &Auml;nderungen vorgenommen!</h2>';
     } else {
         echo '<h2>&Auml;nderungen gespeichert</h2>';

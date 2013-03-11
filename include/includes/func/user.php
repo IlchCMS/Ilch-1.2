@@ -166,7 +166,7 @@ function user_login_check($auto = false)
         return;
     }
     $erg = db_query("SELECT `name`,`id`,`recht`,`pass`,`llogin`, `sperre` FROM `prefix_user` WHERE " . $term);
-    mysql_error();
+
     if (isset($erg) and db_num_rows($erg) == 1) {
         $row = db_fetch_assoc($erg);
         debug('user gefunden... ' . $row['name']);

@@ -36,7 +36,7 @@ function get_news_since($time) {
     ORDER BY `news_time` DESC
     LIMIT 0,5");
     $news = array();
-    while ($row = mysql_fetch_assoc($erg)) {
+    while ($row = mysqli_fetch_assoc($erg)) {
         $news[] = $row;
     }
     return $news;

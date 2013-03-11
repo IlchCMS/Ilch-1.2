@@ -124,32 +124,6 @@ function getInstallprofileComment($file) {
         }
     }
 
-// mySQL Server/Client-Check
-    $servercheck['sql_compare']['msg'] = 'SQL 5.0.7 oder besser';
-
-    if (function_exists('mysql_get_server_info')) {
-        $sqlinfo = @mysql_get_server_info();
-        @preg_match('/[1-9]\.[0-9]\.\d{1,2}/', $sqlinfo, $sqlmatch);
-        if (isset($sqlmatch[0]))
-            $sqlserver = $sqlmatch[0];
-    }
-    if (!isset($sqlmatch[0])) {
-        ob_start();
-        phpinfo(INFO_MODULES);
-        $sqlinfo = ob_get_contents();
-        ob_end_clean();
-        $sqlinfo = stristr($sqlinfo, 'Client API version');
-        preg_match('/[1-9]\.[0-9]\.\d{1,2}/', $sqlinfo, $sqlmatch);
-        if (isset($sqlmatch[0]))
-            $sqlserver = $sqlmatch[0];
-    }
-    if (@version_compare($sqlserver, '5.0.7') != -1) {
-        $servercheck['sql_compare']['erg'] = '<font color="#40aa00"><b>RICHTIG</b></font>';
-    } else {
-        $servercheck['sql_compare']['erg'] = '<font color="#FF0000"><b>FALSCH</b></font>';
-        $servercheck['err'] = TRUE;
-    }
-
 // config.php
     $servercheck['configphp']['msg'] = '"../include/includes/config.php" (CHMOD 666)';
     if (file_exists('../include/includes/config.php') and is_writeable('../include/includes/config.php')) {
@@ -435,13 +409,11 @@ config;
             define('DBPREF', $_POST['mysql_prefix']); # sql prefix
         }
 
-
-
         define('main', TRUE);
+        require_once('../include/includes/class/ilch/registry.php');
+        require_once('../include/includes/class/ilch/database/mysql.php');
         require_once('../include/includes/func/db/mysql.php');
-
         db_connect();
-
 
 # checken ob die config tabelle + prefix schon da ist.
 # wenn ja wird hier abgebrochen, keine 2 mal installation.
