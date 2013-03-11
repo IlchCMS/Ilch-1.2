@@ -183,7 +183,7 @@ function getsmilies($zeilen = 3) {
     $b = '<script language="JavaScript" type="text/javascript">function moreSmilies () { var x = window.open("about:blank", "moreSmilies", "width=250,height=200,status=no,scrollbars=yes,resizable=yes"); ';
     $a = '';
     $erg = db_query('SELECT `emo`, `ent`, `url` FROM `prefix_smilies` ORDER BY `pos` ASC');
-    if(mysqli_num_rows($erg)){
+    if(db_num_rows($erg)){
       while ($row = db_fetch_object($erg)) {
           $b .= 'x.document.write ("<a href=\"javascript:opener.put(\'' . addslashes(addslashes($row->ent)) . '\')\">");';
           $b .= 'x.document.write ("<img style=\"border: 0px; padding: 5px;\" src=\"include/images/smiles/' . $row->url . '\" title=\"' . $row->emo . '\"></a>");';

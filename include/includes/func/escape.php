@@ -227,7 +227,7 @@ function simpleArrayFromQuery($qry){
     $sql = db_query($qry);
     $out = array();
     if ($sql) {
-        if (mysqli_num_fields($sql) > 1) {
+        if (db_num_fields($sql) > 1) {
             while ($r = db_fetch_row($sql)) {
                 $out[$r[0]] = $r[1];
             }

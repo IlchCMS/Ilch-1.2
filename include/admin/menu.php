@@ -37,14 +37,14 @@ function menu_update_menupos_reparieren($wo) {
     $e = db_query($q);
     $i = - 127;
     while ($r = db_fetch_assoc($e)) {
-        db_query("UPDATE `prefix_menu` SET `pos` = " . $i . " WHERE `pos` = " . $r[ 'pos' ] . " AND `wo` = " . $wo) or die(mysqli_error(Ilch_Registry::get('dbLink')));
+        db_query("UPDATE `prefix_menu` SET `pos` = " . $i . " WHERE `pos` = " . $r[ 'pos' ] . " AND `wo` = " . $wo) or die(db_error());
         $i++;
     }
     $q = "SELECT `pos` FROM `prefix_menu` WHERE `wo` = " . $wo . " ORDER BY `pos` ASC";
     $e = db_query($q);
     $i = 0;
     while ($r = db_fetch_assoc($e)) {
-        db_query("UPDATE `prefix_menu` SET `pos` = " . $i . " WHERE `pos` = " . $r[ 'pos' ] . " AND `wo` = " . $wo) or die(mysqli_error(Ilch_Registry::get('dbLink')));
+        db_query("UPDATE `prefix_menu` SET `pos` = " . $i . " WHERE `pos` = " . $r[ 'pos' ] . " AND `wo` = " . $wo) or die(db_error());
         $i++;
     }
 }
@@ -53,7 +53,7 @@ function menu_update_menupos($wo) {
     $e = db_query($q);
     $i = 0;
     while ($r = db_fetch_assoc($e)) {
-        db_query("UPDATE `prefix_menu` SET `pos` = " . $i . " WHERE `pos` = " . $r[ 'pos' ] . " AND `wo` = " . $wo) or die(mysqli_error(Ilch_Registry::get('dbLink')));
+        db_query("UPDATE `prefix_menu` SET `pos` = " . $i . " WHERE `pos` = " . $r[ 'pos' ] . " AND `wo` = " . $wo) or die(db_error());
         $i++;
     }
 }

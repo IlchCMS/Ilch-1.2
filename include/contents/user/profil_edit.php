@@ -85,7 +85,7 @@ if ($_SESSION[ 'authright' ] <= - 1) {
         // change password
         if (!empty($_POST[ 'np1' ]) AND !empty($_POST[ 'np2' ]) AND !empty($_POST[ 'op' ])) {
             if ($_POST[ 'np1' ] == $_POST[ 'np2' ]) {				
-                $akpw = mysqli_fetch_array(db_query("SELECT `pass` FROM prefix_user WHERE id = " . $_SESSION[ 'authid' ]));
+                $akpw = db_fetch_assoc(db_query("SELECT `pass` FROM prefix_user WHERE id = " . $_SESSION[ 'authid' ]));
 				$crypt = new PwCrypt();
                 if ($crypt->checkPasswd($_POST['op'], $akpw['pass'])) {
 					

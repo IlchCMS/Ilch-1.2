@@ -137,6 +137,17 @@ function db_num_rows($erg)
     return (mysqli_num_rows($erg));
 }
 
+function db_num_fields($erg)
+{
+    return mysqli_num_fields($erg);
+}
+
+function db_affected_rows()
+{
+    $dbLink = Ilch_Registry::get('dbLink');
+    return mysqli_affected_rows($dbLink);
+}
+
 function db_last_id()
 {
     $dbLink = Ilch_Registry::get('dbLink');
@@ -157,6 +168,12 @@ function db_list_tables($db)
         $rows[] = $row[0];
     }
     return $rows;
+}
+
+function db_error()
+{
+    $dbLink = Ilch_Registry::get('dbLink');
+    return mysqli_error($dbLink);
 }
 
 function db_check_erg($erg)

@@ -47,7 +47,7 @@ if (db_num_rows($qry) == 0 or ($smtpser = db_result($qry)) == '') {
 // Formular verabeiten
 if (isset($_POST[ 'subform' ]) and chk_antispam('adminuser_action', true)) {
     if (!empty($_POST[ 'smtp_pass' ])) {
-        require_once('include/includes/class/AzDGCrypt.class.inc.php');
+        require_once('include/includes/libs/AzDGCrypt.class.inc.php');
         $cr64 = new AzDGCrypt(DBDATE . DBUSER . DBPREF);
         $smtp[ 'smtp_pass' ] = $cr64->crypt($_POST[ 'smtp_pass' ]);
     }
@@ -64,7 +64,7 @@ if (isset($_POST[ 'subform' ]) and chk_antispam('adminuser_action', true)) {
 
     $smtpsql = escape(serialize($smtp), 'textarea');
     db_query('UPDATE `prefix_allg` SET `t1` = "' . $smtpsql . '" WHERE `k` = "smtpconf"');
-    if (mysqli_affected_rows(Ilch_Registry::get('dbLink')) == 0) {
+    if (db_affected_rows() == 0) {
         echo '<h2>Es wurden keine &Auml;nderungen vorgenommen!</h2>';
     } else {
         echo '<h2>&Auml;nderungen gespeichert</h2>';
