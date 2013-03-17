@@ -5,12 +5,12 @@
  * @copyright (C) 2000-2010 ilch.de
  * @version $Id$
  */
+
 /**
  * Authentifiziert den Benutzer, legt die Rechte fest und aktualisiert Datenbankeinträge zum Onlinestatus
  * @param string $menuComplete QueryString (menu::get_complete()) des Seitenaufrufs
  */
-function user_identification($menuComplete)
-{
+function user_identification($menuComplete) {
     user_auth();
     user_login_check();
     user_update_database($menuComplete);
@@ -20,8 +20,7 @@ function user_identification($menuComplete)
 /**
  * Benutzer authentifizieren
  */
-function user_auth()
-{
+function user_auth() {
     debug('user - auth gestartet: ' . session_id());
     $cn = session_und_cookie_name();
     if (!user_key_in_db() OR !isset($_SESSION['authid']) OR (isset($_SESSION['authsess']) AND $_SESSION['authsess'] != $cn)) {
@@ -44,8 +43,7 @@ function user_auth()
  * Entfernt die SessionId aus der URL, wenn die Option dafür gesetzt ist
  * @global array $allgAr
  */
-function user_check_url_rewrite()
-{
+function user_check_url_rewrite() {
     global $allgAr;
     if (!loggedin() AND $allgAr['show_session_id'] == 0) {
         output_reset_rewrite_vars();
@@ -57,16 +55,15 @@ function user_check_url_rewrite()
  * @global array $allgAr
  * @param string $menuComplete QueryString des Seitenaufrufs
  */
-function user_update_database($menuComplete)
-{
+function user_update_database($menuComplete) {
     $dif = date('Y-m-d H:i:s', time() - 7200);
     global $allgAr;
     if (empty($menuComplete)) {
         $menuComplete = $allgAr['smodul'] . ' (Startseite)';
     }
     db_query(
-        'UPDATE `prefix_online` SET `uptime` = "' . date('Y-m-d H:i:s') . '",'
-        . '`content` = "' . $menuComplete . '"  WHERE `sid` = "' . session_id() . '"'
+            'UPDATE `prefix_online` SET `uptime` = "' . date('Y-m-d H:i:s') . '",'
+            . '`content` = "' . $menuComplete . '"  WHERE `sid` = "' . session_id() . '"'
     );
 
     if (function_exists('content_stats')) {
@@ -83,8 +80,7 @@ function user_update_database($menuComplete)
  * Speichert eintrag für Benutzer in der online Tabelle
  * @global array $allgAr
  */
-function user_set_user_online()
-{
+function user_set_user_online() {
     global $allgAr;
     $qry = db_query('SELECT `ipa` FROM `prefix_online` WHERE `sid` = "' . session_id() . '"');
     if (db_num_rows($qry) == 0) {
@@ -100,8 +96,7 @@ function user_set_user_online()
 /**
  * Prüft ob die Session Id in der Datenbank vorhanden (mit der IP des Users) in der Datenbank steht
  */
-function user_key_in_db()
-{
+function user_key_in_db() {
     if (1 == db_result(db_query('SELECT COUNT(*) FROM `prefix_online` WHERE `sid` = "' . session_id() . '" AND ipa = "' . getip() . '"'), 0)) {
         return true;
     } else {
@@ -113,8 +108,7 @@ function user_key_in_db()
  * Gibt Session und Cookie Name zurück, der aus Webadresse und Datenbankprefix berechnet wird
  * @return string
  */
-function session_und_cookie_name()
-{
+function session_und_cookie_name() {
     return (md5(dirname($_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"]) . DBPREF));
 }
 
@@ -125,8 +119,7 @@ function session_und_cookie_name()
  * @param boolean $auto Gibt an ob POST Daten (false) oder Cookie als Quelle der Daten benutzt wird
  * @return boolean Erfolg des Logins
  */
-function user_login_check($auto = false)
-{
+function user_login_check($auto = false) {
     global $allgAr, $menu;
     $formpassed = false;
     $cn = session_und_cookie_name();
@@ -175,7 +168,7 @@ function user_login_check($auto = false)
             debug('user gesperrt... ' . $row['name']);
             return false;
         } elseif ((!$auto and $crypt->checkPasswd($_POST['pass'], $row['pass']))
-            or (($auto and $row['pass']) and $crypt->checkPasswd($row['pass'], $pw))
+                or (($auto and $row['pass']) and $crypt->checkPasswd($row['pass'], $pw))
         ) {
             debug('passwort stimmt ... ' . $row['name']);
             $_SESSION['authname'] = $row['name'];
@@ -220,8 +213,7 @@ function user_login_check($auto = false)
  * Setzz Session Variablen für Gäste (oder für ausgeloggte Benutzer)
  * @global array $allgAr
  */
-function user_set_guest_vars()
-{
+function user_set_guest_vars() {
     global $allgAr;
     $_SESSION['authname'] = 'Gast';
     $_SESSION['authid'] = 0;
@@ -236,16 +228,14 @@ function user_set_guest_vars()
 /**
  * Alles als gelesen markieren (indem Lastlogin auf aktuellen Zeitpunkt gesetzt wird)
  */
-function user_markallasread()
-{
+function user_markallasread() {
     $_SESSION['lastlogin'] = time();
 }
 
 /**
  * Ausloggen des Benutzers
  */
-function user_logout()
-{
+function user_logout() {
     user_set_guest_vars();
     db_query("UPDATE `prefix_online` SET `uid` = " . $_SESSION['authid'] . " WHERE `sid` = '" . session_id() . "'");
     user_remove_cookie();
@@ -254,16 +244,14 @@ function user_logout()
 /**
  * Löschen des Cookies für den Autologin
  */
-function user_remove_cookie()
-{
+function user_remove_cookie() {
     setcookie(session_und_cookie_name(), "", time() - 999999999999, "/");
 }
 
 /**
  * Setzt Gruppen- und Modulrechte für eingeloggte Benutzer
  */
-function user_set_grps_and_modules()
-{
+function user_set_grps_and_modules() {
     $_SESSION['authgrp'] = array();
     $_SESSION['authmod'] = array();
     if (loggedin()) {
@@ -272,19 +260,19 @@ function user_set_grps_and_modules()
             $_SESSION['authgrp'][$row['gid']] = true;
         }
         $erg = db_query(
-            'SELECT m.`url` FROM `prefix_modules` m'
-            . ' LEFT JOIN `prefix_modulerights` grmr ON m.id = grmr.mid AND grmr.uid = ' . $_SESSION['authright']
-            . ' LEFT JOIN `prefix_modulerights` umr ON m.id = umr.mid AND umr.uid = ' . $_SESSION['authid']
-            . ' WHERE m.fright = 1 AND (ISNULL(grmr.mid)+ISNULL(umr.mid))%2 = 1'
+                'SELECT m.`url` FROM `prefix_modules` m'
+                . ' LEFT JOIN `prefix_modulerights` grmr ON m.id = grmr.mid AND grmr.uid = ' . $_SESSION['authright']
+                . ' LEFT JOIN `prefix_modulerights` umr ON m.id = umr.mid AND umr.uid = ' . $_SESSION['authid']
+                . ' WHERE m.fright = 1 AND (ISNULL(grmr.mid)+ISNULL(umr.mid))%2 = 1'
         );
         while ($row = db_fetch_assoc($erg)) {
             $_SESSION['authmod'][$row['url']] = true;
         }
     } else {
         $erg = db_query(
-            'SELECT m.`url` FROM `prefix_modules` m '
-            . 'INNER JOIN `prefix_modulerights` grmr ON m.id = grmr.mid AND grmr.uid = 0 '
-            . 'WHERE m.fright = 1'
+                'SELECT m.`url` FROM `prefix_modules` m '
+                . 'INNER JOIN `prefix_modulerights` grmr ON m.id = grmr.mid AND grmr.uid = 0 '
+                . 'WHERE m.fright = 1'
         );
         while ($row = db_fetch_assoc($erg)) {
             $_SESSION['authmod'][$row['url']] = true;
@@ -296,8 +284,7 @@ function user_set_grps_and_modules()
  * Prüft, ob der Benutzer eingeloggt ist
  * @return boolean
  */
-function loggedin()
-{
+function loggedin() {
     return has_right(-1);
 }
 
@@ -305,8 +292,7 @@ function loggedin()
  * Prüft, ob der Benutzer ein Administrator ist
  * @return boolean
  */
-function is_admin()
-{
+function is_admin() {
     return has_right(-9);
 }
 
@@ -314,8 +300,7 @@ function is_admin()
  * Prüft, ob der Benutzer wenigstens ein Co-Administrator ist
  * @return boolean
  */
-function is_coadmin()
-{
+function is_coadmin() {
     return has_right(-8);
 }
 
@@ -324,8 +309,7 @@ function is_coadmin()
  * @param string $module Modulname
  * @return boolean
  */
-function is_siteadmin($module = null)
-{
+function is_siteadmin($module = null) {
     if (has_right(-7)) {
         return (true);
     }
@@ -342,8 +326,7 @@ function is_siteadmin($module = null)
  * @param boolean $strict Wenn $strict auf true steht, hat auch ein Administrator nicht automatisch Modul oder Gruppenrechte
  * @return boolean
  */
-function has_right($recht, $modul = '', $strict = false)
-{
+function has_right($recht, $modul = '', $strict = false) {
     if (!is_array($recht) AND !is_null($recht)) {
         $recht = array($recht);
     }
@@ -373,8 +356,7 @@ function has_right($recht, $modul = '', $strict = false)
  * @param boolean $showLogin Zeigt Loginformular an, wenn die Rechte nicht ausreichen
  * @return boolean
  */
-function user_has_admin_right($menu, $showLogin = true)
-{
+function user_has_admin_right($menu, $showLogin = true) {
     if ($_SESSION['authright'] <= - 8) {
         return true;
     } else {
@@ -417,7 +399,7 @@ function user_has_admin_right($menu, $showLogin = true)
 }
 
 /**
- * Benutzer anlegen oder in der usercheck Tabelle vormerken, wenn Registrierung per Mail bestätigt werden muss
+ * Benutzer anlegen oder in der usercheck Tabelle vormerken, wenn Registrierung per Mail oder Admin bestätigt werden muss
  * @global array $allgAr
  * @global array $lang
  * @param string $name Benutzername
@@ -425,9 +407,8 @@ function user_has_admin_right($menu, $showLogin = true)
  * @param string $pass Passwort
  * @return boolean
  */
-function user_regist($name, $mail, $pass)
-{
-    global $allgAr, $lang;
+function user_regist($name, $mail, $pass) {
+    global $allgAr, $lang, $registinfo;
 
     $crypt = new PwCrypt();
 
@@ -442,37 +423,49 @@ function user_regist($name, $mail, $pass)
     if (db_num_rows($erg) > 0) {
         return (false);
     }
-	
-    if ($allgAr[ 'forum_regist_user_pass' ] == 0) {
-        $new_pass = PwCrypt::getRndString(8, PwCrypt::LETTERS| PwCrypt::NUMBERS | PwCrypt::SPECIAL_CHARACTERS);
+
+    if ($allgAr['forum_regist_user_pass'] == 0) {
+        $new_pass = PwCrypt::getRndString(8, PwCrypt::LETTERS | PwCrypt::NUMBERS | PwCrypt::SPECIAL_CHARACTERS);
     } else {
         $new_pass = $pass;
     }
 
     $confirmlinktext = '';
     // confirm insert in confirm tb not confirm insert in user tb
-    if ($allgAr['forum_regist_confirm_link'] == 1) {
-        // confirm link + text ... bit of shit put it in languages file
+    if ($allgAr['forum_regist_confirm'] == 1) {
+        // confirm by email link
         $page = $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"];
         $id = md5(uniqid(rand()));
         $crypted_pass = $crypt->cryptPasswd($new_pass);
         $confirmlinktext = "\n" . $lang['registconfirm'] . "\n\n" . sprintf($lang['registconfirmlink'], $page, $id);
         db_query(
-            'INSERT INTO `prefix_usercheck` (`check`,`name`,`email`,`pass`, `datime`,`ak`) '
-            . 'VALUES ("' . $id . '","' . $name . '","' . $mail . '","' . $crypted_pass . '",NOW(),1)'
+                'INSERT INTO `prefix_usercheck` (`check`,`name`,`email`,`pass`, `datime`,`ak`) '
+                . 'VALUES ("' . $id . '","' . $name . '","' . $mail . '","' . $crypted_pass . '",NOW(),1)'
         );
-    } else {
+        $regmail = sprintf($lang['registemail'], $name, $confirmlinktext, $mail, $new_pass);
+        icmail($mail, 'Anmeldung', $regmail); // email an user
+        $registinfo = sprintf($lang['registconfirmbylink'], $name);
+    } elseif ($allgAr['forum_regist_confirm'] == 2) {
+        // confirm by admin
+        $id = md5(uniqid(rand()));
+        $crypted_pass = $crypt->cryptPasswd($new_pass);
         db_query(
-            'INSERT INTO `prefix_user` '
-            . '(`name`,`name_clean`,`pass`, `recht`,`regist`,`llogin`,`email`,`status`,`opt_mail`,`opt_pm`) '
-            . 'VALUES("' . $name . '","' . $name_clean . '","' . $crypted_pass . '",-1,"' . time() . '","'
-            . time() . '","' . $mail . '",1,1,1)'
+                'INSERT INTO `prefix_usercheck` (`check`,`name`,`email`,`pass`, `datime`,`ak`) '
+                . 'VALUES ("' . $id . '","' . $name . '","' . $mail . '","' . $crypted_pass . '",NOW(),1)'
+        );
+        $registinfo = sprintf($lang['registconfirmbyadmin'], $name, $new_pass);
+    } else {
+        // without confirm 
+        $crypted_pass = $crypt->cryptPasswd($new_pass);
+        db_query(
+                'INSERT INTO `prefix_user` '
+                . '(`name`,`name_clean`,`pass`, `recht`,`regist`,`llogin`,`email`,`status`,`opt_mail`,`opt_pm`) '
+                . 'VALUES("' . $name . '","' . $name_clean . '","' . $crypted_pass . '",-1,"' . time() . '","'
+                . time() . '","' . $mail . '",1,1,1)'
         );
         $userid = db_last_id();
+        $registinfo = sprintf($lang['registwithoutconfirm'], $name, $new_pass);
     }
-    $regmail = sprintf($lang['registemail'], $name, $confirmlinktext, $mail, $new_pass);
-
-    icmail($mail, 'Anmeldung', $regmail); // email an user
     return true;
 }
 
@@ -480,8 +473,7 @@ function user_regist($name, $mail, $pass)
  * Benutzer entfernen
  * @param integer $uid BenutzerId
  */
-function user_remove($uid)
-{
+function user_remove($uid) {
     $row = @db_fetch_object(db_query("SELECT `recht`,`avatar` FROM `prefix_user` WHERE `id` = " . $uid));
     if ($uid != 1 AND ($_SESSION['authid'] == $uid OR $_SESSION['authid'] == 1 OR (is_coadmin() AND $_SESSION['authright'] < $row->recht))) {
         db_query("DELETE FROM `prefix_user` WHERE `id` = " . $uid);
@@ -511,8 +503,7 @@ function user_remove($uid)
  * @param integer $status Status der Nachricht -1 nur bei Sender gelöscht, 0 bei beiden vorhanden,
  * 1 nur bei Empfänger gelöscht
  */
-function sendpm($sid, $eid, $titel, $text, $status = 0)
-{
+function sendpm($sid, $eid, $titel, $text, $status = 0) {
     $page = $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"];
     // Testen, ob Array. Sonst umwandeln.
     if (!is_array($eid)) {
@@ -541,8 +532,7 @@ function sendpm($sid, $eid, $titel, $text, $status = 0)
  * @param integer $id BenutzerId
  * @return string
  */
-function get_avatar($id)
-{
+function get_avatar($id) {
     $pfad = 'include/images/avatars/';
     if (is_numeric($id) and $id != 0) {
         $row = db_fetch_assoc(db_query('SELECT `avatar`, `geschlecht` FROM `prefix_user` WHERE `id` = ' . $id));

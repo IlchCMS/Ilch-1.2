@@ -16,5 +16,7 @@ $lang = array_merge($lang, array(
     'hello' => 'Hallo',
     'userpanel' => 'UserPanel',
     'gbook' => 'Gästebuch',
-    'uncheckedgbook' => 'Es befinden sich ungeprüfte Einträge im Gästebuch'
+    'uncheckedgbook' => 'Es befinden sich ungeprüfte Einträge im Gästebuch',
+    'uncheckeduser' => 'Es befinden sich unbestätigte Registrierungen in der Benutzerverwaltung',
+    'confirmuser' => 'User freischalten'
 ));
