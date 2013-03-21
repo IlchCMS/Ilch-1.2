@@ -59,7 +59,7 @@ $(document).ready(function() {
 			newgegnertag: { required: true },
 			newclanname: { required: true, minlength: 2 },
 			newwebsite: { required: true, url: true },
-            newcontact: { required: true },
+                        newcontact: { required: true }
 			//newicq: { required: true },
 			//newemail: { required: true, email: true },
 			//newlogo: { required: true }
@@ -68,7 +68,7 @@ $(document).ready(function() {
 			newgegnertag: "Bitte ClanTag angeben!",
 			newclanname: { required: "Bitte Namen angeben!", minlength: "Name mind. 2 Zeichen!" },
 			newwebsite: "Bitte URL angeben!",
-            newcontact: "Bitte Kontaktperson angeben angeben!",
+                        newcontact: "Bitte Kontaktperson angeben angeben!"
 			//newicq: "Bitte ICQ angeben!",
 			//newemail: "Bitte Email angeben!",
 			//newlogo: "Bitte Logolink angeben!"
@@ -76,7 +76,7 @@ $(document).ready(function() {
 	});
 	$(document).ready(function() {
 		$('#newnation').change(function() {
-			$('#choosedFlag').attr('src', 'include/images/flags/' + $(this).val());
+			$('#chosedFlag').attr('src', 'include/images/flags/' + $(this).val());
 		});
 	});
 });
@@ -110,11 +110,11 @@ $(document).ready(function() {
           <td><label>ClanTag<br /><input type="text" name="newgegnertag" id="newgegnertag" value="" /></label></td>
           <td><label>ClanName<br /><input type="text" name="newclanname" id="newclanname" value="" /></label></td>
         </tr><tr>
-            <td><label>Nation</label><div style="display:inline-table"><img id="choosedFlag" src="include/images/flags/nocountry.gif" /></div></td>
+            <td><label>Nation</label><div style="display:inline-table"><img id="chosedFlag" src="include/images/flags/nocountry.gif" /></div></td>
             <td><select name="newnation" id="newnation"><!-- Ausgabe der Flaggen Start -->{nationen}<!-- Ausgabe der Flaggen Ende --></select></td>
         </tr><tr>
           <td><label>Clan Kontakt<br /><input type="text" name="newcontact" id="newcontact" value="" /></label></td>
-          <td><label>Website<br /><input name="newwebsite" type="text" id="newwebsite" value="" /></label></td>
+          <td><label>Website<br /><input name="newwebsite" type="text" id="newwebsite" value="{page}" /></label></td>
         </tr><tr>
           <td><label>E-Mail<br /><input name="newemail" type="text" id="newemail" value="" /></label></td>
           <td><label>ICQ<br /><input name="newicq" type="text" id="newicq" value="" /></label></td>
@@ -128,8 +128,8 @@ $(document).ready(function() {
           <td><label>IRC-Network<br /><input name="newircnw" type="text" id="newircnw" value="" /></label></td>
           <td><label>IRC-Channel<br /><input name="newircch" type="text" id="newircch" value="" /></label></td>
         </tr><tr>
-            <td><label>Gegner Aktiv?<br /><input type="Radio" name="newinaktive" id="newinaktive" value="1">Nein</td>
-            <td><input type="Radio" name="newinaktive" id="newinaktive" value="0">Ja</label></td>
+            <td><label>Gegner Aktiv?<br /><input type="Radio" name="newinaktive" id="newinaktive" value="1" {inactivej}>Nein</td>
+            <td><input type="Radio" name="newinaktive" id="newinaktive" value="0" {inactiven}>Ja</label></td>
         </tr><tr>
           <td colspan="2"><label>Logo<input type="file" name="newlogo" id="newlogo" /></label></td>
         </tr>
@@ -137,7 +137,7 @@ $(document).ready(function() {
       <p><input type="submit" name="newsubmit" id="newsubmit" value="Speichern" class="submit" /></p>
     </form>
   </div>
-  <p>Hier kannst du deine Gegner verwalten, neue Gegner anlegen oder jene L&ouml;schen, die nicht mehr im System ben&ouml;tigt werden</p>
+  <p>Hier kannst du deine Gegner verwalten, neue Gegner anlegen oder jene deaktivieren, die nicht mehr im System ben&ouml;tigt werden</p>
   <form id="form1" name="form1" method="post" action="">
     <input name="suche" type="text" id="suche" value="suche ClanName..." onfocus="this.value = ''"/>
     <input type="submit" name="submit" id="submit" value="Senden" />

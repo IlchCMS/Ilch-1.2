@@ -49,9 +49,13 @@ function get_locationpic_ar ($s) {
             $s=str_replace (' ', '', $s);
             $o = @opendir($dir.$s);
             while ($f = @readdir($o) ) {
-                if ( $f != '.' AND $f != '..' AND $f != 'preview' ) {
-                    $ar[$s.$f] = $f;
-                }
+                if ($f != '.' && $f != '..' && !preg_match('/[thumb]+(_)/', $f)) {
+                    if(preg_match('/default/', $f)){
+                        $ar[$s.$f] = 'Standard Bild';
+                    } else {
+                        $ar[$s.$f] = $f;
+                    }
+                } 
             }
             @closedir($o);
         }

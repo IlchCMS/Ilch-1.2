@@ -1,16 +1,16 @@
 <script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
 <style>
 #form1 label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
-#newoppform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
-#editoppform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+#newmapform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+#editmapform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
 </style>
 <script>
-    function openNewOpp() {
+    function openNewMap() {
 		$(function() {
-			$( "#newOpponent" ).dialog( "destroy" );
-			$( "#newOpponent" ).dialog({
-				height: 500,
-				width: 555,
+			$( "#newMap" ).dialog( "destroy" );
+			$( "#newMap" ).dialog({
+				height: 250,
+				width: 400,
 				modal: true
 			});
 		});
@@ -34,12 +34,12 @@
 			});
 	}
     
-    function openOppDetails(id) {
+    function openMapDetails(id) {
 		$(function() {
-			$( "#OppDetails"+id ).dialog( "destroy" );
-			$( "#OppDetails"+id ).dialog({
-				height: 425,
-				width: 340,
+			$( "#MapDetails"+id ).dialog( "destroy" );
+			$( "#MapDetails"+id ).dialog({
+				height: 250,
+				width: 350,
 				modal: true
 			});
 		});
@@ -51,10 +51,10 @@ $(document).ready(function() {
 			suche: { required: true }
 		},
 		messages: {
-			suche: "Bitte ein Clanname angeben!"
+			suche: "Bitte ein Kartenname angeben!"
 		}
 	});
-	$("#newoppform").validate({
+	$("#newmapform").validate({
 		rules: {			
 			newmapname: { required: true, minlength: 2 },
 		},
@@ -100,7 +100,7 @@ $(document).ready(function() {
 <div id="main">
   <div id="inlineNavi" style="display:inline;">
     <p>&nbsp;</p>
-    <p><a onClick="openNewOpp()" style="cursor: pointer; cursor: hand;" >neue Map eintragen</a></p>
+    <p><a onClick="openNewMap()" style="cursor: pointer; cursor: hand;" >neue Map eintragen</a></p>
   </div>
   <div id="okdialog" style="display:none;" title="Upload erfolgreich">
     <img src="include/images/icons/dialog-ok.png" /> Map erfolgreich zur Datenbank hinzugef&uuml;gt
@@ -112,18 +112,18 @@ $(document).ready(function() {
         <img src="include/images/icons/dialog-ok.png" /> Map erfolgreich aktiviert
     </div>
     <div id="deakdialog" style="display:none;" title="Erfolgreich Deaktiviert">
-        <img src="include/images/icons/dialog-ok.png" /> Gegener erfolgreich deaktiviert
+        <img src="include/images/icons/dialog-ok.png" /> Map erfolgreich deaktiviert
     </div>
   <div id="changedialog" style="display:none;" title="Bist du dir sicher... ?">
         <img src="include/images/icons/dialog-what.png" /> Den Status dieser Map wirklich &auml;ndern ? <br/>
     </div>
-  <div id="newOpponent" style="display:none;" title="neue Map anlegen">
-    <form action="" method="post" enctype="multipart/form-data" id="newoppform" name="newoppform">
+  <div id="newMap" style="display:none;" title="neue Map anlegen">
+    <form action="" method="post" enctype="multipart/form-data" id="newmapform" name="newmapform">
     {antispam}
       <table width="200" border="0">
         <tr>
-          <td><label>MapName</td>
-          <td><input type="text" name="newmapame" id="newmapname" value="{name}" /></label></td>
+          <td><label>Kartenname</td>
+          <td><input type="text" name="newmapname" id="newmapname" value="{name}" /></label></td>
         </tr><tr>
             <td>Game</td>
             <td><select name="newgame" id="newgame" ><option value="x">------Bitte Ausw&auml;hlen----</option>{game}</select></td>
@@ -132,13 +132,13 @@ $(document).ready(function() {
           <td><select name="newicon" id="newicon">{icon}</select><input type="file" name="newpic" id="newpic" style="display:none"/></td>
         </tr><tr>
             <td>Map Aktiv?</td>
-            <td><input type="Radio" name="newinaktive" id="newinaktive" value="1">Nein <input type="Radio" name="newinaktive" id="newinaktive" value="0">Ja</td>
+            <td><input type="Radio" name="newinaktive" id="newinaktive" value="1" {inactivej}>Nein <input type="Radio" name="newinaktive" id="newinaktive" value="0" {inactiven}>Ja</td>
         </tr>
       </table>
       <p><input type="submit" name="newsubmit" id="newsubmit" value="Speichern" class="submit" /></p>
     </form>
   </div>
-  <p>Hier kannst du deine Maps verwalten, neue Maps anlegen oder jene L&ouml;schen, die nicht mehr im System ben&ouml;tigt werden</p>
+  <p>Hier kannst du deine Maps verwalten, neue Maps anlegen oder jene deaktivieren, die nicht mehr im System ben&ouml;tigt werden</p>
   <form id="form1" name="form1" method="post" action="">
     <input name="suche" type="text" id="suche" value="suche MapName..." onfocus="this.value = ''"/>
     <input type="submit" name="submit" id="submit" value="Senden" />
@@ -166,10 +166,9 @@ $(document).ready(function() {
     <tr class="{class}">
         <td width="10px"><a onClick="openchangefrage({id})" style="cursor: pointer; cursor: hand;" ><img src="include/images/icons/{chekimg}.gif" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
         <td width="10px"><a href="?wars-locations-e{id}"><img src="include/images/icons/edit.gif" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
-        <td><strong><img src="include/images/locations/thumb_{pic}" /></strong></td>
-        <td><strong>{tag}</strong></td>
+        <td><strong><img src="include/images/locations/{pic}" /></strong></td>
         <td><strong>{name}</strong></td>
-        <td><strong>{url}</strong></td>
+        <td><strong>{game}</strong></td>
         <td>{inaktive}</td>
         <td width="10px"><a onClick="openMapDetails({id})" style="cursor: pointer; cursor: hand;"><img src="include/images/icons/eyeplus.gif" alt="Details" title="Details" border="0"></a></td>
     </tr>
@@ -186,50 +185,17 @@ $(document).ready(function() {
   </table>
   <p>{siteindex}</p>
 {EXPLODE}
-    <div id="OppDetails{id}" style="display:none;" title="Gegerner Details">
+    <div id="MapDetails{id}" style="display:none;" title="Karten Details">
     <table width="300" border="0">
         <tr>
-          <td>Aktuelles pic</td>
-          <td><img src="include/images/locations/thumb_{pic}" /></label></td>
+          <td>Aktuelles Bild</td>
+          <td><img src="include/images/locations/{pic}" /></label></td>
         </tr><tr>
-          <td>ClanTag</td>
-          <td>{tag}</td>
-        </tr><tr>
-          <td>ClanName</td>
+          <td>Kartenname</td>
           <td>{name}</td>
         </tr><tr>
-            <td>Nation</td>
-            <td><div style="display:inline-table"><img id="choosedFlag" src="include/images/flags/{country}" /></div></td>
-        </tr><tr>
-          <td><label>Clan Kontakt</td>
-          <td>{contact}</td>
-        </tr><tr>
-          <td><label>Website</td>
-            <td><a href="{url}" target="_blank">{url}</a></td>
-        </tr><tr>
-          <td><label>E-Mail</td>
-          <td>{email}</td>
-        </tr><tr>
-          <td><label>ICQ</td>
-        <td><img src="http://status.icq.com/online.gif?icq={icq}&img=5" />{icq}</td>
-        </tr><tr>
-          <td><label>AOL-Messanger</td>
-          <td>{aim}</td>
-        </tr><tr>
-          <td><label>Yahoo-Messanger</td>
-        <td>{yim}</td>
-        </tr><tr>
-          <td><label>Micrisoft-Messanger</td>
-          <td>{msn}</td>
-        </tr><tr>
-          <td><label>Xfire</td>
-        <td>{xfire}</td>
-        </tr><tr>
-          <td><label>IRC-Network</td>
-          <td>{ircnw}</td>
-        </tr><tr>
-          <td><label>IRC-Channel</td>
-        <td>{ircch}</td>
+          <td><label>Zugeordnetes Spiel</td>
+          <td>{game}</td>
         </tr><tr>
             <td>Map Aktiv?</td>
             <td>{inaktive}</td>
@@ -241,11 +207,11 @@ $(document).ready(function() {
 {EXPLODE}
 <script src="./include/includes/js/jquery/jquery.validate.js" type="text/javascript"></script>
 <style>
-#editoppform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
+#editmapform label.error { margin-left: 0px; width: auto; display: inline; color: #FF0000; font-family:Verdana, "Trebuchet MS"; font-size: 11px; }
 </style>
 <script>	
 $(document).ready(function() {		   
-	$("#editoppform").validate({
+	$("#editmapform").validate({
 		rules: {			
 			editmapname: { required: true, minlength: 2 },
 		},
@@ -254,8 +220,33 @@ $(document).ready(function() {
 		}
 	});
 	$(document).ready(function() {
-		$('#editnation').change(function() {
-			$('#choosedFlag').attr('src', 'include/images/flags/' + $(this).val());
+		$('#editgame').change(function() {
+            var val = $( this ).val();
+            if ($(this).val() != "x") {  
+            $.ajax({
+                type: "GET",
+              url: "admin.php?wars-locations-j"+val,
+                data: "data",
+                success: function(data){
+                    $('option', '#newicon').remove();
+                    $('#newicon').append(data);
+                }
+            });
+            };
+            if ($(this).val() == "x") {
+                $('option', '#editicon').remove();
+                $('#editicon').append('<option value="choose">Bitte erst Game ausw&auml;hlen</option>');
+            }
+    	});
+	});
+      $(document).ready(function() {
+		$('#editicon').change(function() {
+            var val = $( this ).val();
+            if ($(this).val() == "neu") { 
+                $('#editpic').show();
+            } else {
+                $('#editpic').hide();
+            }
 		});
 	});
 });
@@ -266,37 +257,23 @@ $(document).ready(function() {
   <p><a href="admin.php?wars-locations" style="cursor: pointer; cursor: hand;" >zur&uuml;ck zur &Uuml;bersicht</a></p>
 </div>
 {aktuellespic}
-<form action="" method="post" enctype="multipart/form-data" id="editoppform" name="editoppform">
+<form action="" method="post" enctype="multipart/form-data" id="editmapform" name="editmapform">
 {ANTISPAM}
     <table width="200" border="0">
         <tr>
-          <td><label>ClanTag<br /><input type="text" name="editgegnertag" id="editgegnertag" value="{tag}" /></label></td>
-          <td><label>ClanName<br /><input type="text" name="editmapname" id="editmapname" value="{name}" /></label></td>
+          <td><label>Kartenname</td>
+          <td><input type="text" name="editmapname" id="editmapname" value="{name}" /></label></td>
         </tr><tr>
-            <td><label>Nation</label><div style="display:inline-table"><img id="choosedFlag" src="include/images/flags/{country}" /></div></td>
-            <td><select name="editnation" id="editnation"><!-- Ausgabe der Flaggen Start -->{nationen}<!-- Ausgabe der Flaggen Ende --></select></td>
+            <td>Game</td>
+            <td><select name="editgame" id="editgame" ><option value="x">------Bitte Ausw&auml;hlen----</option>{game}</select></td>
         </tr><tr>
-          <td><label>Clan Kontakt<br /><input type="text" name="editcontact" id="editcontact" value="{contact}" /></label></td>
-          <td><label>Website<br /><input name="editwebsite" type="text" id="editwebsite" value="{url}" /></label></td>
+            <td>Bild</td>
+          <td><select name="editicon" id="editicon">{icon}</select><input type="file" name="editpic" id="editpic" style="display:none"/></td>
         </tr><tr>
-          <td><label>E-Mail<br /><input name="editemail" type="text" id="editemail" value="{email}" /></label></td>
-          <td><label>ICQ<br /><input name="editicq" type="text" id="editicq" value="{icq}" /></label></td>
-        </tr><tr>
-          <td><label>AOL-Messanger<br /><input name="editaim" type="text" id="editaim" value="{aim}" /></label></td>
-          <td><label>Yahoo-Messanger<br /><input name="edityim" type="text" id="edityim" value="{yim}" /></label></td>
-        </tr><tr>
-          <td><label>Micrisoft-Messanger<br /><input name="editmsn" type="text" id="editmsn" value="{msn}" /></label></td>
-          <td><label>Xfire<br /><input name="editxfire" type="text" id="editxfire" value="{xfire}" /></label></td>
-        </tr><tr>
-          <td><label>IRC-Network<br /><input name="editircnw" type="text" id="editircnw" value="{ircnw}" /></label></td>
-          <td><label>IRC-Channel<br /><input name="editircch" type="text" id="editircch" value="{ircch}" /></label></td>
-        </tr><tr>
-            <td><label>Map Aktiv?<br /><input type="Radio" name="editinaktive" id="editinaktive" value="1" {inactiven}>Nein</td>
-            <td><input type="Radio" name="editinaktive" id="editinaktive" value="0" {inactivej}>Ja</label></td>
-        </tr><tr>
-          <td colspan="2"><label>pic<input type="file" name="editpic" id="editpic" /></label></td>
+            <td>Map Aktiv?</td>
+            <td><input type="Radio" name="editinaktive" id="editinaktive" value="1" {inactivej}>Nein <input type="Radio" name="editinaktive" id="editinaktive" value="0" {inactiven}>Ja</td>
         </tr>
-    </table>
+      </table>
   <p><input type="submit" name="editsubmit" id="editsubmit" value="Speichern" class="submit" /></p>
 </form>
 {EXPLODE}

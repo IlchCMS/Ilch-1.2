@@ -16,16 +16,11 @@ include_once('include/includes/func/gallery.php');
 	$oneout['gegnerliste']	= '';
 	$oneout['page']			= 'http://';
 	// Flaggen und Länder ausgeben
-	$oneout['nationen'] = '';
-	$selectedNation = '';
+	$oneout['nationen'] = '<option value="" selected="selected">--- Bitte Auswählen ---</option>';
+        $oneout['inaktive'] = 0;
+	$selectedNation = '';        
 	$flagsar = get_nationality_array();
-
-	foreach ( $flagsar as $key => $value ) {
-
-		$oneout['nationen'] .= '<option value="'.$key.'" selected="'.$selectedNation.'">'.$value.'</option>';
-
-	}
-
+        $oneout['nationen'] .= arlistee($selectedNation, $flagsar);
 	// Jquery Dialoge für Erfolg oder Misserfolg ok/nok
 	$eintrag_ok = '<script language="JavaScript" type="text/javascript">
 							$(document).ready(function() {
@@ -121,19 +116,23 @@ $deaktiviert = '<script language="JavaScript" type="text/javascript">
 
 			if(is_dir($updir) && is_writeable($updir)) {
 				debug ('Verzeichnis vorhanden und beschreibbar');
-
+                                $uploadname = escape($_FILES['newlogo']['name'], 'string');;
+                                $tmp = explode('.',$uploadname);
+                                $tm1 = count($tmp) -1;
+                                $endung = $tmp[$tm1];
+                                unset($tmp[$tm1]);
+                                $uploadname = implode('',$tmp);
 				// Auf MIME TYPE prüfen
 				$extype = explode('/', $_FILES["newlogo"]["type"], 2);
 				$mime 	= $extype[0];
 				debug(' Datei hat den Typ '.$mime);
 				if ($mime == 'image') {
-
-					while(file_exists($updir.$uploadname)) {
+					while(file_exists($updir.$uploadname.$endung)) {
 						$uploadname = mt_rand().'_'.$uploadname;
 					}
-					move_uploaded_file($_FILES["newlogo"]["tmp_name"], $updir.$uploadname);
-					create_thumb($updir.$uploadname, $updir.'thumb_'.$uploadname, $outar['thumbwidth']);
-
+					move_uploaded_file($_FILES["newlogo"]["tmp_name"], $updir.$uploadname.'.'.$endung);
+					create_thumb($updir.$uploadname.'.'.$endung, $updir.'thumb_'.$uploadname.'.'.$endung, $outar['thumbwidth']);
+                                        $uploadname = $uploadname.'.'.$endung;
 				} else {
 
 					debug('Datei Ist Kein Bild...');
@@ -300,7 +299,9 @@ $getid	= escape($menu->getE(2), 'integer');
 				$WHERE				= '';
 			}
             $class='Cmite';
-			$oneout['siteindex']	= db_make_sites ($page ,$WHERE ,$limit ,'admin.php?opponents' ,'wars_opponents');
+            $oneout['inactiven']=($oneout['inaktive']==0?'checked':'');
+            $oneout['inaktivej']=($oneout['inaktive']==1?'checked':'');
+	    $oneout['siteindex']	= db_make_sites ($page ,$WHERE ,$limit ,'admin.php?opponents' ,'wars_opponents');
             $oneout['antispam'] = get_antispam('adminuser_action', 0, true);
             $tpl->set_ar_out($oneout, 0);
             $erg=db_query("SELECT * FROM `prefix_wars_opponents` ".$WHERE." ORDER BY name LIMIT ".$anfang.",".$limit);
