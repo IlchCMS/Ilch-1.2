@@ -1,50 +1,37 @@
 <?php
+
 /**
  * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
  * @copyright (C) 2000-2010 ilch.de
  * @version $Id$
  */
-$tpl_alianz = <<< tpl
-<div align="center">
-{EXPLODE}
-</div>
-{EXPLODE}
-<a class="box" href="{link}" target="_blank">{title}</a><br />
-{EXPLODE}
-<img src="{banner}" alt="{name}" border="0" />
-tpl;
-
 defined('main') or die('no direct access');
 
-$allyAnzahl = $allgAr[ 'Aanz' ];
-if ($allgAr[ 'Aart' ] == 1) {
-    $sqlORDER = '`pos`';
-} else {
-    $sqlORDER = 'RAND()';
-}
+$tpl = new tpl('boxes/allianz');
 
-$allyNameAr = array();
-$allyLinkAr = array();
-$allyBanaAr = array();
-$allyAktAnz = 0;
+$allyAnzahl = $allgAr['Aanz'];
+$sqlORDER = ($allgAr['Aart'] == 1) ? '`pos`' : 'RAND()';
 
-$allyAbf = 'SELECT * FROM `prefix_partners` ORDER BY ' . $sqlORDER . ' LIMIT  0,' . $allyAnzahl;
+$allyAbf = 'SELECT * 
+            FROM `prefix_partners` 
+			ORDER BY ' . $sqlORDER . ' 
+			LIMIT  0,' . $allyAnzahl;
 $allyErg = db_query($allyAbf);
+
 if (db_num_rows($allyErg) > 0) {
-    $tpl = new tpl($tpl_alianz, 3);
-    $tpl->out(0);
+    $tpl->out('start');
     while ($allyRow = db_fetch_object($allyErg)) {
-        $tpl->set("link", $allyRow->link);
+        $tpl->set('link', $allyRow->link);
         if (empty($allyRow->banner) OR $allyRow->banner == 'http://') {
-            $tpl->set("title", $allyRow->name);
+            $tpl->set('title', $allyRow->name);
         } else {
-            $tpl->set("title", $tpl->set_ar_get(array(
-                        "banner" => $allyRow->banner,
-                        "name" => $allyRow->name
-                        ), 3 // {EXPLODE} Nr 3
-                    ));
+            $tpl->set('title', $tpl->set_ar_get(array(
+                        'banner' => $allyRow->banner,
+                        'name' => $allyRow->name
+                            ), 'image')
+            );
         }
-        $tpl->out(2);
+        $tpl->out('link');
     }
-    $tpl->out(1);
+    $tpl->out('main');
 }

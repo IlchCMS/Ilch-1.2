@@ -17,6 +17,9 @@ if (loggedin()) {
     if (has_right(-8, 'gbook') && ($checkGbook = @db_result(db_query("SELECT COUNT(*) FROM `prefix_gbook` WHERE `show` = 0"), 0)) > 0) {
         $admin .= ' | <a class="box" href="admin.php?gbook" title="' . $lang['uncheckedgbook'] . '">' . $lang['gbook'] . '</a>&nbsp;(' . $checkGbook . ')';
     }
+    if (has_right(-8, 'user') && $allgAr['forum_regist_confirm'] == 2 && ($checkPuser = @db_result(db_query("SELECT COUNT(*) FROM `prefix_usercheck` WHERE `ak` = 1"), 0)) > 0) {
+        $admin .= ' | <a class="box" href="admin.php?puser" title="' . $lang['uncheckeduser'] . '">' . $lang['confirmuser'] . '</a>&nbsp;(' . $checkPuser . ')';
+    }
     $tpl->set('ADMIN', $admin);
 
     if ($allgAr['Fpmf'] == 1) {

@@ -1,0 +1,14 @@
+{EXPLODE "start"}
+<div id="contentslider">
+  <ul class="bjqs">
+    {EXPLODE "withlink"} 
+    <li>
+      <a href="{link}" target="{target}"><img src="{banner}" alt="{name}" title="{name}" /></a>
+    </li>
+    {EXPLODE "withoutlink"}
+    <li>
+      <img src="{banner}" alt="{name}" title="{name}" />
+    </li>
+  {EXPLODE "end"}
+  </ul>
+</div>

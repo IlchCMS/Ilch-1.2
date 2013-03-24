@@ -1,0 +1,41 @@
+{EXPLODE "start"}
+<div style="width:100%; text-align:center; margin-bottom:10px;">
+  <b>{question}</b>
+</div>
+
+{EXPLODE "voted_points"}
+<div style="width:20px; float:left;">
+  <b>&raquo;</b>
+</div>
+<div style="width:80%; float:left;">
+  <span>{answer}</span>
+</div>
+<div style="margin-left:80%; text-align:right;">
+  <b>{result}</b>
+</div>
+<div style="clear:left;"></div>
+{EXPLODE "voted_end"}
+<div style="width:100%; text-align:right;">
+  <b>{_lang_whole}: &nbsp; {whole}</b>
+</div>
+
+{EXPLODE "selection_start"}
+<form action="index.php?vote-W{pollid}" method="post">
+  {EXPLODE "selection_points"}
+  <div style="width:10%; float:left;">
+    <input type="radio" id="vote{number}" name="radio" value="{sort}" />
+  </div>
+  <div style="width:87%; margin:3px 0 0 3%; float:left;">
+    <label for="vote{number}">{answer}</label><br />    
+  </div>
+  <div style="clear:left;"></div>
+  {EXPLODE "selection_end"}
+  <div style="width:100%; text-align:center; margin-top:10px;">
+    <input type="submit" value="{_lang_formsub}" />
+  </div>
+</form>
+
+{EXPLODE "novote"}
+<div style="width:100%; text-align:center;">
+  <b>{_lang_nowvoteavailable}</b>
+</div>

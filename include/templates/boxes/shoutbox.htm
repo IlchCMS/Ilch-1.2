@@ -1,20 +1,24 @@
 <form action="index.php?{action}" method="post" id="shoutboxform">
-<input type="hidden" name="shoutbox_submit" value="1" />
-<input type="text" size="15" name="shoutbox_nickname" value="{nickname}"/>
-<br /><textarea style="width: 80%" cols="15" rows="2" name="shoutbox_textarea"></textarea><br />
-{antispam}
-<input type="submit" value="{_lang_formsub}" name="shoutbox_submit" />
-<input id="shoutboxsmilies" type="button" value="Smilies" />
+  <input type="hidden" name="shoutbox_submit" value="1" />
+  <input type="text" size="15" name="shoutbox_nickname" value="{nickname}"/>
+  <br />
+  <textarea style="width: 80%" cols="15" rows="2" name="shoutbox_textarea"></textarea>
+  <br />
+  {antispam}
+  <input type="submit" value="{_lang_formsub}" name="shoutbox_submit" />
+  <input id="shoutboxsmilies" type="button" value="Smilies" />
 </form>
 {EXPLODE}
 <table width="90%" class="border" cellpadding="2" cellspacing="1" border="0">
 {EXPLODE}
-<tr class="{class}"><td><b>{nickname}:</b>
-{_if_{time}!='0'}<span class="smalfont">{time}</span>{/_endif}
-<br />
-{text}</td></tr>
+  <tr class="{class}"><td><b>{nickname}:</b>
+  {_if_{time}!='0'}<span class="smalfont">{time}</span>{/_endif}
+  <br />
+    {text}</td>
+  </tr>
 {EXPLODE}
-</table><a class="box ajaxload" href="index.php?shoutbox">{_lang_archiv}</a>
+</table>
+<a class="box ajaxload" href="index.php?shoutbox">{_lang_archiv}</a>
 <script type="text/javascript">
 $(document).ready(function() {
     $('#shoutboxform').icAjaxload({elementId:'icShoutbox', type:'box'})

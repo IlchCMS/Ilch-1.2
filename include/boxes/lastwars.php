@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
  * @copyright (C) 2000-2010 ilch.de
@@ -6,24 +7,33 @@
  */
 defined('main') or die('no direct access');
 
-$farbe = '';
-$farb2 = '';
+$tpl = new tpl('boxes/lastwars');
 
-echo '<table width="100%" border="0" cellpadding="2" cellspacing="0">';
-$erg = db_query('SELECT * FROM `prefix_wars` WHERE `status` = "3" ORDER BY `datime` DESC LIMIT 3');
-while ($row = db_fetch_object($erg)) {
-    $row->tag = (empty($row->tag) ? $row->gegner : $row->tag);
+$abf = 'SELECT * 
+        FROM `prefix_wars` 
+		WHERE `status` = "3" 
+		ORDER BY `datime` 
+		DESC LIMIT 3';
+$erg = db_query($abf);
 
-    if ($row->wlp == 1) {
-        $bild = 'include/images/icons/win.gif';
-    } elseif ($row->wlp == 2) {
-        $bild = 'include/images/icons/los.gif';
-    } elseif ($row->wlp == 3) {
-        $bild = 'include/images/icons/pad.gif';
+if (db_num_rows($erg) == 0) {
+    $tpl->out('nowars');
+} else {
+    while ($row = db_fetch_object($erg)) {
+        $row->tag = (empty($row->tag) ? $row->gegner : $row->tag);
+        if ($row->wlp == 1) {
+            $bild = 'win.gif';
+        } elseif ($row->wlp == 2) {
+            $bild = 'los.gif';
+        } elseif ($row->wlp == 3) {
+            $bild = 'pad.gif';
+        }
+        $tpl->set('gameimg', get_wargameimg($row->game));
+        $tpl->set('warid', $row->id);
+        $tpl->set('owp', $row->owp);
+        $tpl->set('opp', $row->opp);
+        $tpl->set('tag', $row->tag);
+        $tpl->set('ergicon', $bild);
+        $tpl->out('wars');
     }
-
-    echo '<tr><td>' . get_wargameimg($row->game) . '</td><td align="left">';
-    echo '<a href="index.php?wars-more-' . $row->id . '">';
-    echo $row->owp . ' ' . $lang[ 'at2' ] . ' ' . $row->opp . ' - ' . $row->tag . '</a></td><td><img src="' . $bild . '"></td></tr>';
 }
-echo '</table>';

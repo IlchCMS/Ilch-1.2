@@ -1,0 +1,43 @@
+<table width="100%" cellpadding="2" cellspacing="1" border="0" class="border">
+  <tr class="Chead">
+    <td><b>{_lang_vote}</b></td>
+  </tr>
+{EXPLODE "question"}
+  <tr>
+    <td class="Cdark"><b>{frage}</b></td>
+  </tr>
+  <tr>
+    <td class="{class}">
+    {EXPLODE "voted_start"}
+      <table width="100%" cellpadding="0">
+      {EXPLODE "voted_points"}
+        <tr>
+          <td width="30%">{answer}</td>
+          <td width="50%">
+            <div style="height:10px; width:{width}px; background:#3776a5 url(include/images/vote/voteMitte.png) repeat-y top left;"></div>
+          </td>
+          <td width="10%">{prozent}%</td>
+          <td width="20%" align="right">{result}</td>
+        </tr>
+        {EXPLODE "voted_end"}
+        <tr>
+          <td colspan="2" align="right">{_lang_whole}: &nbsp; {whole}</td>
+        </tr>
+      </table>
+      {EXPLODE "selection_start"}
+      <form action="index.php?vote-W{pollid}" method="POST">
+        {EXPLODE "selection_points"}
+        <input type="radio" id="vote{number}" name="radio" value="{sort}"><label for="vote{number}"> {answer}</label><br/>
+        {EXPLODE "selection_end"}
+        <p align="center">
+          <input type="submit" value="{_lang_formsub}">
+        </p>
+      </form>
+      {EXPLODE "while_end"}
+    </td>
+  </tr>
+  {EXPLODE "end"}
+  <tr>
+    <td class="Cdark" align="center">{MPL}</td>
+  </tr>
+</table>   

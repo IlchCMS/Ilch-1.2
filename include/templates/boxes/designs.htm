@@ -1,0 +1,10 @@
+{EXPLODE "start"}
+<form action="index.php?{url}" method="POST">
+  <div style="text-align:center;">
+    <select name="temp_ch" onchange="this.form.submit();">
+      {EXPLODE "choice"}
+      <option{select}>{name}</option>
+      {EXPLODE "end"}
+    </select>
+  </div>
+</form>

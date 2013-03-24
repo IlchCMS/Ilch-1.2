@@ -1,0 +1,77 @@
+<table width="100%" border="0" cellspacing="1" cellpadding="2">
+  <tr>
+    <td><b>{owner}</b><br /><br /></td>
+  </tr>  
+  <tr>
+    <td>{name}</td>
+  </tr>
+  <tr>
+    <td>{street}</td>
+  </tr>
+  <tr>
+    <td>{city}<br /><br /></td>
+  </tr>
+  <tr>
+    <td>Kontakt: <a href="index.php?contact">Formular</a><br /><br /></td>
+  </tr>
+  <tr>
+    <td>{disclaimer}</td>
+  </tr>
+</table>
+<br /><br />
+{EXPLODE "ilch_credits_start"}
+<table width="100%" border="0" cellspacing="1" cellpadding="2">
+  <tr>
+    <td><b>Script-Credits:</b><br /><br /></td>
+  </tr>
+{EXPLODE "no_ilch_credits"}
+  <tr>
+    <td width="100%">Es sind keine Credits für das ilch-Script eingetragen oder es ist ein Fehler aufgetreten</td>
+  </tr>
+{EXPLODE "ilch_credits"}
+  <tr>
+    <td width="40%">{name}</td>
+    <td width="20%">{version}</td>
+    <td width="20%"><a href="{url}">Link</a></td>
+    <td width="20%"><a href="{lizenzurl}">{lizenzname}</a></td>
+  </tr>
+{EXPLODE "ilch_credits_end"}
+</table>
+<br /><br />
+{EXPLODE "ilch_modul_start"}
+<table width="100%" border="0" cellspacing="1" cellpadding="2">
+  <tr>
+    <td><b>Modul-Credits:</b><br /><br /></td>
+  </tr>
+{EXPLODE "no_modul_credits"}
+  <tr>
+    <td width="100%">Es sind keine Credits zu den installierten Modulen eingetragen</td>
+  </tr>
+{EXPLODE "modul_credits"}
+  <tr>
+    <td width="40%">{name}</td>
+    <td width="20%">{version}</td>
+    <td width="20%"><a href="{url}">Link</a></td>
+    <td width="20%"><a href="{lizenzurl}">{lizenzname}</a></td>
+  </tr>
+{EXPLODE "ilch_modul_end"}
+</table>
+<br /><br />
+{EXPLODE "ilch_gfx_start"}
+<table width="100%" border="0" cellspacing="1" cellpadding="2">
+  <tr>
+    <td><b>Bild- und Grafikverzeichnis:</b><br /><br /></td>
+  </tr>
+{EXPLODE "no_gfx_credits"}
+  <tr>
+    <td width="100%">Es sind keine Credits für Grafiken eingetragen</td>
+  </tr>
+{EXPLODE "gfx_credits"}
+  <tr>
+    <td width="40%">{name}</td>
+    <td width="20%">{version}</td>
+    <td width="20%"><a href="{url}">Link</a></td>
+    <td width="20%"><a href="{lizenzurl}">{lizenzname}</a></td>
+  </tr>
+{EXPLODE "ilch_gfx_end"}
+</table>

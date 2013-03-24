@@ -1,41 +1,39 @@
-<script>
-$(function() {
-	
-	$( "#datepicker" ).datepicker({ 
-			autoSize: true,
-			monthNames: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
-			monthNamesShort: ['Jan','Feb','M&auml;r','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],
-			dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-			showWeek: true,
-			changeMonth: true,
-			changeYear: true,
-			firstDay: 1,
-			dateFormat: 'dd.mm.yy',
-			autoSize: true,
-			buttonText: 'Choose',
-			yearRange: 'c-10:c+10',
-			onSelect: function(dateText, inst) { 
-							document.form1.submit();
-							var loc = '';
-							var datesplit = dateText.split('.');
-							location.href = loc+'?kalender-v1-m'+datesplit[1]+'-y'+datesplit[2]+'-d'+datesplit[0];
-					}
-		});
-});
-</script>
-<noscript>
-Bitte JavaScript aktivieren
-</noscript>
-<div class="datepicker">
+<?php
 
-<p><form id="form1" name="form1" action="">
-<!--
-<div id="datepicker"></div>
--->
-	Datum: <input type="text" id="datepicker" size="10" maxlength="15" onChange="document.datepicker.submit();">
-    <div style="display: none;"><input type="submit" value="absenden" id="datepicker"/></div>
-    </form></p>
+/**
+ * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
+ */
+defined('main') or die('no direct access');
 
-</div>
+$tpl = new tpl('boxes/calender');
 
-<p></p>
+$ILCH_HEADER_ADDITIONS .=
+        "\n" . '<script type="text/javascript"> ' .
+        "\n" . '    $(function() { ' .
+        "\n" . '        $( "#datepicker" ).datepicker({ ' .
+        "\n" . '            autoSize: true, ' .
+        "\n" . '            monthNames: [\'Januar\',\'Februar\',\'März\',\'April\',\'Mai\',\'Juni\',\'Juli\',\'August\',\'September\',\'Oktober\',\'November\',\'Dezember\'], ' .
+        "\n" . '            monthNamesShort: [\'Jan\',\'Feb\',\'Mär\',\'Apr\',\'Mai\',\'Jun\',\'Jul\',\'Aug\',\'Sep\',\'Okt\',\'Nov\',\'Dez\'], ' .
+        "\n" . '            dayNamesMin: [\'So\', \'Mo\', \'Di\', \'Mi\', \'Do\', \'Fr\', \'Sa\'], ' .
+        "\n" . '            showWeek: true, ' .
+        "\n" . '            changeMonth: true, ' .
+        "\n" . '            changeYear: true, ' .
+        "\n" . '            firstDay: 1, ' .
+        "\n" . '            dateFormat: \'dd.mm.yy\', ' .
+        "\n" . '            autoSize: true, ' .
+        "\n" . '            buttonText: \'Choose\', ' .
+        "\n" . '            yearRange: \'c-10:c+10\', ' .
+        "\n" . '            onSelect: function(dateText, inst) { ' .
+        "\n" . '            document.form1.submit(); ' .
+        "\n" . '            var loc = \'\'; ' .
+        "\n" . '            var datesplit = dateText.split(\'.\'); ' .
+        "\n" . '            location.href = loc+\'?kalender-v1-m\'+datesplit[1]+\'-y\'+datesplit[2]+\'-d\'+datesplit[0]; ' .
+        "\n" . '        } ' .
+        "\n" . '    }); ' .
+        "\n" . '}); ' .
+        "\n" . '</script>' .
+        "\n";
+
+$tpl->out(0);

@@ -1,0 +1,34 @@
+{EXPLODE "online"}
+<div style="width:20px; float:left;">
+  <img src="include/images/icons/online.gif" border="0" alt="online" />
+</div>
+<div style="margin-left:20px;">
+  <a href="index.php?user-details-{uid}">{name}</a>
+</div>
+<div style="clear:left;"></div>
+{EXPLODE "nouser"}
+<div style="width:20px; float:left;">
+  <img src="include/images/icons/offline.gif" border="0" alt="online" />
+</div>
+<div style="margin-left:20px;">
+  <span>0 User</span>
+</div>
+<div style="clear:left;"></div>
+{EXPLODE "line"}
+<hr style="height:0px; border:0px dashed #999; border-top-width:1px;" />
+{EXPLODE "offline"}
+<div style="width:20px; float:left;">
+  <img src="include/images/icons/offline.gif" border="0" alt="online" />
+</div>
+<div style="margin-left:20px;">
+  <a href="index.php?user-details-{uid}" title="{_lang_lasttimeonline}{datum}">{name}</a>
+</div>
+<div style="clear:left;"></div>
+{EXPLODE "guests"}
+<div style="width:20px; float:left;">
+  <img src="include/images/icons/online.gif" border="0" alt="online" />
+</div>
+<div style="margin-left:20px;">
+  <span>{anzguests} {nameguest}</span>
+</div>
+<div style="clear:left;"></div>

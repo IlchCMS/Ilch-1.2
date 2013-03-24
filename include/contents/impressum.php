@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
  * @copyright (C) 2000-2012 ilch.de
@@ -6,122 +7,91 @@
  */
 defined('main') or die('no direct access');
 
-$title = $allgAr[ 'title' ] . ' :: Impressum';
+$title = $allgAr['title'] . ' :: Impressum';
 $hmenu = 'Impressum';
 $design = new design($title, $hmenu);
 $design->header();
+$tpl = new tpl('impressum');
 
 $erg = db_query("SELECT * FROM `prefix_allg` WHERE `k` = 'impressum' LIMIT 1");
 $row = db_fetch_assoc($erg);
-
-echo $row[ 'v1' ]; // eigentuemer oder sowas
-echo '<br /><br />';
-echo $row[ 'v2' ]; // voller name
-echo '<br />';
-echo $row[ 'v3' ]; // strasse nr
-echo '<br /><br />';
-echo $row[ 'v4' ]; // plz, ort
-echo '<br/><br />';
-echo 'Kontakt: <a href="index.php?contact">Formular</a><br /><br />';
-echo bbcode(unescape($row[ 't1' ])); // disclaimer
+$tpl->set('owner', $row['v1']);
+$tpl->set('name', $row['v2']);
+$tpl->set('street', $row['v3']);
+$tpl->set('city', $row['v4']);
+$tpl->set('disclaimer', bbcode(unescape($row['t1'])));
+$tpl->out(0);
 
 // Credits-System von GeCk0 - Start
 # define some vars
-$ilchcredits	=	'';
-$modcredits		=	'';
-$gfxcredits		=   '';
-$ilchtablestyle = 	'';
-$modtablestyle	= 	'';
+$ilchcredits = '';
+$modcredits = '';
+$gfxcredits = '';
+$ilchtablestyle = '';
+$modtablestyle = '';
 
 # die ilch-credits auslesen
-$ilchcountqry	= 	db_query("SELECT * FROM `prefix_credits` WHERE sys = 'ilch'");
-$ilchcount		=	db_num_rows($ilchcountqry);
+$ilchcountqry = db_query("SELECT * FROM `prefix_credits` WHERE sys = 'ilch'");
+$ilchcount = db_num_rows($ilchcountqry);
+$tpl->out('ilch_credits_start');
 
 # Prüfen ob ilch-credits eingetragen sind
 if ($ilchcount == 0 or $ilchcount === FALSE) {
-	$ilchcredits .= 'Es sind keine Credits f&uuml;r das ilch-Script eingetragen oder es ist ein Fehler aufgetreten';
-	$ilchtablestyle = 	'display:none;';
-
+    $tpl->out('no_ilch_credits');
 } else {
-	# liste erstellen
-	while ($ilchrow = db_fetch_assoc($ilchcountqry)) {
-		$ilchcredits .= '
-			<tr>
-				<td width="40%">'.$ilchrow['name'].'</td>
-   				<td width="20%">'.$ilchrow['version'].'</td>
-    			<td width="20%"><a href="'.$ilchrow['url'].'">Link</a></td>
-    			<td width="20%"><a href="'.$ilchrow['lizenzurl'].'">'.$ilchrow['lizenzname'].'</a></td>
-			</tr>';
-	}
+    # liste erstellen
+    while ($ilchrow = db_fetch_assoc($ilchcountqry)) {
+        $tpl->set('name', $ilchrow['name']);
+        $tpl->set('version', $ilchrow['version']);
+        $tpl->set('url', $ilchrow['url']);
+        $tpl->set('lizenzurl', $ilchrow['lizenzurl']);
+        $tpl->set('lizenzname', $ilchrow['lizenzname']);
+        $tpl->out('ilch_credits');
+    }
 }
+$tpl->out('ilch_credits_end');
 
 # die modul-credits auslesen
-$modcountqry	= 	db_query("SELECT * FROM `prefix_credits` WHERE sys = 'modul'");
-$modcount		=	db_num_rows($modcountqry);
+$modcountqry = db_query("SELECT * FROM `prefix_credits` WHERE sys = 'modul'");
+$modcount = db_num_rows($modcountqry);
+$tpl->out('ilch_modul_start');
 
 # prüfen ob modul-credits eingetragen sind und ggfl Liste erstellen
 if ($modcount == 0 or $modcount === FALSE) {
-	$modcredits .= 'Es sind keine Credits zu den installierten Modulen eingetragen';
-	$modtablestyle	= 	'display:none;';
+    $tpl->out('no_modul_credits');
 } else {
-	# liste erstellen
-	while ($modrow = db_fetch_assoc($modcountqry)) {
-		$modcredits .= '
-			<tr>
-				<td width="40%">'.$modrow['name'].'</td>
-   				<td width="20%">'.$modrow['version'].'</td>
-    			<td width="20%"><a href="'.$modrow['url'].'">Link</a></td>
-    			<td width="20%"><a href="'.$modrow['lizenzurl'].'">'.$modrow['lizenzname'].'</a></td>
-			</tr>';
-	}
+    # liste erstellen
+    while ($modrow = db_fetch_assoc($modcountqry)) {
+        $tpl->set('name', $modrow['name']);
+        $tpl->set('version', $modrow['version']);
+        $tpl->set('url', $modrow['url']);
+        $tpl->set('lizenzurl', $modrow['lizenzurl']);
+        $tpl->set('lizenzname', $modrow['lizenzname']);
+        $tpl->out('modul_credits');
+    }
 }
+$tpl->out('ilch_modul_end');
 
 # die gfx-credits auslesen
-$gfxcountqry	= 	db_query("SELECT * FROM `prefix_credits` WHERE sys = 'gfx'");
-$gfxcount		=	db_num_rows($gfxcountqry);
+$gfxcountqry = db_query("SELECT * FROM `prefix_credits` WHERE sys = 'gfx'");
+$gfxcount = db_num_rows($gfxcountqry);
+$tpl->out('ilch_gfx_start');
 
 # Prüfen ob gfx-credits eingetragen sind
 if ($gfxcount == 0 or $gfxcount === FALSE) {
-	$gfxcredits .= 'Es sind keine Credits f&uuml;r Grafiken eingetragen';
-	$gfxtablestyle = 	'display:none;';
-
+    $tpl->out('no_gfx_credits');
 } else {
-	# liste erstellen
-	while ($gfxrow = db_fetch_assoc($gfxcountqry)) {
-		$gfxcredits .= '
-			<tr>
-				<td width="40%">'.$gfxrow['name'].'</td>
-   				<td width="20%">'.$gfxrow['version'].'</td>
-    			<td width="20%"><a href="'.$gfxrow['url'].'">Link</a></td>
-    			<td width="20%"><a href="'.$gfxrow['lizenzurl'].'">'.$gfxrow['lizenzname'].'</a></td>
-			</tr>';
-	}
+    # liste erstellen
+    while ($gfxrow = db_fetch_assoc($gfxcountqry)) {
+        $tpl->set('name', $gfxrow['name']);
+        $tpl->set('version', $gfxrow['version']);
+        $tpl->set('url', $gfxrow['url']);
+        $tpl->set('lizenzurl', $gfxrow['lizenzurl']);
+        $tpl->set('lizenzname', $gfxrow['lizenzname']);
+        $tpl->out('gfx_credits');
+    }
 }
-echo <<<HTML
-			<p>
-				<hr />
-				<h4>Script-Credits:</h4>
-			</p>
-		<table width="100%" align="center">
-			$ilchcredits
-		</table>
-			<p>
-				 <h4>Modul-Credits:</h4>
-			</p>
-		<table width="100%" align="center">
-			$modcredits
-		</table>
-		<p>
-			<h4>Bild- und Grafikverzeichnis:</h4>
-		</p>
-		<table width="100%" align="center">
-			$gfxcredits
-		</table>
-		<p>
-		</p>
-HTML;
+$tpl->out('ilch_gfx_end');
 // Credits-System von GeCk0 - Ende
 
 $design->footer();
-
-?>

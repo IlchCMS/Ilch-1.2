@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
  * @copyright (C) 2000-2010 ilch.de
@@ -6,34 +7,19 @@
  */
 defined('main') or die('no direct access');
 
-if (empty($_POST[ 'NEWSLETTER' ])) {?>
+$tpl = new tpl('boxes/newsletter');
 
-  <form action="index.php" method="post">
-
-		<b>Newsletter</b>
-	  <br />
-		<input type="text" name="NEWSLETTER" size="15" />
-		<br />
-		<br />
-		<input type="submit" style="width:120px; height:20px;" value="<?php
-    echo $lang[ 'newsletterinout' ];
-
-    ?>" />
-
-	</form>
-
-
-<?php
-
+if (empty($_POST['newsletter'])) {
+    $tpl->set_out('url', $menu->get_complete(), 'start');
 } else {
-    $email = escape($_POST[ 'NEWSLETTER' ], 'string');
+    $email = escape($_POST['newsletter'], 'string');
     $erg = db_query("SELECT COUNT(*) FROM `prefix_newsletter` WHERE `email` = '" . $email . "'");
     $anz = db_result($erg, 0);
     if ($anz == 1) {
         db_query("DELETE FROM `prefix_newsletter` WHERE `email` = '" . $email . "'");
-        echo $lang[ 'deletesuccessful' ];
+        $tpl->out('delete');
     } else {
         db_query("INSERT INTO `prefix_newsletter` (`email`) VALUES ('" . $email . "')");
-        echo $lang[ 'insertsuccessful' ];
+        $tpl->out('insert');
     }
 }

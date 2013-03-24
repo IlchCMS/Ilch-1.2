@@ -1,9 +1,13 @@
 <?php
+
 /**
  * @license http://opensource.org/licenses/gpl-2.0.php The GNU General Public License (GPL)
- * @copyright (C) 2000-2013 ilch.de
+ * @copyright (C) 2000-2010 ilch.de
+ * @version $Id$
  */
 defined('main') or die('no direct access');
+
+$tpl = new tpl('boxes/contentslider');
 
 // Nur Anzeigen, wenn entsprechend konfiguriert
 if (($allgAr['sliderShow'] AND !$allgAr['sliderSmodul']) OR ($allgAr['sliderShow'] AND $allgAr['sliderSmodul'] AND $allgAr['smodul'] == $menu->get(0))) {
@@ -31,27 +35,22 @@ if (($allgAr['sliderShow'] AND !$allgAr['sliderSmodul']) OR ($allgAr['sliderShow
             "\n" . '            responsive : ' . $allgAr['sliderResize'] .
             "\n" . '        }); ' .
             "\n" . '    }); ' .
-            "\n" . '</script>';
+            "\n" . '</script> ' .
+            "\n";
 
-    echo "\n" . '<div id="contentslider">';
-    echo "\n" . '  <ul class="bjqs">' . "\n";
+    $orderBy = ($allgAr['sliderRandom']) ? 'RAND()' : '`pos` ASC';
+    $abf = 'SELECT `id`,`name`,`link`,`target`,`banner`,`pos`,`status` FROM `prefix_contentslider` WHERE `status` = 1 ORDER BY ' . $orderBy;
+    $erg = db_query($abf);
 
-    if ($allgAr['sliderRandom']) {
-        $orderBy = 'RAND()';
-    } else {
-        $orderBy = '`pos` ASC';
-    }
-    $erg = db_query('SELECT `id`,`name`,`link`,`target`,`banner`,`pos`,`status` FROM `prefix_contentslider` WHERE `status` = 1 ORDER BY ' . $orderBy);
-
-    $num = db_num_rows($erg);
-    while ($r = db_fetch_assoc($erg)) {
-        if (!empty($r['link'])) {
-            echo '    <li><a href="' . $r['link'] . '" target="' . $r['target'] . '"><img src="' . $r['banner'] . '" alt="' . $r['name'] . '" title="' . $r['name'] . '" /></a></li>' . "\n";
-        } else {
-            echo '    <li><img src="' . $r['banner'] . '" alt="' . $r['name'] . '" title="' . $r['name'] . '" /></li>' . "\n";
+    if (db_num_rows($erg) > 0) {
+        $tpl->out('start');
+        while ($r = db_fetch_assoc($erg)) {
+            if (!empty($r['link'])) {
+                $tpl->set_ar_out($r, 'withlink');
+            } else {
+                $tpl->set_ar_out($r, 'withoutlink');
+            }
         }
+        $tpl->out('end');
     }
-
-    echo '  </ul>' . "\n";
-    echo '</div>' . "\n";
 }

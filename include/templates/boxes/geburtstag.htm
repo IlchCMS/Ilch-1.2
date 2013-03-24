@@ -1,0 +1,14 @@
+<div style="width:20px;float:left;">
+  <b>&raquo;</b>
+</div>
+<div style="margin-left:20px;">
+  {EXPLODE "birthday_today"}
+  {_lang_today} {_lang_had} <a class="box" href="index.php?user-details-{id}"><b>{name}</b></a><br />
+  {_lang_birthday}<br />
+  <img src="include/images/icons/birthday.gif" alt="birthday" border="0" />
+  {EXPLODE "birthday_future"}
+  <a class="box" href="index.php?user-details-{id}"><b>{name}</b></a> {_lang_had} {_lang_on}<br />
+  {gebTag} {_lang_birthday}
+  {EXPLODE "avatarshow"}<br /><img src="{avatar}" alt="avatar" border="0" />{EXPLODE "avatarend"}
+</div>
+<div style="clear:left;"></div>
